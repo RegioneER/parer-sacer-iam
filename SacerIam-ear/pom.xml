@@ -20,13 +20,7 @@
 
     <build>
         <finalName>saceriam-${project.version}</finalName>
-        <plugins>     
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>				
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
-            </plugin>
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
