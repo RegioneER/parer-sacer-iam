@@ -157,6 +157,14 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!-- artifact disponibile attraverso compilazione del singolo TAG pubblicato -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
