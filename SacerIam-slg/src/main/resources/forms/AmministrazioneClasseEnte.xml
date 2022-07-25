@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Amministrazione classe ente" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">   
+    
+    <!-- Ricerca classi enti -->
+    <Fields Name="FiltriClassiEnti" Description="Filtri ricerca classi di ente">
+        <Input Name="cd_classe_ente_convenz" Description="Denominazione classe" Type="STRING" />
+        <Input Name="ds_classe_ente_convenz" Description="Descrizione classe" Type="STRING" />
+        <Button Name="ricercaClassiEnti" Description="Ricerca classi enti" Type="STRING" />        
+    </Fields>
+    
+    <List Name="ListaClassiEnti" Description="Lista classi di enti convenzionati">
+        <Input Name="id_classe_ente_convenz" Description="Id classe ente convenz" Type="INTEGER" Hidden="true" />
+        <Input Name="cd_classe_ente_convenz" Description="Denominazione classe" Type="STRING" />
+        <Input Name="ds_classe_ente_convenz" Description="Descrizione classe" Type="STRING" />
+        <Input Name="ni_min_abit" Description="Numero minimo abitanti" Type="INTEGER" GroupingDecimal="true" />
+        <Input Name="ni_max_abit" Description="Numero massimo abitanti" Type="INTEGER" GroupingDecimal="true" />        
+    </List>       
+
+</Form>

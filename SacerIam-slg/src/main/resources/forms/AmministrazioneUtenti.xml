@@ -1,0 +1,535 @@
+<!-- This is UserAdministration section... the Iam version of Bonnic development -->
+<Form Description="Amministrazione Utenti" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+
+    <!-- INIZIO GESTIONE UTENTI -->
+    
+    <Section Name="udRichiestaSection" Description="" Legend="Numero protocollo della richiesta" ShowButton="false" LoadOpened="true"/>
+    <Section Name="richiestaSection" Description="" Legend="Identificativo richiesta" ShowButton="false" LoadOpened="true"/>
+    <Section Name="ultimaRichiestaSection" Description="" Legend="Ultima richiesta" ShowButton="false" LoadOpened="true"/>
+    
+    <Section Name="azioneRichiestaSection" Description="" Legend="Richiesta" ShowButton="false" LoadOpened="true"/>
+    <Section Name="azioneSection" Description="" Legend="Azione" ShowButton="false" LoadOpened="true"/>
+
+    <Fields Name="FiltriUtenti" Description="Filtri ricerca utenti">
+        <Input Name="nm_cognome_user" Description="Cognome utente" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome utente" Type="STRING"/>
+        <Input Name="nm_userid" Description="Username" Type="STRING"/>
+        <Input Name="cd_fisc" Description="Codice fiscale" Type="STRING" MaxLength="16"/>
+        <ComboBox Name="nm_applic" Description="Applicazione usata" Type="INTEGER" Trigger="true"/>
+        <ComboBox Name="nm_ruolo_default" Description="Ruolo di default" Type="INTEGER"/>
+        <ComboBox Name="fl_attivo" Description="Attivo" Type="STRING"/>  
+        <Input Name="ds_email" Description="Email" Type="STRING" />      
+        <MultiSelect Name="tipo_user" Description="Tipologia utente" Type="STRING" />
+        <ComboBox Name="ti_stato_user" Description="Stato utente" Type="STRING" />
+        <ComboBox Name="dl_composito_organiz" Description="Organizzazione" Type="INTEGER" />
+        <ComboBox Name="nm_ruolo_dich" Description="Ruolo specifico per organizzazione" Type="INTEGER"/>
+        <ComboBox Name="fl_err_replic" Description="Errori di replica" Type="STRING"/>
+        <ComboBox Name="fl_resp_ente_convenz" Description="Responsabile ente convenzionato" Type="STRING" />
+        <!--<ComboBox Name="fl_utente_ditta" Description="Utente ditta esterna" Type="STRING" />-->
+        <ComboBox Name="id_sistema_versante" Description="Sistema versante" Type="INTEGER" WithSearchComp="true"/>
+        <MultiSelect Name="id_amb_ente_convenz_appart" Description="Ambiente enti convenzionati di appartenenza" Type="INTEGER" />
+        <MultiSelect Name="id_ente_convenz_appart" Description="Ente di appartenenza" Type="INTEGER"/>
+        <ComboBox Name="id_ambiente_ente_convenz_abil" Description="Ambiente enti convenzionati abilitati" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="id_ente_convenz_abil" Description="Ente abilitato" Type="INTEGER" WithSearchComp="true"/>
+        <Input Name="cd_rich_gest_user" Description="Identificativo richiesta" Type="STRING"/>
+        <Input Name="dt_rich_gest_user_da" Description="Data richiesta da" Type="DATE"/>
+        <Input Name="dt_rich_gest_user_a" Description="Data richiesta a" Type="DATE"/>
+        <ComboBox Name="id_organiz_iam_rich" Description="Organizzazione" Type="INTEGER" WithSearchComp="true"/>
+        <Input Name="cd_registro_rich_gest_user" Description="Registro" Type="STRING" />
+        <Input Name="aa_rich_gest_user" Description="Anno" Type="INTEGER" MaxLength="4" />
+        <Input Name="cd_key_rich_gest_user" Description="Numero" Type="STRING" />
+        <ComboBox Name="id_ambiente_ente_convenz_rich" Description="Ambiente enti convenzionati richiesta" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="id_ente_convenz_rich" Description="Ente richiesta" Type="INTEGER" WithSearchComp="true"/>
+        
+        <Button Name="ricercaUtenti" Description="Ricerca" Type="STRING" />
+        <Button Name="pulisciUtenti" Description="Pulisci" Type="STRING" />
+        <Button Name="addUtentiArchivistiToSistemaVersante" Description="Aggiungi" Type="STRING" />
+        <Button Name="addReferentiDittaProduttriceToSistemaVersante" Description="Aggiungi" Type="STRING" />
+        <Button Name="scaricaIndirizziMail" Description="Scarica indirizzi mail" Type="STRING" DisableHourGlass="true" />
+    </Fields>
+    
+    <List Name="ListaUtenti" Description="Lista Utenti">        
+        <!-- aggiungiUtenteRichiedente -->
+        <Link Name="visualizzaUtenteRichiedente" Description="Seleziona utente richiedente" Type="STRING" Tooltip="Seleziona utente richiedente" isTargetList="false" Target="aggiungiUtenteRichiedente"/>
+        <!-- aggiungiUtenteArchivista -->
+        <Link Name="visualizzaUtenteArchivista" Description="Seleziona utente archivista" Type="STRING" Tooltip="Seleziona utente archivista" isTargetList="false" Target="aggiungiUtenteArchivista"/>
+        <!-- aggiungiReferenteEnte -->
+        <Link Name="visualizzaReferenteEnte" Description="Seleziona referente ente" Type="STRING" Tooltip="Seleziona referente ente" isTargetList="false" Target="aggiungiReferenteEnte"/>
+        <!-- aggiungiAzione -->
+        <Link Name="downloadFileSessione" Description="Seleziona utente per azione" Type="STRING" Tooltip="Seleziona utente per azione" isTargetList="false" Target="aggiungiUtentePerAzione"/>        
+        <Input Name="id_user_iam" Description="Id user" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING"/>
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING"/>
+        <Input Name="nm_userid" Description="User-id" Type="STRING"/>
+        <Input Name="ds_email" Description="E-mail" Type="STRING"/>
+        <Input Name="nm_ruolo_default" Description="Ruolo di default" Type="STRING"/>
+        <CheckBox Name="fl_attivo" Description="Attivo" Type="STRING" Readonly="true" />
+        <Input Name="tipo_user" Description="Tipologia" Type="STRING"/>
+        <Input Name="nm_sistema_versante" Description="Sistema versante" Type="STRING"/>
+        <Input Name="nm_ente_siam_appart" Description="Ente di appartenenza" Type="STRING"/>
+        <Input Name="id_last_rich_gest_user" Description="ID ultima richiesta" Type="INTEGER" Hidden="true"/>
+        <Link Name="cd_last_rich_gest_user" Description="Ultima richiesta" Type="STRING" Tooltip="Ultima richiesta" isTargetList="false" Target="loadDettaglioLastRichGestUser" />
+        <Input Name="ds_lista_azioni" Description="Lista azioni ultima richiesta" Type="STRING"/>
+        <Input Name="dt_last_rich_gest_user" Description="Data ultima richiesta" Type="DATE"/>
+        <CheckBox Name="fl_azioni_evase" Description="Azioni evase" Type="STRING" Readonly="true" />
+        <CheckBox Name="fl_err_replic" Description="Errori di replica" Type="STRING" Readonly="true" />
+    </List>
+    
+    <Fields Name="DettaglioUtente" Description="Dettaglio utente">
+        <Input Name="id_user_iam" Description="Id user" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_cognome_user" Description="Cognome utente" Type="STRING" Required="true"/>
+        <Input Name="nm_nome_user" Description="Nome utente" Type="STRING" Required="true"/>
+        <Input Name="nm_userid" Description="Username" Type="STRING" Required="true"/>
+        <ComboBox Name="fl_attivo" Description="Attivo" Type="STRING" Required="true" Readonly="true"/>
+        <ComboBox Name="fl_err_replic" Description="Errori di replica" Type="STRING" />
+        <Input Name="cd_psw" Description="Password" Type="STRING" Hidden="true" />
+        <Input Name="cd_fisc" Description="Codice fiscale" Type="CODFISCALE" MaxLength="16" />
+        <Input Name="ds_email" Description="Email" Type="EMAIL" Required="true" />
+         <Input Name="ds_email_secondaria" Description="Email secondaria" Type="EMAIL" Required="false" />
+        <ComboBox Name="fl_contr_ip" Description="Controlla Ip" Type="STRING" Required="true" Trigger="true" />
+        <ComboBox Name="tipo_user" Description="Tipologia utente" Type="STRING" Required="true" Trigger="true" />
+        <Input Name="dt_ini_cert" Description="Data inizio validità certificato" Type="DATE"/>
+        <Input Name="dt_fin_cert" Description="Data fine validità certificato" Type="DATE"/>
+        <TextArea Name="dl_cert_client" Description="Certificato client" Type="STRING" Rows="3" Cols="100" MaxLength="32000" />
+        <ComboBox Name="id_sistema_versante" Description="Sistema versante" Type="INTEGER"/>
+        <ComboBox Name="id_amb_ente_convenz_appart" Description="Ambienti enti convenzionati di appartenenza" Type="INTEGER" Trigger="true"/>
+        <ComboBox Name="id_ente_siam_appart" Description="Ente di appartenenza" Type="INTEGER" Trigger="true" Required="true"/>
+        <Input Name="qualifica_user" Description="Qualifica" Type="STRING" />
+
+        <ComboBox Name="tipo_auth" Description="Tipologia autenticazione" Type="STRING" Required="false" Trigger="false" />
+        <ComboBox Name="fl_resp_ente_convenz" Description="Responsabile ente convenzionato" Type="STRING" Required="true"/>
+        <ComboBox Name="fl_abil_enti_colleg_autom" Description="Allinea abilitazioni agli enti collegati in automatico" Type="STRING" />
+        <ComboBox Name="fl_abil_organiz_autom" Description="Allinea abilitazioni alle organizzazioni vigilate in automatico" Type="STRING" />
+        <ComboBox Name="fl_abil_fornit_autom" Description="Allinea abilitazioni alle organizzazioni e agli enti supportati in automatico" Type="STRING" />
+        <Button Name="duplicaUtente" Description="Duplica utente" Type="STRING"/>
+        <Button Name="resetPassword" Description="Reset password" Type="STRING"/>
+        <Button Name="nuovaPassword" Description="Inserisci nuova password" Type="STRING"/>
+        <Button Name="visualizzaReplicheUtenti" Description="Visualizza repliche utenti" Type="STRING"/>
+        <Button Name="attivaUtente" Description="Attiva utente" Type="STRING"/>
+        <Button Name="disattivaUtente" Description="Disattiva utente" Type="STRING"/>
+        <Button Name="cessaUtente" Description="Cessa utente" Type="STRING"/>
+        <Button Name="logEventi" Description="Log eventi" Type="STRING"/>
+    </Fields>
+    
+    <Fields Name="DettaglioUltimaRichiestaUtente" Description="Dettaglio ultima richiesta">
+        <Input Name="id_rich_gest_user" Description="Richiesta" Type="INTEGER" Hidden="true" Readonly="true"/>
+        <Input Name="key_rich_gest_user" Description="Richiesta" Type="STRING" Readonly="true"/>
+        <Input Name="dt_rich_gest_user" Description="Data" Type="DATE" Readonly="true"/>
+        <Input Name="ds_lista_azioni" Description="Lista azioni" Type="STRING" Readonly="true"/>
+        <CheckBox Name="fl_azioni_evase" Description="Azioni evase" Type="STRING" Readonly="true" />
+    </Fields>
+    
+    <Fields Name="IndIpFields" Description="Dichiarazione indirizzi IP">
+        <Input Name="cd_ind_ip_user" Description="Indirizzo IP/Sottorete" Type="STRING" MaxLength="18"/>
+        <Button Name="aggiungiIP" Description="Aggiungi alla lista" Type="STRING"/>
+    </Fields>    
+    
+    <List Name="IndIpList" Description="Lista indirizzi IP" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="cd_ind_ip_user" Description="Indirizzo IP / Sottorete" Type="STRING" />
+    </List>
+    
+    <List Name="ApplicazioniList" Description="Lista applicazioni" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="id_applic" Description="Id applic" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_applic" Description="Nome" Type="STRING" />
+        <Input Name="ds_applic" Description="Descrizione" Type="STRING" />        
+    </List>
+    
+    <Fields Name="ApplicazioniFields" Description="Dichiarazione applicazioni">
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER"  Trigger="true"/>
+        <Input Name="ds_applic" Description="Descrizione" Type="STRING" Readonly="true"/>
+        <Button Name="aggiungiApplicazione" Description="Aggiungi alla lista" Type="STRING"/>
+    </Fields>    
+    
+    <List Name="RuoliDefaultList" Description="Lista ruoli di default" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="id_uso_ruolo_user_default" Description="Id organizzazione" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_applic" Description="Id Applicazione" Type="INTEGER" Hidden ="true"/>
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="nm_ruolo" Description="Ruolo" Type="STRING"/>
+        <Input Name="ds_ruolo" Description="Descrizione" Type="STRING"/>
+        <Input Name="ti_ruolo" Description="Tipo" Type="STRING"/>
+    </List>
+    
+    <List Name="DichAbilOrgList" Description="Lista dich. abil. organiz." hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="id_applic" Description="Id Applicazione" Type="INTEGER" Hidden ="true"/>
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="ti_scopo_dich_abil_organiz" Description="Scopo" Type="STRING"/>
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING" />
+        <Input Name="dl_path_id_organiz_iam" Description="Organizzazione" Type="STRING" Hidden="true"/>
+        <Input Name="nm_ruolo_dich" Description="Ruolo specifico per org" Type="STRING"/>
+        <Input Name="ds_causale_dich" Description="Causale" Type="STRING"/>
+        <Input Name="id_organiz_iam" Description="Id organizzazione" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_appart_colleg_enti" Description="id_appart_colleg_enti" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_vigil_ente_produt" Description="id_vigil_ente_produt" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_supt_est_ente_convenz" Description="id_supt_est_ente_convenz" Type="INTEGER" Hidden="true"/>
+    </List>
+    
+    <List Name="DichAbilTipiDatoList" Description="Lista dich. abil. tipi dato" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="id_applic" Description="Id Applicazione" Type="INTEGER" Hidden ="true"/>
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="nm_classe_tipo_dato" Description="Classe tipo dato" Type="STRING" />
+        <Input Name="ti_scopo_dich_abil_dati" Description="Scopo" Type="STRING"/>
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING" />
+        <Input Name="nm_tipo_dato" Description="Tipo dato" Type="STRING"/>        
+        <Input Name="id_organiz_iam" Description="Id organizzazione" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_tipo_dato_iam" Description="Id tipo dato" Type="INTEGER" Hidden="true"/>
+        <Input Name="ds_causale_dich" Description="Causale" Type="STRING"/>
+        <Input Name="id_appart_colleg_enti" Description="id_appart_colleg_enti" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_vigil_ente_produt" Description="id_vigil_ente_produt" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_supt_est_ente_convenz" Description="id_supt_est_ente_convenz" Type="INTEGER" Hidden="true"/>
+    </List>
+    
+    <List Name="StatiUtenteList" Description="Lista stati utente" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="ts_stato" Description="Data" Type="DATETIME" />
+        <Input Name="ti_stato_user" Description="Stato utente" Type="STRING" />
+        <Input Name="id_unita_doc_ric" Description="Numero protocollo della richiesta" Type="STRING" />
+        <Input Name="id_rich" Description="Identificativo richiesta" Type="STRING"/>
+        <Input Name="lista_tipi_azione" Description="Lista tipi azione" Type="STRING" />
+    </List>
+    
+    <List Name="DichAbilEnteConvenzList" Description="Lista dich. abil. enti convenzionati" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="ti_scopo_dich_abil_ente" Description="Scopo" Type="STRING"/>
+        <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
+        <Input Name="nm_ente_convenz" Description="Ente convenzionato" Type="STRING"/>
+        <Input Name="ds_causale_dich" Description="Causale" Type="STRING"/>
+    </List>
+    
+    <List Name="AbilOrganizList" Description="Lista abilitazioni alle organizzazioni" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="ti_scopo_abil" Description="Scopo" Type="STRING"/>
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING" />
+        <Input Name="ds_causale_abil" Description="Causale" Type="STRING" />
+        <Input Name="nm_ente_causale" Description="Ente" Type="STRING" />
+        <CheckBox Name="fl_abil_automatica" Description="Automatica" Type="STRING" Readonly="true"/>
+    </List>
+    
+    <List Name="AbilEntiList" Description="Lista abilitazioni agli enti" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="ti_scopo_abil" Description="Scopo" Type="STRING"/>
+        <Input Name="nm_composito_ente" Description="Ente" Type="STRING" />
+        <Input Name="ds_causale_abil" Description="Causale" Type="STRING" />
+        <CheckBox Name="fl_abil_automatica" Description="Automatica" Type="STRING" Readonly="true"/>
+    </List>
+    
+    <Tab Name="AbilListsTabs" Description="Liste Dettaglio Utente">
+        <TabElement Name="ListaIndirizziIp" Description="Lista indirizzi IP" />
+        <TabElement Name="ListaApplicazioni" Description="Lista applicazioni" />
+        <TabElement Name="ListaRuoliDefault" Description="Lista ruoli default" />     
+        <TabElement Name="ListaDichAbilOrganiz" Description="Lista dich. abil. organiz" />    
+        <TabElement Name="ListaDichAbilTipiDato" Description="Lista dich. abil. tipi dato" />
+        <TabElement Name="ListaDichAbilEnteConvenz" Description="Lista dich. abil. enti convenzionati" />                
+        <TabElement Name="ListaStatiUtente" Description="Lista stati utente" />
+        <TabElement Name="ListaAbilOrganiz" Description="Lista abil. organiz." />
+        <TabElement Name="ListaAbilEnti" Description="Lista abil. enti" />
+    </Tab>
+    
+    <Fields Name="EditPasswordUtente" Description="Modifica password utente">
+        <Input Name="cd_psw" Description="Password" Type="STRING" Required="true" />
+        <Input Name="cd_psw_repeated" Description="Conferma password" Type="STRING" Required="true" />
+        <Button Name="salva_password" Description="Salva" Type="STRING"/>
+    </Fields>
+    
+    <Fields Name="DichAbilFields" Description="Dichiarazioni di abilitazione">
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER" Required="true" Trigger="true"/>
+        <ComboBox Name="nm_ruolo" Description="Ruolo" Type="INTEGER"  Trigger="true"/>
+        <Input Name="ds_ruolo" Description="Descrizione" Type="STRING"/>
+        <ComboBox Name="ti_scopo_dich_abil_organiz" Description="Scopo" Type="STRING" Trigger="true"/>
+        <ComboBox Name="dl_composito_organiz" Description="Organizzazione" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="ti_scopo_dich_abil_dati" Description="Scopo" Type="STRING" Trigger="true"/>
+        <ComboBox Name="nm_tipo_dato" Description="Tipo dato" Type="INTEGER" />
+        <ComboBox Name="nm_classe_tipo_dato" Description="Classe tipo dato" Type="INTEGER" />
+        <ComboBox Name="ti_scopo_dich_abil_ente" Description="Scopo" Type="STRING" Trigger="true"/>
+        <ComboBox Name="nm_ambiente_ente_convenz" Description="Ambiente ente convenzionato" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="nm_ente_convenz" Description="Ente convenzionato" Type="INTEGER" WithSearchComp="true"/>
+        <Button Name="add_row_to_list" Description="Aggiungi alla lista" Type="STRING"/>
+    </Fields>
+    
+    <!-- Dettaglio ruoli specifici su organizzazioni -->    
+    <Fields Name="GestioneRuoliOrganizzazione" Description="Dichiarazione di abilitazione">
+        <Input Name="id_dich_abil_organiz" Description="Id dich abil organiz" Type="INTEGER" Hidden="true" />
+        <Input Name="id_organiz_iam_dich" Description="Id organiz iam" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_cognome_user" Description="Cognome utente" Type="STRING"/>
+        <Input Name="nm_nome_user" Description="Nome utente" Type="STRING"/>
+        <Input Name="nm_userid" Description="User-id" Type="STRING"/>
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING"/>
+        <Input Name="ti_scopo_dich_abil_organiz" Description="Scopo" Type="STRING" />        
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING" />
+        <Input Name="id_path_dl_composito_organiz" Description="Organizzazione" Type="INTEGER" Hidden="true" />
+        <ComboBox Name="ti_scopo_ruolo" Description="Scopo" Type="STRING" Trigger="true" />
+        <ComboBox Name="dl_composito_organiz_ruolo" Description="Organizzazione" Type="INTEGER" />
+        <ComboBox Name="nm_ruolo" Description="Ruolo" Type="INTEGER" Trigger="true"/>
+        <Input Name="ds_ruolo" Description="Descrizione" Type="STRING" Readonly="true"/>
+        <Button Name="aggiungiRuoloOrg" Description="Aggiungi ruolo" Type="STRING"/>
+    </Fields>
+    
+    <List Name="RuoliList" Description="Lista ruoli" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="ti_scopo_ruolo" Description="Scopo" Type="STRING"/>
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING"/>
+        <Input Name="nm_ruolo" Description="Ruolo" Type="STRING"/>
+        <Input Name="ds_ruolo" Description="Descrizione" Type="STRING"/>
+    </List>
+    
+    <!-- FINE Dettaglio ruoli specifici su organizzazioni -->    
+       
+    <Wizard Name="InserimentoWizard" Description="Creazione utente">
+        <Step Name="PassoRichiesta" Description="Inserisci dati richiesta"/>
+        <Step Name="PassoRuoliSpecifici" Description="Definisci i ruoli specifici per organizzazione" />
+        <Step Name="Passo1" Description="Inserisci anagrafica utente"/>
+        <Step Name="PassoIp" Description="Inserisci la lista di indirizzi IP"/>
+        <Step Name="PassoApplic" Description="Inserisci le applicazioni"/>
+        <Step Name="Passo2" Description="Definisci liste utente" />        
+        <EndPage Name="EndPage" Description="Riepilogo" />
+    </Wizard>
+    
+    <Tab Name="WizardListsTabs" Description="Liste Dichiarazioni Abilitazioni Wizard">
+        <TabElement Name="ListaWizardRuoliDefault" Description="Lista ruoli default" />     
+        <TabElement Name="ListaWizardAbilOrganiz" Description="Lista dich. abil. organiz" />    
+        <TabElement Name="ListaWizardTipiDato" Description="Lista dich. abil. tipi dato" />
+        <TabElement Name="ListaWizardAbilEnteConvenz" Description="Lista dich. abil. enti convenzionati" />
+    </Tab>
+    
+    <Fields Description="" Name="RichiestaWizard">
+        <ComboBox Name="id_organiz_iam_rich" Description="Organizzazione" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="cd_registro_rich_gest_user" Description="Registro" Type="STRING" />
+        <Input Name="aa_rich_gest_user" Description="Anno" Type="INTEGER" MaxLength="4" />
+        <Input Name="cd_key_rich_gest_user" Description="Numero" Type="STRING" />
+        <ComboBox Name="id_ambiente_ente_convenz_rich" Description="Ambiente enti convenzionati" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="id_ente_convenz_rich" Description="Ente" Type="INTEGER" WithSearchComp="true"/>
+        <Input Name="cd_rich_gest_user" Description="Identificativo richiesta" Type="STRING"/>
+        <Input Name="id_rich_gest_user" Description="Id richiesta" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_appart_user_rich" Description="Id azione" Type="INTEGER" Hidden="true"/>
+    </Fields>
+    
+    <Fields Description="" Name="UtentiArchivistiPerEnteConvenzionato">
+        <Input Description="ID_ENTE_CONVENZ" Hidden="true" Name="id_ente_convenz" Type="INTEGER"/>
+    </Fields>
+    
+    <Fields Description="" Name="ReferentiPerEnteConvenzionato">
+        <Input Description="ID_ENTE_CONVENZ" Hidden="true" Name="id_ente_convenz" Type="INTEGER"/>
+    </Fields>
+    
+    <Fields Description="" Name="UtentiArchivistiPerSistemaVersante">
+        <Input Description="ID_SISTEMA_VERSANTE" Hidden="true" Name="id_sistema_versante" Type="INTEGER"/>
+    </Fields>
+    
+    <Fields Description="" Name="ReferentiDittaProduttricePerSistemaVersante">
+        <Input Description="ID_SISTEMA_VERSANTE" Hidden="true" Name="id_sistema_versante" Type="INTEGER"/>
+    </Fields>
+    
+    <Fields Description="" Name="UtenteArchivistaPerEnteConvenzionato">
+        <Input Description="ID_ENTE_CONVENZ" Hidden="true" Name="id_ente_convenz" Type="INTEGER"/>
+    </Fields>
+    
+    <Fields Description="" Name="ReferentePerEnteConvenzionato">
+        <Input Description="ID_ENTE_CONVENZ" Hidden="true" Name="id_ente_convenz" Type="INTEGER"/>
+    </Fields>
+    
+    <List Description="Utenti da aggiungere alla lista di utenti archivisti di un ente convenzionato" Name="UtentiArchivistiList" hideDeleteButton="true" hideInsertButton="true" hideUpdateButton="true">
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING"/>
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING"/>
+        <Input Name="nm_userid" Description="User-id" Type="STRING"/>
+        <Input Name="nm_applic" Description="Applicazione usata" Type="STRING"/>
+        <Input Name="nm_ruolo_default" Description="Ruolo di default" Type="STRING"/>
+        <CheckBox Name="fl_attivo" Description="Attivo" Type="STRING" Readonly="true" />
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING"/>
+        <Input Name="nm_ruolo_dich" Description="Ruolo specifico per org" Type="STRING"/>
+        <CheckBox Name="fl_err_replic" Description="Errori di replica" Type="STRING" Readonly="true" />
+    </List>
+    
+    <List Name="ReferentiDittaProduttriceList" Description="Utenti da aggiungere alla lista di referenti ditta produttrice di un sistema versante" hideDeleteButton="true" hideInsertButton="true" hideUpdateButton="true">
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING"/>
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING"/>
+        <Input Name="nm_userid" Description="User-id" Type="STRING"/>
+        <Input Name="nm_applic" Description="Applicazione usata" Type="STRING"/>
+        <Input Name="nm_ruolo_default" Description="Ruolo di default" Type="STRING"/>
+        <CheckBox Name="fl_attivo" Description="Attivo" Type="STRING" Readonly="true" />
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING"/>
+        <Input Name="nm_ruolo_dich" Description="Ruolo specifico per org" Type="STRING"/>
+        <CheckBox Name="fl_err_replic" Description="Errori di replica" Type="STRING" Readonly="true" />
+        <Input Name="ds_email" Description="Email" Type="STRING" Hidden="true" />
+    </List>
+    
+    <List Name="ReferentiEnteList" Description="Utenti da aggiungere alla lista di referenti ente convenzionato" hideDeleteButton="true" hideInsertButton="true" hideUpdateButton="true">
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING"/>
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING"/>
+        <Input Name="nm_userid" Description="User-id" Type="STRING"/>
+        <Input Name="nm_applic" Description="Applicazione usata" Type="STRING"/>
+        <Input Name="nm_ruolo_default" Description="Ruolo di default" Type="STRING"/>
+        <CheckBox Name="fl_attivo" Description="Attivo" Type="STRING" Readonly="true" />
+        <Input Name="dl_composito_organiz" Description="Organizzazione" Type="STRING"/>
+        <Input Name="nm_ruolo_dich" Description="Ruolo specifico per org" Type="STRING"/>
+        <CheckBox Name="fl_err_replic" Description="Errori di replica" Type="STRING" Readonly="true" />
+        <Input Name="ds_email" Description="Email" Type="STRING" Hidden="true" />
+    </List>
+    
+    <Section Description="" Legend="Utenti selezionati come archivisti di riferimento dell’ente convenzionato" LoadOpened="true" Name="UtentiArchivistiToEntiConvenzionatiSection" ShowButton="false"/>
+    <Section Description="" Legend="Utenti selezionati come archivisti di riferimento del sistema versante" LoadOpened="true" Name="UtentiArchivistiToSistemiVersantiSection" ShowButton="false"/>
+    <Section Description="" Legend="Utenti referenti della ditta produttrice" LoadOpened="true" Name="ReferentiDittaProduttriceToSistemiVersantiSection" ShowButton="false"/>
+    <Section Description="" Legend="Utenti selezionati come referenti dell’ente convenzionato" LoadOpened="true" Name="ReferentiEnteConvenzionatoSection" ShowButton="false"/>
+    
+    <!-- FINE GESTIONE UTENTI -->
+    
+    <!-- Filtri schedulazioni replica utenti -->
+    <Fields Name="FiltriSchedulazioni" Description="Filtri schedulazioni replica utenti" >
+        <Input Type="DATE" Description="Data schedulazione da" Name="dt_reg_log_job_da" />
+        <Input Type="INTEGER" Description="Orario" Name="ore_dt_reg_log_job_da" MaxLength="2"/>
+        <Input Type="INTEGER" Description="Orario" Name="minuti_dt_reg_log_job_da" MaxLength="2"/>
+        <Input Type="DATE" Description="Data schedulazione a" Name="dt_reg_log_job_a" />
+        <Input Type="INTEGER" Description="Orario" Name="ore_dt_reg_log_job_a" />
+        <Input Type="INTEGER" Description="Orario" Name="minuti_dt_reg_log_job_a" />
+        <ComboBox Name="repliche_bloccate" Description="Solo repliche bloccate" Type="STRING"/>
+        <Button Name="ricercaSchedulazioni" Description="Ricerca" Type="STRING" />
+        <Button Name="pulisciSchedulazioni" Description="Pulisci" Type="STRING" />
+        <Button Name="visualizzaReplicheUtentiSched" Description="Visualizza repliche utenti" Type="STRING"/>
+    </Fields>
+                                                                                                                                                                                                                                                                                                                                    
+    <!-- Stato job -->
+    <Fields Name="StatoJob" Description="Stato Job" >       
+        <CheckBox  Type="STRING" Description="Attivo" Name="attivo" />
+        <Input  Type="DATETIME" Description="Da" Name="dt_reg_log_job_ini" />        
+        <Input  Type="DATETIME" Description="Prossima attivazione" Name="dt_prossima_attivazione" />        
+        <CheckBox  Type="STRING" Description="Presenza errori di replica" Name="presenza_errori_replica" />
+        <Button Name="startReplicaUtenti" Description="Start" Type="STRING"/>
+        <Button Name="stopReplicaUtenti" Description="Stop" Type="STRING"/>
+    </Fields>
+    
+    <!-- Lista schedulazioni job -->
+    <List Name="SchedulazioniReplicaUtentiList" Description="Lista schedulazioni replica utenti" hideDetailButton="true" hideInsertButton="true" hideDeleteButton="true" hideUpdateButton="true">
+        <Input  Type="STRING" Description="Nome" Name="nm_job"/>
+        <Input  Type="DATETIME" Description="Data inizio" Name="dt_reg_log_job_ini"/>
+        <Input  Type="DATETIME" Description="Data fine" Name="dt_reg_log_job_fine"/>
+        <Input  Type="STRING" Description="Durata (gg-hh:mm:ss)" Name="durata"/>
+        <Input  Type="STRING" Description="Errore" Name="dl_msg_err"/>        
+        <Link Name="cleanAsyncLocked" Description="Replica bloccata" Type="STRING" Tooltip="Sblocca replica" isTargetList="false" VisibilityProperty="fl_async_locked" Target="cleanAsyncLocked"/>
+    </List>
+    
+    <!-- Filtri replica utenti -->
+    <Fields Name="FiltriReplica" Description="Filtri replica utenti" >
+        <Input Type="STRING" Description="User-id" Name="nm_userid" />
+        <Input Type="DATE" Description="Da data registrazione log" Name="dt_log_user_da_replic" Required="true" />
+        <Input Type="INTEGER" Description="Orario" Name="ore_dt_log_user_da_replic" MaxLength="2"/>            
+        <Input Type="INTEGER" Description="Orario" Name="minuti_dt_log_user_da_replic" MaxLength="2"/>   
+        <ComboBox Type="INTEGER" Description="Applicazione" Name="nm_applic" />
+        <ComboBox Type="STRING" Description="Tipo operazione" Name="ti_oper_replic" />
+        <MultiSelect Type="STRING" Description="Stato replica" Name="ti_stato_replic" />
+        <Button Name="ricercaRepliche" Description="Ricerca repliche" Type="STRING" />
+        <Button Name="pulisciRepliche" Description="Pulisci filtri" Type="STRING" />
+    </Fields>
+    
+    <!-- Lista replica utenti -->
+    <List Name="ReplicaUtentiList" Description="Lista replica utenti" hideDetailButton="true" hideInsertButton="true" hideDeleteButton="true" hideUpdateButton="true">
+        <Input Type="STRING" Description="User-id" Name="nm_userid"/>
+        <Input Type="STRING" Description="Applicazioni" Name="nm_applic"/>
+        <Input Type="DATETIME" Description="Data registrazione log" Name="dt_log_user_da_replic"/>
+        <Input Type="STRING" Description="Tipo operazione" Name="ti_oper_replic"/>
+        <Input Type="STRING" Description="Stato replica" Name="ti_stato_replic"/>
+        <Input Type="STRING" Description="Codice errore" Name="errore"/>
+        <Input  Type="DATETIME" Description="Data chiusura replica" Name="dt_chiusura_replica"/>
+    </List>
+    
+    
+    <!-- GESTIONE RICHIESTE -->
+    
+    <Section Description="" Legend="Ente convenzionato" LoadOpened="true" Name="EnteConvenzionatoSection" ShowButton="false"/>    
+    <Section Description="" Legend="Utente cui la richiesta si riferisce" LoadOpened="true" Name="UtenteRichiestaRifSection" ShowButton="false"/>
+    <Section Description="" Legend="Richiedente" LoadOpened="true" Name="UtenteRichiedenteSection" ShowButton="false"/>
+    <Section Description="Numero protocollo della richiesta" Legend="Numero protocollo della richiesta" LoadOpened="true" Name="IdentificativoUdRichSection" ShowButton="false"/>
+    <Section Description="" Legend="Lista azioni" LoadOpened="true" Name="ListaAzioniSection" ShowButton="false"/>
+    
+    <!-- Filtri ricerca richieste -->
+    <Fields Name="FiltriRichieste" Description="Gestione richieste">
+        <!-- Ente convenzionato -->
+        <ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="id_ente_convenz" Description="Ente" Type="INTEGER" WithSearchComp="true"/>
+        <!-- Utente cui la richiesta si riferisce -->
+        <Input Name="nm_cognome_user_app_rich" Description="Cognome utente" Type="STRING" />
+        <Input Name="nm_nome_user_app_rich" Description="Nome utente" Type="STRING"/>
+        <Input Name="nm_userid_app_rich" Description="Username" Type="STRING"/>
+        <!-- Utente richiedente -->
+        <Input Name="nm_cognome_user_rich" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user_rich" Description="Nome" Type="STRING"/>
+        <Input Name="nm_userid_rich" Description="Username" Type="STRING"/>        
+        <!-- Numero protocollo della richiesta -->
+        <ComboBox Name="id_organiz_iam" Description="Organizzazione" Type="INTEGER" Trigger="true" WithSearchComp="true"/>        
+        <ComboBox Name="cd_registro_rich_gest_user" Description="Registro" Type="STRING" />
+        <Input Name="aa_rich_gest_user" Description="Anno" Type="INTEGER" />
+        <Input Name="cd_key_rich_gest_user" Description="Numero" Type="STRING" />
+        <!-- -->
+        <Input Name="cd_rich_gest_user" Description="Identificativo richiesta" Type="STRING"/>
+        <ComboBox Name="ti_stato_rich_gest_user" Description="Stato richiesta" Type="STRING" />
+        <Button Name="ricercaRichieste" Description="Ricerca richieste" Type="STRING" />
+    </Fields>
+    
+    <List Name="RichiesteList" Description="Lista richieste">        
+        <Input Name="id_rich_gest_user" Description="Id richiesta" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="ente_convenzionato" Description="Ente" Type="STRING" />
+        <Input Name="identificativo_ud_rich" Description="Numero protocollo della richiesta" Type="STRING" />
+        <Input Name="cd_rich_gest_user" Description="Identificativo richiesta" Type="STRING" />
+        <Input Name="richiedente" Description="Richiedente" Type="STRING" Required="true" />
+        <Input Name="dt_rich_gest_user" Description="Data" Type="DATE" Required="true" />
+        <Input Name="ti_stato_rich_gest_user" Description="Stato richiesta" Type="STRING" Required="true" />
+    </List>
+    
+    <Fields Name="RichiestaDetail" Description="Dettaglio richiesta">
+        <Input Name="id_rich_gest_user" Description="Id richiesta" Type="INTEGER" Readonly="true" Hidden="true" />
+        <ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente ente convenzionato" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="id_ente_rich" Description="Ente" Type="INTEGER" Required="true" WithSearchComp="true"/>
+        <ComboBox Name="ti_rich_gest_user" Description="Tipo richiesta" Type="STRING" Required="true" />
+        <ComboBox Name="id_organiz_iam" Description="Organizzazione" Type="INTEGER" Trigger="true" WithSearchComp="true" />
+        <ComboBox Name="cd_registro_rich_gest_user" Description="Registro" Type="STRING" WithSearchComp="true"/>
+        <Input Name="aa_rich_gest_user" Description="Anno" Type="INTEGER" MaxLength="4" />
+        <Input Name="cd_key_rich_gest_user" Description="Numero" Type="STRING" />
+        <Input Name="cd_rich_gest_user" Description="Identificativo richiesta" Type="STRING" />
+        <Input Name="dt_rich_gest_user" Description="Data" Type="DATE" Required="true" />
+        <Input Name="nm_file_rich_gest_user" Description="Nome file" Type="STRING" Readonly="true"/>
+        <Input Name="bl_rich_gest_user" Description="File richiesta" Type="FILE" />
+        <Input Name="nm_userid_manuale" Description="Mittente richiesta" Type="STRING" />
+        <Input Name="nm_userid_codificato" Description="Richiedente" Type="STRING" Readonly="true" />
+        <Input Name="ti_user_rich" Description="Tipo utente" Type="STRING" Readonly="true" Hidden="true" />
+        <Input Name="id_user_iam_rich" Description="Id richiedente codificato" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Button Name="scaricaFileRichiesta" Description="Scarica file richiesta" Type="STRING" />
+        <Button Name="richiestaCompletata" Description="COMPLETATA" Type="STRING" />
+        <Input Name="ds_email_rich" Description="Email" Type="EMAIL" />
+        <TextArea Name="nt_rich_gest_user" Description="Note" Type="STRING" Rows="10" Cols="100" MaxLength="4000" />
+        <Input Name="ti_stato_rich_gest_user" Description="Stato richiesta" Type="STRING" Required="true" Readonly="true"/>
+        <Button Name="salvaRichiesta" Description="Salva" Type="STRING" />
+        <Button Name="logEventiRichiesta" Description="Log eventi" Type="STRING"/>
+        <Input Name="numero_protocollo" Description="Numero di protocollo" Type="STRING" Readonly="true"/>
+    </Fields>
+    
+    <List Name="AzioniList" Description="Lista azioni">
+        <Input Name="id_rich_gest_user" Description="Id richiesta" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="id_appart_user_rich" Description="Id azione" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="id_ambiente_ente_appart_user" Description="Id ente appartenenza utente" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_ente_appart_user" Description="Id ente appartenenza utente" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_ente_appart_user" Description="Ente appartenenza utente" Type="STRING" Hidden="true"/>
+        <Input Name="ambiente_ente_appart_user" Description="Ambiente appartenenza utente" Type="STRING" />
+        <Input Name="ente_appart_user" Description="Ente appartenenza utente" Type="STRING" />
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING" />
+        <Input Name="nm_userid" Description="Username" Type="STRING" />
+        <Input Name="ti_azione_rich" Description="Tipo azione" Type="STRING" Required="true" />
+        <CheckBox Name="fl_azione_rich_evasa" Description="Evasa" Type="STRING" Readonly="true" />
+        <Link Name="eseguiAzione" Description="Esegui" Type="STRING" Tooltip="Esegui azione" isTargetList="false" Target="eseguiAzione" VisibilityProperty="is_not_evasa" /> <!--VisibilityProperty="is_not_default"-->
+    </List>
+    
+    <Fields Name="AzioneDetail" Description="Dettaglio azione">
+        <Input Name="id_appart_user_rich" Description="Id azione" Type="INTEGER" Readonly="true" Hidden="true" />
+        <ComboBox Name="ti_azione_rich" Description="Tipo azione" Type="STRING" Required="true" Trigger="true" />
+        <ComboBox Name="id_ambiente_ente_user" Description="Ambiente appartenenza utente" Type="INTEGER" Trigger="true" WithSearchComp="true"/>
+        <ComboBox Name="id_ente_user" Description="Ente appartenenza utente" Type="INTEGER" Required="true" WithSearchComp="true" />
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING" />
+        <Input Name="nm_userid" Description="Username" Type="STRING" />
+        <Input Name="nm_userid_codificato" Description="Utente codificato" Type="STRING" Readonly="true" />
+        <Input Name="id_user_iam" Description="Utente codificato" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Button Name="selezionaUtenteAzione" Description="Seleziona" Type="STRING" />
+        <Button Name="rimuoviUtenteAzione" Description="Rimuovi" Type="STRING" />        
+        <CheckBox Name="fl_azione_rich_evasa" Description="Evasa" Type="STRING" Readonly="true" />
+        <Input Name="ti_appart_user_rich" Description="Tipo utente" Type="STRING" Readonly="true" Hidden="true"/>
+    </Fields>
+    
+    <ButtonList Name="UdButtonList" Description="MessageBox" >
+        <Button Name="scaricaCompFileUdRichiesta" Description="Scarica file unità documentaria" Type="STRING"/>        
+    </ButtonList>
+
+</Form>

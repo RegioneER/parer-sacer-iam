@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>it.eng.parer</groupId>
+    <artifactId>saceriam-jboss</artifactId>
+    <version>4.9.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>SacerIam</name>
+    <description>Progetto SACERIAM</description>
+    <parent>
+        <groupId>it.eng.parer</groupId>
+        <artifactId>parer-pom</artifactId>
+        <version>3.0.17</version>
+    </parent>
+    <properties>
+        <!-- Skiptests by default : esecuzione su CI -->
+        <skipTests>true</skipTests>
+        <sonar.projectVersion>${project.version}</sonar.projectVersion>
+        <!-- spagofat bom -->
+        <spagofat.version>4.2.26</spagofat.version>
+    </properties>
+    
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/RegioneER/parer.sacer.parent/</url>           
+        </repository>      
+        <repository>
+			<id>redhatga</id>
+			<url>https://maven.repository.redhat.com/ga/</url>
+		</repository> 
+        <repository>
+			<id>pentaho</id>
+			<url>https://public.nexus.pentaho.org/content/groups/omni</url>
+		</repository>     
+     </repositories>
+    
+    <modules>
+        <module>SacerIam-ear</module>
+        <module>SacerIam-slg</module>
+        <module>SacerIam-jpa</module>
+        <module>SacerIam-web</module>
+        <module>SacerIam-ejb</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>saceriam-jboss-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>saceriam-jboss-slg</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>saceriam-jboss-ejb</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>saceriam-jboss-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.javacsv</groupId>
+                <artifactId>javacsv</artifactId>
+                <version>2.0</version>
+            </dependency>
+            <!-- Xalan & co -->
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>xalan</artifactId>
+                <version>${xalan.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>${xerces.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xml-resolver</groupId>
+                <artifactId>xml-resolver</artifactId>
+                <version>1.2</version>
+            </dependency>   
+            <!-- Define the version of JBoss' Java EE 6 APIs we want to use -->
+            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+            a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+            a collection) of artifacts. We use this here so that we always get the correct
+            versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+            read this as the JBoss stack of the Java EE 6 APIs). You can actually
+            use this stack with any version of JBoss EAP that implements Java EE 6. -->
+            <dependency>
+                <groupId>org.jboss.bom.eap</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>6.4.0.GA</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <type>pom</type>
+                <version>${jboss-javaee-6.0.version}</version>
+            </dependency>
+            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
+            <dependency>
+                <groupId>it.eng.parer</groupId>
+                <artifactId>idp-jaas-rdbms</artifactId>
+                <version>0.0.9</version>
+            </dependency>
+            <!-- Framework -->
+            <dependency>
+                <groupId>it.eng.parer</groupId>
+                <artifactId>spagofat</artifactId>
+                <version>${spagofat.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <showWarnings>true</showWarnings>
+                        <verbose>false</verbose>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin> 
+            </plugins>
+
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
+                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.*</excludePackageNames>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+   
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
+                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.*</excludePackageNames>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+    <scm>
+        <developerConnection>scm:git:git@gitlab.ente.regione.emr.it:parer/sacer-iam.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+</project>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Amministrazione Ruoli" xmlns="http://www.spagoLite.eng.it/xmlbean/form" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+
+    <!-- INIZIO GESTIONE RUOLI -->
+
+    <Fields Name="FiltriRuoli" Description="Ricerca ruoli">
+        <Input Name="nm_ruolo" Description="Denominazione" Type="STRING" />
+        <ComboBox Name="ti_ruolo" Description="Tipo" Type="STRING" />
+        <ComboBox Name="ti_categ_ruolo" Description="Categoria" Type="STRING" />
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER" />
+        <ComboBox Name="ti_stato_rich_allinea_ruoli_1" Description="Stato richiesta di allineamento ruolo in " Type="STRING" />
+        <ComboBox Name="ti_stato_rich_allinea_ruoli_2" Description="Stato richiesta di allineamento ruolo in " Type="STRING" />
+        <Button Name="ricercaRuoli" Description="Ricerca ruoli" Type="STRING"/>
+    </Fields>    
+
+    <List Name="ListaRuoli" Description="Lista ruoli">
+        <Input Name="nm_ruolo" Description="Ruolo" Type="STRING" />
+        <Input Name="ds_ruolo" Description="Descrizione" Type="STRING" />
+        <Input Name="ti_ruolo" Description="Tipo" Type="STRING" />
+        <Input Name="ti_categ_ruolo" Description="Categoria" Type="STRING" />
+        <Input Name="ds_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="ti_stato_rich_allinea_ruoli_1" Description="Stato richiesta di allineamento ruolo in " Type="STRING" />
+        <Input Name="ti_stato_rich_allinea_ruoli_2" Description="Stato richiesta di allineamento ruolo in " Type="STRING" />
+        <CheckBox Name="fl_allineamento_in_corso" Description="Aggiornamento in corso per allineamento" Type="STRING" Readonly="true"/>
+    </List>
+    
+    <Fields Name="DettaglioRuolo" Description="Dettaglio ruolo">
+        <Input Name="id_ruolo" Description="ID ruolo" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_ruolo" Description="Nome ruolo" Type="STRING" Required="true" />
+        <TextArea Name="ds_ruolo" Description="Descrizione ruolo" Type="STRING" Required="true" Cols="20" Rows="3" MaxLength="254"/>
+        <ComboBox Name="ti_ruolo" Description="Tipologia di ruolo" Type="STRING" Required="true" />
+        <!--<ComboBox Name="ti_categ_ruolo" Description="Categoria del ruolo" Type="STRING" Required="true" />-->
+        <ComboBox Name="nm_applic_tree" Description="Applicazione" Type="INTEGER" AddBlank="false"/>
+        <Input Name="ti_stato_rich_allinea_ruoli_1" Description="Stato richiesta di allineamento ruolo in " Type="STRING" />
+        <Input Name="ti_stato_rich_allinea_ruoli_2" Description="Stato richiesta di allineamento ruolo in " Type="STRING" />
+        <TextArea Name="ds_esito_rich_allinea_ruoli_1" Description="Esito richiesta di allineamento in " Type="STRING" Rows="20" Cols="100" MaxLength="4000"/>
+        <TextArea Name="ds_esito_rich_allinea_ruoli_2" Description="Esito richiesta di allineamento in " Type="STRING" Rows="20" Cols="100" MaxLength="4000"/>
+        <TextArea Name="ds_msg_allineamento_parz" Description="Messaggio allineamento parzialmente riuscito" Type="STRING" Rows="20" Cols="100" MaxLength="4000"/>
+        <CheckBox Name="fl_allineamento_in_corso" Description="Aggiornamento in corso per allineamento" Type="STRING" Readonly="true"/>
+        <Input Name="show_tree" Description="" Type="STRING" Hidden="true" />
+        <Button Name="showList" Description="Mostra lista di abilitazioni" Type="STRING"/>
+        <Button Name="allineaRuolo1" Description="Allinea ruolo su ambiente " Type="STRING"/>
+        <Button Name="allineaRuolo2" Description="Allinea ruolo su ambiente " Type="STRING"/>
+        <Button Name="logEventi" Description="Log eventi" Type="STRING"/>
+    </Fields>
+    
+    <Tab Name="DichiarazioniListsTabs" Description="Liste Dettaglio Componenti">
+        <TabElement Name="ListaCategorie" Description="Lista categorie" />
+        <TabElement Name="ListaApplicazioni" Description="Lista applicazioni" />   
+        <TabElement Name="ListaEntryMenusDich" Description="Lista autoriz. menu" />     
+        <TabElement Name="ListaPagesDich" Description="Lista autoriz. pagine" />    
+        <TabElement Name="ListaActionsDich" Description="Lista autoriz. azioni" />
+        <TabElement Name="ListaServicesDich" Description="Lista autoriz. servizi" />
+    </Tab>
+    
+     <List Name="CategorieList" Description="Lista categorie" hideUpdateButton="true" hideDetailButton="true" >
+        <Input Name="ti_categ_ruolo" Description="Categorie" Type="STRING" />
+     </List>
+     
+    <Fields Name="CategorieFields" Description="Dichiarazione categorie">
+        <ComboBox Name="ti_categ_ruolo" Description="Categoria" Type="STRING" />
+        <Button Name="aggiungiCategoria" Description="Aggiungi alla lista" Type="STRING"/>
+    </Fields> 
+    
+    <List Name="ApplicazioniList" Description="Lista applicazioni" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="id_uso_ruolo_applic" Description="Id uso ruolo applic" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_applic" Description="Id applic" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_applic" Description="Nome" Type="STRING" />
+        <Input Name="ds_applic" Description="Descrizione" Type="STRING" />        
+        <Input Name="cd_versione_comp" Description="Versione corrente componenti" Type="STRING" />        
+    </List>
+    
+    <Fields Name="ApplicazioniFields" Description="Dichiarazione applicazioni">
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER"  Trigger="true"/>
+        <Input Name="ds_applic" Description="Descrizione" Type="STRING" Readonly="true"/>
+        <Button Name="aggiungiApplicazione" Description="Aggiungi alla lista" Type="STRING"/>
+    </Fields>    
+    
+    <List Name="DichMenuList" Description="Dichiarazioni delle autorizzazioni sulle entrate a menu dell'applicazione" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="ti_scopo_dich_autor" Description="Scopo" Type="STRING" />
+        <Input Name="ds_entry_menu" Description="Nodo" Type="STRING" />
+        <!--<Input Name="nodi_superiori" Description="Nodi superiori" Type="STRING" />-->
+    </List>
+    
+    <List Name="DichPagineList" Description="Dichiarazioni delle autorizzazioni sulle pagine dell'applicazione" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="ti_scopo_dich_autor" Description="Scopo" Type="STRING" />
+        <Input Name="ds_pagina_web" Description="Pagina" Type="STRING" />
+    </List>
+    
+    <List Name="DichAzioniList" Description="Dichiarazioni delle autorizzazioni sulle azioni dell'applicazione" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="ti_scopo_dich_autor" Description="Scopo" Type="STRING" />
+        <Input Name="ds_pagina_web_azio" Description="Pagina" Type="STRING" />
+        <Input Name="ds_azione_pagina" Description="Azione" Type="STRING" />
+    </List>
+    
+    <List Name="DichServiziList" Description="Dichiarazioni delle autorizzazioni sui servizi dell'applicazione" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" />
+        <Input Name="ti_scopo_dich_autor" Description="Scopo" Type="STRING" />
+        <Input Name="ds_servizio_web" Description="Servizio" Type="STRING" />
+    </List>
+    
+    <Fields Name="DichAutorFields" Description="Dichiarazioni di autorizzazione">
+        <ComboBox Name="nm_applic_tree" Description="Applicazione" Type="INTEGER"/>
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER" Required="true" Trigger="true"/>
+        <ComboBox Name="ti_scopo_dich_autor" Description="Scopo" Type="STRING" Required="true" Trigger="true"/>
+        <ComboBox Name="ds_entry_menu" Description="Nodo" Type="INTEGER" />
+        <!--<Input Name="nodi_superiori" Description="Nodi superiori" Type="STRING" />-->
+        <ComboBox Name="ds_pagina_web" Description="Pagina" Type="INTEGER" />
+        <ComboBox Name="ds_pagina_web_azio" Description="Pagina" Type="INTEGER" Trigger="true"/>
+        <ComboBox Name="ds_azione_pagina" Description="Azione" Type="INTEGER" />
+        <ComboBox Name="ds_servizio_web" Description="Servizio" Type="INTEGER" />
+        <Button Name="add_row_to_list" Description="Aggiungi alla lista" Type="STRING"/>
+    </Fields>
+    
+    <ButtonList Name="TreeButtonList" Description="">
+        <Button Name="checkAll" Description="Seleziona tutti" Type="STRING"/>
+        <Button Name="uncheckAll" Description="Deseleziona tutti" Type="STRING"/>
+        <Button Name="collapseAll" Description="Contrai tutti" Type="STRING"/>
+        <Button Name="expandAll" Description="Espandi tutti" Type="STRING"/>
+    </ButtonList>
+    
+    <Wizard Name="InserimentoWizard" Description="Creazione ruolo">
+        <Step Name="Passo1" Description="Inserisci anagrafica ruolo"/>
+        <Step Name="PassoCategorie" Description="Inserisci le categorie"/>
+        <Step Name="PassoApplic" Description="Inserisci le applicazioni"/>
+        <Step Name="Passo2" Description="Definisci liste ruoli" />
+    </Wizard>
+    
+    <Tab Name="WizardListsTabs" Description="Liste Dettaglio Componenti">
+        <TabElement Name="ListaWizardMenu" Description="Lista autoriz. menu" />     
+        <!--<TabElement Name="ListaWizardPages" Description="Lista autoriz. pagine" />-->    
+        <TabElement Name="ListaWizardActions" Description="Lista autoriz. azioni" />
+        <TabElement Name="ListaWizardServices" Description="Lista autoriz. servizi" />
+    </Tab>
+    
+    <Tree Name="WizardEntryMenuTree" Description="Albero delle entrate a menu" checkable="true" editable="false" draggable="false" dataType="JSON" hidden="true" coloredIcons="true">
+    </Tree>
+    
+    <!--<Tree Name="WizardPagineWebTree" Description="Albero delle pagine web" checkable="true" editable="false" draggable="false" dataType="JSON" hidden="true" coloredIcons="true">-->
+    <!--</Tree>-->
+    
+    <Tree Name="WizardAzioniTree" Description="Albero delle azioni alle pagine" checkable="true" editable="false" draggable="false" dataType="JSON" hidden="true" coloredIcons="true">
+    </Tree>
+    
+    
+    <!-- FINE GESTIONE RUOLI -->
+
+</Form>

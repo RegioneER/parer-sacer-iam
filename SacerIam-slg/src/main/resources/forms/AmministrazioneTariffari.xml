@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Amministrazione tariffari" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">   
+    
+    <!-- Ricerca tariffari -->
+    <Fields Name="FiltriTariffari" Description="Gestione rimborso costi">
+        <ComboBox Name="is_valido" Description="Valido" Type="STRING" />
+        <Input Name="nm_tariffario" Description="Rimborso costi" Type="STRING" />
+        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" />
+        <Button Name="ricercaTariffari" Description="Ricerca rimborso costi" Type="STRING" />        
+    </Fields>
+    
+    <List Name="ListaTariffario" Description="Lista rimborso costi">
+        <Input Name="id_tariffario" Description="Id tariffario" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_tariffario" Description="Denominazione" Type="STRING" />
+        <CheckBox Name="is_valido" Description="Valido" Type="STRING" Readonly="true" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" />
+        <Input Name="dt_fine_val" Description="Data fine validità" Type="DATE" />        
+        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" />
+    </List>
+    
+    <Fields Name="TariffarioDetail" Description="Dettaglio rimborso costi">
+        <Input Name="id_tariffario" Description="Id tariffario" Type="INTEGER" Hidden="true" />
+        <ComboBox Name="id_tipo_accordo" Description="Tipo accordo" Type="INTEGER" />
+        <Input Name="nm_tariffario" Description="Denominazione" Type="STRING" Required="true" MaxLength="100" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" Required="true"/>
+        <Input Name="dt_fine_val" Description="Data fine validità" Type="DATE" />        
+    </Fields>
+    
+    <Section Name="tariffeSection" Description="" Legend="Entità rimborsi definiti nel rimborso costi" ShowButton="false" LoadOpened="true"/>
+    <Section Name="scaglioniSection" Description="" Legend="Scaglioni definiti sull'Entità rimborsi" ShowButton="false" LoadOpened="true"/>
+    <Section Name="tariffaSection" Description="" Legend="Dettaglio Entità rimborso costi" ShowButton="false" LoadOpened="true"/>
+    <Section Name="riepilogoTariffaSection" Description="" Legend="Riepilogo dati entità rimborso costi da salvare" ShowButton="false" LoadOpened="true"/>
+    <Section Name="scaglioneSection" Description="" Legend="Dettaglio scaglione" ShowButton="false" LoadOpened="true"/>
+    
+    <List Name="ListaTariffe" Description="Lista entità rimborso costi definite nel rimborso costi">
+        <Input Name="nm_tariffa" Description="Denominazione" Type="STRING" />
+        <Input Name="tipo_tariffa" Description="Tipo entità rimborso costi" Type="STRING" />
+        <Input Name="im_valore_fisso_tariffa" Description="Importo rimborso costi" Type="DECIMAL" Format="#.######" GroupingDecimal="true"/>
+        <Input Name="cd_tipo_servizio" Description="Tipo servizio" Type="STRING" />        
+    </List>
+    
+    <Fields Name="TariffaDetail" Description="Dettaglio entità rimborso costi">
+        <Input Name="id_tariffa" Description="Id tariffa" Type="INTEGER" Hidden="true"/>
+        <ComboBox Name="id_tipo_servizio" Description="Tipo servizio" Type="INTEGER" Required="true" Trigger="true"/>
+        <Input Name="cd_tipo_servizio" Description="Tipo servizio" Type="STRING" Hidden="true"/>
+        <ComboBox Name="id_classe_ente_convenz" Description="Classe ente convenzionato" Type="INTEGER" />
+        <Input Name="nm_tariffa" Description="Denominazione" Type="STRING" Required="true" MaxLength="100"/>
+        <Input Name="ds_tariffa" Description="Descrizione" Type="STRING" Required="true" MaxLength="254"/>
+        <ComboBox Name="tipo_tariffa" Description="Tipo entità rimborso costi" Type="STRING" Required="true"/>
+        <Input Name="im_valore_fisso_tariffa" Description="Importo rimborso costi" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />
+        <Input Name="ni_quantita_unit" Description="Parametro scaglione rimborso costi" Type="INTEGER" GroupingDecimal="true"/>
+    </Fields>
+
+    <Fields Name="ScaglioniFields" Description="Dichiarazione scaglioni">
+        <Input Name="ni_ini_scaglione" Description="Scaglione da" Type="INTEGER" Required="true"/>
+        <Input Name="ni_fine_scaglione" Description="Scaglione a" Type="INTEGER" Required="true"/>
+        <Input Name="im_scaglione" Description="Importo" Type="DECIMAL" Required="true" Format="#.######" GroupingDecimal="true" />
+        <Button Name="aggiungiScaglione" Description="Aggiungi" Type="STRING"/>
+    </Fields> 
+            
+    <List Name="ListaScaglioni" Description="Lista scaglioni definiti sull'entità rimborso costi">
+        <Input Name="ni_ini_scaglione" Description="Scaglione da" Type="INTEGER" GroupingDecimal="true"/>
+        <Input Name="ni_fine_scaglione" Description="Scaglione a" Type="INTEGER" GroupingDecimal="true"/>
+        <Input Name="im_scaglione" Description="Importo" Type="DECIMAL" Format="#.######" GroupingDecimal="true"/>
+    </List>
+      
+    
+    <Wizard Name="InserimentoWizard" Description="Creazione Entità rimborso costi">
+        <Step Name="Step1" Description="Inserisci 1"/>
+        <Step Name="Step2" Description="Inserisci 2"/>
+        <Step Name="Step3" Description="Riepilogo"/>
+        <EndPage Name="EndPage" Description="Riepilogo" />
+    </Wizard>
+
+</Form>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Gestione Ambito Territoriale" xmlns="http://www.spagoLite.eng.it/xmlbean/form" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+
+    <!-- INIZIO GESTIONE AMBITO TERRITORIALE -->
+
+    <Fields Name="AmbitoTerritoriale" Description="Ambito territoriale" >
+        <Input Type="STRING" Description="*Codice ambito" Name="cd_ambito_territ" MaxLength="100"/>
+        <ComboBox Type="STRING" Description="*Tipo ambito" Name="ti_ambito_territ" Trigger="true"/>
+        <ComboBox Type="INTEGER" Description="Nodo padre" Name="id_ambito_territ_padre" />
+        <Button Name="salvaAmbitoTerritoriale" Description="Salva" Type="STRING" />
+        <Input Type="INTEGER" Description="Id to update" Name="id_to_update" />
+    </Fields>
+    
+    <!-- Tree -->
+    <Tree Description="Albero gestione ambiti territoriali" Name="gestAmbTree" editable="true" checkable="false" draggable="true" 
+          useDefaultCreateNodeButton="false" useDefaultDeleteNodeButton="false"  useDefaultRenameNodeButton="false" dataType="HTML" > 
+        <TreeElement Name="id_ambito_territ" Type="ID" Description="id" /> 
+        <TreeElement Name="cd_ambito_territ" Type="NAME" Description="nome" /> 
+        <TreeElement Name="id_ambito_territ_padre" Type="ID_PARENT" Description="padre" /> 
+    </Tree> 
+
+    <!-- FINE GESTIONE AMBITO TERRITORIALE -->
+
+</Form>

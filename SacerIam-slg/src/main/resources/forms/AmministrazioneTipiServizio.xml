@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Amministrazione tipi servizio" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+  
+    <!--Ricerca tipi servizio -->
+    <Fields Name="FiltriTipiServizio" Description="Filtri ricerca tipi servizio">
+        <Input Name="cd_tipo_servizio" Description="Codice" Type="STRING" />
+        <ComboBox Name="ti_classe_tipo_servizio" Description="Classe del servizio" Type="STRING" />
+        <ComboBox Name="tipo_fatturazione" Description="Modalità di fatturazione" Type="STRING" />
+        <Button Name="ricercaTipiServizio" Description="Ricerca tipi servizio" Type="STRING" />        
+    </Fields>
+    
+    <List Name="ListaTipiServizio" Description="Lista tipi servizio">
+        <Input Name="cd_tipo_servizio" Description="Codice" Type="STRING" />
+        <Input Name="ds_tipo_servizio" Description="Descrizione" Type="STRING" />
+        <Input Name="ti_classe_tipo_servizio" Description="Classe del servizio" Type="STRING" />
+        <Input Name="tipo_fatturazione" Description="Modalità di fatturazione" Type="STRING" />
+    </List>
+    
+    <Fields Name="TipoServizioDetail" Description="Dettaglio tipo servizio">
+        <Input Name="id_tipo_servizio" Description="Id tipo servizio" Type="INTEGER" Hidden="true" />
+        <Input Name="cd_tipo_servizio" Description="Codice" Type="STRING" Required="true" MaxLength="100"/>
+        <Input Name="ds_tipo_servizio" Description="Descrizione" Type="STRING" Required="true" MaxLength="254"/>
+        <ComboBox Name="ti_classe_tipo_servizio" Description="Classe del servizio" Type="STRING" Required="true" />
+        <ComboBox Name="tipo_fatturazione" Description="Modalità di fatturazione" Type="STRING" Required="true" />
+        <ComboBox Name="fl_tariffa_accordo" Description="Rimborso costi su accordo" Type="STRING" Required="true" />
+        <ComboBox Name="fl_tariffa_annualita" Description="Rimborso costi su annualità" Type="STRING" Required="true"/>
+        <Button Name="logEventi" Description="Log eventi" Type="STRING"/>
+    </Fields>
+    
+    <Section Name="tariffeSection" Description="" Legend="Rimborso costi definiti nel tipo servizio" ShowButton="false" LoadOpened="true"/>
+    <Section Name="tariffeAccordiSection" Description="" Legend="Rimborso costi definiti su accordi nel tipo servizio" ShowButton="false" LoadOpened="true"/>
+    <Section Name="tariffeAnnualitaSection" Description="" Legend="Rimborso costi definiti su annualità nel tipo servizio" ShowButton="false" LoadOpened="true"/>
+    
+    <List Name="ListaTariffeTipoServizio" Description="Lista Rimborso costi definiti nel tipo servizio">        
+        <Input Name="nm_tariffa" Description="Denominazione" Type="STRING" />
+        <Input Name="tipo_tariffa" Description="Tipo entità rimborso costi" Type="STRING" />
+        <Input Name="im_valore_fisso_tariffa" Description="Importo rimborso costi" Type="DECIMAL" Format="#.##" GroupingDecimal="true" />
+        <Input Name="nm_tariffario" Description="Entità rimborso costi" Type="STRING" />
+    </List>
+    
+     <List Name="ListaTariffeAccordiTipoServizio" Description="Lista Rimborso costi definiti su accordi nel tipo servizio">        
+        <Input Name="accordo" Description="Accordo" Type="STRING" />
+        <Input Name="im_tariffa_accordo" Description="Importo rimborso costi" Type="DECIMAL" Format="#.##" GroupingDecimal="true" />
+        <Input Name="cd_tipo_servizio" Description="Tipo servizio" Type="STRING" />
+    </List>
+    
+     <List Name="ListaTariffeAnnualitaTipoServizio" Description="Lista Rimborso costi definiti su annualità nel tipo servizio">        
+        <Input Name="accordo" Description="Accordo" Type="STRING" />
+         <Input Name="aa_anno_accordo" Description="Annualità" Type="INTEGER" />
+        <Input Name="im_tariffa_aa_accordo" Description="Importo rimborso costi" Type="DECIMAL" Format="#.##" GroupingDecimal="true" />
+        <Input Name="cd_tipo_servizio" Description="Tipo servizio" Type="STRING" />
+    </List>
+    
+</Form>

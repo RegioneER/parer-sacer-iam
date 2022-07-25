@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: Quaranta_M
+Build-Jdk: 1.7.0_13
+App-BuildDate: 1970-01-01 00:00
+App-Name: Sacer IAM
+App-Version: SVILUPPO
+

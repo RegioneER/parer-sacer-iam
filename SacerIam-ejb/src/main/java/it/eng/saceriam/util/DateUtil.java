@@ -1,0 +1,122 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package it.eng.saceriam.util;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import org.joda.time.format.DateTimeFormat;
+
+/**
+ *
+ * @author Iacolucci_M
+ */
+public class DateUtil {
+
+    public static final String DATE_FORMAT_SLASH = "dd/MM/yyyy";
+    public static final String DATE_FORMAT_MINUS = "dd-MM-yyyy";
+    public static final String DATE_FORMAT_SLASH_TIME = "dd/MM/yyyy HH:mm:ss";
+    public static final String MAX_DATE_FORMAT_SLASH = "31/12/2444";
+    public static final Date MAX_DATE = new Date(
+            DateTimeFormat.forPattern(DATE_FORMAT_SLASH).parseMillis(MAX_DATE_FORMAT_SLASH));
+
+    public static String formatDateWithSlash(Date data) {
+        SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_SLASH);
+        return df.format(data);
+    }
+
+    public static String formatDateWithMinus(Date data) {
+        SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_MINUS);
+        return df.format(data);
+    }
+
+    public static String formatDateWithSlashAndTime(Date data) {
+        SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_SLASH_TIME);
+        return df.format(data);
+    }
+
+    /*
+     * Torna una lista di anni compresi nel range passato
+     */
+    public static List<Integer> getYearsBetween(int number1, int number2) {
+        List<Integer> yearsInRange = new ArrayList<>();
+
+        for (int t = number1; t <= number2; t++) {
+            yearsInRange.add(t);
+        }
+        return yearsInRange;
+    }
+
+    public static Date getDataInfinita() {
+        Calendar c = Calendar.getInstance();
+        c.set(2444, Calendar.DECEMBER, 31, 23, 59, 59);
+        c.set(Calendar.MILLISECOND, 999);
+        return c.getTime();
+    }
+
+    public static Date getGennaio2000() {
+        Calendar c = Calendar.getInstance();
+        c.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+
+    public static Date get3MesiAntecedentiDataOdierna() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.add(Calendar.DATE, -90);
+        return c.getTime();
+    }
+
+    public static Date getDataOdiernaNoTime() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+
+    public static String ucContrDate(String aggiunta, Date dtIniVal, Date dtFineVal) {
+        String error = null;
+        if (dtIniVal == null || dtFineVal == null) {
+            error = "Una delle due date " + aggiunta + " risulta essere nulla </br>";
+        } else if (dtFineVal.compareTo(dtIniVal) < 0) {
+            error = "La data di fine validità " + aggiunta + " non può essere inferiore alla data di inizio validità "
+                    + aggiunta + "</br>";
+        }
+        return error;
+    }
+
+    public static String ucContrDate(String aggiunta, Date dtIniVal, Date dtFineVal, String desc1, String desc2) {
+        String error = null;
+        if (dtIniVal != null && dtFineVal != null) {
+            if (dtFineVal.compareTo(dtIniVal) < 0) {
+                error = "La data di " + desc2 + " " + aggiunta + " non può essere inferiore alla data di " + desc1 + " "
+                        + aggiunta + "</br>";
+            }
+        }
+        return error;
+    }
+
+    public static String ucContrInclusione(String aggiuntaFiglio, String aggiuntaPadre, Date dtIniValFiglio,
+            Date dtFineValFiglio, Date dtIniValPadre, Date dtFineValPadre) {
+        String error = null;
+        if (dtFineValFiglio == null || dtIniValPadre == null || dtIniValFiglio == null || dtFineValPadre == null) {
+            error = "Una delle date " + aggiuntaFiglio + " o " + aggiuntaPadre + " risulta essere nulla </br>";
+        } else if (!(dtIniValFiglio.compareTo(dtIniValPadre) >= 0 && dtIniValFiglio.compareTo(dtFineValPadre) <= 0
+                && dtFineValFiglio.compareTo(dtIniValPadre) >= 0 && dtFineValFiglio.compareTo(dtFineValPadre) <= 0)) {
+            error = "La validità " + aggiuntaFiglio + " non è inclusa nella validità " + aggiuntaPadre + "</br>";
+        }
+        return error;
+    }
+
+}

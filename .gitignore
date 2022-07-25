@@ -1,0 +1,17 @@
+/**/target/
+/ears
+/SacerIam-web/src/main/webapp/WEB-INF/tld/
+nb-configuration.xml
+.settings/*
+*/.settings/*
+.classpath
+nbactions.xml
+/SacerIam-ear/src/main/application/META-INF/jboss-app.xml
+/target/
+.project
+**/*.iml
+.idea
+/**/nbproject/
+/**/xaDiskHome/
+.vscode
+**/.factorypath

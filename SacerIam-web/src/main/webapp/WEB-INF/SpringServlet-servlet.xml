@@ -1,0 +1,86 @@
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+                  
+    <context:annotation-config/>
+    <context:component-scan base-package="it.eng.saceriam.web.action,it.eng.saceriam.web.rest.controller"/>
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
+    
+    <import resource="/sacerlog-web.xml" />
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <!-- Turn off working out content type based on URL file extension, should fall back to looking at the Accept headers -->
+        <property name="favorPathExtension" value="false" />
+    </bean>    
+    
+    <bean name="paginator" class="it.eng.paginator.ejb.PaginatorImpl"/>
+    <bean name="sacerIamAuthenticator" class="it.eng.saceriam.web.security.SacerIamAuthenticator"/>
+    <bean name="/View.html" class="it.eng.spagoLite.actions.RedirectAction" scope="prototype"/>
+   
+    <bean name="/Login.html" class="it.eng.spagoLite.actions.security.LoginAction" scope="prototype"/>
+    <bean name="/Logout.html" class="it.eng.spagoLite.actions.security.LogoutAction" scope="prototype"/>
+    <bean name="/ModificaPsw.html" class="it.eng.saceriam.web.action.ModificaPswAction" scope="prototype"/>
+    <bean name="/AssociazioneUtente.html" class="it.eng.saceriam.web.action.AssociazioneUtenteAction" scope="prototype"/>
+    <bean name="/SceltaOrganizzazione.html" class="it.eng.saceriam.web.action.SceltaOrganizzazioneAction" scope="prototype"/>
+    <bean name="/Home.html" class="it.eng.saceriam.web.action.HomeAction" scope="prototype"/>
+    <bean name="/AllineaComponenti.html" class="it.eng.saceriam.web.action.AllineaComponentiAction" scope="prototype"/>
+    <bean name="/GestioneNews.html" class="it.eng.saceriam.web.action.GestioneNewsAction" scope="prototype"/>
+    <bean name="/GestioneNoteRilascio.html" class="it.eng.saceriam.web.action.GestioneNoteRilascioAction" scope="prototype"/>
+    <bean name="/GestioneJob.html" class="it.eng.saceriam.web.action.GestioneJobAction" scope="prototype"/>
+    <bean name="/GestioneHelpOnLine.html" class="it.eng.saceriam.web.action.GestioneHelpOnLineAction" scope="prototype"/>
+    <bean name="/DettaglioHelpOnLine.html" class="it.eng.saceriam.web.action.GestioneHelpOnLineAction" scope="prototype"/>
+    <bean name="/AmministrazioneUtenti.html" class="it.eng.saceriam.web.action.AmministrazioneUtentiAction" scope="prototype"/>
+    <bean name="/AmministrazioneRuoli.html" class="it.eng.saceriam.web.action.AmministrazioneRuoliAction" scope="prototype"/>
+    <bean name="/AmministrazioneSistemiVersanti.html" class="it.eng.saceriam.web.action.AmministrazioneSistemiVersantiAction" scope="prototype"/>
+    <bean name="/AmministrazioneEntiConvenzionati.html" class="it.eng.saceriam.web.action.AmministrazioneEntiConvenzionatiAction" scope="prototype"/>
+    <bean name="/AmministrazioneEntiNonConvenzionati.html" class="it.eng.saceriam.web.action.AmministrazioneEntiNonConvenzionatiAction" scope="prototype"/>
+    <bean name="/AmministrazioneTipiAccordo.html" class="it.eng.saceriam.web.action.AmministrazioneTipiAccordoAction" scope="prototype"/>
+    <bean name="/AmministrazioneTariffari.html" class="it.eng.saceriam.web.action.AmministrazioneTariffariAction" scope="prototype"/>
+    <bean name="/AmministrazioneClasseEnte.html" class="it.eng.saceriam.web.action.AmministrazioneClasseEnteAction" scope="prototype"/>
+    <bean name="/AmministrazioneTipiServizio.html" class="it.eng.saceriam.web.action.AmministrazioneTipiServizioAction" scope="prototype"/>
+    <bean name="/GestioneAmbitoTerritoriale.html" class="it.eng.saceriam.web.action.GestioneAmbitoTerritorialeAction" scope="prototype"/>
+    <bean name="/GestioneFatturazioneServizi.html" class="it.eng.saceriam.web.action.GestioneFatturazioneServiziAction" scope="prototype"/>
+    <bean name="/GestioneAccessiFalliti.html" class="it.eng.saceriam.web.action.GestioneAccessiFallitiAction" scope="prototype"/>
+    <bean name="/NoteRilascio.html" class="it.eng.saceriam.web.action.NoteRilascioAction" scope="prototype"/>
+    
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/jsp/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+
+</beans> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

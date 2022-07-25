@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Amministrazione enti non convenzionati" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+    
+    <!-- Ricerca enti non convenzionati -->
+    <Fields Name="FiltriEntiNonConvenzionati" Description="Ricerca enti non convenzionati">
+        <!--<ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" />-->
+        <Input Name="nm_ente_siam" Description="Denominazione" Type="STRING" MaxLength="100" />
+        <ComboBox Name="ti_ente_non_convenz" Description="Tipologia" Type="STRING" />
+        <!--<ComboBox Name="fl_ente_attivo" Description="Ente attivo" Type="STRING" />-->        
+        <ComboBox Name="fl_ente_cessato" Description="Ente cessato" Type="STRING" />        
+        <MultiSelect Name="archivista" Description="Archivista di riferimento" Type="INTEGER" />
+        <CheckBox Name="no_archivista" Description="Nessun archivista assegnato" Type="STRING" defaultValue="0" />
+        <Button Name="ricercaEntiNonConvenz" Description="Ricerca enti non convenzionati" Type="STRING" />        
+        <Button Name="pulisciRicerca" Description="Pulisci" Type="STRING" />
+    </Fields>
+    
+    <List Name="ListaEntiNonConvenzionati" Description="Enti non convenzionati">
+        <Input Name="nm_ente_siam" Description="Denominazione" Type="STRING" />
+        <!--<CheckBox Name="attivo" Description="Attivo" Type="STRING" Readonly="true"/>-->
+        <CheckBox Name="cessato" Description="Cessato" Type="STRING" Readonly="true"/>
+        <Input Name="ti_ente_non_convenz" Description="Tipologia" Type="STRING" />
+        <Input Name="archivista" Description="Archivista di riferimento" Type="STRING" />
+    </List>
+    
+    <!-- Dettaglio ente non convenzionato -->
+    <Section Name="enteConvenzCorrispSection" Description="" Legend="Ente convenzionato corrispondente" ShowButton="false" LoadOpened="true"/>
+    <Section Name="sedeLegaleSection" Description="" Legend="Sede legale" ShowButton="false" LoadOpened="true"/>
+    <Section Name="ambitoTerritorialeSection" Description="" Legend="Ambito territoriale" ShowButton="false" LoadOpened="true"/>
+    <Section Name="codiciSection" Description="" Legend="Codici" ShowButton="false" LoadOpened="true"/>
+    <Section Name="accordiVigilanzaSection" Description="" Legend="Accordi di vigilanza" ShowButton="false" LoadOpened="true"/>
+    <Section Name="entiSupportatiSection" Description="" Legend="Enti supportati" ShowButton="false" LoadOpened="true"/>
+    <Section Name="utentiEnteNonConvenzionatoSection" Description="" Legend="Utenti ente non convenzionato" ShowButton="false" LoadOpened="true"/>
+    <Section Name="versatoriAssociatiSection" Description="" Legend="Versatori associati" ShowButton="false" LoadOpened="true"/>
+    <Section Name="sistemiVersantiSection" Description="" Legend="Sistemi versanti" ShowButton="false" LoadOpened="true"/>
+    <Section Name="enteNonConvenzionatoSection" Description="" Legend="Ente non convenzionato" ShowButton="false" LoadOpened="true"/>
+    <Section Name="accordoVigilSection" Description="" Legend="Accordo di vigilanza" ShowButton="false" LoadOpened="true"/>
+    <Section Name="idAccordoSection" Description="" Legend="ID Accordo" ShowButton="false" LoadOpened="true"/>
+    <Section Name="enteSupportatoSection" Description="" Legend="Ente supportato" ShowButton="false" LoadOpened="true"/>
+    <Section Name="utentiArchivistiSection" Description="" Legend="Archivisti di riferimento" ShowButton="false" LoadOpened="true"/>
+    <Section Name="utenteArchivistaSection" Description="" Legend="Archivista di riferimento" ShowButton="false" LoadOpened="true"/>
+    <Section Name="referentiEnteSection" Description="" Legend="Referenti dell'ente" ShowButton="false" LoadOpened="true"/>
+    <Section Name="referenteEnteSection" Description="" Legend="Referente dell'ente convenzionato" ShowButton="false" LoadOpened="true"/>
+        
+    <Fields Name="EnteNonConvenzionatoDetail" Description="Dettaglio ente non convenzionato">
+        <ComboBox Name="ti_ente_non_convenz" Description="Tipo ente" Type="STRING" Required="true"/>
+        <Input Name="id_ente_siam" Description="ID" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_ente_siam" Description="Denominazione" Type="STRING" Required="true" MaxLength="100"/>
+        <ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" Trigger="true"/>
+        <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" Required="true" />
+        <Input Name="dt_cessazione" Description="Data fine validità" Type="DATE" Required="true" />  
+        <TextArea Name="ds_note" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254" />      
+        <ComboBox Name="id_ente_siam_produt_corrisp" Description="Ente" Type="INTEGER" />
+        <Input Name="nm_ente_siam_produt_corrisp" Description="Ente" Type="STRING" />
+        <Input Name="cd_nazione_sede_legale" Description="Paese" Type="STRING" Required="true" Readonly="true" />
+        <ComboBox Name="id_prov_sede_legale" Description="Provincia" Type="INTEGER" Trigger="true"/>
+        <Input Name="ds_via_sede_legale" Description="Via" Type="STRING" MaxLength="254"/>
+        <Input Name="cd_cap_sede_legale" Description="CAP" Type="CAP" MaxLength="5" />
+        <Input Name="ds_citta_sede_legale" Description="Città" Type="STRING" MaxLength="254"/>
+        <Input Name="cd_fisc" Description="Codice fiscale / Partita IVA" Type="CODFISCPIVA" MaxLength="11"/>
+        
+        <ComboBox Name="cd_ambito_territ_regione" Description="Regione" Type="INTEGER" Trigger="true" Required="true" />
+        <ComboBox Name="cd_ambito_territ_provincia" Description="Provincia " Type="INTEGER" Trigger="true" Required="true" />
+        <ComboBox Name="cd_ambito_territ_forma_associata" Description="Forma associata" Type="INTEGER" />   
+        
+        <Input Name="level_enti_convenz" Description="Livello di annidamento enti convenzionati" Type="INTEGER" />
+        
+        <Button Name="logEventi" Description="Log eventi" Type="STRING"/>       
+    </Fields>
+
+    <List Name="AccordiVigilList" Description="Accordi di vigilanza">
+        <Input Name="id_ente_conserv" Description="Id ente conserv" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_ente_siam" Description="Ente conservatore" Type="STRING" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" />
+        <Input Name="dt_fin_val" Description="Data fine validità" Type="DATE" />
+    </List>
+    
+    <List Name="EntiSupportatiList" Description="Enti supportati">
+        <Input Name="id_ente_produt" Description="Id ente produt" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
+        <Input Name="nm_ente_siam" Description="Ente" Type="STRING" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" />
+        <Input Name="dt_fin_val" Description="Data fine validità" Type="DATE" />
+    </List>
+    
+    <List Name="UtentiEnteList" Description="Utenti ente non convenzionato">
+        <Input Name="id_user_iam" Description="Id user iam" Type="INTEGER" Hidden="true" />
+        <Input Name="tipo_user" Description="Tipo user" Type="STRING" Hidden="true" />
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING" />
+        <Input Name="nm_userid" Description="Userid" Type="STRING" />
+        <Input Name="ds_email" Description="Email" Type="STRING" />
+    </List>
+    
+    <List Name="VersatoriAssociatiList" Description="Versatori associati">
+        <Input Name="id_ente_convenz_org" Description="Id ente convenz org" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_vers_ping" Description="Versatore" Type="STRING" />
+        <Input Name="nm_organiz" Description="Organizzazione" Type="STRING" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" />
+        <Input Name="dt_fine_val" Description="Data fine validità" Type="DATE" />
+    </List>
+    
+    <List Name="SistemiVersantiList" Description="Sistemi versanti">
+        <Input Name="id_sistema_versante" Description="Id sistema versante" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_sistema_versante" Description="Denominazione" Type="STRING" />
+        <Input Name="ds_sistema_versante" Description="Descrizione" Type="STRING" />
+        <Input Name="archivista" Description="Archivisti di riferimento" Type="STRING" />
+    </List>
+
+    <List Name="UtentiArchivistiList" Description="Archivisti di riferimento">
+        <Input Name="id_ente_ark_rif" Description="Id ente ark rif" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="id_user_iam" Description="Id user iam" Type="INTEGER" Hidden="true" />
+        <Input Name="tipo_user" Description="Tipo user" Type="STRING" Hidden="true" />
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING" />
+        <Input Name="nm_userid" Description="Userid" Type="STRING" />
+        <CheckBox Name="fl_referente" Description="Referente" Type="STRING" Readonly="true" />
+        <Input Name="dl_note" Description="Note" Type="STRING" />
+    </List>
+    
+    <Fields Name="UtenteArchivistaDetail" Description="Dettaglio archivista di riferimento">
+        <Input Name="id_ente_ark_rif" Description="Id ente ark rif" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="nm_userid" Description="Username" Type="STRING" />
+        <Input Name="nm_userid_codificato" Description="Utente codificato" Type="STRING" Readonly="true" />
+        <Input Name="id_user_iam" Description="Utente codificato" Type="INTEGER" Readonly="true" Hidden="true" />
+        <CheckBox Name="fl_referente" Description="Referente" Type="STRING" />
+        <TextArea Name="dl_note" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254" />
+        <!--<Button Name="selezionaUtenteArchivista" Description="Seleziona" Type="STRING" />-->
+        <!--<Button Name="rimuoviUtenteArchivista" Description="Rimuovi" Type="STRING" />-->        
+    </Fields>
+    
+    <List Name="ReferentiEnteList" Description="Referenti">
+        <Input Name="id_ente_user_rif" Description="Id ente user rif" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="id_user_iam" Description="Id user iam" Type="INTEGER" Hidden="true" />
+        <Input Name="tipo_user" Description="Tipo user" Type="STRING" Hidden="true" />
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING" />
+        <Input Name="nm_userid" Description="Userid" Type="STRING" />
+        <Input Name="ds_email" Description="Email" Type="STRING" />
+        <Input Name="dl_note" Description="Note" Type="STRING" />
+    </List>
+    
+    <Fields Name="ReferenteEnteDetail" Description="Dettaglio referente dell'ente convenzionato">
+        <Input Name="id_ente_user_rif" Description="Id ente ark rif" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="nm_userid" Description="Username" Type="STRING" />
+        <Input Name="nm_userid_codificato" Description="Utente codificato" Type="STRING" Readonly="true" />
+        <Input Name="id_user_iam" Description="Utente codificato" Type="INTEGER" Readonly="true" Hidden="true" />
+        <TextArea Name="dl_note" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254" />
+        <!--<Button Name="selezionaReferenteEnte" Description="Seleziona" Type="STRING" />-->
+        <!--<Button Name="rimuoviReferenteEnte" Description="Rimuovi" Type="STRING" />-->        
+    </Fields>
+
+    <!-- Dettaglio accordo di vigilanza -->
+    <Section Name="EntiProdutVigilSection" Description="" Legend="Enti produttori vigilati" ShowButton="false" LoadOpened="true"/>
+    
+    <Fields Name="AccordoVigilDetail" Description="Dettaglio accordo di vigilanza">
+        <Input Name="id_accordo_vigil" Description="ID" Type="INTEGER" Hidden="true" />
+        <ComboBox Name="ti_ente_non_convenz" Description="Tipo ente" Type="STRING" />
+        <Input Name="id_ente_siam" Description="ID" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_ente_siam" Description="Denominazione" Type="STRING" Required="true" MaxLength="100"/>
+        <ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" />
+        <Input Name="id_ambiente_ente_convenz_field" Description="Ambiente" Type="INTEGER" Hidden="true" />
+        <Input Name="dt_ini_val_ente_siam" Description="Data inizio validità" Type="DATE" Required="true" />
+        <Input Name="dt_cessazione_ente_siam" Description="Data fine validità" Type="DATE" Required="true" />        
+        <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
+        <Input Name="nm_ente_siam_produt_corrisp" Description="Ente" Type="STRING" />
+        <Input Name="id_ente_conserv" Description="ID" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_ente_conserv" Description="Ente conservatore" Type="STRING" Required="true" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" Required="true" />
+        <Input Name="dt_fin_val" Description="Data fine validità" Type="DATE" Required="true" />  
+          <!-- ID Accordo -->
+        <!--<Input Name="nm_ambiente" Description="Ambiente" Type="STRING" Readonly="true" Required="true" />-->
+        <Input Name="nm_ente" Description="Ente" Type="STRING" Readonly="true" Required="true"/>
+        <Input Name="nm_strut" Description="Struttura" Type="STRING" Readonly="true" Required="true" />
+        <ComboBox Name="cd_registro_repertorio" Description="Registro" Type="STRING" MaxLength="100" />
+        <Input Name="aa_repertorio" Description="Anno" Type="INTEGER" MaxLength="4"/>
+        <Input Name="cd_key_repertorio" Description="Numero" Type="STRING" MaxLength="100"/>
+        <Input Name="dt_reg_accordo" Description="Data registrazione" Type="DATE" /> 
+        <Input Name="ds_firmatario_ente" Description="Firmatario ente" Type="STRING" MaxLength="254"/> 
+        <TextArea Name="ds_note_ente_accordo" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254"/>
+    </Fields>
+    
+     <ButtonList Name="UdButtonList" Description="MessageBox" >
+        <Button Name="scaricaCompFileUdAccordo" Description="Scarica file unità documentaria" Type="STRING"/>        
+    </ButtonList>
+    
+    <List Name="VigilEnteProdutList" Description="Enti produttori vigilati">
+        <Input Name="id_ente_produt" Description="Id ente conserv" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
+        <Input Name="nm_ente_siam" Description="Ente produttore" Type="STRING" />
+        <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" />
+        <Input Name="dt_fin_val" Description="Data fine validità" Type="DATE" />
+    </List>
+    
+    <Fields Name="EnteSupportatoDetail" Description="Dettaglio ente supportato">
+        <Input Name="id_supt_est_ente_convenz" Description="ID" Type="INTEGER" Hidden="true" />
+        <ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" Trigger="true" Required="true" />
+        <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
+        <ComboBox Name="id_ente_convenz" Description="Ente" Type="INTEGER" Trigger="true" Required="true" />
+        <Input Name="nm_ente_convenz" Description="Ente" Type="STRING" />
+        <Input Name="dt_ini_val_supt" Description="Data inizio validità" Type="DATE" Required="true" />
+        <Input Name="dt_fin_val_supt" Description="Data fine validità" Type="DATE" Required="true" />   
+    </Fields>
+</Form>

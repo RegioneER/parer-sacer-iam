@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Allinea componenti" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+    
+    <Fields Name="FiltriAllineaComponenti" Description="Filtri allinea componenti">
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="STRING" Required="true" />
+        <Input Name="cd_versione_comp" Description="Versione corrente componenti" Type="STRING" Required="true" Readonly="true" />
+        <Input Name="cd_versione_comp_new" Description="Nuova versione componenti" Type="STRING" Required="true" />
+    </Fields>
+    
+    <Fields Name="Bottoni" Description="" >
+        <Button Name="attivaAllineamento" Description="Invia" Type="STRING"/>
+        <!--        <Button Name="applica_livelli" Description="Applica" Type="STRING"/>-->
+    </Fields>
+</Form>

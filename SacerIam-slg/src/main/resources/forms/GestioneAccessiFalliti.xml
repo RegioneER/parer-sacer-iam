@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="GestioneAccessiFalliti" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+    
+    <Fields Name="FiltriAccessiFalliti" Description="Ricerca degli accessi" >
+        <Input Type="DATE" Description="Data accesso da" Name="dt_evento_da"/>
+        <Input Type="DATE" Description="Data accesso a" Name="dt_evento_a"/>
+        <Input Type="STRING" Description="Username" Name="nm_userid"/>
+        <ComboBox Type="STRING" Description="Tipo evento" Name="tipo_evento"/>
+        <CheckBox Type="STRING" Description="Includi utenti automi" Name="incl_utenti_automi"/>
+        <CheckBox Type="STRING" Description="Includi login OK" Name="incl_login_OK"/>
+        <Button Name="ricercaAccessiFalliti" Description="Ricerca" Type="STRING"/>
+    </Fields>
+    
+    <List Name="AccessiFallitiList" Description="Lista degli accessi">
+        <Input Type="STRING" Description="Username" Name="nm_userid" />
+        <Input Type="DATETIME" Description="Data evento" Name="dt_evento" />
+        <Input Type="STRING" Description="Tipo evento" Name="tipo_evento" />
+        <Input Type="STRING" Description="Descrizione evento" Name="ds_evento" />        
+        <Input Type="STRING" Description="IP client" Name="cd_ind_ip_client" />
+        <Input Type="STRING" Description="Indirizzo server" Name="cd_ind_server" />
+    </List>
+     
+</Form>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="ModificaPsw" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+    
+    <Fields Name="ModificaPsw" Description="Modifica psw" >
+        <Button Name="modifica" Description="Conferma modifica password" Type="STRING"/>
+    </Fields>
+    
+</Form>

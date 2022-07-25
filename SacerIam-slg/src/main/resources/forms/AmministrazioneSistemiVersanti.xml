@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Sistemi versanti" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+
+    <Section Name="SedeLegaleSection" Description="" Legend="Sede legale" ShowButton="false" LoadOpened="true"/>
+    <Section Name="StruttureVersantiSection" Description="" Legend="Strutture versanti" ShowButton="false" LoadOpened="true"/>
+    <Section Name="UtentiArchivistiSection" Description="" Legend="Archivisti di riferimento" ShowButton="false" LoadOpened="true"/>
+    <Section Name="ReferentiDittaProduttriceSection" Description="" Legend="Referenti ditta produttrice" ShowButton="false" LoadOpened="true"/>
+    <Section Name="PostaElettronicaSection" Description="" Legend="Indirizzo di posta elettronica" ShowButton="false" LoadOpened="true"/>
+    
+    <Fields Name="FiltriSistemiVersanti" Description="Filtri ricerca sistemi versanti">
+        <Input Name="nm_sistema_versante" Description="Denominazione" Type="STRING" />
+        <Input Name="ds_sistema_versante" Description="Descrizione" Type="STRING"/>
+        <Input Name="nm_produttore" Description="Produttore" Type="STRING"/>
+        <Input Name="cd_versione" Description="Versione" Type="STRING"/>
+        <ComboBox Name="id_organiz_applic" Description="Organizzazione" Type="INTEGER"/>
+        <ComboBox Name="fl_cessato_filtro" Description="Cessato" Type="STRING"/>
+        <ComboBox Name="fl_integrazione_filtro" Description="Integrazione in corso" Type="STRING"/>
+        <MultiSelect Name="archivista" Description="Archivista di riferimento" Type="INTEGER" />
+        <CheckBox Name="no_archivista" Description="Nessun archivista assegnato" Type="STRING" defaultValue="0" />
+        <Button Name="ricercaSistemiVersanti" Description="Ricerca" Type="STRING" />
+    </Fields>
+    
+    <List Name="ListaSistemiVersanti" Description="Lista sistemi versanti">
+        <Input Name="id_sistema_versante" Description="Id" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_sistema_versante" Description="Denominazione" Type="STRING" />
+        <Input Name="ds_sistema_versante" Description="Descrizione" Type="STRING"/>
+        <Input Name="nm_produttore" Description="Produttore" Type="STRING"/>
+        <Input Name="ds_email" Description="Email" Type="EMAIL"/>
+        <CheckBox Name="fl_pec" Description="PEC" Type="STRING" Readonly="true" />
+        <CheckBox Name="fl_cessato" Description="Cessato" Type="STRING" Readonly="true"/>
+        <CheckBox Name="fl_integrazione" Description="Integrazione in corso" Type="STRING" Readonly="true"/>
+        <Input Name="archivista" Description="Archivista di riferimento" Type="STRING" />
+    </List>
+    
+    <Fields Name="SistemaVersanteDetail" Description="Dettaglio sistema versante">
+        <Input Name="id_sistema_versante" Description="ID" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_sistema_versante" Description="Denominazione" Type="STRING" Required="true" MaxLength="100"/>
+        <Input Name="ds_sistema_versante" Description="Descrizione" Type="STRING" Required="true" MaxLength="254"/>        
+        <TextArea Name="ds_note" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254"/>        
+        <Input Name="cd_versione" Description="Versione" Type="STRING" MaxLength="100"/>
+        <ComboBox Name="id_ente_siam" Description="Nome ditta produttrice" Type="INTEGER" Required="true" Trigger="true" />
+        <Input Type="DATE" Description="Data inizio validità" Name="dt_ini_val" Required="true" Trigger="true"/>
+        <Input Type="DATE" Description="Data fine validità" Name="dt_fine_val" Required="true" Trigger="true"/>
+        <CheckBox Name="fl_associa_persona_fisica" Description="Associabile a persona fisica" Type="STRING" />
+        <CheckBox Name="fl_cessato" Description="Cessato" Type="STRING" Readonly = "true"/>
+        <CheckBox Name="fl_integrazione" Description="Integrazione in corso" Type="STRING"/>
+        <Input Name="ds_via_sede_legale" Description="Via" Type="STRING" MaxLength="254" Readonly="true" />
+        <Input Name="ds_citta_sede_legale" Description="Città" Type="STRING" MaxLength="254" Readonly="true" />
+        <Input Name="cd_cap_sede_legale" Description="Cap" Type="STRING" MaxLength="5" Readonly="true" />
+        <Input Name="ds_email" Description="Email" Type="EMAIL"/>
+        <CheckBox Name="fl_pec" Description="PEC" Type="STRING" />
+    </Fields>
+    
+    <List Name="StruttureVersantiList" Description="Lista strutture versanti" hideUpdateButton="true" hideDetailButton="true" hideDeleteButton="true" hideInsertButton="true">
+        <Input Name="id_organiz_applic" Description="ID_ORGANIZ_IAM" Type="INTEGER" Hidden="true" />
+        <Link Name="dl_composito_organiz" Description="Ambiente - Ente - Struttura" Type="STRING" Tooltip="Visualizza struttura" isTargetList="false" Target="strut" ExternalLinkParamApplic="DA_MODIFICARE_IN_APP" ExternalLinkParamId="id_organiz_applic"/>
+    </List>
+    
+    <List Name="UtentiArchivistiList" Description="Archivisti di riferimento">
+        <Input Name="nm_ente_siam" Description="Ente di appartenenza" Type="STRING" />
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING" />
+        <Input Name="nm_userid" Description="Userid" Type="STRING" />
+    </List>
+    
+    <List Name="ReferentiDittaProduttriceList" Description="Referenti ditta produttrice">
+        <Input Name="nm_cognome_user" Description="Cognome" Type="STRING" />
+        <Input Name="nm_nome_user" Description="Nome" Type="STRING" />
+        <Input Name="nm_userid" Description="Userid" Type="STRING" />
+        <Input Name="ds_email" Description="Email" Type="STRING" />
+    </List>
+    
+    <ButtonList Name="UtentiArkCustomMessageButtonList" Description="MessageBox" >        
+        <Button Secure="false" Name="confermaCancUtenteArk"  Description="Si" Type="STRING" />
+        <Button Secure="false" Name="annullaCancUtenteArk"  Description="No" Type="STRING" />
+    </ButtonList>
+    
+    <ButtonList Name="ReferentiDittaProduttriceCustomMessageButtonList" Description="MessageBox" >        
+        <Button Secure="false" Name="confermaCancReferenteDittaProduttrice"  Description="Si" Type="STRING" />
+        <Button Secure="false" Name="annullaCancReferenteDittaProduttrice"  Description="No" Type="STRING" />
+    </ButtonList>
+
+</Form>

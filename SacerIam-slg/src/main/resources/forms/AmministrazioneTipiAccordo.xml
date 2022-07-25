@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Amministrazione tipi accordo" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+  
+    <!-- Ricerca tipi accordo -->
+    <Fields Name="FiltriTipiAccordi" Description="Filtri ricerca tipi accordo">
+        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" />
+        <Input Name="ds_tipo_accordo" Description="Descrizione" Type="STRING" />
+        <ComboBox Name="fl_pagamento" Description="A pagamento" Type="STRING" />
+        <ComboBox Name="is_attivo" Description="Attivo" Type="STRING" />
+        <Button Name="ricercaTipiAccordi" Description="Ricerca tipi accordi" Type="STRING" />        
+    </Fields>
+    
+    <List Name="ListaTipiAccordo" Description="Lista tipi accordo">
+        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" />
+        <Input Name="ds_tipo_accordo" Description="Descrizione" Type="STRING" />
+        <CheckBox Name="fl_pagamento" Description="A pagamento" Type="STRING" Readonly="true" />
+    </List>
+    
+    <Section Name="tariffariSection" Description="" Legend="Lista Rimborso costi ammessi" ShowButton="false" LoadOpened="true"/>
+  
+    <Fields Name="TipoAccordoDetail" Description="Dettaglio tipo accordo">
+        <Input Name="id_tipo_accordo" Description="Tipo accordo" Type="INTEGER" Hidden="true" />
+        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" Required="true" MaxLength="100"/>
+        <Input Name="ds_tipo_accordo" Description="Descrizione" Type="STRING" Required="true" MaxLength="254"/>
+        <ComboBox Name="fl_pagamento" Description="A pagamento" Type="STRING" Required="true"/>
+        <ComboBox Name="cd_algo_tariffario" Description="Algoritmo tariffario" Type="STRING" Required="true"/>
+        <Input Name="dt_istituz" Description="Inizio validità" Type="DATE" Required="true"/>
+        <Input Name="dt_soppres" Description="Fine validità" Type="DATE" />        
+        <Button Name="logEventi" Description="Log eventi" Type="STRING"/>
+    </Fields>
+    
+    <List Name="ListaTariffario" Description="Lista tariffari ammessi">
+        <Input Name="nm_tariffario" Description="Denominazione" Type="STRING" />
+        <Input Name="dt_ini_val" Description="Inizio validità" Type="DATE" />
+        <Input Name="dt_fine_val" Description="Fine validità" Type="DATE" />        
+    </List>
+    
+</Form>

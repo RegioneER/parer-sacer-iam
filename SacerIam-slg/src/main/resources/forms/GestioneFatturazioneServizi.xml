@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Gestione fatturazione servizi" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">   
+    
+    <Section Name="numFatturaTempSection" Description="" Legend="Fatture temporanee" ShowButton="false" LoadOpened="true"/>
+    <Section Name="numFatturaSection" Description="" Legend="Fatture emesse" ShowButton="false" LoadOpened="true"/>ù
+    <Section Name="serviziFatturatiSection" Description="" Legend="Servizi fatturati" ShowButton="false" LoadOpened="true"/>
+    <Section Name="incassiSection" Description="" Legend="Incassi" ShowButton="false" LoadOpened="true"/>
+    <Section Name="fattureRiemesseSection" Description="" Legend="Fatture riemesse" ShowButton="false" LoadOpened="true"/>
+    <Section Name="sollecitiSection" Description="" Legend="Solleciti" ShowButton="false" LoadOpened="true"/>
+    <Section Name="modificheSection" Description="" Legend="Modifiche" ShowButton="false" LoadOpened="true"/>
+    <Section Name="enteConvenzionatoSection" Description="" Legend="Ente convenzionato" ShowButton="true" LoadOpened="true"/>
+    <Section Name="datiAccordoSection" Description="" Legend="Dati accordo" ShowButton="true" LoadOpened="false"/>
+    <Section Name="statoFatturaSection" Description="" Legend="Stato fattura" ShowButton="true" LoadOpened="true"/>
+    <Section Name="datiFatturaTemporaneaSection" Description="" Legend="Dati fattura temporanea" ShowButton="true" LoadOpened="true"/>
+    <Section Name="datiFatturaEmessaSection" Description="" Legend="Dati fattura emessa" ShowButton="true" LoadOpened="true"/>
+    <Section Name="importiSection" Description="" Legend="Importi" ShowButton="true" LoadOpened="true"/>
+    <Section Name="operazioniStornoSection" Description="" Legend="Operazioni di storno" ShowButton="true" LoadOpened="false"/>
+    <Section Name="documentoIncassoSection" Description="" Legend="Documento di incasso" ShowButton="true" LoadOpened="true"/>
+    <Section Name="sollecitoSection" Description="" Legend="Identificativo sollecito" ShowButton="true" LoadOpened="true"/>
+    <Section Name="fatturaSection" Description="" Legend="Fattura" ShowButton="true" LoadOpened="true"/>
+    <Section Name="servizioErogatoSection" Description="" Legend="Servizio erogato" ShowButton="true" LoadOpened="false"/>
+    <Section Name="servizioFatturatoSection" Description="" Legend="Servizio fatturato" ShowButton="true" LoadOpened="true"/>
+
+    <!-- Ricerca fatturazioni -->
+    <Fields Name="FiltriFattura" Description="Gestione Fatturazione">
+        <Input Name="nm_ente_convenz" Description="Denominazione ente" Type="STRING" />
+        <Input Name="cd_cliente_sap" Description="Codice debitore (SAP)" Type="STRING" />
+        <ComboBox Name="id_tipo_accordo" Description="Tipo accordo" Type="INTEGER" />
+        <ComboBox Name="id_tipo_servizio" Description="Tipo servizio" Type="INTEGER" />
+        <Input Name="aa_fattura_da" Description="Anno da" Type="INTEGER" MaxLength="4" />
+        <Input Name="aa_fattura_a" Description="Anno a" Type="INTEGER" MaxLength="4" />
+        <Input Name="pg_fattura_ente_da" Description="Progressivo da" Type="INTEGER" />
+        <Input Name="pg_fattura_ente_a" Description="Progressivo a" Type="INTEGER" />
+        <Input Name="cd_fattura" Description="Codice" Type="STRING" />
+        <Input Name="cd_registro_emis_fattura" Description="Registro" Type="STRING" />
+        <Input Name="aa_emiss_fattura" Description="Anno" Type="INTEGER" MaxLength="4" />        
+        <Input Name="cd_emis_fattura" Description="Numero" Type="STRING" />
+        <Input Name="pg_fattura_emis" Description="Progressivo" Type="INTEGER" />
+        <Input Name="dt_emis_fattura_da" Description="Data emissione da" Type="DATE" />
+        <Input Name="dt_emis_fattura_a" Description="Data emissione a" Type="DATE" />
+        <MultiSelect Name="ti_stato_fattura_ente" Description="Stato fattura" Type="STRING" />
+        <Button Name="ricercaFattura" Description="Ricerca fatture" Type="STRING" />                <Button Name="cambiaStatoFatture" Description="Cambia stato fatture" Type="STRING" />        
+        <Button Name="estraiRigheFattureTotali" Description="Estrai righe fatture totali" Type="STRING" />        
+        <Button Name="estraiRigheFattureDaRicerca" Description="Estrai righe fatture da ricerca" Type="STRING" />        
+    </Fields>
+    
+    <List Name="ListaFatture" Description="Lista fatture">
+        <CheckBox Name="fl_fatture_sel" Description="" Type="STRING" Readonly="false" />        
+        <Input Name="id_fattura_ente" Description="Id fattura" Type="INTEGER" Hidden="true" />
+        <Input Name="nm_ente_convenz" Description="Ente convenzionato" Type="STRING" />
+        <Input Name="cd_cliente_sap" Description="Codice debitore (SAP)" Type="STRING" />
+        <Input Name="cd_fattura" Description="Codice fattura temporanea" Type="STRING" />
+        <Input Name="cd_emis_fattura" Description="Numero fattura emessa" Type="STRING" />
+        <Input Name="dt_emis_fattura" Description="Data emissione" Type="DATE" />
+        <Input Name="ti_stato_fattura_ente" Description="Stato" Type="STRING" />
+        <Input Name="dt_reg_stato_fattura_ente" Description="Data assunzione stato" Type="DATE" />
+        <Input Name="im_tot_fattura" Description="Importo totale" Type="DECIMAL" Format="#.######" GroupingDecimal="true"/>
+        <Input Name="im_tot_pagato" Description="Importo pagamento" Type="DECIMAL" Format="#.######" GroupingDecimal="true"/>
+    </List>
+    <!--List-->
+    <List Name="ListaEstraiRigheFatture" Description="Lista fatture">        
+        <Input Name="nm_ente_convenz" Description="Ente (denominazione ente convenzionato SIAM)" Type="STRING" />
+        <Input Name="cd_fisc" Description="Codice fiscale ente" Type="STRING" />
+        <Input Name="nm_servizio_erogato_completo" Description="Servizio erogato" Type="STRING" />
+        <Input Name="aa_erogazione" Description="Anno di erogazione" Type="INTEGER" />-->
+        <Input Name="ds_atto_aa_accordo" Description="Atto di impegno" Type="STRING" />
+        <Input Name="cd_ufe" Description="UFE" Type="STRING" />
+        <Input Name="cd_cig" Description="CIG" Type="STRING" />
+        <Input Name="im_servizio_fattura" Description="Importo imponibile riga fattura (IVA 22% ESCLUSA)" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />
+        <Input Name="im_totale" Description="Importo totale riga fattura (compresa IVA 22%)" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />
+        <Input Name="cd_iva" Description="Codice IVA" Type="STRING" />
+        <Input Name="conto_tesoreria_unica" Description="conto tesoreria unica" Type="STRING" />
+        <Input Name="conto_IBAN" Description="conto IBAN" Type="STRING" />        
+    </List>
+    
+    <Fields Name="FatturaDetail" Description="Dettaglio fattura">
+        <Input Name="id_fattura_ente" Description="Id fattura" Type="INTEGER" Hidden="true" />             
+        <!-- Ente convenzionato -->
+        <Input Name="id_ente_convenz" Description="Id ente convenz" Type="INTEGER" Hidden="true" />             
+        <Input Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" Required="true"/>
+        <Input Name="nm_ente_convenz" Description="Denominazione" Type="STRING" Required="true"/>
+        <Input Name="codice_ente" Description="Codice ente" Type="STRING" Required="true" />
+        <Input Name="cd_fisc" Description="Codice fiscale / Partita IVA" Type="CODFISCPIVA" />
+        <Input Name="cd_cliente_sap" Description="Codice debitore (SAP)" Type="STRING" />
+        <Input Name="cd_categ_ente" Description="Categoria ente" Type="STRING" Required="true"/>
+          <!-- Dati accordo sinistra -->
+        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" Required="true"  />
+        <Input Name="dt_dec_accordo_info" Description="Data di decorrenza" Type="DATE" />
+        <Input Name="dt_scad_accordo" Description="Data di scadenza" Type="DATE" />
+        <Input Name="dt_dec_accordo" Description="Data di inizio validità" Type="DATE" />
+        <Input Name="dt_fine_valid_accordo" Description="Data di fine validità" Type="DATE" />
+        <CheckBox Name="fl_pagamento" Description="A pagamento" Type="STRING" Required="true" />
+        <Input Name="nm_tariffario" Description="Tariffario" Type="STRING" />
+        <Input Name="cd_classe_ente_convenz" Description="Classe ente" Type="STRING" />
+        <Input Name="ni_abitanti" Description="Numero abitanti" Type="INTEGER" />
+        <Input Name="ds_note_accordo" Description="Note" Type="STRING" MaxLength="4000" />
+        <!-- Dati accordo destra -->
+        <Input Name="cd_ufe" Description="UFE" Type="STRING" MaxLength="100" />
+        <Input Name="ds_ufe" Description="Descrizione UFE" Type="STRING" MaxLength="254" />
+        <Input Name="cd_iva" Description="Codice IVA" Type="STRING" />
+        <Input Name="ds_iva" Description="Descrizione codice IVA" Type="STRING" Readonly="true"/>
+        <Input Name="cd_cig" Description="CIG" Type="STRING" MaxLength="100" />
+        <Input Name="cd_cup" Description="CUP" Type="STRING" MaxLength="100" />
+        <Input Name="cd_rif_contab" Description="Riferimento contabile" Type="STRING" MaxLength="254" />        
+        <Input Name="cd_coge" Description="CoGe" Type="STRING" MaxLength="100" />
+        <Input Name="cd_capitolo" Description="Capitolo" Type="STRING" MaxLength="100" />
+         <!-- Stato fattura -->
+        <Input Name="ti_stato_fattura_ente" Description="Stato della fattura" Type="STRING" Required="true"/>
+        <Input Name="dt_reg_stato_fattura_ente" Description="Data di assunzione dello stato" Type="DATE" Required="true"/>
+        <CheckBox Name="modifiche_intervenute" Description="Modifiche intervenute" Type="STRING" />
+        <!-- Dati fattura temporanea -->
+        <Input Name="aa_fattura" Description="Anno" Type="INTEGER" />
+        <Input Name="pg_fattura" Description="Progressivo" Type="INTEGER" />
+        <Input Name="cd_fattura" Description="Codice fattura" Type="STRING" />
+        <Input Name="dt_creazione" Description="Data creazione" Type="DATE" />
+        <!-- Dati fattura emessa -->  
+        <Input Name="nm_ente" Description="Ente" Type="STRING" Readonly="true" Required="true"/>
+        <Input Name="nm_strut" Description="Struttura" Type="STRING" Readonly="true" Required="true" />      
+        <ComboBox Name="cd_registro_emis_fattura_combo" Description="Registro" Type="STRING" Alias="cd_registro_emis_fattura" />
+        <Input Name="cd_registro_emis_fattura_text" Description="Registro" Type="STRING" Alias="cd_registro_emis_fattura" />        
+        <Input Name="aa_emiss_fattura" Description="Anno" Type="INTEGER" />     
+        <Input Name="cd_emis_fattura" Description="Numero" Type="STRING" Alias="cd_emis_fattura" />        
+        
+        <Input Name="dt_emis_fattura" Description="Data emissione" Type="DATE" />
+        <Input Name="dt_scad_fattura" Description="Scadenza pagamento" Type="DATE" />
+        <Input Name="cd_fattura_sap" Description="Numero fattura in SAP" Type="STRING" />
+        <Input Name="nt_emis_fattura" Description="Nota di emissione" Type="STRING" />
+        <!-- Importi -->
+        <CheckBox Name="fl_superamento_scaglione" Description="Superamento scaglione" Type="STRING" Required="true"/>
+        <Input Name="im_tot_netto" Description="Importo netto" Type="DECIMAL" Format="#.##" GroupingDecimal="true"/>
+        <Input Name="im_tot_iva" Description="Importo IVA" Type="DECIMAL" Format="#.##" GroupingDecimal="true"/>
+        <Input Name="im_tot_fattura" Description="Importo totale" Type="DECIMAL" Format="#.##" GroupingDecimal="true"/>
+        <Input Name="im_tot_da_pagare" Description="Importo pagamento" Type="DECIMAL" Format="#.##" GroupingDecimal="true"/>
+        <Input Name="im_tot_pagam" Description="Importo incassato" Type="DECIMAL" Format="#.##" GroupingDecimal="true"/>
+        <!-- Operazioni di storno -->        
+        <ComboBox Name="cd_registro_emis_nota_credito_combo" Description="Registro" Type="STRING" Alias="cd_registro_emis_nota_credito" />
+        <Input Name="cd_registro_emis_nota_credito_text" Description="Registro" Type="STRING" Alias="cd_registro_emis_nota_credito" />
+        <Input Name="aa_emiss_nota_credito" Description="Anno" Type="INTEGER" />
+        <Input Name="cd_emis_nota_credito" Description="Numero" Type="STRING" />
+        <Input Name="dt_emis_nota_credito" Description="Data nota di credito" Type="DATE" />
+        <ComboBox Name="fl_da_riemis" Description="Fattura da riemettere" Type="STRING" />
+        <Input Name="nt_emis_nota_credito" Description="Note sullo storno" Type="STRING" />
+        <Button Name="logEventi" Description="Log eventi" Type="STRING"/>
+        <!-- -->
+        <Input Name="level_fatture" Description="Livello di annidamento fatture" Type="INTEGER" />        
+    </Fields>
+    
+    <Fields Name="FatturaPopUpFields" Description="Campi popup modifica fattura">
+        <Input Name="data_modifica" Description="Data modifica" Type="DATE" />
+        <TextArea Name="note_modifica" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="100" Required="true"/>
+        <Button Secure="false" Name="confermaSalvataggioFattura" Description="Salva" Type="STRING" />
+        <Button Secure="false" Name="annullaSalvataggioFattura" Description="Annulla" Type="STRING" />
+    </Fields>
+    
+    <List Name="ListaServiziFatturati" Description="Lista servizi fatturati">
+        <Input Name="id_fattura_ente" Description="Id fattura ente" Type="INTEGER" Hidden="true"/>
+        <Input Name="id_servizio_erogato" Description="Id servizio erogato" Type="INTEGER" Hidden="true"/>
+        <Input Name="nm_servizio_erogato" Description="Servizio erogato" Type="STRING" Required="true" />
+        <Input Name="nm_servizio_fattura" Description="Servizio fatturato" Type="STRING" Required="true" />
+        <Input Name="id_servizio_fattura" Description="Id Servizio fatturato" Type="INTEGER" Hidden="true" />
+        <CheckBox Name="fl_superamento_scaglione" Description="Superamento scaglione" Type="STRING" Readonly="true" />
+        <Input Name="aa_servizio_fattura" Description="Anno di erogazione" Type="INTEGER" Required="true"/>
+        <Input Name="mm_fattura" Description="Mesi di effettiva erogazione" Type="INTEGER" />        
+        <Input Name="ni_unita_doc_vers" Description="Numero unità documentarie versate" Type="INTEGER" />
+        <Input Name="ni_byte_vers" Description="Storage occupato (in bytes)" Type="INTEGER" />
+        <Input Name="ni_abitanti" Description="Numero di abitanti" Type="INTEGER" />
+        <Input Name="im_netto" Description="Importo netto" Type="DECIMAL" Format="#.######" GroupingDecimal="true" Required="true"/>
+        <Input Name="cd_iva" Description="Codice IVA" Type="STRING" Required="true"/>
+        <Input Name="im_iva" Description="Importo IVA" Type="DECIMAL" Format="#.######" GroupingDecimal="true" Required="true"/>
+    </List>
+    
+    <List Name="ListaIncassi" Description="Lista incassi">
+        <Input Name="id_pagam_fattura_ente" Description="Id pagam fattura ente" Type="INTEGER" Hidden="true"/>
+        <Input Name="cd_provv_pagam" Description="Identificativo documento di incasso" Type="STRING" />
+        <Input Name="cd_rev_pagam" Description="Chiave del titolo di incasso" Type="STRING" />
+        <Input Name="dt_pagam" Description="Data" Type="DATE" />        
+        <Input Name="im_pagam" Description="Importo dell'incasso" Type="DECIMAL" Format="#.##" GroupingDecimal="true" Required="true"/>       
+    </List>
+        
+    <List Name="ListaFattureRiemesse" Description="Lista fatture riemesse">
+        <Input Name="id_fattura_ente" Description="Id fattura" Type="INTEGER" Hidden="true" />
+        <Input Name="cd_registro_emis_fattura" Description="Registro" Type="STRING" />
+        <Input Name="aa_emis_fattura" Description="Anno" Type="INTEGER" />        
+        <Input Name="cd_emis_fattura" Description="Numero" Type="STRING" />
+        <Input Name="dt_emis_fattura" Description="Data emissione" Type="DATE" />     
+        <Input Name="im_tot_fattura" Description="Importo totale" Type="DECIMAL" Format="#.######" GroupingDecimal="true"/>
+        <Input Name="im_tot_pagam" Description="Importo incassato" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />      
+        <Input Name="ti_stato_fattura_ente" Description="Stato fattura" Type="STRING" />
+        <Input Name="dt_reg_stato_fattura_ente" Description="Data assunzione stato" Type="DATE" />
+    </List>
+       
+    <List Name="ListaDetailFattureRiemesse" Description="Lista fatture riemesse">
+        <Input Name="id_fattura_ente" Description="Id fattura" Type="INTEGER" Hidden="true" />
+        <Input Name="cd_registro_emis_fattura" Description="Registro" Type="STRING" />
+        <Input Name="aa_emis_fattura" Description="Anno" Type="INTEGER" />        
+        <Input Name="cd_emis_fattura" Description="Numero" Type="STRING" />
+        <Input Name="dt_emis_fattura" Description="Data emissione" Type="DATE" />     
+        <Input Name="im_tot_fattura" Description="Importo totale" Type="DECIMAL" Format="#.######" GroupingDecimal="true"/>
+        <Input Name="im_tot_pagam" Description="Importo incassato" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />      
+        <Input Name="ti_stato_fattura_ente" Description="Stato fattura" Type="STRING" />
+        <Input Name="dt_reg_stato_fattura_ente" Description="Data assunzione stato" Type="DATE" />
+    </List>
+    
+    <Fields Name="RiemissioneFattureFields" Description="Campi popup riemissione fatture">
+        <Button Name="riemettiFattureStornate"  Description="Riemetti fatture stornate" Type="STRING"  />
+        <Input Name="anno_testata_storn" Description="Anno della testata fattura" Type="INTEGER" MaxLength="4" />
+        <Button Secure="false" Name="confermaRiemissioneFattureStornate" Description="Salva" Type="STRING" />
+        <Button Secure="false" Name="annullaRiemissioneFattureStornate" Description="Annulla" Type="STRING" />
+    </Fields>
+    
+    <List Name="ListaSolleciti" Description="Lista solleciti">
+        <Input Name="identificativo_sollecito" Description="Identificativo sollecito" Type="STRING" />
+        <Input Name="dt_sollecito" Description="Data sollecito" Type="DATE" />
+    </List>-->
+        
+    <List Name="ListaModifiche" Description="Lista modifiche">
+        <Input Name="dt_modif_fattura_ente" Description="Data modifica" Type="DATETIME" Required="true" />
+        <Input Name="nt_modif_fattura_ente" Description="Nota" Type="STRING" Required="true" />        
+    </List>
+        
+    <Fields Name="ServizioFatturatoDetail" Description="Dettaglio servizio fatturato">
+        <!-- Servizio erogato -->
+        <Input Name="nm_servizio_erogato" Description="Servizio erogato" Type="STRING" />
+        <CheckBox Name="fl_pagamento" Description="A pagamento" Type="STRING" />
+        <Input Name="tipo_fatturazione" Description="Modalità di fatturazione" Type="STRING" />
+        <Input Name="nm_tariffa" Description="Entità rimborso costi applicato" Type="STRING" />
+        <Input Name="im_valore_tariffa" Description="Importo rimborso costi" Type="DECIMAL" Format="#.######" GroupingDecimal="true"/>       
+        <Input Name="cd_tipo_servizio" Description="Tipo servizio" Type="STRING" />
+        <Input Name="nm_sistema_versante" Description="Sistema versante" Type="STRING" />
+        <Input Name="dt_erog_serv_erog" Description="Data di erogazione" Type="DATE" />
+        <!-- Servizio fatturato -->
+        <Input Name="nm_servizio_fattura" Description="Servizio fatturato" Type="STRING" />
+        <Input Name="aa_servizio_fattura" Description="Anno di erogazione" Type="INTEGER" />        
+        <Input Name="ni_unita_doc_vers" Description="Numero unità documentarie versate" Type="INTEGER" />       
+        <Input Name="ni_byte_vers" Description="Storage occupato (in bytes)" Type="INTEGER" />       
+        <Input Name="ni_abitanti" Description="Numero di abitanti" Type="INTEGER" />       
+        <Input Name="mm_fattura" Description="Mesi di effettiva erogazione" Type="INTEGER" />       
+        <Input Name="cd_ddt" Description="Documento di trasporto" Type="STRING" />
+        <Input Name="cd_oda" Description="Ordine di acquisto" Type="STRING" />
+        <Input Name="quantita" Description="Quantità" Type="INTEGER" />
+        <Input Name="unita_misura" Description="Unità di misura" Type="STRING" />
+        <Input Name="im_netto" Description="Importo fatturato al netto di IVA" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />       
+        <ComboBox Name="cd_iva" Description="Codice IVA" Type="STRING" />       
+        <Input Name="im_iva" Description="Importo IVA" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />       
+    </Fields>
+    
+    <Fields Name="IncassoDetail" Description="Dettaglio incasso">       
+        <Input Name="id_pagam_fattura_ente" Description="Id pagam fattura ente" Type="INTEGER" Hidden="true"/>
+        <Input Name="cd_provv_pagam" Description="Identificativo documento di incasso" Type="STRING" />
+        <Input Name="cd_rev_pagam" Description="Chiave del titolo di incasso" Type="STRING" />
+        <Input Name="dt_pagam" Description="Data" Type="DATE" Required="true"/>        
+        <Input Name="im_pagam" Description="Importo dell'incasso" Type="DECIMAL" Format="#.##" GroupingDecimal="true" Required="true"/>       
+        <Input Name="nt_pagam" Description="Note sull'incasso" Type="STRING" />
+    </Fields>
+    
+    <ButtonList Name="SalvaIncassoCustomMessageButtonList" Description="MessageBox" >        
+        <Button Secure="false" Name="confermaSalvataggioIncasso" Description="Si" Type="STRING"  />
+        <Button Secure="false" Name="annullaSalvataggioIncasso" Description="No" Type="STRING"  />
+    </ButtonList>
+    
+    <Fields Name="SollecitoDetail" Description="Dettaglio sollecito">       
+        <Input Name="id_sollecito_fattura_ente" Description="Id sollecito fattura ente" Type="INTEGER" Hidden="true"/>
+        <ComboBox Name="cd_registro_sollecito" Description="Registro" Type="STRING" Required="true" />
+        <Input Name="aa_var_sollecito" Description="Anno" Type="INTEGER" Required="true" />
+        <Input Name="cd_key_var_sollecito" Description="Numero" Type="STRING" Required="true" />        
+        <Input Name="dt_sollecito" Description="Data sollecito" Type="DATE" Required="true"/>       
+        <Input Name="dl_sollecito" Description="Note sul sollecito" Type="STRING" />
+    </Fields>
+    
+    <ButtonList Name="DeleteSollecitoCustomMessageButtonList" Description="MessageBox" >        
+        <Button Secure="false" Name="confermaDeleteSollecito" Description="Si" Type="STRING"  />
+        <Button Secure="false" Name="annullaDeleteSollecito" Description="No" Type="STRING"  />
+    </ButtonList>
+    
+    <ButtonList Name="UdButtonList" Description="MessageBox" >
+        <Button Name="scaricaCompFileUdFatturaEmessa" Description="Scarica file unità documentaria" Type="STRING"/>        
+        <Button Name="scaricaCompFileUdStorno" Description="Scarica file unità documentaria" Type="STRING"/>        
+    </ButtonList>
+    
+</Form>

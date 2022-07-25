@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Gestione Job" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+    
+    <Fields Name="ReplicaUtenti" Description="Replica Utenti" >
+        <CheckBox  Type="STRING" Description="In esecuzione" Name="attivo" />
+        <Input  Type="DATETIME" Description="Da" Name="dt_reg_log_job_ini" />        
+        <Input  Type="DATETIME" Description="Prossima attivazione" Name="dt_prossima_attivazione" />    
+        <Input  Type="STRING" Description="Nota" Name="fl_data_accurata" />    
+        <Button Name="startOnceReplicaUtenti" Description="Esecuzione singola" Type="STRING"/>
+        <Button Name="startReplicaUtenti" Description="Start" Type="STRING"/>
+        <Button Name="stopReplicaUtenti" Description="Stop" Type="STRING"/>
+    </Fields>
+    
+    <Fields Name="ScadenzaFatture" Description="Scadenza fatture" >
+        <CheckBox  Type="STRING" Description="In esecuzione" Name="attivo" />
+        <Input  Type="DATETIME" Description="Da" Name="dt_reg_log_job_ini" />        
+        <Input  Type="DATETIME" Description="Prossima attivazione" Name="dt_prossima_attivazione" />    
+        <Input  Type="STRING" Description="Nota" Name="fl_data_accurata" />    
+        <Button Name="startOnceScadenzaFatture" Description="Esecuzione singola" Type="STRING"/>
+        <Button Name="startScadenzaFatture" Description="Start" Type="STRING"/>
+        <Button Name="stopScadenzaFatture" Description="Stop" Type="STRING"/>
+    </Fields>
+    
+    <Fields Name="InizializzazioneLog" Description="Inizializzazione logging applicativo" >
+        <CheckBox  Type="STRING" Description="In esecuzione" Name="attivo" />
+        <Input  Type="DATETIME" Description="Da" Name="dt_reg_log_job_ini" />        
+        <Input  Type="DATETIME" Description="Prossima attivazione" Name="dt_prossima_attivazione" />
+        <Input  Type="STRING" Description="Nota" Name="fl_data_accurata" />        
+        <!-- Serve soltanto il bottone start once -->
+        <Button Name="startOnceInizializzazioneLog" Description="Esecuzione singola" Type="STRING"/>
+    </Fields>
+    
+    <Fields Name="AllineamentoLog" Description="Allineamento eventi logging applicativo da script" >
+        <CheckBox  Type="STRING" Description="In esecuzione" Name="attivo" />
+        <Input  Type="DATETIME" Description="Da" Name="dt_reg_log_job_ini" />        
+        <Input  Type="DATETIME" Description="Prossima attivazione" Name="dt_prossima_attivazione" />        
+        <Input  Type="STRING" Description="Nota" Name="fl_data_accurata" />
+        <Button Name="startAllineamentoLog" Description="Start" Type="STRING"/>
+        <Button Name="stopAllineamentoLog" Description="Stop" Type="STRING"/>
+        <Button Name="startOnceAllineamentoLog" Description="Esecuzione singola" Type="STRING"/>
+    </Fields>
+    
+</Form>

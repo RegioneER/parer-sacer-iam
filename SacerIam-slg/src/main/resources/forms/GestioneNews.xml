@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="GestioneNews" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+      xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+    
+    <Fields Name="FiltriNews" Description="Ricerca News" >
+        <Input Type="STRING" Description="Oggetto" Name="ds_oggetto_filter" MaxLength="254"/>
+        <Input Type="DATE" Description="Data Inizio Pubblicazione" Name="dt_ini_pubblic_filter" />
+        <Input Type="DATE" Description="Data Fine Pubblicazione" Name="dt_fin_pubblic_filter" />
+        <Button Name="ricercaNews" Description="Ricerca News" Type="STRING"/>
+    </Fields>
+    
+    <List Name="ListaNews" Description="News List">
+        <Input Type="STRING" Description="Oggetto" Name="ds_oggetto" MaxLength="254"/>
+        <Input Type="DATE" Description="Data Inizio Pubblicazione" Name="dt_ini_pubblic" />
+        <Input Type="DATE" Description="Data Fine Pubblicazione" Name="dt_fin_pubblic" />
+        <CheckBox Type="STRING" Description="Mostra News nella Home Page" Name="fl_pubblic_homepage" Readonly="true" />
+        <CheckBox Type="STRING" Description="Mostra News nella Pagina di Login" Name="fl_pubblic_login" Readonly="true" />
+    </List>
+    
+    <Fields Name="DettaglioNews" Description="Dettaglio News" >
+        <Input Type="INTEGER" Description="Id News" Name="id_news" Hidden="true" />
+        <Input Type="STRING" Description="Oggetto" Name="ds_oggetto" MaxLength="254" />
+        <TextArea Name="dl_testo" Description="Testo"  Type="STRING" Rows="20" Cols="100" MaxLength="4000" />
+        <Input Type="DATE" Description="Data Inizio Pubblicazione" Name="dt_ini_pubblic" />
+        <Input Type="DATE" Description="Data Fine Pubblicazione" Name="dt_fin_pubblic" />
+        <CheckBox Type="STRING" Description="Mostra al login" Name="fl_pubblic_login" />
+        <CheckBox Type="STRING" Description="Mostra in home page" Name="fl_pubblic_homepage" />        
+    </Fields>
+    
+    <List Name="ApplicazioniList" Description="Lista applicazioni" hideUpdateButton="true" hideDetailButton="true">
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING"/>
+        <Input Name="ds_applic" Description="Descrizione" Type="STRING"/>
+    </List>
+    
+    <Fields Name="ApplicazioniFields" Description="Dichiarazione applicazioni">
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER"  Trigger="true"/>
+        <Input Name="ds_applic" Description="Descrizione" Type="STRING" Readonly="true"/>
+        <Button Name="aggiungiApplicazione" Description="Aggiungi applicazione" Type="STRING"/>
+    </Fields>
+    
+</Form>

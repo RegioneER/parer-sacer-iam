@@ -1,0 +1,20 @@
+batch
+echo "Logging-Profile: SACERIAM (Test)" 
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM:add
+echo "Log su file"
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/periodic-rotating-file-handler=saceriam_handler:add(file={"path"=>"saceriam.log","relative-to"=> "jboss.server.log.dir"}, suffix=".yyyy-MM-dd",append="true" )
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/periodic-rotating-file-handler=saceriam_handler:write-attribute(name="level", value="DEBUG")
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/periodic-rotating-file-handler=saceriam_handler:write-attribute(name="formatter",value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n")
+echo "Logger specifici"
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=org.springframework:add
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=org.springframework:write-attribute(name="use-parent-handlers", value="true")
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=org.springframework:write-attribute(name="level", value="ERROR")
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=org.opensaml:add
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=org.opensaml:write-attribute(name="use-parent-handlers", value="true")
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=org.opensaml:write-attribute(name="level", value="ERROR")
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=it.eng.saceriam:add
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=it.eng.saceriam:write-attribute(name="use-parent-handlers", value="true")
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/logger=it.eng.saceriam:write-attribute(name="level", value="DEBUG")
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/root-logger=ROOT:add(handlers=[saceriam_handler])
+/profile=parer-test/subsystem=logging/logging-profile=SACERIAM/root-logger=ROOT:write-attribute(name ="level",value="INFO")
+run-batch
