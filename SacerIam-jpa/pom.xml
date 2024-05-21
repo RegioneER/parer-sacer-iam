@@ -4,14 +4,17 @@
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>saceriam-jboss</artifactId>
-        <version>4.9.2-SNAPSHOT</version>
+        <version>5.2.1-SNAPSHOT</version>
     </parent>
-    <groupId>it.eng.parer</groupId>
+
     <artifactId>saceriam-jboss-jpa</artifactId>
     <name>SacerIam-jpa</name>   
     <description>JPA</description> 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- resource filter -->
+        <hibernate.show_sql>false</hibernate.show_sql>
+        <hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
     </properties>
     <dependencies>
         <dependency>
@@ -29,21 +32,20 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>3.1.0.GA</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-vfs</artifactId>
-            <version>3.1.0.Final</version>
+            <version>${jboss-vfs.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- Annotazioni entity -->
-        <dependency>  
-            <groupId>org.jboss.spec</groupId>  
-            <artifactId>jboss-javaee-6.0</artifactId>  
-            <type>pom</type>  
-            <scope>provided</scope>  
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-jakartaee-8.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency> 
         <dependency>
             <groupId>it.eng.parer</groupId>
@@ -56,31 +58,26 @@
             <scope>compile</scope>
         </dependency>        
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.moxy</artifactId>
-            <version>2.3.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>${hibernate-jpamodelgen-version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-core-version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <scope>provided</scope>
-            <version>${hibernate-validator-version}</version>
         </dependency>
     </dependencies>
   
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>       
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -106,10 +103,10 @@
             <!-- metamodel generator -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>                            
+                <configuration>                            
                     <!-- disabilito la generazione automatica dei metamodel, la voglio gestire puntualmente -->
                     <compilerArgument>-proc:none</compilerArgument>
-                        </configuration>                        
+                </configuration>                        
             </plugin>  
 
             <!-- configurazione del metamodel generator -->
@@ -133,7 +130,17 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>       
         </plugins>                 
-    </build>  
+    </build>
+    
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <hibernate.show_sql>true</hibernate.show_sql>
+                <hibernate.hbm2ddl.auto>none</hibernate.hbm2ddl.auto>
+            </properties>			
+        </profile>
+    </profiles>
 </project>

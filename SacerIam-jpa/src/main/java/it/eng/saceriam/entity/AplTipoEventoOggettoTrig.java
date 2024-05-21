@@ -1,12 +1,41 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the APL_TIPO_EVENTO_OGGETTO_TRIG database table.
- *
  */
 @Entity
 @Table(name = "APL_TIPO_EVENTO_OGGETTO_TRIG")
@@ -14,25 +43,28 @@ import javax.persistence.*;
 public class AplTipoEventoOggettoTrig implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idTipoEventoOggettoTrig;
+
     private AplQueryTipoOggetto aplQueryTipoOggetto1;
+
     private AplQueryTipoOggetto aplQueryTipoOggetto2;
+
     private AplTipoEvento aplTipoEvento;
+
     private AplTipoEventoOggetto aplTipoEventoOggetto;
+
     private AplTipoOggetto aplTipoOggetto;
 
     public AplTipoEventoOggettoTrig() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SAPL_TIPO_EVENTO_OGGETTO_TRIG") // @SequenceGenerator(name =
-                                                                                   // "APL_TIPO_EVENTO_OGGETTO_TRIG_IDTIPOEVENTOOGGETTOTRIG_GENERATOR",
-                                                                                   // sequenceName =
-                                                                                   // "SAPL_TIPO_EVENTO_OGGETTO_TRIG",
-                                                                                   // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "APL_TIPO_EVENTO_OGGETTO_TRIG_IDTIPOEVENTOOGGETTOTRIG_GENERATOR")
     @Column(name = "ID_TIPO_EVENTO_OGGETTO_TRIG")
+    @GenericGenerator(name = "SAPL_TIPO_EVENTO_OGGETTO_TRIG_ID_TIPO_EVENTO_OGGETTO_TRIG_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_TIPO_EVENTO_OGGETTO_TRIG"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_TIPO_EVENTO_OGGETTO_TRIG_ID_TIPO_EVENTO_OGGETTO_TRIG_GENERATOR")
     public Long getIdTipoEventoOggettoTrig() {
         return this.idTipoEventoOggettoTrig;
     }
@@ -95,5 +127,4 @@ public class AplTipoEventoOggettoTrig implements Serializable {
     public void setAplTipoOggetto(AplTipoOggetto aplTipoOggetto) {
         this.aplTipoOggetto = aplTipoOggetto;
     }
-
 }

@@ -1,6 +1,36 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.amministrazioneEntiNonConvenzionati.helper;
 
-import static it.eng.paginator.util.HibernateUtils.*;
+import static it.eng.paginator.util.HibernateUtils.longFrom;
+import static it.eng.paginator.util.HibernateUtils.longListFrom;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.Query;
+
+import org.apache.commons.lang3.StringUtils;
+
 import it.eng.saceriam.entity.AplSistemaVersante;
 import it.eng.saceriam.entity.OrgAccordoVigil;
 import it.eng.saceriam.entity.OrgAmbitoTerrit;
@@ -20,14 +50,6 @@ import it.eng.saceriam.viewEntity.OrgVRicEnteNonConvenz;
 import it.eng.saceriam.viewEntity.UsrVAbilAmbEnteConvenz;
 import it.eng.saceriam.viewEntity.UsrVAbilAmbEnteXente;
 import it.eng.saceriam.viewEntity.UsrVTreeOrganizIam;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.persistence.Query;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Session Bean implementation class AmministrazioneHelper Contiene i metodi, per la gestione della persistenza su DB
@@ -519,5 +541,71 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
         List<UsrVTreeOrganizIam> treeOrganizIamList = (List<UsrVTreeOrganizIam>) query.getResultList();
         UsrVTreeOrganizIam treeOrganizIam = treeOrganizIamList.get(0);
         return StringUtils.split(treeOrganizIam.getDlPathIdOrganizIam(), "/");
+    }
+
+    /**
+     * Ritorna l'informazione sull'esistenza o meno di altri accordi di vigilanza con periodo di validità sovrapposto a
+     * quello passato in input
+     *
+     * @param idEnteOrganoVigil
+     *            ente organo di vigilanza
+     * @param dtIniVal
+     *            data di inizio validità dell'accordo che si vuole inserire
+     * @param dtFinVal
+     *            data di fine validità dell'accordo che si vuole inserire
+     * @param idAccordoDaEscludere
+     *            accordo di vigilanza che si vuole escludere dal controllo (l'accordo oggetto di inserimento/modifica)
+     *
+     * @return true o false a seconda che esistano già altri accordi di vigilanza con date sovrapposte
+     */
+    public boolean checkEsistenzaAccordiDtIniDtFineVal(BigDecimal idEnteOrganoVigil, Date dtIniVal, Date dtFinVal,
+            BigDecimal idAccordoDaEscludere) {
+        String queryStr = "SELECT COUNT(accordoVigil) FROM OrgAccordoVigil accordoVigil "
+                + "WHERE accordoVigil.orgEnteSiamByIdEnteOrganoVigil.idEnteSiam = :idEnteOrganoVigil " + "AND ("
+                // Se la data di inizio validità o quella di fine validità accordo, ricadono all'interno di un
+                // intervallo già esistente
+                + "(accordoVigil.dtIniVal <= :dtIniVal AND accordoVigil.dtFinVal >= :dtIniVal) "
+                + "OR (accordoVigil.dtIniVal <= :dtFinVal AND accordoVigil.dtFinVal >= :dtFinVal) "
+                // oppure se l'intevallo del nuovo accordo si sovrappone totalmente ad un intervallo già esistente
+                + "OR (accordoVigil.dtIniVal >= :dtIniVal AND accordoVigil.dtFinVal <= :dtFinVal))";
+        if (idAccordoDaEscludere != null) {
+            queryStr = queryStr + "AND accordoVigil.idAccordoVigil != :idAccordoDaEscludere ";
+        }
+        Query query = getEntityManager().createQuery(queryStr);
+        query.setParameter("idEnteOrganoVigil", longFrom(idEnteOrganoVigil));
+        query.setParameter("dtIniVal", dtIniVal);
+        query.setParameter("dtFinVal", dtFinVal);
+        if (idAccordoDaEscludere != null) {
+            query.setParameter("idAccordoDaEscludere", longFrom(idAccordoDaEscludere));
+        }
+        return (Long) query.getSingleResult() != 0;
+    }
+
+    public boolean existsEnteVigilatoPerAccordoVigil(BigDecimal idAccordoVigil, BigDecimal idEnteProdut,
+            Date dtIniValVigil, Date dtFinValVigil, BigDecimal idVigilEnteProdutEscludere) {
+        String queryStr = "SELECT 1 FROM OrgVigilEnteProdut vigilEnteProdut "
+                + "WHERE vigilEnteProdut.orgAccordoVigil.idAccordoVigil = :idAccordoVigil "
+                + "AND vigilEnteProdut.orgEnteSiam.idEnteSiam = :idEnteProdut " + "AND ( "
+                // Se la data di inizio validità o quella di fine validità, ricadono all'interno di un intervallo già
+                // esistente
+                + "(vigilEnteProdut.dtIniVal <= :dtIniValVigil AND vigilEnteProdut.dtFinVal >= :dtIniValVigil) "
+                + "OR (vigilEnteProdut.dtIniVal <= :dtFinValVigil AND vigilEnteProdut.dtFinVal >= :dtFinValVigil) "
+                // oppure se l'intevallo del nuovo ente convenz supt si sovrappone totalmente ad un intervallo già
+                // esistente
+                + "OR (vigilEnteProdut.dtIniVal >= :dtIniValVigil AND vigilEnteProdut.dtFinVal <= :dtFinValVigil)) ";
+        if (idVigilEnteProdutEscludere != null) {
+            queryStr = queryStr + "AND vigilEnteProdut.idVigilEnteProdut != :idVigilEnteProdutEscludere ";
+        }
+        Query query = getEntityManager().createQuery(queryStr);
+        query.setParameter("idAccordoVigil", longFrom(idAccordoVigil));
+        query.setParameter("idEnteProdut", longFrom(idEnteProdut));
+        query.setParameter("dtIniValVigil", dtIniValVigil);
+        query.setParameter("dtFinValVigil", dtFinValVigil);
+        if (idVigilEnteProdutEscludere != null) {
+            query.setParameter("idVigilEnteProdutEscludere", longFrom(idVigilEnteProdutEscludere));
+        }
+
+        query.setMaxResults(1);
+        return !query.getResultList().isEmpty();
     }
 }

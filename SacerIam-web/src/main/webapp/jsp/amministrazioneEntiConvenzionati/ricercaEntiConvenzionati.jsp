@@ -62,6 +62,7 @@
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.TIPO_GESTIONE_ACCORDO%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.FL_GEST_ACC_NO_RISP%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.TI_STATO_ACCORDO%>" colSpan="2"/><sl:newLine />
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.CD_FISC%>" colSpan="2"/><sl:newLine />
             </slf:fieldSet>
             <sl:newLine skipLine="true" />
             <sl:pulsantiera>

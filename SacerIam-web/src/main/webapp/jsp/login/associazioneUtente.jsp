@@ -38,6 +38,8 @@
                                         <input name="h" value="${fn:escapeXml(param.h)}" type="hidden" />
                                         <input name="s" value="${fn:escapeXml(param.s)}" type="hidden" />
                                         <input name="f" value="${fn:escapeXml(param.f)}" type="hidden" />
+                                        <input name="c" value="${fn:escapeXml(param.c)}" type="hidden" />
+                                        <input name="n" value="${fn:escapeXml(param.n)}" type="hidden" />
 
                                         <sl:pulsantiera>
                                             <input name="operation__associa" value="Associa utente" class="pulsante" type="submit" />

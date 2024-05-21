@@ -3,8 +3,8 @@
 xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
     
     <Fields Name="FiltriHelpOnLine" Description="Ricerca help" >
-        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER"  Trigger="true" Required="true"/>
-        <ComboBox Name="tipo_help" Description="Tipo help" Type="STRING"  Trigger="true" Required="true"/>
+        <ComboBox Name="tipo_help" Description="Tipo help" Type="STRING" Trigger="true" Required="true"/>
+        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER"  Trigger="true" Required="true"/>        
         <ComboBox Name="pagina" Description="Pagina" Type="INTEGER"  Trigger="true" />
         <ComboBox Name="nm_menu" Description="Entrata a menu" Type="INTEGER"  Trigger="true" />
         <Input Name="dt_riferimento" Type="DATE" Description="Data di riferimento" Required="false" />        
@@ -14,6 +14,8 @@ xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente
 
     <List Name="ListaHelpOnLine" Description="Lista help on line" >
         <Input Name="id_help_on_line" Description="Id help on line" Type="INTEGER" Hidden="true"/>
+        <Input Name="ti_help_on_line" Description="Tipo help" Type="STRING" Hidden="false"/>
+        <Input Name="nm_applic" Description="Applicazione" Type="STRING" Hidden="false"/>
         <Input Name="ds_pagina_web" Description="Pagina" Type="STRING" Hidden="false"/>
         <Input Name="dl_composito_entry_menu" Description="Entrata a Menù" Type="STRING" />
         <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" />        
@@ -21,16 +23,19 @@ xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente
     </List>
     
     <Fields Name="DettaglioHelpOnLine" Description="Dettaglio help online" >
+        <ComboBox Name="ti_help_on_line" Description="Tipo help" Type="STRING" Trigger="true" />
         <Input Name="nm_applic" Description="Applicazione" Type="STRING" Trigger="false" /> 
 <!--        <ComboBox Name="nm_applic" Description="Applicazione" Type="INTEGER"  Trigger="true" Required="true"/> -->
-        <ComboBox Name="nm_pagina" Description="Pagina" Type="INTEGER"  Trigger="true" Required="true"/>
-        <ComboBox Name="ti_help_on_line" Description="Tipo help" Type="STRING"  Trigger="true" Required="true"/>
+        <ComboBox Name="nm_pagina" Description="Pagina" Type="INTEGER"  Trigger="true" />
+        
         <ComboBox Name="nm_entry_menu" Description="Entrata a menu" Type="INTEGER"  Trigger="true"/>
         <Input Name="dt_ini_val" Type="DATE" Description="Data inizio validità" Required="true"/>        
-        <Input Name="dt_fine_val" Type="DATE" Description="Data fine validità" Required="true"/>
+        <Input Name="dt_fine_val" Type="DATE" Description="Data fine validità" Required="true"/>        
         <Input Name="ds_file_help_online" Description="Nome file help" Type="STRING" Required="false"/>
-        <Input Name="ds_file_zip_help_online" Description="File zip contenente l'help online" Type="FILE" Required="true"/>
+        <Input Name="ds_file_zip_help_online" Description="File zip contenente l'help online" Type="FILE" />
         <Input Name="preview_hidden_field" Description="campo nascosto preview help" Type="STRING" Trigger="false" />
+        
+        <!--<TextArea Name="info_privacy" Description="Informativa privacy" Type="STRING" Rows="10" Cols="10" MaxLength="4000" Required="false"/>-->
         
         <Button Name="preview" Description="Preview Help online" Type="STRING"/>
         <Button Name="downloadFile" Description="Download file" Type="STRING"/>

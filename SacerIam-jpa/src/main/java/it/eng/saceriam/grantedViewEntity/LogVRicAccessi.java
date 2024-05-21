@@ -1,10 +1,33 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.grantedViewEntity;
 
-import it.eng.saceriam.viewEntity.*;
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the LOG_V_RIC_ACCESSI database table.
@@ -22,6 +45,12 @@ public class LogVRicAccessi implements Serializable {
     private BigDecimal idEvento;
     private String nmUserid;
     private String tipoEvento;
+    private String tipoUser;
+    private String nmNomeUser;
+    private String nmCognomeUser;
+    private String cdFiscUser;
+    private String dsEmailUser;
+    private String cdIdEsterno;
 
     public LogVRicAccessi() {
     }
@@ -89,6 +118,60 @@ public class LogVRicAccessi implements Serializable {
 
     public void setTipoEvento(String tipoEvento) {
         this.tipoEvento = tipoEvento;
+    }
+
+    @Column(name = "TIPO_USER")
+    public String getTipoUser() {
+        return tipoUser;
+    }
+
+    public void setTipoUser(String tipoUser) {
+        this.tipoUser = tipoUser;
+    }
+
+    @Column(name = "NM_NOME_USER")
+    public String getNmNomeUser() {
+        return nmNomeUser;
+    }
+
+    public void setNmNomeUser(String nmNomeUser) {
+        this.nmNomeUser = nmNomeUser;
+    }
+
+    @Column(name = "NM_COGNOME_USER")
+    public String getNmCognomeUser() {
+        return nmCognomeUser;
+    }
+
+    public void setNmCognomeUser(String nmCognomeUser) {
+        this.nmCognomeUser = nmCognomeUser;
+    }
+
+    @Column(name = "CD_FISC_USER")
+    public String getCdFiscUser() {
+        return cdFiscUser;
+    }
+
+    public void setCdFiscUser(String cdFiscUser) {
+        this.cdFiscUser = cdFiscUser;
+    }
+
+    @Column(name = "DS_EMAIL_USER")
+    public String getDsEmailUser() {
+        return dsEmailUser;
+    }
+
+    public void setDsEmailUser(String dsEmailUser) {
+        this.dsEmailUser = dsEmailUser;
+    }
+
+    @Column(name = "CD_ID_ESTERNO")
+    public String getCdIdEsterno() {
+        return cdIdEsterno;
+    }
+
+    public void setCdIdEsterno(String cdIdEsterno) {
+        this.cdIdEsterno = cdIdEsterno;
     }
 
 }

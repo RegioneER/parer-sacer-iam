@@ -1,6 +1,46 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.helper;
 
-import static it.eng.paginator.util.HibernateUtils.*;
+import static it.eng.paginator.util.HibernateUtils.bigDecimalFrom;
+import static it.eng.paginator.util.HibernateUtils.longFrom;
+import static it.eng.paginator.util.HibernateUtils.longListFrom;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.eng.saceriam.entity.AplApplic;
 import it.eng.saceriam.entity.AplAzionePagina;
 import it.eng.saceriam.entity.AplClasseTipoDato;
@@ -24,12 +64,16 @@ import it.eng.saceriam.entity.UsrUsoUserApplic;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteConvenz;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteNonConvenz;
 import it.eng.saceriam.entity.constraint.ConstPrfDichAutor;
-import it.eng.saceriam.entity.constraint.ConstUsrAppartUserRich;
-import it.eng.saceriam.grantedEntity.LogEventoLoginUser;
 import it.eng.saceriam.grantedViewEntity.LogVRicAccessi;
 import it.eng.saceriam.helper.GenericHelper;
+import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm.FiltriJobSchedulati;
 import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm.FiltriReplica;
 import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm.FiltriUtenti;
+import it.eng.saceriam.slite.gen.viewbean.LogVVisLastSchedRowBean;
+import it.eng.saceriam.slite.gen.viewbean.MonVLisSchedJobRowBean;
+import it.eng.saceriam.slite.gen.viewbean.MonVLisSchedJobTableBean;
+import it.eng.saceriam.viewEntity.LogVVisLastSched;
+import it.eng.saceriam.viewEntity.MonVLisSchedJob;
 import it.eng.saceriam.viewEntity.OrgVChkRefEnte;
 import it.eng.saceriam.viewEntity.PrfVLisDichAutor;
 import it.eng.saceriam.viewEntity.UsrVAbilDati;
@@ -51,21 +95,8 @@ import it.eng.saceriam.viewEntity.UsrVVisDichAbil;
 import it.eng.saceriam.viewEntity.UsrVVisLastRichGestUser;
 import it.eng.saceriam.viewEntity.UsrVVisLastSched;
 import it.eng.saceriam.web.util.ApplEnum;
+import it.eng.saceriam.web.util.Transform;
 import it.eng.spagoCore.error.EMFError;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Session Bean implementation class AmministrazioneHelper Contiene i metodi, per la gestione della persistenza su DB
@@ -75,6 +106,12 @@ import org.apache.commons.lang3.StringUtils;
 @Stateless
 @LocalBean
 public class AmministrazioneUtentiHelper extends GenericHelper {
+
+    Logger log = LoggerFactory.getLogger(AmministrazioneUtentiHelper.class);
+
+    private static final String DATA_DA = "datada";
+    private static final String DATA_A = "dataa";
+    private static final String NM_JOB = "nmJob";
 
     public AmministrazioneUtentiHelper() {
         /*
@@ -87,7 +124,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idAppl
      *            l'id applicazione
-     * 
+     *
      * @return la lista di ruoli
      */
     public List<PrfRuolo> getPrfRuoli(BigDecimal idAppl) {
@@ -112,7 +149,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            tipo ente
      * @param tipoUtente
      *            tipo utente
-     * 
+     *
      * @return la lista di ruoli
      */
     public List<PrfRuolo> getPrfRuoliUtente(BigDecimal idAppl, String tipoEnte, String tipoUtente) {
@@ -230,7 +267,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idUsoRuoloApplic
      *            id ruolo
-     * 
+     *
      * @return la lista delle applicazioni
      *
      */
@@ -252,7 +289,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            il tipo di dichiarazione
      * @param idApplic
      *            id applicazione
-     * 
+     *
      * @return la lista di dichiarazioni
      */
     public List<PrfVLisDichAutor> getPrfDichAutorList(Set<BigDecimal> idUsoRuoloSet, String tiDichAutor,
@@ -300,7 +337,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            id applicazione
      * @param ricercaFoglie
      *            true se ricerca foglie
-     * 
+     *
      * @return il tableBean della lista di entry menu
      */
     @Deprecated
@@ -327,7 +364,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idEntryMenu
      *            id entry menu
-     * 
+     *
      * @return il tableBean contenente i figli dell'entry menu specificata
      */
     public List<AplEntryMenu> getEntryMenuChilds(BigDecimal idEntryMenu) {
@@ -347,7 +384,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idEntryMenu
      *            id entry menu
-     * 
+     *
      * @return il tableBean contenente i padri dell'entry menu specificata
      */
     public List<AplEntryMenu> getEntryMenuParentsList(BigDecimal idEntryMenu) {
@@ -371,7 +408,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idPaginaWeb
      *            l'id della pagina web
-     * 
+     *
      * @return il tableBean contenente la lista di azioni
      */
     public List<AplAzionePagina> getActionChilds(BigDecimal idPaginaWeb) {
@@ -388,7 +425,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idAzionePagina
      *            id azione pagina
-     * 
+     *
      * @return bean {@link AplAzionePagina}
      */
     public AplAzionePagina getAplAzionePagina(BigDecimal idAzionePagina) {
@@ -400,7 +437,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idApplicazione
      *            id applicazione
-     * 
+     *
      * @return il tableBean della lista di pagine
      */
     public List<AplPaginaWeb> getPagesList(BigDecimal idApplicazione) {
@@ -419,7 +456,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            id applicazione
      * @param idPaginaWeb
      *            id pagina
-     * 
+     *
      * @return il tableBean della lista di azioni
      */
     public List<AplAzionePagina> getActionsList(BigDecimal idApplicazione, BigDecimal idPaginaWeb) {
@@ -438,7 +475,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idApplicazione
      *            id applicazione
-     * 
+     *
      * @return il tableBean della lista di servizi
      */
     public List<AplServizioWeb> getServicesList(BigDecimal idApplicazione) {
@@ -741,179 +778,222 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
     public List<UsrVLisUser> getUsrVLisUserList(FiltriUtenti filtri, Set<BigDecimal> idEnteConvenzAppart,
             Date[] dateValidate, long idUserIamCorr, List<BigDecimal> idEntiConvenzionatiAmministratori)
             throws EMFError {
-        return getUsrVLisUserList(new FiltriUtentiPlain(idEnteConvenzAppart, idUserIamCorr,
+        List<Object[]> obList = getUsrVLisUserList(new FiltriUtentiPlain(idEnteConvenzAppart, idUserIamCorr,
                 idEntiConvenzionatiAmministratori, filtri.getNm_cognome_user().parse(),
                 filtri.getNm_nome_user().parse(), filtri.getNm_userid().parse(), filtri.getCd_fisc().parse(),
                 filtri.getNm_applic().parse(), filtri.getNm_ruolo_default().parse(), filtri.getFl_attivo().parse(),
                 filtri.getDs_email().parse(), filtri.getTipo_user().parse(), filtri.getTi_stato_user().parse(),
-                filtri.getDl_composito_organiz().parse(), filtri.getNm_ruolo_dich().parse(),
-                filtri.getFl_err_replic().parse(), filtri.getId_sistema_versante().parse(),
-                filtri.getId_amb_ente_convenz_appart().parse(), filtri.getId_ente_convenz_abil().parse(),
-                filtri.getCd_rich_gest_user().parse(), (dateValidate != null ? dateValidate[0] : null),
-                (dateValidate != null ? dateValidate[1] : null), filtri.getId_organiz_iam_rich().parse(),
-                filtri.getCd_registro_rich_gest_user().parse(), filtri.getAa_rich_gest_user().parse(),
-                filtri.getCd_key_rich_gest_user().parse(), filtri.getId_ente_convenz_rich().parse(),
-                filtri.getFl_resp_ente_convenz().parse()));
+                filtri.getFl_utenti_automa_cessati().parse(), filtri.getDl_composito_organiz().parse(),
+                filtri.getNm_ruolo_dich().parse(), filtri.getFl_err_replic().parse(),
+                filtri.getId_sistema_versante().parse(), filtri.getId_amb_ente_convenz_appart().parse(),
+                filtri.getId_ente_convenz_abil().parse(), filtri.getCd_rich_gest_user().parse(),
+                (dateValidate != null ? dateValidate[0] : null), (dateValidate != null ? dateValidate[1] : null),
+                filtri.getId_organiz_iam_rich().parse(), filtri.getCd_registro_rich_gest_user().parse(),
+                filtri.getAa_rich_gest_user().parse(), filtri.getCd_key_rich_gest_user().parse(),
+                filtri.getId_ente_convenz_rich().parse(), filtri.getFl_resp_ente_convenz().parse()));
+
+        return getUsrVLisUserList(obList);
+    }
+
+    public List<UsrVLisUser> getUsrVLisUserList(List<Object[]> objList) {
+        List<UsrVLisUser> utenti = new ArrayList<>();
+        for (Object[] obj : objList) {
+            BigDecimal idUserIam = (BigDecimal) obj[0];
+            String nmCognomeUser = (String) obj[1];
+            String nmNomeUser = (String) obj[2];
+            String nmUserid = (String) obj[3];
+            String cdFisc = (String) obj[4];
+            String nmRuoloDefault = (String) obj[5];
+            String flAttivo = String.valueOf((Character) obj[6]);
+            String flErrReplic = String.valueOf((Character) obj[7]);//
+            String nmSistemaVersante = (String) obj[8];
+            String tipoUser = (String) obj[9];
+            String nmEnteSiamAppart = (String) obj[10];
+            BigDecimal idLastRichGestUser = (BigDecimal) obj[11];
+            String cdLastRichGestUser = (String) obj[12];
+            String dsListaAzioni = (String) obj[13];
+            Date dtLastRichGestUser = (Date) obj[14];
+            String flAzioniEvase = String.valueOf((Character) obj[15]);
+            String dsEmail = (String) obj[16];
+            String dsEmailSecondaria = (String) obj[17];
+            String emailSec = dsEmailSecondaria != null ? "; " + dsEmailSecondaria : "";
+            dsEmail = dsEmail + emailSec;
+
+            UsrVLisUser utente = new UsrVLisUser(idUserIam, nmCognomeUser, nmNomeUser, nmUserid, cdFisc, nmRuoloDefault,
+                    flAttivo, flErrReplic, nmSistemaVersante, tipoUser, nmEnteSiamAppart, idLastRichGestUser,
+                    cdLastRichGestUser, dsListaAzioni, dtLastRichGestUser, flAzioniEvase, dsEmail, dsEmailSecondaria);
+            utenti.add(utente);
+        }
+
+        return utenti;
     }
 
     /**
      * ritorna gli UsrVLisUser corrispondenti ai filtri di ricerca. Questo metodo indipendente da FiltriUtenti consente
      * un test automatico più "pulito"
-     * 
+     *
      * @param filtriUsrVLisUser
      *            filtri
-     * 
-     * @return lista di {@link UsrVLisUser}
+     *
+     * @return lista rappresentante i record di UsrVLisUser
      */
-    public List<UsrVLisUser> getUsrVLisUserList(FiltriUtentiPlain filtriUsrVLisUser) {
+    public List<Object[]> getUsrVLisUserList(FiltriUtentiPlain filtriUsrVLisUser) {
         String whereWord = "WHERE ";
-        StringBuilder queryStr = new StringBuilder("SELECT DISTINCT new it.eng.saceriam.viewEntity.UsrVLisUser "
-                + "(utenti.idUserIam, utenti.nmCognomeUser, utenti.nmNomeUser, utenti.nmUserid, utenti.cdFisc, utenti.nmRuoloDefault, "
-                + "utenti.flAttivo,  utenti.flErrReplic, utenti.nmSistemaVersante, utenti.tipoUser, "
-                + "utenti.nmEnteSiamAppart, utenti.idLastRichGestUser , utenti.cdLastRichGestUser, "
-                + "utenti.dsListaAzioni , utenti.dtLastRichGestUser , utenti.flAzioniEvase, utenti.dsEmail, utenti.dsEmailSecondaria ) "
-                + "FROM UsrVLisUser utenti ");
+        StringBuilder queryStr = new StringBuilder(
+                "SELECT distinct utenti.id_User_Iam, utenti.nm_Cognome_User, utenti.nm_Nome_User, utenti.nm_Userid, utenti.cd_Fisc, "
+                        + "utenti.nm_Ruolo_Default, utenti.fl_Attivo, utenti.fl_Err_Replic, utenti.nm_Sistema_Versante, utenti.tipo_User, "
+                        + "utenti.nm_Ente_Siam_Appart, utenti.id_Last_Rich_Gest_User , utenti.cd_Last_Rich_Gest_User, "
+                        + "utenti.ds_Lista_Azioni , utenti.dt_Last_Rich_Gest_User , utenti.fl_Azioni_Evase, utenti.ds_Email, utenti.ds_Email_Secondaria "
+                        + "FROM Usr_Corr_X(:idUserIamCorr) utenti ");
 
         String cognome = filtriUsrVLisUser.getCognome();
         if (cognome != null) {
-            queryStr.append(whereWord).append("UPPER(utenti.nmCognomeUser) like :cognome");
+            queryStr.append(whereWord).append("UPPER(utenti.nm_Cognome_User) like :cognome");
             whereWord = " AND ";
         }
         String nome = filtriUsrVLisUser.getNome();
         if (nome != null) {
-            queryStr.append(whereWord).append("UPPER(utenti.nmNomeUser) like :nome");
+            queryStr.append(whereWord).append("UPPER(utenti.nm_Nome_User) like :nome");
             whereWord = " AND ";
         }
         String userId = filtriUsrVLisUser.getUserId();
         if (userId != null) {
-            queryStr.append(whereWord).append("UPPER(utenti.nmUserid) like :userid");
+            queryStr.append(whereWord).append("UPPER(utenti.nm_Userid) like :userid");
             whereWord = " AND ";
         }
         String cdFisc = filtriUsrVLisUser.getCodiceFiscale();
         if (cdFisc != null) {
-            queryStr.append(whereWord).append("UPPER(utenti.cdFisc) like :cdFisc");
+            queryStr.append(whereWord).append("UPPER(utenti.cd_Fisc) like :cdFisc");
             whereWord = " AND ";
         }
         BigDecimal idApplic = filtriUsrVLisUser.getIdApplic();
         if (idApplic != null) {
-            queryStr.append(whereWord).append("utenti.idApplic = :idapplic");
+            queryStr.append(whereWord).append("utenti.id_Applic = :idapplic");
             whereWord = " AND ";
         }
         BigDecimal ruoloDefault = filtriUsrVLisUser.getRuoloDefault();
         if (ruoloDefault != null) {
-            queryStr.append(whereWord).append("utenti.id.idRuoloDefault = :ruolodefault");
+            queryStr.append(whereWord).append("utenti.id_Ruolo_Default = :ruolodefault");
             whereWord = " AND ";
         }
         String attivo = filtriUsrVLisUser.getAttivo();
         if (attivo != null) {
-            queryStr.append(whereWord).append("utenti.flAttivo = :attivo");
+            queryStr.append(whereWord).append("utenti.fl_Attivo = :attivo");
             whereWord = " AND ";
         }
         String dsEmail = filtriUsrVLisUser.getDsEmail();
         if (StringUtils.isNotBlank(dsEmail)) {
-            queryStr.append(whereWord)
-                    .append("(UPPER(utenti.dsEmail) like :dsEmail OR UPPER(utenti.dsEmailSecondaria) like :dsEmail) ");
+            queryStr.append(whereWord).append(
+                    "(UPPER(utenti.ds_Email) like :dsEmail OR UPPER(utenti.ds_Email_Secondaria) like :dsEmail) ");
             whereWord = " AND ";
         }
+
+        String flUtentiAutomaCessati = filtriUsrVLisUser.getFlUtentiAutomaCessati();
         List<String> tipoUser = filtriUsrVLisUser.getTipoUser();
-        if (tipoUser != null && !tipoUser.isEmpty()) {
-            queryStr.append(whereWord).append("utenti.tipoUser IN (:tipoUser)");
-            whereWord = " AND ";
-        }
         String statoUser = filtriUsrVLisUser.getStatoUser();
-        if (StringUtils.isNotBlank(statoUser)) {
-            queryStr.append(whereWord).append("utenti.tiStatoUser = :tiStatoUser");
-            whereWord = " AND ";
+        if (flUtentiAutomaCessati.equals("0")) {
+            if (tipoUser != null && !tipoUser.isEmpty()) {
+                queryStr.append(whereWord).append("utenti.tipo_User IN (:tipoUser)");
+                whereWord = " AND ";
+            }
+            if (StringUtils.isNotBlank(statoUser)) {
+                queryStr.append(whereWord).append("utenti.ti_Stato_User = :tiStatoUser");
+                whereWord = " AND ";
+            } else {
+                queryStr.append(whereWord).append("utenti.ti_Stato_User IN ('ATTIVO', 'DISATTIVO')");
+                whereWord = " AND ";
+            }
         } else {
-            queryStr.append(whereWord).append("utenti.tiStatoUser IN ('ATTIVO', 'DISATTIVO')");
+            queryStr.append(whereWord).append("utenti.tipo_User = 'AUTOMA' AND utenti.ti_Stato_User = 'CESSATO' ");
             whereWord = " AND ";
         }
+
         BigDecimal idOrganizIam = filtriUsrVLisUser.getIdOrganizIam();
         if (idOrganizIam != null) {
-            queryStr.append(whereWord).append("utenti.idOrganizIam = :idorganiziam");
+            queryStr.append(whereWord).append("utenti.id_Organiz_Iam = :idorganiziam");
             whereWord = " AND ";
         }
         BigDecimal ruoloDich = filtriUsrVLisUser.getRuoloDich();
         if (ruoloDich != null) {
-            queryStr.append(whereWord).append("utenti.id.idRuoloDich = :ruolodich");
+            queryStr.append(whereWord).append("utenti.id_Ruolo_Dich = :ruolodich");
             whereWord = " AND ";
         }
         String errReplic = filtriUsrVLisUser.getErrReplic();
         if (errReplic != null) {
-            queryStr.append(whereWord).append("utenti.flErrReplic = :errreplic");
+            queryStr.append(whereWord).append("utenti.fl_Err_Replic = :errreplic");
             whereWord = " AND ";
         }
 
         BigDecimal idSistemaVersante = filtriUsrVLisUser.getIdSistemaVersante();
         if (idSistemaVersante != null) {
-            queryStr.append(whereWord).append("utenti.idSistemaVersante = :idSistemaVersante");
+            queryStr.append(whereWord).append("utenti.id_Sistema_Versante = :idSistemaVersante");
             whereWord = " AND ";
         }
         List<BigDecimal> idAmbienteEnteConvenzAppart = filtriUsrVLisUser.getIdAmbienteEnteConvenzAppart();
         if (idAmbienteEnteConvenzAppart != null && !idAmbienteEnteConvenzAppart.isEmpty()) {
-            queryStr.append(whereWord).append("utenti.idAmbEnteConvenzAppart IN (:idAmbienteEnteConvenzAppart)");
+            queryStr.append(whereWord).append("utenti.id_Amb_Ente_Convenz_Appart IN (:idAmbienteEnteConvenzAppart)");
             whereWord = " AND ";
         }
         if (filtriUsrVLisUser.getIdEnteConvenzAppart() != null
                 && !filtriUsrVLisUser.getIdEnteConvenzAppart().isEmpty()) {
-            queryStr.append(whereWord).append("utenti.idEnteSiamAppart IN (:idEnteConvenzAppart)");
+            queryStr.append(whereWord).append("utenti.id_Ente_Siam_Appart IN (:idEnteConvenzAppart)");
             whereWord = " AND ";
         } else if (filtriUsrVLisUser.getIdEntiConvenzionatiAmministratori() != null
                 && !filtriUsrVLisUser.getIdEntiConvenzionatiAmministratori().isEmpty()) {
-            queryStr.append(whereWord).append("utenti.idEnteSiamAppart IN (:idEnteConvenzAppart)");
+            queryStr.append(whereWord).append("utenti.id_Ente_Siam_Appart IN (:idEnteConvenzAppart)");
         }
         BigDecimal idEnteConvenzAbil = filtriUsrVLisUser.getIdEnteConvenzAbil();
         if (idEnteConvenzAbil != null) {
-            queryStr.append(whereWord).append("utenti.idEnteConvenzAbil = :idEnteConvenzAbil");
+            queryStr.append(whereWord).append("utenti.id_Ente_Convenz_Abil = :idEnteConvenzAbil");
             whereWord = " AND ";
         }
         String cdRichGestUser = filtriUsrVLisUser.getCdRichGestUser();
         if (StringUtils.isNotBlank(cdRichGestUser)) {
-            queryStr.append(whereWord).append("utenti.cdRichGestUser = :cdRichGestUser");
+            queryStr.append(whereWord).append("utenti.cd_Rich_Gest_User = :cdRichGestUser");
             whereWord = " AND ";
         }
         Date dataOrarioDa = filtriUsrVLisUser.getDataOrarioDa();
         Date dataOrarioA = filtriUsrVLisUser.getDataOrarioA();
         if ((dataOrarioDa != null) && (dataOrarioA != null)) {
-            queryStr.append(whereWord).append("utenti.dtRichGestUser between :datada AND :dataa");
+            queryStr.append(whereWord).append("utenti.dt_Rich_Gest_User between :datada AND :dataa");
             whereWord = " AND ";
         }
         BigDecimal idOrganizIamRich = filtriUsrVLisUser.getIdOrganizIamRich();
         if (idOrganizIamRich != null) {
-            queryStr.append(whereWord).append("utenti.idOrganizIamRich = :idOrganizIamRich");
+            queryStr.append(whereWord).append("utenti.id_Organiz_Iam_Rich = :idOrganizIamRich");
             whereWord = " AND ";
         }
         String cdRegistroRichGestUser = filtriUsrVLisUser.getCdRegistroRichGestUser();
         if (StringUtils.isNotBlank(cdRegistroRichGestUser)) {
-            queryStr.append(whereWord).append("utenti.cdRegistroRichGestUser = :cdRegistroRichGestUser");
+            queryStr.append(whereWord).append("utenti.cd_Registro_Rich_Gest_User = :cdRegistroRichGestUser");
             whereWord = " AND ";
         }
         BigDecimal aaRichGestUser = filtriUsrVLisUser.getAaRichGestUser();
         if (aaRichGestUser != null) {
-            queryStr.append(whereWord).append("utenti.aaRichGestUser = :aaRichGestUser");
+            queryStr.append(whereWord).append("utenti.aa_Rich_Gest_User = :aaRichGestUser");
             whereWord = " AND ";
         }
         String cdKeyRichGestUser = filtriUsrVLisUser.getCdKeyRichGestUser();
         if (StringUtils.isNotBlank(cdKeyRichGestUser)) {
-            queryStr.append(whereWord).append("utenti.cdKeyRichGestUser = :cdKeyRichGestUser");
+            queryStr.append(whereWord).append("utenti.cd_Key_Rich_Gest_User = :cdKeyRichGestUser");
             whereWord = " AND ";
         }
         BigDecimal idEnteConvenzRich = filtriUsrVLisUser.getIdEnteConvenzRich();
         if (idEnteConvenzRich != null) {
-            queryStr.append(whereWord).append("utenti.idEnteRich = :idEnteConvenzRich");
+            queryStr.append(whereWord).append("utenti.id_Ente_Rich = :idEnteConvenzRich");
             whereWord = " AND ";
         }
         String flRespEnteConvenz = filtriUsrVLisUser.getFlRespEnteConvenz();
         if (StringUtils.isNotBlank(flRespEnteConvenz)) {
-            queryStr.append(whereWord).append("utenti.flRespEnteConvenz = :flRespEnteConvenz");
+            queryStr.append(whereWord).append("utenti.fl_Resp_Ente_Convenz = :flRespEnteConvenz");
             whereWord = " AND ";
         }
 
-        queryStr.append(whereWord).append("utenti.idUserIamCorr = :idUserIamCorr ");
-        queryStr.append(" ORDER BY utenti.nmCognomeUser, utenti.nmNomeUser");
+        // queryStr.append(whereWord).append("utenti.idUserIamCorr = :idUserIamCorr ");
+        queryStr.append(" ORDER BY utenti.nm_Cognome_User, utenti.nm_Nome_User");
 
         // CREO LA QUERY ATTRAVERSO L'ENTITY MANAGER
-        Query query = getEntityManager().createQuery(queryStr.toString());
+        Query query = getEntityManager().createNativeQuery(queryStr.toString());
         if (cognome != null) {
             query.setParameter("cognome", "%" + cognome.toUpperCase() + "%");
         }
@@ -938,7 +1018,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         if (StringUtils.isNotBlank(dsEmail)) {
             query.setParameter("dsEmail", "%" + dsEmail.toUpperCase() + "%");
         }
-        if (tipoUser != null && !tipoUser.isEmpty()) {
+        if (flUtentiAutomaCessati.equals("0") && tipoUser != null && !tipoUser.isEmpty()) {
             query.setParameter("tipoUser", tipoUser);
         }
         if (idOrganizIam != null) {
@@ -971,8 +1051,8 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
             query.setParameter("cdRichGestUser", cdRichGestUser);
         }
         if ((dataOrarioDa != null) && (dataOrarioA != null)) {
-            query.setParameter("datada", dataOrarioDa);
-            query.setParameter("dataa", dataOrarioA);
+            query.setParameter(DATA_DA, dataOrarioDa);
+            query.setParameter(DATA_A, dataOrarioA);
         }
         if (idOrganizIamRich != null) {
             query.setParameter("idOrganizIamRich", idOrganizIamRich);
@@ -989,7 +1069,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         if (idEnteConvenzRich != null) {
             query.setParameter("idEnteConvenzRich", idEnteConvenzRich);
         }
-        if (StringUtils.isNotBlank(statoUser)) {
+        if (flUtentiAutomaCessati.equals("0") && StringUtils.isNotBlank(statoUser)) {
             query.setParameter("tiStatoUser", statoUser);
         }
         if (StringUtils.isNotBlank(flRespEnteConvenz)) {
@@ -999,7 +1079,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         query.setParameter("idUserIamCorr", bigDecimalFrom(filtriUsrVLisUser.getIdUserIamCorr()));
 
         // ESEGUO LA QUERY E PIAZZO I RISULTATI IN UNA LISTA DI UTENTI
-        List<UsrVLisUser> listaUtenti = (List<UsrVLisUser>) query.getResultList();
+        List<Object[]> listaUtenti = (List<Object[]>) query.getResultList();
 
         return listaUtenti;
     }
@@ -1141,7 +1221,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            AZIONE
      * @param idPrfUsoRuoloApplic
      *            l'id uso ruolo associato alla dichiarazione
-     * 
+     *
      * @return il rowBean della dichiarazione
      */
     public List<PrfDichAutor> getPrfDichAutor(String tiScopoDichAutor, String tiDichAutor, BigDecimal idObject,
@@ -1192,14 +1272,12 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         }
     }
 
-    public AplApplic getAplApplic(String name) {
-        String queryStr = "SELECT applic FROM AplApplic applic WHERE applic.nmApplic = :nomeappl";
-        Query q = getEntityManager().createQuery(queryStr);
-        q.setParameter("nomeappl", name);
-        AplApplic applic = (AplApplic) q.getSingleResult();
-        return applic;
-    }
-
+    /*
+     * public AplApplic getAplApplic(String name) { String queryStr =
+     * "SELECT applic FROM AplApplic applic WHERE applic.nmApplic = :nomeappl"; Query q =
+     * getEntityManager().createQuery(queryStr); q.setParameter("nomeappl", name); AplApplic applic = (AplApplic)
+     * q.getSingleResult(); return applic; }
+     */
     public UsrUser getUsrUser(BigDecimal idUser) {
         return getEntityManager().find(UsrUser.class, idUser.longValue());
     }
@@ -1287,7 +1365,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param userName
      *            user name
-     * 
+     *
      * @return true se l'utente esiste già
      */
     public boolean checkUserExists(String userName) {
@@ -1316,7 +1394,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            email
      * @param flContrIp
      *            flag 1/0 (true/false) controllo ip
-     * 
+     *
      * @return true se l'utente esiste
      */
     public boolean checkUserExists(String userName, String nmCognomeUser, String nmNomeUser, String cdFisc,
@@ -1344,7 +1422,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idOrganizIam
      *            id organizzazione
-     * 
+     *
      * @return il tableBean contenente i figli dell'organizzazione specificata
      */
     public List<UsrOrganizIam> getUsrOrganizIamChilds(BigDecimal idOrganizIam) {
@@ -1361,7 +1439,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *
      * @param idOrganizIam
      *            id organizzazione IAM
-     * 
+     *
      * @return lista elementi di tipo {@link UsrVTreeOrganizIam}
      */
     public List<UsrVTreeOrganizIam> getOrganizIamChilds(BigDecimal idOrganizIam) {
@@ -1480,11 +1558,11 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         queryStr.append("ORDER BY u.dtRegLogJobIni DESC ");
 
         Query query = getEntityManager().createQuery(queryStr.toString());
-        query.setParameter("nmJob", nmJob.name() + '%');
+        query.setParameter(NM_JOB, nmJob.name() + '%');
 
         if (data_orario_da != null && data_orario_a != null) {
-            query.setParameter("datada", data_orario_da, TemporalType.TIMESTAMP);
-            query.setParameter("dataa", data_orario_a, TemporalType.TIMESTAMP);
+            query.setParameter(DATA_DA, data_orario_da, TemporalType.TIMESTAMP);
+            query.setParameter(DATA_A, data_orario_a, TemporalType.TIMESTAMP);
         }
 
         List<UsrVLisSched> listaSched = query.getResultList();
@@ -1493,7 +1571,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 
     public UsrVVisLastSched getUsrVVisLastSched(ApplEnum.NmJob nmJob) {
         Query query = getEntityManager().createQuery("SELECT u FROM UsrVVisLastSched u " + "WHERE u.nmJob = :nmJob");
-        query.setParameter("nmJob", nmJob.name());
+        query.setParameter(NM_JOB, nmJob.name());
         List<UsrVVisLastSched> utenti = query.getResultList();
         if (utenti != null && !utenti.isEmpty()) {
             return utenti.get(0);
@@ -1511,7 +1589,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
     /**
      * ritorna gli UsrVLisUserReplic corrispondenti ai filtri di ricerca. Questo metodo indipendente da FiltriReplica
      * consente un test automatico più "pulito"
-     * 
+     *
      * @param dataValidata
      *            data validata
      * @param isFromDettaglioUtente
@@ -1524,7 +1602,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            tipo operazione replica
      * @param tiStatoReplic
      *            tipo stato replica
-     * 
+     *
      * @return lista di {@link UsrVLisUserReplic}
      */
     public List<UsrVLisUserReplic> getUsrVLisUserReplicList(Date dataValidata, boolean isFromDettaglioUtente,
@@ -1692,30 +1770,52 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            tipo evento
      * @param inclUtentiAutomi
      *            automi
-     * 
+     * @param nome
+     *            nome
+     * @param cognome
+     *            cognome
+     * @param cf
+     *            codice fiscale
+     * @param email
+     *            indirizzo email
+     * @param idEsterno
+     *            id esterno
+     *
      * @return la lista dei record di login utente
      */
     public List<LogVRicAccessi> retrieveLogVRicAccessiList(Date dtEventoDa, Date dtEventoA, String nmUserid,
-            Set<String> tipiEventoSet, String inclUtentiAutomi) {
-        StringBuilder queryStr = new StringBuilder("SELECT logEvento FROM LogVRicAccessi logEvento, UsrUser user "
-                + "WHERE logEvento.nmUserid = user.nmUserid "
-                + "AND logEvento.dtEvento BETWEEN :dtEventoDa AND :dtEventoA ");
+            Set<String> tipiEventoSet, String inclUtentiAutomi, String nome, String cognome, String cf, String email,
+            String idEsterno) {
+        StringBuilder queryStr = new StringBuilder("SELECT logEvento FROM LogVRicAccessi logEvento "
+                + "WHERE logEvento.dtEvento BETWEEN :dtEventoDa AND :dtEventoA ");
 
         if (StringUtils.isNotBlank(nmUserid)) {
             queryStr.append("AND UPPER(logEvento.nmUserid) LIKE :nmUserid ");
         }
-
         if (tipiEventoSet != null && !tipiEventoSet.isEmpty()) {
             if (tipiEventoSet.contains("LOGIN_OK")) {
                 tipiEventoSet.add("LOGIN");
             }
             queryStr.append("AND logEvento.tipoEvento IN (:tipiEventoSet) ");
         }
-
         if (inclUtentiAutomi.equals("0")) {
-            queryStr.append("AND user.tipoUser != :tipoUser ");
+            queryStr.append("AND (logEvento.tipoUser != :tipoUser OR logEvento.tipoUser IS NULL) ");
         }
-
+        if (nome != null && !nome.isEmpty()) {
+            queryStr.append("AND UPPER(logEvento.nmNomeUser) LIKE UPPER(:nmNomeUser) ");
+        }
+        if (cognome != null && !cognome.isEmpty()) {
+            queryStr.append("AND UPPER(logEvento.nmCognomeUser) LIKE UPPER(:nmCognomeUser) ");
+        }
+        if (cf != null && !cf.isEmpty()) {
+            queryStr.append("AND UPPER(logEvento.cdFiscUser) LIKE UPPER(:cdFiscUser) ");
+        }
+        if (email != null && !email.isEmpty()) {
+            queryStr.append("AND UPPER(logEvento.dsEmailUser) LIKE UPPER(:dsEmailUser) ");
+        }
+        if (idEsterno != null && !idEsterno.isEmpty()) {
+            queryStr.append("AND UPPER(logEvento.cdIdEsterno) LIKE UPPER(:cdIdEsterno) ");
+        }
         queryStr.append("ORDER BY logEvento.nmUserid ASC, logEvento.dtEvento DESC");
 
         Query query = getEntityManager().createQuery(queryStr.toString());
@@ -1731,6 +1831,22 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         if (inclUtentiAutomi.equals("0")) {
             query.setParameter("tipoUser", ApplEnum.TipoUser.AUTOMA.name());
         }
+        if (nome != null && !nome.isEmpty()) {
+            query.setParameter("nmNomeUser", "%" + nome + "%");
+        }
+        if (cognome != null && !cognome.isEmpty()) {
+            query.setParameter("nmCognomeUser", "%" + cognome + "%");
+        }
+        if (cf != null && !cf.isEmpty()) {
+            query.setParameter("cdFiscUser", "%" + cf + "%");
+        }
+        if (email != null && !email.isEmpty()) {
+            query.setParameter("dsEmailUser", "%" + email + "%");
+        }
+        if (idEsterno != null && !idEsterno.isEmpty()) {
+            query.setParameter("cdIdEsterno", "%" + idEsterno + "%");
+        }
+
         return (List<LogVRicAccessi>) query.getResultList();
     }
 
@@ -2011,7 +2127,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            numero
      * @param idRichGestUserExcluded
      *            id richiesta utente da escludere
-     * 
+     *
      * @return lista elementi di tipo {@link UsrRichGestUser}
      */
     public List<UsrRichGestUser> getUsrRichGestUserByOrganizzazioneAndUd(BigDecimal idOrganizIam,
@@ -2069,7 +2185,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            id ente convenzionato
      * @param idRichGestUserExcluded
      *            id richiesat utente da escludere
-     * 
+     *
      * @return lista elementi di tipo {@link UsrRichGestUser}
      */
     public List<UsrRichGestUser> getUsrRichGestUserByRichEnte(String cdRichGestUser, BigDecimal idEnteConvenz,
@@ -2126,7 +2242,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            utente cui è riferita l'azione di
      * @param tiAzioneRich
      *            il tipo di azione da eseguire
-     * 
+     *
      * @return un record, se esiste, relativo alla tabella delle azioni
      */
     public UsrAppartUserRich getRichiestaDaEseguire(BigDecimal idUserIam, String tiAzioneRich) {
@@ -2155,13 +2271,14 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
             List<UsrAppartUserRich> resultList2 = query2.getResultList();
             if (!resultList2.isEmpty()) {
                 result = resultList2.get(0);
-                if (result.getTiAzioneRich()
-                        .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione())
-                        && result.getUsrRichGestUser().getTiStatoRichGestUser().equals("EVASA")) {
-                    return result;
-                } else {
-                    return null;
-                }
+                return result;
+                // if (result.getTiAzioneRich()
+                // .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione())
+                // && result.getUsrRichGestUser().getTiStatoRichGestUser().equals("EVASA")) {
+                // return result;
+                // } else {
+                // return null;
+                // }
             }
 
         }
@@ -2176,7 +2293,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            id richiesta
      * @param flAzioneRichEvasa
      *            flag 1/0 (true/false) se azione evasa
-     * 
+     *
      * @return true se esiste una azione evasa o non evasa a seconda del valore passato in input
      */
     public boolean existAzioni(long idRichGestUser, String flAzioneRichEvasa) {
@@ -2196,7 +2313,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            id user IAM
      * @param idOrganizApplic
      *            id organizzazione
-     * 
+     *
      * @return la lista di entity
      */
     public UsrVAbilOrganiz getUsrVAbilOrganiz(BigDecimal idUserIam, BigDecimal idOrganizApplic) {
@@ -2232,7 +2349,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            id user IAM
      * @param idAppartUserRichExcluded
      *            id appartenenza utente richiesta
-     * 
+     *
      * @return lista elementi di tipo {@link UsrAppartUserRich}
      */
     public List<UsrAppartUserRich> getUsrAppartUserRichByUser(BigDecimal idRichGestUser, String nmUserid,
@@ -2286,7 +2403,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            user id
      * @param idUserIam
      *            id user IAM
-     * 
+     *
      * @return lista elementi di tipo {@link UsrAppartUserRich}
      */
     public List<UsrAppartUserRich> getOtherUsrAppartUserRichByUser(BigDecimal idRichGestUser, String nmUserid,
@@ -2365,7 +2482,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
      *            id user IAM
      * @param tiAzioneRich
      *            tipo azione richiesta
-     * 
+     *
      * @return lista id
      */
     public List<Long> getUsrRicGestUserByUser(BigDecimal idUserIam, List<String> tiAzioneRich) {
@@ -2563,12 +2680,54 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         return utenti;
     }
 
+    public List<UsrUser> retrieveUsrUserEnteVigil(BigDecimal idEnteSiam,
+            Map<String, List<TiEnteNonConvenz>> tiEnteNonConvenz, Map<String, List<String>> tiStatoUser,
+            Map<String, List<String>> tipoUser) {
+        StringBuilder queryStr = new StringBuilder(
+                "SELECT DISTINCT user FROM UsrStatoUser statoUser, UsrUser user " + "JOIN user.orgEnteSiam enteSiam "
+                        + "WHERE user.flAbilOrganizAutom = '1' AND user.idStatoUserCor = statoUser.idStatoUser ");
+        if (idEnteSiam != null) {
+            queryStr.append("AND enteSiam.idEnteSiam = :idEnteSiam  ");
+        }
+        if (tiEnteNonConvenz != null) {
+            String keyClause = tiEnteNonConvenz.keySet().stream().findFirst().get();
+            queryStr.append("AND enteSiam.tiEnteNonConvenz ").append(keyClause).append(" :tiEnteNonConvenz ");
+        }
+        if (tiStatoUser != null) {
+            String keyClause = tiStatoUser.keySet().stream().findFirst().get();
+            queryStr.append("AND statoUser.tiStatoUser ").append(keyClause).append(" :tiStatoUser ");
+        }
+        if (tipoUser != null) {
+            String keyClause = tipoUser.keySet().stream().findFirst().get();
+            queryStr.append("AND user.tipoUser ").append(keyClause).append(" :tipoUser ");
+        }
+        queryStr.append("ORDER BY user.nmCognomeUser, user.nmNomeUser ");
+        Query query = getEntityManager().createQuery(queryStr.toString());
+        if (idEnteSiam != null) {
+            query.setParameter("idEnteSiam", longFrom(idEnteSiam));
+        }
+        if (tiEnteNonConvenz != null) {
+            List<TiEnteNonConvenz> values = tiEnteNonConvenz.values().stream().findFirst().get();
+            query.setParameter("tiEnteNonConvenz", values);
+        }
+        if (tiStatoUser != null) {
+            List<String> values = tiStatoUser.values().stream().findFirst().get();
+            query.setParameter("tiStatoUser", values);
+        }
+        if (tipoUser != null) {
+            List<String> values = tipoUser.values().stream().findFirst().get();
+            query.setParameter("tipoUser", values);
+        }
+        List<UsrUser> utenti = query.getResultList();
+        return utenti;
+    }
+
     /**
      * Controlla se l'utente passato in input ha effettuato versamenti di UD in Sacer
-     * 
+     *
      * @param idUserIam
      *            l'utente versante
-     * 
+     *
      * @return true se sono presenti versamenti in Sacer effettuati dall'utente
      */
     public boolean checkExistsVersamentiSacer(long idUserIam) {
@@ -2581,19 +2740,22 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 
     /**
      * Controlla se l'utente passato in input ha effettuato versamenti di oggetti in Ping
-     * 
+     *
      * @param idUserIam
      *            l'utente versante
-     * 
+     *
      * @return true se sono presenti versamenti in Ping effettuati dall'utente
      */
-    public boolean checkExistsVersamentiPing(long idUserIam) {
-        Query query = getEntityManager().createQuery(
-                "SELECT oggetto FROM PigObject oggetto " + "WHERE oggetto.iamUser.idUserIam = :idUserIam ");
-        query.setParameter("idUserIam", idUserIam);
-        query.setMaxResults(1);
-        return !query.getResultList().isEmpty();
-    }
+    //
+    // MEV#27457 - Rendere indipendente SIAM da PING
+    //
+    // public boolean checkExistsVersamentiPing(long idUserIam) {
+    // Query query = getEntityManager().createQuery(
+    // "SELECT oggetto FROM PigObject oggetto " + "WHERE oggetto.iamUser.idUserIam = :idUserIam ");
+    // query.setParameter("idUserIam", idUserIam);
+    // query.setMaxResults(1);
+    // return !query.getResultList().isEmpty();
+    // }
 
     public String getQualificaUser(long idUserIam) {
         Query query = getEntityManager().createQuery("SELECT enteUserRif.qualificaUser FROM OrgEnteUserRif enteUserRif "
@@ -2609,7 +2771,115 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         return qualificaResult;
     }
 
+    /**
+     * Metodo che restituisce un viewbean con i record trovati in base ai filtri di ricerca passati in ingresso
+     *
+     * @param filtriJS
+     *            filtri job schedulati {@link FiltriJobSchedulati}
+     * @param dateValidate
+     *            array con date da validare
+     *
+     * @return entity bean {@link MonVLisSchedJobTableBean}
+     *
+     * @throws EMFError
+     *             errore generico
+     */
+    public MonVLisSchedJobTableBean getMonVLisSchedJobViewBean(FiltriJobSchedulati filtriJS, Date[] dateValidate)
+            throws EMFError {
+        return getMonVLisSchedJobViewBean(dateValidate, filtriJS.getNm_job().parse());
+    }
+
+    /**
+     * Metodo che restituisce un viewbean con i record trovati in base ai filtri di ricerca passati in ingresso
+     *
+     * @param dateValidate
+     *            le date
+     * @param nomeJob
+     *            nome del job
+     *
+     * @return {@link MonVLisSchedJobTableBean} table bean per la UI
+     */
+    public MonVLisSchedJobTableBean getMonVLisSchedJobViewBean(Date[] dateValidate, String nomeJob) {
+        String whereWord = "WHERE ";
+        StringBuilder queryStr = new StringBuilder("SELECT u FROM MonVLisSchedJob u ");
+        // Inserimento nella query del filtro nome job
+        if (nomeJob != null) {
+            queryStr.append(whereWord).append("u.nmJob = :nmJob ");
+            whereWord = "AND ";
+        }
+        Date dataOrarioDa = (dateValidate != null ? dateValidate[0] : null);
+        Date dataOrarioA = (dateValidate != null ? dateValidate[1] : null);
+        // Inserimento nella query del filtro data giÃ  impostato con data e ora
+        if ((dataOrarioDa != null) && (dataOrarioA != null)) {
+            queryStr.append(whereWord).append("(u.dtRegLogJobIni between :datada AND :dataa) ");
+        }
+        queryStr.append("ORDER BY u.dtRegLogJobIni DESC ");
+        Query query = getEntityManager().createQuery(queryStr.toString());
+
+        if (nomeJob.equals("ALLINEAMENTO_LOG")) {
+            query.setParameter(NM_JOB, "ALLINEAMENTO_LOG_SACER_IAM");
+        } else if (nomeJob.equals("INIZIALIZZAZIONE_LOG")) {
+            query.setParameter(NM_JOB, "INIZIALIZZAZIONE_LOG_SACER_IAM");
+        } else if (nomeJob != null) {
+            query.setParameter(NM_JOB, nomeJob);
+        }
+
+        if (dataOrarioDa != null && dataOrarioA != null) {
+            query.setParameter(DATA_DA, dataOrarioDa, TemporalType.TIMESTAMP);
+            query.setParameter(DATA_A, dataOrarioA, TemporalType.TIMESTAMP);
+        }
+
+        // eseguo la query e metto i risulati in una lista
+        List<MonVLisSchedJob> listaSched = query.getResultList();
+        MonVLisSchedJobTableBean schedTableBean = new MonVLisSchedJobTableBean();
+        try {
+            if (listaSched != null && !listaSched.isEmpty()) {
+                schedTableBean = (MonVLisSchedJobTableBean) Transform.entities2TableBean(listaSched);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        // Creo un nuovo campo concatenandone altri giÃ  esistenti
+        for (int i = 0; i < schedTableBean.size(); i++) {
+            MonVLisSchedJobRowBean row = schedTableBean.getRow(i);
+            if (row.getDtRegLogJobFine() != null) {
+                String durata = row.getDurataGg() + "-" + row.getDurataOre() + ":" + row.getDurataMin() + ":"
+                        + row.getDurataSec();
+                row.setString("durata", durata);
+            }
+        }
+        return schedTableBean;
+    }
+
+    /**
+     * Restituisce un rowbean contenente le informazioni sull'ultima schedulazione di un determinato job
+     *
+     * @param nomeJob
+     *            nome job
+     *
+     * @return entity bean {@link LogVVisLastSchedRowBean}
+     */
+    public LogVVisLastSchedRowBean getLogVVisLastSched(String nomeJob) {
+        final long start = System.currentTimeMillis();
+        String queryStr = "SELECT u FROM LogVVisLastSched u WHERE u.nmJob = :nomeJob ";
+        TypedQuery<LogVVisLastSched> query = getEntityManager().createQuery(queryStr, LogVVisLastSched.class);
+        query.setParameter("nomeJob", nomeJob);
+        List<LogVVisLastSched> listaLog = query.getResultList();
+        LogVVisLastSchedRowBean logRowBean = new LogVVisLastSchedRowBean();
+        try {
+            if (listaLog != null && !listaLog.isEmpty()) {
+                logRowBean = (LogVVisLastSchedRowBean) Transform.entity2RowBean(listaLog.get(0));
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        long end = System.currentTimeMillis() - start;
+        log.debug("La chiamata alla vista LogVVisLastSched filtrata per nome job [{}] è durata {} ms", nomeJob, +end);
+        return logRowBean;
+    }
+
     static class FiltriUtentiPlain {
+
         private final Set<BigDecimal> idEnteConvenzAppart;
         private final long idUserIamCorr;
         private final List<BigDecimal> idEntiConvenzionatiAmministratori;
@@ -2623,6 +2893,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         private final String dsEmail;
         private final List<String> tipoUser;
         private final String statoUser;
+        private final String flUtentiAutomaCessati;
         private final BigDecimal idOrganizIam;
         private final BigDecimal ruoloDich;
         private final String errReplic;
@@ -2642,11 +2913,12 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         FiltriUtentiPlain(Set<BigDecimal> idEnteConvenzAppart, long idUserIamCorr,
                 List<BigDecimal> idEntiConvenzionatiAmministratori, String cognome, String nome, String userId,
                 String codiceFiscale, BigDecimal idApplic, BigDecimal ruoloDefault, String attivo, String dsEmail,
-                List<String> tipoUser, String statoUser, BigDecimal idOrganizIam, BigDecimal ruoloDich,
-                String errReplic, BigDecimal idSistemaVersante, List<BigDecimal> idAmbienteEnteConvenzAppart,
-                BigDecimal idEnteConvenzAbil, String cdRichGestUser, Date dataOrarioDa, Date dataOrarioA,
-                BigDecimal idOrganizIamRich, String cdRegistroRichGestUser, BigDecimal aaRichGestUser,
-                String cdKeyRichGestUser, BigDecimal idEnteConvenzRich, String flRespEnteConvenz) {
+                List<String> tipoUser, String statoUser, String flUtentiAutomaCessati, BigDecimal idOrganizIam,
+                BigDecimal ruoloDich, String errReplic, BigDecimal idSistemaVersante,
+                List<BigDecimal> idAmbienteEnteConvenzAppart, BigDecimal idEnteConvenzAbil, String cdRichGestUser,
+                Date dataOrarioDa, Date dataOrarioA, BigDecimal idOrganizIamRich, String cdRegistroRichGestUser,
+                BigDecimal aaRichGestUser, String cdKeyRichGestUser, BigDecimal idEnteConvenzRich,
+                String flRespEnteConvenz) {
             this.idEnteConvenzAppart = idEnteConvenzAppart;
             this.idUserIamCorr = idUserIamCorr;
             this.idEntiConvenzionatiAmministratori = idEntiConvenzionatiAmministratori;
@@ -2660,6 +2932,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
             this.dsEmail = dsEmail;
             this.tipoUser = tipoUser;
             this.statoUser = statoUser;
+            this.flUtentiAutomaCessati = flUtentiAutomaCessati;
             this.idOrganizIam = idOrganizIam;
             this.ruoloDich = ruoloDich;
             this.errReplic = errReplic;
@@ -2787,6 +3060,10 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 
         private String getFlRespEnteConvenz() {
             return flRespEnteConvenz;
+        }
+
+        private String getFlUtentiAutomaCessati() {
+            return flUtentiAutomaCessati;
         }
     }
 }

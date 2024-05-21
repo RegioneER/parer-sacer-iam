@@ -8,7 +8,25 @@
         <sl:menu showChangePasswordBtn="true" />
         <sl:content>
             <slf:messageBox />
+            <c:if test="${!empty requestScope.customDeleteSupportoMessageBox}">                
+                <div class="messages confermaDeleteSupporto ">
+                    <ul>
+                        <li class="message warning ">Attenzione! La cancellazione dell'ente supportato comporterà l'eliminazione delle abilitazioni concesse ai seguenti <c:out value = "${requestScope.numeroUtentiSupporto}"/> utenti:</li>
+                    </ul>
+                    <p  style="padding-left: 70px">                                                 
+                        <c:forTokens items = "${requestScope.listaUtentiSupporto}" delims = "," var = "utentiSupporto">
+                            <c:out value = "${utentiSupporto}"/><br>                        
+                        </c:forTokens>
+                    <p>
+                    <ul style="text-indent: 30px">
+                    Si desidera procedere?
+                    </ul>
+                </div>      
+            </c:if>
+            
+            <!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- -->
             <sl:newLine skipLine="true"/>
+            <script type="text/javascript" src="<c:url value='/js/customDeleteSupportoMessageBox.js'/>" ></script>
             <sl:contentTitle title="<%=AmministrazioneEntiNonConvenzionatiForm.EnteSupportatoDetail.DESCRIPTION%>" />
             <c:if test="${sessionScope['###_FORM_CONTAINER']['entiSupportatiList'].table['empty']}">
                 <slf:fieldBarDetailTag name="<%= AmministrazioneEntiNonConvenzionatiForm.EnteSupportatoDetail.NAME%>" hideBackButton="${sessionScope['###_FORM_CONTAINER']['entiSupportatiList'].status eq 'insert'}"/> 

@@ -1,16 +1,50 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the USR_USER database table.
- *
  */
 @Entity
 @Table(name = "USR_USER")
@@ -18,44 +52,79 @@ import javax.persistence.*;
 public class UsrUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idUserIam;
+
     private String cdFisc;
+
     private String cdPsw;
+
     private String cdSalt;
+
     private String dsEmail;
+
     private String dsEmailSecondaria;
+
     private Date dtRegPsw;
+
     private Date dtScadPsw;
+
     private String flAbilEntiCollegAutom;
+
     private String flAbilFornitAutom;
+
     private String flAbilOrganizAutom;
+
     private String flAttivo;
+
     private String flContrIp;
+
     private String flRespEnteConvenz;
+
     private String flUserAdmin;
+
     private String flUtenteDitta;
+
     private BigDecimal idStatoUserCor;
+
     private String nmCognomeUser;
+
     private String nmNomeUser;
+
     private String nmUserid;
+
     private String tipoUser;
+
     private List<AplSistemaVersanteUserRef> aplSistemaVersanteUserRefs = new ArrayList<>();
+
     private List<AplSistemaVersArkRif> aplSistemaVersArkRifs = new ArrayList<>();
+
     private List<OrgEnteArkRif> orgEnteArkRifs = new ArrayList<>();
+
     private List<UsrAbilEnteSiam> usrAbilEnteSiams = new ArrayList<>();
+
     private List<UsrAppartUserRich> usrAppartUserRiches = new ArrayList<>();
+
     private List<UsrDichAbilEnteConvenz> usrDichAbilEnteConvenzs = new ArrayList<>();
+
     private List<UsrIndIpUser> usrIndIpUsers = new ArrayList<>();
+
     private List<UsrRichGestUser> usrRichGestUsers = new ArrayList<>();
+
     private List<UsrStatoUser> usrStatoUsers = new ArrayList<>();
     private String tipoAuth;
     private Date dtIniCert;
     private Date dtFinCert;
     private AplSistemaVersante aplSistemaVersante;
+
     private LogAgente logAgente;
+
     private OrgEnteSiam orgEnteSiam;
+
     private List<UsrUsoUserApplic> usrUsoUserApplics = new ArrayList<>();
+
     private List<UsrOldPsw> usrOldPsws = new ArrayList<>();
+
     private List<OrgEnteUserRif> orgEnteUserRifs = new ArrayList<>();
     private UsrUserExt usrUserExt;
 
@@ -63,11 +132,11 @@ public class UsrUser implements Serializable {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SUSR_USER") // @SequenceGenerator(name =
-    // "USR_USER_IDUSERIAM_GENERATOR", sequenceName =
-    // "SUSR_USER", allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_USER_IDUSERIAM_GENERATOR")
     @Column(name = "ID_USER_IAM")
+    @GenericGenerator(name = "SUSR_USER_ID_USER_IAM_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_USER"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_USER_ID_USER_IAM_GENERATOR")
     public Long getIdUserIam() {
         return this.idUserIam;
     }

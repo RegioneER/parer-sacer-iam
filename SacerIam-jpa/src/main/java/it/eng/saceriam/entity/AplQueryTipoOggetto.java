@@ -1,14 +1,45 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the APL_QUERY_TIPO_OGGETTO database table.
- *
  */
 @Entity
 @Table(name = "APL_QUERY_TIPO_OGGETTO")
@@ -16,28 +47,34 @@ import javax.persistence.*;
 public class AplQueryTipoOggetto implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idQueryTipoOggetto;
+
     private String blQueryTipoOggetto;
+
     private String nmQueryTipoOggetto;
+
     private String tipoUsoQuery;
+
     private AplTipoOggetto aplTipoOggetto1;
+
     private AplTipoOggetto aplTipoOggetto2;
+
     private AplTipoOggetto aplTipoOggetto3;
+
     private List<AplTipoEventoOggettoTrig> aplTipoEventoOggettoTrigs1 = new ArrayList<>();
+
     private List<AplTipoEventoOggettoTrig> aplTipoEventoOggettoTrigs2 = new ArrayList<>();
 
     public AplQueryTipoOggetto() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SAPL_QUERY_TIPO_OGGETTO") // @SequenceGenerator(name =
-                                                                             // "APL_QUERY_TIPO_OGGETTO_IDQUERYTIPOOGGETTO_GENERATOR",
-                                                                             // sequenceName =
-                                                                             // "SAPL_QUERY_TIPO_OGGETTO",
-                                                                             // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "APL_QUERY_TIPO_OGGETTO_IDQUERYTIPOOGGETTO_GENERATOR")
     @Column(name = "ID_QUERY_TIPO_OGGETTO")
+    @GenericGenerator(name = "SAPL_QUERY_TIPO_OGGETTO_ID_QUERY_TIPO_OGGETTO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_QUERY_TIPO_OGGETTO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_QUERY_TIPO_OGGETTO_ID_QUERY_TIPO_OGGETTO_GENERATOR")
     public Long getIdQueryTipoOggetto() {
         return this.idQueryTipoOggetto;
     }
@@ -120,7 +157,6 @@ public class AplQueryTipoOggetto implements Serializable {
     public AplTipoEventoOggettoTrig addAplTipoEventoOggettoTrigs1(AplTipoEventoOggettoTrig aplTipoEventoOggettoTrigs1) {
         getAplTipoEventoOggettoTrigs1().add(aplTipoEventoOggettoTrigs1);
         aplTipoEventoOggettoTrigs1.setAplQueryTipoOggetto1(this);
-
         return aplTipoEventoOggettoTrigs1;
     }
 
@@ -128,7 +164,6 @@ public class AplQueryTipoOggetto implements Serializable {
             AplTipoEventoOggettoTrig aplTipoEventoOggettoTrigs1) {
         getAplTipoEventoOggettoTrigs1().remove(aplTipoEventoOggettoTrigs1);
         aplTipoEventoOggettoTrigs1.setAplQueryTipoOggetto1(null);
-
         return aplTipoEventoOggettoTrigs1;
     }
 
@@ -145,7 +180,6 @@ public class AplQueryTipoOggetto implements Serializable {
     public AplTipoEventoOggettoTrig addAplTipoEventoOggettoTrigs2(AplTipoEventoOggettoTrig aplTipoEventoOggettoTrigs2) {
         getAplTipoEventoOggettoTrigs2().add(aplTipoEventoOggettoTrigs2);
         aplTipoEventoOggettoTrigs2.setAplQueryTipoOggetto2(this);
-
         return aplTipoEventoOggettoTrigs2;
     }
 
@@ -153,8 +187,6 @@ public class AplQueryTipoOggetto implements Serializable {
             AplTipoEventoOggettoTrig aplTipoEventoOggettoTrigs2) {
         getAplTipoEventoOggettoTrigs2().remove(aplTipoEventoOggettoTrigs2);
         aplTipoEventoOggettoTrigs2.setAplQueryTipoOggetto2(null);
-
         return aplTipoEventoOggettoTrigs2;
     }
-
 }

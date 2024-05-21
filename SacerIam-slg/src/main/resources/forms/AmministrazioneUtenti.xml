@@ -22,6 +22,7 @@
         <Input Name="ds_email" Description="Email" Type="STRING" />      
         <MultiSelect Name="tipo_user" Description="Tipologia utente" Type="STRING" />
         <ComboBox Name="ti_stato_user" Description="Stato utente" Type="STRING" />
+        <CheckBox Name="fl_utenti_automa_cessati" Description="Utenti automa cessati" Type="STRING" defaultValue="0" />
         <ComboBox Name="dl_composito_organiz" Description="Organizzazione" Type="INTEGER" />
         <ComboBox Name="nm_ruolo_dich" Description="Ruolo specifico per organizzazione" Type="INTEGER"/>
         <ComboBox Name="fl_err_replic" Description="Errori di replica" Type="STRING"/>
@@ -47,6 +48,7 @@
         <Button Name="addUtentiArchivistiToSistemaVersante" Description="Aggiungi" Type="STRING" />
         <Button Name="addReferentiDittaProduttriceToSistemaVersante" Description="Aggiungi" Type="STRING" />
         <Button Name="scaricaIndirizziMail" Description="Scarica indirizzi mail" Type="STRING" DisableHourGlass="true" />
+        <Button Secure="false" Name="attivaTriggerUtentiAutomaCessati" Description="Automa" Type="STRING" />              
     </Fields>
     
     <List Name="ListaUtenti" Description="Lista Utenti">        
@@ -103,12 +105,12 @@
         <ComboBox Name="fl_abil_organiz_autom" Description="Allinea abilitazioni alle organizzazioni vigilate in automatico" Type="STRING" />
         <ComboBox Name="fl_abil_fornit_autom" Description="Allinea abilitazioni alle organizzazioni e agli enti supportati in automatico" Type="STRING" />
         <Button Name="duplicaUtente" Description="Duplica utente" Type="STRING"/>
-        <Button Name="resetPassword" Description="Reset password" Type="STRING"/>
         <Button Name="nuovaPassword" Description="Inserisci nuova password" Type="STRING"/>
         <Button Name="visualizzaReplicheUtenti" Description="Visualizza repliche utenti" Type="STRING"/>
         <Button Name="attivaUtente" Description="Attiva utente" Type="STRING"/>
         <Button Name="disattivaUtente" Description="Disattiva utente" Type="STRING"/>
         <Button Name="cessaUtente" Description="Cessa utente" Type="STRING"/>
+        <Button Name="inviaMailAttivazione" Description="Invia e-mail di attivazione" Type="STRING"/>
         <Button Name="logEventi" Description="Log eventi" Type="STRING"/>
     </Fields>
     
@@ -531,5 +533,38 @@
     <ButtonList Name="UdButtonList" Description="MessageBox" >
         <Button Name="scaricaCompFileUdRichiesta" Description="Scarica file unità documentaria" Type="STRING"/>        
     </ButtonList>
+    
+    <!-- Filtri schedulazioni job -->
+    <Fields Name="FiltriJobSchedulati" Description="Filtri Schedulazioni Job" >
+        <ComboBox Type="STRING" Description="Job" Name="nm_job" Required="true" />         
+        <Input Type="DATE" Description="Data schedulazione da" Name="dt_reg_log_job_da" Required="true"/> 
+        <Input Type="INTEGER" Description="Orario" Name="ore_dt_reg_log_job_da" MaxLength="2"/>  
+        <Input Type="INTEGER" Description="Orario" Name="minuti_dt_reg_log_job_da" MaxLength="2"/> 
+        <Input Type="DATE" Description="Data schedulazione a" Name="dt_reg_log_job_a" /> 
+        <Input Type="INTEGER" Description="Orario" Name="ore_dt_reg_log_job_a" />  
+        <Input Type="INTEGER" Description="Orario" Name="minuti_dt_reg_log_job_a" /> 
+        <Button Name="ricercaJobSchedulati" Description="Ricerca" Type="STRING" />
+        <Button Name="pulisciJobSchedulati" Description="Pulisci" Type="STRING" />
+        <Button Name="gestioneJobPage" Description="Gestione Job" Type="STRING" />        
+    </Fields>
+    
+    <!-- Stato job -->
+    <Fields Name="InformazioniJob" Description="Stato Job" >
+        <Button Name="startJobSchedulati" Description="Start" Type="STRING" />
+        <Button Name="stopJobSchedulati" Description="Stop" Type="STRING" />
+        <Button Name="esecuzioneSingolaJobSchedulati" Description="Esecuzione singola" Type="STRING" />
+        <CheckBox  Type="STRING" Description="Attivo" Name="attivo" />
+        <Input  Type="STRING" Description="Nota" Name="fl_data_accurata" />        
+        <Input  Type="DATETIME" Description="Da" Name="dt_reg_log_job_ini" />
+        <Input  Type="DATETIME" Description="Prossima attivazione" Name="dt_prossima_attivazione" />
+    </Fields>
+    
+    <!-- Lista schedulazioni job -->
+    <List Name="JobSchedulatiList" Description="Lista Schedulazioni Job" hideDetailButton="true" hideInsertButton="true" hideDeleteButton="true" hideUpdateButton="true">
+        <Input Type="DATETIME" Description="Data inizio" Name="dt_reg_log_job_ini"/> 
+        <Input Type="DATETIME" Description="Data fine" Name="dt_reg_log_job_fine"/>
+        <Input Type="STRING" Description="Durata (gg-hh:mm:ss)" Name="durata"/> 
+        <Input Type="STRING" Description="Errore" Name="dl_msg_err"/> 
+    </List>
 
 </Form>

@@ -1,19 +1,29 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.slite.gen.tablebean;
 
+import java.math.BigDecimal;
+
+import it.eng.saceriam.entity.OrgTipiGestioneAccordo;
 import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.JEEBaseRowInterface;
 import it.eng.spagoLite.db.base.row.BaseRow;
 import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
-import org.eclipse.persistence.internal.indirection.DatabaseValueHolder;
-import org.eclipse.persistence.internal.sessions.AbstractRecord;
-import it.eng.saceriam.entity.OrgTipiGestioneAccordo;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.sql.Clob;
-import java.sql.Types;
-import java.sql.SQLException;
-import javax.annotation.Generated;
 
 /**
  * RowBean per la tabella Org_Tipi_Gestione_Accordo
@@ -56,7 +66,6 @@ public class OrgTipiGestioneAccordoRowBean extends BaseRow implements BaseRowInt
     @Override
     public void entityToRowBean(Object obj) {
         OrgTipiGestioneAccordo entity = (OrgTipiGestioneAccordo) obj;
-        AbstractRecord ar;
         this.setIdTipoGestioneAccordo(new BigDecimal(entity.getIdTipoGestioneAccordo()));
         this.setCdTipoGestioneAccordo(entity.getCdTipoGestioneAccordo());
     }

@@ -9,6 +9,11 @@
         <ComboBox Type="STRING" Description="Tipo evento" Name="tipo_evento"/>
         <CheckBox Type="STRING" Description="Includi utenti automi" Name="incl_utenti_automi"/>
         <CheckBox Type="STRING" Description="Includi login OK" Name="incl_login_OK"/>
+        <Input Type="STRING" Description="Nome" Name="nm_nome_user"/>
+        <Input Type="STRING" Description="Cognome" Name="nm_cognome_user"/>
+        <Input Type="STRING" Description="E-mail" Name="ds_email_user"/>
+        <Input Type="STRING" Description="ID esterno" Name="cd_id_esterno"/>
+        <Input Type="STRING" Description="Codice fiscale" Name="cd_fisc_user"/>
         <Button Name="ricercaAccessiFalliti" Description="Ricerca" Type="STRING"/>
     </Fields>
     
@@ -19,6 +24,11 @@
         <Input Type="STRING" Description="Descrizione evento" Name="ds_evento" />        
         <Input Type="STRING" Description="IP client" Name="cd_ind_ip_client" />
         <Input Type="STRING" Description="Indirizzo server" Name="cd_ind_server" />
+        <Input Type="STRING" Description="Nome" Name="nm_nome_user" />
+        <Input Type="STRING" Description="Cognome" Name="nm_cognome_user" />
+        <Input Type="STRING" Description="Codice fiscale" Name="cd_fisc_user" />
+        <Input Type="STRING" Description="E-mail" Name="ds_email_user" />
+        <Input Type="STRING" Description="ID esterno" Name="cd_id_esterno" />
     </List>
      
 </Form>

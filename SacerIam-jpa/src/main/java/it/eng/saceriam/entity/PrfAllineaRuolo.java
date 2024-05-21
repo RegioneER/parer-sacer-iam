@@ -1,13 +1,41 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the PRF_ALLINEA_RUOLO database table.
- *
  */
 @Entity
 @Table(name = "PRF_ALLINEA_RUOLO")
@@ -15,27 +43,40 @@ import java.math.BigDecimal;
 public class PrfAllineaRuolo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idAllineaRuolo;
+
     private String dsPathEntryMenuFoglia;
+
     private String dsPathEntryMenuPadre;
+
     private PrfRuolo prfRuolo;
+
     private String nmApplic;
+
     private String nmAzionePagina;
+
     private String nmPaginaWeb;
+
     private String nmServizioWeb;
+
     private String tiDichAutor;
+
     private String tiScopoDichAutor;
 
     public PrfAllineaRuolo() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SPRF_ALLINEA_RUOLO") // @SequenceGenerator(name =
-                                                                        // "PRF_ALLINEA_RUOLO_IDALLINEARUOLO_GENERATOR",
-                                                                        // sequenceName = "SPRF_ALLINEA_RUOLO",
-                                                                        // allocationSize = 1)
+    // "PRF_ALLINEA_RUOLO_IDALLINEARUOLO_GENERATOR",
+    // sequenceName = "SPRF_ALLINEA_RUOLO",
+    // allocationSize = 1)
     // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRF_ALLINEA_RUOLO_IDALLINEARUOLO_GENERATOR")
     @Column(name = "ID_ALLINEA_RUOLO")
+    @GenericGenerator(name = "SPRF_ALLINEA_RUOLO_ID_ALLINEA_RUOLO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SPRF_ALLINEA_RUOLO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPRF_ALLINEA_RUOLO_ID_ALLINEA_RUOLO_GENERATOR")
     public Long getIdAllineaRuolo() {
         return this.idAllineaRuolo;
     }
@@ -125,5 +166,4 @@ public class PrfAllineaRuolo implements Serializable {
     public void setPrfRuolo(PrfRuolo prfRuolo) {
         this.prfRuolo = prfRuolo;
     }
-
 }

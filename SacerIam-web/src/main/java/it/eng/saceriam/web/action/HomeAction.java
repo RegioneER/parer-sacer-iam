@@ -1,4 +1,35 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.ejb.EJB;
+
+import org.apache.commons.codec.binary.Base64;
 
 import it.eng.saceriam.entity.constraint.ConstIamParamApplic;
 import it.eng.saceriam.helper.ParamHelper;
@@ -8,21 +39,11 @@ import it.eng.saceriam.web.util.Constants;
 import it.eng.saceriam.ws.restituzioneNewsApplicazione.dto.News;
 import it.eng.saceriam.ws.restituzioneNewsApplicazione.dto.RestituzioneNewsApplicazioneRisposta;
 import it.eng.saceriam.ws.restituzioneNewsApplicazione.ejb.RestituzioneNewsApplicazioneEjb;
-
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.form.fields.Field;
 import it.eng.spagoLite.form.fields.Fields;
 import it.eng.spagoLite.security.auth.PwdUtil;
 import it.eng.util.EncryptionUtil;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import javax.ejb.EJB;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import org.apache.commons.codec.binary.Base64;
 
 public class HomeAction extends HomeAbstractAction {
 
@@ -106,10 +127,11 @@ public class HomeAction extends HomeAbstractAction {
         sb.append(getRequest().getServerPort());
         sb.append(getRequest().getContextPath());
         String retURL = sb.toString();
+
         String salt = Base64.encodeBase64URLSafeString(PwdUtil.generateSalt());
         String hmac = EncryptionUtil.getHMAC(retURL + ":" + salt);
-        this.getResponse()
-                .sendRedirect(Application.Actions.MODIFICA_PSW + "?r=" + retURL + "&h=" + hmac + "&s=" + salt);
+        this.getResponse().sendRedirect(Application.Actions.MODIFICA_PSW + "?r="
+                + URLEncoder.encode(retURL, StandardCharsets.UTF_8.name()) + "&h=" + hmac + "&s=" + salt);
     }
 
     @Override

@@ -1,4 +1,40 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.ejb;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.saceriam.entity.AplApplic;
 import it.eng.saceriam.entity.AplAzionePagina;
@@ -40,29 +76,13 @@ import it.eng.saceriam.viewEntity.PrfVLisRuolo;
 import it.eng.saceriam.web.dto.PairAuth;
 import it.eng.saceriam.web.helper.AmministrazioneRuoliHelper;
 import it.eng.saceriam.web.util.Transform;
-import it.eng.saceriam.ws.client.allineaRuolo.ListaCategRuolo;
 import it.eng.saceriam.ws.client.allineaRuolo.Applic;
 import it.eng.saceriam.ws.client.allineaRuolo.DichAutor;
 import it.eng.saceriam.ws.client.allineaRuolo.ListaApplic;
+import it.eng.saceriam.ws.client.allineaRuolo.ListaCategRuolo;
 import it.eng.saceriam.ws.client.allineaRuolo.ListaDichAutor;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.form.base.BaseElements.Status;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.ejb.EJB;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.interceptor.Interceptors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Ejb Amministrazione Ruoli di SacerIam

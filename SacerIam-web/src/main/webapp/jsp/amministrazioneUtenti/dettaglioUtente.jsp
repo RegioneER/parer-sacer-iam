@@ -80,7 +80,7 @@
             </slf:section>
             <sl:pulsantiera>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.DUPLICA_UTENTE%>" width="w30"/>
-                <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.RESET_PASSWORD%>" width="w30"/>
+                <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.INVIA_MAIL_ATTIVAZIONE%>" width="w30"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.NUOVA_PASSWORD%>" width="w30"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.VISUALIZZA_REPLICHE_UTENTI%>" width="w30"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.ATTIVA_UTENTE%>" width="w30"/>

@@ -1,7 +1,25 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +30,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlID;
-import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
  * The persistent class for the DEC_TIPO_UNITA_DOC database table.
@@ -31,39 +47,20 @@ public class DecTipoUnitaDoc implements Serializable {
     private String dsSerieDaCreare;
     private String dsTipoSerieDaCreare;
     private String dsTipoUnitaDoc;
-    // private Date dtFirstVers;
     private Date dtIstituz;
     private Date dtSoppres;
-    // private String flCreaTipoSerieStandard;
-    // private String flForzaCollegamento;
     private String nmTipoSerieDaCreare;
     private String nmTipoUnitaDoc;
     private String tiSaveFile;
-    // private List<AroUnitaDoc> aroUnitaDocs = new ArrayList<>();
-    // private List<DecAttribDatiSpec> decAttribDatiSpecs = new ArrayList<>();
-    // private List<DecCriterioFiltroMultiplo> decCriterioFiltroMultiplos = new ArrayList<>();
-    // private List<DecTipoSerieUd> decTipoSerieUds = new ArrayList<>();
-    // private List<DecTipoStrutUnitaDoc> decTipoStrutUnitaDocs = new ArrayList<>();
-    // private DecCategTipoUnitaDoc decCategTipoUnitaDoc;
     private OrgStrut orgStrut;
-    // private List<DecTipoUnitaDocAmmesso> decTipoUnitaDocAmmessos = new ArrayList<>();
-    // private List<DecXsdDatiSpec> decXsdDatiSpecs = new ArrayList<>();
-    // private List<MonContaUdDocComp> monContaUdDocComps = new ArrayList<>();
-    // private List<OrgRegolaValSubStrut> orgRegolaValSubStruts = new ArrayList<>();
-    // private List<DecModelloTipoSerie> decModelloTipoSeries = new ArrayList<>();
-    // private DecModelloTipoSerie decModelloTipoSerie;
-    // private AplSistemaVersante aplSistemaVersante;
     private OrgTipoServizio orgTipoServizio;
 
     public DecTipoUnitaDoc() {
+        // document why this constructor is empty
     }
 
     @Id
-    // @SequenceGenerator(name = "DEC_TIPO_UNITA_DOC_IDTIPOUNITADOC_GENERATOR", sequenceName = "SDEC_TIPO_UNITA_DOC",
-    // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_TIPO_UNITA_DOC_IDTIPOUNITADOC_GENERATOR")
     @Column(name = "ID_TIPO_UNITA_DOC")
-    @XmlID
     public Long getIdTipoUnitaDoc() {
         return this.idTipoUnitaDoc;
     }
@@ -117,17 +114,6 @@ public class DecTipoUnitaDoc implements Serializable {
         this.dsTipoUnitaDoc = dsTipoUnitaDoc;
     }
 
-    // @XmlTransient
-    // @Temporal(TemporalType.TIMESTAMP)
-    // @Column(name = "DT_FIRST_VERS")
-    // public Date getDtFirstVers() {
-    // return this.dtFirstVers;
-    // }
-    //
-    // public void setDtFirstVers(Date dtFirstVers) {
-    // this.dtFirstVers = dtFirstVers;
-    // }
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_ISTITUZ")
     public Date getDtIstituz() {
@@ -177,7 +163,6 @@ public class DecTipoUnitaDoc implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_STRUT")
-    @XmlInverseReference(mappedBy = "decTipoUnitaDocs")
     public OrgStrut getOrgStrut() {
         return this.orgStrut;
     }

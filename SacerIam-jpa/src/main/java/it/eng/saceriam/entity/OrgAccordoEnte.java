@@ -1,17 +1,55 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.saceriam.entity.constraint.ConstOrgAccordoEnte.TiScopoAccordo;
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import it.eng.saceriam.entity.constraint.ConstOrgAccordoEnte.TiScopoAccordo;
 
 /**
  * The persistent class for the ORG_ACCORDO_ENTE database table.
- *
  */
 @Entity
 @Table(name = "ORG_ACCORDO_ENTE")
@@ -19,80 +57,142 @@ import javax.persistence.*;
 public class OrgAccordoEnte implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idAccordoEnte;
+
     private BigDecimal aaDetermina;
+
     private BigDecimal aaRepertorio;
+
     private String cdCapitolo;
+
     private String cdCig;
+
     private String cdCoge;
+
     private String cdCup;
+
     private String cdDdt;
+
     private String cdKeyDetermina;
+
     private String cdKeyRepertorio;
+
     private String cdOda;
+
     private String cdRegistroDetermina;
+
     private String cdRegistroRepertorio;
+
     private String cdRifContab;
+
     private String cdUfe;
+
     private String dsAttoAccordo;
+
     private String dsFirmatarioEnte;
+
     private Date dtDetermina;
+
     private Date dtRichModuloInfo;
+
     private String dsNoteAccordo;
+
     private String dsUfe;
+
     private Date dtAttoAccordo;
+
     private Date dtDecAccordo;
+
     private Date dtDecAccordoInfo;
+
     private Date dtRegAccordo;
+
     private Date dtScadAccordo;
+
     private Date dtFineValidAccordo;
+
     private String flPagamento;
+
     private String flRecesso;
+
     private String flAccordoChiuso;
+
     private BigDecimal niAbitanti;
+
     private TiScopoAccordo tiScopoAccordo;
+
     private String dsNotaRecesso;
+
     private String dsNotaFatturazione;
+
     private String cdClienteFatturazione;
+
     private OrgCdIva orgCdIva;
+
     private OrgClasseEnteConvenz orgClasseEnteConvenz;
+
     private OrgEnteSiam orgEnteSiam;
+
     private OrgEnteSiam orgEnteSiamByIdEnteConvenzAmministratore;
+
     private OrgEnteSiam orgEnteSiamByIdEnteConvenzConserv;
+
     private OrgEnteSiam orgEnteSiamByIdEnteConvenzGestore;
+
     private OrgTariffario orgTariffario;
+
     private OrgTipoAccordo orgTipoAccordo;
+
     private List<OrgServizioErog> orgServizioErogs = new ArrayList<>();
+
     private List<OrgModuloInfoAccordo> orgModuloInfoAccordos = new ArrayList<>();
+
     private List<OrgGestioneAccordo> orgGestioneAccordos = new ArrayList<>();
+
     private List<OrgTariffaAccordo> orgTariffaAccordos = new ArrayList<>();
+
     private List<OrgAaAccordo> orgAaAccordos = new ArrayList<>();
-    private BigDecimal niCluster;
-    private BigDecimal niFasciaManuale;
-    private BigDecimal niFasciaStandard;
+
     private BigDecimal niRefertiManuale;
+
     private BigDecimal niRefertiStandard;
+
     private BigDecimal niTipoUdManuale;
+
     private BigDecimal imAttivDocAmm;
+
     private BigDecimal imAttivDocSani;
+
     private BigDecimal niStudioDicomPrev;
+
     private BigDecimal niTipoUdStandard;
+
     private BigDecimal niStudioDicom;
+
     private String dsNotaAttivazione;
+
     private String dsNoteEnteAccordo;
+
     private String nmEnte;
+
     private String nmStrut;
+
+    private OrgClusterAccordo orgClusterAccordo;
+
+    private OrgFasciaStorageAccordo orgFasciaStorageStandardAccordo;
+
+    private OrgFasciaStorageAccordo orgFasciaStorageManualeAccordo;
 
     public OrgAccordoEnte() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_ACCORDO_ENTE") // @SequenceGenerator(name =
-                                                                       // "ORG_ACCORDO_ENTE_IDACCORDOENTE_GENERATOR",
-                                                                       // sequenceName = "SORG_ACCORDO_ENTE",
-                                                                       // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_ACCORDO_ENTE_IDACCORDOENTE_GENERATOR")
     @Column(name = "ID_ACCORDO_ENTE")
+    @GenericGenerator(name = "SORG_ACCORDO_ENTE_ID_ACCORDO_ENTE_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_ACCORDO_ENTE"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_ACCORDO_ENTE_ID_ACCORDO_ENTE_GENERATOR")
     public Long getIdAccordoEnte() {
         return this.idAccordoEnte;
     }
@@ -517,14 +617,12 @@ public class OrgAccordoEnte implements Serializable {
     public OrgServizioErog addOrgServizioErog(OrgServizioErog orgServizioErog) {
         getOrgServizioErogs().add(orgServizioErog);
         orgServizioErog.setOrgAccordoEnte(this);
-
         return orgServizioErog;
     }
 
     public OrgServizioErog removeOrgServizioErog(OrgServizioErog orgServizioErog) {
         getOrgServizioErogs().remove(orgServizioErog);
         orgServizioErog.setOrgAccordoEnte(null);
-
         return orgServizioErog;
     }
 
@@ -541,14 +639,12 @@ public class OrgAccordoEnte implements Serializable {
     public OrgModuloInfoAccordo addOrgModuloInfoAccordo(OrgModuloInfoAccordo orgModuloInfoAccordo) {
         getOrgModuloInfoAccordos().add(orgModuloInfoAccordo);
         orgModuloInfoAccordo.setOrgAccordoEnte(this);
-
         return orgModuloInfoAccordo;
     }
 
     public OrgModuloInfoAccordo removeOrgModuloInfoAccordo(OrgModuloInfoAccordo orgModuloInfoAccordo) {
         getOrgModuloInfoAccordos().remove(orgModuloInfoAccordo);
         orgModuloInfoAccordo.setOrgAccordoEnte(null);
-
         return orgModuloInfoAccordo;
     }
 
@@ -565,14 +661,12 @@ public class OrgAccordoEnte implements Serializable {
     public OrgGestioneAccordo addOrgGestioneAccordo(OrgGestioneAccordo orgGestioneAccordo) {
         getOrgGestioneAccordos().add(orgGestioneAccordo);
         orgGestioneAccordo.setOrgAccordoEnte(this);
-
         return orgGestioneAccordo;
     }
 
     public OrgGestioneAccordo removeOrgGestioneAccordo(OrgGestioneAccordo orgGestioneAccordo) {
         getOrgGestioneAccordos().remove(orgGestioneAccordo);
         orgGestioneAccordo.setOrgAccordoEnte(null);
-
         return orgGestioneAccordo;
     }
 
@@ -599,42 +693,46 @@ public class OrgAccordoEnte implements Serializable {
     public OrgAaAccordo addOrgAaAccordo(OrgAaAccordo orgAaAccordo) {
         getOrgAaAccordos().add(orgAaAccordo);
         orgAaAccordo.setOrgAccordoEnte(this);
-
         return orgAaAccordo;
     }
 
     public OrgAaAccordo removeOrgAaAccordo(OrgAaAccordo orgAaAccordo) {
         getOrgAaAccordos().remove(orgAaAccordo);
         orgAaAccordo.setOrgAccordoEnte(null);
-
         return orgAaAccordo;
     }
 
-    @Column(name = "NI_CLUSTER")
-    public BigDecimal getNiCluster() {
-        return this.niCluster;
+    // bi-directional many-to-one association to OrgClusterAccordo
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_CLUSTER_ACCORDO")
+    public OrgClusterAccordo getOrgClusterAccordo() {
+        return this.orgClusterAccordo;
     }
 
-    public void setNiCluster(BigDecimal niCluster) {
-        this.niCluster = niCluster;
+    public void setOrgClusterAccordo(OrgClusterAccordo orgClusterAccordo) {
+        this.orgClusterAccordo = orgClusterAccordo;
     }
 
-    @Column(name = "NI_FASCIA_MANUALE")
-    public BigDecimal getNiFasciaManuale() {
-        return this.niFasciaManuale;
+    // bi-directional many-to-one association to OrgFasciaStorageAccordo
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_FASCIA_STORAGE_STANDARD_ACCORDO")
+    public OrgFasciaStorageAccordo getOrgFasciaStorageStandardAccordo() {
+        return this.orgFasciaStorageStandardAccordo;
     }
 
-    public void setNiFasciaManuale(BigDecimal niFasciaManuale) {
-        this.niFasciaManuale = niFasciaManuale;
+    public void setOrgFasciaStorageStandardAccordo(OrgFasciaStorageAccordo orgFasciaStorageStandardAccordo) {
+        this.orgFasciaStorageStandardAccordo = orgFasciaStorageStandardAccordo;
     }
 
-    @Column(name = "NI_FASCIA_STANDARD")
-    public BigDecimal getNiFasciaStandard() {
-        return this.niFasciaStandard;
+    // bi-directional many-to-one association to OrgFasciaStorageAccordo
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_FASCIA_STORAGE_MANUALE_ACCORDO")
+    public OrgFasciaStorageAccordo getOrgFasciaStorageManualeAccordo() {
+        return this.orgFasciaStorageManualeAccordo;
     }
 
-    public void setNiFasciaStandard(BigDecimal niFasciaStandard) {
-        this.niFasciaStandard = niFasciaStandard;
+    public void setOrgFasciaStorageManualeAccordo(OrgFasciaStorageAccordo orgFasciaStorageManualeAccordo) {
+        this.orgFasciaStorageManualeAccordo = orgFasciaStorageManualeAccordo;
     }
 
     @Column(name = "NI_REFERTI_MANUALE")

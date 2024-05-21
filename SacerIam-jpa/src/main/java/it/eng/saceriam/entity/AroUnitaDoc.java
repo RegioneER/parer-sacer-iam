@@ -1,65 +1,119 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the ARO_UNITA_DOC database table.
- *
  */
 @Entity
 @Table(name = "ARO_UNITA_DOC", schema = "SACER")
 public class AroUnitaDoc implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idUnitaDoc;
+
     private BigDecimal aaKeyUnitaDoc;
+
     private String cdFascicPrinc;
+
     private String cdKeyUnitaDoc;
+
     private String cdRegistroKeyUnitaDoc;
+
     private String cdSottofascicPrinc;
+
     private String dlOggettoUnitaDoc;
+
     private String dsClassifPrinc;
+
     private String dsKeyOrd;
+
     private String dsMsgEsitoVerifFirme;
+
     private String dsOggettoFascicPrinc;
+
     private String dsOggettoSottofascicPrinc;
+
     private String dsUffCompUnitaDoc;
+
     private Date dtAnnul;
+
     private Date dtCreazione;
+
     private Date dtRegUnitaDoc;
+
     private String flCartaceo;
+
     private String flForzaAccettazione;
+
     private String flForzaCollegamento;
+
     private String flForzaConservazione;
+
     private String flUnitaDocFirmato;
+
     private BigDecimal niAlleg;
+
     private BigDecimal niAnnessi;
+
     private BigDecimal niAnnot;
+
     private String nmSistemaMigraz;
+
     private String ntAnnul;
+
     private String ntUnitaDoc;
+
     private Long idOrgStrut;
+
     private IamUser iamUser;
+
     private BigDecimal pgUnitaDoc;
+
     private String tiAnnul;
+
     private String tiConservazione;
+
     private String tiEsitoVerifFirme;
+
     private String tiStatoConservazione;
+
     private String tiStatoUdElencoVers;
 
     public AroUnitaDoc() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SARO_UNITA_DOC") // @SequenceGenerator(name =
-                                                                    // "ARO_UNITA_DOC_IDUNITADOC_GENERATOR",
-                                                                    // sequenceName = "SARO_UNITA_DOC", allocationSize =
-                                                                    // 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARO_UNITA_DOC_IDUNITADOC_GENERATOR")
     @Column(name = "ID_UNITA_DOC")
     public Long getIdUnitaDoc() {
         return this.idUnitaDoc;
@@ -379,5 +433,4 @@ public class AroUnitaDoc implements Serializable {
     public void setTiStatoUdElencoVers(String tiStatoUdElencoVers) {
         this.tiStatoUdElencoVers = tiStatoUdElencoVers;
     }
-
 }

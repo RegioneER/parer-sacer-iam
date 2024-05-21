@@ -1,4 +1,35 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import javax.ejb.EJB;
+
+import org.codehaus.jettison.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.util.LogParam;
@@ -25,26 +56,13 @@ import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.ExecutionHistory;
 import it.eng.spagoLite.SessionManager;
-import it.eng.spagoLite.security.Secure;
-import java.math.BigDecimal;
-import javax.ejb.EJB;
 import it.eng.spagoLite.actions.form.ListAction;
 import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.sorting.SortingRule;
 import it.eng.spagoLite.db.oracle.decode.DecodeMap;
 import it.eng.spagoLite.form.base.BaseElements.Status;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.logging.Level;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
-import org.codehaus.jettison.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import it.eng.spagoLite.security.Secure;
 
 /**
  *
@@ -63,6 +81,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
 
     @Override
     public void initOnClick() throws EMFError {
+        // non richiede azioni
     }
 
     @Override
@@ -382,7 +401,6 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
                 forwardToPublisher(getLastPublisher());
             }
         }
-        // goBack();
     }
 
     @Override
@@ -511,7 +529,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
     /*
      * Metodo per impostare in 'view mode' il dettaglio tariffa
      */
-    private void setDettaglioTariffaToViewMode() throws EMFError {
+    private void setDettaglioTariffaToViewMode() {
         getForm().getListaTariffe().setStatus(Status.view);
         getForm().getTariffaDetail().setStatus(Status.view);
         getForm().getTariffaDetail().setViewMode();
@@ -597,7 +615,6 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
                     forwardToPublisher(Application.Publisher.DETTAGLIO_TARIFFA);
                     // No go back to perchè dopo aver inserito non ho ancora un dettaglio tariffa, provenivo da
                     // dettaglio tariffario e poi dettaglio tariffa wizard!
-                    // goBackTo(Application.Publisher.DETTAGLIO_TARIFFA);
                 }
             } catch (ParerUserError ex) {
                 result = false;
@@ -804,7 +821,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
     /*
      * Inserisce in sessione l'insieme degli scaglioni della tariffa
      */
-    private void populateScaglioniSet(OrgScaglioneTariffaTableBean scaglioneTariffaTableBean) throws EMFError {
+    private void populateScaglioniSet(OrgScaglioneTariffaTableBean scaglioneTariffaTableBean) {
         Set<PairNiScaglioni> scaglioniSet = new HashSet<>();
         for (OrgScaglioneTariffaRowBean scaglioneTariffaRowBean : scaglioneTariffaTableBean) {
             scaglioniSet.add(new PairNiScaglioni(scaglioneTariffaRowBean.getNiIniScaglione(),
@@ -901,9 +918,6 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
         BigDecimal idTipoServizio = getForm().getTariffaDetail().getId_tipo_servizio().parse();
         OrgTipoServizioRowBean tipoServizioRowBean = entiConvenzionatiEjb.getOrgTipoServizioRowBean(idTipoServizio);
         if (tipoServizioRowBean.getCdTipoServizio() != null) {
-            // if (tipoServizioRowBean.getCdTipoServizio().equals("VALORE_SCAGLIONI_STORAGE")
-            // || tipoServizioRowBean.getCdTipoServizio().equals("VALORE_UNITARIO_SCAGLIONI_STORAGE")
-            // || tipoServizioRowBean.getCdTipoServizio().equals("VALORE_SCAGLIONI_UD_VERSATE")) {
             if (tipoServizioRowBean.getTiClasseTipoServizio().equals("ATTIVAZIONE_TIPO_UD")) {
                 getForm().getTariffaDetail().getTipo_tariffa()
                         .setDecodeMap(ComboGetter.getMappaTipoTariffaSoloValoreFisso());

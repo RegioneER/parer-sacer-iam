@@ -4,9 +4,9 @@
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>saceriam-jboss</artifactId>
-        <version>4.9.2-SNAPSHOT</version>
+        <version>5.2.1-SNAPSHOT</version>
     </parent>
-    <groupId>it.eng.parer</groupId>
+
     <artifactId>saceriam-jboss-slg</artifactId>
     <name>SacerIam-slg</name>
     <description>SLG</description>
@@ -30,8 +30,6 @@
                         </goals>
                     </execution>
                 </executions>
-                
-                
             </plugin>
             
             <plugin>
@@ -42,9 +40,9 @@
                         <id>createSliteDir</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <mkdir dir="${project.build.directory}/generated-sources/slite" />
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -56,7 +54,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
                 <executions>
                     <execution>
                         <id>generate-slite-sources</id>
@@ -106,6 +103,10 @@
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-sl-jpa</artifactId>
-        </dependency>        
+        </dependency>
+         <dependency>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>       
     </dependencies>
 </project>

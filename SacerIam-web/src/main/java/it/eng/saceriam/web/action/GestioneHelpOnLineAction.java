@@ -1,56 +1,80 @@
 /*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package it.eng.saceriam.web.action;
 
-import it.eng.saceriam.common.Constants;
-import it.eng.saceriam.entity.AplHelpOnLine;
-import it.eng.saceriam.slite.gen.Application;
-import it.eng.saceriam.slite.gen.action.GestioneHelpOnLineAbstractAction;
-import it.eng.saceriam.slite.gen.tablebean.AplApplicRowBean;
-import it.eng.saceriam.slite.gen.viewbean.AplVVisHelpOnLineRowBean;
-import it.eng.saceriam.slite.gen.viewbean.AplVVisHelpOnLineTableBean;
-import it.eng.saceriam.web.ejb.AmministrazioneUtentiEjb;
-import it.eng.saceriam.web.util.ComboGetter;
-import it.eng.saceriam.ws.rest.ejb.RecuperoHelpEjb;
-import it.eng.spagoCore.error.EMFError;
-import it.eng.spagoLite.actions.form.ListAction;
-import it.eng.spagoLite.db.decodemap.DecodeMapIF;
-import it.eng.spagoLite.form.base.BaseElements.Status;
-import it.eng.spagoLite.security.Secure;
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.HELP_ONLINE_MAX_FILE_SIZE;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Properties;
+
 import javax.ejb.EJB;
+
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.codehaus.jettison.json.JSONObject;
-import it.eng.saceriam.web.util.HelpZipProcessor;
-import java.sql.Timestamp;
-import it.eng.saceriam.slite.gen.form.GestioneHelpOnLineForm;
-import it.eng.saceriam.util.DateUtil;
-import it.eng.saceriam.viewEntity.constraint.ConstAplVVisHelpOnLine;
-import it.eng.saceriam.web.util.WebConstants;
-import it.eng.spagoLite.message.Message;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 //import org.codehaus.jackson.map.ObjectMapper; // rimosso da FF 
 //       (sostituito la dipendenza con com.fasterxml.jackson nel pom del modulo ejb)
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import it.eng.saceriam.common.Constants;
+import it.eng.saceriam.entity.AplHelpOnLine;
+import it.eng.saceriam.slite.gen.Application;
+import it.eng.saceriam.slite.gen.action.GestioneHelpOnLineAbstractAction;
+import it.eng.saceriam.slite.gen.form.GestioneHelpOnLineForm;
+import it.eng.saceriam.slite.gen.tablebean.AplApplicRowBean;
+import it.eng.saceriam.slite.gen.viewbean.AplVVisHelpOnLineRowBean;
+import it.eng.saceriam.slite.gen.viewbean.AplVVisHelpOnLineTableBean;
+import it.eng.saceriam.util.DateUtil;
+import it.eng.saceriam.viewEntity.constraint.ConstAplVVisHelpOnLine;
+import it.eng.saceriam.web.ejb.AmministrazioneUtentiEjb;
+import it.eng.saceriam.web.util.ComboGetter;
+import it.eng.saceriam.web.util.HelpZipProcessor;
+import it.eng.saceriam.web.util.WebConstants;
+import it.eng.saceriam.ws.rest.ejb.RecuperoHelpEjb;
+import it.eng.spagoCore.configuration.ConfigSingleton;
+import it.eng.spagoCore.error.EMFError;
+import it.eng.spagoLite.actions.form.ListAction;
+import it.eng.spagoLite.db.decodemap.DecodeMapIF;
+import it.eng.spagoLite.db.oracle.decode.DecodeMap;
+import it.eng.spagoLite.form.base.BaseElements.Status;
+import it.eng.spagoLite.message.Message;
+import it.eng.spagoLite.security.Secure;
 
 /**
  *
@@ -80,8 +104,9 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 
         getForm().getFiltriHelpOnLine().reset();
 
-        getForm().getFiltriHelpOnLine().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true, true));
+        // getForm().getFiltriHelpOnLine().getNm_applic()
+        // .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true, true));
+        getForm().getFiltriHelpOnLine().getNm_applic().setDecodeMap(new DecodeMap());
         getForm().getFiltriHelpOnLine().getNm_applic().setEditMode();
 
         DecodeMapIF ogg2 = ComboGetter.getMappaSortedGenericEnum("tipoHelp", Constants.TiHelpOnLine.values());
@@ -112,13 +137,18 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 
         getForm().getFiltriHelpOnLine().post(getRequest());
         BigDecimal applic = getForm().getFiltriHelpOnLine().getNm_applic().parse();
+        String tiHelpOnLine = getForm().getFiltriHelpOnLine().getTipo_help().parse();
         if (applic != null) {
-
             AplApplicRowBean aplApplicById = amministrazioneUtentiEjb.getAplApplicRowBean(applic);
-            getForm().getFiltriHelpOnLine().getPagina()
-                    .setDecodeMap(comboGetter.getMappaPaginePerApplicazione(aplApplicById.getNmApplic(), true));
-            getForm().getFiltriHelpOnLine().getNm_menu().setDecodeMap(
-                    comboGetter.getMappaMenuUltimoLivelloPerApplSortedByDesc(aplApplicById.getIdApplic()));
+
+            if (tiHelpOnLine.equals(Constants.TiHelpOnLine.INFO_PRIVACY.name())) {
+                getForm().getFiltriHelpOnLine().getPagina().setDecodeMap(null);
+            } else {
+                getForm().getFiltriHelpOnLine().getPagina()
+                        .setDecodeMap(comboGetter.getMappaPaginePerApplicazione(applic, tiHelpOnLine, true));
+                getForm().getFiltriHelpOnLine().getNm_menu().setDecodeMap(
+                        comboGetter.getMappaMenuUltimoLivelloPerApplSortedByDesc(aplApplicById.getIdApplic()));
+            }
         } else {
             getForm().getFiltriHelpOnLine().getNm_applic().setValue("");
         }
@@ -127,14 +157,14 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
     }
 
     private void pulisciComboBoxELista() {
-        getForm().getFiltriHelpOnLine().getTipo_help().setValue("");
+        // getForm().getFiltriHelpOnLine().getTipo_help().setValue("");
         getForm().getFiltriHelpOnLine().getNm_menu().setValue("");
         getForm().getFiltriHelpOnLine().getPagina().setValue("");
         getForm().getListaHelpOnLine().clear();
     }
 
     private void pulisciComboBoxDettaglio() {
-        getForm().getDettaglioHelpOnLine().getTi_help_on_line().setValue("");
+        // getForm().getDettaglioHelpOnLine().getTi_help_on_line().setValue("");
         getForm().getDettaglioHelpOnLine().getNm_entry_menu().setValue("");
         getForm().getDettaglioHelpOnLine().getNm_pagina().setValue("");
     }
@@ -177,11 +207,16 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
         log.debug(">>>TRIGGER-RICERCA-HELP-TIPO");
         getForm().getFiltriHelpOnLine().post(getRequest());
 
-        BigDecimal idAppl = new BigDecimal(getForm().getFiltriHelpOnLine().getNm_applic().getValue());
-        String tiHelpOnLine = null;
-        tiHelpOnLine = getForm().getFiltriHelpOnLine().getTipo_help().getValue();
-        getForm().getFiltriHelpOnLine().getPagina()
-                .setDecodeMap(comboGetter.getMappaPaginePerApplicazione(idAppl, tiHelpOnLine, true));
+        String tiHelpOnLine = getForm().getFiltriHelpOnLine().getTipo_help().getValue();
+        getForm().getFiltriHelpOnLine().getNm_applic().clear();
+
+        if (tiHelpOnLine.equals("INFO_PRIVACY")) {
+            getForm().getFiltriHelpOnLine().getNm_applic().setDecodeMap(
+                    comboGetter.getMappaApplicAbilitateConPaginaInfoPrivacy(getUser().getIdUtente(), true, true));
+        } else {
+            getForm().getFiltriHelpOnLine().getNm_applic()
+                    .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true, true));
+        }
 
         getForm().getFiltriHelpOnLine().getPagina().setValue("");
         getForm().getFiltriHelpOnLine().getNm_menu().setValue("");
@@ -206,21 +241,45 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
     public void pulisci() throws EMFError {
         log.debug(">>>PULISCI");
         throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-                                                                       // Tools | Templates.
+        // Tools | Templates.
     }
 
     @Override
     public void insertDettaglio() throws EMFError {
         log.debug(">>>INSERT-DETTAGLIO");
-        // tolgo l'eventuale readonly sui campi non modificabili in fare di UPDATE
+
+        // tolgo l'eventuale readonly sui campi non modificabili in fase di UPDATE
         getForm().getDettaglioHelpOnLine().getNm_applic().setReadonly(true);
-        getForm().getDettaglioHelpOnLine().getTi_help_on_line().setReadonly(false);
+        getForm().getDettaglioHelpOnLine().getTi_help_on_line().setReadonly(true);
         getForm().getDettaglioHelpOnLine().getNm_pagina().setReadonly(false);
         getForm().getDettaglioHelpOnLine().getNm_entry_menu().setReadonly(false);
         getForm().getDettaglioHelpOnLine().getDownloadFile().setViewMode();
         getForm().getListaHelpOnLine().setStatus(Status.insert);
         getForm().getDettaglioHelpOnLine().setStatus(Status.insert);
         getForm().getListaHelpOnLine().add(new AplApplicRowBean());
+
+        // }
+    }
+
+    public void customLabel() throws EMFError {
+        if (getForm().getFiltriHelpOnLine().getTipo_help().parse() != null
+                && getForm().getFiltriHelpOnLine().getTipo_help().parse().equals("INFO_PRIVACY")) {
+            getForm().getDettaglioHelpOnLine().setDescription("Dettaglio info privacy");
+            getForm().getDettaglioHelpOnLine().getPreview().setDescription("Preview info privacy");
+            getForm().getDettaglioHelpOnLine().getDs_file_help_online().setDescription("Nome file privacy");
+            getForm().getDettaglioHelpOnLine().getDs_file_zip_help_online()
+                    .setDescription("File zip contenente l'informativa privacy");
+            getSession().setAttribute("tiHelpOnLine", "INFO_PRIVACY");
+            getSession().setAttribute("titlePopup", "Informativa sulla privacy");
+        } else {
+            getForm().getDettaglioHelpOnLine().setDescription("Dettaglio help online");
+            getForm().getDettaglioHelpOnLine().getPreview().setDescription("Preview Help online");
+            getForm().getDettaglioHelpOnLine().getDs_file_help_online().setDescription("Nome file help");
+            getForm().getDettaglioHelpOnLine().getDs_file_zip_help_online()
+                    .setDescription("File zip contenente l'help online");
+            getSession().setAttribute("tiHelpOnLine", "HELP_ONLINE");
+            getSession().setAttribute("titlePopup", "Help On Line");
+        }
     }
 
     @Override
@@ -233,12 +292,14 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
                 getForm().getDettaglioHelpOnLine().reset();
                 initInsertUpdate();
                 pulisciComboBoxDettaglio();
+                customLabel();
                 getForm().getDettaglioHelpOnLine().getDs_file_zip_help_online().setHidden(false);
             }
         } else if (getNavigationEvent().equals(ListAction.NE_DETTAGLIO_UPDATE)) {
             if (getTableName().equals(getForm().getListaHelpOnLine().getName())) {
                 log.debug("SI PROVIENE DALLA LISTA HELP ON LINE");
                 initInsertUpdate();
+                customLabel();
                 AplVVisHelpOnLineRowBean bean = (AplVVisHelpOnLineRowBean) getForm().getListaHelpOnLine().getTable()
                         .getCurrentRow();
                 AplVVisHelpOnLineRowBean help = recuperoHelpEjb.findVistaById(bean.getIdHelpOnLine());
@@ -265,6 +326,7 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
             if (getTableName().equals(getForm().getListaHelpOnLine().getName())) {
                 log.debug("SI PROVIENE DALLA LISTA HELP ON LINE");
                 initInsertUpdate();
+                customLabel();
                 AplVVisHelpOnLineRowBean bean = (AplVVisHelpOnLineRowBean) getForm().getListaHelpOnLine().getTable()
                         .getCurrentRow();
                 AplVVisHelpOnLineRowBean help = recuperoHelpEjb.findVistaById(bean.getIdHelpOnLine());
@@ -273,7 +335,9 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
                     dett.getNm_applic().setValue(getForm().getFiltriHelpOnLine().getNm_applic().getDecodedValue());
                     dett.getNm_pagina().setValue(bean.getIdPaginaWeb().toString());
                     dett.getTi_help_on_line().setValue(bean.getTiHelpOnLine());
-                    dett.getNm_entry_menu().setValue("" + bean.getIdEntryMenu());
+                    if (bean.getIdEntryMenu() != null) {
+                        dett.getNm_entry_menu().setValue("" + bean.getIdEntryMenu());
+                    }
                     dett.getDt_ini_val().setValue(DateUtil.formatDateWithSlash(bean.getDtIniVal()));
                     dett.getDt_fine_val().setValue(DateUtil.formatDateWithSlash(bean.getDtFineVal()));
                     dett.getDs_file_help_online().setValue(bean.getDsFileHelpOnLine());
@@ -300,6 +364,8 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
                 .setDecodeMap(comboGetter.getMappaMenuUltimoLivelloPerApplSortedByDesc(idAppl));
         getForm().getDettaglioHelpOnLine().getNm_applic()
                 .setValue(getForm().getFiltriHelpOnLine().getNm_applic().getDecodedValue());
+        getForm().getDettaglioHelpOnLine().getTi_help_on_line()
+                .setValue(getForm().getFiltriHelpOnLine().getTipo_help().getDecodedValue());
     }
 
     @Override
@@ -310,7 +376,6 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
                         .remove(getForm().getListaHelpOnLine().getTable().getCurrentRowIndex());
                 goBack();
             } else if (getForm().getListaHelpOnLine().getStatus().equals(Status.update)) {
-                // forwardToPublisher(Application.Publisher.DETTAGLIO_HELP_ON_LINE);
                 getForm().getListaHelpOnLine().setStatus(Status.view);
             }
         }
@@ -319,16 +384,6 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
     @Override
     public void saveDettaglio() throws EMFError {
         log.debug("SAVE-DETTAGLIO!");
-    }
-
-    private Properties getApplicationProperties() throws EMFError {
-        Properties props = new Properties();
-        try {
-            props.load(this.getClass().getClassLoader().getResourceAsStream("/SacerIam.properties"));
-        } catch (IOException ex) {
-            throw new EMFError(EMFError.BLOCKING, "Errore nel caricamento delle impostazioni per l'upload", ex);
-        }
-        return props;
     }
 
     @Override
@@ -388,8 +443,7 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
         if (isMultipart) {
             if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_HELP_ON_LINE)) {
                 try {
-                    Properties props = getApplicationProperties();
-                    int fileSize = Integer.parseInt(props.getProperty("helpOnline.upload.maxFileSize"));
+                    int fileSize = ConfigSingleton.getInstance().getIntValue(HELP_ONLINE_MAX_FILE_SIZE.name());
                     String[] paramReturn = getForm().getDettaglioHelpOnLine().postMultipart(getRequest(), fileSize);
                     /*
                      * gestione del tasto preview
@@ -464,6 +518,11 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
                                     .getFileBytes();
                             long longApplic = idApplic == null ? 0 : idApplic.longValue();
                             long longPagina = idPagina == null ? 0 : idPagina.longValue();
+
+                            if (idTipoHelp.equals(Constants.TiHelpOnLine.INFO_PRIVACY.name())) {
+                                longPagina = recuperoHelpEjb.getIdPaginaWebInfoPrivacy(idApplic.longValue());
+                            }
+
                             long longMenu = idMenu == null ? 0 : idMenu.longValue();
 
                             HelpZipProcessor proc = new HelpZipProcessor(fileBlob);
@@ -584,7 +643,9 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
             dett.getNm_applic().setValue(getForm().getFiltriHelpOnLine().getNm_applic().getDecodedValue());
             dett.getNm_pagina().setValue(bean.getIdPaginaWeb().toString());
             dett.getTi_help_on_line().setValue(bean.getTiHelpOnLine());
-            dett.getNm_entry_menu().setValue("" + bean.getIdEntryMenu());
+            if (bean.getIdEntryMenu() != null) {
+                dett.getNm_entry_menu().setValue("" + bean.getIdEntryMenu());
+            }
             dett.getDs_file_help_online().setValue(bean.getDsFileHelpOnLine());
         }
     }
@@ -644,12 +705,7 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
                 .setValue(getForm().getFiltriHelpOnLine().getNm_applic().getDecodedValue());
         BigDecimal idAppl = new BigDecimal(getForm().getFiltriHelpOnLine().getNm_applic().getValue());
         String tiHelpOnLine = null;
-        // if (getForm().getDettaglioHelpOnLine().getStatus().equals(Status.insert)) {
         tiHelpOnLine = getForm().getDettaglioHelpOnLine().getTi_help_on_line().getValue();
-
-        // } else {
-        // tiHelpOnLine=getForm().getFiltriHelpOnLine().getTipo_help().getValue();
-        // }
         getForm().getDettaglioHelpOnLine().getNm_pagina()
                 .setDecodeMap(comboGetter.getMappaPaginePerApplicazione(idAppl, tiHelpOnLine, true));
 
@@ -693,12 +749,33 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
         String idTipoHelp = getForm().getDettaglioHelpOnLine().getTi_help_on_line().parse();
         BigDecimal idPagina = null;
         BigDecimal idMenu = null;
+        String dsFile = null;
+        // String infoPrivacyTextArea = null;
         Date dataIni = getForm().getDettaglioHelpOnLine().getDt_ini_val().parse();
         Date dataFine = getForm().getDettaglioHelpOnLine().getDt_fine_val().parse();
 
         if (getForm().getDettaglioHelpOnLine().getStatus().equals(Status.insert)) {
             retCode = getForm().getDettaglioHelpOnLine().validate(getMessageBox());
             idPagina = getForm().getDettaglioHelpOnLine().getNm_pagina().parse();
+            dsFile = getForm().getDettaglioHelpOnLine().getDs_file_zip_help_online().parse();
+            if (idTipoHelp.equals(ConstAplVVisHelpOnLine.TiHelpOnLine.HELP_RICERCA_DIPS.name())
+                    || idTipoHelp.equals(ConstAplVVisHelpOnLine.TiHelpOnLine.HELP_PAGINA.name())) {
+                if (idPagina == null) {
+                    getMessageBox().addError("Campo 'Pagina' obbligatorio");
+                    retCode = false;
+                }
+            }
+
+            if (dsFile == null) {
+                if (idTipoHelp.equals(ConstAplVVisHelpOnLine.TiHelpOnLine.HELP_RICERCA_DIPS.name())
+                        || idTipoHelp.equals(ConstAplVVisHelpOnLine.TiHelpOnLine.HELP_PAGINA.name())) {
+                    getMessageBox().addError("Campo 'File zip contenente l'help online' obbligatorio");
+                } else {
+                    getMessageBox().addError("Campo 'File zip contenente l'informativa sulla privacy obbligatorio");
+                }
+                retCode = false;
+            }
+
             idMenu = getForm().getDettaglioHelpOnLine().getNm_entry_menu().parse();
             // Controllo inserimento menu' nel caso di sacerdips
             if (idTipoHelp.equals(ConstAplVVisHelpOnLine.TiHelpOnLine.HELP_RICERCA_DIPS.name())) {
@@ -726,18 +803,25 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
             }
 
             boolean risultatoIntersect = false;
-            if (getForm().getDettaglioHelpOnLine().getStatus().equals(Status.insert)) {
-                risultatoIntersect = recuperoHelpEjb.intersectsExistingHelp(idApplic.longValueExact(), idTipoHelp,
-                        idPagina.longValueExact(), idMenu == null ? 0 : idMenu.longValueExact(), dataIni, dataFine);
-            } else {
-                AplVVisHelpOnLineRowBean bean = (AplVVisHelpOnLineRowBean) getForm().getListaHelpOnLine().getTable()
-                        .getCurrentRow();
-                risultatoIntersect = recuperoHelpEjb.intersectsExistingHelp(bean.getIdHelpOnLine(), dataIni, dataFine);
-            }
 
-            if (risultatoIntersect) {
-                getMessageBox().addError("L'intervallo di validita' interseca altri intervalli");
-                retCode = false;
+            if (idTipoHelp.equals(ConstAplVVisHelpOnLine.TiHelpOnLine.HELP_RICERCA_DIPS.name())
+                    || idTipoHelp.equals(ConstAplVVisHelpOnLine.TiHelpOnLine.HELP_PAGINA.name())) {
+
+                if (getForm().getDettaglioHelpOnLine().getStatus().equals(Status.insert)) {
+                    risultatoIntersect = recuperoHelpEjb.intersectsExistingHelp(idApplic.longValueExact(), idTipoHelp,
+                            idPagina.longValueExact(), idMenu == null ? 0 : idMenu.longValueExact(), dataIni, dataFine);
+                } else {
+                    AplVVisHelpOnLineRowBean bean = (AplVVisHelpOnLineRowBean) getForm().getListaHelpOnLine().getTable()
+                            .getCurrentRow();
+                    risultatoIntersect = recuperoHelpEjb.intersectsExistingHelp(bean.getIdHelpOnLine(), dataIni,
+                            dataFine);
+                }
+
+                if (risultatoIntersect) {
+                    getMessageBox().addError("L'intervallo di validita' interseca altri intervalli");
+                    retCode = false;
+                }
+
             }
         }
         return retCode;

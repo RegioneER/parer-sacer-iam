@@ -1,39 +1,84 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 /**
  * The persistent class for the LOG_USER_DA_REPLIC database table.
- *
  */
 @Entity
 @Table(name = "LOG_USER_DA_REPLIC")
 public class LogUserDaReplic implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idLogUserDaReplic;
+
     private String cdErr;
+
     private String dsMsgErr;
+
     private Date dtErr;
+
     private Date dtLogUserDaReplic;
+
     private Date dtChiusuraReplica;
+
     private BigDecimal idUserIam;
+
     private String nmUserid;
+
     private String tiOperReplic;
+
     private String tiStatoReplic;
+
     private AplApplic aplApplic;
+
     private LogJob logJob;
 
     public LogUserDaReplic() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SLOG_USER_DA_REPLIC")
     @Column(name = "ID_LOG_USER_DA_REPLIC")
+    @GenericGenerator(name = "SLOG_USER_DA_REPLIC_ID_LOG_USER_DA_REPLIC_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SLOG_USER_DA_REPLIC"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SLOG_USER_DA_REPLIC_ID_LOG_USER_DA_REPLIC_GENERATOR")
     public Long getIdLogUserDaReplic() {
         return this.idLogUserDaReplic;
     }
@@ -147,5 +192,4 @@ public class LogUserDaReplic implements Serializable {
     public void setLogJob(LogJob logJob) {
         this.logJob = logJob;
     }
-
 }

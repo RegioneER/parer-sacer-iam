@@ -1,43 +1,84 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.saceriam.entity.constraint.ConstOrgCollegEntiConvenz.TiColleg;
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import it.eng.saceriam.entity.constraint.ConstOrgCollegEntiConvenz.TiColleg;
 
 /**
  * The persistent class for the ORG_COLLEG_ENTI_CONVENZ database table.
- * 
  */
 @Entity
 @Table(name = "ORG_COLLEG_ENTI_CONVENZ")
 @NamedQuery(name = "OrgCollegEntiConvenz.findAll", query = "SELECT o FROM OrgCollegEntiConvenz o")
 public class OrgCollegEntiConvenz implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     private Long idCollegEntiConvenz;
+
     private String dsColleg;
+
     private String nmColleg;
+
     private TiColleg tiColleg;
+
     private Date dtIniVal;
+
     private Date dtFinVal;
+
     private OrgEnteSiam orgEnteSiam;
+
     private List<OrgAppartCollegEnti> orgAppartCollegEntis = new ArrayList<>();
 
     public OrgCollegEntiConvenz() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_COLLEG_ENTI_CONVENZ") // @SequenceGenerator(name =
-                                                                              // "ORG_COLLEG_ENTI_CONVENZ_IDCOLLEGENTICONVENZ_GENERATOR",
-                                                                              // sequenceName =
-                                                                              // "SORG_COLLEG_ENTI_CONVENZ",
-                                                                              // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "ORG_COLLEG_ENTI_CONVENZ_IDCOLLEGENTICONVENZ_GENERATOR")
     @Column(name = "ID_COLLEG_ENTI_CONVENZ")
+    @GenericGenerator(name = "SORG_COLLEG_ENTI_CONVENZ_ID_COLLEG_ENTI_CONVENZ_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_COLLEG_ENTI_CONVENZ"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_COLLEG_ENTI_CONVENZ_ID_COLLEG_ENTI_CONVENZ_GENERATOR")
     public Long getIdCollegEntiConvenz() {
         return this.idCollegEntiConvenz;
     }
@@ -118,15 +159,12 @@ public class OrgCollegEntiConvenz implements Serializable {
     public OrgAppartCollegEnti addOrgAppartCollegEnti(OrgAppartCollegEnti orgAppartCollegEnti) {
         getOrgAppartCollegEntis().add(orgAppartCollegEnti);
         orgAppartCollegEnti.setOrgCollegEntiConvenz(this);
-
         return orgAppartCollegEnti;
     }
 
     public OrgAppartCollegEnti removeOrgAppartCollegEnti(OrgAppartCollegEnti orgAppartCollegEnti) {
         getOrgAppartCollegEntis().remove(orgAppartCollegEnti);
         orgAppartCollegEnti.setOrgCollegEntiConvenz(null);
-
         return orgAppartCollegEnti;
     }
-
 }

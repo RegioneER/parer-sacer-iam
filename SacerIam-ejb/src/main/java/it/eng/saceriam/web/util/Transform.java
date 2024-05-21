@@ -1,16 +1,35 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.util;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.BaseTableInterface;
 import it.eng.spagoLite.db.base.JEEBaseRowInterface;
 import it.eng.spagoLite.db.base.table.AbstractBaseTable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.cglib.proxy.Proxy;
 
 /*
  * @author Quaranta_M
@@ -135,10 +154,13 @@ public class Transform {
     }
 
     private static String getClassName(Object obj) {
-        final String proxySuffix = "_$$";
+        final List<String> proxySuffixes = Arrays.asList("_$$", "$HibernateProxy");
         String className = obj.getClass().getSimpleName();
-        if (Proxy.isProxyClass(obj.getClass()) || className.contains(proxySuffix)) {
-            className = className.substring(0, className.indexOf(proxySuffix));
+        for (String s : proxySuffixes) {
+            if (className.contains(s)) {
+                className = className.substring(0, className.indexOf(s));
+                break;
+            }
         }
         return className;
     }

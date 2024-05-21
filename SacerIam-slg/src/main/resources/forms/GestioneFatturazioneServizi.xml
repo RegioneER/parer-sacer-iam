@@ -67,7 +67,7 @@ xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente
         <Input Name="ds_atto_aa_accordo" Description="Atto di impegno" Type="STRING" />
         <Input Name="cd_ufe" Description="UFE" Type="STRING" />
         <Input Name="cd_cig" Description="CIG" Type="STRING" />
-        <Input Name="im_servizio_fattura" Description="Importo imponibile riga fattura (IVA 22% ESCLUSA)" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />
+        <Input Name="im_servizio_fattura" Description="Importo imponibile riga fattura (IVA 22% ESCLUSA)" Type="DECIMAL" Format="#,##0.00" GroupingDecimal="true" />
         <Input Name="im_totale" Description="Importo totale riga fattura (compresa IVA 22%)" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />
         <Input Name="cd_iva" Description="Codice IVA" Type="STRING" />
         <Input Name="conto_tesoreria_unica" Description="conto tesoreria unica" Type="STRING" />

@@ -1,6 +1,39 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.helper;
 
-import static it.eng.paginator.util.HibernateUtils.*;
+import static it.eng.paginator.util.HibernateUtils.bigDecimalFrom;
+import static it.eng.paginator.util.HibernateUtils.longFrom;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+import org.apache.commons.lang3.StringUtils;
+
 import it.eng.saceriam.entity.AplSistemaVersArkRif;
 import it.eng.saceriam.entity.AplSistemaVersante;
 import it.eng.saceriam.entity.AplSistemaVersanteUserRef;
@@ -16,17 +49,6 @@ import it.eng.saceriam.viewEntity.AplVLisSistVersPerAutoma;
 import it.eng.saceriam.viewEntity.AplVRicSistemaVersante;
 import it.eng.saceriam.viewEntity.UsrVTreeOrganizIam;
 import it.eng.spagoCore.error.EMFError;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import org.apache.commons.lang3.StringUtils;
 
 @Stateless
 @LocalBean
@@ -49,14 +71,14 @@ public class SistemiVersantiHelper extends GenericHelper {
      * @throws EMFError
      *             errore generico
      */
-    public List<AplVRicSistemaVersante> getAplVRicSistemaVersanteList(
+    public List<AplVRicSistemaVersante> getAplVRicSistemaVersanteList(//
             AmministrazioneSistemiVersantiForm.FiltriSistemiVersanti filtri, long idUserIam) throws EMFError {
-        return getAplVRicSistemaVersanteList(
-                new FiltriSistemiVersantiPlain(idUserIam, filtri.getNm_sistema_versante().parse(),
-                        filtri.getDs_sistema_versante().parse(), filtri.getNm_produttore().parse(),
-                        filtri.getCd_versione().parse(), filtri.getId_organiz_applic().parse(),
-                        filtri.getFl_cessato_filtro().parse(), filtri.getFl_integrazione_filtro().parse(),
-                        filtri.getArchivista().parse(), filtri.getNo_archivista().parse()));
+        return getAplVRicSistemaVersanteList(new FiltriSistemiVersantiPlain(idUserIam,
+                filtri.getNm_sistema_versante().parse(), filtri.getDs_sistema_versante().parse(),
+                filtri.getNm_produttore().parse(), filtri.getCd_versione().parse(),
+                filtri.getId_organiz_applic().parse(), filtri.getFl_cessato_filtro().parse(),
+                filtri.getFl_integrazione_filtro().parse(), filtri.getArchivista().parse(),
+                filtri.getNo_archivista().parse(), filtri.getFl_associa_persona_fisica_filtro().parse()));
     }
 
     /**
@@ -115,6 +137,12 @@ public class SistemiVersantiHelper extends GenericHelper {
             whereWord = " AND ";
         }
 
+        String flAssociaPersonaFisica = filtri.getFlAssociaPersonaFisica();
+        if (flAssociaPersonaFisica != null) {
+            queryStr.append(whereWord).append("sistemiVersanti.flAssociaPersonaFisica = :flAssociaPersonaFisica ");
+            whereWord = " AND ";
+        }
+
         List<BigDecimal> idArchivista = filtri.getIdArchivista();
         String noArchivista = filtri.getNoArchivista();
         if (!idArchivista.isEmpty()) {
@@ -158,6 +186,9 @@ public class SistemiVersantiHelper extends GenericHelper {
         }
         if (flIntegrazione != null) {
             query.setParameter("flIntegrazione", flIntegrazione);
+        }
+        if (flAssociaPersonaFisica != null) {
+            query.setParameter("flAssociaPersonaFisica", flAssociaPersonaFisica);
         }
         if (!idArchivista.isEmpty()) {
             query.setParameter("idArchivista", idArchivista);
@@ -254,6 +285,8 @@ public class SistemiVersantiHelper extends GenericHelper {
 
     /**
      * Controllo se il sistema versante passato in ingresso è eliminabile in base all'eventuale legame con degli utenti
+     * Se non vi sono legami (FK dell'utente al sistema versante) significa che l'utente è stato CESSATO e non aveva mai
+     * versato UD
      *
      * @param idSistemaVersante
      *            id sistema
@@ -462,6 +495,7 @@ public class SistemiVersantiHelper extends GenericHelper {
         private final String flIntegrazione;
         private final List<BigDecimal> idArchivista;
         private final String noArchivista;
+        private final String flAssociaPersonaFisica;
 
         /**
          * @param idUserIam
@@ -474,10 +508,11 @@ public class SistemiVersantiHelper extends GenericHelper {
          * @param flIntegrazione
          * @param idArchivista
          * @param noArchivista
+         * @param flAssociaPersonaFisica
          */
         FiltriSistemiVersantiPlain(long idUserIam, String denominazione, String descrizione, String produttore,
                 String versione, BigDecimal idOrganizApplic, String flCessato1, String flIntegrazione,
-                List<BigDecimal> idArchivista, String noArchivista) {
+                List<BigDecimal> idArchivista, String noArchivista, String flAssociaPersonaFisica) {
             this.idUserIam = idUserIam;
             this.denominazione = denominazione;
             this.descrizione = descrizione;
@@ -488,6 +523,7 @@ public class SistemiVersantiHelper extends GenericHelper {
             this.flIntegrazione = flIntegrazione;
             this.idArchivista = idArchivista;
             this.noArchivista = noArchivista;
+            this.flAssociaPersonaFisica = flAssociaPersonaFisica;
         }
 
         private long getIdUserIam() {
@@ -529,5 +565,10 @@ public class SistemiVersantiHelper extends GenericHelper {
         private String getNoArchivista() {
             return noArchivista;
         }
+
+        public String getFlAssociaPersonaFisica() {
+            return flAssociaPersonaFisica;
+        }
+
     }
 }

@@ -1,9 +1,31 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.slite.gen.tablebean;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import it.eng.saceriam.entity.OrgAccordoEnte;
 import it.eng.saceriam.entity.OrgCdIva;
 import it.eng.saceriam.entity.OrgClasseEnteConvenz;
+import it.eng.saceriam.entity.OrgClusterAccordo;
 import it.eng.saceriam.entity.OrgEnteSiam;
+import it.eng.saceriam.entity.OrgFasciaStorageAccordo;
 import it.eng.saceriam.entity.OrgTariffario;
 import it.eng.saceriam.entity.OrgTipoAccordo;
 import it.eng.saceriam.entity.constraint.ConstOrgAccordoEnte.TiScopoAccordo;
@@ -11,8 +33,6 @@ import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.JEEBaseRowInterface;
 import it.eng.spagoLite.db.base.row.BaseRow;
 import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 /**
  * RowBean per la tabella Org_Accordo_Ente
@@ -381,28 +401,28 @@ public class OrgAccordoEnteRowBean extends BaseRow implements BaseRowInterface, 
         setObject("id_ente_convenz_gestore", idEnteConvenzGestore);
     }
 
-    public BigDecimal getNiCluster() {
-        return getBigDecimal("ni_cluster");
+    public BigDecimal getIdClusterAccordo() {
+        return getBigDecimal("id_cluster_accordo");
     }
 
-    public void setNiCluster(BigDecimal ni_cluster) {
-        setObject("ni_cluster", ni_cluster);
+    public void setIdClusterAccordo(BigDecimal id_cluster_accordo) {
+        setObject("id_cluster_accordo", id_cluster_accordo);
     }
 
-    public BigDecimal getNiFasciaStandard() {
-        return getBigDecimal("ni_fascia_standard");
+    public BigDecimal getIdFasciaStorageStandardAccordo() {
+        return getBigDecimal("id_fascia_storage_standard_accordo");
     }
 
-    public void setNiFasciaStandard(BigDecimal ni_fascia_standard) {
-        setObject("ni_fascia_standard", ni_fascia_standard);
+    public void setIdFasciaStorageStandardAccordo(BigDecimal id_fascia_storage_standard_accordo) {
+        setObject("id_fascia_storage_standard_accordo", id_fascia_storage_standard_accordo);
     }
 
-    public BigDecimal getNiFasciaManuale() {
-        return getBigDecimal("ni_fascia_manuale");
+    public BigDecimal getIdFasciaStorageManualeAccordo() {
+        return getBigDecimal("id_fascia_storage_manuale_accordo");
     }
 
-    public void setNiFasciaManuale(BigDecimal ni_fascia_manuale) {
-        setObject("ni_fascia_manuale", ni_fascia_manuale);
+    public void setIdFasciaStorageManualeAccordo(BigDecimal id_fascia_storage_manuale_accordo) {
+        setObject("id_fascia_storage_manuale_accordo", id_fascia_storage_manuale_accordo);
     }
 
     public BigDecimal getNiTipoUdStandard() {
@@ -584,9 +604,21 @@ public class OrgAccordoEnteRowBean extends BaseRow implements BaseRowInterface, 
             this.setIdEnteConvenzGestore(new BigDecimal(entity.getOrgEnteSiamByIdEnteConvenzGestore().getIdEnteSiam()));
 
         }
-        this.setNiCluster(entity.getNiCluster());
-        this.setNiFasciaStandard(entity.getNiFasciaStandard());
-        this.setNiFasciaManuale(entity.getNiFasciaManuale());
+
+        if (entity.getOrgClusterAccordo() != null) {
+            this.setIdClusterAccordo(new BigDecimal(entity.getOrgClusterAccordo().getIdClusterAccordo()));
+        }
+
+        if (entity.getOrgFasciaStorageStandardAccordo() != null) {
+            this.setIdFasciaStorageStandardAccordo(
+                    new BigDecimal(entity.getOrgFasciaStorageStandardAccordo().getIdFasciaStorageAccordo()));
+        }
+
+        if (entity.getOrgFasciaStorageManualeAccordo() != null) {
+            this.setIdFasciaStorageManualeAccordo(
+                    new BigDecimal(entity.getOrgFasciaStorageManualeAccordo().getIdFasciaStorageAccordo()));
+        }
+
         this.setNiTipoUdStandard(entity.getNiTipoUdStandard());
         this.setNiTipoUdManuale(entity.getNiTipoUdManuale());
         this.setNiRefertiStandard(entity.getNiRefertiStandard());
@@ -692,9 +724,26 @@ public class OrgAccordoEnteRowBean extends BaseRow implements BaseRowInterface, 
             }
             entity.getOrgEnteSiamByIdEnteConvenzGestore().setIdEnteSiam(this.getIdEnteConvenzGestore().longValue());
         }
-        entity.setNiCluster(this.getNiCluster());
-        entity.setNiFasciaStandard(this.getNiFasciaStandard());
-        entity.setNiFasciaManuale(this.getNiFasciaManuale());
+        if (this.getIdClusterAccordo() != null) {
+            if (entity.getOrgClusterAccordo() == null) {
+                entity.setOrgClusterAccordo(new OrgClusterAccordo());
+            }
+            entity.getOrgClusterAccordo().setIdClusterAccordo(this.getIdClusterAccordo().longValue());
+        }
+        if (this.getIdFasciaStorageStandardAccordo() != null) {
+            if (entity.getOrgFasciaStorageStandardAccordo() == null) {
+                entity.setOrgFasciaStorageStandardAccordo(new OrgFasciaStorageAccordo());
+            }
+            entity.getOrgFasciaStorageStandardAccordo()
+                    .setIdFasciaStorageAccordo(this.getIdFasciaStorageStandardAccordo().longValue());
+        }
+        if (this.getIdFasciaStorageManualeAccordo() != null) {
+            if (entity.getOrgFasciaStorageManualeAccordo() == null) {
+                entity.setOrgFasciaStorageManualeAccordo(new OrgFasciaStorageAccordo());
+            }
+            entity.getOrgFasciaStorageManualeAccordo()
+                    .setIdFasciaStorageAccordo(this.getIdFasciaStorageManualeAccordo().longValue());
+        }
         entity.setNiTipoUdStandard(this.getNiTipoUdStandard());
         entity.setNiTipoUdManuale(this.getNiTipoUdManuale());
         entity.setNiRefertiStandard(this.getNiRefertiStandard());

@@ -16,18 +16,6 @@
         <filter-name>Charset filter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
-    <filter>
-        <filter-name>URI Encoding filter</filter-name>
-        <filter-class>it.eng.spagoCore.util.UriEcondingFilter</filter-class>
-        <init-param>
-            <param-name>uriEncoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>URI Encoding filter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
     <!-- SPRING ROOT CONTEXT -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -57,88 +45,12 @@
     <servlet>
         <servlet-name>ConfigServlet</servlet-name>
         <servlet-class>it.eng.spagoCore.configuration.ConfigServlet</servlet-class>
-        <init-param>
-            <param-name>AF_CONFIG_FILE</param-name>
-            <param-value>/WEB-INF/conf/spago/master.xml</param-value>
-        </init-param>
-               
-        <!-- CONFIGURAZIONE LOGO SULLA CORNICE DELLE PAGINE -->
-        
-        <!-- logo in alto a destra -->
-        <init-param>
-            <param-name>logo1_relativePath</param-name>
-            <param-value>/img/regione/LogoParer.png</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logo1_url</param-name>
-            <param-value>https://poloarchivistico.regione.emilia-romagna.it</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logo1_title</param-name>
-            <param-value>ParER - Polo Archivistico Regionale dell'Emilia-Romagna</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logo1_alt</param-name>
-            <param-value>Logo ParER</param-value>
-        </init-param>
-
-        <!-- logo in basso a sinistra -->
-        <init-param>
-            <param-name>logo2_relativePath</param-name>
-            <param-value>/img/regione/LogoER.png</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logo2_url</param-name>
-            <param-value>http://www.regione.emilia-romagna.it</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logo2_title</param-name>
-            <param-value>Regione Emilia-Romagna</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logo2_alt</param-name>
-            <param-value>Regione Emilia-Romagna</param-value>
-        </init-param>        
-        
-        <!-- logo in basso a destra
-       <init-param>
-           <param-name>logo3_relativePath</param-name>
-           <param-value>/img/regione/LogoIbc.png</param-value>
-       </init-param>
-       <init-param>
-           <param-name>logo3_url</param-name>
-           <param-value>http://www.ibc.regione.emilia-romagna.it</param-value>
-       </init-param>
-       <init-param>
-           <param-name>logo3_title</param-name>
-           <param-value>Istituto per i beni artistici culturali e naturali della Regione Emilia-Romagna</param-value>
-       </init-param>
-       <init-param>
-           <param-name>logo3_alt</param-name>
-           <param-value>Logo IBC</param-value>
-       </init-param>  
-        -->
-        <!-- CONFIGURAZIONE LOGO SULLA CORNICE DELLE PAGINE FINE --> 
-        
-        <init-param>
-            <param-name>titolo_applicativo</param-name>
-            <param-value>SIAM</param-value>
-        </init-param>
-        
-        <init-param>
-            <param-name>enableHelpOnline</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>disableSecurity</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>SpringServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>3</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>StatusMonitorSrvlt</servlet-name>
@@ -149,23 +61,17 @@
         <url-pattern>*.html</url-pattern>
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>SAMLFederationMetadata</servlet-name>
-        <servlet-class>it.eng.saceriam.ws.SAMLFederationMetadata</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SAMLFederationMetadata</servlet-name>
-        <url-pattern>/federationMetadata</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StatusMonitorSrvlt</servlet-name>
         <url-pattern>/StatusMonitor</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>60</session-timeout>
+        <cookie-config>
+            <http-only>${web.session-config.cookie-config.http-only}</http-only>
+            <secure>${web.session-config.cookie-config.secure}</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
     <security-constraint>
         <web-resource-collection>
@@ -191,5 +97,5 @@
     <error-page>
         <error-code>500</error-code>
         <location>/jsp/genericError.jsp</location>
-    </error-page>    
+    </error-page>  
 </web-app>

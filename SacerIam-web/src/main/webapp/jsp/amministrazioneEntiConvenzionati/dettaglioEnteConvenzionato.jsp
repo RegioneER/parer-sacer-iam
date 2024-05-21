@@ -36,10 +36,27 @@
                     </ul>
                 </div>
             </c:if> 
+            
+            <c:if test="${!empty requestScope.customDeleteAppartenenzaCollegamentoDaDettaglioEnteMessageBox}">                
+                <div class="messages confermaDeleteAppartenenzaCollegamentoDaDettaglioEnte ">
+                    <ul>
+                        <li class="message warning ">Attenzione! La cancellazione dell'appartenenza al collegamento comporterà l'eliminazione delle abilitazioni concesse ai seguenti <c:out value = "${requestScope.numeroUtentiAppartenenzaCollegamentoDaDettaglioEnte}"/> utenti:</li>
+                    </ul>
+                    <p  style="padding-left: 70px">                                                 
+                        <c:forTokens items = "${requestScope.listaUtentiAppartenenzaCollegamentoDaDettaglioEnte}" delims = "," var = "utentiAppartenenzaCollegamentoDaDettaglioEnte">
+                            <c:out value = "${utentiAppartenenzaCollegamentoDaDettaglioEnte}"/><br>                        
+                        </c:forTokens>
+                    <p>
+                    <ul style="text-indent: 30px">
+                    Si desidera procedere?
+                    </ul>
+                </div>      
+            </c:if> 
 
             <sl:newLine skipLine="true"/>
             <script type="text/javascript" src="<c:url value='/js/customCalcoloFattureProvvisorieMessageBox.js'/>" ></script>
             <script type="text/javascript" src="<c:url value='/js/customModificaEnteConvenzMessageBox.js'/>" ></script>
+            <script type="text/javascript" src="<c:url value='/js/customDeleteAppartenenzaCollegamentoDaDettaglioEnteMessageBox.js'/>" ></script>
             <sl:contentTitle title="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.DESCRIPTION%>" />
 
             <c:choose>
@@ -59,7 +76,8 @@
             <sl:newLine skipLine="true"/>
             <slf:fieldSet borderHidden="true">
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.ID_ENTE_SIAM%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />
-                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.NM_ENTE_SIAM%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.NM_ENTE_SIAM%>" colSpan="2"/>
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.DS_NOTE%>" colSpan="2"/><sl:newLine /> 
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.TI_ENTE_CONVENZ%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />               
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.DT_INI_VAL%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.DT_CESSAZIONE%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />

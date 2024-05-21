@@ -32,6 +32,7 @@
         <MultiSelect Name="tipo_gestione_accordo" Description="Tipo gestione accordo" Type="INTEGER" />
         <ComboBox Name="fl_gest_acc_no_risp" Description="Gestioni accordo senza risposta" Type="STRING" />
         <ComboBox Name="ti_stato_accordo" Description="Stato accordo" Type="STRING" />
+        <Input Name="cd_fisc" Description="Codice fiscale / Partita IVA" Type="STRING" MaxLength="11" />
         <Button Name="ricercaEntiConvenzionati" Description="Ricerca enti convenzionati" Type="STRING" />        
         <Button Name="pulisciRicercaEntiConvenzionati" Description="Pulisci" Type="STRING" />
         <Button Name="inserisciEnteConvenzionatoWizard" Description="Inserisci ente convenzionato" Type="STRING" />
@@ -41,20 +42,18 @@
     <List Name="ListaEntiConvenzionati" Description="Enti convenzionati">
         <Input Name="id_ente_convenz" Description="id ente convenz" Type="INTEGER" Hidden="true" />
         <Input Name="nm_ente_convenz" Description="Denominazione" Type="STRING" />
+        <Input Name="dt_fine_valid_accordo" Description="Data fine validità accordo" Type="DATE" />
+        <Input Name="archivista" Description="Archivista di riferimento" Type="STRING" />
+        <Input Name="ds_categ_ente" Description="Categoria" Type="STRING" />
+        <Input Name="cd_ambito_territ_regione" Description="Regione" Type="STRING" />
+        <Input Name="cd_ambito_territ_provincia" Description="Provincia" Type="STRING" />
+        <Input Name="cd_ente_convenz" Description="Codice ente" Type="STRING" />
+        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" />
         <CheckBox Name="attivo" Description="Attivo" Type="STRING" Readonly="true"/>
         <CheckBox Name="cessato" Description="Cessato" Type="STRING" Readonly="true"/>
         <CheckBox Name="fl_chiuso" Description="Chiuso" Type="STRING" Readonly="true"/>
         <CheckBox Name="fl_recesso" Description="Recesso" Type="STRING" Readonly="true"/>
-        <CheckBox Name="fl_esistono_moduli" Description="Esistono moduli" Type="STRING" Readonly="true"/>
-        <Input Name="ds_categ_ente" Description="Categoria" Type="STRING" />
-        <Input Name="cd_ente_convenz" Description="Codice ente" Type="STRING" />
-        <Input Name="cd_ambito_territ_regione" Description="Regione" Type="STRING" />
-        <Input Name="cd_ambito_territ_provincia" Description="Provincia" Type="STRING" />
         <Input Name="cd_ambito_territ_forma_associata" Description="Forma associata" Type="STRING" />
-        <Input Name="cd_tipo_accordo" Description="Tipo accordo" Type="STRING" />
-        <Input Name="dt_fine_valid_accordo" Description="Data fine validità accordo" Type="DATE" />
-        <CheckBox Name="fl_esistono_gest_acc" Description="Gestioni accordo" Type="STRING" Readonly="true"/>
-        <Input Name="archivista" Description="Archivista di riferimento" Type="STRING" />
     </List>
     
     <List Name="AnnualitaSenzaAttoList" Description="Lista annualità senza atto" >
@@ -99,10 +98,10 @@
     <Section Name="parametriConservazioneSection" Description="" Legend="Parametri di conservazione" ShowButton="true" LoadOpened="true"/>
     <Section Name="parametriGestioneSection" Description="" Legend="Parametri di gestione" ShowButton="true" LoadOpened="true"/>
     
-    <Section Name="annualitaSenzaAttoSection" Description="" Legend="Annualità senza atto" ShowButton="false" LoadOpened="true"/>
+    <Section Name="annualitaSenzaAttoSection" Description="" Legend="Annualità senza atto" ShowButton="false" LoadOpened="true"/>    
     
     <Fields Name="EnteConvenzionatoDetail" Description="Dettaglio ente convenzionato">
-        <Input Name="id_ente_siam" Description="ID" Type="INTEGER" Hidden="true" />
+        <Input Name="id_ente_siam" Description="ID ente" Type="INTEGER" Readonly="true" />
         <Input Name="cd_ente_convenz" Description="Codice ente" Type="STRING" MaxLength="100" Required="true" />
         <ComboBox Name="ti_cd_ente_convenz" Description="Tipo codice" Type="STRING" Required="true" />
         <Input Name="ti_ente" Description="Tipo ente" Type="STRING" Required="true" Readonly="true" />
@@ -114,6 +113,7 @@
         <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
         <Input Type="DATE" Description="Appartenenza all'ambiente da" Name="dt_ini_val_appart_ambiente" Required="true"/>
         <Input Type="DATE" Description="a" Name="dt_fin_val_appart_ambiente" Required="true"/>
+        <Input Name="ds_note" Description="Note ente convenzionato" Type="STRING" MaxLength="254"/>
         
         <!-- Sezione Nuovo ente convenzionato-->
         <ComboBox Name="id_ambiente_ente_convenz_nuovo" Description="Ambiente" Type="INTEGER" Trigger="true"/>
@@ -384,6 +384,7 @@
         <Input Name="dt_ini_val" Description="Data inizio appartenenza al collegamento" Type="DATE" />
         <Input Name="dt_fin_val" Description="Data fine appartenenza al collegamento" Type="DATE" />
         <CheckBox Name="fl_capofila" Description="Capofila" Type="STRING" Readonly="true" />
+        <CheckBox Name="fl_abilitazioni_concesse" Description="Abilitazioni concesse" Type="STRING" Readonly="true" />
     </List>
     
     <Fields Name="CollegamentoEnteAppartDetail" Description="Dettaglio associazione dell'ente al collegamento">
@@ -410,6 +411,7 @@
         <Input Name="nm_ente_siam" Description="Nome" Type="STRING" />
         <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" />
         <Input Name="dt_fin_val" Description="Data fine validità" Type="DATE" />
+        <CheckBox Name="fl_abilitazioni_concesse" Description="Abilitazioni concesse" Type="STRING" Readonly="true" />
     </List>
     
     <List Name="SoggettiAttuatoriList" Description="Soggetti attuatori">
@@ -505,7 +507,8 @@
         <Input Name="id_ambiente_ente_convenz_field" Description="Ambiente ente produttore" Type="INTEGER" Hidden="true" />
         <Input Name="nm_ambiente_ente_convenz" Description="Ambiente ente produttore" Type="STRING" />
         <Input Name="dt_ini_val" Description="Data inizio validità ente" Type="DATE" Required="true" />
-        <Input Name="dt_cessazione" Description="Data fine validità ente" Type="DATE" Required="true" />        
+        <Input Name="dt_cessazione" Description="Data fine validità ente" Type="DATE" Required="true" />  
+        <Input Name="ds_note" Description="Note ente convenzionato" Type="STRING" MaxLength="254"/>      
         <Input Type="DATE" Description="Appartenenza all'ambiente da" Name="dt_ini_val_appart_ambiente" Required="true"/>
         <Input Type="DATE" Description="a" Name="dt_fin_val_appart_ambiente" Required="true"/>
         <Input Name="cd_nazione_sede_legale" Description="Paese" Type="STRING" Required="true" Readonly="true" />
@@ -567,9 +570,9 @@
         <ComboBox Name="id_tipo_accordo" Description="Tipo accordo" Type="INTEGER" Trigger="true" Required="true" />
         <ComboBox Name="fl_pagamento" Description="A pagamento" Type="STRING" Required="true" />
         <ComboBox Name="id_tariffario" Description="Rimborso costi" Type="INTEGER"/>
-        <Input Name="ni_cluster" Description="Cluster" Type="INTEGER" />
-        <Input Name="ni_fascia_standard" Description="Fascia standard" Type="INTEGER" />
-        <Input Name="ni_fascia_manuale" Description="Fascia manuale" Type="INTEGER" />
+        <ComboBox Name="id_cluster_accordo" Description="Cluster" Type="INTEGER" />
+        <ComboBox Name="id_fascia_storage_standard_accordo" Description="Fascia standard" Type="INTEGER" />
+        <ComboBox Name="id_fascia_storage_manuale_accordo" Description="Fascia manuale" Type="INTEGER" />
         <Input Name="ni_tipo_ud_standard" Description="Numero tipo UD standard" Type="INTEGER" />
         <Input Name="ni_tipo_ud_manuale" Description="Numero tipo UD manuale" Type="INTEGER" />
         <Input Name="im_attiv_doc_amm" Description="Importo attivazione documentazione amministrativa" Type="INTEGER" />
@@ -578,14 +581,11 @@
         <Input Name="im_attiv_doc_sani" Description="Importo attivazione documentazione sanitaria" Type="INTEGER" />
         <Input Name="ni_studio_dicom" Description="Numero studi diagnostici pregressi" Type="INTEGER" />
         <Input Name="ni_studio_dicom_prev" Description="Numero studi diagnostici previsti  " Type="INTEGER" />
-        <TextArea Name="ds_nota_attivazione" Description="Note sui costi di avviamento" Type="STRING" Rows="10" Cols="10" MaxLength="254"/>
-        <!-- TIPO SERVIZIO DIVERSO DA ALTRO -->
-        <ComboBox Name="id_tipo_servizio" Description="Tipo servizio" Type="INTEGER" Trigger="true" />
-        <Input Name="im_tariffa_accordo" Description="Importo" Type="INTEGER" />
+        <TextArea Name="ds_nota_attivazione" Description="Note sui costi di avviamento" Type="STRING" Rows="10" Cols="10" MaxLength="254"/>        
         <Input Name="cd_cliente_fatturazione" Description="Codice ente sistema fatturazione" Type="STRING" MaxLength="100" />
        <!-- CAMPI IVA E UFE TOLTI-->
-       <!-- -->
-        <TextArea Name="ds_nota_fatturazione" Description="Nota su fatturazione" Type="STRING" Rows="5" Cols="10" MaxLength="254" />
+       <!-- // -->
+        <TextArea Name="ds_nota_fatturazione" Description="Nota su fatturazione" Type="STRING" Rows="5" Cols="10" MaxLength="254" />        
         <!-- CAMPI DEPRECATI -->
         <ComboBox Name="id_classe_ente_convenz" Description="Classe ente" Type="INTEGER" Trigger="true" />
         <Input Name="ni_abitanti" Description="Numero abitanti" Type="INTEGER" />
@@ -626,12 +626,16 @@
         <Input Description="Servizi annuali erogati da" Name="sae_da" Type="DATE"/>
         <Input Description="Servizi annuali erogati a" Name="sae_a" Type="DATE"/>
         <ComboBox Name="fl_esistono_sue_combo" Description="Servizi una tantum erogati" Type="STRING" />
+        <ComboBox Name="fl_fascia_manuale" Description="Fascia manuale" Type="STRING" />
         <Input Description="Servizi una tantum erogati da" Name="sue_da" Type="DATE"/>
         <Input Description="Servizi una tantum erogati a" Name="sue_a" Type="DATE"/>
         <Button Name="ricercaAccordi" Description="Ricerca accordi" Type="STRING" />        
         <Button Name="pulisciRicercaAccordi" Description="Pulisci" Type="STRING" />        
-        <Button Name="annualitaSenzaAttoAccordi" Description="Annualità senza atto" Type="STRING" />        
+        <Button Name="annualitaSenzaAttoAccordi" Description="Annualità senza atto" Type="STRING" />
+        <Button Name="reportStorageExtraRer" Description="Report storage extra RER" Type="STRING" />                
     </Fields> 
+    
+    <Section Name="reportStorageExtraRerSection" Description="" Legend="Report storage extra RER" ShowButton="false" LoadOpened="true"/>    
     
     <List Name="ListaAccordi" Description="Lista accordi" hideInsertButton="true" hideDeleteButton="true" hideUpdateButton="true">
         <Input Name="id_accordo_ente" Description="id accordo ente" Type="INTEGER" Hidden="true" />
@@ -651,7 +655,19 @@
         <Input Name="ds_nota_fatturazione" Description="Nota su fatturazione" Type="STRING" />
         <CheckBox Name="fl_esistono_sae" Description="Servizi annuali erogati" Type="STRING" Readonly="true"/>
         <CheckBox Name="fl_esistono_sue" Description="Servizi una tantum erogati" Type="STRING" Readonly="true"/>
-    </List>        
+        <Input Name="ti_fascia_standard" Description="Fascia standard" Type="STRING" />
+        <Input Name="ti_fascia_manuale" Description="Fascia manuale" Type="STRING" />
+    </List>     
+    
+    <List Name="ReportStorageExtraRerList" Description="Lista report storage extra RER" >
+        <Input Name="ambiente_ente_convenzionato" Description="Ambiente / Ente convenzionato" Type="STRING" />
+        <Input Name="storage_occupato" Description="Storage occupato (media annuale)" Type="INTEGER" GroupingDecimal="true"/>
+        <Input Name="dato_calcolato_dal" Description="Dato calcolato dal" Type="STRING" />
+        <Input Name="dato_calcolato_al" Description="Dato calcolato al" Type="STRING" />
+        <Input Name="fascia_da_accordo" Description="Fascia da accordo" Type="STRING" />
+        <Input Name="fascia_da_occupazione" Description="Fascia da occupazione" Type="STRING" />
+        <Input Name="fl_sforo" Description="Oltre 20% superiore" Type="STRING" />
+    </List>   
        
     <!-- Dettaglio accordo -->
     <Section Name="idAccordoSection" Description="" Legend="ID Accordo" ShowButton="false" LoadOpened="true"/>
@@ -660,6 +676,8 @@
     <Section Name="infoAdozioneAccordoSection" Description="" Legend="Informazioni adozione dell'accordo" ShowButton="false" LoadOpened="true"/>     
     <Section Name="infoRimborsoCostiSection" Description="" Legend="Informazioni sul rimborso costi" ShowButton="false" LoadOpened="true"/>
     <Section Name="infoRimborsoCostiTipoServizioSection" Description="" Legend="Tipi servizio" ShowButton="true" LoadOpened="true"/>
+    <Section Name="mediaAnnualeOccupazioneStorageSection" Description="" Legend="Media annuale occupazione storage" ShowButton="false" LoadOpened="true"/>
+    <Section Name="mediaAnnualeOccupazioneStorageGestoreSection" Description="" Legend="Media annuale occupazione storage quale Gestore" ShowButton="false" LoadOpened="true"/>
     <Section Name="campiDeprecatiSection" Description="" Legend="Campi deprecati" ShowButton="true" LoadOpened="false"/>
     <Section Name="datiFatturazioneSection" Description="" Legend="Dati di fatturazione" ShowButton="false" LoadOpened="true"/>
     <Section Name="annualitaAccordoSection" Description="" Legend="Annualità" ShowButton="false" LoadOpened="true"/>
@@ -710,9 +728,9 @@
         <ComboBox Name="id_tipo_accordo" Description="Tipo accordo" Type="INTEGER" Trigger="true" Required="true" />
         <ComboBox Name="fl_pagamento" Description="A pagamento" Type="STRING" Required="true" />
         <ComboBox Name="id_tariffario" Description="Rimborso costi" Type="INTEGER" />
-        <Input Name="ni_cluster" Description="Cluster" Type="INTEGER" />
-        <Input Name="ni_fascia_standard" Description="Fascia standard" Type="INTEGER" />
-        <Input Name="ni_fascia_manuale" Description="Fascia manuale" Type="INTEGER" />
+        <ComboBox Name="id_cluster_accordo" Description="Cluster" Type="INTEGER" />
+        <ComboBox Name="id_fascia_storage_standard_accordo" Description="Fascia standard" Type="INTEGER" />
+        <ComboBox Name="id_fascia_storage_manuale_accordo" Description="Fascia manuale" Type="INTEGER" />
         <Input Name="ni_tipo_ud_standard" Description="Numero tipo UD standard" Type="INTEGER" />
         <Input Name="ni_tipo_ud_manuale" Description="Numero tipo UD manuale" Type="INTEGER" />
         <Input Name="im_attiv_doc_amm" Description="Importo attivazione documentazione amministrativa" Type="INTEGER" />
@@ -723,7 +741,17 @@
         <Input Name="ni_studio_dicom_prev" Description="Numero studi diagnostici previsti  " Type="INTEGER" />
         <TextArea Name="ds_nota_attivazione" Description="Note sui costi di avviamento" Type="STRING" Rows="10" Cols="10" MaxLength="4000"/>
         <Link Name="visualizza_ud_link" Description="Visualizza UD link" Type="STRING" Tooltip="Visualizza UD" isTargetList="false" Target="visualizzaUnitaDoc" ExternalLinkParamApplic="DA_MODIFICARE_IN_APP" ExternalLinkParamId="id_unita_doc"/>
-         
+        <!-- MEDIA ANNUALE OCCUPAZIONE STORAGE -->        
+        <Input Name="storage_occupato" Description="Storage occupato (media annuale)" Type="INTEGER" GroupingDecimal="true"/>
+        <Input Name="dato_calcolato_dal" Description="Dato calcolato dal" Type="DATE" />
+        <Input Name="dato_calcolato_al" Description="Dato calcolato al" Type="DATE" />
+        <Input Name="fascia_da_accordo" Description="Fascia da accordo" Type="STRING" />
+        <Input Name="fascia_da_occupazione" Description="Fascia da occupazione" Type="STRING" />
+        <Input Name="colore_fascia" Description="Colore fascia" Type="STRING" Hidden="true"/>
+        <!-- MEDIA ANNUALE OCCUPAZIONE STORAGE AMBIENTE -->    
+        <Input Name="storage_occupato_gestore" Description="Storage occupato (media annuale)" Type="INTEGER" GroupingDecimal="true"/>
+        <Input Name="dato_calcolato_dal_gestore" Description="Dato calcolato dal" Type="DATE" />
+        <Input Name="dato_calcolato_al_gestore" Description="Dato calcolato al" Type="DATE" />
         <!-- Dati di fatturazione -->
         <Input Name="cd_cliente_fatturazione" Description="Codice ente sistema fatturazione" Type="STRING" MaxLength="100" />
 <!--        <Input Name="cd_ufe" Description="UFE" Type="STRING" MaxLength="100" />
@@ -749,7 +777,8 @@
         <Input Name="id_tariffa_accordo" Description="Entità rimborso costi" Type="INTEGER" Hidden="true"/>
         <Input Name="id_tipo_servizio" Description="Tipo servizio" Type="INTEGER" Hidden="true"/>
         <Input Name="cd_tipo_servizio" Description="Tipo servizio" Type="STRING" />
-        <Input Name="im_tariffa_accordo" Description="Importo rimborso costi" Type="INTEGER" />
+        <Input Name="im_tariffa_accordo" Description="Importo rimborso costi" Type="STRING" MaxLength="14" />
+        <Input Name="im_tariffa_accordo_ivato" Description="Importo rimborso costi iva inclusa" Type="INTEGER" GroupingDecimal="true" MaxLength="14" />
     </List>
     
     <List Name="AnnualitaAccordoList" Description="Lista annualità da accordi" >
@@ -757,12 +786,10 @@
         <Input Name="aa_anno_accordo" Description="Anno" Type="INTEGER" Required="true" />
         <Input Name="mm_aa_accordo" Description="Mesi" Type="INTEGER" />
         <Input Name="ds_atto_aa_accordo" Description="Atto" Type="STRING" Required="true"/>
-        <Input Name="cd_capitolo_aa_accordo" Description="Capitolo impegno" Type="STRING" Required="true"/>
         <Input Name="cd_cig_aa_accordo" Description="CIG" Type="STRING" MaxLength="100" Required="true"/>
         <Input Name="cd_cup_aa_accordo" Description="CUP" Type="STRING" MaxLength="100" Required="true"/>
-        <Input Name="cd_oda_aa_accordo" Description="Ordine di acquisto" Type="STRING" MaxLength="100" Required="true"/>
-        <Input Name="tot_rimb_costi" Description="Totale rimborso costi" Type="INTEGER" />
-        <CheckBox Name="presenza_nota" Description="Nota" Type="STRING" defaultValue="0" Readonly="true"/>               
+        <Input Name="tot_rimb_costi" Description="Totale rimborso costi" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />
+        <Input Name="ds_nota_aa_accordo" Description="Nota" Type="STRING" MaxLength="250"/>               
     </List>
     
     <Fields Name="AnnualitaAccordoDetail" Description="Dettaglio annualità accordo">
@@ -781,7 +808,7 @@
     <List Name="TipoServizioAnnualitaAccordoList" Description="Lista tipi servizio da annualità accordo" hideDetailButton="true" hideUpdateButton="true">
         <Input Name="id_tipo_servizio" Description="Tipo servizio" Type="INTEGER" Hidden="true"/>
         <Input Name="cd_tipo_servizio" Description="Tipo servizio" Type="STRING" />
-        <Input Name="im_tariffa_aa_accordo" Description=" Importo rimborso costi" Type="INTEGER" />
+        <Input Name="im_tariffa_aa_accordo" Description=" Importo rimborso costi" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />
     </List>
     
     <ButtonList Name="UdButtonList" Description="MessageBox" >

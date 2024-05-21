@@ -1,6 +1,9 @@
 
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="
@@ -23,10 +26,13 @@
     
     <bean name="paginator" class="it.eng.paginator.ejb.PaginatorImpl"/>
     <bean name="sacerIamAuthenticator" class="it.eng.saceriam.web.security.SacerIamAuthenticator"/>
+    
+    <!-- Configurazione delle action ereditate dal framework -->
     <bean name="/View.html" class="it.eng.spagoLite.actions.RedirectAction" scope="prototype"/>
-   
     <bean name="/Login.html" class="it.eng.spagoLite.actions.security.LoginAction" scope="prototype"/>
     <bean name="/Logout.html" class="it.eng.spagoLite.actions.security.LogoutAction" scope="prototype"/>
+    
+    <!-- Configurazione delle action specifiche del modulo web -->
     <bean name="/ModificaPsw.html" class="it.eng.saceriam.web.action.ModificaPswAction" scope="prototype"/>
     <bean name="/AssociazioneUtente.html" class="it.eng.saceriam.web.action.AssociazioneUtenteAction" scope="prototype"/>
     <bean name="/SceltaOrganizzazione.html" class="it.eng.saceriam.web.action.SceltaOrganizzazioneAction" scope="prototype"/>
@@ -60,6 +66,21 @@
         </property>
     </bean>
 
+    <!-- MEV#27457 - Rendere indipendente SIAM da PING -->
+    <!-- Template per chiamate rest con impostazione del timeout -->
+    <bean class="org.springframework.web.client.RestTemplate">
+        <constructor-arg>
+            <bean class="org.springframework.http.client.SimpleClientHttpRequestFactory"
+                  p:readTimeout="10000"
+                  p:connectTimeout="10000" />
+        </constructor-arg>
+    </bean>
+    
+    <!-- Template da inserire nelle applicazioni che usano SpagoLite e che utilizzano -->
+    <!-- l' Help On line. Deve implementare l'interfaccia IApplicationBasePropertiesSevice -->
+    <bean class="it.eng.saceriam.web.util.ApplicationBasePropertiesSeviceImpl">
+    </bean>
+    
 </beans> 
 
 

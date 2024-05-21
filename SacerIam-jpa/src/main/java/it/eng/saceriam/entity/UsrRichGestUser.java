@@ -1,16 +1,50 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the USR_RICH_GEST_USER database table.
- *
  */
 @Entity
 @Table(name = "USR_RICH_GEST_USER")
@@ -18,37 +52,56 @@ import javax.persistence.*;
 public class UsrRichGestUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idRichGestUser;
+
     private BigDecimal aaRichGestUser;
+
     private byte[] blRichGestUser;
+
     private String cdKeyRichGestUser;
+
     private String cdRegistroRichGestUser;
+
     private String cdRichGestUser;
+
     private String dsEmailRich;
+
     private Date dtRichGestUser;
+
     private String nmFileRichGestUser;
+
     private String nmUserRich;
+
     private String ntRichGestUser;
+
     private String tiRichGestUser;
+
     private String tiStatoRichGestUser;
+
     private String tiUserRich;
+
     private List<UsrAppartUserRich> usrAppartUserRiches = new ArrayList<>();
+
     private NtfNotifica ntfNotifica;
+
     private OrgEnteSiam orgEnteSiam;
+
     private UsrOrganizIam usrOrganizIam;
+
     private UsrUser usrUser;
+
     private List<UsrStatoUser> usrStatoUsers = new ArrayList<>();
 
     public UsrRichGestUser() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SUSR_RICH_GEST_USER") // @SequenceGenerator(name =
-                                                                         // "USR_RICH_GEST_USER_IDRICHGESTUSER_GENERATOR",
-                                                                         // sequenceName = "SUSR_RICH_GEST_USER",
-                                                                         // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_RICH_GEST_USER_IDRICHGESTUSER_GENERATOR")
     @Column(name = "ID_RICH_GEST_USER")
+    @GenericGenerator(name = "SUSR_RICH_GEST_USER_ID_RICH_GEST_USER_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_RICH_GEST_USER"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_RICH_GEST_USER_ID_RICH_GEST_USER_GENERATOR")
     public Long getIdRichGestUser() {
         return this.idRichGestUser;
     }
@@ -239,5 +292,4 @@ public class UsrRichGestUser implements Serializable {
     public void setUsrStatoUsers(List<UsrStatoUser> usrStatoUsers) {
         this.usrStatoUsers = usrStatoUsers;
     }
-
 }

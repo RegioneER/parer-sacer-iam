@@ -4,10 +4,9 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>4.9.2-SNAPSHOT</version>
+        <version>5.2.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>it.eng.parer</groupId>
     <artifactId>saceriam-jboss-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>SacerIam-ejb</name>
@@ -38,11 +37,11 @@
             <artifactId>javacsv</artifactId>            
         </dependency>
         <!-- JBOSS -->
-        <dependency>  
-            <groupId>org.jboss.spec</groupId>  
-            <artifactId>jboss-javaee-6.0</artifactId>  
-            <type>pom</type>  
-            <scope>provided</scope>  
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-jakartaee-8.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>        
             <groupId>it.eng.parer</groupId>
@@ -76,12 +75,10 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
         </dependency>
         <dependency>  
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-databind</artifactId>  
-            <version>${jackson-databind.version}</version>  
         </dependency> 
         <!-- Incluso per l'ejb del logging applicativo -->
         <dependency>
@@ -99,13 +96,6 @@
             <artifactId>spagofat-timer-wrapper-ejb</artifactId>
             <type>ejb</type>
         </dependency>
-<!--        
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <scope>provided</scope>
-        </dependency>
--->
         <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
         <dependency>
             <groupId>it.eng.parer</groupId>
@@ -129,8 +119,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.2.27.Final-redhat-1</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.as</groupId>
@@ -141,7 +129,6 @@
         <dependency>
             <groupId>directory-naming</groupId>
             <artifactId>naming-java</artifactId>
-            <version>0.8</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -149,16 +136,17 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ejb-plugin</artifactId>
-                <configuration>
-                    <ejbVersion>3.1</ejbVersion>
-                </configuration>
+                <artifactId>maven-ejb-plugin</artifactId>               
             </plugin>
             <plugin>
                 <groupId>org.apache.cxf</groupId>

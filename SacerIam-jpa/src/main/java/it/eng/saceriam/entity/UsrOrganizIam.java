@@ -1,15 +1,46 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the USR_ORGANIZ_IAM database table.
- *
  */
 @Entity
 @Table(name = "USR_ORGANIZ_IAM")
@@ -17,34 +48,50 @@ import javax.persistence.*;
 public class UsrOrganizIam implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idOrganizIam;
+
     private String dsOrganiz;
+
     private BigDecimal idOrganizApplic;
+
     private String nmOrganiz;
+
     private List<OrgEnteConvenzOrg> orgEnteConvenzOrgs = new ArrayList<>();
+
     private List<UsrAbilOrganiz> usrAbilOrganizs = new ArrayList<>();
+
     private List<UsrDichAbilDati> usrDichAbilDatis = new ArrayList<>();
+
     private List<UsrDichAbilOrganiz> usrDichAbilOrganizs = new ArrayList<>();
+
     private AplApplic aplApplic;
+
     private AplTipoOrganiz aplTipoOrganiz;
+
     private OrgEnteSiam orgEnteSiamConserv;
+
     private OrgEnteSiam orgEnteSiamGestore;
+
     private UsrOrganizIam usrOrganizIam;
+
     private List<UsrOrganizIam> usrOrganizIams = new ArrayList<>();
+
     private List<UsrRichGestUser> usrRichGestUsers = new ArrayList<>();
+
     private List<UsrTipoDatoIam> usrTipoDatoIams = new ArrayList<>();
+
     private List<UsrUsoRuoloDich> usrUsoRuoloDiches = new ArrayList<>();
 
     public UsrOrganizIam() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SUSR_ORGANIZ_IAM") // @SequenceGenerator(name =
-                                                                      // "USR_ORGANIZ_IAM_IDORGANIZIAM_GENERATOR",
-                                                                      // sequenceName = "SUSR_ORGANIZ_IAM",
-                                                                      // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_ORGANIZ_IAM_IDORGANIZIAM_GENERATOR")
     @Column(name = "ID_ORGANIZ_IAM")
+    @GenericGenerator(name = "SUSR_ORGANIZ_IAM_ID_ORGANIZ_IAM_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_ORGANIZ_IAM"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_ORGANIZ_IAM_ID_ORGANIZ_IAM_GENERATOR")
     public Long getIdOrganizIam() {
         return this.idOrganizIam;
     }
@@ -93,14 +140,12 @@ public class UsrOrganizIam implements Serializable {
     public OrgEnteConvenzOrg addOrgEnteConvenzOrg(OrgEnteConvenzOrg orgEnteConvenzOrg) {
         getOrgEnteConvenzOrgs().add(orgEnteConvenzOrg);
         orgEnteConvenzOrg.setUsrOrganizIam(this);
-
         return orgEnteConvenzOrg;
     }
 
     public OrgEnteConvenzOrg removeOrgEnteConvenzOrg(OrgEnteConvenzOrg orgEnteConvenzOrg) {
         getOrgEnteConvenzOrgs().remove(orgEnteConvenzOrg);
         orgEnteConvenzOrg.setUsrOrganizIam(null);
-
         return orgEnteConvenzOrg;
     }
 
@@ -117,14 +162,12 @@ public class UsrOrganizIam implements Serializable {
     public UsrAbilOrganiz addUsrAbilOrganiz(UsrAbilOrganiz usrAbilOrganiz) {
         getUsrAbilOrganizs().add(usrAbilOrganiz);
         usrAbilOrganiz.setUsrOrganizIam(this);
-
         return usrAbilOrganiz;
     }
 
     public UsrAbilOrganiz removeUsrAbilOrganiz(UsrAbilOrganiz usrAbilOrganiz) {
         getUsrAbilOrganizs().remove(usrAbilOrganiz);
         usrAbilOrganiz.setUsrOrganizIam(null);
-
         return usrAbilOrganiz;
     }
 
@@ -142,14 +185,12 @@ public class UsrOrganizIam implements Serializable {
     public UsrDichAbilDati addUsrDichAbilDati(UsrDichAbilDati usrDichAbilDati) {
         getUsrDichAbilDatis().add(usrDichAbilDati);
         usrDichAbilDati.setUsrOrganizIam(this);
-
         return usrDichAbilDati;
     }
 
     public UsrDichAbilDati removeUsrDichAbilDati(UsrDichAbilDati usrDichAbilDati) {
         getUsrDichAbilDatis().remove(usrDichAbilDati);
         usrDichAbilDati.setUsrOrganizIam(null);
-
         return usrDichAbilDati;
     }
 
@@ -167,14 +208,12 @@ public class UsrOrganizIam implements Serializable {
     public UsrDichAbilOrganiz addUsrDichAbilOrganiz(UsrDichAbilOrganiz usrDichAbilOrganiz) {
         getUsrDichAbilOrganizs().add(usrDichAbilOrganiz);
         usrDichAbilOrganiz.setUsrOrganizIam(this);
-
         return usrDichAbilOrganiz;
     }
 
     public UsrDichAbilOrganiz removeUsrDichAbilOrganiz(UsrDichAbilOrganiz usrDichAbilOrganiz) {
         getUsrDichAbilOrganizs().remove(usrDichAbilOrganiz);
         usrDichAbilOrganiz.setUsrOrganizIam(null);
-
         return usrDichAbilOrganiz;
     }
 
@@ -246,14 +285,12 @@ public class UsrOrganizIam implements Serializable {
     public UsrOrganizIam addUsrOrganizIam(UsrOrganizIam usrOrganizIam) {
         getUsrOrganizIams().add(usrOrganizIam);
         usrOrganizIam.setUsrOrganizIam(this);
-
         return usrOrganizIam;
     }
 
     public UsrOrganizIam removeUsrOrganizIam(UsrOrganizIam usrOrganizIam) {
         getUsrOrganizIams().remove(usrOrganizIam);
         usrOrganizIam.setUsrOrganizIam(null);
-
         return usrOrganizIam;
     }
 
@@ -270,14 +307,12 @@ public class UsrOrganizIam implements Serializable {
     public UsrRichGestUser addUsrRichGestUser(UsrRichGestUser usrRichGestUser) {
         getUsrRichGestUsers().add(usrRichGestUser);
         usrRichGestUser.setUsrOrganizIam(this);
-
         return usrRichGestUser;
     }
 
     public UsrRichGestUser removeUsrRichGestUser(UsrRichGestUser usrRichGestUser) {
         getUsrRichGestUsers().remove(usrRichGestUser);
         usrRichGestUser.setUsrOrganizIam(null);
-
         return usrRichGestUser;
     }
 
@@ -295,14 +330,12 @@ public class UsrOrganizIam implements Serializable {
     public UsrTipoDatoIam addUsrTipoDatoIam(UsrTipoDatoIam usrTipoDatoIam) {
         getUsrTipoDatoIams().add(usrTipoDatoIam);
         usrTipoDatoIam.setUsrOrganizIam(this);
-
         return usrTipoDatoIam;
     }
 
     public UsrTipoDatoIam removeUsrTipoDatoIam(UsrTipoDatoIam usrTipoDatoIam) {
         getUsrTipoDatoIams().remove(usrTipoDatoIam);
         usrTipoDatoIam.setUsrOrganizIam(null);
-
         return usrTipoDatoIam;
     }
 
@@ -320,15 +353,12 @@ public class UsrOrganizIam implements Serializable {
     public UsrUsoRuoloDich addUsrUsoRuoloDich(UsrUsoRuoloDich usrUsoRuoloDich) {
         getUsrUsoRuoloDiches().add(usrUsoRuoloDich);
         usrUsoRuoloDich.setUsrOrganizIam(this);
-
         return usrUsoRuoloDich;
     }
 
     public UsrUsoRuoloDich removeUsrUsoRuoloDich(UsrUsoRuoloDich usrUsoRuoloDich) {
         getUsrUsoRuoloDiches().remove(usrUsoRuoloDich);
         usrUsoRuoloDich.setUsrOrganizIam(null);
-
         return usrUsoRuoloDich;
     }
-
 }

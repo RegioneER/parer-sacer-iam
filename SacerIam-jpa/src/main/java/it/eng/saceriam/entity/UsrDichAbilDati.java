@@ -1,42 +1,83 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the USR_DICH_ABIL_DATI database table.
- * 
  */
 @Entity
 @Table(name = "USR_DICH_ABIL_DATI")
 @NamedQuery(name = "UsrDichAbilDati.findAll", query = "SELECT u FROM UsrDichAbilDati u")
 public class UsrDichAbilDati implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     private Long idDichAbilDati;
+
     private String dsCausaleDich;
+
     private String tiScopoDichAbilDati;
+
     private List<UsrAbilDati> usrAbilDatis = new ArrayList<>();
+
     private AplClasseTipoDato aplClasseTipoDato;
+
     private OrgAppartCollegEnti orgAppartCollegEnti;
+
     private OrgSuptEsternoEnteConvenz orgSuptEsternoEnteConvenz;
+
     private OrgVigilEnteProdut orgVigilEnteProdut;
+
     private UsrOrganizIam usrOrganizIam;
+
     private UsrTipoDatoIam usrTipoDatoIam;
+
     private UsrUsoUserApplic usrUsoUserApplic;
 
     public UsrDichAbilDati() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SUSR_DICH_ABIL_DATI") // @SequenceGenerator(name =
-                                                                         // "USR_DICH_ABIL_DATI_IDDICHABILDATI_GENERATOR",
-                                                                         // sequenceName = "SUSR_DICH_ABIL_DATI",
-                                                                         // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_DICH_ABIL_DATI_IDDICHABILDATI_GENERATOR")
     @Column(name = "ID_DICH_ABIL_DATI")
+    @GenericGenerator(name = "SUSR_DICH_ABIL_DATI_ID_DICH_ABIL_DATI_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_DICH_ABIL_DATI"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_DICH_ABIL_DATI_ID_DICH_ABIL_DATI_GENERATOR")
     public Long getIdDichAbilDati() {
         return this.idDichAbilDati;
     }
@@ -76,14 +117,12 @@ public class UsrDichAbilDati implements Serializable {
     public UsrAbilDati addUsrAbilDati(UsrAbilDati usrAbilDati) {
         getUsrAbilDatis().add(usrAbilDati);
         usrAbilDati.setUsrDichAbilDati(this);
-
         return usrAbilDati;
     }
 
     public UsrAbilDati removeUsrAbilDati(UsrAbilDati usrAbilDati) {
         getUsrAbilDatis().remove(usrAbilDati);
         usrAbilDati.setUsrDichAbilDati(null);
-
         return usrAbilDati;
     }
 
@@ -163,5 +202,4 @@ public class UsrDichAbilDati implements Serializable {
     public void setUsrUsoUserApplic(UsrUsoUserApplic usrUsoUserApplic) {
         this.usrUsoUserApplic = usrUsoUserApplic;
     }
-
 }

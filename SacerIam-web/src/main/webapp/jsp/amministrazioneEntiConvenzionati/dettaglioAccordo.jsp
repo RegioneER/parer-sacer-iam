@@ -5,6 +5,9 @@
     <sl:head title="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.DESCRIPTION%>">
         <script>
             $(document).ready(function () {
+
+                $('#Fascia_da_occupazione').css({"background-color": $('#Colore_fascia').text()});
+        
                 // Se la JSP viene ricaricata quando il flag è "checked" devo far scattare il trigger
                 // per applicare lo stato "readonly" e la visualizzazione in sola lettura ai soli campi gestiti 
                 if ($("#Fl_acc_non_approv").is(":checked")) {
@@ -54,10 +57,6 @@
                 // popup chiusura accordo
                 $('.chiusuraAccordoBox').dialog({
                     autoOpen: true,
-//                    open: function () {
-//                        var note = $('#Ds_note_accordo').text();
-//                        $("#Note").text(note);
-//                    },
                     width: 600,
                     modal: true,
                     closeOnEscape: true,
@@ -214,9 +213,7 @@
                             label.text(label.text() + ": ");
                         }
                         element.parent()
-//                                .append("<input type='hidden' name='" + name + "' id='" + name + "_hidden' class='readonly' value='" + value + "'/>")
                                 .append("<div  id='" + name + "' class='" + className + " readonly' >" + value + "</div>");
-//                        element.attr('disabled', true);
                         element.hide();
                     } else if (state === 'edit') {
                         if (element.hasClass('required')) {
@@ -224,7 +221,6 @@
                         } else {
                             label.text(label.text().replace(/: /g, ''));
                         }
-//                        element.attr('disabled', false);
                         element.show();
                         element.parent().find('.readonly').remove();
                     }
@@ -292,9 +288,7 @@
             
             <sl:newLine skipLine="true"/>
             <slf:fieldSet borderHidden="true">
-                <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoSection.NAME%>" styleClass="importantContainer w100">
-                    <%--<slf:lblField name="<%= //AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.CD_ENTE_CONVENZ%>" colSpan="2"/><sl:newLine />--%>
-                    <%--<slf:lblField name="<%= //AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.TI_CD_ENTE_CONVENZ%>" colSpan="2"/><sl:newLine />--%>
+                <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoSection.NAME%>" styleClass="importantContainer w100">                    
                     <c:choose>
                         <c:when test="${!(sessionScope['###_FORM_CONTAINER']['listaEntiConvenzionati'].status eq 'insert') }">
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.NM_AMBIENTE_ENTE_CONVENZ%>" colSpan="2"/><sl:newLine />
@@ -353,9 +347,9 @@
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.ID_TIPO_ACCORDO%>" colSpan="2"/><sl:newLine />
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.FL_PAGAMENTO%>" colSpan="2"/><sl:newLine />
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.ID_TARIFFARIO%>" colSpan="2"/><sl:newLine />
-                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_CLUSTER%>" colSpan="2"/><sl:newLine />
-                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_FASCIA_STANDARD%>" colSpan="2"/><sl:newLine />
-                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_FASCIA_MANUALE%>" colSpan="2"/><sl:newLine />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.ID_CLUSTER_ACCORDO%>" colSpan="2"/><sl:newLine />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.ID_FASCIA_STORAGE_STANDARD_ACCORDO%>" colSpan="4"/><sl:newLine />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.ID_FASCIA_STORAGE_MANUALE_ACCORDO%>" colSpan="4"/><sl:newLine />
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_TIPO_UD_STANDARD%>" colSpan="2"/><sl:newLine />
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_TIPO_UD_MANUALE%>" colSpan="2"/><sl:newLine />
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.IM_ATTIV_DOC_AMM%>" colSpan="2"/><sl:newLine />
@@ -367,6 +361,22 @@
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.DS_NOTA_ATTIVAZIONE%>" colSpan="2"/><sl:newLine />                                                     
                 </slf:section> 
                 <sl:newLine skipLine="true"/>
+                <c:if test="${(sessionScope['###_FORM_CONTAINER']['accordiList'].status eq 'view')}">
+                <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.MediaAnnualeOccupazioneStorageSection.NAME%>" styleClass="importantContainer w100">
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.STORAGE_OCCUPATO%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.DATO_CALCOLATO_DAL%>" width="w70" labelWidth="w30" controlWidth="w40" />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.DATO_CALCOLATO_AL%>" width="w70" labelWidth="w30" controlWidth="w40" /><sl:newLine />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.FASCIA_DA_ACCORDO%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.FASCIA_DA_OCCUPAZIONE%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />                    
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.COLORE_FASCIA%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />                    
+                </slf:section>
+                <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.MediaAnnualeOccupazioneStorageGestoreSection.NAME%>" styleClass="importantContainer w100">
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.STORAGE_OCCUPATO_GESTORE%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.DATO_CALCOLATO_DAL_GESTORE%>" width="w70" labelWidth="w30" controlWidth="w40" />
+                    <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.DATO_CALCOLATO_AL_GESTORE%>" width="w70" labelWidth="w30" controlWidth="w40" /><sl:newLine />                    
+                </slf:section>
+                <sl:newLine skipLine="true"/>    
+                </c:if>
                 <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.InfoRimborsoCostiTipoServizioSection.NAME%>" styleClass="importantContainer w100">
                     <slf:editableList name="<%= AmministrazioneEntiConvenzionatiForm.TipoServizioAccordoList.NAME%>" multiRowEdit="true"/>
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.GENERA_TABELLA_TIPI_SERVIZIO%>" colSpan="2"/>

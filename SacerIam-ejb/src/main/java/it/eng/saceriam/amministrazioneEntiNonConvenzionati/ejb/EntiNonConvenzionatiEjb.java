@@ -1,3 +1,20 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.amministrazioneEntiNonConvenzionati.ejb;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
@@ -66,12 +83,17 @@ import it.eng.saceriam.web.util.Transform;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -939,6 +961,9 @@ public class EntiNonConvenzionatiEjb {
                     param.getNomePagina());
 
             if (helper.countEnteSuptPerEnteFornit(idEnteFornitEst, idEnteConvenzSupt) == 0) {
+                // Determino gli utenti appartenenzi all'ENTE CONVENZIONATO rimosso dal supporto, perchè poi su di essi
+                // dovrò rimuove l'abilitazione all'ente NON convenzionato di tipo fornitore esterno (visto che ora non
+                // mi supporta più...)
                 List<UsrUser> utenti = utentiHelper.retrieveUsrUserEnteSiamAppart(idEnteConvenzSupt,
                         Collections.singletonMap("NOT IN",
                                 Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
@@ -952,7 +977,7 @@ public class EntiNonConvenzionatiEjb {
 
                 // determino utenti PERSONA_FISICA con stato diverso da cessato
                 // e flag “Allinea abilitazioni alle organizzazioni e agli enti supportati in automatico”
-                // che appartengono all’ente non convenzionato
+                // che appartengono all’ente NON convenzionato
                 List<UsrUser> utentiSup = utentiHelper.retrieveUsrUserEnteSup(idEnteFornitEst,
                         Collections.singletonMap("IN",
                                 Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO)),
@@ -1008,6 +1033,65 @@ public class EntiNonConvenzionatiEjb {
         }
     }
 
+    public SortedSet<String> retrieveUsrUserEnteSiamSupt(BigDecimal idSuptEstEnteConvenz) {
+        OrgSuptEsternoEnteConvenz suptEstEnteConvenz = helper.findById(OrgSuptEsternoEnteConvenz.class,
+                idSuptEstEnteConvenz);
+
+        BigDecimal idEnteFornitEst = BigDecimal
+                .valueOf(suptEstEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam());
+        BigDecimal idEnteConvenzSupt = BigDecimal
+                .valueOf(suptEstEnteConvenz.getOrgEnteSiamByIdEnteProdut().getIdEnteSiam());
+
+        SortedSet<String> listaTotaleUtenti = new TreeSet<>();
+
+        // Determino gli utenti appartenenzi all'ENTE CONVENZIONATO rimosso dal supporto, perchè poi su di essi
+        // dovrò rimuove l'abilitazione all'ente NON convenzionato di tipo fornitore esterno (visto che ora non mi
+        // supporta più...)
+        List<UsrUser> utenti = utentiHelper.retrieveUsrUserEnteSiamAppart(idEnteConvenzSupt,
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+        List<UsrUser> utentiSup = utentiHelper.retrieveUsrUserEnteSup(idEnteFornitEst,
+                Collections.singletonMap("IN", Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO)),
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+        utenti.addAll(utentiSup);
+
+        for (UsrUser utente : utenti) {
+            listaTotaleUtenti.add(utente.getNmUserid());
+        }
+
+        return listaTotaleUtenti;
+    }
+
+    public boolean existUsrUserEnteSiamSupt(BigDecimal idSuptEstEnteConvenz) {
+        OrgSuptEsternoEnteConvenz suptEstEnteConvenz = helper.findById(OrgSuptEsternoEnteConvenz.class,
+                idSuptEstEnteConvenz);
+
+        BigDecimal idEnteFornitEst = BigDecimal
+                .valueOf(suptEstEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam());
+        BigDecimal idEnteConvenzSupt = BigDecimal
+                .valueOf(suptEstEnteConvenz.getOrgEnteSiamByIdEnteProdut().getIdEnteSiam());
+
+        if (!utentiHelper.retrieveUsrUserEnteSiamAppart(idEnteConvenzSupt,
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name()))).isEmpty()) {
+            return true;
+        }
+
+        if (!utentiHelper.retrieveUsrUserEnteSup(idEnteFornitEst,
+                Collections.singletonMap("IN", Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO)),
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name()))).isEmpty()) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Restituisce il rowbean contenente il dettaglio di un accordo di vigilanza
      *
@@ -1047,6 +1131,9 @@ public class EntiNonConvenzionatiEjb {
                 }
             }
             row.setString("nm_ente_conserv", accordoVigil.getOrgEnteSiamByIdEnteConserv().getNmEnteSiam());
+
+            row.setTimestamp("dt_ini_val_accordo", row.getDtIniVal());
+            row.setTimestamp("dt_fin_val_accordo", row.getDtFinVal());
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException ex) {
             String msg = "Errore durante il recupero dell'accordo di vigilanza "
@@ -1382,6 +1469,15 @@ public class EntiNonConvenzionatiEjb {
         }
     }
 
+    public void checkInclusioneFiglioVigil(Date dtIniValPadre, Date dtFinValPadre, Date dtIniValFiglio,
+            Date dtFinValFiglio, String nmPadre, String nmFiglio) throws ParerUserError {
+        // Se l'intevallo del figlio non è incluso totalmente nell'intervallo del padre
+        if (dtIniValPadre.after(dtIniValFiglio) || dtFinValPadre.before(dtFinValFiglio)) {
+            throw new ParerUserError(
+                    "La validità della vigilanza su " + nmFiglio + " non e' inclusa nella validità di " + nmPadre);
+        }
+    }
+
     public void checkInclusionePadreFigli(Date dtIniValPadre, Date dtFinValPadre, String nmPadre,
             Map<String, Date[]> mappaFigli) throws ParerUserError {
         StringBuilder sb = new StringBuilder();
@@ -1599,5 +1695,546 @@ public class EntiNonConvenzionatiEjb {
         org.put("ENTE", ente.getNmOrganiz());
         org.put("STRUTTURA", struttura.getNmOrganiz());
         return org;
+    }
+
+    public boolean checkEsistenzaAccordiDtIniDtFineVal(BigDecimal idEnteOrganoVigil, Date dtIniVal, Date dtFinVal,
+            BigDecimal idAccordoDaEscludere) {
+        return helper.checkEsistenzaAccordiDtIniDtFineVal(idEnteOrganoVigil, dtIniVal, dtFinVal, idAccordoDaEscludere);
+    }
+
+    /**
+     * Metodo di inserimento di un accordo di vigilanza
+     *
+     * @param param
+     *            parametri per il logging
+     * @param idUserIamCor
+     *            id user IAM
+     * @param idEnteOrganoVigil
+     *            l'ente organo di vigilanza di cui l'accordo fa parte
+     * @param idEnteConserv
+     *            l'ente conservatore che stipula l'accordo con l'organo di vigilanza
+     * @param dsNoteEnteAccordo
+     *            note sull'accordo
+     * @param dtIniVal
+     *            data inizio validita accordo
+     * @param dtFinVal
+     *            data fine validita accordo
+     * @param cdRegistroRepertorio
+     *            registro dell'accordo
+     * @param aaRepertorio
+     *            anno dell'accordo
+     * @param cdKeyRepertorio
+     *            numero dell'accordo
+     * @param dsFirmatarioEnte
+     *            firmatario dell'accordo
+     * @param dtRegAccordo
+     *            data di registrazione dell'accordo
+     * @param nmEnte
+     *            ente SACER a cui appartiene la struttura in cui e' versata l'unità documentaria corrispondente
+     *            all'accordo sottoscritto con un ente
+     * @param nmStrut
+     *            struttura in cui e' versata l'unità documentaria corrispondente all'accordo sottoscritto con un ente
+     *
+     * @return pk
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public Long insertOrgAccordoVigil(LogParam param, long idUserIamCor, BigDecimal idEnteOrganoVigil,
+            BigDecimal idEnteConserv, Date dtIniVal, Date dtFinVal, String dsNoteEnteAccordo,
+            String cdRegistroRepertorio, BigDecimal aaRepertorio, String cdKeyRepertorio, String dsFirmatarioEnte,
+            Date dtRegAccordo, String nmEnte, String nmStrut) throws ParerUserError {
+
+        OrgAccordoVigil accordoVigil = new OrgAccordoVigil();
+
+        OrgEnteSiam enteOrganoVigil = helper.findByIdWithLock(OrgEnteSiam.class, idEnteOrganoVigil);
+        accordoVigil.setOrgEnteSiamByIdEnteOrganoVigil(enteOrganoVigil);
+
+        enteOrganoVigil.getOrgAccordoVigilByIdEnteOrganoVigils().add(accordoVigil);
+
+        OrgEnteSiam enteConserv = helper.findByIdWithLock(OrgEnteSiam.class, idEnteConserv);
+        accordoVigil.setOrgEnteSiamByIdEnteConserv(enteConserv);
+
+        enteConserv.getOrgAccordoVigilByIdEnteConservs().add(accordoVigil);
+
+        accordoVigil.setDtIniVal(dtIniVal);
+        accordoVigil.setDtFinVal(dtFinVal);
+        accordoVigil.setDsNoteEnteAccordo(dsNoteEnteAccordo);
+
+        accordoVigil.setCdRegistroRepertorio(cdRegistroRepertorio);
+        accordoVigil.setAaRepertorio(aaRepertorio);
+        accordoVigil.setCdKeyRepertorio(cdKeyRepertorio);
+        accordoVigil.setDsFirmatarioEnte(dsFirmatarioEnte);
+        accordoVigil.setDtRegAccordo(dtRegAccordo);
+        accordoVigil.setNmEnte(nmEnte);
+        accordoVigil.setNmStrut(nmStrut);
+
+        helper.insertEntity(accordoVigil, true);
+
+        // Determino la lista degli oggetti PRIMA della modifica
+        // List<ObjectsToLogBefore> listaOggettiDaLoggarePrima = sacerLogEjb.logBefore(param.getTransactionLogContext(),
+        // param.getNomeApplicazione(), param.getNomeUtente(), param.getNomeAzione(),
+        // SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+        // new BigDecimal(accordoVigil.getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam()),
+        // param.getNomePagina());
+        // Determina gli utenti PERSONA_FISICA che appartengono all'ente conservatore dell'accordo di vigilanza
+        List<UsrUser> utenti = utentiHelper.retrieveUsrUserEnteSiamAppart(idEnteConserv,
+                // Collections.singletonMap("NOT IN", Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
+                null, Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+        Set<BigDecimal> idUtentiSet = new HashSet<>();
+
+        // Per ciascuno degli utenti trovati al punto precedente il sistema inserisce l’abilitazione all’organo di
+        // vigilanza e ne esegue il logging
+        for (UsrUser utente : utenti) {
+            if (!userHelper.isAbilEntiConv(utente.getIdUserIam(), idEnteOrganoVigil.longValue())) {
+                idUtentiSet.add(BigDecimal.valueOf(utente.getIdUserIam()));
+                userHelper.aggiungiAbilEnteVigil(idUserIamCor, utente.getIdUserIam());
+            }
+        }
+
+        // Determino la lista degli oggetti DOPO la modifica
+        // List<ObjectsToLogBefore> listaOggettiDaLoggareDopo = sacerLogEjb.logBefore(param.getTransactionLogContext(),
+        // param.getNomeApplicazione(), param.getNomeUtente(), param.getNomeAzione(),
+        // SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+        // new BigDecimal(accordoVigil.getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam()),
+        // param.getNomePagina());
+        //
+        // if (!listaOggettiDaLoggarePrima.isEmpty() && !listaOggettiDaLoggareDopo.isEmpty()) {
+        // // Calcolo la differenza tra listaOggettiDaLoggarePrima e listaOggettiDaLoggareDopo:
+        // List<BigDecimal> listaIdOggetti = listaOggettiDaLoggareDopo.get(0).getIdOggetto().stream().filter(
+        // u2 -> listaOggettiDaLoggarePrima.get(0).getIdOggetto().stream().noneMatch(u1 -> u1.equals(u2)))
+        // .collect(Collectors.toList());
+        // // Aggiorno la lista degli oggetti nella listaOggettiDaLoggareDopo da passare alla logAfter
+        // listaOggettiDaLoggareDopo.get(0).setIdOggetto(listaIdOggetti);
+        // }
+        LOGGER.debug("Salvataggio dell'accordo di vigilanza completato");
+
+        sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+                param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+                idEnteOrganoVigil, param.getNomePagina());
+
+        // sacerLogEjb.logAfter(param.getTransactionLogContext(), param.getNomeApplicazione(), param.getNomeUtente(),
+        // param.getNomeAzione(), listaOggettiDaLoggareDopo, param.getNomePagina());
+        // LOGGING UTENTI
+        // sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+        // param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_UTENTE, idUtentiSet,
+        // param.getNomePagina());
+        return accordoVigil.getIdAccordoVigil();
+    }
+
+    /**
+     * Metodo di update di un accordo di vigilanza tra organo di vigilanza ed ente conservatore
+     *
+     * @param param
+     *            parametri per il logging
+     * @param idAccordoVigil
+     *            id dell'accordo di vigilanza che sto modificando
+     * @param idEnteOrganoVigil
+     *            l'ente organo di vigilanza di cui l'accordo fa parte
+     * @param dsNoteEnteAccordo
+     *            note sull'accordo
+     * @param dtIniVal
+     *            data inizio validita accordo
+     * @param dtFinVal
+     *            data fine validita accordo
+     * @param cdRegistroRepertorio
+     *            registro dell'accordo
+     * @param aaRepertorio
+     *            anno dell'accordo
+     * @param cdKeyRepertorio
+     *            numero dell'accordo
+     * @param dsFirmatarioEnte
+     *            firmatario dell'accordo
+     * @param dtRegAccordo
+     *            data di registrazione dell'accordo
+     *
+     * @return pk
+     *
+     * @throws ParerUserError
+     *             errore generico
+     *
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public Long updateOrgAccordoVigil(LogParam param, BigDecimal idAccordoVigil, BigDecimal idEnteOrganoVigil,
+            Date dtIniVal, Date dtFinVal, String dsNoteEnteAccordo, String cdRegistroRepertorio,
+            BigDecimal aaRepertorio, String cdKeyRepertorio, String dsFirmatarioEnte, Date dtRegAccordo)
+            throws ParerUserError {
+
+        OrgAccordoVigil accordoVigil = helper.findById(OrgAccordoVigil.class, idAccordoVigil);
+        accordoVigil.setDtIniVal(dtIniVal);
+        accordoVigil.setDtFinVal(dtFinVal);
+        accordoVigil.setDsNoteEnteAccordo(dsNoteEnteAccordo);
+
+        accordoVigil.setCdRegistroRepertorio(cdRegistroRepertorio);
+        accordoVigil.setAaRepertorio(aaRepertorio);
+        accordoVigil.setCdKeyRepertorio(cdKeyRepertorio);
+        accordoVigil.setDsFirmatarioEnte(dsFirmatarioEnte);
+        accordoVigil.setDtRegAccordo(dtRegAccordo);
+
+        // Persisto le modifiche
+        helper.mergeEntity(accordoVigil);
+        helper.getEntityManager().flush();
+
+        sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+                param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+                idEnteOrganoVigil, param.getNomePagina());
+
+        return accordoVigil.getIdAccordoVigil();
+    }
+
+    public void checkEnteVigilatoPerAccordoVigil(BigDecimal idAccordoVigil, BigDecimal idEnteProdut,
+            String nmEnteProdut, Date dtIniValVigil, Date dtFinValVigil, BigDecimal idVigilEnteProdutDaEscludere)
+            throws ParerUserError {
+        if (helper.existsEnteVigilatoPerAccordoVigil(idAccordoVigil, idEnteProdut, dtIniValVigil, dtFinValVigil,
+                idVigilEnteProdutDaEscludere)) {
+            throw new ParerUserError("Esiste già una vigilanza tra " + nmEnteProdut
+                    + " e accordo di vigilanza il cui periodo di validità si sovrappone a quello indicato");
+        }
+    }
+
+    /**
+     * Metodo di inserimento di un ente vigilato
+     *
+     * @param param
+     *            parametri per il logging
+     * @param idUserIamCor
+     *            id user IAM
+     * @param idAccordoVigil
+     *            id dell'accordo di vigilanza
+     * @param idEnteProdut
+     *            id ente produttore
+     * @param dtIniVal
+     *            data inizio validita
+     * @param dtFinVal
+     *            data fine validita
+     *
+     * @return pk
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public Long insertOrgVigilEnteProdut(LogParam param, long idUserIamCor, BigDecimal idAccordoVigil,
+            BigDecimal idEnteProdut, Date dtIniVal, Date dtFinVal) throws ParerUserError {
+
+        OrgVigilEnteProdut vigilEnteProdut = new OrgVigilEnteProdut();
+
+        OrgAccordoVigil accordoVigil = helper.findByIdWithLock(OrgAccordoVigil.class, idAccordoVigil);
+        vigilEnteProdut.setOrgAccordoVigil(accordoVigil);
+
+        accordoVigil.getOrgVigilEnteProduts().add(vigilEnteProdut);
+
+        OrgEnteSiam enteProdut = helper.findByIdWithLock(OrgEnteSiam.class, idEnteProdut);
+        vigilEnteProdut.setOrgEnteSiam(enteProdut);
+
+        enteProdut.getOrgVigilEnteProduts().add(vigilEnteProdut);
+
+        vigilEnteProdut.setDtIniVal(dtIniVal);
+        vigilEnteProdut.setDtFinVal(dtFinVal);
+
+        helper.insertEntity(vigilEnteProdut, true);
+
+        // // Determino la lista degli oggetti PRIMA della modifica
+        // List<ObjectsToLogBefore> listaOggettiDaLoggarePrima = sacerLogEjb.logBefore(param.getTransactionLogContext(),
+        // param.getNomeApplicazione(), param.getNomeUtente(), param.getNomeAzione(),
+        // SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+        // new BigDecimal(
+        // vigilEnteProdut.getOrgAccordoVigil().getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam()),
+        // param.getNomePagina());
+
+        // Determino utenti PERSONA_FISICA con stato diverso da cessato
+        // e flag “Allinea abilitazioni alle organizzazioni vigilate in automatico”
+        // che appartengono all’ente non convenzionato di tipo ORGANO DI VIGILANZA
+        List<UsrUser> utentiAppartenentiOrganoVigilanza = utentiHelper.retrieveUsrUserEnteVigil(
+                new BigDecimal(
+                        vigilEnteProdut.getOrgAccordoVigil().getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam()),
+                Collections.singletonMap("IN", Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.ORGANO_VIGILANZA)),
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+        for (UsrUser utente : utentiAppartenentiOrganoVigilanza) {
+            // Per ogni utente associato alla propria applicazione (SACER, PING...)
+            for (UsrUsoUserApplic usoUserApplic : utente.getUsrUsoUserApplics()) {
+                // Ricavo la lista delle strutture/versatori
+                OrgVEnteConvenzByOrganizTableBean tb = entiComnvenzionatiEjb
+                        .getOrgVEnteConvenzByOrganizTableBean(BigDecimal.valueOf(enteProdut.getIdEnteSiam()), true);
+                // Controllo se la struttura/versatore per l'utente è già abilitata
+                for (int i = 0; i < tb.size(); i++) {
+                    BigDecimal idOrganizIam = tb.getRow(i).getIdOrganizIam();
+                    // Controllo se la struttura/versatore (idOrganizIam) per l'utente è già abilitata
+                    if (!userHelper.isAbilEntiConvOrg(usoUserApplic.getIdUsoUserApplic(), idOrganizIam.longValue())) {
+                        userHelper.aggiungiAbilOrganizVigil(idUserIamCor, utente.getIdUserIam());
+                        userHelper.aggiungiAbilDatiVigil(idUserIamCor, utente.getIdUserIam());
+                    }
+                }
+            }
+        }
+        //
+        // // Determino la lista degli oggetti DOPO la modifica
+        // List<ObjectsToLogBefore> listaOggettiDaLoggareDopo = sacerLogEjb.logBefore(param.getTransactionLogContext(),
+        // param.getNomeApplicazione(), param.getNomeUtente(), param.getNomeAzione(),
+        // tipoEnte.equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())
+        // ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
+        // : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
+        // new BigDecimal(suptEsternoEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam()),
+        // param.getNomePagina());
+        //
+        // if (!listaOggettiDaLoggarePrima.isEmpty() && !listaOggettiDaLoggareDopo.isEmpty()) {
+        // // Calcolo la differenza tra listaOggettiDaLoggarePrima e listaOggettiDaLoggareDopo:
+        // List<BigDecimal> listaIdOggetti = listaOggettiDaLoggareDopo.get(0).getIdOggetto().stream().filter(
+        // u2 -> listaOggettiDaLoggarePrima.get(0).getIdOggetto().stream().noneMatch(u1 -> u1.equals(u2)))
+        // .collect(Collectors.toList());
+        // // Aggiorno la lista degli oggetti nella listaOggettiDaLoggareDopo da passare alla logAfter
+        // listaOggettiDaLoggareDopo.get(0).setIdOggetto(listaIdOggetti);
+        // }
+
+        LOGGER.debug("Salvataggio dell'ente vigilato completato");
+
+        sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+                param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+                BigDecimal.valueOf(accordoVigil.getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam()),
+                param.getNomePagina());
+
+        // sacerLogEjb.logAfter(param.getTransactionLogContext(), param.getNomeApplicazione(), param.getNomeUtente(),
+        // param.getNomeAzione(), listaOggettiDaLoggareDopo, param.getNomePagina());
+        return vigilEnteProdut.getIdVigilEnteProdut();
+    }
+
+    /**
+     * Metodo di update di un assoziazione tra ente vigilato e accordo di vigilanza
+     *
+     * @param param
+     *            parametri per il logging
+     * @param idVigilEnteProdut
+     *            id della vigilanza
+     * @param idEnteOrganoVigil
+     *            ente organo di vigilanza
+     * @param dtIniVal
+     *            data inizio validita
+     * @param dtFinVal
+     *            data fine validita
+     *
+     * @return pk
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public Long updateOrgVigilEnteProdut(LogParam param, BigDecimal idVigilEnteProdut, BigDecimal idEnteOrganoVigil,
+            Date dtIniVal, Date dtFinVal) throws ParerUserError {
+
+        OrgVigilEnteProdut vigilEnteProdut = helper.findById(OrgVigilEnteProdut.class, idVigilEnteProdut);
+        vigilEnteProdut.setDtIniVal(dtIniVal);
+        vigilEnteProdut.setDtFinVal(dtFinVal);
+
+        // Persisto le modifiche
+        helper.mergeEntity(vigilEnteProdut);
+        helper.getEntityManager().flush();
+
+        // sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+        // param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+        // idEnteOrganoVigil, param.getNomePagina());
+        sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+                param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA,
+                idEnteOrganoVigil, param.getNomePagina());
+
+        return vigilEnteProdut.getIdVigilEnteProdut();
+    }
+
+    public SortedSet<String> retrieveUsrUserEnteSiamVigilato(BigDecimal idVigilEnteProdut) {
+        OrgVigilEnteProdut vigilEnteProdut = helper.findById(OrgVigilEnteProdut.class, idVigilEnteProdut);
+
+        BigDecimal idEnteOrganoVigil = BigDecimal
+                .valueOf(vigilEnteProdut.getOrgAccordoVigil().getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam());
+        BigDecimal idEnteConvenzVigil = BigDecimal.valueOf(vigilEnteProdut.getOrgEnteSiam().getIdEnteSiam());
+
+        SortedSet<String> listaTotaleUtenti = new TreeSet<>();
+
+        // // Determino gli utenti appartenenzi all'ENTE CONVENZIONATO rimosso dalla vigilanza, perchè poi su di essi
+        // // dovrò rimuove l'abilitazione all'ente NON convenzionato di tipo organo di vigilanza (visto che ora non mi
+        // // vigila più...)
+        // List<UsrUser> utenti = utentiHelper.retrieveUsrUserEnteSiamAppart(idEnteConvenzVigil,
+        // Collections.singletonMap("NOT IN", Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
+        // Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+        // Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+        //
+        // List<UsrUser> utentiVigil = utentiHelper.retrieveUsrUserEnteSup(idEnteOrganoVigil,
+        // Collections.singletonMap("IN", Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.ORGANO_VIGILANZA)),
+        // Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+        // Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+        // Determino utenti PERSONA_FISICA con stato diverso da cessato
+        // e flag “Allinea abilitazioni alle organizzazioni vigilate in automatico”
+        // che appartengono all’ente NON convenzionato di tipo ORGANO DI VIGILANZA
+        List<UsrUser> utentiAppartenentiOrganoVigilanza = utentiHelper.retrieveUsrUserEnteVigil(idEnteOrganoVigil,
+                Collections.singletonMap("IN", Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.ORGANO_VIGILANZA)),
+                Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+        // utenti.addAll(utentiVigil);
+
+        for (UsrUser utente : utentiAppartenentiOrganoVigilanza) {
+            listaTotaleUtenti.add(utente.getNmUserid());
+        }
+
+        return listaTotaleUtenti;
+    }
+
+    /**
+     * Metodo di eliminazione di un ente vigilato
+     *
+     * @param param
+     *            parametri per il logging
+     * @param idVigilEnteProdut
+     *            id della vigilanza
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void deleteOrgVigilEnteProdut(LogParam param, BigDecimal idVigilEnteProdut) throws ParerUserError {
+        LOGGER.debug("Eseguo l'eliminazione dell'ente vigilato");
+        try {
+            OrgVigilEnteProdut vigilEnteProdut = helper.findById(OrgVigilEnteProdut.class, idVigilEnteProdut);
+
+            BigDecimal idEnteOrganoVigil = BigDecimal
+                    .valueOf(vigilEnteProdut.getOrgAccordoVigil().getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam());
+
+            // // Determino la lista degli oggetti PRIMA della modifica
+            // List<ObjectsToLogBefore> listaOggettiDaLoggarePrima = sacerLogEjb.logBefore(
+            // param.getTransactionLogContext(), param.getNomeApplicazione(), param.getNomeUtente(),
+            // param.getNomeAzione(),
+            // tipoEnte.equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())
+            // ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
+            // : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
+            // new BigDecimal(suptEstEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam()),
+            // param.getNomePagina());
+            helper.removeEntity(vigilEnteProdut, true);
+
+            sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(), param.getNomeUtente(),
+                    param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ORGANO_VIGILANZA, idEnteOrganoVigil,
+                    param.getNomePagina());
+
+            // if (helper.countEnteSuptPerEnteFornit(idEnteFornitEst, idEnteConvenzSupt) == 0) {
+            // // Determino gli utenti appartenenzi all'ENTE CONVENZIONATO rimosso dal supporto, perchè poi su di essi
+            // // dovrò rimuove l'abilitazione all'ente NON convenzionato di tipo fornitore esterno (visto che ora non
+            // // mi supporta più...)
+            // List<UsrUser> utenti = utentiHelper.retrieveUsrUserEnteSiamAppart(idEnteConvenzSupt,
+            // Collections.singletonMap("NOT IN",
+            // Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
+            // Collections.singletonMap("NOT IN",
+            // Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+            // Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+            //
+            // for (UsrUser utente : utenti) {
+            // userHelper.eliminaAbilEntiConv(utente.getIdUserIam(), idEnteFornitEst.longValue());
+            // }
+            //
+
+            // Determino utenti PERSONA_FISICA con stato diverso da cessato
+            // e flag “Allinea abilitazioni alle organizzazioni vigilate in automatico”
+            // che appartengono all’ente NON convenzionato di tipo ORGANO DI VIGILANZA
+            List<UsrUser> utentiAppartenentiOrganoVigilanza = utentiHelper.retrieveUsrUserEnteVigil(idEnteOrganoVigil,
+                    Collections.singletonMap("IN", Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.ORGANO_VIGILANZA)),
+                    Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                    Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+            for (UsrUser utente : utentiAppartenentiOrganoVigilanza) {
+                /*
+                 * Il sistema elimina le abilitazioni alle organizzazioni (a cui l’utente corrente e’ abilitato)
+                 * appartenenti all'ente vigilato rimosso
+                 */
+                userHelper.eliminaAbilOrganizVigil(utente.getIdUserIam(), vigilEnteProdut.getIdVigilEnteProdut());
+                /*
+                 * Il sistema elimina le abilitazioni ai tipi dato (a cui l’utente corrente e’ abilitato) delle
+                 * organizzazioni appartenenti all'ente vigilato rimosso
+                 */
+                userHelper.eliminaAbilTipiDatoVigil(utente.getIdUserIam(), vigilEnteProdut.getIdVigilEnteProdut());
+            }
+            //
+            // // Determino la lista degli oggetti DOPO la modifica
+            // List<ObjectsToLogBefore> listaOggettiDaLoggareDopo = sacerLogEjb.logBefore(
+            // param.getTransactionLogContext(), param.getNomeApplicazione(), param.getNomeUtente(),
+            // param.getNomeAzione(),
+            // tipoEnte.equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())
+            // ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
+            // : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
+            // new BigDecimal(suptEstEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam()),
+            // param.getNomePagina());
+            //
+            // if (!listaOggettiDaLoggarePrima.isEmpty() && !listaOggettiDaLoggareDopo.isEmpty()) {
+            // // Calcolo la differenza tra listaOggettiDaLoggarePrima e listaOggettiDaLoggareDopo:
+            // List<BigDecimal> listaIdOggetti = listaOggettiDaLoggarePrima.get(0).getIdOggetto().stream()
+            // .filter(u1 -> listaOggettiDaLoggareDopo.get(0).getIdOggetto().stream()
+            // .noneMatch(u2 -> u2.equals(u1)))
+            // .collect(Collectors.toList());
+            // // Aggiorno la lista degli oggetti nella listaOggettiDaLoggareDopo da passare alla logAfter
+            // listaOggettiDaLoggareDopo.get(0).setIdOggetto(listaIdOggetti);
+            // }
+            //
+            // sacerLogEjb.logAfter(param.getTransactionLogContext(), param.getNomeApplicazione(),
+            // param.getNomeUtente(), param.getNomeAzione(), listaOggettiDaLoggareDopo, param.getNomePagina());
+            // }
+        } catch (Exception e) {
+            String messaggio = "Eccezione imprevista nell'eliminazione dell'ente supportato ";
+            messaggio += ExceptionUtils.getRootCauseMessage(e);
+            LOGGER.error(messaggio, e);
+            throw new ParerUserError(messaggio);
+        }
+    }
+
+    // public SortedSet<String> getUtentiOrganoVigilanza(){
+    //
+    // SortedSet<String> utentiStringSet = new HashSet<>();
+    //
+    // // Determino utenti PERSONA_FISICA con stato diverso da cessato
+    // // e flag “Allinea abilitazioni alle organizzazioni vigilate in automatico”
+    // // che appartengono all’ente NON convenzionato di tipo ORGANO DI VIGILANZA
+    // List<UsrUser> utentiAppartenentiOrganoVigilanza = utentiHelper.retrieveUsrUserEnteVigil(idEnteOrganoVigil,
+    // Collections.singletonMap("IN", Arrays.asList(ConstOrgEnteSiam.TiEnteNonConvenz.ORGANO_VIGILANZA)),
+    // Collections.singletonMap("NOT IN", Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+    // Collections.singletonMap("IN", Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+    //
+    // for(UsrUser u : utentiAppartenentiOrganoVigilanza){
+    //
+    // }
+    // }
+
+    /**
+     * Restituisce il rowbean contenente il dettaglio di un ente vigilato
+     *
+     * @param idVigilEnteProdut
+     *            l'id dell'ente vigilato da recuperare su DB
+     *
+     * @return il rowbean contenente il dettaglio ente vigilato
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    public OrgVigilEnteProdutRowBean getOrgVigilEnteProdutRowBean(BigDecimal idVigilEnteProdut) throws ParerUserError {
+        OrgVigilEnteProdut vigilEnteProdut = helper.findById(OrgVigilEnteProdut.class, idVigilEnteProdut);
+        OrgVigilEnteProdutRowBean row = null;
+        try {
+            row = (OrgVigilEnteProdutRowBean) Transform.entity2RowBean(vigilEnteProdut);
+            row.setTimestamp("dt_ini_val_vigil", new Timestamp(vigilEnteProdut.getDtIniVal().getTime()));
+            row.setTimestamp("dt_fin_val_vigil", new Timestamp(vigilEnteProdut.getDtFinVal().getTime()));
+            if (vigilEnteProdut.getOrgEnteSiam().getOrgAmbienteEnteConvenz() != null) {
+                row.setBigDecimal("id_ambiente_ente_convenz", BigDecimal.valueOf(
+                        vigilEnteProdut.getOrgEnteSiam().getOrgAmbienteEnteConvenz().getIdAmbienteEnteConvenz()));
+                row.setString("nm_ambiente_ente_convenz",
+                        vigilEnteProdut.getOrgEnteSiam().getOrgAmbienteEnteConvenz().getNmAmbienteEnteConvenz());
+            }
+            row.setBigDecimal("id_ente_convenz", BigDecimal.valueOf(vigilEnteProdut.getOrgEnteSiam().getIdEnteSiam()));
+            row.setString("nm_ente_convenz", vigilEnteProdut.getOrgEnteSiam().getNmEnteSiam());
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException ex) {
+            String msg = "Errore durante il recupero dell'ente vigilato " + ExceptionUtils.getRootCauseMessage(ex);
+            LOGGER.error(msg, ex);
+            throw new ParerUserError(msg);
+        }
+        return row;
     }
 }

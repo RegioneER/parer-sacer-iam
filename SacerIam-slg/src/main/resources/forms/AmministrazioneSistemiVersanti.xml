@@ -16,11 +16,12 @@
         <ComboBox Name="id_organiz_applic" Description="Organizzazione" Type="INTEGER"/>
         <ComboBox Name="fl_cessato_filtro" Description="Cessato" Type="STRING"/>
         <ComboBox Name="fl_integrazione_filtro" Description="Integrazione in corso" Type="STRING"/>
+        <ComboBox Name="fl_associa_persona_fisica_filtro" Description="Associabile a persona fisica" Type="STRING"/>
         <MultiSelect Name="archivista" Description="Archivista di riferimento" Type="INTEGER" />
         <CheckBox Name="no_archivista" Description="Nessun archivista assegnato" Type="STRING" defaultValue="0" />
         <Button Name="ricercaSistemiVersanti" Description="Ricerca" Type="STRING" />
     </Fields>
-    
+    <!--Readonly="true"-->
     <List Name="ListaSistemiVersanti" Description="Lista sistemi versanti">
         <Input Name="id_sistema_versante" Description="Id" Type="INTEGER" Hidden="true" />
         <Input Name="nm_sistema_versante" Description="Denominazione" Type="STRING" />
@@ -30,6 +31,7 @@
         <CheckBox Name="fl_pec" Description="PEC" Type="STRING" Readonly="true" />
         <CheckBox Name="fl_cessato" Description="Cessato" Type="STRING" Readonly="true"/>
         <CheckBox Name="fl_integrazione" Description="Integrazione in corso" Type="STRING" Readonly="true"/>
+        <CheckBox Name="fl_associa_persona_fisica" Description="Associabile a persona fisica" Type="STRING" Readonly="true"/>
         <Input Name="archivista" Description="Archivista di riferimento" Type="STRING" />
     </List>
     

@@ -6,7 +6,7 @@
     <sl:head title="Utenti - Ricerca" >
         <style>
             a.VisualizzaUtenteRichiedente, a.VisualizzaUtenteArchivista, a.VisualizzaReferenteEnte { 
-                background-image: url("img/download.png");
+                background-image: url("../../img/toolBar/download.png");
                 background-repeat: no-repeat;
                 padding-right : 1.5em;
                 text-decoration: none;
@@ -27,10 +27,16 @@
                         CAjaxDataFormWalk(data);
                     });
                 });
+                
+                // "Trucco" per eseguire, attraverso la chiamata ad un bottone, un metodo lato Action per gestire la MultiSelect (non 
+                $("#Fl_utenti_automa_cessati").change(function () {
+                    $("[name='operation__attivaTriggerUtentiAutomaCessati']").trigger("click");
+                });
+                // "Nascondo" il bottone che comunque mi serve nella JSP
+                $("[name='operation__attivaTriggerUtentiAutomaCessati']").css("display", "none");  
+                
             });
         </script>
-
-
     </sl:head>
 
     <sl:body>
@@ -63,7 +69,7 @@
                 <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.NM_USERID%>" colSpan="2" controlWidth="w50"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.NM_APPLIC%>" colSpan="2" controlWidth="w50"/>
-                 <sl:newLine />
+                <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.CD_FISC%>" colSpan="2" controlWidth="w50"/>
                 <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.NM_RUOLO_DEFAULT%>" colSpan="2" controlWidth="w50"/>
@@ -92,6 +98,7 @@
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.TI_STATO_USER%>" colSpan="2" controlWidth="w50"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.DL_COMPOSITO_ORGANIZ%>" colSpan="2" controlWidth="w50"/>
                 <sl:newLine />
+                <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.FL_UTENTI_AUTOMA_CESSATI%>" colSpan="2" controlWidth="w50"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.NM_RUOLO_DICH%>" colSpan="2" controlWidth="w50"/>
                 <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.FL_ERR_REPLIC%>" colSpan="2" controlWidth="w50"/>
@@ -114,6 +121,7 @@
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.RICERCA_UTENTI%>" width="w25"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.PULISCI_UTENTI%>" width="w25"/>
                 <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.SCARICA_INDIRIZZI_MAIL%>" width="w25"/>
+                <slf:lblField name="<%=AmministrazioneUtentiForm.FiltriUtenti.ATTIVA_TRIGGER_UTENTI_AUTOMA_CESSATI%>" colSpan="2"/>
             </sl:pulsantiera>
             <sl:newLine skipLine="true"/>
 

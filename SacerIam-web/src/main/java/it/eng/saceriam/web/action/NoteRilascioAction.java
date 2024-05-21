@@ -1,12 +1,39 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import javax.ejb.EJB;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import it.eng.saceriam.informazioni.noteRilascio.ejb.NoteRilascioEjb;
 import it.eng.saceriam.slite.gen.Application;
 import it.eng.saceriam.slite.gen.action.NoteRilascioAbstractAction;
 import it.eng.saceriam.slite.gen.form.NoteRilascioForm;
 import it.eng.saceriam.slite.gen.tablebean.AplNotaRilascioRowBean;
 import it.eng.saceriam.slite.gen.tablebean.AplNotaRilascioTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplNotaRilascioTableDescriptor;
-import it.eng.saceriam.informazioni.noteRilascio.ejb.NoteRilascioEjb;
 import it.eng.saceriam.web.util.Constants;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.db.base.BaseTableInterface;
@@ -17,13 +44,6 @@ import it.eng.spagoLite.form.fields.Field;
 import it.eng.spagoLite.form.fields.Fields;
 import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.security.Secure;
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import javax.ejb.EJB;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -218,5 +238,13 @@ public class NoteRilascioAction extends NoteRilascioAbstractAction {
         ((it.eng.spagoLite.form.list.List<SingleValueField<?>>) form.getComponent(listToPopulate)).setTable(table);
         redirectToAction(action, "?operation=listNavigationOnClick&navigationEvent=" + event + "&table="
                 + listToPopulate + "&riga=" + table.getCurrentRowIndex(), form);
+    }
+
+    @Secure(action = "Menu.Informazioni.InfoPrivacy")
+    public void infoPrivacyPage() throws EMFError {
+        getUser().getMenu().reset();
+        getUser().getMenu().select("Menu.Informazioni.InfoPrivacy");
+
+        forwardToPublisher(Application.Publisher.INFO_PRIVACY);
     }
 }

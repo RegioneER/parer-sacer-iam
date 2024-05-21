@@ -1,13 +1,31 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.helper;
 
-import it.eng.saceriam.entity.AplApplic;
-import it.eng.spagoCore.error.EMFError;
 import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import it.eng.saceriam.entity.AplApplic;
 
 /**
  * Session Bean implementation class ComboHelper Contiene i metodi, per la gestione della persistenza su DB per le
@@ -63,6 +81,24 @@ public class ComboHelper {
         return list;
     }
 
+    /**
+     * Ritorna la lista di applicazioni per le quali l'utente corrente è abilitato e che mettano a disposizione la
+     * pagina di informativa sulla privacy
+     * 
+     * @param idUserIamCorrente
+     *            id user iam corrente
+     * 
+     * @return la lista di applicazioni
+     */
+    public List<AplApplic> getAplApplicAbilitateInfoPrivacyList(long idUserIamCorrente) {
+        String queryStr = "SELECT page.aplApplic FROM UsrUsoUserApplic usoApplic JOIN usoApplic.aplApplic applic "
+                + "JOIN applic.aplPaginaWebs page "
+                + "WHERE usoApplic.usrUser.idUserIam = :idUserIamCorrente AND page.nmPaginaWeb like '%infoPrivacy%' ";
+        Query q = em.createQuery(queryStr);
+        q.setParameter("idUserIamCorrente", idUserIamCorrente);
+        return q.getResultList();
+    }
+
     public List<AplApplic> getAplApplicAbilitateRicercaReplicheList(long idUserIamCorrente) {
         String queryStr = "SELECT usoApplic.aplApplic " + "FROM UsrUsoUserApplic usoApplic "
                 + "WHERE usoApplic.usrUser.idUserIam = :idUserIamCorrente "
@@ -74,13 +110,12 @@ public class ComboHelper {
         return list;
     }
 
-    public String getFederationMetadata() {
-        String queryStr = "SELECT asm.blSamlMetadati " + "FROM AplSamlMetadati asm ";
-        Query query = em.createQuery(queryStr);
-        return (String) query.getSingleResult();
-
-    }
-
+    /*
+     * public String getFederationMetadata() { String queryStr = "SELECT asm.blSamlMetadati " +
+     * "FROM AplSamlMetadati asm "; Query query = em.createQuery(queryStr); return (String) query.getSingleResult();
+     * 
+     * }
+     */
     /**
      * Metodo che ritorna la lista delle applicazioni ordinate per nome in base all'ente a cui appartiene l'utente
      *

@@ -1,20 +1,45 @@
 /*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package it.eng.saceriam.entity;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 import it.eng.parer.jboss.timer.common.JobTable;
 import it.eng.parer.jboss.timer.common.entity.JobDefinition;
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
-import java.math.BigDecimal;
-import javax.persistence.*;
-import java.math.BigDecimal;
 
 /**
  * The persistent class for the PIG_DEC_JOB database table.
- *
  */
 /* PIG_DEC_JOB */
 @Entity
@@ -22,9 +47,13 @@ import java.math.BigDecimal;
 public class DecJob extends JobDefinition implements JobTable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idJob;
+
     private String nmJob;
+
     private String tiSchedJob;
+
     private String tiScopoJob;
     private String dsJob;
     private String nmAmbito;
@@ -35,11 +64,12 @@ public class DecJob extends JobDefinition implements JobTable {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SDEC_JOB") // @SequenceGenerator(name = "DEC_JOB_IDJOB_GENERATOR",
-    // sequenceName = "SDEC_JOB", allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_JOB_IDJOB_GENERATOR")
     @Column(name = "ID_JOB")
     @Override
+    @GenericGenerator(name = "SDEC_JOB_ID_JOB_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_JOB"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SDEC_JOB_ID_JOB_GENERATOR")
     public Long getIdJob() {
         return idJob;
     }

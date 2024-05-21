@@ -25,6 +25,8 @@
                 <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneSistemiVersantiForm.FiltriSistemiVersanti.FL_INTEGRAZIONE_FILTRO%>" colSpan="2" controlWidth="w50"/>
                 <sl:newLine />
+                <slf:lblField name="<%=AmministrazioneSistemiVersantiForm.FiltriSistemiVersanti.FL_ASSOCIA_PERSONA_FISICA_FILTRO%>" colSpan="2" controlWidth="w50"/>
+                <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneSistemiVersantiForm.FiltriSistemiVersanti.ARCHIVISTA%>" colSpan="2" controlWidth="w50"/>
                 <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneSistemiVersantiForm.FiltriSistemiVersanti.NO_ARCHIVISTA%>" colSpan="2" controlWidth="w50"/>

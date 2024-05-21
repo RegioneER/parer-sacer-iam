@@ -1,14 +1,41 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the APL_APPLIC database table.
- *
  */
 @Entity
 @Table(name = "APL_APPLIC")
@@ -16,39 +43,62 @@ import javax.persistence.*;
 public class AplApplic implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idApplic;
+
     private String cdPswReplicaUser;
+
     private String cdVersioneComp;
+
     private String dsApplic;
+
     private String dsUrlReplicaUser;
+
     private String nmApplic;
+
     private String nmUserReplicaUser;
+
     private List<AplClasseTipoDato> aplClasseTipoDatos = new ArrayList<>();
+
     private List<AplCompSw> aplCompSws = new ArrayList<>();
+
     private List<AplEntryMenu> aplEntryMenus = new ArrayList<>();
+
     private List<AplHelpOnLine> aplHelpOnLines = new ArrayList<>();
+
     private List<AplNewsApplic> aplNewsApplics = new ArrayList<>();
+
     private List<AplPaginaWeb> aplPaginaWebs = new ArrayList<>();
+
     private List<AplServizioWeb> aplServizioWebs = new ArrayList<>();
+
     private List<AplTipoEvento> aplTipoEventos = new ArrayList<>();
+
     private List<AplTipoOggetto> aplTipoOggettos = new ArrayList<>();
+
     private List<AplTipoOrganiz> aplTipoOrganizs = new ArrayList<>();
+
     private List<LogUserDaReplic> logUserDaReplics = new ArrayList<>();
+
     private List<PrfUsoRuoloApplic> prfUsoRuoloApplics = new ArrayList<>();
+
     private List<UsrOrganizIam> usrOrganizIams = new ArrayList<>();
+
     private List<UsrUsoUserApplic> usrUsoUserApplics = new ArrayList<>();
+
     private List<SLLogLoginUser> sLLogLoginUsers = new ArrayList<>();
+
     private List<AplNotaRilascio> aplNotaRilascios = new ArrayList<>();
 
     public AplApplic() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SAPL_APPLIC") // @SequenceGenerator(name =
-                                                                 // "APL_APPLIC_IDAPPLIC_GENERATOR", sequenceName =
-                                                                 // "SAPL_APPLIC", allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APL_APPLIC_IDAPPLIC_GENERATOR")
     @Column(name = "ID_APPLIC")
+    @GenericGenerator(name = "SAPL_APPLIC_ID_APPLIC_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_APPLIC"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_APPLIC_ID_APPLIC_GENERATOR")
     public Long getIdApplic() {
         return this.idApplic;
     }
@@ -204,14 +254,12 @@ public class AplApplic implements Serializable {
     public AplTipoOggetto addAplTipoOggetto(AplTipoOggetto aplTipoOggetto) {
         getAplTipoOggettos().add(aplTipoOggetto);
         aplTipoOggetto.setAplApplic(this);
-
         return aplTipoOggetto;
     }
 
     public AplTipoOggetto removeAplTipoOggetto(AplTipoOggetto aplTipoOggetto) {
         getAplTipoOggettos().remove(aplTipoOggetto);
         aplTipoOggetto.setAplApplic(null);
-
         return aplTipoOggetto;
     }
 
@@ -283,5 +331,4 @@ public class AplApplic implements Serializable {
     public void setAplNotaRilascios(List<AplNotaRilascio> aplNotaRilascios) {
         this.aplNotaRilascios = aplNotaRilascios;
     }
-
 }

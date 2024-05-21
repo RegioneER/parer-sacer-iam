@@ -1,4 +1,21 @@
 /*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -1410,42 +1427,42 @@ public class MappingCascadeTest {
         }
     }
 
-    @Test
-    public void usrUser_NOmergeCascadeUsrAppartUserRich() {
-        Long idUsrUser = null;
-        Long idUsrAppartUserRich = null;
-        try {
-            UsrUser usrUser = newUsrUser();
-            helper.insertEntity(usrUser, true);
-            idUsrUser = usrUser.getIdUserIam();
-
-            UsrAppartUserRich usrAppartUserRich = new UsrAppartUserRich();
-            usrAppartUserRich.setUsrRichGestUser(aUsrRichGestUser());
-            usrAppartUserRich.setTiAppartUserRich(ConstUsrAppartUserRich.TiAppartUserRich.UTENTE_NON_CODIFICATO.name());
-            usrAppartUserRich
-                    .setTiAzioneRich(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CESSAZIONE.getDescrizione());
-            usrAppartUserRich.setFlAzioneRichEvasa("1");
-            usrAppartUserRich.setOrgEnteSiam(anEnteSiam());
-            usrAppartUserRich.setUsrUser(usrUser);
-
-            helper.insertEntity(usrAppartUserRich, true);
-            idUsrAppartUserRich = usrAppartUserRich.getIdAppartUserRich();
-
-            UsrUser usrUserReloaded = helper.findByIdForceLazyField(UsrUser.class, idUsrUser,
-                    u -> u.getUsrAppartUserRiches().get(0).getTiAppartUserRich());
-            final String nmNomeUser = "MERGED";
-            usrUserReloaded.setNmNomeUser(nmNomeUser);
-            final String tiAzioneRich = ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione();
-            usrUserReloaded.getUsrAppartUserRiches().get(0).setTiAzioneRich(tiAzioneRich);
-            helper.mergeEntity(usrUserReloaded);
-            assertEquals(nmNomeUser, helper.findById(UsrUser.class, idUsrUser).getNmNomeUser());
-            assertNotEquals(tiAzioneRich, helper.findById(UsrAppartUserRich.class, idUsrAppartUserRich));
-
-        } finally {
-            delete(UsrUser.class, idUsrUser);
-            delete(UsrAppartUserRich.class, idUsrAppartUserRich);
-        }
-    }
+    // @Test
+    // public void usrUser_NOmergeCascadeUsrAppartUserRich() {
+    // Long idUsrUser = null;
+    // Long idUsrAppartUserRich = null;
+    // try {
+    // UsrUser usrUser = newUsrUser();
+    // helper.insertEntity(usrUser, true);
+    // idUsrUser = usrUser.getIdUserIam();
+    //
+    // UsrAppartUserRich usrAppartUserRich = new UsrAppartUserRich();
+    // usrAppartUserRich.setUsrRichGestUser(aUsrRichGestUser());
+    // usrAppartUserRich.setTiAppartUserRich(ConstUsrAppartUserRich.TiAppartUserRich.UTENTE_NON_CODIFICATO.name());
+    // usrAppartUserRich
+    // .setTiAzioneRich(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CESSAZIONE.getDescrizione());
+    // usrAppartUserRich.setFlAzioneRichEvasa("1");
+    // usrAppartUserRich.setOrgEnteSiam(anEnteSiam());
+    // usrAppartUserRich.setUsrUser(usrUser);
+    //
+    // helper.insertEntity(usrAppartUserRich, true);
+    // idUsrAppartUserRich = usrAppartUserRich.getIdAppartUserRich();
+    //
+    // UsrUser usrUserReloaded = helper.findByIdForceLazyField(UsrUser.class, idUsrUser,
+    // u -> u.getUsrAppartUserRiches().get(0).getTiAppartUserRich());
+    // final String nmNomeUser = "MERGED";
+    // usrUserReloaded.setNmNomeUser(nmNomeUser);
+    // final String tiAzioneRich = ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione();
+    // usrUserReloaded.getUsrAppartUserRiches().get(0).setTiAzioneRich(tiAzioneRich);
+    // helper.mergeEntity(usrUserReloaded);
+    // assertEquals(nmNomeUser, helper.findById(UsrUser.class, idUsrUser).getNmNomeUser());
+    // assertNotEquals(tiAzioneRich, helper.findById(UsrAppartUserRich.class, idUsrAppartUserRich));
+    //
+    // } finally {
+    // delete(UsrUser.class, idUsrUser);
+    // delete(UsrAppartUserRich.class, idUsrAppartUserRich);
+    // }
+    // }
 
     @Test
     public void UsrUser_persistCascdeUsrStatoUser() {

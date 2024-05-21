@@ -1,16 +1,47 @@
 /*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package it.eng.saceriam.restws;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import it.eng.saceriam.common.Constants;
 import it.eng.saceriam.job.ejb.JobLogger;
 import it.eng.saceriam.restws.util.Response405;
 import it.eng.saceriam.restws.util.SimplReqPrsr;
-import it.eng.saceriam.restws.util.SimplReqPrsr.ReqPrsrConfig;
 import it.eng.saceriam.ws.dto.IRispostaWS;
 import it.eng.saceriam.ws.rest.monitoraggio.dto.MonFakeSessn;
 import it.eng.saceriam.ws.rest.monitoraggio.dto.RispostaWSStatusMonitor;
@@ -19,17 +50,6 @@ import it.eng.saceriam.ws.rest.monitoraggio.dto.WSDescStatusMonitor;
 import it.eng.saceriam.ws.rest.monitoraggio.dto.rmonitor.HostMonitor;
 import it.eng.saceriam.ws.rest.monitoraggio.ejb.StatusMonitorSync;
 import it.eng.saceriam.ws.utils.MessaggiWSBundle;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *

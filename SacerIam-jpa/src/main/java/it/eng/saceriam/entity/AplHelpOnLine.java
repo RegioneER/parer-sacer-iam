@@ -1,13 +1,30 @@
 /*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,42 +35,20 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 /**
- *
  * @author Iacolucci_M
  */
 @Entity
 @Table(name = "APL_HELP_ON_LINE")
 @NamedQueries({
-        /*
-         * @NamedQuery(name = "AplHelpOnLine.findAll", query = "SELECT a FROM AplHelpOnLine a"),
-         * 
-         * @NamedQuery(name = "AplHelpOnLine.findByIdHelpOnLine", query =
-         * "SELECT a FROM AplHelpOnLine a WHERE a.idHelpOnLine = :idHelpOnLine"),
-         * 
-         * @NamedQuery(name = "AplHelpOnLine.findByTiHelpOnLine", query =
-         * "SELECT a FROM AplHelpOnLine a WHERE a.tiHelpOnLine = :tiHelpOnLine"),
-         * 
-         * @NamedQuery(name = "AplHelpOnLine.findByDtIniVal", query =
-         * "SELECT a FROM AplHelpOnLine a WHERE a.dtIniVal = :dtIniVal"),
-         * 
-         * @NamedQuery(name = "AplHelpOnLine.findByDtFineVal", query =
-         * "SELECT a FROM AplHelpOnLine a WHERE a.dtFineVal = :dtFineVal"),
-         */
-        /*
-         * @NamedQuery(name = "AplHelpOnLine.findMostRecentDtFinWithMenu", query =
-         * "SELECT a.dtFineVal FROM AplHelpOnLine a WHERE a.aplApplic.idApplic = :idApplic AND a.tiHelpOnLine = :tiHelpOnLine AND a.aplPaginaWeb.idPaginaWeb = :idPaginaWeb AND a.aplEntryMenu.idEntryMenu = :idEntryMenu AND a.dtFineVal != {d '2444-12-31'}"
-         * ),
-         * 
-         * @NamedQuery(name = "AplHelpOnLine.findMostRecentDtFinWithoutMenu", query =
-         * "SELECT a.dtFineVal FROM AplHelpOnLine a WHERE a.aplApplic.idApplic = :idApplic AND a.tiHelpOnLine = :tiHelpOnLine AND a.aplPaginaWeb.idPaginaWeb = :idPaginaWeb AND a.dtFineVal != {d '2444-12-31'}"
-         * )
-         */
         @NamedQuery(name = "AplHelpOnLine.findMaxDtFinWithMenu", query = "SELECT max(a.dtFineVal) FROM AplHelpOnLine a WHERE a.aplApplic.idApplic = :idApplic AND a.tiHelpOnLine = :tiHelpOnLine AND a.aplPaginaWeb.idPaginaWeb = :idPaginaWeb AND a.aplEntryMenu.idEntryMenu = :idEntryMenu"),
         @NamedQuery(name = "AplHelpOnLine.findMaxDtFinWithoutMenu", query = "SELECT max(a.dtFineVal) FROM AplHelpOnLine a WHERE a.aplApplic.idApplic = :idApplic AND a.tiHelpOnLine = :tiHelpOnLine AND a.aplPaginaWeb.idPaginaWeb = :idPaginaWeb"),
         @NamedQuery(name = "AplHelpOnLine.existsIntersectionByPage", query = "select DISTINCT 1 FROM AplHelpOnLine a WHERE a.aplApplic.idApplic = :idApplic AND a.tiHelpOnLine = :tiHelpOnLine AND a.aplPaginaWeb.idPaginaWeb = :idPaginaWeb AND ("
@@ -73,14 +68,23 @@ public class AplHelpOnLine implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long idHelpOnLine;
+
     private String tiHelpOnLine;
+
     private Date dtIniVal;
+
     private Date dtFineVal;
+
     private String dsFileHelpOnLine;
+
     private String blHelpOnLine;
+
     private byte[] blSorgenteHelpOnLine;
+
     private AplPaginaWeb aplPaginaWeb;
+
     private AplEntryMenu aplEntryMenu;
+
     private AplApplic aplApplic;
 
     public AplHelpOnLine() {
@@ -102,12 +106,11 @@ public class AplHelpOnLine implements Serializable {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SAPL_HELP_ON_LINE") // @SequenceGenerator(name =
-                                                                       // "APL_HELP_ON_LINE_IDHELPONLINE_GENERATOR",
-                                                                       // sequenceName = "SAPL_HELP_ON_LINE",
-                                                                       // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APL_HELP_ON_LINE_IDHELPONLINE_GENERATOR")
     @Column(name = "ID_HELP_ON_LINE")
+    @GenericGenerator(name = "SAPL_HELP_ON_LINE_ID_HELP_ON_LINE_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_HELP_ON_LINE"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_HELP_ON_LINE_ID_HELP_ON_LINE_GENERATOR")
     public Long getIdHelpOnLine() {
         return idHelpOnLine;
     }
@@ -203,5 +206,4 @@ public class AplHelpOnLine implements Serializable {
     public void setAplApplic(AplApplic aplApplic) {
         this.aplApplic = aplApplic;
     }
-
 }

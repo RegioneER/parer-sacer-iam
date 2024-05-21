@@ -1,26 +1,46 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.helper;
+
+import static it.eng.paginator.util.HibernateUtils.bigDecimalFrom;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.StrSubstitutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.saceriam.common.Constants;
 import it.eng.saceriam.common.Constants.TipoIamVGetValAppart;
 import it.eng.saceriam.entity.constraint.ConstAplValoreParamApplic.TiAppart;
 import it.eng.saceriam.exception.ParamApplicNotFoundException;
 import it.eng.saceriam.web.helper.dto.IamVGetValParamDto;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.StrSubstitutor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static it.eng.paginator.util.HibernateUtils.*;
 
 /**
  *
@@ -34,6 +54,14 @@ public class ParamHelper {
 
     public static final String URL_ASSOCIAZIONE_UTENTE_CF = "URL_ASSOCIAZIONE_UTENTE_CF";
     public static final String URL_BACK_ASSOCIAZIONE_UTENTE_CF = "URL_BACK_ASSOCIAZIONE_UTENTE_CF";
+    public static final String URL_PING = "URL_PING";
+    public static final String USER_PING = "USER_PING";
+    public static final String PASSWORD_PING = "PASSWORD_PING";
+
+    private static final String IAMVGETVALPARAMBYCOL = "IamVGetvalParamByCol";
+    private static final String IAMVGETVALPARAMBY = "IamVGetvalParamBy";
+    private static final String FLAPLPARAMAPPLICAPPART = "flIamParamApplicAppart";
+    private static final String IDAPLVGETVALPARAMBY = "idIamVGetvalParamBy";
 
     @PersistenceContext(unitName = "SacerIamPU")
     private EntityManager entityManager;
@@ -53,11 +81,6 @@ public class ParamHelper {
             return null;
         }
     }
-
-    private static final String IAMVGETVALPARAMBYCOL = "IamVGetvalParamByCol";
-    private static final String IAMVGETVALPARAMBY = "IamVGetvalParamBy";
-    private static final String FLAPLPARAMAPPLICAPPART = "flIamParamApplicAppart";
-    private static final String IDAPLVGETVALPARAMBY = "idIamVGetvalParamBy";
 
     /**
      *
@@ -224,6 +247,32 @@ public class ParamHelper {
 
     public String getUrlBackAssociazioneUtenteCf() {
         return getValoreParamApplic(URL_BACK_ASSOCIAZIONE_UTENTE_CF, null, null, TipoIamVGetValAppart.APPLIC);
+    }
+
+    public String getUrlPing() {
+        return getValoreParamApplic(URL_PING, null, null, TipoIamVGetValAppart.APPLIC);
+    }
+
+    public String getUserPing() {
+        return getValoreParamApplic(USER_PING, null, null, TipoIamVGetValAppart.APPLIC);
+    }
+
+    public String getPasswordPing() {
+        return getValoreParamApplic(PASSWORD_PING, null, null, TipoIamVGetValAppart.APPLIC);
+    }
+
+    /**
+     * Ottieni il valore del parametro indicato dal codice in input. Il valore viene ottenuto filtrando per tipologia
+     * <em>APPLIC</em> {@link TipoIamVGetValAppart#APPLIC}
+     *
+     * @param nmParamApplic
+     *            codice del parametro
+     * 
+     * @return valore del parametro filtrato per tipologia <em>APPLIC</em> .
+     */
+    public String getValoreParamApplicByApplic(String nmParamApplic) {
+        return getValoreParamApplic(nmParamApplic, BigDecimal.valueOf(Integer.MIN_VALUE),
+                BigDecimal.valueOf(Integer.MIN_VALUE), TipoIamVGetValAppart.APPLIC);
     }
 
 }

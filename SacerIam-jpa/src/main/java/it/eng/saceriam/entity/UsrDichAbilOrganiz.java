@@ -1,42 +1,82 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the USR_DICH_ABIL_ORGANIZ database table.
- *
  */
 @Entity
 @Table(name = "USR_DICH_ABIL_ORGANIZ")
 @NamedQuery(name = "UsrDichAbilOrganiz.findAll", query = "SELECT u FROM UsrDichAbilOrganiz u")
 public class UsrDichAbilOrganiz implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     private Long idDichAbilOrganiz;
+
     private String dsCausaleDich;
+
     private String tiScopoDichAbilOrganiz;
+
     private List<UsrAbilOrganiz> usrAbilOrganizs = new ArrayList<>();
+
     private OrgAppartCollegEnti orgAppartCollegEnti;
+
     private OrgSuptEsternoEnteConvenz orgSuptEsternoEnteConvenz;
+
     private OrgVigilEnteProdut orgVigilEnteProdut;
+
     private UsrOrganizIam usrOrganizIam;
+
     private UsrUsoUserApplic usrUsoUserApplic;
+
     private List<UsrUsoRuoloDich> usrUsoRuoloDiches = new ArrayList<>();
 
     public UsrDichAbilOrganiz() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SUSR_DICH_ABIL_ORGANIZ") // @SequenceGenerator(name =
-                                                                            // "USR_DICH_ABIL_ORGANIZ_IDDICHABILORGANIZ_GENERATOR",
-                                                                            // sequenceName = "SUSR_DICH_ABIL_ORGANIZ",
-                                                                            // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "USR_DICH_ABIL_ORGANIZ_IDDICHABILORGANIZ_GENERATOR")
     @Column(name = "ID_DICH_ABIL_ORGANIZ")
+    @GenericGenerator(name = "SUSR_DICH_ABIL_ORGANIZ_ID_DICH_ABIL_ORGANIZ_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_DICH_ABIL_ORGANIZ"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_DICH_ABIL_ORGANIZ_ID_DICH_ABIL_ORGANIZ_GENERATOR")
     public Long getIdDichAbilOrganiz() {
         return this.idDichAbilOrganiz;
     }
@@ -76,14 +116,12 @@ public class UsrDichAbilOrganiz implements Serializable {
     public UsrAbilOrganiz addUsrAbilOrganiz(UsrAbilOrganiz usrAbilOrganiz) {
         getUsrAbilOrganizs().add(usrAbilOrganiz);
         usrAbilOrganiz.setUsrDichAbilOrganiz(this);
-
         return usrAbilOrganiz;
     }
 
     public UsrAbilOrganiz removeUsrAbilOrganiz(UsrAbilOrganiz usrAbilOrganiz) {
         getUsrAbilOrganizs().remove(usrAbilOrganiz);
         usrAbilOrganiz.setUsrDichAbilOrganiz(null);
-
         return usrAbilOrganiz;
     }
 
@@ -155,15 +193,12 @@ public class UsrDichAbilOrganiz implements Serializable {
     public UsrUsoRuoloDich addUsrUsoRuoloDich(UsrUsoRuoloDich usrUsoRuoloDich) {
         getUsrUsoRuoloDiches().add(usrUsoRuoloDich);
         usrUsoRuoloDich.setUsrDichAbilOrganiz(this);
-
         return usrUsoRuoloDich;
     }
 
     public UsrUsoRuoloDich removeUsrUsoRuoloDich(UsrUsoRuoloDich usrUsoRuoloDich) {
         getUsrUsoRuoloDiches().remove(usrUsoRuoloDich);
         usrUsoRuoloDich.setUsrDichAbilOrganiz(null);
-
         return usrUsoRuoloDich;
     }
-
 }

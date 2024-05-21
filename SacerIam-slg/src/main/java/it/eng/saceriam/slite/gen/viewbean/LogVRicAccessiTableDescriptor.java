@@ -1,12 +1,28 @@
-package it.eng.saceriam.slite.gen.viewbean;
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
 
-import it.eng.spagoLite.db.oracle.bean.column.ColumnDescriptor;
-import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
+package it.eng.saceriam.slite.gen.viewbean;
 
 import java.sql.Types;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.annotation.Generated;
+
+import it.eng.spagoLite.db.oracle.bean.column.ColumnDescriptor;
+import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
 
 /**
  * @author Sloth
@@ -30,6 +46,11 @@ public class LogVRicAccessiTableDescriptor extends TableDescriptor {
     public static final String COL_DT_EVENTO = "dt_evento";
     public static final String COL_TIPO_EVENTO = "tipo_evento";
     public static final String COL_DS_EVENTO = "ds_evento";
+    public static final String COL_NM_NOME_USER = "nm_nome_user";
+    public static final String COL_NM_COGNOME_USER = "nm_cognome_user";
+    public static final String COL_CD_FISC_USER = "cd_Fisc_user";
+    public static final String COL_DS_EMAIL_USER = "ds_Email_user";
+    public static final String COL_CD_ID_ESTERNO = "cd_id_esterno";
 
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
@@ -41,6 +62,11 @@ public class LogVRicAccessiTableDescriptor extends TableDescriptor {
         map.put(COL_DT_EVENTO, new ColumnDescriptor(COL_DT_EVENTO, Types.TIMESTAMP, 7, true));
         map.put(COL_TIPO_EVENTO, new ColumnDescriptor(COL_TIPO_EVENTO, Types.VARCHAR, 20, true));
         map.put(COL_DS_EVENTO, new ColumnDescriptor(COL_DS_EVENTO, Types.VARCHAR, 1000, true));
+        map.put(COL_NM_NOME_USER, new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_NM_COGNOME_USER, new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_CD_FISC_USER, new ColumnDescriptor(COL_CD_FISC_USER, Types.VARCHAR, 16, true));
+        map.put(COL_DS_EMAIL_USER, new ColumnDescriptor(COL_DS_EMAIL_USER, Types.VARCHAR, 254, true));
+        map.put(COL_CD_ID_ESTERNO, new ColumnDescriptor(COL_CD_ID_ESTERNO, Types.VARCHAR, 100, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {

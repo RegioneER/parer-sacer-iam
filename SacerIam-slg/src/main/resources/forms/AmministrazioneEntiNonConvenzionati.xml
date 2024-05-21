@@ -37,6 +37,7 @@
     <Section Name="accordoVigilSection" Description="" Legend="Accordo di vigilanza" ShowButton="false" LoadOpened="true"/>
     <Section Name="idAccordoSection" Description="" Legend="ID Accordo" ShowButton="false" LoadOpened="true"/>
     <Section Name="enteSupportatoSection" Description="" Legend="Ente supportato" ShowButton="false" LoadOpened="true"/>
+    <Section Name="enteVigilatoSection" Description="" Legend="Ente vigilato" ShowButton="false" LoadOpened="true"/>
     <Section Name="utentiArchivistiSection" Description="" Legend="Archivisti di riferimento" ShowButton="false" LoadOpened="true"/>
     <Section Name="utenteArchivistaSection" Description="" Legend="Archivista di riferimento" ShowButton="false" LoadOpened="true"/>
     <Section Name="referentiEnteSection" Description="" Legend="Referenti dell'ente" ShowButton="false" LoadOpened="true"/>
@@ -44,7 +45,7 @@
         
     <Fields Name="EnteNonConvenzionatoDetail" Description="Dettaglio ente non convenzionato">
         <ComboBox Name="ti_ente_non_convenz" Description="Tipo ente" Type="STRING" Required="true"/>
-        <Input Name="id_ente_siam" Description="ID" Type="INTEGER" Hidden="true" />
+        <Input Name="id_ente_siam" Description="ID ente" Type="INTEGER" Readonly="true" />
         <Input Name="nm_ente_siam" Description="Denominazione" Type="STRING" Required="true" MaxLength="100"/>
         <ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" Trigger="true"/>
         <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
@@ -154,7 +155,7 @@
     <!-- Dettaglio accordo di vigilanza -->
     <Section Name="EntiProdutVigilSection" Description="" Legend="Enti produttori vigilati" ShowButton="false" LoadOpened="true"/>
     
-    <Fields Name="AccordoVigilDetail" Description="Dettaglio accordo di vigilanza">
+<!--    <Fields Name="AccordoVigilDetail" Description="Dettaglio accordo di vigilanza">
         <Input Name="id_accordo_vigil" Description="ID" Type="INTEGER" Hidden="true" />
         <ComboBox Name="ti_ente_non_convenz" Description="Tipo ente" Type="STRING" />
         <Input Name="id_ente_siam" Description="ID" Type="INTEGER" Hidden="true" />
@@ -166,11 +167,12 @@
         <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
         <Input Name="nm_ente_siam_produt_corrisp" Description="Ente" Type="STRING" />
         <Input Name="id_ente_conserv" Description="ID" Type="INTEGER" Hidden="true" />
+         campi modificabili dettaglio accordo vigilanza 
         <Input Name="nm_ente_conserv" Description="Ente conservatore" Type="STRING" Required="true" />
         <Input Name="dt_ini_val" Description="Data inizio validità" Type="DATE" Required="true" />
         <Input Name="dt_fin_val" Description="Data fine validità" Type="DATE" Required="true" />  
-          <!-- ID Accordo -->
-        <!--<Input Name="nm_ambiente" Description="Ambiente" Type="STRING" Readonly="true" Required="true" />-->
+           ID Accordo 
+        <Input Name="nm_ambiente" Description="Ambiente" Type="STRING" Readonly="true" Required="true" />
         <Input Name="nm_ente" Description="Ente" Type="STRING" Readonly="true" Required="true"/>
         <Input Name="nm_strut" Description="Struttura" Type="STRING" Readonly="true" Required="true" />
         <ComboBox Name="cd_registro_repertorio" Description="Registro" Type="STRING" MaxLength="100" />
@@ -179,13 +181,33 @@
         <Input Name="dt_reg_accordo" Description="Data registrazione" Type="DATE" /> 
         <Input Name="ds_firmatario_ente" Description="Firmatario ente" Type="STRING" MaxLength="254"/> 
         <TextArea Name="ds_note_ente_accordo" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254"/>
+    </Fields>-->
+    
+    <Fields Name="AccordoVigilDetail" Description="Dettaglio accordo di vigilanza">
+        <Input Name="id_accordo_vigil" Description="Id accordo" Type="INTEGER" />        
+        <Input Name="id_ente_organo_vigil" Description="Id ente organo vigilanza" Type="INTEGER" Hidden="true" />        
+        <!-- ID Accordo -->        
+        <Input Name="nm_ente" Description="Ente" Type="STRING" Readonly="true" Required="true"/>
+        <Input Name="nm_strut" Description="Struttura" Type="STRING" Readonly="true" Required="true" />
+        <ComboBox Name="cd_registro_repertorio" Description="Registro" Type="STRING" MaxLength="100" />
+        <Input Name="aa_repertorio" Description="Anno" Type="INTEGER" MaxLength="4"/>
+        <Input Name="cd_key_repertorio" Description="Numero" Type="STRING" MaxLength="100"/>
+        <Input Name="dt_reg_accordo" Description="Data registrazione" Type="DATE" /> 
+        <Input Name="ds_firmatario_ente" Description="Firmatario ente" Type="STRING" MaxLength="254"/>        
+        <!-- ID Accordo -->
+        <ComboBox Name="id_ente_conserv" Description="Ente conservatore" Type="INTEGER" Trigger="true" Required="true" />
+        <Input Name="dt_ini_val_accordo" Description="Data inizio validità" Type="DATE" Required="true" />
+        <Input Name="dt_fin_val_accordo" Description="Data fine validità" Type="DATE" Required="true" />  
+        <TextArea Name="ds_note_ente_accordo" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254"/>
     </Fields>
     
+    
      <ButtonList Name="UdButtonList" Description="MessageBox" >
-        <Button Name="scaricaCompFileUdAccordo" Description="Scarica file unità documentaria" Type="STRING"/>        
+        <Button Secure="false" Name="scaricaCompFileUdAccordoVigil" Description="Scarica file unità documentaria" Type="STRING"/>        
     </ButtonList>
     
-    <List Name="VigilEnteProdutList" Description="Enti produttori vigilati">
+    <List Name="EntiVigilatiList" Description="Enti produttori vigilati">
+        <Input Name="id_vigil_ente_produt" Description="ID" Type="INTEGER" Hidden="true" />
         <Input Name="id_ente_produt" Description="Id ente conserv" Type="INTEGER" Hidden="true"/>
         <Input Name="nm_ambiente_ente_convenz" Description="Ambiente" Type="STRING" />
         <Input Name="nm_ente_siam" Description="Ente produttore" Type="STRING" />
@@ -202,4 +224,14 @@
         <Input Name="dt_ini_val_supt" Description="Data inizio validità" Type="DATE" Required="true" />
         <Input Name="dt_fin_val_supt" Description="Data fine validità" Type="DATE" Required="true" />   
     </Fields>
+    
+    <Fields Name="EnteVigilatoDetail" Description="Dettaglio ente produttore vigilato">
+        <Input Name="id_vigil_ente_produt" Description="ID" Type="INTEGER" Hidden="true" />
+        <ComboBox Name="id_ambiente_ente_convenz" Description="Ambiente" Type="INTEGER" Trigger="true" Required="true" />        
+        <ComboBox Name="id_ente_produt" Description="Ente" Type="INTEGER" Trigger="true" Required="true" />        
+        <Input Name="dt_ini_val_vigil" Description="Data inizio validità" Type="DATE" Required="true" />
+        <Input Name="dt_fin_val_vigil" Description="Data fine validità" Type="DATE" Required="true" />   
+    </Fields>
+    
+    
 </Form>

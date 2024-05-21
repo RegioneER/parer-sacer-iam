@@ -1,12 +1,28 @@
-package it.eng.saceriam.slite.gen.viewbean;
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
 
-import it.eng.spagoLite.db.oracle.bean.column.ColumnDescriptor;
-import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
+package it.eng.saceriam.slite.gen.viewbean;
 
 import java.sql.Types;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.annotation.Generated;
+
+import it.eng.spagoLite.db.oracle.bean.column.ColumnDescriptor;
+import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
 
 /**
  * @author Sloth
@@ -44,6 +60,7 @@ public class OrgVRicAccordoEnteTableDescriptor extends TableDescriptor {
     public static final String COL_DS_NOTA_FATTURAZIONE = "ds_nota_fatturazione";
     public static final String COL_FL_ESISTONO_GEST_ACC = "fl_esistono_gest_acc";
     public static final String COL_FL_ESISTE_NOTA_FATTURAZIONE = "fl_esiste_nota_fatturazione";
+    public static final String COL_FL_FASCIA_MANUALE = "fl_fascia_manuale";
     public static final String COL_FL_ESISTONO_SAE = "fl_esistono_sae";
     public static final String COL_FL_ESISTONO_SUE = "fl_esistono_sue";
 
@@ -76,6 +93,7 @@ public class OrgVRicAccordoEnteTableDescriptor extends TableDescriptor {
         map.put(COL_FL_ESISTONO_GEST_ACC, new ColumnDescriptor(COL_FL_ESISTONO_GEST_ACC, Types.VARCHAR, 1, true));
         map.put(COL_FL_ESISTE_NOTA_FATTURAZIONE,
                 new ColumnDescriptor(COL_FL_ESISTE_NOTA_FATTURAZIONE, Types.VARCHAR, 1, true));
+        map.put(COL_FL_FASCIA_MANUALE, new ColumnDescriptor(COL_FL_FASCIA_MANUALE, Types.VARCHAR, 1, true));
         map.put(COL_FL_ESISTONO_SAE, new ColumnDescriptor(COL_FL_ESISTONO_SAE, Types.VARCHAR, 1, true));
         map.put(COL_FL_ESISTONO_SUE, new ColumnDescriptor(COL_FL_ESISTONO_SUE, Types.VARCHAR, 1, true));
     }

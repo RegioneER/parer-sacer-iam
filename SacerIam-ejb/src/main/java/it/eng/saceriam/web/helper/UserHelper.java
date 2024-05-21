@@ -1,37 +1,110 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.helper;
 
-import static it.eng.paginator.util.HibernateUtils.*;
-import it.eng.parer.idpjaas.logutils.IdpLogger;
-import it.eng.parer.idpjaas.logutils.LogDto;
-import it.eng.saceriam.common.Constants.TiOperReplic;
-import it.eng.saceriam.entity.*;
-import it.eng.saceriam.entity.constraint.ConstPrfDichAutor;
-import it.eng.saceriam.exception.AuthorizationException;
-import it.eng.saceriam.exception.ParerUserError;
-import it.eng.saceriam.grantedEntity.constraint.ConstLogEventoLoginUser;
-import it.eng.saceriam.helper.GenericHelper;
-import it.eng.saceriam.slite.gen.tablebean.AplApplicTableBean;
-import it.eng.saceriam.slite.gen.tablebean.UsrDichAbilDatiRowBean;
-import it.eng.saceriam.slite.gen.tablebean.UsrDichAbilDatiTableBean;
-import it.eng.saceriam.viewEntity.*;
-import it.eng.saceriam.web.util.ApplEnum;
-import it.eng.saceriam.web.util.Constants;
-import it.eng.saceriam.web.util.Transform;
-import it.eng.saceriam.ws.ejb.WsIdpLogger;
-import it.eng.spagoLite.security.auth.PwdUtil;
+import static it.eng.paginator.util.HibernateUtils.bigDecimalFrom;
+import static it.eng.paginator.util.HibernateUtils.longFrom;
+import static it.eng.paginator.util.HibernateUtils.longListFrom;
+
 import java.math.BigDecimal;
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import it.eng.parer.idpjaas.logutils.IdpLogger;
+import it.eng.parer.idpjaas.logutils.LogDto;
+import it.eng.parer.sacerlog.entity.constraint.ConstLogEventoLoginUser;
+import it.eng.saceriam.common.Constants.TiOperReplic;
+import it.eng.saceriam.entity.AplApplic;
+import it.eng.saceriam.entity.AplAzionePagina;
+import it.eng.saceriam.entity.AplClasseTipoDato;
+import it.eng.saceriam.entity.AplEntryMenu;
+import it.eng.saceriam.entity.AplPaginaWeb;
+import it.eng.saceriam.entity.AplServizioWeb;
+import it.eng.saceriam.entity.LogAgente;
+import it.eng.saceriam.entity.LogUserDaReplic;
+import it.eng.saceriam.entity.OrgAccordoEnte;
+import it.eng.saceriam.entity.OrgAppartCollegEnti;
+import it.eng.saceriam.entity.OrgEnteSiam;
+import it.eng.saceriam.entity.OrgSuptEsternoEnteConvenz;
+import it.eng.saceriam.entity.OrgVigilEnteProdut;
+import it.eng.saceriam.entity.PrfAutor;
+import it.eng.saceriam.entity.PrfDichAutor;
+import it.eng.saceriam.entity.PrfRuolo;
+import it.eng.saceriam.entity.PrfRuoloCategoria;
+import it.eng.saceriam.entity.PrfUsoRuoloApplic;
+import it.eng.saceriam.entity.UsrAbilDati;
+import it.eng.saceriam.entity.UsrAbilEnteSiam;
+import it.eng.saceriam.entity.UsrAbilOrganiz;
+import it.eng.saceriam.entity.UsrDichAbilDati;
+import it.eng.saceriam.entity.UsrDichAbilEnteConvenz;
+import it.eng.saceriam.entity.UsrDichAbilOrganiz;
+import it.eng.saceriam.entity.UsrIndIpUser;
+import it.eng.saceriam.entity.UsrOldPsw;
+import it.eng.saceriam.entity.UsrOrganizIam;
+import it.eng.saceriam.entity.UsrTipoDatoIam;
+import it.eng.saceriam.entity.UsrUser;
+import it.eng.saceriam.entity.UsrUsoRuoloDich;
+import it.eng.saceriam.entity.UsrUsoRuoloUserDefault;
+import it.eng.saceriam.entity.UsrUsoUserApplic;
+import it.eng.saceriam.entity.constraint.ConstPrfDichAutor;
+import it.eng.saceriam.exception.AuthorizationException;
+import it.eng.saceriam.exception.ParerUserError;
+import it.eng.saceriam.helper.GenericHelper;
+import it.eng.saceriam.slite.gen.tablebean.AplApplicTableBean;
+import it.eng.saceriam.slite.gen.tablebean.UsrDichAbilDatiRowBean;
+import it.eng.saceriam.slite.gen.tablebean.UsrDichAbilDatiTableBean;
+import it.eng.saceriam.viewEntity.AplVTreeEntryMenu;
+import it.eng.saceriam.viewEntity.PrfVLisDichAutor;
+import it.eng.saceriam.viewEntity.UsrVAbilDatiToAdd;
+import it.eng.saceriam.viewEntity.UsrVAbilDatiVigilToAdd;
+import it.eng.saceriam.viewEntity.UsrVAbilEnteSupportoToAdd;
+import it.eng.saceriam.viewEntity.UsrVAbilOrgVigilToAdd;
+import it.eng.saceriam.viewEntity.UsrVAbilOrganizToAdd;
+import it.eng.saceriam.viewEntity.UsrVCheckDichAbilDati;
+import it.eng.saceriam.viewEntity.UsrVCheckDichAbilEnte;
+import it.eng.saceriam.viewEntity.UsrVCheckDichAbilOrganiz;
+import it.eng.saceriam.viewEntity.UsrVCheckRuoloDefault;
+import it.eng.saceriam.viewEntity.UsrVCheckRuoloDich;
+import it.eng.saceriam.viewEntity.UsrVCreaAbilDati;
+import it.eng.saceriam.viewEntity.UsrVLisEnteByAbilOrg;
+import it.eng.saceriam.viewEntity.UsrVTreeOrganizIam;
+import it.eng.saceriam.web.util.ApplEnum;
+import it.eng.saceriam.web.util.Constants;
+import it.eng.saceriam.web.util.Transform;
+import it.eng.saceriam.ws.ejb.WsIdpLogger;
+import it.eng.spagoLite.security.auth.PwdUtil;
 
 /**
  *
@@ -178,7 +251,8 @@ public class UserHelper extends GenericHelper {
     public List<UsrUser> findUtentiPerUsernameCaseInsensitive(String username) {
         Query q = getEntityManager()
                 .createQuery("SELECT u FROM UsrUser u WHERE lower(u.nmUserid) = :username  AND u.flAttivo='1'");
-        q.setParameter("username", username);
+        // MAC#29629 - Correzione estrazione nome utente durante l'autenticazione SPID
+        q.setParameter("username", username.toLowerCase());
         return q.getResultList();
     }
 
@@ -2224,11 +2298,13 @@ public class UserHelper extends GenericHelper {
         for (UsrUsoUserApplic applic : applicList) {
             idApplicSet.add(new BigDecimal(applic.getAplApplic().getIdApplic()));
         }
-        // "Filtro" le applicazioni non considerando Sacer_Iam e Dpi
-        List<AplApplic> applicUsateFiltrateList = getAplApplicFiltrate(idApplicSet);
-        // Per ogni applicazione scrivo nel log
-        for (AplApplic applicUsataFiltrata : applicUsateFiltrateList) {
-            registraLogUserDaReplic(applicList.get(0).getUsrUser(), applicUsataFiltrata, oper);
+        if (!idApplicSet.isEmpty()) {
+            // "Filtro" le applicazioni non considerando Sacer_Iam e Dpi
+            List<AplApplic> applicUsateFiltrateList = getAplApplicFiltrate(idApplicSet);
+            // Per ogni applicazione scrivo nel log
+            for (AplApplic applicUsataFiltrata : applicUsateFiltrateList) {
+                registraLogUserDaReplic(applicList.get(0).getUsrUser(), applicUsataFiltrata, oper);
+            }
         }
     }
 
@@ -2771,6 +2847,47 @@ public class UserHelper extends GenericHelper {
     }
 
     /**
+     * Aggiunge le abilitazioni agli enti convenzionati (USR_ABIL_ENTE_SIAM)
+     *
+     * @param idUserIamCor
+     *            id user IAM
+     * @param idCollegEntiConvenz
+     *            id del collegamento dal quale ricavare le abilitazioni da assegnare agli utenti
+     * @param idEnteConvenzExcluded
+     *            id dell'ente inserito nel collegamento che non deve essere considerato
+     */
+    public void aggiungiAbilEnteColleg(long idUserIamCor, long idCollegEntiConvenz, long idEnteConvenzExcluded) {
+        Query q = getEntityManager().createNativeQuery(
+                "INSERT INTO USR_ABIL_ENTE_SIAM (id_abil_ente_siam, id_user_iam, id_ente_siam, ds_causale_abil, id_appart_colleg_enti, fl_abil_automatica) "
+                        + "SELECT to_number('" + randInt()
+                        + "' || to_char(SUSR_ABIL_ENTE_SIAM.nextval)) id_abil_ente_siam, tab1.* from "
+                        + "(SELECT DISTINCT id_user_iam_gestito, id_ente_convenz, ds_causale_abil, id_appart_colleg_enti, '1' "
+                        + "FROM USR_V_ABIL_ENTE_COLLEG_TO_ADD u WHERE u.ID_USER_IAM_COR = ? "
+                        + "AND u.ID_USER_IAM_GESTITO IN "
+                        + "(SELECT DISTINCT utente.id_user_iam FROM Org_Appart_Colleg_Enti appart, Usr_User utente "
+                        + "WHERE appart.id_ente_convenz = utente.id_ente_siam "
+                        + "AND appart.id_Colleg_Enti_Convenz = ? " + "AND utente.fl_Abil_Enti_Colleg_Autom = '1' "
+                        + "AND appart.id_Ente_Convenz != ? )) tab1 ");
+        q.setParameter(1, idUserIamCor);
+        q.setParameter(2, idCollegEntiConvenz);
+        q.setParameter(3, idEnteConvenzExcluded);
+        q.executeUpdate();
+    }
+
+    public void aggiungiAbilEnteColleg2(long idUserIamCor, long idUserIamGestito) {
+
+        Query q = getEntityManager().createNativeQuery(
+                "INSERT INTO USR_ABIL_ENTE_SIAM (id_abil_ente_siam, id_user_iam, id_ente_siam, ds_causale_abil, id_appart_colleg_enti, fl_abil_automatica) "
+                        + "SELECT to_number('" + randInt()
+                        + "' || to_char(SUSR_ABIL_ENTE_SIAM.nextval)), id_user_iam_gestito, id_ente_convenz, ds_causale_abil, id_appart_colleg_enti, '1' FROM USR_V_ABIL_ENTE_COLLEG_TO_ADD u WHERE u.ID_USER_IAM_COR = ? AND u.ID_USER_IAM_GESTITO = ? ");
+
+        q.setParameter(1, idUserIamCor);
+        q.setParameter(2, idUserIamGestito);
+        q.executeUpdate();
+
+    }
+
+    /**
      * Aggiunge le abilitazioni agli enti convenzionati (USR_ABIL_ENTE_SIAM) ricavandole dalla relativa vista
      *
      * @param idUserIamCor
@@ -2871,6 +2988,25 @@ public class UserHelper extends GenericHelper {
     }
 
     /**
+     * Elimina abilitazioni all'organizzazione vigilata per l'utente specificato
+     *
+     * @param idUserIam
+     *            id user IAM dell'utente interessato alla rimozione dell'abilitazione
+     * @param idVigilEnteProdut
+     *            id della vigilanza (ORG_VIGIL_ENTE_PRODUT)
+     */
+    public void eliminaAbilOrganizVigil(long idUserIam, long idVigilEnteProdut) {
+        String queryStr = "DELETE FROM UsrAbilOrganiz abilOrganiz WHERE abilOrganiz.idAbilOrganiz IN "
+                + "(SELECT orgVigilToDel.idAbilOrganiz FROM UsrVAbilOrgVigilToDel orgVigilToDel WHERE orgVigilToDel.idUserIam = :idUserIam AND orgVigilToDel.idVigilEnteProdut = :idVigilEnteProdut) ";
+
+        Query q = getEntityManager().createQuery(queryStr);
+        q.setParameter("idUserIam", bigDecimalFrom(idUserIam));
+        q.setParameter("idVigilEnteProdut", bigDecimalFrom(idVigilEnteProdut));
+        q.executeUpdate();
+        getEntityManager().flush();
+    }
+
+    /**
      * Elimina l’abilitazione all'utente dell’ente siam che non è più supportato dal fornitore
      *
      * @param idUserIam
@@ -2917,6 +3053,25 @@ public class UserHelper extends GenericHelper {
 
         Query q = getEntityManager().createQuery(queryStr);
         q.setParameter("idUserIam", bigDecimalFrom(idUserIam));
+        q.executeUpdate();
+        getEntityManager().flush();
+    }
+
+    /**
+     * Elimina abilitazioni ai tipi dato vigilati per l'utente specificato
+     *
+     * @param idUserIam
+     *            id user IAM
+     * @param idVigilEnteProdut
+     *            id della vigilanza (ORG_VIGIL_ENTE_PRODUT)
+     */
+    public void eliminaAbilTipiDatoVigil(long idUserIam, long idVigilEnteProdut) {
+        String queryStr = "DELETE FROM UsrAbilDati abilDati WHERE abilDati.idAbilDati IN "
+                + "(SELECT datiVigilToDel.idAbilDati FROM UsrVAbilDatiVigilToDel datiVigilToDel WHERE datiVigilToDel.idUserIam = :idUserIam AND datiVigilToDel.idVigilEnteProdut = :idVigilEnteProdut) ";
+
+        Query q = getEntityManager().createQuery(queryStr);
+        q.setParameter("idUserIam", bigDecimalFrom(idUserIam));
+        q.setParameter("idVigilEnteProdut", bigDecimalFrom(idVigilEnteProdut));
         q.executeUpdate();
         getEntityManager().flush();
     }
@@ -3130,5 +3285,23 @@ public class UserHelper extends GenericHelper {
                 "SELECT a.idApplic FROM UsrUsoUserApplic u  JOIN u.aplApplic a WHERE u.idUsoUserApplic = :idUsoUsrApplic");
         q.setParameter("idUsoUsrApplic", longFrom(idUsoUsrApplic));
         return (Long) q.getSingleResult();
+    }
+
+    public List<String> getUsrVAbilEnteCollegToDel(BigDecimal idEnteSiam) {
+        Query q = getEntityManager()
+                .createQuery("SELECT user.nmUserid " + "FROM UsrVAbilEnteCollegToDel abilEnteCollegToDel, UsrUser user "
+                        + "WHERE abilEnteCollegToDel.idEnteSiam = :idEnteSiam "
+                        + "AND abilEnteCollegToDel.idEnteSiam = user.idEnteSiam ");
+        q.setParameter("idEnteSiam", idEnteSiam);
+        return (List<String>) q.getSingleResult();
+    }
+
+    public List<String> getUsrVAbilEnteCollegToDel2(BigDecimal idAppartCollegEnti) {
+        Query q = getEntityManager().createQuery(
+                "SELECT DISTINCT user.nmUserid " + "FROM UsrVAbilEnteCollegToDel abilEnteCollegToDel, UsrUser user "
+                        + "WHERE abilEnteCollegToDel.idAppartCollegEnti = :idAppartCollegEnti "
+                        + "AND abilEnteCollegToDel.idUserIam = user.idUserIam ");
+        q.setParameter("idAppartCollegEnti", idAppartCollegEnti);
+        return (List<String>) q.getResultList();
     }
 }

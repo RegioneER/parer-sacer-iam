@@ -1,3 +1,20 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.job.replicaUtenti.ejb;
 
 import it.eng.integriam.client.ws.IAMSoapClients;
@@ -277,32 +294,6 @@ public class ReplicaUtentiEjb {
         }
     }
 
-    /**
-     * Permette di sovrascrivere i valori relativi al timeout della chiamata al ws SOAP. Attualmente sovrascrive tutti i
-     * valori già sovrascritti su :
-     * {@link IAMSoapClients#replicaUtenteClient(java.lang.String, java.lang.String, java.lang.String) } Al momento non
-     * è utilizzata.
-     *
-     * @param wsClient
-     *            client del WS SOAP
-     * @param newTimeout
-     *            nuovo valore del timeout
-     */
-    private void changeRequestTimeout(BindingProvider wsClient, int newTimeout) {
-        final String[] timeoutProperties = { "com.sun.xml.internal.ws.connect.timeout",
-                "com.sun.xml.internal.ws.request.timeout", "com.sun.xml.ws.request.timeout",
-                "com.sun.xml.ws.connect.timeout", "javax.xml.ws.client.connectionTimeout",
-                "javax.xml.ws.client.receiveTimeout" };
-
-        Map<String, Object> requestContext = wsClient.getRequestContext();
-
-        for (Entry<String, Object> entry : requestContext.entrySet()) {
-            if (Arrays.asList(timeoutProperties).contains(entry.getKey())) {
-                requestContext.replace(entry.getKey(), newTimeout);
-            }
-        }
-    }
-
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Set<String> gestioneRepliche(List<BigDecimal> users, Long idLogJob) {
         /* Tengo traccia delle applicazioni sulle quali i servizi daranno esito negativo */
@@ -333,6 +324,13 @@ public class ReplicaUtentiEjb {
                         userDaReplic.getAplApplic().getNmUserReplicaUser(),
                         userDaReplic.getAplApplic().getCdPswReplicaUser(),
                         userDaReplic.getAplApplic().getDsUrlReplicaUser());
+
+                // Recupero il parametro relativo al timeout (in millisecondi) da DB
+                Integer timeout = Integer.parseInt(paramHelper.getValoreParamApplic(
+                        ConstIamParamApplic.NmParamApplic.TIMEOUT_REPLICA_UTENTE.name(), null, null,
+                        Constants.TipoIamVGetValAppart.APPLIC));
+
+                IAMSoapClients.changeRequestTimeout((BindingProvider) client, timeout);
 
                 if (client != null) {
                     /* PREPARAZIONE ATTIVAZIONE SERVIZIO */

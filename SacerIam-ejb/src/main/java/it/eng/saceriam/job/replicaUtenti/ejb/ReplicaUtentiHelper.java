@@ -1,8 +1,24 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.job.replicaUtenti.ejb;
 
 import static it.eng.paginator.util.HibernateUtils.*;
 import it.eng.saceriam.common.Constants;
-import it.eng.saceriam.entity.AplApplic;
 import it.eng.saceriam.entity.LogJob;
 import it.eng.saceriam.entity.LogUserDaReplic;
 import it.eng.saceriam.entity.UsrUser;
@@ -39,20 +55,6 @@ public class ReplicaUtentiHelper extends GenericHelper {
     private EntityManager entityManager;
 
     /**
-     * @return lista delle applicazioni {@link AplApplic}
-     * 
-     * @deprecated
-     */
-    @Deprecated
-    public List<AplApplic> getAplApplicWithURL() {
-        List<AplApplic> applicList;
-        String queryStr = "SELECT applic FROM AplApplic applic " + "WHERE applic.dsUrlReplicaUser IS NOT NULL ";
-        javax.persistence.Query query = entityManager.createQuery(queryStr);
-        applicList = (List<AplApplic>) query.getResultList();
-        return applicList;
-    }
-
-    /**
      * Determina l'insieme degli utenti da replicare sulla base delle repliche relative all'applicazione e agli utenti
      * passati in input
      *
@@ -67,7 +69,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
                 + "AND logInCorso.tiStatoReplic = 'REPLICA_IN_CORSO'" + "AND logInCorso.idUserIam = log.idUserIam" + ")"
                 + "ORDER BY log.dtLogUserDaReplic, log.idUserIam ";
         javax.persistence.Query query = entityManager.createQuery(queryStr);
-        userDaReplicList = (List<Object[]>) query.getResultList();
+        userDaReplicList = query.getResultList();
         return userDaReplicList.stream().map(o -> BigDecimal.class.cast(o[0])).collect(Collectors.toList());
     }
 
@@ -91,8 +93,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
         if (flJobAttivo != null) {
             query.setParameter("flJobAttivo", flJobAttivo);
         }
-        List<String> listaLog = query.getResultList();
-        return listaLog;
+        return query.getResultList();
     }
 
     /**
@@ -130,15 +131,13 @@ public class ReplicaUtentiHelper extends GenericHelper {
      * @return la lista dei record della tabella LogUserDaReplic
      */
     public List<LogUserDaReplic> getLogUserDaReplicList(Collection<BigDecimal> users, Long idLogJob) {
-        List<LogUserDaReplic> userDaReplicList;
         String queryStr = "SELECT log FROM LogUserDaReplic log " + "WHERE log.tiStatoReplic = 'REPLICA_IN_CORSO' "
                 + "AND log.idUserIam IN (:users) " + "AND log.logJob.idLogJob = :idLogJob "
                 + "ORDER BY log.dtLogUserDaReplic, log.idUserIam ";
         javax.persistence.Query query = entityManager.createQuery(queryStr);
         query.setParameter("users", users);
         query.setParameter("idLogJob", idLogJob);
-        userDaReplicList = (List<LogUserDaReplic>) query.getResultList();
-        return userDaReplicList;
+        return query.getResultList();
     }
 
     /**
@@ -250,8 +249,6 @@ public class ReplicaUtentiHelper extends GenericHelper {
      * @return la lista di entity
      */
     public List<UsrVAllAutor> getUsrVAllAutorServiziWeb(Long idUserIam, Long idApplic) {
-        List<UsrVAllAutor> allList;
-
         String queryStr = "SELECT DISTINCT new it.eng.saceriam.viewEntity.UsrVAllAutor(u.id.tiDichAutor, "
                 + "u.nmPaginaWeb, u.nmAutor, u.dsAutor, u.idOrganizApplic, u.nmTipoOrganizApplic, u.id.tiUsoRuo) "
                 + "FROM UsrVAllAutor u " + "WHERE u.id.idUserIam = :idUserIam " + "AND u.id.idApplic = :idApplic "
@@ -260,9 +257,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
         javax.persistence.Query query = entityManager.createQuery(queryStr);
         query.setParameter("idUserIam", bigDecimalFrom(idUserIam));
         query.setParameter("idApplic", bigDecimalFrom(idApplic));
-
-        allList = (List<UsrVAllAutor>) query.getResultList();
-        return allList;
+        return query.getResultList();
     }
 
     /**
@@ -281,8 +276,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
         javax.persistence.Query query = entityManager.createQuery(queryStr);
         query.setParameter("idUserIam", bigDecimalFrom(idUserIam));
         query.setParameter("idApplic", bigDecimalFrom(idApplic));
-        List<UsrVAbilOrganiz> lista = query.getResultList();
-        return lista;
+        return query.getResultList();
     }
 
     /**
@@ -296,13 +290,11 @@ public class ReplicaUtentiHelper extends GenericHelper {
      * @return la lista dei tipi dato
      */
     public List<UsrVAbilDati> getUsrVAbilDatiList(Long idUserIam, Long idApplic) {
-        List<UsrVAbilDati> abilDatiList;
         javax.persistence.Query query = entityManager.createQuery(
-                "SELECT new it.eng.saceriam.viewEntity.UsrVAbilDati(u.idOrganizIam, u.idTipoDatoApplic, u.nmClasseTipoDato) FROM UsrVAbilDati u WHERE u.id.idUserIam = :idUserIam AND u.idApplic = :idApplic ORDER BY u.idOrganizApplic");
+                "SELECT DISTINCT new it.eng.saceriam.viewEntity.UsrVAbilDati(u.idOrganizIam, u.idTipoDatoApplic, u.nmClasseTipoDato) FROM UsrVAbilDati u WHERE u.id.idUserIam = :idUserIam AND u.idApplic = :idApplic ORDER BY u.idOrganizIam");
         query.setParameter("idUserIam", bigDecimalFrom(idUserIam));
         query.setParameter("idApplic", bigDecimalFrom(idApplic));
-        abilDatiList = (List<UsrVAbilDati>) query.getResultList();
-        return abilDatiList;
+        return query.getResultList();
     }
 
     /**
@@ -314,13 +306,11 @@ public class ReplicaUtentiHelper extends GenericHelper {
      * @return la lista di indirizzi IP
      */
     public List<String> getUsrIndIpUserList(Long idUserIam) {
-        List<String> usrIndIpUserList;
         String queryStr = "SELECT u.cdIndIpUser FROM UsrIndIpUser u " + "WHERE u.usrUser.idUserIam = :idUserIam ";
 
         Query query = entityManager.createQuery(queryStr);
         query.setParameter("idUserIam", idUserIam);
-        usrIndIpUserList = (List<String>) query.getResultList();
-        return usrIndIpUserList;
+        return query.getResultList();
     }
 
     public List<String> getTiScopoDichAbilOrganiz(BigDecimal idUsoUserApplic, BigDecimal idOrganizIam) {
@@ -344,12 +334,12 @@ public class ReplicaUtentiHelper extends GenericHelper {
         Query query = entityManager.createQuery(queryStr);
         query.setParameter("idUserIam", idUserIam);
         query.setParameter("idApplic", idApplic);
-        final List resultList = query.getResultList();
+        final List<Long> resultList = query.getResultList();
         if (resultList.isEmpty()) {
             throw new NoResultException(
                     "Nessun UsrUsoUserApplic trovato per idUserIam " + idUserIam + " e idApplic " + idApplic);
         }
-        idUsoUserApplic = new BigDecimal(((List<Long>) resultList).get(0));
+        idUsoUserApplic = new BigDecimal(resultList.get(0));
         return idUsoUserApplic;
     }
 
@@ -364,28 +354,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
         javax.persistence.Query query = entityManager.createQuery(
                 "SELECT u.idUserIam FROM UsrStatoUser stato JOIN stato.usrUser u WHERE stato.idStatoUser = u.idStatoUserCor AND u.dtScadPsw < :dtScad and u.tipoUser IN ('PERSONA_FISICA') AND stato.tiStatoUser = 'ATTIVO'");
         query.setParameter("dtScad", cal.getTime());
-        List<Long> usersList = (List<Long>) query.getResultList();
-        return usersList;
-    }
-
-    /**
-     * @param numMesi
-     *            numero di mesi da cui la pwd è scaduta
-     * 
-     * @return id degli utenti da cessare
-     * 
-     * @deprecated
-     */
-    @Deprecated
-    public List<Long> getUsersDaCessareList(int numMesi) {
-        Calendar cal = Calendar.getInstance();
-        int mesiTotaliCessazione = 3 + numMesi;
-        cal.add(Calendar.MONTH, -mesiTotaliCessazione);
-        javax.persistence.Query query = entityManager.createQuery(
-                "SELECT u.idUserIam FROM UsrStatoUser stato JOIN stato.usrUser u WHERE stato.idStatoUser = u.idStatoUserCor AND u.dtScadPsw < :dtScad and u.tipoUser IN ('PERSONA_FISICA') AND stato.tiStatoUser = 'DISATTIVO'");
-        query.setParameter("dtScad", cal.getTime());
-        List<Long> usersList = (List<Long>) query.getResultList();
-        return usersList;
+        return query.getResultList();
     }
 
     /**
@@ -400,8 +369,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
         javax.persistence.Query query = entityManager.createQuery(
                 "SELECT u FROM UsrUsoUserApplic u WHERE u.usrUser.idUserIam = :idUserIam AND u.aplApplic.dsUrlReplicaUser IS NOT NULL");
         query.setParameter("idUserIam", idUserIam);
-        List<UsrUsoUserApplic> usersList = (List<UsrUsoUserApplic>) query.getResultList();
-        return usersList;
+        return query.getResultList();
     }
 
     /**

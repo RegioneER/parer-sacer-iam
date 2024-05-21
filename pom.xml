@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>it.eng.parer</groupId>
     <artifactId>saceriam-jboss</artifactId>
-    <version>4.9.2-SNAPSHOT</version>
+    <version>5.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>parer-pom</artifactId>
-        <version>3.0.17</version>
+        <version>5.2.0</version>
     </parent>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Skiptests by default : esecuzione su CI -->
         <skipTests>true</skipTests>
-        <sonar.projectVersion>${project.version}</sonar.projectVersion>
         <!-- spagofat bom -->
-        <spagofat.version>4.2.26</spagofat.version>
+        <spagofat.version>5.14.0</spagofat.version>
+        <idp-jaas-rdbms.version>0.0.9</idp-jaas-rdbms.version>
+        <!-- third party libraries -->
+        <naming-java.version>0.8</naming-java.version>
+        <xml-resolver.version>1.2.0.redhat-10</xml-resolver.version>
+        <javacsv.version>2.0</javacsv.version>
     </properties>
     
     <repositories>
@@ -94,7 +98,7 @@
             <dependency>
                 <groupId>net.sourceforge.javacsv</groupId>
                 <artifactId>javacsv</artifactId>
-                <version>2.0</version>
+                <version>${javacsv.version}</version>
             </dependency>
             <!-- Xalan & co -->
             <dependency>
@@ -110,33 +114,26 @@
             <dependency>
                 <groupId>xml-resolver</groupId>
                 <artifactId>xml-resolver</artifactId>
-                <version>1.2</version>
-            </dependency>   
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to use -->
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including
-            a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
-            a collection) of artifacts. We use this here so that we always get the correct
-            versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
-            read this as the JBoss stack of the Java EE 6 APIs). You can actually
-            use this stack with any version of JBoss EAP that implements Java EE 6. -->
+                <version>${xml-resolver.version}</version>
+            </dependency>
             <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>6.4.0.GA</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-jakartaee8-with-tools</artifactId>
+                <version>${jboss-eap-jakartaee8-with-tools.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
+                <artifactId>jboss-jakartaee-8.0</artifactId>
                 <type>pom</type>
-                <version>${jboss-javaee-6.0.version}</version>
+                <version>${jboss-jakartaee-8.0.version}</version>
             </dependency>
             <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
             <dependency>
                 <groupId>it.eng.parer</groupId>
                 <artifactId>idp-jaas-rdbms</artifactId>
-                <version>0.0.9</version>
+                <version>${idp-jaas-rdbms.version}</version>
             </dependency>
             <!-- Framework -->
             <dependency>
@@ -147,11 +144,22 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-core</artifactId>
+                <version>${tika.version}</version> 
+            </dependency>
+            <!-- TEST -->
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
-            </dependency>
+            </dependency>           
+            <dependency>
+                <groupId>directory-naming</groupId>
+                <artifactId>naming-java</artifactId>
+                <version>${naming-java.version}</version>
+            </dependency>                    
         </dependencies>
     </dependencyManagement>
     <build>
@@ -180,14 +188,6 @@
 
         </pluginManagement>
         <plugins>
-            <!-- artifact disponibile attraverso compilazione del singolo TAG pubblicato -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -211,6 +211,8 @@
             </plugin>
         </plugins>
     </reporting>
+    
+	
     <scm>
         <developerConnection>scm:git:https://github.com/RegioneER/parer.sacer.iam.git</developerConnection>
         <tag>HEAD</tag>

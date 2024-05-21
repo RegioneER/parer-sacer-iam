@@ -1,13 +1,44 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the ORG_VIGIL_ENTE_PRODUT database table.
- *
  */
 @Entity
 @Table(name = "ORG_VIGIL_ENTE_PRODUT")
@@ -15,23 +46,26 @@ import java.util.Date;
 public class OrgVigilEnteProdut implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idVigilEnteProdut;
+
     private Date dtFinVal;
+
     private Date dtIniVal;
+
     private OrgAccordoVigil orgAccordoVigil;
+
     private OrgEnteSiam orgEnteSiam;
 
     public OrgVigilEnteProdut() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_VIGIL_ENTE_PRODUT") // @SequenceGenerator(name =
-                                                                            // "ORG_VIGIL_ENTE_PRODUT_IDVIGILENTEPRODUT_GENERATOR",
-                                                                            // sequenceName = "SORG_VIGIL_ENTE_PRODUT",
-                                                                            // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "ORG_VIGIL_ENTE_PRODUT_IDVIGILENTEPRODUT_GENERATOR")
     @Column(name = "ID_VIGIL_ENTE_PRODUT")
+    @GenericGenerator(name = "SORG_VIGIL_ENTE_PRODUT_ID_VIGIL_ENTE_PRODUT_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_VIGIL_ENTE_PRODUT"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_VIGIL_ENTE_PRODUT_ID_VIGIL_ENTE_PRODUT_GENERATOR")
     public Long getIdVigilEnteProdut() {
         return this.idVigilEnteProdut;
     }

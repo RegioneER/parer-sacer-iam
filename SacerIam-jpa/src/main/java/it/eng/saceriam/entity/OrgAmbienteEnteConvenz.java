@@ -1,45 +1,86 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the ORG_AMBIENTE_ENTE_CONVENZ database table.
- * 
  */
 @Entity
 @Table(name = "ORG_AMBIENTE_ENTE_CONVENZ")
 @NamedQuery(name = "OrgAmbienteEnteConvenz.findAll", query = "SELECT o FROM OrgAmbienteEnteConvenz o")
 public class OrgAmbienteEnteConvenz implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     private Long idAmbienteEnteConvenz;
+
     private String dsAmbienteEnteConvenz;
+
     private String nmAmbienteEnteConvenz;
+
     private String dsNote;
+
     private Date dtIniVal;
+
     private Date dtFineVal;
+
     private OrgEnteSiam orgEnteSiamByIdEnteConserv;
+
     private OrgEnteSiam orgEnteSiamByIdEnteGestore;
+
     private List<OrgEnteSiam> orgEnteSiams = new ArrayList<>();
+
     private List<UsrDichAbilEnteConvenz> usrDichAbilEnteConvenzs = new ArrayList<>();
+
     private List<IamValoreParamApplic> iamValoreParamApplics = new ArrayList<>();
 
     public OrgAmbienteEnteConvenz() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_AMBIENTE_ENTE_CONVENZ") // @SequenceGenerator(name =
-                                                                                // "ORG_AMBIENTE_ENTE_CONVENZ_IDAMBIENTEENTECONVENZ_GENERATOR",
-                                                                                // sequenceName =
-                                                                                // "SORG_AMBIENTE_ENTE_CONVENZ",
-                                                                                // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "ORG_AMBIENTE_ENTE_CONVENZ_IDAMBIENTEENTECONVENZ_GENERATOR")
     @Column(name = "ID_AMBIENTE_ENTE_CONVENZ")
+    @GenericGenerator(name = "SORG_AMBIENTE_ENTE_CONVENZ_ID_AMBIENTE_ENTE_CONVENZ_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_AMBIENTE_ENTE_CONVENZ"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_AMBIENTE_ENTE_CONVENZ_ID_AMBIENTE_ENTE_CONVENZ_GENERATOR")
     public Long getIdAmbienteEnteConvenz() {
         return this.idAmbienteEnteConvenz;
     }
@@ -130,14 +171,12 @@ public class OrgAmbienteEnteConvenz implements Serializable {
     public OrgEnteSiam addOrgEnteSiam(OrgEnteSiam orgEnteSiam) {
         getOrgEnteSiams().add(orgEnteSiam);
         orgEnteSiam.setOrgAmbienteEnteConvenz(this);
-
         return orgEnteSiam;
     }
 
     public OrgEnteSiam removeOrgEnteConvenz(OrgEnteSiam orgEnteSiam) {
         getOrgEnteSiams().remove(orgEnteSiam);
         orgEnteSiam.setOrgAmbienteEnteConvenz(null);
-
         return orgEnteSiam;
     }
 
@@ -154,14 +193,12 @@ public class OrgAmbienteEnteConvenz implements Serializable {
     public UsrDichAbilEnteConvenz addUsrDichAbilEnteConvenz(UsrDichAbilEnteConvenz usrDichAbilEnteConvenz) {
         getUsrDichAbilEnteConvenzs().add(usrDichAbilEnteConvenz);
         usrDichAbilEnteConvenz.setOrgAmbienteEnteConvenz(this);
-
         return usrDichAbilEnteConvenz;
     }
 
     public UsrDichAbilEnteConvenz removeUsrDichAbilEnteConvenz(UsrDichAbilEnteConvenz usrDichAbilEnteConvenz) {
         getUsrDichAbilEnteConvenzs().remove(usrDichAbilEnteConvenz);
         usrDichAbilEnteConvenz.setOrgAmbienteEnteConvenz(null);
-
         return usrDichAbilEnteConvenz;
     }
 
@@ -178,15 +215,12 @@ public class OrgAmbienteEnteConvenz implements Serializable {
     public IamValoreParamApplic addIamValoreParamApplic(IamValoreParamApplic iamValoreParamApplic) {
         getIamValoreParamApplics().add(iamValoreParamApplic);
         iamValoreParamApplic.setOrgAmbienteEnteConvenz(this);
-
         return iamValoreParamApplic;
     }
 
     public IamValoreParamApplic removeIamValoreParamApplic(IamValoreParamApplic iamValoreParamApplic) {
         getIamValoreParamApplics().remove(iamValoreParamApplic);
         iamValoreParamApplic.setOrgAmbienteEnteConvenz(null);
-
         return iamValoreParamApplic;
     }
-
 }

@@ -1,4 +1,43 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
+
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_CHARSET;
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_MAX_FILE_SIZE;
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_MAX_REQUEST_SIZE;
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_UPLOAD_DIR;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
+
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.saceriam.exception.ParerInternalError;
 import it.eng.saceriam.slite.gen.Application;
@@ -8,27 +47,13 @@ import it.eng.saceriam.slite.gen.tablebean.AplApplicTableBean;
 import it.eng.saceriam.web.ejb.AuthEjb;
 import it.eng.saceriam.web.helper.AllineaComponentiHelper;
 import it.eng.saceriam.ws.dto.FileBinario;
+import it.eng.spagoCore.configuration.ConfigSingleton;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoIFace.Values;
 import it.eng.spagoLite.db.oracle.decode.DecodeMap;
 import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
 import it.eng.spagoLite.security.Secure;
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-import javax.ejb.EJB;
-import javax.ejb.EJBTransactionRolledbackException;
-import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AllineaComponentiAction extends AllineaComponentiAbstractAction {
 
@@ -60,22 +85,18 @@ public class AllineaComponentiAction extends AllineaComponentiAbstractAction {
 
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(sizeMb);
-                Properties props = new Properties();
-                try {
-                    props.load(this.getClass().getClassLoader().getResourceAsStream("/SacerIam.properties"));
-                } catch (IOException ex) {
-                    throw new EMFError(EMFError.BLOCKING, "Errore nel caricamento delle impostazioni per l'upload", ex);
-                }
                 // the location for saving data that is larger than
-                factory.setRepository(new File(props.getProperty("profilerApp.upload.directory")));
+                factory.setRepository(
+                        new File(ConfigSingleton.getInstance().getStringValue(PROFILER_APP_UPLOAD_DIR.name())));
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 // maximum size before a FileUploadException will be thrown
-                upload.setSizeMax(Long.parseLong(props.getProperty("profilerApp.maxRequestSize")));
-                upload.setFileSizeMax(Long.parseLong(props.getProperty("profilerApp.maxFileSize")));
+                upload.setSizeMax(ConfigSingleton.getInstance().getLongValue(PROFILER_APP_MAX_REQUEST_SIZE.name()));
+                upload.setFileSizeMax(ConfigSingleton.getInstance().getLongValue(PROFILER_APP_MAX_FILE_SIZE.name()));
                 List fileItems = upload.parseRequest(getRequest());
                 try {
-                    invioDati(fileItems, fileItems.iterator(), props.getProperty("profilerApp.charset"));
+                    invioDati(fileItems, fileItems.iterator(),
+                            ConfigSingleton.getInstance().getStringValue(PROFILER_APP_CHARSET.name()));
                 } catch (EMFError e) {
                     getMessageBox().addError(e.getDescription());
                     getMessageBox().setViewMode(ViewMode.plain);

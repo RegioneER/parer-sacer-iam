@@ -1,9 +1,27 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.amministrazioneEntiConvenzionati.dto;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 import it.eng.saceriam.slite.gen.form.AmministrazioneEntiConvenzionatiForm;
 import it.eng.spagoCore.error.EMFError;
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  *
@@ -36,6 +54,7 @@ public class EnteConvenzionatoBean {
     private String ds_ufe;
     private BigDecimal id_cd_iva;
     private String ti_mod_pagam;
+    private String ds_note;
 
     public EnteConvenzionatoBean(AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail detail) throws EMFError {
         this.nm_ente_convenz = detail.getNm_ente_siam().parse();
@@ -62,6 +81,7 @@ public class EnteConvenzionatoBean {
         this.ds_ufe = detail.getDs_ufe().parse();
         this.id_cd_iva = detail.getId_cd_iva().parse();
         this.ti_mod_pagam = detail.getTi_mod_pagam().parse();
+        this.ds_note = detail.getDs_note().parse();
     }
 
     public EnteConvenzionatoBean(AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoWizardDetail wizardDetail)
@@ -92,6 +112,7 @@ public class EnteConvenzionatoBean {
         this.ds_ufe = wizardDetail.getDs_ufe().parse();
         this.id_cd_iva = wizardDetail.getId_cd_iva().parse();
         this.ti_mod_pagam = wizardDetail.getTi_mod_pagam().parse();
+        this.ds_note = wizardDetail.getDs_note().parse();
     }
 
     public String getNm_ente_convenz() {
@@ -292,6 +313,14 @@ public class EnteConvenzionatoBean {
 
     public void setTi_mod_pagam(String ti_mod_pagam) {
         this.ti_mod_pagam = ti_mod_pagam;
+    }
+
+    public String getDs_note() {
+        return ds_note;
+    }
+
+    public void setDs_note(String ds_note) {
+        this.ds_note = ds_note;
     }
 
 }

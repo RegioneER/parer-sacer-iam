@@ -1,45 +1,87 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the PRF_RUOLO database table.
- *
  */
 @Entity
 @Table(name = "PRF_RUOLO")
 public class PrfRuolo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idRuolo;
+
     private String dsEsitoRichAllineaRuoli_1;
+
     private String dsEsitoRichAllineaRuoli_2;
+
     private String dsMsgAllineamentoParz;
+
     private String dsRuolo;
+
     private String flAllineamentoInCorso;
+
     private String nmRuolo;
+
     private String tiRuolo;
+
     private String tiStatoRichAllineaRuoli_1;
+
     private String tiStatoRichAllineaRuoli_2;
+
     private List<PrfAllineaRuolo> prfAllineaRuolos = new ArrayList<>();
+
     private List<PrfUsoRuoloApplic> prfUsoRuoloApplics = new ArrayList<>();
+
     private List<UsrUsoRuoloDich> usrUsoRuoloDiches = new ArrayList<>();
+
     private List<UsrUsoRuoloUserDefault> usrUsoRuoloUserDefaults = new ArrayList<>();
+
     private List<PrfRuoloCategoria> prfRuoloCategorias = new ArrayList<>();
 
     public PrfRuolo() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SPRF_RUOLO") // @SequenceGenerator(name =
-                                                                // "PRF_RUOLO_IDRUOLO_GENERATOR", sequenceName =
-                                                                // "SPRF_RUOLO", allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRF_RUOLO_IDRUOLO_GENERATOR")
     @Column(name = "ID_RUOLO")
+    @GenericGenerator(name = "SPRF_RUOLO_ID_RUOLO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SPRF_RUOLO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPRF_RUOLO_ID_RUOLO_GENERATOR")
     public Long getIdRuolo() {
         return this.idRuolo;
     }

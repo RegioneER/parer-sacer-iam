@@ -1,11 +1,61 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.ejb;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
+import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.csvreader.CsvReader;
+
 import it.eng.parer.idpjaas.logutils.LogDto;
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.ejb.common.AppServerInstance;
 import it.eng.parer.sacerlog.ejb.util.ObjectsToLogBefore;
 import it.eng.parer.sacerlog.ejb.util.PremisEnums;
+import it.eng.parer.sacerlog.entity.LogEventoLoginUser;
+import it.eng.parer.sacerlog.entity.constraint.ConstLogEventoLoginUser;
 import it.eng.parer.sacerlog.util.LogParam;
 import it.eng.saceriam.amministrazioneEntiConvenzionati.ejb.EntiConvenzionatiEjb;
 import it.eng.saceriam.amministrazioneEntiConvenzionati.helper.EntiConvenzionatiHelper;
@@ -57,11 +107,8 @@ import it.eng.saceriam.entity.constraint.ConstUsrStatoUser;
 import it.eng.saceriam.entity.constraint.ConstUtente;
 import it.eng.saceriam.exception.IncoherenceException;
 import it.eng.saceriam.exception.ParerInternalError;
-import it.eng.saceriam.exception.ParerErrorSeverity;
 import it.eng.saceriam.exception.ParerUserError;
 import it.eng.saceriam.exception.ParerWarningException;
-import it.eng.saceriam.grantedEntity.LogEventoLoginUser;
-import it.eng.saceriam.grantedEntity.constraint.ConstLogEventoLoginUser;
 import it.eng.saceriam.helper.ParamHelper;
 import it.eng.saceriam.slite.gen.tablebean.OrgSuptEsternoEnteConvenzRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgSuptEsternoEnteConvenzTableBean;
@@ -110,33 +157,6 @@ import it.eng.saceriam.ws.ejb.WsIdpLogger;
 import it.eng.saceriam.ws.utils.FileUtility;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.security.auth.PwdUtil;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.EJBTransactionRolledbackException;
-import javax.ejb.LocalBean;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.mutable.MutableInt;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -184,8 +204,8 @@ public class AuthEjb {
      */
     private static final int MAX_NUM_ERROR_RECORD = 3;
 
-    public void associaUtenteConCodiceFiscale(LogParam param, String username, String password, String codiceFiscale)
-            throws ParerUserError, ParerWarningException {
+    public void associaUtenteConCodiceFiscale(LogParam param, String username, String password, String codiceFiscale,
+            String cognome, String nome) throws ParerUserError, ParerWarningException {
         UsrUser user;
         if (codiceFiscale == null) {
             throw new ParerUserError("Codice fiscale nullo!");
@@ -209,6 +229,13 @@ public class AuthEjb {
                         throw new ParerUserError(
                                 "Il codice fiscale dell'utente PARER non coincide con quello dell'utente attualmente loggato");
                     }
+                    // MEV#27568 - Inserimento controllo nella associazione utente SPID con anagrafica utenti
+                    if (!(cognome.trim().toUpperCase().equals(user.getNmCognomeUser().trim().toUpperCase())
+                            && nome.trim().toUpperCase().equals(user.getNmNomeUser().trim().toUpperCase()))) {
+                        throw new ParerWarningException(
+                                "Il cognome e il nome dell'utente con cui è avvenuta l'autenticazione SPID non corrispondono a quelli associati all'utenza Parer.");
+                    }
+                    // ---
                     user.setCdFisc(codiceFiscale.toUpperCase());
                     userHelper.getEntityManager().flush();
                     sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
@@ -1949,6 +1976,9 @@ public class AuthEjb {
             userEntity.setCdPsw(PwdUtil.encodePBKDF2Password(binarySalt, user.getCdPsw()));
         }
 
+        log.debug("MAC 30075 - Sono all'interno del metodo saveUser dove salvo ogni dato dell'utente "
+                + user.getNmUserid());
+
         userEntity.setNmCognomeUser(user.getNmCognomeUser());
         userEntity.setNmNomeUser(user.getNmNomeUser());
         userEntity.setNmUserid(user.getNmUserid());
@@ -2110,6 +2140,15 @@ public class AuthEjb {
         }
 
         log.info("Inserisco le dichiarazioni di abilitazione organizzazione");
+        log.debug(
+                "MAC 30075 - Inserisco le dichiarazioni di abilitazione organizzazioni scorrendo la lista. A questo punto la 'Lista dich. abil. organiz' contiene i seguenti record: ");
+        // MAC 30075
+        orgDich.forEach((dichAbilOrganizRowBean) -> log
+                .debug("MAC 30075 - Dichiarazione alle organizzazioni presente - applicazione: "
+                        + dichAbilOrganizRowBean.getString("nm_applic") + ", scopo: "
+                        + dichAbilOrganizRowBean.getTiScopoDichAbilOrganiz() + ", organizzazione: "
+                        + dichAbilOrganizRowBean.getString("dl_composito_organiz")));
+        log.debug("MAC 30075 - Procedo trattando ognuno dei record di dichiarazione abilitazione alle organizzazioni ");
         for (UsrDichAbilOrganizRowBean row : orgDich) {
             UsrUsoUserApplic usoUserTmp = new UsrUsoUserApplic();
             UsrDichAbilOrganiz dich = new UsrDichAbilOrganiz();
@@ -2117,6 +2156,10 @@ public class AuthEjb {
             if (row.getIdDichAbilOrganiz() != null) {
                 dich = userHelper.getUsrDichAbilOrganiz(row.getIdDichAbilOrganiz());
                 usoUserTmp = dich.getUsrUsoUserApplic();
+                log.debug(
+                        "MAC 30075 - Dichiarazione di abilitazione alle organizzazioni già presente, non verrà inserita - applicazione: "
+                                + row.getString("nm_applic") + ", scopo: " + row.getTiScopoDichAbilOrganiz()
+                                + ", organizzazione: " + row.getString("dl_composito_organiz"));
             } else {
                 dich.setTiScopoDichAbilOrganiz(row.getTiScopoDichAbilOrganiz());
                 dich.setUsrOrganizIam(userHelper.getUsrOrganizIamById(row.getIdOrganizIam()));
@@ -2142,6 +2185,12 @@ public class AuthEjb {
                         usoUserTmp.getUsrDichAbilOrganizs().add(dich);
                     }
                 }
+
+                log.debug(
+                        "MAC 30075 - Dichiarazione di abilitazione alle organizzazioni NUOVA che verrà inserita - applicazione: "
+                                + row.getString("nm_applic") + ", scopo: " + row.getTiScopoDichAbilOrganiz()
+                                + ", organizzazione: " + row.getString("dl_composito_organiz"));
+
             }
             dich.setUsrUsoUserApplic(usoUserTmp);
         }
@@ -2725,6 +2774,7 @@ public class AuthEjb {
              * e in caso gestisco il ricalcolo servizi erogati
              */
             if (oper.equals(ApplEnum.TiOperReplic.MOD)) {
+                log.debug("MAC 30075 - Inizio controlli per servizi erogati (non mi interessano...) ");
 
                 UsrUser userDB = userHelper.findById(UsrUser.class, user.getIdUserIam());
 
@@ -2764,6 +2814,8 @@ public class AuthEjb {
                     }
 
                 }
+
+                log.debug("MAC 30075 - Fine controlli per servizi erogati (non mi interessano) ");
             }
 
             // FINE CALCOLO INFORMAZIONI PRELIMINARI
@@ -2873,9 +2925,9 @@ public class AuthEjb {
                 }
 
                 /*
-                 * Se l’utente appartiene ad un ente non convenzionato di tipo forniore esterno e se per l’utente non e’
-                 * settato l’indicatore che segnala che le abilitazioni alle organizzazioni degli enti supportati sono
-                 * allineate in automatico
+                 * Se l’utente appartiene ad un ente non convenzionato di tipo fornitore esterno e se per l’utente non
+                 * e’ settato l’indicatore che segnala che le abilitazioni alle organizzazioni degli enti supportati
+                 * sono allineate in automatico
                  */
                 if (enteAppart.getTiEnte().name().equals("NON_CONVENZIONATO") && enteAppart.getTiEnteNonConvenz().name()
                         .equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())) {
@@ -3185,6 +3237,19 @@ public class AuthEjb {
                 manageUltimoAccordoEntiConvenzionati(idUser);
             }
 
+            log.debug(
+                    "MAC 30075 - Salvataggio utente terminato, controlli successivi eseguiti, riverifico la lista delle dichiarazioni di abilitazione alle organizzazioni per l'utente "
+                            + utente.getNmUserid());
+            utente.getUsrUsoUserApplics().forEach((usoUser) -> {
+                usoUser.getUsrDichAbilOrganizs().forEach((dichAbilOrganiz) -> {
+                    String organiz = dichAbilOrganiz.getUsrOrganizIam() != null
+                            ? dichAbilOrganiz.getUsrOrganizIam().getNmOrganiz() : "";
+                    log.debug(
+                            "MAC 30075 - Dichiarazione abilitazione all'organizzazione post salvataggio - applicazione: "
+                                    + dichAbilOrganiz.getUsrUsoUserApplic().getAplApplic().getNmApplic() + ", scopo: "
+                                    + dichAbilOrganiz.getTiScopoDichAbilOrganiz() + ", organizzazione: " + organiz);
+                });
+            });
         } catch (IncoherenceException ex) {
             ctx.setRollbackOnly();
             throw ex;

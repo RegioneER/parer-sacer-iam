@@ -1,4 +1,29 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
+
+import java.nio.charset.StandardCharsets;
+
+import javax.ejb.EJB;
+
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.util.LogParam;
@@ -7,17 +32,12 @@ import it.eng.saceriam.exception.ParerWarningException;
 import it.eng.saceriam.helper.ParamHelper;
 import it.eng.saceriam.slite.gen.Application;
 import it.eng.saceriam.web.ejb.AuthEjb;
-import it.eng.spagoCore.error.EMFError;
-import it.eng.spagoLite.message.MessageBox;
-import javax.ejb.EJB;
 import it.eng.saceriam.web.ejb.ModificaPswEjb;
+import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.actions.ActionBase;
+import it.eng.spagoLite.message.MessageBox;
 import it.eng.spagoLite.message.MessageUtil;
 import it.eng.util.EncryptionUtil;
-import java.nio.charset.StandardCharsets;
-import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AssociazioneUtenteAction extends ActionBase {
 
@@ -52,6 +72,14 @@ public class AssociazioneUtenteAction extends ActionBase {
         String codiceFiscale = getRequest().getParameter("f");
         String uname = getRequest().getParameter("uname");
         String password = getRequest().getParameter("password");
+        String c = getRequest().getParameter("c");
+        String n = getRequest().getParameter("n");
+        // MEV#27568 - Inserimento controllo nella associazione utente SPID con anagrafica utenti
+        c = new String(EncryptionUtil.aesDecrypt(Base64.decodeBase64(c), EncryptionUtil.Aes.BIT_256),
+                StandardCharsets.UTF_8);
+        n = new String(EncryptionUtil.aesDecrypt(Base64.decodeBase64(n), EncryptionUtil.Aes.BIT_256),
+                StandardCharsets.UTF_8);
+        //
         String cf = null;
         if (uname != null && uname.length() == 0) {
             getMessageBox().addError("Il campo utente è obbligatorio<br/>");
@@ -77,7 +105,7 @@ public class AssociazioneUtenteAction extends ActionBase {
                 LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(), userid,
                         "/associazioneUtente", "button/AssociazioneUtenteForm#Bottoni/associa");
                 param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-                authEjb.associaUtenteConCodiceFiscale(param, uname, password, cf);
+                authEjb.associaUtenteConCodiceFiscale(param, uname, password, cf, c, n);
                 /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
                 modificaPswEjb.registraLogUserDaReplic(userid);
                 this.getResponse().sendRedirect(returnUrlDecoded);
@@ -88,7 +116,7 @@ public class AssociazioneUtenteAction extends ActionBase {
                     getMessageBox().setViewMode(MessageBox.ViewMode.plain);
                     String saluto = MessageUtil.getSalutoPerOrario();
                     getMessageBox().addWarning(saluto
-                            + ", non ci è stato possibile associare la sua utenza SPID al suo account sacer per troppi tentativi falliti di inserimento di username e password.\n"
+                            + ", non ci è stato possibile associare la sua utenza SPID al suo account Parer per troppi tentativi falliti di inserimento di username e password.\n"
                             + "Per l’attivazione dell’utenza SPID la preghiamo di rivolgersi al service desk, scrivendo a helpdeskparer@regione.emilia-romagna.it per chiedere l’attivazione dell’utenza SPID, e seguendo le indicazioni che verranno fornite.");
                     getSession().setAttribute(SESSION_CF_USER_ATTEMPTS, tentativi);
                     authEjb.scriviLogEventoLoginUserAssociazioneFallita(userid);
@@ -97,10 +125,17 @@ public class AssociazioneUtenteAction extends ActionBase {
                     // Si tratta di un utente disattivato ma presente in archivio, quindi lo segnalo all'utente
                     // MEV#26484 - Modificare la gestione dell'accesso SPID quando l'utente non è attivo su SIAM
                     if (e instanceof ParerWarningException) {
-                        getMessageBox().addInfo(((ParerWarningException) e).getDescription());
+                        getMessageBox().addInfo(((ParerWarningException) e).getDescription() + "<BR/>");
                     }
-                    getMessageBox()
-                            .addInfo("Restano ancora " + tentativi + " tentativi di associazione con utenza parer");
+                    if (tentativi > 1) {
+                        getMessageBox()
+                                .addInfo("Restano ancora " + tentativi + " tentativi di associazione con utenza Parer");
+                    } else {
+                        getMessageBox()
+                                .addInfo("Resta ancora " + tentativi + " tentativo di associazione con utenza Parer");
+
+                    }
+                    // ---
                     getSession().setAttribute(SESSION_CF_USER_ATTEMPTS, tentativi);
                 }
             }

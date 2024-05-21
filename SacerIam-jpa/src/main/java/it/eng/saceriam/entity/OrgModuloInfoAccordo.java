@@ -1,46 +1,89 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 /**
  * The persistent class for the ORG_MODULO_INFO_ACCORDO database table.
- * 
  */
 @Entity
 @Table(name = "ORG_MODULO_INFO_ACCORDO")
 @NamedQuery(name = "OrgModuloInfoAccordo.findAll", query = "SELECT o FROM OrgModuloInfoAccordo o")
 public class OrgModuloInfoAccordo implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     private Long idModuloInfoAccordo;
+
     private BigDecimal aaModuloInfo;
+
     private byte[] blModuloInfo;
+
     private String cdKeyModuloInfo;
+
     private String cdModuloInfo;
+
     private String cdRegistroModuloInfo;
+
     private String dsModuloInfo;
+
     private String nmFileModuloInfo;
+
     private Date dtRicev;
+
     private OrgAccordoEnte orgAccordoEnte;
+
     private OrgEnteSiam orgEnteConvenz;
+
     private String nmEnte;
+
     private String nmStrut;
 
     public OrgModuloInfoAccordo() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_MODULO_INFO_ACCORDO") // @SequenceGenerator(name =
-                                                                              // "ORG_MODULO_INFO_ACCORDO_IDMODULOINFOACCORDO_GENERATOR",
-                                                                              // sequenceName =
-                                                                              // "SORG_MODULO_INFO_ACCORDO",
-                                                                              // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "ORG_MODULO_INFO_ACCORDO_IDMODULOINFOACCORDO_GENERATOR")
     @Column(name = "ID_MODULO_INFO_ACCORDO")
+    @GenericGenerator(name = "SORG_MODULO_INFO_ACCORDO_ID_MODULO_INFO_ACCORDO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_MODULO_INFO_ACCORDO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_MODULO_INFO_ACCORDO_ID_MODULO_INFO_ACCORDO_GENERATOR")
     public Long getIdModuloInfoAccordo() {
         return this.idModuloInfoAccordo;
     }
@@ -162,5 +205,4 @@ public class OrgModuloInfoAccordo implements Serializable {
     public void setNmStrut(String nmStrut) {
         this.nmStrut = nmStrut;
     }
-
 }

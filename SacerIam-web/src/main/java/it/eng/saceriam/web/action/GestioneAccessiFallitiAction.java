@@ -1,4 +1,31 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.ejb.EJB;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.saceriam.exception.ParerUserError;
 import it.eng.saceriam.slite.gen.Application;
@@ -9,13 +36,6 @@ import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.form.base.BaseElements.Status;
 import it.eng.spagoLite.security.Secure;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import javax.ejb.EJB;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -58,10 +78,15 @@ public class GestioneAccessiFallitiAction extends GestioneAccessiFallitiAbstract
         String tipoEvento = getForm().getFiltriAccessiFalliti().getTipo_evento().parse();
         String inclUtentiAutomi = getForm().getFiltriAccessiFalliti().getIncl_utenti_automi().parse();
         String inclLoginOK = getForm().getFiltriAccessiFalliti().getIncl_login_OK().parse();
+        String nome = getForm().getFiltriAccessiFalliti().getNm_nome_user().parse();
+        String cognome = getForm().getFiltriAccessiFalliti().getNm_cognome_user().parse();
+        String cf = getForm().getFiltriAccessiFalliti().getCd_fisc_user().parse();
+        String email = getForm().getFiltriAccessiFalliti().getDs_email_user().parse();
+        String idEsterno = getForm().getFiltriAccessiFalliti().getCd_id_esterno().parse();
         LogVRicAccessiTableBean loginEventoTableBean = new LogVRicAccessiTableBean();
         try {
             loginEventoTableBean = amministrazioneUtentiEjb.getLogVRicAccessiTableBean(dateDecorate[0], dateDecorate[1],
-                    nmUserid, tipoEvento, inclUtentiAutomi, inclLoginOK);
+                    nmUserid, tipoEvento, inclUtentiAutomi, inclLoginOK, nome, cognome, cf, email, idEsterno);
         } catch (ParerUserError ex) {
             getMessageBox().addError(ex.getDescription());
         }

@@ -18,8 +18,8 @@
                 $('#Nm_applic').change(function () {
                     $('#Nm_menu').val(""); 
                     $('#Pagina').val(""); 
-                    $('#Pagina').attr("disabled", true); 
-                    $('#Nm_menu').attr("disabled", true); 
+                    //$('#Pagina').attr("disabled", true); 
+                    //$('#Nm_menu').attr("disabled", true); 
                 });
                 
             });
@@ -52,10 +52,10 @@
             <sl:newLine skipLine="true"/>
             <sl:contentTitle title="GESTIONE HELP"/>
             <slf:fieldSet legend="Ricerca help" >
-                <slf:lblField name="<%=GestioneHelpOnLineForm.FiltriHelpOnLine.NM_APPLIC%>" colSpan="4" controlWidth="w40"/>
-                <sl:newLine />
                 <slf:lblField name="<%=GestioneHelpOnLineForm.FiltriHelpOnLine.TIPO_HELP%>" colSpan="4" controlWidth="w40"/>
                 <sl:newLine />
+                <slf:lblField name="<%=GestioneHelpOnLineForm.FiltriHelpOnLine.NM_APPLIC%>" colSpan="4" controlWidth="w40"/>
+                <sl:newLine />                
                 <slf:lblField name="<%=GestioneHelpOnLineForm.FiltriHelpOnLine.PAGINA%>" colSpan="4" controlWidth="w40"/>
                 <sl:newLine />
                 <slf:lblField name="<%=GestioneHelpOnLineForm.FiltriHelpOnLine.NM_MENU%>" colSpan="4" controlWidth="w40"/>

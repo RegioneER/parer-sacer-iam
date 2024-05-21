@@ -1,4 +1,32 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
+
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.DISCIPLINARE_TECNICO_MAX_FILE_SIZE;
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.MODULO_INFORMAZIONI_MAX_FILE_SIZE;
+import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.VARIAZIONE_ACCORDO_MAX_FILE_SIZE;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.ejb.EJB;
+
+import org.codehaus.jettison.json.JSONObject;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.slite.gen.form.GestioneLogEventiForm;
@@ -10,18 +38,18 @@ import it.eng.saceriam.amministrazioneEntiConvenzionati.ejb.EntiConvenzionatiEjb
 import it.eng.saceriam.amministrazioneEntiConvenzionati.helper.EntiConvenzionatiHelper;
 import it.eng.saceriam.common.Constants;
 import it.eng.saceriam.entity.OrgAccordoEnte;
+import it.eng.saceriam.entity.OrgAppartCollegEnti;
+import it.eng.saceriam.entity.OrgEnteConvenzOrg;
 import it.eng.saceriam.entity.OrgModuloInfoAccordo;
 import it.eng.saceriam.entity.constraint.ConstIamParamApplic;
 import it.eng.saceriam.entity.constraint.ConstOrgAmbitoTerrit;
 import it.eng.saceriam.entity.constraint.ConstOrgCollegEntiConvenz.TiColleg;
+import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteConvenz;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteSiam;
+import it.eng.saceriam.entity.constraint.ConstOrgGestioneAccordo.TipoTrasmissione;
 import it.eng.saceriam.entity.constraint.ConstOrgTipoServizio;
 import it.eng.saceriam.entity.constraint.ConstUsrStatoUser;
-import it.eng.saceriam.entity.OrgAppartCollegEnti;
-import it.eng.saceriam.entity.OrgEnteConvenzOrg;
-import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam;
-import it.eng.saceriam.entity.constraint.ConstOrgGestioneAccordo.TipoTrasmissione;
 import it.eng.saceriam.exception.ParerInternalError;
 import it.eng.saceriam.exception.ParerUserError;
 import it.eng.saceriam.helper.ParamHelper;
@@ -53,22 +81,13 @@ import it.eng.saceriam.slite.gen.tablebean.OrgEnteSiamRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgEnteSiamTableBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgEnteUserRifRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgEnteUserRifTableBean;
+import it.eng.saceriam.slite.gen.tablebean.OrgGestioneAccordoRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgModuloInfoAccordoRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgServizioErogRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgServizioErogTableBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgStoEnteConvenzRowBean;
-import it.eng.saceriam.web.util.ComboGetter;
-import it.eng.spagoCore.error.EMFError;
-import it.eng.spagoLite.db.oracle.decode.DecodeMap;
-import it.eng.spagoLite.security.Secure;
-import java.math.BigDecimal;
-import java.util.List;
-import javax.ejb.EJB;
-import org.codehaus.jettison.json.JSONObject;
-import it.eng.saceriam.slite.gen.tablebean.OrgTipoServizioRowBean;
-import it.eng.saceriam.slite.gen.tablebean.OrgGestioneAccordoRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgTipoAccordoRowBean;
-import it.eng.saceriam.slite.gen.tablebean.OrgTipoAccordoTableBean;
+import it.eng.saceriam.slite.gen.tablebean.OrgTipoServizioRowBean;
 import it.eng.saceriam.slite.gen.tablebean.UsrDichAbilEnteConvenzTableBean;
 import it.eng.saceriam.slite.gen.tablebean.UsrUserRowBean;
 import it.eng.saceriam.slite.gen.tablebean.UsrUserTableBean;
@@ -78,35 +97,38 @@ import it.eng.saceriam.slite.gen.viewbean.OrgVRicAccordoEnteRowBean;
 import it.eng.saceriam.slite.gen.viewbean.OrgVRicAccordoEnteTableBean;
 import it.eng.saceriam.slite.gen.viewbean.OrgVRicEnteConvenzRowBean;
 import it.eng.saceriam.slite.gen.viewbean.OrgVRicEnteConvenzTableBean;
-import it.eng.saceriam.util.DateUtil;
 import it.eng.saceriam.slite.gen.viewbean.UsrVAbilAmbConvenzXenteTableBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVAbilAmbEnteConvenzRowBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisUserEnteConvenzTableBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisUserRowBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisUserTableBean;
+import it.eng.saceriam.util.DateUtil;
 import it.eng.saceriam.util.SacerLogConstants;
 import it.eng.saceriam.web.ejb.AmministrazioneUtentiEjb;
 import it.eng.saceriam.web.ejb.SistemiVersantiEjb;
 import it.eng.saceriam.web.helper.AmministrazioneUtentiHelper;
 import it.eng.saceriam.web.util.ApplEnum;
+import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.saceriam.web.util.NavigatorDetailBean;
 import it.eng.saceriam.web.util.NavigatorDetailBeanManager;
-import it.eng.saceriam.web.util.Util;
 import it.eng.saceriam.web.util.WebConstants;
 import it.eng.saceriam.web.validator.AmministrazioneEntiConvenzionatiValidator;
+import it.eng.spagoCore.configuration.ConfigSingleton;
+import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.SessionManager;
 import it.eng.spagoLite.actions.form.ListAction;
 import it.eng.spagoLite.db.base.BaseRowInterface;
-import it.eng.spagoLite.db.base.BaseTableInterface;
 import it.eng.spagoLite.db.base.row.BaseRow;
-import it.eng.spagoLite.db.base.sorting.SortingRule;
 import it.eng.spagoLite.db.base.table.BaseTable;
+import it.eng.spagoLite.db.oracle.decode.DecodeMap;
 import it.eng.spagoLite.form.base.BaseElements.Status;
 import it.eng.spagoLite.form.fields.Fields;
 import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.message.Message;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
+import it.eng.spagoLite.security.Secure;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -128,11 +150,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-import java.util.logging.Level;
+import java.util.SortedSet;
 import java.util.stream.Collectors;
-import java.util.zip.ZipOutputStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
@@ -181,7 +201,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
     @Override
     public void initOnClick() throws EMFError {
-        String a = null;
     }
 
     @Override
@@ -328,11 +347,11 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                      */
                     // Se viene dalla lista originale degli enti cessati, copio la lista in quella di appoggio
                     if (getTableName().equals(getForm().getEntiCessatiList().getName())) {
-                        // Se la tabella ÃƒÆ’Ã‚Â¨ EntiCessatiList, copio nella tabella d'appoggio i suoi record
+                        // Se la tabella è EntiCessatiList, copio nella tabella d'appoggio i suoi record
                         getForm().getEntiCessatiDetailList().setTable(getForm().getEntiCessatiList().getTable());
                         // Recupero la riga corrente
                         row = (BaseRow) getForm().getEntiCessatiList().getTable().getCurrentRow();
-                    } // Se giÃƒÆ’Ã‚Â  sto ricavando dalla lista di appoggio, recupero la riga corrente
+                    } // Se già sto ricavando dalla lista di appoggio, recupero la riga corrente
                     else {
                         // Recupero la riga corrente
                         row = (BaseRow) getForm().getEntiCessatiDetailList().getTable().getCurrentRow();
@@ -345,13 +364,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     // Se sto scorrendo orizzontalmente da un record all'altro
                     if (ListAction.NE_NEXT.equals(getNavigationEvent())
                             || ListAction.NE_PREV.equals(getNavigationEvent())) {
-                        // Se l'ultimo record di navigazione ÃƒÆ’Ã‚Â¨ presente e il livello di annidamento ÃƒÆ’Ã‚Â¨ lo
-                        // stesso
+                        // Se l'ultimo record di navigazione è presente e il livello di annidamento è lo stesso
                         if (NavigatorDetailBeanManager.getLastNavigatorDetailStack() != null && level
                                 .intValue() == NavigatorDetailBeanManager.getLastNavigatorDetailStack().getLevel()) {
                             // Estraggo il record di navigazione
                             NavigatorDetailBeanManager.popNavigatorDetailStack();
-                            // Rimango allo stesso livello perchÃƒÆ’Ã‚Â¨ sto scorrendo orizzontalmente
+                            // Rimango allo stesso livello perchè sto scorrendo orizzontalmente
                             getForm().getEnteConvenzionatoDetail().getLevel_enti_convenz()
                                     .setValue(String.valueOf(level));
                         } // Altrimenti significa che devo aggiungere un livello di navigazione
@@ -361,7 +379,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                                     .setValue(String.valueOf(nextLevel));
                         }
                     } // Se invece sto andando in un dettaglio di un ente, sto andando ad un successivo livello di
-                      // profonditÃƒÆ’Ã‚Â 
+                      // profondità
                     else {
                         int nextLevel = NavigatorDetailBeanManager.getLastNavigatorDetailStack().getLevel() + 1;
                         getForm().getEnteConvenzionatoDetail().getLevel_enti_convenz()
@@ -378,8 +396,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                                     // da quello salvato nel livello precedente
                                     && NavigatorDetailBeanManager.getLastNavigatorDetailStack().getIdObject()
                                             .compareTo(row.getBigDecimal("id_ente_convenz")) != 0)) {
-                        // Mi salvo questo parametro in request che mi servirÃƒÆ’Ã‚Â  nel caso di update non da
-                        // dettaglio
+                        // Mi salvo questo parametro in request che mi servirà nel caso di update non da dettaglio
                         // ma cliccando sulla lista fatture riemesse per consentire quindi di inserire una nuova pagina
                         // di dettaglio nello stack di navigazione personalizzato
                         getRequest().setAttribute("newEnteConvenzPage", true);
@@ -499,7 +516,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
                 BigDecimal idAmbienteEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz()
                         .parse();
-                BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
                 //
                 OrgAmbienteEnteConvenzRowBean orgAmbienteEnteConvenzByEnteConvenz = entiConvenzionatiEjb
                         .getOrgAmbienteEnteConvenzRowBean(idAmbienteEnteConvenz);
@@ -626,9 +642,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getForm().getUtenteArchivistaDetail().setEditMode();
                 forwardToPublisher(Application.Publisher.DETTAGLIO_ARCHIVISTA_RIFERIMENTO);
             } else if (getTableName().equals(getForm().getAnagraficheList().getName())) {
-                // Carico qui i dati e non nel pass1onEnter perchÃƒÆ’Ã‚Â¨ se li caricassi lÃƒÆ’Ã‚Â¬, nel caso in cui
-                // tornassi
-                // dal
+                // Carico qui i dati e non nel pass1onEnter perchè se li caricassi là, nel caso in cui tornassi dal
                 // passo2, scazzerei tutto...
                 initAnagraficaDetail();
                 OrgEnteSiamRowBean enteConvenzRowBean = new OrgEnteSiamRowBean();
@@ -637,7 +651,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         .setValue(enteConvenzRowBean.getIdAmbienteEnteConvenz().toPlainString());
                 // Carico i dati presi da dettaglio ente
                 getForm().getAnagraficaDetail().copyFromBean(enteConvenzRowBean);
-                // Tutto in viewMode a parte data di fine validitÃƒÆ’Ã‚Â  e note
+                // Tutto in viewMode a parte data di fine validità e note
                 getForm().getAnagraficaDetail().setViewMode();
                 //
                 getForm().getAnagraficaDetail().getDt_ini_val().setEditMode();
@@ -994,9 +1008,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 // Ritorno dal riepilogo del wizard di inserimento ente convenzionato
                 goBackTo(Application.Publisher.RICERCA_ENTI_CONVENZIONATI);
             }
-        }
-
-        else {
+        } else {
             goBack();
         }
     }
@@ -1054,15 +1066,15 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         .getTipo_gestione_accordo().parse();
                 String flGestAccNoRisp = getForm().getFiltriEntiConvenzionati().getFl_gest_acc_no_risp().parse();
                 String tiStatoAccordo = getForm().getFiltriEntiConvenzionati().getTi_stato_accordo().parse();
+                String cdFisc = getForm().getFiltriEntiConvenzionati().getCd_fisc().parse();
                 OrgVRicEnteConvenzTableBean table = entiConvenzionatiEjb.getOrgVRicEnteConvenzTableBean(nmEnteConvenz,
                         idUserIamCor, idAmbienteEnteConvenz, flEnteAttivo, flEnteCessato, idCategEnte,
                         idAmbitoTerritRegione, idAmbitoTerritProv, idAmbitoTerritFormAssoc, idTipoAccordo,
                         dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA, idArchivista,
                         noArchivista, flRicev, flRichModuloInfo, flNonConvenz, flRecesso, flChiuso, flEsistonoGestAcc,
-                        idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, dtDecAccordoDa, dtDecAccordoA,
+                        idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc, dtDecAccordoDa, dtDecAccordoA,
                         dtDecAccordoInfoDa, dtDecAccordoInfoA);
                 getForm().getListaEntiConvenzionati().setTable(table);
-                getForm().getListaEntiConvenzionati().getFl_esistono_moduli().setHidden(false);
                 getForm().getListaEntiConvenzionati().getTable().setPageSize(pageSize);
                 getForm().getListaEntiConvenzionati().getTable().setCurrentRowIndex(rowIndex);
             } else if (publisherName.equals(Application.Publisher.RICERCA_COLLEGAMENTI)) {
@@ -1098,9 +1110,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     if (idEnteConvenz != null
                             && idEnteConvenz.equals(getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse())) {
                         // Dopo aver rimosso col pop precedente l'ultimo elemento dalla pila, ora prendo l'attuale
-                        // ultimo che sarÃƒÆ’Ã‚Â  quello di cui caricare il dettaglio
+                        // ultimo che sarà quello di cui caricare il dettaglio
                         detailBean = NavigatorDetailBeanManager.getLastNavigatorDetailStack();
-                        idEnteConvenz = detailBean != null ? detailBean.getIdObject() : null;
+                        idEnteConvenz = detailBean != null ? detailBean.getIdObject() : idEnteConvenz;
                     } else if (idEnteConvenz == null) {
                         // Nel caso lo stack sia vuoto, non dovrebbe succedere mai.
                         idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
@@ -1139,8 +1151,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getSession().removeAttribute("nuovoAccordo");
 
             } else if (publisherName.equals(Application.Publisher.DETTAGLIO_ACCORDO)) {
-                OrgAccordoEnteRowBean currentRow = (OrgAccordoEnteRowBean) getForm().getAccordiList().getTable()
-                        .getCurrentRow();
+                OrgAccordoEnteRowBean currentRow = new OrgAccordoEnteRowBean();
+                if (getForm().getAccordiList() != null && getForm().getAccordiList().getTable() != null) {
+                    currentRow = (OrgAccordoEnteRowBean) getForm().getAccordiList().getTable().getCurrentRow();
+                } else {
+                    getForm().getAccordoDetail().copyToBean(currentRow);
+                }
                 BigDecimal idAccordo = currentRow.getIdAccordoEnte();
                 BigDecimal idTipoAccordo = currentRow.getIdTipoAccordo();
                 if (idAccordo != null) {
@@ -1171,7 +1187,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 UsrVAbilAmbConvenzXenteTableBean table = entiConvenzionatiEjb.getUsrVAbilAmbConvenzXenteTableBean(
                         idUserIamCor, nmAmbienteEnteConvenz, dsAmbienteEnteConvenz);
                 getForm().getListaAmbientiEntiConvenzionati().setTable(table);
-                getForm().getListaEntiConvenzionati().getFl_esistono_moduli().setHidden(true);
                 getForm().getListaAmbientiEntiConvenzionati().getTable().setPageSize(pageSize);
                 getForm().getListaAmbientiEntiConvenzionati().getTable().setCurrentRowIndex(rowIndex);
             } else if (publisherName.equals(Application.Publisher.DETTAGLIO_ARCHIVISTA_RIFERIMENTO)) {
@@ -1369,6 +1384,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     .parse();
             String flGestAccNoRisp = getForm().getFiltriEntiConvenzionati().getFl_gest_acc_no_risp().parse();
             String tiStatoAccordo = getForm().getFiltriEntiConvenzionati().getTi_stato_accordo().parse();
+            String cdFisc = getForm().getFiltriEntiConvenzionati().getCd_fisc().parse();
 
             // Sistemo il range di date
             decoraDateRicercaEnti(getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_da().parse(),
@@ -1393,14 +1409,19 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             String errorDateScad = null;
             String errorDateIniVal = null;
             String errorDateFineVal = null;
+            String errorCdFisc = null;
 
             errorDateDec = DateUtil.ucContrDate("", dtDecAccordoInfoDa, dtDecAccordoInfoA, "decorrenza Da",
                     "decorrenza A");
             errorDateScad = DateUtil.ucContrDate("", dtScadAccordoDa, dtScadAccordoA, "scadenza Da", "scadenza A");
-            errorDateIniVal = DateUtil.ucContrDate("", dtDecAccordoDa, dtDecAccordoA, "inizio validitÃ  Da",
-                    "inizio validitÃ  A");
-            errorDateFineVal = DateUtil.ucContrDate("", dtFineValidAccordoDa, dtFineValidAccordoA, "fine validitÃ  Da",
-                    "fine validitÃ  A");
+            errorDateIniVal = DateUtil.ucContrDate("", dtDecAccordoDa, dtDecAccordoA, "inizio validità Da",
+                    "inizio validità A");
+            errorDateFineVal = DateUtil.ucContrDate("", dtFineValidAccordoDa, dtFineValidAccordoA, "fine validità Da",
+                    "fine validità A");
+            if (!StringUtils.isBlank(cdFisc)) {
+                errorCdFisc = !StringUtils.isAlphanumeric(cdFisc)
+                        ? "Il codice fiscale/partita IVA contiene caratteri non validi." : null;
+            }
 
             if (errorDateDec != null) {
                 getMessageBox().addError(errorDateDec);
@@ -1414,6 +1435,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             if (errorDateFineVal != null) {
                 getMessageBox().addError(errorDateFineVal);
             }
+            if (errorCdFisc != null) {
+                getMessageBox().addError(errorCdFisc);
+            }
 
             // Nascondo Annualità senza atto
             getForm().getAnnualitaSenzaAttoList().setTable(null);
@@ -1426,14 +1450,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             idCategEnte, idAmbitoTerritRegione, idAmbitoTerritProv, idAmbitoTerritFormAssoc,
                             cdTipoAccordo, dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA,
                             idArchivista, noArchivista, flRicev, flRichiestaModuloInf, flNonConvenz, flRecesso,
-                            flChiuso, flEsistonoGestAcc, idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo,
+                            flChiuso, flEsistonoGestAcc, idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc,
                             dtDecAccordoDa, dtDecAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA);
                     getForm().getListaEntiConvenzionati().setTable(table);
                     getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
                     getForm().getListaEntiConvenzionati().getTable().first();
                     getForm().getAnnualitaSenzaAttoList().setTable(null);
-
-                    getForm().getListaEntiConvenzionati().getFl_esistono_moduli().setHidden(false);
 
                     // Visualizzazione eventuale bottone calcolo fatture provvisorie a seconda che ci sia un risultato
                     if (!table.isEmpty()) {
@@ -1532,9 +1554,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     @Override
     public void inserisciEnteConvenzionatoWizard() throws EMFError {
         try {
-            // Carico qui i dati e non nel pass1onEnter perchÃƒÆ’Ã‚Â¨ se li caricassi lÃƒÆ’Ã‚Â¬, nel caso in cui
-            // tornassi dal
-            // passo2,
+            // Carico qui i dati e non nel pass1onEnter perchè se li caricassi là, nel caso in cui tornassi dal passo2,
             // scazzerei tutto...
             getSession().setAttribute("navTableEntiConvenz", getForm().getListaEntiConvenzionati().getName());
             getForm().getEnteConvenzionatoWizardDetail().clear();
@@ -1645,7 +1665,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (!inValoriPossibili(paramApplicRowBean.getString("ds_valore_param_applic_ente_amm"),
                                 paramApplicRowBean.getString("ds_lista_valori_ammessi"))) {
                             getMessageBox().addError(
-                                    "Il valore del parametro non ÃƒÆ’Ã‚Â¨ compreso tra i valori ammessi sul parametro");
+                                    "Il valore del parametro non è compreso tra i valori ammessi sul parametro");
                         }
                     }
                 }
@@ -1659,7 +1679,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (!inValoriPossibili(paramApplicRowBean.getString("ds_valore_param_applic_ente_cons"),
                                 paramApplicRowBean.getString("ds_lista_valori_ammessi"))) {
                             getMessageBox().addError(
-                                    "Il valore del parametro non ÃƒÆ’Ã‚Â¨ compreso tra i valori ammessi sul parametro");
+                                    "Il valore del parametro non è compreso tra i valori ammessi sul parametro");
                         }
                     }
                 }
@@ -1673,7 +1693,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (!inValoriPossibili(paramApplicRowBean.getString("ds_valore_param_applic_ente_gest"),
                                 paramApplicRowBean.getString("ds_lista_valori_ammessi"))) {
                             getMessageBox().addError(
-                                    "Il valore del parametro non ÃƒÆ’Ã‚Â¨ compreso tra i valori ammessi sul parametro");
+                                    "Il valore del parametro non è compreso tra i valori ammessi sul parametro");
                         }
                     }
                 }
@@ -1759,7 +1779,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     }
 
     /**
-     * Ingresso secondo step del wizard: - Non ho niente da fare
+     * Ingresso secondo step del wizard: - Nascondo alcuni campi
      *
      * @throws EMFError
      *             errore generico
@@ -1784,7 +1804,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     public boolean inserimentoEnteConvenzionatoWizardStep2OnExit() throws EMFError {
         boolean result = false;
 
-        // Se il flag ÃƒÆ’Ã‚Â¨ "checked" ripristino i campi che sono stati messi in stato "readonly" dal trigger.
+        // Se il flag è "checked" ripristino i campi che sono stati messi in stato "readonly" dal trigger.
         // I suddetti campi devono essere gestiti dal framework come editabili e non in sola lettura.
         String flAccNonApprov = (String) getRequest()
                 .getParameter(getForm().getAccordoWizardDetail().getFl_acc_non_approv().getName());
@@ -1815,9 +1835,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             Date dtDecAccordoInfo = getForm().getAccordoWizardDetail().getDt_dec_accordo_info().parse();
             // Ricavo la data di scadenza dell'accordo
             Date dtScadAccordo = getForm().getAccordoWizardDetail().getDt_scad_accordo().parse();
-            // Ricavo la data di inizio validitÃ  dell'accordo
+            // Ricavo la data di inizio validità dell'accordo
             Date dtDecAccordo = getForm().getAccordoWizardDetail().getDt_dec_accordo().parse();
-            // Ricavo la data di fine validitÃƒÆ’Ã‚Â  dell'accordo
+            // Ricavo la data di fine validità dell'accordo
             Date dtFineValidAccordo = getForm().getAccordoWizardDetail().getDt_fine_valid_accordo().parse();
             // Ricavo la classe di appartenenza dell'ente
             BigDecimal idClasseEnteConvenz = getForm().getAccordoWizardDetail().getId_classe_ente_convenz().parse();
@@ -1839,6 +1859,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             String numero = getForm().getAccordoWizardDetail().getCd_key_repertorio().parse();
             // Ricavo la data di registrazione accordo
             Date dtRegAccordo = getForm().getAccordoWizardDetail().getDt_reg_accordo().parse();
+
+            getForm().getTipoServizioAccordoList().post(getRequest());
 
             if (getForm().getAccordoWizardDetail().getId_ente_convenz_gestore().parse() == null) {
                 getMessageBox().addError("Sull'ambiente dell'ente convenzionato non \u00E8 definito il gestore.");
@@ -1862,15 +1884,15 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             }
             if (dtFineValidAccordo != null && dtDecAccordo != null && dtFineValidAccordo.before(dtDecAccordo)) {
                 getMessageBox().addError(
-                        "Attenzione: data di fine validit\u00E0Â  accordo inferiore alla data di inizio validitÃ ");
+                        "Attenzione: data di fine validit\u00E0 accordo inferiore alla data di inizio validità ");
             }
             if (dtDecAccordo != null && dtCessazione != null && dtDecAccordo.after(dtCessazione)) {
                 getMessageBox().addError(
-                        "Attenzione: la data di inizio validitÃ  non pu\u00F2 essere superiore alla data di fine validit\u00E0Â  dell\u0027ente convenzionato");
+                        "Attenzione: la data di inizio validità non pu\u00F2 essere superiore alla data di fine validit\u00E0 dell\u0027ente convenzionato");
             }
             if (dtFineValidAccordo != null && dtCessazione != null && dtFineValidAccordo.after(dtCessazione)) {
                 getMessageBox().addError(
-                        "Attenzione: la data di fine validit\u00E0Â  dell'accordo non pu\u00F2 essere superiore alla data di fine validit\u00E0Â  dell\u0027ente convenzionato");
+                        "Attenzione: la data di fine validit\u00E0 dell'accordo non pu\u00F2 essere superiore alla data di fine validit\u00E0 dell\u0027ente convenzionato");
             }
             if (dtRegAccordo != null) {
                 if (cdRegistroRepertorio == null || anno == null || numero == null) {
@@ -1890,7 +1912,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         || (dtFineValidAccordo != null
                                 && !DateUtils.truncate(dtFineValidAccordo, Calendar.DATE).equals(DateUtil.MAX_DATE))) {
                     getMessageBox().addError(
-                            "Attenzione: data di inizio validitÃ  e data di fine validit\u00E0Â  devono essere valorizzati con 31/12/2444 se l\u0027ente \u00E8 creato senza accordo firmato");
+                            "Attenzione: data di inizio validità e data di fine validit\u00E0 devono essere valorizzati con 31/12/2444 se l\u0027ente \u00E8 creato senza accordo firmato");
                 }
             }
 
@@ -1899,7 +1921,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 if (!entiConvenzionatiEjb.checkEsistenzaAmbienteValidoDtDecDtFineValid(idAmbienteEnteConvenz,
                         dtDecAccordo, dtFineValidAccordo, null)) {
                     getMessageBox().addError(
-                            "Nel periodo di validit\u00E0Â  dell'accordo l'ambiente dell'ente convenzionato non \u00E8 valido");
+                            "Nel periodo di validit\u00E0 dell'accordo l'ambiente dell'ente convenzionato non \u00E8 valido");
                 }
             }
 
@@ -1931,44 +1953,43 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             Date dtRegAccordo = getForm().getAccordoWizardDetail().getDt_reg_accordo().parse();
             Date dtDecAccordo = getForm().getAccordoWizardDetail().getDt_dec_accordo().parse();
             Date dtFineValidAccordo = getForm().getAccordoWizardDetail().getDt_fine_valid_accordo().parse();
-            // Se la data di registrazione ÃƒÆ’Ã‚Â¨ valorizzata e sono definite sia data di inizio validitÃ  che data di
-            // fine
-            // validitÃƒÆ’Ã‚Â  dell'accordo
+            // Se la data di registrazione è valorizzata e sono definite sia data di inizio validità che data di
+            // fine validità dell'accordo
             if (dtRegAccordo != null && dtDecAccordo != null && dtFineValidAccordo != null) {
-                // Richiamo il controllo inclusione dato figlio passando come entitÃƒÆ’Ã‚Â  figlio = accordo e
-                // entitÃƒÆ’Ã‚Â 
-                // padre = ente gestore dell'accordo.
+                // Richiamo il controllo inclusione dato figlio passando come entità figlio = accordo e
+                // entità padre = ente gestore dell'accordo.
                 BigDecimal idEnteConvenzGestore = getForm().getAccordoWizardDetail().getId_ente_convenz_gestore()
                         .parse();
                 if (idEnteConvenzGestore != null) {
                     // Per l\u0027ente gestore, ricavo i relativi accordi, mettendoli in ordine di data e verificando
                     // che l\u0027accordo dell\u0027ente
-                    // sia incluso nella sequenza di validitÃƒÆ’Ã‚Â  degli accordi del gestore
+                    // sia incluso nella sequenza di validità degli accordi del gestore
                     entiConvenzionatiEjb.checkInclusioneAccordoFiglio(idEnteConvenzGestore, dtDecAccordo,
                             dtFineValidAccordo, creazioneBean.getNm_ente_convenz());
 
                 }
-                // Richiamo il controllo inclusione dato figlio passando come entitÃƒÆ’Ã‚Â  figlio = accordo e
-                // entitÃƒÆ’Ã‚Â 
-                // padre = ente conservatore dell'accordo.
+                // Richiamo il controllo inclusione dato figlio passando come entità figlio = accordo e
+                // entità padre = ente conservatore dell'accordo.
                 BigDecimal idEnteConvenzConserv = getForm().getAccordoWizardDetail().getId_ente_convenz_conserv()
                         .parse();
                 if (idEnteConvenzConserv != null) {
 
                     // Per l\u0027ente conservatore, ricavo i relativi accordi, mettendoli in ordine di data e
                     // verificando che l\u0027accordo dell\u0027ente
-                    // sia incluso nella sequenza di validitÃƒÆ’Ã‚Â  degli accordi del conservatore
+                    // sia incluso nella sequenza di validità degli accordi del conservatore
                     entiConvenzionatiEjb.checkInclusioneAccordoFiglio(idEnteConvenzConserv, dtDecAccordo,
                             dtFineValidAccordo, creazioneBean.getNm_ente_convenz());
 
                 }
             }
 
-            getForm().getTipoServizioAccordoList().post(getRequest());
+            // getForm().getTipoServizioAccordoList().post(getRequest());
 
-            for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
-                checkImportoTariffa(rb.getString("im_tariffa_accordo"));
-            }
+            // for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
+            // checkImportoTariffa(rb.getString("im_tariffa_accordo"));aa
+            // }
+
+            // if (!getMessageBox().hasError()) {
 
             /*
              * Codice aggiuntivo per il logging...
@@ -1997,9 +2018,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         } catch (ParerUserError ex) {
             result = false;
             getMessageBox().addError(ex.getDescription());
-            for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
-                rb.setBigDecimal("im_tariffa_accordo", (BigDecimal) rb.getOldObject("im_tariffa_accordo"));
-            }
+            // for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
+            // rb.setBigDecimal("im_tariffa_accordo", (BigDecimal) rb.getOldObject("im_tariffa_accordo"));
+            // }
         }
 
         return result;
@@ -2039,35 +2060,50 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             IamParamApplicTableBean parametriGestione, AccordoWizardDetail accordoWizardDetail,
             TipoServizioAccordoList tipoServizioAccordoList) throws ParerUserError, EMFError {
 
-        Long idEnteConvenz = entiConvenzionatiEjb.saveEnteConvenzionatoAccordoWizard(param, creazioneBean,
-                parametriAmministrazione, parametriConservazione, parametriGestione, getForm().getAccordoWizardDetail(),
-                getForm().getTipoServizioAccordoList());
-        if (idEnteConvenz != null) {
-            getForm().getEnteConvenzionatoWizardDetail().getId_ente_siam().setValue(idEnteConvenz.toString());
+        try {
+            Long idEnteConvenz = entiConvenzionatiEjb.saveEnteConvenzionatoAccordoWizard(param, creazioneBean,
+                    parametriAmministrazione, parametriConservazione, parametriGestione,
+                    getForm().getAccordoWizardDetail(), getForm().getTipoServizioAccordoList());
+            if (idEnteConvenz != null) {
+                getForm().getEnteConvenzionatoWizardDetail().getId_ente_siam().setValue(idEnteConvenz.toString());
+            }
+            getMessageBox().addInfo("Ente convenzionato ed accordo salvati con successo");
+
+            OrgEnteSiamRowBean row = new OrgEnteSiamRowBean();
+            getForm().getEnteConvenzionatoWizardDetail().copyToBean(row);
+            row.setBigDecimal("id_ente_convenz", row.getIdEnteSiam());
+            row.setString("nm_ente_convenz", row.getNmEnteSiam());
+            if (getForm().getListaEntiConvenzionati().getTable() != null) {
+                getForm().getListaEntiConvenzionati().getTable().last();
+                getForm().getListaEntiConvenzionati().getTable().add(row);
+            } else {
+                getForm().getListaEntiConvenzionati().setTable(new OrgEnteSiamTableBean());
+                getForm().getListaEntiConvenzionati().add(row);
+                getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
+            }
+
+            getMessageBox().setViewMode(ViewMode.plain);
+            initEnteConvenzionatoDetail();
+            // String br = "";
+            loadDettaglioEnteConvenzionato(BigDecimal.valueOf(idEnteConvenz));
+            postLoad();
+
+            getSession().setAttribute("navTableEntiConvenz", getForm().getEnteConvenzionatoWizardDetail().getName());
+
+            // "Rimuovo" dalla history il publisher relativo a DETTAGLIO_ENTE_CONVENZIONATO_WIZARD ed eseguo forward a
+            // DETTAGLIO_ENTE_CONVENZIONATO
+            forwardToPublisher(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO);
+            SessionManager.removeLastExecutionHistory(getSession());
+        } catch (ParerUserError ex) {
+            // throw new ParerUserError(ex.getDescription());
+            getMessageBox().addError(ex.getDescription());
+            forwardToPublisher(getLastPublisher());
+        } catch (Exception ex) {
+            logger.error("Errore imprevisto durante il salvataggio dell'ente convenzionato e dell'accordo : "
+                    + ExceptionUtils.getRootCauseMessage(ex), ex);
+            throw new ParerUserError(
+                    "Eccezione imprevista durante il salvataggio dell'ente convenzionato e dell'accordo");
         }
-        getMessageBox().addInfo("Ente convenzionato ed accordo salvati con successo");
-
-        OrgEnteSiamRowBean row = new OrgEnteSiamRowBean();
-        getForm().getEnteConvenzionatoWizardDetail().copyToBean(row);
-        row.setBigDecimal("id_ente_convenz", row.getIdEnteSiam());
-        row.setString("nm_ente_convenz", row.getNmEnteSiam());
-        if (getForm().getListaEntiConvenzionati().getTable() != null) {
-            getForm().getListaEntiConvenzionati().getTable().last();
-            getForm().getListaEntiConvenzionati().getTable().add(row);
-        } else {
-            getForm().getListaEntiConvenzionati().setTable(new OrgEnteSiamTableBean());
-            getForm().getListaEntiConvenzionati().add(row);
-            getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
-        }
-
-        getMessageBox().setViewMode(ViewMode.plain);
-        initEnteConvenzionatoDetail();
-        // String br = "";
-        loadDettaglioEnteConvenzionato(BigDecimal.valueOf(idEnteConvenz));
-        postLoad();
-
-        getSession().setAttribute("navTableEntiConvenz", getForm().getEnteConvenzionatoWizardDetail().getName());
-        forwardToPublisher(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO);
     }
 
     public void confermaSalvataggioEnteConvenzionatoWizard() throws ParerUserError, EMFError {
@@ -2088,6 +2124,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             }
         } catch (ParerUserError ex) {
             getMessageBox().addError(ex.getDescription());
+            forwardToPublisher(getLastPublisher());
         }
     }
 
@@ -2663,8 +2700,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         loadDettaglioEnteConvenzionato(listRow.getBigDecimal("id_ente_convenz"));
         getForm().getEnteConvenzionatoDetail().getLevel_enti_convenz().setValue(BigDecimal.ONE.toPlainString());
         // Se sto scorrendo avanti/indietro e il livello di annidamento dell'ultimo oggetto presente nello stack
-        // ÃƒÆ’Ã‚Â¨
-        // uguale al mio, eseguo una "pop" di PARI LIVELLO
+        // è uguale al mio, eseguo una "pop" di PARI LIVELLO
         if ((ListAction.NE_NEXT.equals(getNavigationEvent()) || ListAction.NE_PREV.equals(getNavigationEvent()))
                 && NavigatorDetailBeanManager.getLastNavigatorDetailStack() != null
                 && level.intValue() == NavigatorDetailBeanManager.getLastNavigatorDetailStack().getLevel()) {
@@ -2694,8 +2730,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         OrgAmbienteEnteConvenzRowBean orgAmbienteEnteConvenzByEnteConvenz = entiConvenzionatiEjb
                 .getOrgAmbienteEnteConvenzByEnteConvenz(idEnteConvenz);
         detailRow.setString("nm_ambiente_ente_convenz", orgAmbienteEnteConvenzByEnteConvenz.getNmAmbienteEnteConvenz());
-        // detailRow.setBigDecimal("id_ente_siam", orgAmbienteEnteConvenzByEnteConvenz.getId)
-        //
         getForm().getEnteConvenzionatoDetail().copyFromBean(detailRow);
         getForm().getEnteConvenzionatoDetail().setViewMode();
         getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz().setHidden(false);
@@ -2779,7 +2813,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         Set<BigDecimal> idUserIamPfDaEscludere = new HashSet<>();
         Set<BigDecimal> idUserIamAuDaEscludere = new HashSet<>();
         String tiEnteConvenz = getForm().getEnteConvenzionatoDetail().getTi_ente_convenz().parse();
-        // Recupero l'accordo piÃƒÆ’Ã‚Â¹ recente per l'ente convenzionato
+        // Recupero l'accordo più recente per l'ente convenzionato
         OrgAccordoEnteTableBean accordoTableBean = entiConvenzionatiEjb
                 .getOrgAccordoEntePiuRecenteTableBean(idEnteConvenz);
         if (!accordoTableBean.isEmpty()) {
@@ -3182,6 +3216,15 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getAccordoWizardDetail().getTi_scopo_accordo().setDecodeMap(ComboGetter.getMappaTiScopoAccordo());
         getForm().getAccordoWizardDetail().getFl_pagamento().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getAccordoWizardDetail().getId_classe_ente_convenz().setDecodeMap(new DecodeMap());
+        // Popolo le combo di cluster, fascia standard e fascia manuale
+        getForm().getAccordoWizardDetail().getId_cluster_accordo().setDecodeMap(DecodeMap.Factory.newInstance(
+                entiConvenzionatiEjb.getOrgClusterAccordoTableBean(), "id_cluster_accordo", "ds_cluster_accordo"));
+        getForm().getAccordoWizardDetail().getId_fascia_storage_standard_accordo()
+                .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgFasciaStorageAccordoTableBean(),
+                        "id_fascia_storage_accordo", "ds_fascia_storage_accordo"));
+        getForm().getAccordoWizardDetail().getId_fascia_storage_manuale_accordo()
+                .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgFasciaStorageAccordoTableBean(),
+                        "id_fascia_storage_accordo", "ds_fascia_storage_accordo"));
         // getForm().getAccordoWizardDetail().getId_cd_iva().setDecodeMap(
         // DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgCdIvaTableBean(), "id_cd_iva", "cd_iva"));
         getForm().getAccordoWizardDetail().getFl_recesso().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
@@ -3214,6 +3257,15 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getAccordoDetail().getTi_scopo_accordo().setDecodeMap(ComboGetter.getMappaTiScopoAccordo());
         getForm().getAccordoDetail().getFl_pagamento().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getAccordoDetail().getId_classe_ente_convenz().setDecodeMap(new DecodeMap());
+        // Popolo le combo di cluster, fascia standard e fascia manuale
+        getForm().getAccordoDetail().getId_cluster_accordo().setDecodeMap(DecodeMap.Factory.newInstance(
+                entiConvenzionatiEjb.getOrgClusterAccordoTableBean(), "id_cluster_accordo", "ds_cluster_accordo"));
+        getForm().getAccordoDetail().getId_fascia_storage_standard_accordo()
+                .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgFasciaStorageAccordoTableBean(),
+                        "id_fascia_storage_accordo", "ds_fascia_storage_accordo"));
+        getForm().getAccordoDetail().getId_fascia_storage_manuale_accordo()
+                .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgFasciaStorageAccordoTableBean(),
+                        "id_fascia_storage_accordo", "ds_fascia_storage_accordo"));
         // getForm().getAccordoDetail().getId_cd_iva().setDecodeMap(
         // DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgCdIvaTableBean(), "id_cd_iva", "cd_iva"));
         getForm().getAccordoDetail().getFl_recesso().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
@@ -3251,8 +3303,15 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getAccordoDetail().getTi_scopo_accordo().setDecodeMap(ComboGetter.getMappaTiScopoAccordo());
         getForm().getAccordoDetail().getFl_pagamento().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getAccordoDetail().getId_classe_ente_convenz().setDecodeMap(new DecodeMap());
-        // getForm().getAccordoDetail().getId_cd_iva().setDecodeMap(
-        // DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgCdIvaTableBean(), "id_cd_iva", "cd_iva"));
+        // Popolo le combo di cluster, fascia standard e fascia manuale
+        getForm().getAccordoDetail().getId_cluster_accordo().setDecodeMap(DecodeMap.Factory.newInstance(
+                entiConvenzionatiEjb.getOrgClusterAccordoTableBean(), "id_cluster_accordo", "ds_cluster_accordo"));
+        getForm().getAccordoDetail().getId_fascia_storage_standard_accordo()
+                .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgFasciaStorageAccordoTableBean(),
+                        "id_fascia_storage_accordo", "ds_fascia_storage_accordo"));
+        getForm().getAccordoDetail().getId_fascia_storage_manuale_accordo()
+                .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgFasciaStorageAccordoTableBean(),
+                        "id_fascia_storage_accordo", "ds_fascia_storage_accordo"));
         getForm().getAccordoDetail().getFl_recesso().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getAccordoDetail().getFl_recesso().setValue("0");
         // Carico i valori precompilati
@@ -3272,16 +3331,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         BigDecimal idAccordoEnte = getForm().getAccordoDetail().getId_accordo_ente().parse();
         int numGestAccordo = entiConvenzionatiEjb.getNumMaxGestAccordoEnte(idAccordoEnte) + 1;
         getForm().getGestioneAccordoDetail().getPg_gest_accordo().setValue("" + numGestAccordo);
-        // BigDecimal idOrganizApplic = new
-        // BigDecimal(paramHelper.getValoreParamApplic(ConstIamParamApplic.NmParamApplic.STRUT_UNITA_DOC_ACCORDO.name()));
         BigDecimal idAmbienteEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz().parse();
         BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
-        String nmEnteUnitaDocAccordo = paramHelper.getValoreParamApplic(
-                ConstIamParamApplic.NmParamApplic.NM_ENTE_UNITA_DOC_ACCORDO.name(), idAmbienteEnteConvenz, null,
-                Constants.TipoIamVGetValAppart.AMBIENTEENTECONVENZ);
-        String nmStrutUnitaDocAccordo = paramHelper.getValoreParamApplic(
-                ConstIamParamApplic.NmParamApplic.NM_STRUT_UNITA_DOC_ACCORDO.name(), idAmbienteEnteConvenz, null,
-                Constants.TipoIamVGetValAppart.AMBIENTEENTECONVENZ);
         getForm().getGestioneAccordoDetail().getTipo_trasmissione()
                 .setDecodeMap(comboGetter.getMappaTipoTrasmissione());
         getForm().getGestioneAccordoDetail().getId_tipo_gestione_accordo()
@@ -3451,17 +3502,16 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
     private void loadDettaglioAccordo(BigDecimal idAccordoEnte, BigDecimal idTipoAccordo)
             throws ParerUserError, EMFError {
-        // Carico la combo "Tariffario" in base al tipo accordo, va messa qui e non in initAccordoDetail perchÃƒÆ’Ã‚Â¨
-        // dipende
-        // dal valore selezionato di Tipo Accordo
+        // Carico la combo "Tariffario" in base al tipo accordo, va messa qui e non in initAccordoDetail perchè
+        // dipende dal valore selezionato di Tipo Accordo
         getForm().getAccordoDetail().getId_tariffario().setDecodeMap(DecodeMap.Factory.newInstance(
                 entiConvenzionatiEjb.getOrgTariffarioTableBean(idTipoAccordo), "id_tariffario", "nm_tariffario"));
 
         // Carico il dettaglio accordo
         OrgAccordoEnteRowBean detailRow = entiConvenzionatiEjb.getOrgAccordoEnteRowBean(idAccordoEnte);
 
-        // Carico la combo "Registro", va messa qui e non in initAccordoDetail perchÃ¨
-        // dipende dal valore dei parametri di gestione
+        // Carico la combo "Registro", va messa qui e non in initAccordoDetail perchè dipende dal valore dei parametri
+        // di gestione
         String nmEnte = detailRow.getNmEnte();
         String nmStrut = detailRow.getNmStrut();
         BigDecimal idStrut = entiConvenzionatiEjb.getIdStrut(nmEnte, nmStrut);
@@ -3470,10 +3520,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
         getForm().getAccordoDetail().copyFromBean(detailRow);
 
-        // Carico la descrizione IVA
-        // if (detailRow.getIdCdIva() != null) {
-        // getForm().getAccordoDetail().getDs_iva().setValue(entiConvenzionatiEjb.getDsIva(detailRow.getIdCdIva()));
-        // }
         OrgAccordoEnteRowBean accordoEnte = entiConvenzionatiEjb.getOrgAccordoEnteRowBean(idAccordoEnte);
         if (accordoEnte != null) {
             getForm().getAccordoDetail().getId_ente_convenz_gestore()
@@ -3532,7 +3578,57 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 detailRow.getIdTipoAccordo(), getForm().getAccordoDetail().getDt_scad_accordo().parse())) {
             getForm().getAnnualitaAccordoList().setHideInsertButton(false);
         }
-        // getGestioniAccordoList
+
+        // Visualizzazione delle sezioni di storage occupato
+        try {
+            // PRODUTTORE
+            BaseRow occupStorage = entiConvenzionatiEjb.getOccupStorageAccordo(idAccordoEnte,
+                    detailRow.getIdFasciaStorageStandardAccordo());
+            if (occupStorage != null) {
+                getForm().getMediaAnnualeOccupazioneStorageSection().setHidden(false);
+                // Popolo la sezione
+                getForm().getAccordoDetail().getStorage_occupato()
+                        .setValue("" + occupStorage.getBigDecimal("storage_occupato"));
+                String datoCalcolatoDalString = new SimpleDateFormat("dd/MM/yyyy")
+                        .format(occupStorage.getTimestamp("dato_calcolato_dal"));
+                String datoCalcolatoAlString = new SimpleDateFormat("dd/MM/yyyy")
+                        .format(occupStorage.getTimestamp("dato_calcolato_al"));
+                getForm().getAccordoDetail().getDato_calcolato_dal().setValue(datoCalcolatoDalString);
+                getForm().getAccordoDetail().getDato_calcolato_al().setValue(datoCalcolatoAlString);
+                getForm().getAccordoDetail().getFascia_da_accordo()
+                        .setValue("" + occupStorage.getString("fascia_da_accordo"));
+                getForm().getAccordoDetail().getFascia_da_occupazione()
+                        .setValue("" + occupStorage.getString("fascia_da_occupazione"));
+                getForm().getAccordoDetail().getColore_fascia().setValue("" + occupStorage.getString("colore_fascia"));
+            } else {
+                getForm().getMediaAnnualeOccupazioneStorageSection().setHidden(true);
+            }
+
+            // GESTORE/CONSERVATORE
+            String tipoEnte = getForm().getEnteConvenzionatoDetail().getTi_ente_convenz().parse();
+            if (tipoEnte.equals(ConstOrgEnteSiam.TiEnteConvenz.GESTORE.name())
+                    || tipoEnte.equals(ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE.name())) {
+                Date dataDecorrenza = new Date(getForm().getAccordoDetail().getDt_dec_accordo().parse().getTime());
+                Object[] occupStorageGestore = entiConvenzionatiEjb.getOccupStorageGestore(dataDecorrenza,
+                        getForm().getAccordoDetail().getId_ente_convenz_gestore().parse());
+
+                getForm().getMediaAnnualeOccupazioneStorageGestoreSection().setHidden(false);
+                // Popolo la sezione
+                getForm().getAccordoDetail().getStorage_occupato_gestore()
+                        .setValue("" + (BigDecimal) occupStorageGestore[1]);
+                String datoCalcolatoDalString = new SimpleDateFormat("dd/MM/yyyy")
+                        .format(getForm().getAccordoDetail().getDt_dec_accordo().parse());
+                String datoCalcolatoAlString = new SimpleDateFormat("dd/MM/yyyy").format((Date) occupStorageGestore[0]);
+                getForm().getAccordoDetail().getDato_calcolato_dal_gestore().setValue(datoCalcolatoDalString);
+                getForm().getAccordoDetail().getDato_calcolato_al_gestore().setValue(datoCalcolatoAlString);
+            } else {
+                getForm().getMediaAnnualeOccupazioneStorageGestoreSection().setHidden(true);
+            }
+
+        } catch (ParerUserError e) {
+            getMessageBox().addError(e.getDescription() + ": impossibile caricare il dettaglio accordo");
+        }
+
         // Popolamento lista gestioni accordo
         getForm().getGestioniAccordoList().setTable(entiConvenzionatiEjb.getOrgGestioneAccordoTableBean(idAccordoEnte));
         getForm().getGestioniAccordoList().getTable().setPageSize(10);
@@ -3908,7 +4004,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     }
 
     private void saveAccordo() throws EMFError {
-        // Se il flag ÃƒÆ’Ã‚Â¨ "checked" ripristino i campi che sono stati messi in stato "readonly" dal trigger.
+        // Se il flag è "checked" ripristino i campi che sono stati messi in stato "readonly" dal trigger.
         // I suddetti campi devono essere gestiti dal framework come editabili e non in sola lettura.
         String flAccNonApprov = (String) getRequest()
                 .getParameter(getForm().getAccordoDetail().getFl_acc_non_approv().getName());
@@ -3936,9 +4032,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             Date dtDecAccordoInfo = getForm().getAccordoDetail().getDt_dec_accordo_info().parse();
             // Ricavo la data di scadenza dell'accordo
             Date dtScadAccordo = getForm().getAccordoDetail().getDt_scad_accordo().parse();
-            // Ricavo la data di inizio validitÃ  dell'accordo
+            // Ricavo la data di inizio validità dell'accordo
             Date dtDecAccordo = getForm().getAccordoDetail().getDt_dec_accordo().parse();
-            // Ricavo la data di fine validitÃƒÆ’Ã‚Â  dell'accordo
+            // Ricavo la data di fine validità dell'accordo
             Date dtFineValidAccordo = getForm().getAccordoDetail().getDt_fine_valid_accordo().parse();
             // Ricavo la data di richiesta del modulo di informazioni
             // Date dtRichModuloInfo = getForm().getAccordoDetail().getDt_rich_modulo_info().parse();
@@ -3963,19 +4059,15 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             }
             if (dtFineValidAccordo != null && dtDecAccordo != null && dtFineValidAccordo.before(dtDecAccordo)) {
                 getMessageBox().addError(
-                        "Attenzione: data di fine validit\u00E0Â  accordo inferiore alla data di inizio validitÃ ");
+                        "Attenzione: data di fine validit\u00E0 accordo inferiore alla data di inizio validità");
             }
-            // if (dtRichModuloInfo != null && dtRichModuloInfo.after(new Date())) {
-            // getMessageBox().addError(
-            // "Attenzione: data di richiesta del modulo di informazioni non pu\u00F2 essere una data futura");
-            // }
             if (dtDecAccordo != null && dtCessazione != null && dtDecAccordo.after(dtCessazione)) {
                 getMessageBox().addError(
-                        "Attenzione: la data di inizio validitÃ  non pu\u00F2 essere superiore alla data di fine validit\u00E0Â  dell\u0027ente convenzionato");
+                        "Attenzione: la data di inizio validità non pu\u00F2 essere superiore alla data di fine validit\u00E0 dell\u0027ente convenzionato");
             }
             if (dtFineValidAccordo != null && dtCessazione != null && dtFineValidAccordo.after(dtCessazione)) {
                 getMessageBox().addError(
-                        "Attenzione: la data di fine validit\u00E0Â  dell'accordo non pu\u00F2 essere superiore alla data di fine validit\u00E0Â  dell\u0027ente convenzionato");
+                        "Attenzione: la data di fine validit\u00E0 dell'accordo non pu\u00F2 essere superiore alla data di fine validit\u00E0 dell\u0027ente convenzionato");
             }
             if (dtRegAccordo != null) {
                 if (cdRegistroRepertorio == null || anno == null || numero == null) {
@@ -3995,7 +4087,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         || (dtFineValidAccordo != null
                                 && !DateUtils.truncate(dtFineValidAccordo, Calendar.DATE).equals(DateUtil.MAX_DATE))) {
                     getMessageBox().addError(
-                            "Attenzione: data di inizio validitÃ  e data di fine validit\u00E0Â  devono essere valorizzati con 31/12/2444 se l\u0027ente \u00E8 creato senza accordo firmato");
+                            "Attenzione: data di inizio validità e data di fine validit\u00E0Â  devono essere valorizzati con 31/12/2444 se l\u0027ente \u00E8 creato senza accordo firmato");
                 }
             }
 
@@ -4007,56 +4099,42 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             }
 
             try {
-                if (!getForm().getTipoServizioAccordoList().getStatus().equals(Status.view)) {
-                    for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
-                        checkImportoTariffa(rb.getString("im_tariffa_accordo"));
-                    }
-                }
                 if (!getMessageBox().hasError()) {
                     BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
                     // Ricavo le strutture di questo ente convenzionato
                     OrgVEnteConvenzByOrganizTableBean struttureVersanti = entiConvenzionatiEjb
                             .getOrgVEnteConvenzByOrganizTableBean(idEnteConvenz, true);
-                    // OrgVEnteConvenzByOrganizTableBean struttureVersanti = (OrgVEnteConvenzByOrganizTableBean)
-                    // getForm()
-                    // .getOrganizzazioniVersantiList().getTable();
                     List<BigDecimal> idStrutList = new ArrayList<>();
                     for (OrgVEnteConvenzByOrganizRowBean strutturaVersante : struttureVersanti) {
                         idStrutList.add(strutturaVersante.getBigDecimal("id_organiz_applic"));
                     }
 
-                    // Se la data di registrazione ÃƒÆ’Ã‚Â¨ valorizzata e sono definite sia data di inizio validitÃ  che
-                    // data
-                    // di
-                    // fine
-                    // validitÃƒÆ’Ã‚Â  dell'accordo
+                    // Se la data di registrazione è valorizzata e sono definite sia data di inizio validità che
+                    // data di fine validità dell'accordo
                     if (dtRegAccordo != null && dtDecAccordo != null && dtFineValidAccordo != null) {
-                        // Richiamo il controllo inclusione dato figlio passando come entitÃƒÆ’Ã‚Â  figlio = accordo e
-                        // entitÃƒÆ’Ã‚Â 
-                        // padre = ente gestore dell'accordo. Se l'ente ÃƒÆ’Ã‚Â¨ anche gestore non effettuo il
+                        // Richiamo il controllo inclusione dato figlio passando come entità figlio = accordo e
+                        // entità padre = ente gestore dell'accordo. Se l'ente è anche gestore non effettuo il
                         // controllo.
                         BigDecimal idEnteConvenzGestore = getForm().getAccordoDetail().getId_ente_convenz_gestore()
                                 .parse();
                         if (idEnteConvenzGestore != null && !idEnteConvenzGestore.equals(idEnteConvenz)) {
                             // Per l\u0027ente gestore, ricavo i relativi accordi, mettendoli in ordine di data e
-                            // verificando
-                            // che l\u0027accordo dell\u0027ente
-                            // sia incluso nella sequenza di validitÃƒÆ’Ã‚Â  degli accordi del gestore
+                            // verificando che l\u0027accordo dell\u0027ente
+                            // sia incluso nella sequenza di validità degli accordi del gestore
                             entiConvenzionatiEjb.checkInclusioneAccordoFiglio(idEnteConvenzGestore, dtDecAccordo,
                                     dtFineValidAccordo,
                                     getForm().getEnteConvenzionatoDetail().getNm_ente_siam().parse());
 
                         }
-                        // Richiamo il controllo inclusione dato figlio passando come entitÃƒÆ’Ã‚Â  figlio = accordo e
-                        // entitÃƒÆ’Ã‚Â 
-                        // padre = ente conservatore dell'accordo. Se l'ente ÃƒÆ’Ã‚Â¨ anche conservatore non effettuo il
+                        // Richiamo il controllo inclusione dato figlio passando come entità figlio = accordo e
+                        // entità padre = ente conservatore dell'accordo. Se l'ente è anche conservatore non effettuo il
                         // controllo.
                         BigDecimal idEnteConvenzConserv = getForm().getAccordoDetail().getId_ente_convenz_conserv()
                                 .parse();
                         if (idEnteConvenzConserv != null && !idEnteConvenzConserv.equals(idEnteConvenz)) {
                             // Per l\u0027ente conservatore, ricavo i relativi accordi, mettendoli in ordine di data e
-                            // verificando che l\u0027accordo dell\u0027ente
-                            // sia incluso nella sequenza di validitÃƒÆ’Ã‚Â  degli accordi del conservatore
+                            // verificando che l\u0027accordo dell\u0027ente sia incluso nella sequenza di validità
+                            // degli accordi del conservatore
                             entiConvenzionatiEjb.checkInclusioneAccordoFiglio(idEnteConvenzConserv, dtDecAccordo,
                                     dtFineValidAccordo,
                                     getForm().getEnteConvenzionatoDetail().getNm_ente_siam().parse());
@@ -4077,16 +4155,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             getForm().getTipoServizioAccordoList(), isEditMode, idAmbienteEnteConvenzCambio,
                             idStrutList);
 
-                } else {
-                    for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
-                        rb.setBigDecimal("im_tariffa_accordo", (BigDecimal) rb.getOldObject("im_tariffa_accordo"));
-                    }
                 }
             } catch (ParerUserError ex) {
                 getMessageBox().addError(ex.getDescription());
-                for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
-                    rb.setBigDecimal("im_tariffa_accordo", (BigDecimal) rb.getOldObject("im_tariffa_accordo"));
-                }
             }
         }
         forwardToPublisher(Application.Publisher.DETTAGLIO_ACCORDO);
@@ -4174,32 +4245,39 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     }
 
     public void confermaSalvataggioControlloDateAccordo() throws ParerUserError, EMFError {
-        try {
-            if (getSession().getAttribute("attributiSalvataggioAccordoControlloDate") != null) {
-                Object[] attributiSalvataggioAccordoControlloDate = (Object[]) getSession()
-                        .getAttribute("attributiSalvataggioAccordoControlloDate");
-                LogParam param = (LogParam) attributiSalvataggioAccordoControlloDate[0];
-                BigDecimal idEnteConvenz = (BigDecimal) attributiSalvataggioAccordoControlloDate[1];
-                AmministrazioneEntiConvenzionatiForm.AccordoDetail accordoDetail = (AmministrazioneEntiConvenzionatiForm.AccordoDetail) attributiSalvataggioAccordoControlloDate[2];
-                boolean serviziErogatiPresenti = (boolean) attributiSalvataggioAccordoControlloDate[3];
-                AmministrazioneEntiConvenzionatiForm.TipoServizioAccordoList tipoServizioAccordoList = (AmministrazioneEntiConvenzionatiForm.TipoServizioAccordoList) attributiSalvataggioAccordoControlloDate[4];
-                boolean isEditMode = (boolean) attributiSalvataggioAccordoControlloDate[5];
-                BigDecimal idAmbienteEnteConvenzCambio = (BigDecimal) attributiSalvataggioAccordoControlloDate[6];
-                List<BigDecimal> idStrutList = (List<BigDecimal>) attributiSalvataggioAccordoControlloDate[7];
+
+        if (getSession().getAttribute("attributiSalvataggioAccordoControlloDate") != null) {
+
+            Object[] attributiSalvataggioAccordoControlloDate = (Object[]) getSession()
+                    .getAttribute("attributiSalvataggioAccordoControlloDate");
+            LogParam param = (LogParam) attributiSalvataggioAccordoControlloDate[0];
+            BigDecimal idEnteConvenz = (BigDecimal) attributiSalvataggioAccordoControlloDate[1];
+            AmministrazioneEntiConvenzionatiForm.AccordoDetail accordoDetail = (AmministrazioneEntiConvenzionatiForm.AccordoDetail) attributiSalvataggioAccordoControlloDate[2];
+            boolean serviziErogatiPresenti = (boolean) attributiSalvataggioAccordoControlloDate[3];
+            AmministrazioneEntiConvenzionatiForm.TipoServizioAccordoList tipoServizioAccordoList = (AmministrazioneEntiConvenzionatiForm.TipoServizioAccordoList) attributiSalvataggioAccordoControlloDate[4];
+            boolean isEditMode = (boolean) attributiSalvataggioAccordoControlloDate[5];
+            BigDecimal idAmbienteEnteConvenzCambio = (BigDecimal) attributiSalvataggioAccordoControlloDate[6];
+            List<BigDecimal> idStrutList = (List<BigDecimal>) attributiSalvataggioAccordoControlloDate[7];
+            try {
                 eseguiSalvataggioAccordo(param, idEnteConvenz, accordoDetail, serviziErogatiPresenti,
                         tipoServizioAccordoList, isEditMode, idAmbienteEnteConvenzCambio, idStrutList);
+
+            } catch (ParerUserError ex) {
+                getMessageBox().addError(ex.getDescription());
+                forwardToPublisher(Application.Publisher.DETTAGLIO_ACCORDO);
             }
-        } catch (ParerUserError ex) {
-            getMessageBox().addError(ex.getDescription());
-            forwardToPublisher(Application.Publisher.DETTAGLIO_ACCORDO);
         }
+
     }
 
     public void annullaSalvataggioControlloDateAccordo() throws EMFError, ParerUserError {
         getSession().removeAttribute("attributiSalvataggioAccordoControlloDate");
         getForm().getAccordoDetail().setViewMode();
+        getForm().getTipoServizioAccordoList().setViewMode();
 
-        if (getForm().getAccordiList().getStatus().equals(Status.insert)) {
+        if (getForm().getAccordiList().getStatus().equals(Status.insert)
+        // || getForm().getAccordoWizardDetail().getStatus().equals(Status.insert)
+        ) {
             forwardToPublisher(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO);
         } else {
             OrgAccordoEnteRowBean accordoEnteRowBean = entiConvenzionatiEjb
@@ -4231,6 +4309,13 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             getForm().getAccordoDetail().getFl_pagamento().setViewMode();
             getForm().getTipoServizioAccordoList().getIm_tariffa_accordo().setViewMode();
             getForm().getTipoServizioAccordoList().setStatus(Status.view);
+        } else {
+            // Importo tariffa accordo va "ritrasformato" in stringa senza il GroupingSeparator
+            for (BaseRow rb : (BaseTable) getForm().getTipoServizioAccordoList().getTable()) {
+                if (rb.getString("im_tariffa_accordo") != null) {
+                    rb.setString("im_tariffa_accordo", rb.getString("im_tariffa_accordo").replaceAll("\\.", ""));
+                }
+            }
         }
 
         getForm().getAnnualitaAccordoList().setHideInsertButton(true);
@@ -4573,11 +4658,11 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             try {
                 /*
                  * Controlla che nella tabella ORG_SERVIZIO_EROG non siano presenti servizi riferiti all'accordo da
-                 * eliminare giÃƒÆ’Ã‚Â  inseriti in una fattura
+                 * eliminare già inseriti in una fattura
                  */
                 if (entiConvenzionatiEjb.checkEsistenzaServiziInFatturaPerAccordo(idAccordo)) {
                     getMessageBox().addError(
-                            "I servizi erogati sull'accordo sono gi\u00E0Â  stati inseriti in una fattura; impossibile eseguire l'eliminazione");
+                            "I servizi erogati sull'accordo sono gi\u00E0  stati inseriti in una fattura; impossibile eseguire l'eliminazione");
                 }
 
                 if (!getMessageBox().hasError()) {
@@ -4618,7 +4703,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         // Eseguo giusto un controllo per verificare che io stia prendendo la riga giusta se sono nel dettaglio
         if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_ANNUALITA)) {
             if (!idAaAccordo.equals(getForm().getAnnualitaAccordoDetail().getId_aa_accordo().parse())) {
-                getMessageBox().addError("Eccezione imprevista nell'eliminazione dell'annualitÃ Â ");
+                getMessageBox().addError("Eccezione imprevista nell'eliminazione dell'annualità");
             }
         }
 
@@ -4640,11 +4725,11 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     }
                     entiConvenzionatiEjb.deleteOrgAaAccordo(param, idAaAccordo);
                     getForm().getAnnualitaAccordoList().getTable().remove(riga);
-                    getMessageBox().addInfo("AnnualitÃ Â eliminata con successo");
+                    getMessageBox().addInfo("Annualità eliminata con successo");
                     getMessageBox().setViewMode(ViewMode.plain);
                 }
             } catch (ParerUserError ex) {
-                getMessageBox().addError("L'annualitÃ Â  non pu\u00F2 essere eliminata: " + ex.getDescription());
+                getMessageBox().addError("L'annualità non pu\u00F2 essere eliminata: " + ex.getDescription());
             }
         }
         if (!getMessageBox().hasError() && getLastPublisher().equals(Application.Publisher.DETTAGLIO_ANNUALITA)) {
@@ -4888,7 +4973,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             "Attenzione: data di ricezione del modulo di informazioni non pu\u00F2 essere una data futura");
                 }
 
-                // Controlli di congruitÃƒÆ’Ã‚Â 
+                // Controlli di congruità
                 if (StringUtils.isNotBlank(getForm().getModuloInformazioniDetail().getCd_modulo_info().getValue())) {
                     if (StringUtils
                             .isNotBlank(getForm().getModuloInformazioniDetail().getCd_registro_modulo_info().getValue())
@@ -4909,6 +4994,13 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     }
                 }
 
+                String nmFileModuloInfo = getForm().getModuloInformazioniDetail().getBl_modulo_info().parse();
+                if (nmFileModuloInfo != null) {
+                    if (nmFileModuloInfo.length() > 100) {
+                        getMessageBox().addError("Il nome del file caricato supera i 100 caratteri ammessi<br>");
+                    }
+                }
+
                 if (!getMessageBox().hasError()) {
                     // Salva il Modulo informazioni
 
@@ -4918,7 +5010,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
                             getUser().getUsername(), SpagoliteLogUtil.getPageName(this));
                     param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-                    String nmFileModuloInfo = getForm().getModuloInformazioniDetail().getBl_modulo_info().parse();
                     if (nmFileModuloInfo != null) {
                         getForm().getModuloInformazioniDetail().getNm_file_modulo_info().setValue(nmFileModuloInfo);
                     }
@@ -5224,11 +5315,28 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             .getOrgAppartCollegEntiList(idCollegEntiConvenz);
                     Set<BigDecimal> appartCollegEntiSet = appartCollegEntiList.stream()
                             .map(sc -> new BigDecimal(sc.getOrgEnteSiam().getIdEnteSiam())).collect(Collectors.toSet());
-                    entiConvenzionatiEjb.deleteOrgCollegEntiConvenz(param, idCollegEntiConvenz, idEnteConvenz,
-                            appartCollegEntiSet);
-                    getForm().getCollegamentiEnteList().getTable().remove(riga);
-                    getMessageBox().addInfo("Collegamento dell'ente eliminato con successo dall'ente convenzionato");
-                    getMessageBox().setViewMode(ViewMode.plain);
+
+                    // Recupero la lista di utenti coinvolti nella cancellazione del collegamento
+                    SortedSet<String> listaUtenti = entiConvenzionatiEjb
+                            .getUtentiConAbilitazioniCollegamento(idCollegEntiConvenz);
+
+                    if (!listaUtenti.isEmpty()) {
+                        getRequest().setAttribute("numeroUtentiCollegamento", listaUtenti.size());
+                        getRequest().setAttribute("listaUtentiCollegamento",
+                                listaUtenti.toString().replace("[", "").replace("]", ""));
+                        getRequest().setAttribute("customDeleteCollegamentoMessageBox", true);
+                        Object[] attributiDeleteCollegamento = new Object[5];
+                        attributiDeleteCollegamento[0] = param;
+                        attributiDeleteCollegamento[1] = idCollegEntiConvenz;
+                        attributiDeleteCollegamento[2] = idEnteConvenz;
+                        attributiDeleteCollegamento[3] = appartCollegEntiSet;
+                        attributiDeleteCollegamento[4] = riga;
+                        getSession().setAttribute("attributiDeleteCollegamento", attributiDeleteCollegamento);
+                        forwardToPublisher(getLastPublisher());
+                    } else {
+                        eseguiDeleteCollegamentoEnti(param, idCollegEntiConvenz, idEnteConvenz, appartCollegEntiSet,
+                                riga);
+                    }
                 }
             } catch (ParerUserError ex) {
                 getMessageBox()
@@ -5237,6 +5345,21 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         } else {
             getMessageBox().addError("Il collegamento dell'ente non pu\u00F2 essere eliminato");
         }
+    }
+
+    //
+    public void eseguiDeleteCollegamentoEnti(LogParam param, BigDecimal idCollegEntiConvenz, BigDecimal idEnteConvenz,
+            Set<BigDecimal> appartCollegEntiSet, int riga) throws EMFError {
+        try {
+            entiConvenzionatiEjb.deleteOrgCollegEntiConvenz(param, idCollegEntiConvenz, idEnteConvenz,
+                    appartCollegEntiSet);
+            getForm().getCollegamentiEnteList().getTable().remove(riga);
+            getMessageBox().addInfo("Collegamento eliminato con successo");
+            getMessageBox().setViewMode(ViewMode.plain);
+        } catch (ParerUserError ex) {
+            getMessageBox().addError("Il collegamento non pu\u00F2 essere eliminato: " + ex.getDescription());
+            forwardToPublisher(getLastPublisher());
+        }
 
         if (!getMessageBox().hasError()
                 && getLastPublisher().equals(Application.Publisher.DETTAGLIO_COLLEGAMENTO_ENTE)) {
@@ -5244,6 +5367,24 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         } else {
             forwardToPublisher(getLastPublisher());
         }
+
+    }
+
+    public void confermaDeleteCollegamento() throws EMFError {
+        if (getSession().getAttribute("attributiDeleteCollegamento") != null) {
+            Object[] attributiDeleteCollegamento = (Object[]) getSession().getAttribute("attributiDeleteCollegamento");
+            LogParam param = (LogParam) attributiDeleteCollegamento[0];
+            BigDecimal idCollegEntiConvenz = (BigDecimal) attributiDeleteCollegamento[1];
+            BigDecimal idEnteConvenz = (BigDecimal) attributiDeleteCollegamento[2];
+            Set<BigDecimal> appartCollegEntiSet = (Set<BigDecimal>) attributiDeleteCollegamento[3];
+            int riga = (int) attributiDeleteCollegamento[4];
+            eseguiDeleteCollegamentoEnti(param, idCollegEntiConvenz, idEnteConvenz, appartCollegEntiSet, riga);
+        }
+    }
+
+    public void annullaDeleteCollegamento() {
+        getSession().removeAttribute("attributiDeleteCollegamento");
+        forwardToPublisher(getLastPublisher());
     }
 
     @Override
@@ -5254,32 +5395,85 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         BigDecimal idEnteConvenz = currentRow.getIdEnteConvenz();
         int riga = getForm().getEntiCollegatiList().getTable().getCurrentRowIndex();
         if (!getMessageBox().hasError() && idAppartCollegEnti != null) {
-            try {
-                if (!getMessageBox().hasError()) {
-                    /* Codice aggiuntivo per il logging... */
-                    LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
-                            getUser().getUsername(), Application.Publisher.DETTAGLIO_COLLEGAMENTO_ENTE);
-                    param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-                    param.setNomeAzione(
-                            SpagoliteLogUtil.getDetailActionNameDelete(getForm(), getForm().getEntiCollegatiList()));
-                    entiConvenzionatiEjb.deleteOrgAppartCollegEnti(param, idAppartCollegEnti, idEnteConvenz);
-                    getForm().getEntiCollegatiList().getTable().remove(riga);
-                    getMessageBox().addInfo("Associazione dell'ente eliminata con successo dal collegamento");
-                    getMessageBox().setViewMode(ViewMode.plain);
-                    BigDecimal idCollegEntiConvenz = getForm().getCollegamentoEnteDetail().getId_colleg_enti_convenz()
-                            .parse();
-                    loadDettaglioCollegamento(idCollegEntiConvenz);
+
+            if (!getMessageBox().hasError()) {
+                /* Codice aggiuntivo per il logging... */
+                LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
+                        getUser().getUsername(), Application.Publisher.DETTAGLIO_COLLEGAMENTO_ENTE);
+                param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
+                param.setNomeAzione(
+                        SpagoliteLogUtil.getDetailActionNameDelete(getForm(), getForm().getEntiCollegatiList()));
+
+                // Recupero la lista di utenti coinvolti nella cancellazione dell'ente convenzionato dal collegamento
+                List<String> nmUseridList2 = entiConvenzionatiEjb
+                        .getUtentiConAbilitazioniEntiCollegToDel2(idAppartCollegEnti);
+
+                if (!nmUseridList2.isEmpty()) {
+                    getRequest().setAttribute("numeroUtentiAppartenenzaCollegamento", nmUseridList2.size());
+                    getRequest().setAttribute("listaUtentiAppartenenzaCollegamento",
+                            nmUseridList2.toString().replace("[", "").replace("]", ""));
+                    getRequest().setAttribute("customDeleteAppartenenzaCollegamentoMessageBox", true);
+
+                    Object[] attributiDeleteAppartenenzaCollegamento = new Object[4];
+                    attributiDeleteAppartenenzaCollegamento[0] = param;
+                    attributiDeleteAppartenenzaCollegamento[1] = idAppartCollegEnti;
+                    attributiDeleteAppartenenzaCollegamento[2] = idEnteConvenz;
+                    attributiDeleteAppartenenzaCollegamento[3] = riga;
+                    getSession().setAttribute("attributiDeleteAppartenenzaCollegamento",
+                            attributiDeleteAppartenenzaCollegamento);
                     forwardToPublisher(getLastPublisher());
+
+                } else {
+                    eseguiDeleteAppartenenzaCollegamentiEnte(param, idAppartCollegEnti, idEnteConvenz, riga);
                 }
-            } catch (ParerUserError ex) {
-                getMessageBox()
-                        .addError("L'associazione dell'ente non pu\u00F2 essere eliminata: " + ex.getDescription());
-                forwardToPublisher(getLastPublisher());
             }
+
         } else {
             getMessageBox().addError("L'associazione dell'ente non pu\u00F2 essere eliminata");
             forwardToPublisher(getLastPublisher());
         }
+
+    }
+
+    public void eseguiDeleteAppartenenzaCollegamentiEnte(LogParam param, BigDecimal idAppartCollegEnti,
+            BigDecimal idEnteConvenz, int riga) throws EMFError {
+        try {
+            entiConvenzionatiEjb.deleteOrgAppartCollegEnti(param, idAppartCollegEnti, idEnteConvenz,
+                    getUser().getIdUtente());
+            getForm().getEntiCollegatiList().getTable().remove(riga);
+            getMessageBox().addInfo("Associazione dell'ente eliminata con successo dal collegamento");
+            getMessageBox().setViewMode(ViewMode.plain);
+            BigDecimal idCollegEntiConvenz = getForm().getCollegamentoEnteDetail().getId_colleg_enti_convenz().parse();
+            loadDettaglioCollegamento(idCollegEntiConvenz);
+            forwardToPublisher(getLastPublisher());
+
+        } catch (ParerUserError ex) {
+            getMessageBox().addError("L'associazione dell'ente non pu\u00F2 essere eliminata: " + ex.getDescription());
+            forwardToPublisher(getLastPublisher());
+        }
+
+    }
+
+    public void confermaDeleteAppartenenzaCollegamento() throws EMFError {
+        // try {
+        if (getSession().getAttribute("attributiDeleteAppartenenzaCollegamento") != null) {
+            Object[] attributiDeleteAppartenenzaCollegamento = (Object[]) getSession()
+                    .getAttribute("attributiDeleteAppartenenzaCollegamento");
+            LogParam param = (LogParam) attributiDeleteAppartenenzaCollegamento[0];
+            BigDecimal idAppartCollegEnti = (BigDecimal) attributiDeleteAppartenenzaCollegamento[1];
+            BigDecimal idEnteConvenz = (BigDecimal) attributiDeleteAppartenenzaCollegamento[2];
+            int riga = (int) attributiDeleteAppartenenzaCollegamento[3];
+
+            eseguiDeleteAppartenenzaCollegamentiEnte(param, idAppartCollegEnti, idEnteConvenz, riga);
+        }
+        forwardToPublisher(getLastPublisher());
+        SessionManager.removeLastExecutionHistory(getSession());
+    }
+
+    public void annullaDeleteAppartenenzaCollegamento() {
+        getSession().removeAttribute("attributiDeleteAppartenenzaCollegamento");
+        forwardToPublisher(getLastPublisher());
+        SessionManager.removeLastExecutionHistory(getSession());
     }
 
     @Override
@@ -5290,35 +5484,91 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
         int riga = getForm().getCollegamentiEnteAppartList().getTable().getCurrentRowIndex();
         if (!getMessageBox().hasError() && idAppartCollegEnti != null) {
-            try {
-                if (!getMessageBox().hasError()) {
-                    /* Codice aggiuntivo per il logging... */
-                    LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
-                            getUser().getUsername(), SpagoliteLogUtil.getPageName(this));
-                    param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-                    String nomeAzione = null;
-                    if (SpagoliteLogUtil.getPageName(this).equals(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO)) {
-                        nomeAzione = SpagoliteLogUtil.getDetailActionNameDelete(getForm(),
-                                getForm().getCollegamentiEnteAppartList());
-                    } else {
-                        nomeAzione = SpagoliteLogUtil.getToolbarDelete();
-                    }
-                    param.setNomeAzione(nomeAzione);
-                    entiConvenzionatiEjb.deleteOrgAppartCollegEnti(param, idAppartCollegEnti, idEnteConvenz);
-                    getForm().getCollegamentiEnteAppartList().getTable().remove(riga);
-                    getMessageBox().addInfo("Associazione dell'ente eliminata con successo dal collegamento");
-                    getMessageBox().setViewMode(ViewMode.plain);
-                    loadDettaglioEnteConvenzionato(idEnteConvenz);
-                    forwardToPublisher(getLastPublisher());
+            // try {
+            if (!getMessageBox().hasError()) {
+                /* Codice aggiuntivo per il logging... */
+                LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
+                        getUser().getUsername(), SpagoliteLogUtil.getPageName(this));
+                param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
+                String nomeAzione = null;
+                if (SpagoliteLogUtil.getPageName(this).equals(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO)) {
+                    nomeAzione = SpagoliteLogUtil.getDetailActionNameDelete(getForm(),
+                            getForm().getCollegamentiEnteAppartList());
+                } else {
+                    nomeAzione = SpagoliteLogUtil.getToolbarDelete();
                 }
-            } catch (ParerUserError ex) {
-                getMessageBox()
-                        .addError("L'associazione dell'ente non pu\u00F2 essere eliminata: " + ex.getDescription());
-                forwardToPublisher(getLastPublisher());
+                param.setNomeAzione(nomeAzione);
+
+                // Recupero la lista di utenti coinvolti nella cancellazione del collegamento
+                SortedSet<String> listaUtenti = entiConvenzionatiEjb
+                        .getUtentiConAbilitazioniAppartenenzaCollegamento(idAppartCollegEnti);
+
+                List<String> listaUtenti2 = entiConvenzionatiEjb
+                        .getUtentiConAbilitazioniEntiCollegToDel2(idAppartCollegEnti);
+
+                if (!listaUtenti.isEmpty()) {
+                    getRequest().setAttribute("numeroUtentiAppartenenzaCollegamentoDaDettaglioEnte",
+                            listaUtenti.size());
+                    getRequest().setAttribute("listaUtentiAppartenenzaCollegamentoDaDettaglioEnte",
+                            listaUtenti.toString().replace("[", "").replace("]", ""));
+                    getRequest().setAttribute("customDeleteAppartenenzaCollegamentoDaDettaglioEnteMessageBox", true);
+                    Object[] attributiDeleteAppartenenzaCollegamento = new Object[4];
+                    attributiDeleteAppartenenzaCollegamento[0] = param;
+                    attributiDeleteAppartenenzaCollegamento[1] = idAppartCollegEnti;
+                    // attributiDeleteCollegamento[1] = idAppartCollegEnti;
+                    attributiDeleteAppartenenzaCollegamento[2] = idEnteConvenz;
+                    // attributiDeleteCollegamento[3] = appartCollegEntiSet;
+                    attributiDeleteAppartenenzaCollegamento[3] = riga;
+                    getSession().setAttribute("attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte",
+                            attributiDeleteAppartenenzaCollegamento);
+                    forwardToPublisher(getLastPublisher());
+                } else {
+                    eseguiDeleteAppartenenzaCollegamentiEnteDaDettaglioEnte(param, idAppartCollegEnti, idEnteConvenz,
+                            riga);
+                }
             }
         } else {
             getMessageBox().addError("L'associazione dell'ente non pu\u00F2 essere eliminata");
             forwardToPublisher(getLastPublisher());
+        }
+    }
+
+    public void eseguiDeleteAppartenenzaCollegamentiEnteDaDettaglioEnte(LogParam param, BigDecimal idAppartCollegEnti,
+            BigDecimal idEnteConvenz, int riga) throws EMFError {
+        try {
+            entiConvenzionatiEjb.deleteOrgAppartCollegEnti(param, idAppartCollegEnti, idEnteConvenz,
+                    getUser().getIdUtente());
+            getForm().getCollegamentiEnteAppartList().getTable().remove(riga);
+            getMessageBox().addInfo("Associazione dell'ente eliminata con successo dal collegamento");
+            getMessageBox().setViewMode(ViewMode.plain);
+            goBackTo(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO);
+        } catch (ParerUserError ex) {
+            getMessageBox().addError("L'associazione dell'ente non pu\u00F2 essere eliminata: " + ex.getDescription());
+            forwardToPublisher(getLastPublisher());
+        }
+    }
+
+    public void confermaDeleteAppartenenzaCollegamentoDaDettaglioEnte() throws EMFError {
+        if (getSession().getAttribute("attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte") != null) {
+            Object[] attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte = (Object[]) getSession()
+                    .getAttribute("attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte");
+            LogParam param = (LogParam) attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte[0];
+            BigDecimal idAppartCollegEnti = (BigDecimal) attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte[1];
+            BigDecimal idEnteConvenz = (BigDecimal) attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte[2];
+            int riga = (int) attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte[3];
+
+            eseguiDeleteAppartenenzaCollegamentiEnteDaDettaglioEnte(param, idAppartCollegEnti, idEnteConvenz, riga);
+        }
+    }
+
+    public void annullaDeleteAppartenenzaCollegamentoDaDettaglioEnte() {
+        getSession().removeAttribute("attributiDeleteAppartenenzaCollegamentoDaDettaglioEnte");
+        if (!getMessageBox().hasError()
+                && getLastPublisher().equals(Application.Publisher.DETTAGLIO_COLLEGAMENTO_ENTE)) {
+            goBack();
+        } else {
+            forwardToPublisher(getLastPublisher());
+            SessionManager.removeLastExecutionHistory(getSession());
         }
     }
 
@@ -5462,25 +5712,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         return getForm().getEnteConvenzionatoWizardDetail().asJSON();
     }
 
-    // @Override
-    // public JSONObject triggerAccordoDetailId_cd_ivaOnTrigger() throws EMFError {
-    // getForm().getAccordoDetail().post(getRequest());
-    // getForm().getAccordoDetail().getDs_iva().setValue(null);
-    // if (getForm().getAccordoDetail().getId_cd_iva().parse() != null) {
-    // BigDecimal idCdIva = getForm().getAccordoDetail().getId_cd_iva().parse();
-    // getForm().getAccordoDetail().getDs_iva().setValue(entiConvenzionatiEjb.getDsIva(idCdIva));
-    // }
-    // return getForm().getAccordoDetail().asJSON();
-    // }
-    // @Override
-    // public JSONObject triggerAccordoWizardDetailId_cd_ivaOnTrigger() throws EMFError {
-    // getForm().getAccordoWizardDetail().post(getRequest());
-    // if (getForm().getAccordoWizardDetail().getId_cd_iva().parse() != null) {
-    // BigDecimal idCdIva = getForm().getAccordoWizardDetail().getId_cd_iva().parse();
-    // getForm().getAccordoWizardDetail().getDs_iva().setValue(entiConvenzionatiEjb.getDsIva(idCdIva));
-    // }
-    // return getForm().getAccordoWizardDetail().asJSON();
-    // }
     // <editor-fold defaultstate="collapsed" desc="Gestione anagrafica">
     private void initAnagraficaDetail() throws ParerUserError, EMFError {
         getForm().getEnteConvenzionatoDetail().post(getRequest());
@@ -5564,7 +5795,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
      */
     @Override
     public boolean inserimentoWizardStep1OnExit() throws EMFError {
-        // Controllo che la data di fine validitÃƒÆ’Ã‚Â  sia stata inserita
+        // Controllo che la data di fine validità sia stata inserita
         boolean result = false;
         getForm().getAnagraficaDetail().post(getRequest());
         if (getForm().getAnagraficaDetail().validate(getMessageBox())) {
@@ -5592,13 +5823,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getForm().getEnteConvenzionatoDetail().getId_ente_convenz_nuovo().setHidden(true);
                 // Preparo i campi per il prossimo step
                 getForm().getEnteConvenzionatoDetail().getNm_ente_siam().setValue("");
-                // // Data inizio validitÃƒÆ’Ã‚Â : quella di fine del passo precedente piÃƒÆ’Ã‚Â¹ un giorno
-                // Date dataFineVal = getForm().getAnagraficaDetail().getDt_fine_val().parse();
-                // Calendar cal = Calendar.getInstance();
-                // cal.setTime(dataFineVal);
-                // cal.add(Calendar.DATE, 1);
-                // SimpleDateFormat sdf = new SimpleDateFormat(DateUtil.DATE_FORMAT_SLASH);
-                // getForm().getEnteConvenzionatoDetail().getDt_ini_val().setValue(sdf.format(cal.getTime()));
                 result = true;
             }
         }
@@ -5632,12 +5856,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     @Override
     public boolean inserimentoWizardStep2OnExit() throws EMFError {
         boolean result = true;
-        // if (getSession().getAttribute("dtCessazioneOld") == null) {
-        // getSession().setAttribute("dtCessazioneOld",
-        // getForm().getEnteConvenzionatoDetail().getDt_cessazione().parse());
-        // }
         getForm().getEnteConvenzionatoDetail().post(getRequest());
-        // getForm().getEnteConvenzionatoDetail().getDt_cessazione().setValue("31/12/2444");
         getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz().setValue(
                 getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz_field().parse().toPlainString());
 
@@ -5651,22 +5870,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     public boolean inserimentoWizardOnSave() throws EMFError {
         // Eseguo il salvataggio dell'anagrafica
         boolean result = false;
-
-        // Date dtCessazioneOld = (Date) getSession().getAttribute("dtCessazioneOld");
-        // if (dtCessazioneOld != null) {
-        // // Controlli sulle date
-        // if (!getForm().getEnteConvenzionatoDetail().getDt_ini_val().parse().before(dtCessazioneOld)) {
-        // getMessageBox().addError(
-        // "La data di inizio validit\u00E0Â  non pu\u00F2 essere superiore alla data di cessazione dell\u0027ente
-        // convenzionato");
-        // }
-        //
-        // if (!getForm().getAnagraficaDetail().getDt_fine_val().parse().before(dtCessazioneOld)) {
-        // getMessageBox().addError(
-        // "La data di fine validit\u00E0Â  non pu\u00F2 essere superiore alla data di cessazione dell\u0027ente
-        // convenzionato");
-        // }
-        // }
         if (!getMessageBox().hasError()) {
 
             result = true;
@@ -5678,8 +5881,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 EnteConvenzionatoBean enteBean = new EnteConvenzionatoBean(getForm().getEnteConvenzionatoDetail());
                 enteBean.setId_ambiente_ente_convenz(
                         getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz_field().parse());
-                // enteBean.setDt_cessazione(dtCessazioneOld);
-
                 /*
                  * Codice aggiuntivo per il logging...
                  */
@@ -5693,7 +5894,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getMessageBox().setViewMode(ViewMode.plain);
                 loadDettaglioEnteConvenzionato(idEnteConvez);
                 logger.info(getClass().getName() + " Fine storicizzazione");
-                // getSession().removeAttribute("dtCessazioneOld");
                 goBackTo(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO);
             } catch (ParerUserError ex) {
                 result = false;
@@ -5906,6 +6106,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             getForm().getGestioneAccordoDetail().getDownloadFileGestAccordo().setHidden(true);
                             getForm().getGestioneAccordoDetail().getNm_file_gest_accordo().setHidden(true);
                         } else {
+                            getForm().getGestioneAccordoDetail().getDownloadFileGestAccordo().setDisableHourGlass(true);
                             getForm().getGestioneAccordoDetail().getDownloadFileGestAccordo().setHidden(false);
                             getForm().getGestioneAccordoDetail().getNm_file_gest_accordo().setHidden(false);
                         }
@@ -5934,23 +6135,22 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
             if (getForm().getModuloInformazioniDetail().getStatus() != null) {
                 if (getForm().getModuloInformazioniDetail().getStatus().equals(Status.view)) {
-                    // getForm().getModuloInformazioniDetail().getBl_modulo_info().setHidden(true);
                     // Nascondo il campo per caricare il file
                     getForm().getModuloInformazioniDetail().getBl_modulo_info().setHidden(true);
                     // // Visualizzo il bottone di download del file
-                    getForm().getModuloInformazioniDetail().getDownloadFile().setHidden(false);
+                    getForm().getModuloInformazioniDetail().getDownloadFile().setHidden(true);
                     getForm().getModuloInformazioniDetail().getDownloadFile().setEditMode();
                     try {
-                        // if (getForm().getModuloInformazioniDetail().getBl_modulo_info().parse() == null
-                        // && getForm().getModuloInformazioniDetail().getNm_file_modulo_info().parse() == null) {
-                        // getForm().getModuloInformazioniDetail().getDownloadFile().setHidden(true);
-                        // } else {
-                        // getForm().getModuloInformazioniDetail().getDownloadFile().setHidden(false);
-                        // }
+                        BigDecimal idModuloInfo = getForm().getModuloInformazioniDetail().getId_modulo_info_accordo()
+                                .parse();
+                        if (entiConvenzionatiEjb.isNmFileModuloInfoPresente(idModuloInfo)) {
+                            getForm().getModuloInformazioniDetail().getDownloadFile().setHidden(false);
+                        }
 
                         if (getForm().getModuloInformazioniDetail().getCd_registro_modulo_info().parse() != null
                                 && getForm().getModuloInformazioniDetail().getAa_modulo_info().parse() != null
                                 && getForm().getModuloInformazioniDetail().getCd_key_modulo_info().parse() != null) {
+                            getForm().getUdButtonList().getScaricaCompFileUdModInfo().setDisableHourGlass(true);
                             getForm().getUdButtonList().getScaricaCompFileUdModInfo().setEditMode();
                         } else {
                             getForm().getUdButtonList().getScaricaCompFileUdModInfo().setViewMode();
@@ -5996,6 +6196,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (getForm().getAccordoDetail().getCd_registro_repertorio().parse() != null
                                 && getForm().getAccordoDetail().getAa_repertorio().parse() != null
                                 && getForm().getAccordoDetail().getCd_key_repertorio().parse() != null) {
+                            getForm().getUdButtonList().getScaricaCompFileUdAccordo().setDisableHourGlass(true);
                             getForm().getUdButtonList().getScaricaCompFileUdAccordo().setEditMode();
                         } else {
                             getForm().getUdButtonList().getScaricaCompFileUdAccordo().setViewMode();
@@ -6003,6 +6204,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (getForm().getAccordoDetail().getCd_registro_determina().parse() != null
                                 && getForm().getAccordoDetail().getAa_determina().parse() != null
                                 && getForm().getAccordoDetail().getCd_key_determina().parse() != null) {
+                            getForm().getUdButtonList().getScaricaCompFileUdAccordoAdozione().setDisableHourGlass(true);
                             getForm().getUdButtonList().getScaricaCompFileUdAccordoAdozione().setEditMode();
                         } else {
                             getForm().getUdButtonList().getScaricaCompFileUdAccordoAdozione().setViewMode();
@@ -6014,18 +6216,23 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
                     try {
                         BigDecimal idAccordoEnte = getForm().getAccordoDetail().getId_accordo_ente().parse();
-                        String tiEnteConvenz = entiConvenzionatiEjb.getOrgEnteSiamRowBeanByAccordo(idAccordoEnte)
-                                .getTiEnteConvenz();
-                        BigDecimal idUserIamCor = new BigDecimal(getUser().getIdUtente());
+                        if (idAccordoEnte != null) {
+                            OrgEnteSiamRowBean rb = entiConvenzionatiEjb.getOrgEnteSiamRowBeanByAccordo(idAccordoEnte);
+                            if (rb != null) {
+                                String tiEnteConvenz = entiConvenzionatiEjb
+                                        .getOrgEnteSiamRowBeanByAccordo(idAccordoEnte).getTiEnteConvenz();
+                                BigDecimal idUserIamCor = new BigDecimal(getUser().getIdUtente());
 
-                        if (entiConvenzionatiEjb.checkUtenteAbilChiusuraAccordo(idUserIamCor, idAccordoEnte,
-                                TiEnteConvenz.valueOf(tiEnteConvenz))
-                                && !entiConvenzionatiEjb.checkAccordoChiuso(idAccordoEnte)) {
-                            getForm().getAccordoDetail().getChiusuraAccordo().setEditMode();
-                            getForm().getAccordoDetail().getChiusuraAccordo().setHidden(false);
-                        } else {
-                            getForm().getAccordoDetail().getChiusuraAccordo().setViewMode();
-                            getForm().getAccordoDetail().getChiusuraAccordo().setHidden(true);
+                                if (entiConvenzionatiEjb.checkUtenteAbilChiusuraAccordo(idUserIamCor, idAccordoEnte,
+                                        TiEnteConvenz.valueOf(tiEnteConvenz))
+                                        && !entiConvenzionatiEjb.checkAccordoChiuso(idAccordoEnte)) {
+                                    getForm().getAccordoDetail().getChiusuraAccordo().setEditMode();
+                                    getForm().getAccordoDetail().getChiusuraAccordo().setHidden(false);
+                                } else {
+                                    getForm().getAccordoDetail().getChiusuraAccordo().setViewMode();
+                                    getForm().getAccordoDetail().getChiusuraAccordo().setHidden(true);
+                                }
+                            }
                         }
                     } catch (EMFError ex) {
                         getMessageBox().addError("Errore durante il caricamento del bottone Chiusura");
@@ -6053,6 +6260,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                                 && getForm().getGestioneAccordoDetail().getAa_gest_accordo().parse() != null
                                 && getForm().getGestioneAccordoDetail().getCd_key_gest_accordo().parse() != null) {
                             getForm().getUdButtonList().getScaricaCompFileUdGestAccordo().setHidden(false);
+                            getForm().getUdButtonList().getScaricaCompFileUdGestAccordo().setDisableHourGlass(true);
                             getForm().getUdButtonList().getScaricaCompFileUdGestAccordo().setEditMode();
                         } else {
                             getForm().getUdButtonList().getScaricaCompFileUdGestAccordo().setHidden(true);
@@ -6135,8 +6343,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         if (isMultipart) {
             if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_MODULO_INFORMAZIONI)) {
                 try {
-                    Properties props = Util.getApplicationProperties();
-                    int fileSize = Integer.parseInt(props.getProperty("moduloInformazioni.upload.maxFileSize"));
+                    int fileSize = ConfigSingleton.getInstance().getIntValue(MODULO_INFORMAZIONI_MAX_FILE_SIZE.name());
                     String[] a = getForm().getModuloInformazioniDetail().postMultipart(getRequest(), fileSize);
 
                     if (a != null) {
@@ -6163,9 +6370,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 }
             } else if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_VARIAZIONE_ACCORDO)) {
                 try {
-                    Properties props = Util.getApplicationProperties();
-                    int fileSize = Integer.parseInt(props.getProperty("variazioneAccordo.upload.maxFileSize"));
-
+                    int fileSize = ConfigSingleton.getInstance().getIntValue(VARIAZIONE_ACCORDO_MAX_FILE_SIZE.name());
                     String[] a = getForm().getGestioneAccordoDetail().postMultipart(getRequest(), fileSize);
 
                     if (a != null) {
@@ -6192,8 +6397,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 }
             } else if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_DISCIPLINARE_TECNICO)) {
                 try {
-                    Properties props = Util.getApplicationProperties();
-                    int fileSize = Integer.parseInt(props.getProperty("disciplinareTecnico.upload.maxFileSize"));
+                    int fileSize = ConfigSingleton.getInstance().getIntValue(DISCIPLINARE_TECNICO_MAX_FILE_SIZE.name());
                     String[] a = getForm().getDisciplinareTecnicoDetail().postMultipart(getRequest(), fileSize);
 
                     if (a != null) {
@@ -6365,8 +6569,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             File fileToDownload = new File(path);
             if (fileToDownload.exists()) {
                 /*
-                 * Definiamo l'output previsto che sarÃƒÆ’Ã‚Â Ãƒâ€šÃ‚Â  un file in formato zip di cui si
-                 * occuperÃƒÆ’Ã‚Â Ãƒâ€šÃ‚Â  la servlet per fare il download
+                 * Definiamo l'output previsto che sarà un file in formato zip di cui si occuperà la servlet per fare il
+                 * download
                  */
                 OutputStream outUD = getServletOutputStream();
                 getResponse()
@@ -6491,7 +6695,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         // Popolamento lista enti convenzionati
         getForm().getListaEntiConvenzionati()
                 .setTable(entiConvenzionatiEjb.getOrgVRicEnteConvenzTableBean(idAmbienteEnteConvenz));
-        getForm().getListaEntiConvenzionati().getFl_esistono_moduli().setHidden(true);
         getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
         getForm().getListaEntiConvenzionati().getTable().first();
 
@@ -7022,7 +7225,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 if (tsScadAccordo != null) {
                     dtScadAccordo = new Date(tsScadAccordo.getTime());
                 } else {
-                    // Se la data scadenza ÃƒÆ’Ã‚Â¨ nulla si assume valore 31/12/2444
+                    // Se la data scadenza è nulla si assume valore 31/12/2444
                     dtScadAccordo = cal.getTime();
                 }
                 dtScadAccordo = DateUtils.truncate(dtScadAccordo, Calendar.DATE);
@@ -7083,14 +7286,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getForm().getAccordoDetail().getCd_cliente_fatturazione()
                         .setValue(accordoEnte.getRow(0).getCdClienteFatturazione() != null
                                 ? accordoEnte.getRow(0).getCdClienteFatturazione() : null);
-                // getForm().getAccordoDetail().getCd_ufe()
-                // .setValue(accordoEnte.getRow(0).getCdUfe() != null ? accordoEnte.getRow(0).getCdUfe() : null);
-                // getForm().getAccordoDetail().getDs_ufe()
-                // .setValue(accordoEnte.getRow(0).getDsUfe() != null ? accordoEnte.getRow(0).getDsUfe() : null);
-                // getForm().getAccordoDetail().getId_cd_iva().setValue(accordoEnte.getRow(0).getIdCdIva() != null
-                // ? accordoEnte.getRow(0).getIdCdIva().toPlainString() : null);
-                // getForm().getAccordoDetail().getDs_iva().setValue(accordoEnte.getRow(0).getIdCdIva() != null
-                // ? entiConvenzionatiEjb.getDsIva(accordoEnte.getRow(0).getIdCdIva()) : null);
                 // Riporto i dati presi da ente convenzionato
                 getForm().getAccordoDetail().getNm_ente_siam()
                         .setValue(getForm().getEnteConvenzionatoDetail().getNm_ente_siam().parse());
@@ -7166,9 +7361,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getAccordoDetail().getDt_chiusura().setEditMode();
 
         try {
-            // Se sull\u0027ente esiste almeno un accordo con intervallo di validitÃƒÆ’Ã‚Â  (data inizio / fine
-            // validitÃƒÆ’Ã‚Â ) piÃƒÆ’Ã‚Â¹
-            // recente rispetto a quello da chiudere il sistema fornisce errore
+            // Se sull\u0027ente esiste almeno un accordo con intervallo di validità (data inizio / fine
+            // validità) più recente rispetto a quello da chiudere il sistema fornisce errore
             OrgAccordoEnteTableBean accordoEnte = entiConvenzionatiEjb
                     .getOrgAccordoEntePiuRecenteTableBean(idEnteConvenz);
             if (!accordoEnte.isEmpty() && !accordoEnte.getCurrentRow().getIdAccordoEnte().equals(idAccordoEnte)) {
@@ -7248,15 +7442,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     switch (TiEnteConvenz.valueOf(tiEnteConvenz)) {
                     case GESTORE:
                     case CONSERVATORE:
-                        // Richiamo il controllo inclusione dato il padre passando come entitÃƒÆ’Ã‚Â  padre = accordo
-                        // ente
-                        // da
-                        // chiudere
-                        // e come entitÃƒÆ’Ã‚Â  figlio gli accordi validi alla data in cui l'ente convenzionato in base
-                        // al
-                        // suo
-                        // tipo
-                        // ÃƒÆ’Ã‚Â¨ CONSERVATORE o GESTORE dell'accordo
+                        // Richiamo il controllo inclusione dato il padre passando come entità padre = accordo
+                        // ente da chiudere e come entità figlio gli accordi validi alla data in cui l'ente
+                        // convenzionato in base
+                        // al suo tipo CONSERVATORE o GESTORE dell'accordo
                         HashMap<String, Date[]> mappaAccordi = new HashMap<>();
                         List<OrgAccordoEnte> accordiEnteList = entiConvenzionatiEjb
                                 .getOrgAccordoEnteValidListByTipoEnteConvenz(idEnteConvenz, tiEnteConvenz);
@@ -7270,9 +7459,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                                 mappaAccordi);
                         break;
                     case PRODUTTORE:
-                        // Richiamo il controllo inclusione dato il padre passando come entitÃƒÆ’Ã‚Â  padre = ente
-                        // produttore
-                        // e come entitÃƒÆ’Ã‚Â  figlio le organizzazioni riferite all'ente convenzionato PRODUTTORE
+                        // Richiamo il controllo inclusione dato il padre passando come entità padre = ente
+                        // produttore e come entità figlio le organizzazioni riferite all'ente convenzionato PRODUTTORE
                         HashMap<String, Date[]> mappaOrganiz = new HashMap<>();
                         List<OrgEnteConvenzOrg> organizEnteList = entiConvenzionatiEjb
                                 .getOrgEnteConvenzOrgListByEnteConvenz(idEnteConvenz);
@@ -8030,10 +8218,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         param.setNomeAzione(SpagoliteLogUtil.getToolbarUpdate());
                         BigDecimal idCollegEntiConvenz = getForm().getCollegamentoEnteDetail()
                                 .getId_colleg_enti_convenz().parse();
-                        // Richiamo il controllo inclusione dato padre passando come entitÃƒÆ’Ã‚Â  padre = collegamento
-                        // e come entitÃƒÆ’Ã‚Â  figlio gli intervalli di appartenza al collegamento definite su ciascun
-                        // ente
-                        // appartenente al collegamento
+                        // Richiamo il controllo inclusione dato padre passando come entità padre = collegamento
+                        // e come entità figlio gli intervalli di appartenza al collegamento definite su ciascun
+                        // ente appartenente al collegamento
                         HashMap<String, Date[]> mappaColleg = new HashMap<String, Date[]>();
                         List<OrgAppartCollegEnti> appartCollegEntiList = entiConvenzionatiEjb
                                 .getOrgAppartCollegEntiList(idCollegEntiConvenz);
@@ -8088,8 +8275,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     Date dtFinVal = getForm().getCollegamentoEnteDetail().getDt_fin_val().parse();
                     BigDecimal idEnteConvenzAppart = getForm().getEnteCollegatoDetail().getId_ente_convenz().parse();
 
-                    // Se ÃƒÆ’Ã‚Â¨ stato indicato un ente capofila, richiamo il controllo inclusione dato figlio
-                    // passando come entitÃƒÆ’Ã‚Â  figlio = collegamento e entitÃƒÆ’Ã‚Â  padre = ente capofila.
+                    // Se è stato indicato un ente capofila, richiamo il controllo inclusione dato figlio
+                    // passando come entità figlio = collegamento e entità padre = ente capofila.
                     if (idEnteConvenzCapofila != null) {
                         OrgEnteSiamRowBean enteCapofila = entiConvenzionatiEjb
                                 .getOrgEnteConvenzRowBean(idEnteConvenzCapofila);
@@ -8105,8 +8292,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     dtCurrArr[1] = dtFinAppart;
                     mappaColleg.put(entiConvenzionatiEjb.getOrgEnteConvenzRowBean(idEnteConvenzAppart).getNmEnteSiam(),
                             dtCurrArr);
-                    // Richiamo il controllo inclusione dato padre passando come entitÃƒÆ’Ã‚Â  padre = collegamento
-                    // e come entitÃƒÆ’Ã‚Â  figlio gli intervalli di appartenza al collegamento definite su ciascun ente
+                    // Richiamo il controllo inclusione dato padre passando come entità padre = collegamento
+                    // e come entità figlio gli intervalli di appartenza al collegamento definite su ciascun ente
                     // appartenente al collegamento
                     List<OrgAppartCollegEnti> appartCollegEntiList = entiConvenzionatiEjb
                             .getOrgAppartCollegEntiList(idCollegEntiConvenz);
@@ -8179,8 +8366,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     Date dtFinVal = collegEntiConvenz.getDtFinVal();
                     BigDecimal idEnteConvenzAppart = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
 
-                    // Se ÃƒÆ’Ã‚Â¨ stato indicato un ente capofila, richiamo il controllo inclusione dato figlio
-                    // passando come entitÃƒÆ’Ã‚Â  figlio = collegamento e entitÃƒÆ’Ã‚Â  padre = ente capofila.
+                    // Se è stato indicato un ente capofila, richiamo il controllo inclusione dato figlio
+                    // passando come entità figlio = collegamento e entità padre = ente capofila.
                     if (idEnteConvenzCapofila != null) {
                         OrgEnteSiamRowBean enteCapofila = entiConvenzionatiEjb
                                 .getOrgEnteConvenzRowBean(idEnteConvenzCapofila);
@@ -8190,22 +8377,21 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     }
 
                     // Creo una mappa con gli intervalli di appartenza del nuovo ente al collegamento
-                    HashMap<String, Date[]> mappaColleg = new HashMap<String, Date[]>();
+                    HashMap<String, Date[]> mappaColleg = new HashMap<>();
                     Date[] dtCurrArr = new Date[2];
                     dtCurrArr[0] = dtIniAppart;
                     dtCurrArr[1] = dtFinAppart;
                     mappaColleg.put(entiConvenzionatiEjb.getOrgEnteConvenzRowBean(idEnteConvenzAppart).getNmEnteSiam(),
                             dtCurrArr);
-                    // Richiamo il controllo inclusione dato padre passando come entitÃƒÆ’Ã‚Â  padre = collegamento
-                    // e come entitÃƒÆ’Ã‚Â  figlio gli intervalli di appartenza al collegamento definite su ciascun ente
+                    // Richiamo il controllo inclusione dato padre passando come entità padre = collegamento
+                    // e come entità figlio gli intervalli di appartenza al collegamento definite su ciascun ente
                     // appartenente al collegamento
                     List<OrgAppartCollegEnti> appartCollegEntiList = entiConvenzionatiEjb
                             .getOrgAppartCollegEntiList(idCollegEntiConvenz);
                     for (OrgAppartCollegEnti colleg : appartCollegEntiList) {
-                        // Se il nome dell'ente ÃƒÆ’Ã‚Â¨ giÃƒÆ’Ã‚Â  presente nella mappa (vuol dire che sono in modifica
-                        // di
-                        // un'appartenenza),
-                        // escludo dalla mappa i vecchi valori recuperati dal DB e considero gli intervalli di
+                        // Se il nome dell'ente è già presente nella mappa (vuol dire che sono in modifica di
+                        // un'appartenenza), escludo dalla mappa i vecchi valori recuperati dal DB e considero gli
+                        // intervalli di
                         // appartenza appena inseriti.
                         if (!mappaColleg.containsKey(colleg.getOrgEnteSiam().getNmEnteSiam())) {
                             Date[] dtArr = new Date[2];
@@ -8302,7 +8488,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             String fileName = response.getHeaders().getFirst("Content-Disposition");
             MediaType contentType = response.getHeaders().getContentType();
 
-            if (contentType.getSubtype().equals("zip")) {
+            if (contentType != null && "zip".equals(contentType.getSubtype()) && StringUtils.isNotBlank(fileName)) {
                 fileName = fileName.substring(fileName.indexOf("\"") + 1, fileName.length());
                 // Creo il file temporaneo
                 temp = File.createTempFile("prefisso", "suffisso");
@@ -8460,13 +8646,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     private void saveDisciplinareTecnico() throws EMFError {
         if (getForm().getDisciplinareTecnicoDetail().validate(getMessageBox())) {
             try {
-                // Controlli obbligatorietÃƒÆ’Ã‚Â  personalizzati per l'inserimento manuale
-                if (getForm().getDisciplinareTecnicoDetail().getFl_inserito_manualmente().parse().equals("1") && ( // getForm().getDisciplinareTecnicoDetail().getAmbiente_discip_strut().parse()
-                // ==
-                // null
-                // ||
-                getForm().getDisciplinareTecnicoDetail().getEnte_discip_strut().parse() == null
-                        || getForm().getDisciplinareTecnicoDetail().getStruttura_discip_strut()
+                // Controlli obbligatorietà personalizzati per l'inserimento manuale
+                if (getForm().getDisciplinareTecnicoDetail().getFl_inserito_manualmente().parse().equals("1")
+                        && (getForm().getDisciplinareTecnicoDetail().getEnte_discip_strut().parse() == null || getForm()
+                                .getDisciplinareTecnicoDetail().getStruttura_discip_strut()
                                 .parse() == null /*
                                                   * MEV #19631 || getForm().getDisciplinareTecnicoDetail().
                                                   * getCd_registro_discip_strut().parse() == null ||
@@ -8481,11 +8664,19 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     getMessageBox().addError(
                             "E\u0027 obbligatorio scegliere l\u0027organizzazione cui il disciplinare si riferisce<br>");
                 }
+                //
+                byte[] blDiscipStrut = getForm().getDisciplinareTecnicoDetail().getBl_discip_strut().getFileBytes();
+                if (blDiscipStrut != null) {
+                    InputStream targetStream = new ByteArrayInputStream(blDiscipStrut);
+                    String mimetype = entiConvenzionatiEjb.getFileTypeByTika(targetStream);
+                    if (!mimetype.equals("application/pdf")) {
+                        getMessageBox().addError("E' possibile inserire solo file in formato pdf<br>");
+                    }
+                }
 
                 if (!getMessageBox().hasError()) {
                     BigDecimal idDiscipStrut = getForm().getDisciplinareTecnicoDetail().getId_discip_strut().parse();
                     BigDecimal aaDiscipStrut = getForm().getDisciplinareTecnicoDetail().getAa_discip_strut().parse();
-                    byte[] blDiscipStrut = getForm().getDisciplinareTecnicoDetail().getBl_discip_strut().getFileBytes();
                     String cdKeyDiscipStrut = getForm().getDisciplinareTecnicoDetail().getCd_key_discip_strut().parse();
                     String cdRegistroDiscipStrut = getForm().getDisciplinareTecnicoDetail()
                             .getCd_registro_discip_strut().parse();
@@ -8493,6 +8684,14 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     String dsNoteDiscipStrut = getForm().getDisciplinareTecnicoDetail().getDs_note_discip_strut()
                             .parse();
                     Date dtDiscipStrut = getForm().getDisciplinareTecnicoDetail().getDt_discip_strut().parse();
+                    Calendar c = Calendar.getInstance();
+                    Calendar c1 = Calendar.getInstance();
+                    c.setTime(dtDiscipStrut);
+                    c.set(Calendar.HOUR_OF_DAY, c1.get(Calendar.HOUR_OF_DAY));
+                    c.set(Calendar.MINUTE, c1.get(Calendar.MINUTE));
+                    c.set(Calendar.SECOND, c1.get(Calendar.SECOND));
+                    c.set(Calendar.MILLISECOND, c1.get(Calendar.MILLISECOND));
+                    dtDiscipStrut = c.getTime();
                     String flInseritoManualmente = getForm().getDisciplinareTecnicoDetail().getFl_inserito_manualmente()
                             .parse();
                     BigDecimal idAccordoEnte = getForm().getAccordoDetail().getId_accordo_ente().parse();
@@ -8501,8 +8700,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     String nmStrut = getForm().getDisciplinareTecnicoDetail().getStruttura_discip_strut().parse();
                     BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
 
-                    // Se l'inserimento ÃƒÆ’Ã‚Â¨ manuale eseguo altri controlli, altrimenti posso procedere direttamente
-                    // col
+                    // Se l'inserimento è manuale eseguo altri controlli, altrimenti posso procedere direttamente col
                     // salvataggio
                     if (getForm().getDisciplinareTecnicoDetail().getFl_inserito_manualmente().parse().equals("1")) {
                         checkAndSaveDisciplinareTecnico(idDiscipStrut, aaDiscipStrut, blDiscipStrut, cdKeyDiscipStrut,
@@ -8567,6 +8765,14 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         String dsDiscipStrut = getForm().getDisciplinareTecnicoDetail().getDs_discip_strut().parse();
         String dsNoteDiscipStrut = getForm().getDisciplinareTecnicoDetail().getDs_note_discip_strut().parse();
         Date dtDiscipStrut = getForm().getDisciplinareTecnicoDetail().getDt_discip_strut().parse();
+        Calendar c = Calendar.getInstance();
+        Calendar c1 = Calendar.getInstance();
+        c.setTime(dtDiscipStrut);
+        c.set(Calendar.HOUR_OF_DAY, c1.get(Calendar.HOUR_OF_DAY));
+        c.set(Calendar.MINUTE, c1.get(Calendar.MINUTE));
+        c.set(Calendar.SECOND, c1.get(Calendar.SECOND));
+        c.set(Calendar.MILLISECOND, c1.get(Calendar.MILLISECOND));
+        dtDiscipStrut = c.getTime();
         String flInseritoManualmente = getForm().getDisciplinareTecnicoDetail().getFl_inserito_manualmente().parse();
         BigDecimal idAccordoEnte = getForm().getAccordoDetail().getId_accordo_ente().parse();
         BigDecimal idOrganizIam = getForm().getDisciplinareTecnicoDetail().getId_organiz_iam().parse();
@@ -8800,8 +9006,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         setConfigListReadOnly();
 
         // Se non ho trovato risultati nascondo il pulsante "Modifica"
-        if (paramApplicTableBean.isEmpty())
+        if (paramApplicTableBean.isEmpty()) {
             getForm().getConfiguration().getEdit_config().setViewMode();
+        }
 
         forwardToPublisher(Application.Publisher.REGISTRO_PARAMETRI);
     }
@@ -8860,11 +9067,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         String dsListaValoriAmmessiName = getForm().getConfigurationList().getDs_lista_valori_ammessi().getName();
         String dsValoreParamApplicName = getForm().getConfigurationList().getDs_valore_param_applic().getName();
         String flAppartApplicName = getForm().getConfigurationList().getFl_appart_applic().getName();
-        String flAppartAmbienteName = getForm().getConfigurationList().getFl_appart_ambiente().getName();
-        String flApparteEnteName = getForm().getConfigurationList().getFl_apparte_ente().getName();
         String tiValoreParamApplic = getForm().getConfigurationList().getTi_valore_param_applic().getName();
-        Set<Integer> completeRows = new HashSet<Integer>();
-        Set<String> nmParamApplicSet = new HashSet<String>();
+        Set<Integer> completeRows = new HashSet<>();
+        Set<String> nmParamApplicSet = new HashSet<>();
         // Tiro su i dati i request di tutti i record della lista
         getForm().getConfigurationList().post(getRequest());
         // Scorro tutte le righe della tabella per effettuare i controlli
@@ -8879,12 +9084,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             String dsValoreParamApplicValue = r.getString(dsValoreParamApplicName);
             String tiValoreParamApplicValue = r.getString(tiValoreParamApplic);
             String flAppartApplicValue = r.getString(flAppartApplicName);
-            String flAppartAmbienteValue = r.getString(flAppartAmbienteName);
-            String flApparteEnteValue = r.getString(flApparteEnteName);
             if (StringUtils.isNotBlank(tiParamApplicValue) && StringUtils.isNotBlank(tiGestioneParamValue)
                     && StringUtils.isNotBlank(nmParamApplicValue) && StringUtils.isNotBlank(dsParamApplicValue)
                     && StringUtils.isNotBlank(tiValoreParamApplicValue)// &&
-            // StringUtils.isNotBlank(dsValoreValue)
             ) {
                 if (StringUtils.isNotBlank(dsValoreParamApplicValue)) {
                     if (flAppartApplicValue.equals("1")) {
@@ -8904,10 +9106,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
             nmParamApplicSet.add(nmParamApplicValue);
 
-            // Controllo che il parametro non esista giÃƒÆ’Ã‚Â  su DB
+            // Controllo che il parametro non esista già su DB
             if (entiConvenzionatiEjb.checkParamApplic(nmParamApplicValue, idParamApplicValue)) {
                 getMessageBox()
-                        .addError("Attenzione: parametro " + nmParamApplicValue + " gi\u00E0Â  presente nel sistema");
+                        .addError("Attenzione: parametro " + nmParamApplicValue + " gi\u00E0 presente nel sistema");
             }
 
             // Controllo valori possibili su ente
@@ -8921,7 +9123,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             }
         }
 
-        // Controllo che il nome-parametro non sia ripetuto per motivi di univocitÃƒÆ’Ã‚Â 
+        // Controllo che il nome-parametro non sia ripetuto per motivi di univocità
         if (nmParamApplicSet.size() != getForm().getConfigurationList().getTable().size()) {
             getMessageBox().addError("Attenzione: esistono uno o pi\u0027 parametri con lo stesso nome parametro");
         }
@@ -8938,7 +9140,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 // .equals(it.eng.saceriam.web.util.Constants.OBFUSCATED_STRING)) {
                 // continue;
                 // }
-
                 if (!entiConvenzionatiEjb.saveConfiguration(row)) {
                     getMessageBox().addError("Errore durante il salvataggio della configurazione");
                 }
@@ -9358,12 +9559,6 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     }
 
     @Override
-    public JSONObject triggerAccordoWizardDetailId_tipo_servizioOnTrigger() throws EMFError {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
-    }
-
-    @Override
     public JSONObject triggerAccordoWizardDetailId_classe_ente_convenzOnTrigger() throws EMFError {
         throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
         // Tools | Templates.
@@ -9402,7 +9597,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 BigDecimal imTariffaNum = new BigDecimal(imTariffa);
                 esito = true;
             } catch (NumberFormatException e) {
-                throw new ParerUserError("Uno degli importi delle EntitÃ  rimborso costi non Ã¨ in formato numerico");
+                throw new ParerUserError("Uno degli importi delle Entità rimborso costi non è in formato numerico");
             }
         } else {
             esito = true;
@@ -9429,7 +9624,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             int meseScadenza = c.get(Calendar.MONTH);
             int mesi = 0;
 
-            // Controllo che l'anno non sia giÃ  stato inserito
+            // Controllo che l'anno non sia già stato inserito
             for (OrgAaAccordoRowBean aaAccordoRowBean : (OrgAaAccordoTableBean) getForm().getAnnualitaAccordoList()
                     .getTable()) {
                 if (aaAccordoRowBean.getAaAnnoAccordo().intValue() == anno.intValue()) {
@@ -9504,6 +9699,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             getForm().getListaAccordi().setTable(null);
             getForm().getAnnualitaSenzaAttoList().setTable(null);
             getForm().getAnnualitaSenzaAttoSection().setHidden(true);
+            getForm().getReportStorageExtraRerSection().setHidden(true);
 
             forwardToPublisher(Application.Publisher.RICERCA_ACCORDI);
         } catch (ParerUserError ex) {
@@ -9527,7 +9723,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgTipiGestioneAccordoTableBean(),
                         "id_tipo_gestione_accordo", "cd_tipo_gestione_accordo"));
 
-        // getForm().getFiltriAccordi().getCd_registro_repertorio().setDecodeMap(new DecodeMap());
+        getForm().getFiltriAccordi().getFl_fascia_manuale().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getFiltriAccordi().getFl_esiste_nota_fatturazione()
                 .setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getFiltriAccordi().getFl_esistono_sae_combo().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
@@ -9594,6 +9790,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             String flRecesso = getForm().getFiltriAccordi().getFl_recesso().parse();
             List<BigDecimal> idTipoGestioneAccordo = getForm().getFiltriAccordi().getId_tipo_gestione_accordo().parse();
             String flEsisteNotaFatturazione = getForm().getFiltriAccordi().getFl_esiste_nota_fatturazione().parse();
+            String flFasciaManuale = getForm().getFiltriAccordi().getFl_fascia_manuale().parse();
             String flEsistonoSeAnnuali = getForm().getFiltriAccordi().getFl_esistono_sae_combo().parse();
             String flEsistonoSeUt = getForm().getFiltriAccordi().getFl_esistono_sue_combo().parse();
             Date saeDa = null;
@@ -9628,6 +9825,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             // Nascondo Annualità senza atto
             getForm().getAnnualitaSenzaAttoList().setTable(null);
             getForm().getAnnualitaSenzaAttoSection().setHidden(true);
+            // Nascondo Report storage extra RER
+            getForm().getReportStorageExtraRerList().setTable(null);
+            getForm().getReportStorageExtraRerSection().setHidden(true);
 
             if (!getMessageBox().hasError()) {
                 try {
@@ -9636,7 +9836,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             aaRepertorio, cdKeyRepertorio, idTipoAccordo, dtDecAccordoDa, dtDecAccordoA,
                             dtFineValidAccordoDa, dtFineValidAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA,
                             dtScadAccordoDa, dtScadAccordoA, flRecesso, idTipoGestioneAccordo, flEsisteNotaFatturazione,
-                            flEsistonoSeAnnuali, saeDa, saeA, flEsistonoSeUt, sueDa, sueA);
+                            flEsistonoSeAnnuali, saeDa, saeA, flEsistonoSeUt, sueDa, sueA, flFasciaManuale);
                     getForm().getListaAccordi().setTable(table);
                     getForm().getListaAccordi().getTable().setPageSize(10);
                     getForm().getListaAccordi().getTable().first();
@@ -9876,6 +10076,22 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 .setExcelFileName("FattureCalcolate_Ente_" + nmEnteConvenz + "_" + df.format(new Date()));
 
         listNavigationOnClick(getForm().getListaEstraiRigheFatture().NAME, ListAction.NE_EXPORT_XLS, "-1", "false");
+    }
+
+    @Override
+    public void reportStorageExtraRer() throws EMFError {
+        getForm().getReportStorageExtraRerSection().setHidden(false);
+        try {
+            BaseTable reportStorageExtraRerTB = entiConvenzionatiEjb.getReportStorageExtraRer();
+
+            getForm().getReportStorageExtraRerList().setTable(reportStorageExtraRerTB);
+            getForm().getReportStorageExtraRerList().getTable().setPageSize(10);
+            getForm().getReportStorageExtraRerList().getTable().first();
+        } catch (ParerUserError ex) {
+            getMessageBox().addError(ex.getDescription() + ": impossibile visualizzare il report storage");
+        }
+
+        forwardToPublisher(Application.Publisher.RICERCA_ACCORDI);
     }
 
 }

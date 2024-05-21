@@ -1,14 +1,44 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the APL_PAGINA_WEB database table.
- *
  */
 @Entity
 @Cacheable(true)
@@ -16,27 +46,36 @@ import javax.persistence.*;
 public class AplPaginaWeb implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idPaginaWeb;
+
     private String dsPaginaWeb;
+
     private String nmPaginaWeb;
+
     private String tiHelpOnLine;
+
     private List<AplAzionePagina> aplAzionePaginas = new ArrayList<>();
+
     private AplApplic aplApplic;
+
     private AplEntryMenu aplEntryMenu;
+
     private List<PrfAutor> prfAutors = new ArrayList<>();
+
     private List<PrfDichAutor> prfDichAutors = new ArrayList<>();
+
     private List<AplHelpOnLine> aplHelpOnLines = new ArrayList<>();
 
     public AplPaginaWeb() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SAPL_PAGINA_WEB") // @SequenceGenerator(name =
-                                                                     // "APL_PAGINA_WEB_IDPAGINAWEB_GENERATOR",
-                                                                     // sequenceName = "SAPL_PAGINA_WEB", allocationSize
-                                                                     // = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APL_PAGINA_WEB_IDPAGINAWEB_GENERATOR")
     @Column(name = "ID_PAGINA_WEB")
+    @GenericGenerator(name = "SAPL_PAGINA_WEB_ID_PAGINA_WEB_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_PAGINA_WEB"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_PAGINA_WEB_ID_PAGINA_WEB_GENERATOR")
     public Long getIdPaginaWeb() {
         return this.idPaginaWeb;
     }
@@ -133,5 +172,4 @@ public class AplPaginaWeb implements Serializable {
     public void setAplHelpOnLines(List<AplHelpOnLine> aplHelpOnLines) {
         this.aplHelpOnLines = aplHelpOnLines;
     }
-
 }

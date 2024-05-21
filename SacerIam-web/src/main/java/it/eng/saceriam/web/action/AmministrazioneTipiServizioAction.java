@@ -1,4 +1,28 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
+
+import java.math.BigDecimal;
+
+import javax.ejb.EJB;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.slite.gen.form.GestioneLogEventiForm;
@@ -16,9 +40,6 @@ import it.eng.saceriam.slite.gen.tablebean.OrgTipoServizioTableBean;
 import it.eng.saceriam.util.SacerLogConstants;
 import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.spagoCore.error.EMFError;
-import it.eng.spagoLite.security.Secure;
-import java.math.BigDecimal;
-import javax.ejb.EJB;
 import it.eng.spagoLite.actions.form.ListAction;
 import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.BaseTableInterface;
@@ -26,10 +47,7 @@ import it.eng.spagoLite.form.base.BaseElements.Status;
 import it.eng.spagoLite.form.base.BaseForm;
 import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import it.eng.spagoLite.security.Secure;
 
 /**
  *

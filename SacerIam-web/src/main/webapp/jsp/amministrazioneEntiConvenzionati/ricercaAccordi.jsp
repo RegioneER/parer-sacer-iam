@@ -93,6 +93,7 @@
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_RECESSO%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.ID_TIPO_GESTIONE_ACCORDO%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_ESISTE_NOTA_FATTURAZIONE%>" colSpan="2"/><sl:newLine />
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_FASCIA_MANUALE%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_ESISTONO_SAE_COMBO%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.SAE_DA%>" colSpan="2"/>
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.SAE_A%>" colSpan="2"/><sl:newLine />
@@ -105,6 +106,7 @@
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.RICERCA_ACCORDI%>" width="w25"/>
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.PULISCI_RICERCA_ACCORDI%>" width="w25"/>                
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.ANNUALITA_SENZA_ATTO_ACCORDI%>" width="w25"/>
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.REPORT_STORAGE_EXTRA_RER%>" width="w25"/>
             </sl:pulsantiera>
             <sl:newLine skipLine="true"/>
             <!--  piazzo la lista con i risultati -->
@@ -116,8 +118,13 @@
             <slf:listNavBar  name="<%=AmministrazioneEntiConvenzionatiForm.AnnualitaSenzaAttoList.NAME%>" pageSizeRelated="true" />
             <slf:list name="<%=AmministrazioneEntiConvenzionatiForm.AnnualitaSenzaAttoList.NAME%>" />
             <slf:listNavBar  name="<%=AmministrazioneEntiConvenzionatiForm.AnnualitaSenzaAttoList.NAME%>" />
-            </slf:section>            
+            </slf:section>            <!--<!-- comment -->
             <sl:newLine skipLine="true"/>
+            <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.ReportStorageExtraRerSection.NAME%>" styleClass="importantContainer">
+            <slf:listNavBar  name="<%=AmministrazioneEntiConvenzionatiForm.ReportStorageExtraRerList.NAME%>" pageSizeRelated="true" />
+            <slf:list name="<%=AmministrazioneEntiConvenzionatiForm.ReportStorageExtraRerList.NAME%>" />
+            <slf:listNavBar  name="<%=AmministrazioneEntiConvenzionatiForm.ReportStorageExtraRerList.NAME%>" />
+            </slf:section>   
         </sl:content>
         <sl:footer />
     </sl:body>

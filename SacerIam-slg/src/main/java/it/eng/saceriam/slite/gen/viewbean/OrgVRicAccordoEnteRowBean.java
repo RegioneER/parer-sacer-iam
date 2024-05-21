@@ -1,15 +1,30 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.slite.gen.viewbean;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+import it.eng.saceriam.viewEntity.OrgVRicAccordoEnte;
 import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.JEEBaseRowInterface;
 import it.eng.spagoLite.db.base.row.BaseRow;
 import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
-import it.eng.saceriam.viewEntity.OrgVRicAccordoEnte;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.sql.Types;
-import javax.annotation.Generated;
 
 /**
  * RowBean per la tabella Org_V_Ric_Accordo_Ente
@@ -216,6 +231,30 @@ public class OrgVRicAccordoEnteRowBean extends BaseRow implements BaseRowInterfa
         setObject("fl_esistono_sue", fl_esistono_sue);
     }
 
+    public String getFlFasciaManuale() {
+        return getString("fl_fascia_manuale");
+    }
+
+    public void setFlFasciaManuale(String fl_fascia_manuale) {
+        setObject("fl_fascia_manuale", fl_fascia_manuale);
+    }
+
+    public String getTiFasciaStandard() {
+        return getString("ti_fascia_standard");
+    }
+
+    public void setTiFasciaStandard(String ti_fascia_standard) {
+        setObject("ti_fascia_standard", ti_fascia_standard);
+    }
+
+    public String getTiFasciaManuale() {
+        return getString("ti_fascia_manuale");
+    }
+
+    public void setTiFasciaManuale(String ti_fascia_manuale) {
+        setObject("ti_fascia_manuale", ti_fascia_manuale);
+    }
+
     @Override
     public void entityToRowBean(Object obj) {
         OrgVRicAccordoEnte entity = (OrgVRicAccordoEnte) obj;
@@ -250,6 +289,9 @@ public class OrgVRicAccordoEnteRowBean extends BaseRow implements BaseRowInterfa
         this.setFlEsisteNotaFatturazione(entity.getFlEsisteNotaFatturazione());
         this.setFlEsistonoSae(entity.getFlEsistonoSae());
         this.setFlEsistonoSue(entity.getFlEsistonoSue());
+        this.setFlFasciaManuale(entity.getFlFasciaManuale());
+        this.setTiFasciaStandard(entity.getTiFasciaStandard());
+        this.setTiFasciaManuale(entity.getTiFasciaManuale());
         // PERSONALIZZATO
         String registro = entity.getCdRegistroRepertorio();
         BigDecimal anno = entity.getAaRepertorio();
@@ -283,8 +325,11 @@ public class OrgVRicAccordoEnteRowBean extends BaseRow implements BaseRowInterfa
         entity.setDsNotaFatturazione(this.getDsNotaFatturazione());
         entity.setFlEsistonoGestAcc(this.getFlEsistonoGestAcc());
         entity.setFlEsisteNotaFatturazione(this.getFlEsisteNotaFatturazione());
+        entity.setFlFasciaManuale(this.getFlFasciaManuale());
         entity.setFlEsistonoSae(this.getFlEsistonoSae());
         entity.setFlEsistonoSue(this.getFlEsistonoSue());
+        entity.setTiFasciaStandard(this.getTiFasciaStandard());
+        entity.setTiFasciaManuale(this.getTiFasciaManuale());
         return entity;
     }
 

@@ -1,9 +1,33 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.viewEntity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the ORG_V_CREA_FATTURA_BY_ANNO database table.
@@ -15,7 +39,6 @@ public class OrgVCreaFatturaByAnno implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // private String cdFattura;
     private Date dtDecAccordo;
 
     private BigDecimal imTotDaPagare;
@@ -24,19 +47,9 @@ public class OrgVCreaFatturaByAnno implements Serializable {
 
     private BigDecimal imTotIva;
 
-    // private BigDecimal pgFattura;
-
     public OrgVCreaFatturaByAnno() {
+        // document why this constructor is empty
     }
-
-    // @Column(name = "CD_FATTURA")
-    // public String getCdFattura() {
-    // return this.cdFattura;
-    // }
-    //
-    // public void setCdFattura(String cdFattura) {
-    // this.cdFattura = cdFattura;
-    // }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_DEC_ACCORDO")
@@ -74,15 +87,6 @@ public class OrgVCreaFatturaByAnno implements Serializable {
     public void setImTotIva(BigDecimal imTotIva) {
         this.imTotIva = imTotIva;
     }
-
-    // @Column(name = "PG_FATTURA")
-    // public BigDecimal getPgFattura() {
-    // return this.pgFattura;
-    // }
-    //
-    // public void setPgFattura(BigDecimal pgFattura) {
-    // this.pgFattura = pgFattura;
-    // }
 
     private OrgVCreaFatturaByAnnoId orgVCreaFatturaByAnnoId;
 

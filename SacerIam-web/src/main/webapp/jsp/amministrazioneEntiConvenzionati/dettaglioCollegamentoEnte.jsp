@@ -9,7 +9,43 @@
         <sl:menu showChangePasswordBtn="true" />
         <sl:content>
             <slf:messageBox />
+
+            <c:if test="${!empty requestScope.customDeleteCollegamentoMessageBox}">                
+                <div class="messages confermaDeleteCollegamento ">
+                    <ul>
+                        <li class="message warning ">Attenzione! La cancellazione del collegamento comporterà l'eliminazione delle abilitazioni concesse ai seguenti <c:out value = "${requestScope.numeroUtentiCollegamento}"/> utenti:</li>
+                    </ul>
+                    <p  style="padding-left: 70px">                                                 
+                        <c:forTokens items = "${requestScope.listaUtentiCollegamento}" delims = "," var = "utentiCollegamento">
+                            <c:out value = "${utentiCollegamento}"/><br>                        
+                        </c:forTokens>
+                    <p>
+                    <ul style="text-indent: 30px">
+                    Si desidera procedere?
+                    </ul>
+                </div>      
+            </c:if> 
+            
+            <c:if test="${!empty requestScope.customDeleteAppartenenzaCollegamentoMessageBox}">                
+                <div class="messages confermaDeleteAppartenenzaCollegamento ">
+                    <ul>
+                        <li class="message warning ">Attenzione! La cancellazione dell'appartenenza al collegamento comporterà l'eliminazione delle abilitazioni concesse ai seguenti <c:out value = "${requestScope.numeroUtentiAppartenenzaCollegamento}"/> utenti:</li>
+                    </ul>
+                    <p  style="padding-left: 70px">                                                 
+                        <c:forTokens items = "${requestScope.listaUtentiAppartenenzaCollegamento}" delims = "," var = "utentiAppartenenzaCollegamento">
+                            <c:out value = "${utentiAppartenenzaCollegamento}"/><br>                        
+                        </c:forTokens>
+                    <p>
+                    <ul style="text-indent: 30px">
+                    Si desidera procedere?
+                    </ul>
+                </div>      
+            </c:if> 
+
             <sl:newLine skipLine="true"/>
+            <script type="text/javascript" src="<c:url value='/js/customDeleteCollegamentoMessageBox.js'/>" ></script>
+            <script type="text/javascript" src="<c:url value='/js/customDeleteAppartenenzaCollegamentoMessageBox.js'/>" ></script>
+
             <sl:contentTitle title="<%=AmministrazioneEntiConvenzionatiForm.CollegamentoEnteDetail.DESCRIPTION%>" />
             <c:if test="${(sessionScope['###_FORM_CONTAINER']['collegamentiEnteList'].table['empty'])}">
                 <slf:fieldBarDetailTag name="<%= AmministrazioneEntiConvenzionatiForm.CollegamentoEnteDetail.NAME%>" hideBackButton="${sessionScope['###_FORM_CONTAINER']['collegamentiEnteList'].status eq 'insert'}"/>

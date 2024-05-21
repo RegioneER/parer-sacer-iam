@@ -1,9 +1,34 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.viewEntity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the APL_V_VIS_HELP_ON_LINE database table.
@@ -11,40 +36,36 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "APL_V_VIS_HELP_ON_LINE")
-@NamedQueries({
-        @NamedQuery(name = "selHelpByIdApplicTiHelpNmPagina", query = "SELECT h FROM AplVVisHelpOnLine h, AplApplic a "
-                + "WHERE h.idApplic = a.idApplic " + "AND a.nmApplic=:nmApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.nmPaginaWeb=:nmPaginaWeb " + "AND h.dtIniVal <= :dtRiferimento "
-                + "AND h.dtFineVal >= :dtRiferimento"),
-        @NamedQuery(name = "selHelpByIdApplicTiHelpNmPaginaNmEntryMenu", query = "SELECT h FROM AplVVisHelpOnLine h, AplApplic a "
-                + "WHERE h.idApplic = a.idApplic " + "AND a.nmApplic=:nmApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.nmPaginaWeb=:nmPaginaWeb " + "AND h.nmEntryMenu=:nmEntryMenu "
-                + "AND h.dtIniVal <= :dtRiferimento " + "AND h.dtFineVal >= :dtRiferimento"),
-        // Query ricerca Help tra date
-        @NamedQuery(name = "selHelpByIdApplicTiHelpBetweenDate", query = "SELECT h FROM AplVVisHelpOnLine h "
-                + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.dtIniVal<=:dtRiferimento " + "AND h.dtFineVal>=:dtRiferimento " + "ORDER BY h.dtIniVal DESC "),
-        @NamedQuery(name = "selHelpByIdApplicTiHelpBetweenDateAndPage", query = "SELECT h FROM AplVVisHelpOnLine h "
-                + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.dtIniVal<=:dtRiferimento " + "AND h.dtFineVal>=:dtRiferimento "
-                + "AND h.idPaginaWeb=:idPaginaWeb " + "ORDER BY h.dtIniVal DESC "),
-        @NamedQuery(name = "selHelpByIdApplicTiHelpBetweenDateAndPageAndMenu", query = "SELECT h FROM AplVVisHelpOnLine h "
-                + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.dtIniVal<=:dtRiferimento " + "AND h.dtFineVal>=:dtRiferimento "
-                + "AND h.idPaginaWeb=:idPaginaWeb " + "AND h.idEntryMenu=:idEntryMenu " + "ORDER BY h.dtIniVal DESC "),
-        // Query ricerca Help senza date
-        @NamedQuery(name = "selHelpByIdApplicTiHelp", query = "SELECT h FROM AplVVisHelpOnLine h "
-                + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "ORDER BY h.dtIniVal DESC "),
-        @NamedQuery(name = "selHelpByIdApplicTiHelpAndPage", query = "SELECT h FROM AplVVisHelpOnLine h "
-                + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.idPaginaWeb=:idPaginaWeb " + "ORDER BY h.dtIniVal DESC "),
-        @NamedQuery(name = "selHelpByIdApplicTiHelpAndPageAndMenu", query = "SELECT h FROM AplVVisHelpOnLine h "
-                + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.idPaginaWeb=:idPaginaWeb " + "AND h.idEntryMenu=:idEntryMenu " + "ORDER BY h.dtIniVal DESC "),
-        @NamedQuery(name = "selMenuByIdApplicAndIdPaginaWebDips", query = "SELECT h.nmEntryMenu FROM AplVVisHelpOnLine h "
-                + "WHERE h.nmApplic=:nmApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
-                + "AND h.nmPaginaWeb=:nmPaginaWeb " + "AND h.dtIniVal<=:dtRiferimento "
-                + "AND h.dtFineVal>=:dtRiferimento ") })
+@NamedQuery(name = "selHelpByIdApplicTiHelpNmPagina", query = "SELECT h FROM AplVVisHelpOnLine h, AplApplic a "
+        + "WHERE h.idApplic = a.idApplic " + "AND a.nmApplic=:nmApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
+        + "AND h.nmPaginaWeb=:nmPaginaWeb " + "AND h.dtIniVal <= :dtRiferimento " + "AND h.dtFineVal >= :dtRiferimento")
+@NamedQuery(name = "selHelpByIdApplicTiHelpNmPaginaNmEntryMenu", query = "SELECT h FROM AplVVisHelpOnLine h, AplApplic a "
+        + "WHERE h.idApplic = a.idApplic " + "AND a.nmApplic=:nmApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine "
+        + "AND h.nmPaginaWeb=:nmPaginaWeb " + "AND h.nmEntryMenu=:nmEntryMenu " + "AND h.dtIniVal <= :dtRiferimento "
+        + "AND h.dtFineVal >= :dtRiferimento")
+// Query ricerca Help tra date
+@NamedQuery(name = "selHelpByIdApplicTiHelpBetweenDate", query = "SELECT h FROM AplVVisHelpOnLine h "
+        + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "AND h.dtIniVal<=:dtRiferimento "
+        + "AND h.dtFineVal>=:dtRiferimento " + "ORDER BY h.dtIniVal DESC ")
+@NamedQuery(name = "selHelpByIdApplicTiHelpBetweenDateAndPage", query = "SELECT h FROM AplVVisHelpOnLine h "
+        + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "AND h.dtIniVal<=:dtRiferimento "
+        + "AND h.dtFineVal>=:dtRiferimento " + "AND h.idPaginaWeb=:idPaginaWeb " + "ORDER BY h.dtIniVal DESC ")
+@NamedQuery(name = "selHelpByIdApplicTiHelpBetweenDateAndPageAndMenu", query = "SELECT h FROM AplVVisHelpOnLine h "
+        + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "AND h.dtIniVal<=:dtRiferimento "
+        + "AND h.dtFineVal>=:dtRiferimento " + "AND h.idPaginaWeb=:idPaginaWeb " + "AND h.idEntryMenu=:idEntryMenu "
+        + "ORDER BY h.dtIniVal DESC ")
+// Query ricerca Help senza date
+@NamedQuery(name = "selHelpByIdApplicTiHelp", query = "SELECT h FROM AplVVisHelpOnLine h "
+        + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "ORDER BY h.dtIniVal DESC ")
+@NamedQuery(name = "selHelpByIdApplicTiHelpAndPage", query = "SELECT h FROM AplVVisHelpOnLine h "
+        + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "AND h.idPaginaWeb=:idPaginaWeb "
+        + "ORDER BY h.dtIniVal DESC ")
+@NamedQuery(name = "selHelpByIdApplicTiHelpAndPageAndMenu", query = "SELECT h FROM AplVVisHelpOnLine h "
+        + "WHERE h.idApplic=:idApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "AND h.idPaginaWeb=:idPaginaWeb "
+        + "AND h.idEntryMenu=:idEntryMenu " + "ORDER BY h.dtIniVal DESC ")
+@NamedQuery(name = "selMenuByIdApplicAndIdPaginaWebDips", query = "SELECT h.nmEntryMenu FROM AplVVisHelpOnLine h "
+        + "WHERE h.nmApplic=:nmApplic " + "AND h.tiHelpOnLine=:tiHelpOnLine " + "AND h.nmPaginaWeb=:nmPaginaWeb "
+        + "AND h.dtIniVal<=:dtRiferimento " + "AND h.dtFineVal>=:dtRiferimento ")
 public class AplVVisHelpOnLine implements Serializable {
 
     private static final long serialVersionUID = 1L;

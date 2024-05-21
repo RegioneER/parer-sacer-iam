@@ -1,6 +1,43 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.helper;
 
-import static it.eng.paginator.util.HibernateUtils.*;
+import static it.eng.paginator.util.HibernateUtils.bigDecimalFrom;
+import static it.eng.paginator.util.HibernateUtils.bigDecimalListFrom;
+import static it.eng.paginator.util.HibernateUtils.isCollectionOf;
+import static it.eng.paginator.util.HibernateUtils.longFrom;
+import static it.eng.paginator.util.HibernateUtils.longListFrom;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
+import org.apache.commons.lang3.StringUtils;
+
 import it.eng.saceriam.entity.AplApplic;
 import it.eng.saceriam.entity.AplAzionePagina;
 import it.eng.saceriam.entity.AplEntryMenu;
@@ -24,20 +61,7 @@ import it.eng.saceriam.viewEntity.PrfVLisDichAutor;
 import it.eng.saceriam.viewEntity.PrfVLisDichAutorDaAllin;
 import it.eng.saceriam.viewEntity.PrfVLisRuolo;
 import it.eng.saceriam.viewEntity.PrfVLisUserDaReplic;
-import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.form.base.BaseElements.Status;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Session Bean implementation class AmministrazioneHelper Contiene i metodi, per la gestione della persistenza su DB

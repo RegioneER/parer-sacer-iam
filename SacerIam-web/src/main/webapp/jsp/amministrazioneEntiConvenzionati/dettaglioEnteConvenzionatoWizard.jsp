@@ -228,6 +228,7 @@
                         <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoWizardDetail.TI_ENTE_CONVENZ%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />
                         <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoWizardDetail.DT_INI_VAL%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />
                         <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoWizardDetail.DT_CESSAZIONE%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />
+                        <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoWizardDetail.DS_NOTE%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />
                         <!--MEV#19333-->
                         <%--<slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoWizardDetail.ID_AMBIENTE_ENTE_CONVENZ_NUOVO%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />--%>
                         <%--<slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoWizardDetail.ID_ENTE_CONVENZ_NUOVO%>" width="w100" controlWidth="w40" labelWidth="w20"/><sl:newLine />--%>
@@ -315,9 +316,7 @@
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DT_DEC_ACCORDO%>" colSpan="2"/>
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DT_FINE_VALID_ACCORDO%>" colSpan="2"/><sl:newLine />                            
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.FL_RECESSO%>" colSpan="2"/>
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DS_NOTA_RECESSO%>" colSpan="2"/><sl:newLine />                            
-                            <%--<slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_CLASSE_ENTE_CONVENZ%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_ABITANTI%>" colSpan="2"/><sl:newLine />--%>
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DS_NOTA_RECESSO%>" colSpan="2"/><sl:newLine />                                                        
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DS_NOTE_ACCORDO%>" colSpan="4"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DS_NOTA_FATTURAZIONE%>" colSpan="2"/><sl:newLine />
                         </slf:section>
@@ -334,39 +333,24 @@
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_TIPO_ACCORDO%>" colSpan="2"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.FL_PAGAMENTO%>" colSpan="2"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_TARIFFARIO%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_CLUSTER%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_FASCIA_STANDARD%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_FASCIA_MANUALE%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_CLUSTER_ACCORDO%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_FASCIA_STORAGE_STANDARD_ACCORDO%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_FASCIA_STORAGE_MANUALE_ACCORDO%>" colSpan="2"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_TIPO_UD_STANDARD%>" colSpan="2"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_TIPO_UD_MANUALE%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.IM_ATTIV_DOC_AMM%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_REFERTI_STANDARD%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_REFERTI_MANUALE%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.IM_ATTIV_DOC_SANI%>" colSpan="2"/><sl:newLine />
-                           <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_STUDIO_DICOM%>" colSpan="2"/><sl:newLine />
-                           <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.NI_STUDIO_DICOM_PREV%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.IM_ATTIV_DOC_AMM%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_REFERTI_STANDARD%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_REFERTI_MANUALE%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.IM_ATTIV_DOC_SANI%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_STUDIO_DICOM%>" colSpan="2"/><sl:newLine />
+                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.NI_STUDIO_DICOM_PREV%>" colSpan="2"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DS_NOTA_ATTIVAZIONE%>" colSpan="2"/><sl:newLine />                                                     
                         </slf:section>      
                         <sl:newLine skipLine="true"/>
                         <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.InfoRimborsoCostiTipoServizioSection.NAME%>" styleClass="importantContainer w100">
                             <slf:editableList name="<%= AmministrazioneEntiConvenzionatiForm.TipoServizioAccordoList.NAME%>" multiRowEdit="true" />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.GENERA_TABELLA_TIPI_SERVIZIO_PER_WZ%>" colSpan="2"/>
-                        </slf:section>
-                        <sl:newLine skipLine="true"/>
-                        <%--<slf:section name="<%=AmministrazioneEntiConvenzionatiForm.DatiFatturazioneSection.NAME%>" styleClass="importantContainer w100">
-                            
-                            <%--<slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_UFE%>" colSpan="2"/>
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DS_UFE%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_CD_IVA%>" colSpan="2"/>
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.DS_IVA%>" colSpan="2"/><sl:newLine />--%>
-                            <%--<slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_COGE%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_CAPITOLO%>" colSpan="2"/><sl:newLine />              
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_CIG%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_CUP%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_RIF_CONTAB%>" colSpan="2"/><sl:newLine />  
-                            <%--<slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_DDT%>" colSpan="2"/><sl:newLine />
-                            <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_ODA%>" colSpan="2"/><sl:newLine />--%>                            
-                        <%--</slf:section>--%>
+                        </slf:section>                                                
                         <sl:newLine skipLine="true"/>
                         <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.CampiDeprecatiSection.NAME%>" styleClass="importantContainer w100">
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.ID_CLASSE_ENTE_CONVENZ%>" colSpan="2"/><sl:newLine />
@@ -376,8 +360,7 @@
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_CUP%>" colSpan="2"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_RIF_CONTAB%>" colSpan="2"/><sl:newLine />
                             <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.CD_CLIENTE_FATTURAZIONE%>" colSpan="2"/><sl:newLine />
-                        </slf:section>
-                        <%--<slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail.RICALCOLO_SERVIZI_EROGATI%>" colSpan="2"/><sl:newLine />--%>
+                        </slf:section>                        
                     </slf:fieldSet>
                     <c:if test="${(sessionScope['###_FORM_CONTAINER']['accordiList'].status eq 'view') }">
                         <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.GestioniAccordoSection.NAME%>" styleClass="noborder w100">

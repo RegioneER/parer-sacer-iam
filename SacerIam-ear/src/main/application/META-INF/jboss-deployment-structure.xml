@@ -1,9 +1,13 @@
 <jboss-deployment-structure>
     <deployment>
+        <dependencies>
+            <module name="org.dom4j" export="true" />            
+        </dependencies>
         <exclusions>
             <module name="org.apache.xalan" />
             <module name="org.apache.xerces" />
             <module name="org.apache.commons.logging"/>
+            <module name="org.opensaml"/>          
         </exclusions>
     </deployment>
     
@@ -13,6 +17,7 @@
             <module name="org.apache.xalan" />
             <module name="org.apache.xerces" />
             <module name="org.apache.commons.logging"/>
+            <module name="org.opensaml"/>            
         </exclusions>
         
     </sub-deployment>    
@@ -22,6 +27,7 @@
             <module name="org.apache.xalan" />
             <module name="org.apache.xerces" />
             <module name="org.apache.commons.logging"/>
+            <module name="org.opensaml"/>            
         </exclusions>
     </sub-deployment>
 </jboss-deployment-structure>

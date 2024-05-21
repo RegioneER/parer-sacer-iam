@@ -8,6 +8,22 @@
         <sl:menu showChangePasswordBtn="true" />
         <sl:content>
             <slf:messageBox />
+            <c:if test="${!empty requestScope.customDeleteSupportoMessageBox}">                
+                <div class="messages confermaDeleteSupporto ">
+                    <ul>
+                        <li class="message warning ">Attenzione! La cancellazione dell'ente supportato comporterà l'eliminazione delle abilitazioni concesse ai seguenti <c:out value = "${requestScope.numeroUtentiSupporto}"/> utenti:</li>
+                    </ul>
+                    <p  style="padding-left: 70px">                                                 
+                        <c:forTokens items = "${requestScope.listaUtentiSupporto}" delims = "," var = "utentiSupporto">
+                            <c:out value = "${utentiSupporto}"/><br>                        
+                        </c:forTokens>
+                    <p>
+                    <ul style="text-indent: 30px">
+                    Si desidera procedere?
+                    </ul>
+                </div>      
+            </c:if>
+            
 
             <%--    <c:if test="${!empty requestScope.customDeleteUtentiArkMessageBox}">
                     <div class="messages confermaDeleteUtentiArk ">
@@ -54,6 +70,7 @@
             <%--<script type="text/javascript" src="<c:url value='/js/customDeleteUtentiArkReferentiMessageBox.js'/>" ></script>--%>
             <%--<script type="text/javascript" src="<c:url value='/js/customDeleteUtentiReferentiEnteMessageBox.js'/>" ></script>--%>
             <%--<script type="text/javascript" src="<c:url value='/js/customModificaEnteConvenzMessageBox.js'/>" ></script>--%>
+            <script type="text/javascript" src="<c:url value='/js/customDeleteSupportoMessageBox.js'/>" ></script>
             <sl:contentTitle title="<%=AmministrazioneEntiNonConvenzionatiForm.EnteNonConvenzionatoDetail.DESCRIPTION%>" />
 
             <c:if test="${sessionScope['###_FORM_CONTAINER']['listaEntiNonConvenzionati'].table['empty']}">                        

@@ -1,4 +1,21 @@
 /*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -305,9 +322,9 @@ public class AmministrazioneUtentiHelperTest {
     public void getUsrVLisUserList_queryIsOk() {
         AmministrazioneUtentiHelper.FiltriUtentiPlain filtri = (new AmministrazioneUtentiHelper.FiltriUtentiPlain(
                 aSetOfBigDecimal(2), aLong(), aListOfBigDecimal(2), aString(), aString(), aString(), aString(),
-                aBigDecimal(), aBigDecimal(), aString(), aString(), aListOfString(2), aString(), aBigDecimal(),
-                aBigDecimal(), aString(), aBigDecimal(), aListOfBigDecimal(2), aBigDecimal(), aString(), todayTs(),
-                tomorrowTs(), aBigDecimal(), aString(), aBigDecimal(), aString(), aBigDecimal(), aString()));
+                aBigDecimal(), aBigDecimal(), aString(), aString(), aListOfString(2), aString(), aString(),
+                aBigDecimal(), aBigDecimal(), aString(), aBigDecimal(), aListOfBigDecimal(2), aBigDecimal(), aString(),
+                todayTs(), tomorrowTs(), aBigDecimal(), aString(), aBigDecimal(), aString(), aBigDecimal(), aString()));
         helper.getUsrVLisUserList(filtri);
         assertTrue(true);
     }
@@ -409,7 +426,7 @@ public class AmministrazioneUtentiHelperTest {
     public void getAplApplic_queryIsOk() {
         String name = aString();
         try {
-            helper.getAplApplic(name);
+            helper.getAplApplicByName(name);
             assertTrue(true);
         } catch (Exception e) {
             assertNoResultException(e);
@@ -653,8 +670,14 @@ public class AmministrazioneUtentiHelperTest {
         String nmUserid = aString();
         Set<String> tipiEventoSet = aSetOfString(2);
         String inclUtentiAutomi = aString();
+        String nome = aString();
+        String cognome = aString();
+        String cf = aString();
+        String email = aString();
+        String idEsterno = aString();
 
-        helper.retrieveLogVRicAccessiList(dtEventoDa, dtEventoA, nmUserid, tipiEventoSet, inclUtentiAutomi);
+        helper.retrieveLogVRicAccessiList(dtEventoDa, dtEventoA, nmUserid, tipiEventoSet, inclUtentiAutomi, nome,
+                cognome, cf, email, idEsterno);
         assertTrue(true);
     }
 

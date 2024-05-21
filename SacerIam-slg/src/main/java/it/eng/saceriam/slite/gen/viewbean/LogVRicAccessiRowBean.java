@@ -1,15 +1,30 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.slite.gen.viewbean;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+import it.eng.saceriam.grantedViewEntity.LogVRicAccessi;
 import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.JEEBaseRowInterface;
 import it.eng.spagoLite.db.base.row.BaseRow;
 import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
-import it.eng.saceriam.grantedViewEntity.LogVRicAccessi;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.sql.Types;
-import javax.annotation.Generated;
 
 /**
  * RowBean per la tabella Log_V_Ric_Accessi
@@ -88,6 +103,54 @@ public class LogVRicAccessiRowBean extends BaseRow implements BaseRowInterface, 
         setObject("ds_evento", ds_evento);
     }
 
+    public String getNmNomeUser() {
+        return getString("nm_nome_user");
+    }
+
+    public void setNmNomeUser(String nm_nome_user) {
+        setObject("nm_nome_user", nm_nome_user);
+    }
+
+    public String getNmCognomeUser() {
+        return getString("nm_cognome_user");
+    }
+
+    public void setNmCognomeUser(String nm_cognome_user) {
+        setObject("nm_cognome_user", nm_cognome_user);
+    }
+
+    public String getCdFiscUser() {
+        return getString("cd_fisc_user");
+    }
+
+    public void setCdFiscUser(String cd_fisc_user) {
+        setObject("cd_fisc_user", cd_fisc_user);
+    }
+
+    public String getDsEmailUser() {
+        return getString("ds_email_user");
+    }
+
+    public void setDsEmailUser(String ds_email_user) {
+        setObject("ds_email_user", ds_email_user);
+    }
+
+    public String getCdIdEsterno() {
+        return getString("cd_id_esterno");
+    }
+
+    public void setCdIdEsterno(String cd_id_esterno) {
+        setObject("cd_id_esterno", cd_id_esterno);
+    }
+
+    public String getTipoUser() {
+        return getString("tipo_user");
+    }
+
+    public void setTipoUser(String tipo_user) {
+        setObject("tipo_user", tipo_user);
+    }
+
     @Override
     public void entityToRowBean(Object obj) {
         LogVRicAccessi entity = (LogVRicAccessi) obj;
@@ -100,6 +163,12 @@ public class LogVRicAccessiRowBean extends BaseRow implements BaseRowInterface, 
         }
         this.setTipoEvento(entity.getTipoEvento());
         this.setDsEvento(entity.getDsEvento());
+        this.setNmNomeUser(entity.getNmNomeUser());
+        this.setNmCognomeUser(entity.getNmCognomeUser());
+        this.setCdFiscUser(entity.getCdFiscUser());
+        this.setDsEmailUser(entity.getDsEmailUser());
+        this.setCdIdEsterno(entity.getCdIdEsterno());
+        this.setTipoUser(entity.getTipoUser());
     }
 
     @Override
@@ -112,6 +181,12 @@ public class LogVRicAccessiRowBean extends BaseRow implements BaseRowInterface, 
         entity.setDtEvento(this.getDtEvento());
         entity.setTipoEvento(this.getTipoEvento());
         entity.setDsEvento(this.getDsEvento());
+        entity.setNmNomeUser(this.getNmNomeUser());
+        entity.setNmCognomeUser(this.getNmCognomeUser());
+        entity.setCdFiscUser(this.getCdFiscUser());
+        entity.setDsEmailUser(this.getDsEmailUser());
+        entity.setCdIdEsterno(this.getCdIdEsterno());
+        entity.setTipoUser(this.getTipoUser());
         return entity;
     }
 

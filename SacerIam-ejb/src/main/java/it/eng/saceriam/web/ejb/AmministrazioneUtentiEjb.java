@@ -1,7 +1,50 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.ejb;
+
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.eng.parer.idpjaas.logutils.LogDto;
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
+import it.eng.parer.sacerlog.entity.constraint.ConstLogEventoLoginUser;
 import it.eng.parer.sacerlog.util.LogParam;
 import it.eng.saceriam.amministrazioneEntiConvenzionati.ejb.EntiConvenzionatiEjb;
 import it.eng.saceriam.common.Constants;
@@ -30,6 +73,7 @@ import it.eng.saceriam.entity.UsrTipoDatoIam;
 import it.eng.saceriam.entity.UsrUser;
 import it.eng.saceriam.entity.UsrUsoRuoloUserDefault;
 import it.eng.saceriam.entity.UsrUsoUserApplic;
+import it.eng.saceriam.entity.constraint.ConstAplApplic;
 import it.eng.saceriam.entity.constraint.ConstIamParamApplic;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam;
 import it.eng.saceriam.entity.constraint.ConstUsrAppartUserRich;
@@ -37,10 +81,7 @@ import it.eng.saceriam.entity.constraint.ConstUsrRichGestUser;
 import it.eng.saceriam.entity.constraint.ConstUsrStatoUser;
 import it.eng.saceriam.exception.ParerInternalError;
 import it.eng.saceriam.exception.ParerUserError;
-import it.eng.saceriam.grantedEntity.LogEventoLoginUser;
-import it.eng.saceriam.grantedEntity.constraint.ConstLogEventoLoginUser;
 import it.eng.saceriam.grantedViewEntity.LogVRicAccessi;
-import it.eng.saceriam.grantedViewEntity.UsrVChkUserCancPing;
 import it.eng.saceriam.grantedViewEntity.UsrVChkUserCancSacer;
 import it.eng.saceriam.helper.ParamHelper;
 import it.eng.saceriam.job.ejb.JobLogger;
@@ -53,7 +94,6 @@ import it.eng.saceriam.slite.gen.tablebean.AplClasseTipoDatoTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplEntryMenuTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplPaginaWebTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplServizioWebTableBean;
-import it.eng.saceriam.slite.gen.tablebean.LogEventoLoginUserTableBean;
 import it.eng.saceriam.slite.gen.tablebean.PrfDichAutorRowBean;
 import it.eng.saceriam.slite.gen.tablebean.PrfRuoloRowBean;
 import it.eng.saceriam.slite.gen.tablebean.PrfRuoloTableBean;
@@ -97,7 +137,6 @@ import it.eng.saceriam.slite.gen.viewbean.UsrVLisSchedTableBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisStatoUserTableBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisUserReplicRowBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisUserReplicTableBean;
-import it.eng.saceriam.slite.gen.viewbean.UsrVLisUserRowBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisUserTableBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVLisUsoRuoloDichTableBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVRicRichiesteRowBean;
@@ -108,6 +147,8 @@ import it.eng.saceriam.slite.gen.viewbean.UsrVVisDichAbilRowBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVVisLastRichGestUserRowBean;
 import it.eng.saceriam.slite.gen.viewbean.UsrVVisLastSchedRowBean;
 import it.eng.saceriam.util.DateUtil;
+import it.eng.saceriam.util.KeycloakRestUtil;
+import it.eng.saceriam.util.RestTemplateEjb;
 import it.eng.saceriam.util.SacerLogConstants;
 import it.eng.saceriam.viewEntity.OrgVChkRefEnte;
 import it.eng.saceriam.viewEntity.PrfVLisDichAutor;
@@ -140,28 +181,7 @@ import it.eng.saceriam.ws.ejb.WsIdpLogger;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.db.base.row.BaseRow;
 import it.eng.spagoLite.db.base.table.BaseTable;
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.LocalBean;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestClientException;
 
 /**
  * Ejb Amministrazione Utenti di SacerIam
@@ -172,8 +192,7 @@ import org.slf4j.LoggerFactory;
 @LocalBean
 public class AmministrazioneUtentiEjb {
 
-    public AmministrazioneUtentiEjb() {
-    }
+    private static final String AZIONI_GIA_PRESENTI = "Attenzione: E' già stata inserita un'azione per il medesimo utente";
 
     @EJB
     private AmministrazioneUtentiHelper amministrazioneUtentiHelper;
@@ -195,8 +214,13 @@ public class AmministrazioneUtentiEjb {
     private SistemiVersantiHelper sistemiVersantiHelper;
     @EJB
     private EntiConvenzionatiEjb entiConvenzionatiEjb;
+    @EJB
+    private RestTemplateEjb restTemplateEjb;
 
     private static final Logger log = LoggerFactory.getLogger(AmministrazioneUtentiEjb.class);
+
+    public AmministrazioneUtentiEjb() {
+    }
 
     /**
      * Metodo che ritorna la lista delle applicazioni ordinate per nome
@@ -789,7 +813,7 @@ public class AmministrazioneUtentiEjb {
             List<BigDecimal> idAmbienteEnteAppartList = filtri.getId_amb_ente_convenz_appart().parse();
             List<BigDecimal> idEnteAppartList = filtri.getId_ente_convenz_appart().parse();
             // Set<BigDecimal> idAmbienteSet = new HashSet<BigDecimal>(idAmbienteEnteAppartList);
-            Set<BigDecimal> idEnteSet = new HashSet<BigDecimal>(idEnteAppartList);
+            Set<BigDecimal> idEnteSet = new HashSet<>(idEnteAppartList);
             Set<BigDecimal> idEnteAppartDaPassareAllaQuery = new HashSet<>();
             idEnteAppartDaPassareAllaQuery.addAll(idEnteSet);
             // Se ho selezionato degli ambienti, devo mostrare i risultati solo degli enti abilitati
@@ -801,7 +825,7 @@ public class AmministrazioneUtentiEjb {
                             BigDecimal.valueOf(idUserIamCorr), idAmbienteEnteConvenzAppart, null, null, null,
                             new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList(), null, null, null, null,
                             new ArrayList(), "0", null, null, null, null, null, null, new ArrayList(), null, null, null,
-                            null, null, null);
+                            null, null, null, null);
                     Set<BigDecimal> idEnteAppartAbilitati = new HashSet<>();
                     for (OrgVRicEnteConvenzRowBean row : table) {
                         idEnteAppartAbilitati.add(row.getIdEnteConvenz());
@@ -816,7 +840,7 @@ public class AmministrazioneUtentiEjb {
                             break;
                         }
                     }
-                    // Se ho selezionato almeno un ente sono a posto, altrimenti aggiunto tutti e soli gli enti
+                    // Se ho selezionato almeno un ente sono a posto, altrimenti aggiungo tutti e soli gli enti
                     // abilitati di quell'ambiente
                     if (!almenoUnEnteAmbienteSelezionato) {
                         idEnteAppartDaPassareAllaQuery.addAll(idEnteAppartAbilitati);
@@ -826,13 +850,8 @@ public class AmministrazioneUtentiEjb {
             List<UsrVLisUser> userList = amministrazioneUtentiHelper.getUsrVLisUserList(filtri,
                     idEnteAppartDaPassareAllaQuery, dateValidate, idUserIamCorr, idEntiConvenzionatiAmministratori);
 
-            for (UsrVLisUser user : userList) {
-                UsrVLisUserRowBean userRB = new UsrVLisUserRowBean();
-                userRB = (UsrVLisUserRowBean) Transform.entity2RowBean(user);
-                String emailSec = userRB.getDsEmailSecondaria() != null ? "; " + userRB.getDsEmailSecondaria() : "";
-                userRB.setDsEmail(userRB.getDsEmail() + emailSec);
-                userTB.add(userRB);
-            }
+            userTB = (UsrVLisUserTableBean) Transform.entities2TableBean(userList);
+
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -955,7 +974,7 @@ public class AmministrazioneUtentiEjb {
                 } else if (udao.getUsrUsoRuoloDiches().size() == 1) {
                     nmRuoloDich = udao.getUsrUsoRuoloDiches().get(0).getPrfRuolo().getNmRuolo();
                 } else {
-                    nmRuoloDich = "Autorizzato con più di un ruolo";
+                    nmRuoloDich = "Autorizzato con piÃ¹ di un ruolo";
                 }
                 udaoRowBean.setString("nm_ruolo_dich", nmRuoloDich);
                 udaoTableBean.add(udaoRowBean);
@@ -1246,7 +1265,7 @@ public class AmministrazioneUtentiEjb {
             log.error(e.getMessage(), e);
         }
 
-        /* Creo un nuovo campo concatenandone altri già esistenti */
+        /* Creo un nuovo campo concatenandone altri giÃ  esistenti */
         for (int i = 0; i < schedTableBean.size(); i++) {
             UsrVLisSchedRowBean row = schedTableBean.getRow(i);
             if (row.getDtRegLogJobFine() != null) {
@@ -1280,7 +1299,7 @@ public class AmministrazioneUtentiEjb {
             log.error(e.getMessage(), e);
         }
 
-        /* Creo un nuovo campo concatenandone altri già esistenti */
+        /* Creo un nuovo campo concatenandone altri giÃ  esistenti */
         for (int i = 0; i < replicTableBean.size(); i++) {
             UsrVLisUserReplicRowBean row = replicTableBean.getRow(i);
             if (row.getCdErr() != null && row.getDsMsgErr() != null && row.getDtErr() != null) {
@@ -1319,7 +1338,7 @@ public class AmministrazioneUtentiEjb {
                 user.setDtRegPsw(Calendar.getInstance().getTime());
             }
 
-            // Se è stato indicato il sistema versante, gestisco l'aggiornamento dei servizi erogati
+            // Se Ã¨ stato indicato il sistema versante, gestisco l'aggiornamento dei servizi erogati
             if (user.getAplSistemaVersante() != null) {
                 authEjb.manageUltimoAccordoEntiConvenzionati(idUserIam);
             }
@@ -1339,72 +1358,60 @@ public class AmministrazioneUtentiEjb {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public String attivaUtente(LogParam param, BigDecimal idUserIam) throws ParerUserError {
+    public KeycloakMessageSent attivaUtente(LogParam param, BigDecimal idUserIam) throws ParerUserError {
         // Controllo che all'utente sia associata una richiesta in stato NON_EVASA in cui sia referenziata una richiesta
         // di riattivazione
+        KeycloakMessageSent mex = null;
         UsrAppartUserRich richiestaDaEvadere = amministrazioneUtentiHelper.getRichiestaDaEvadere(idUserIam,
                 ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RIATTIVZIONE.getDescrizione());
         if (richiestaDaEvadere == null) {
             throw new ParerUserError(
                     "Attenzione: richiesta di riattivazione non presente, non \u00E8 possibile procedere");
         }
-        String resetPwd;
+        //
+        // MEV#28512 - Messaggio automatico alla riattivazione di un utente
+        //
         try {
             // Inserisco un record nella tabella USR_STATO_USER
             UsrStatoUser statoUser = new UsrStatoUser();
             UsrUser user = amministrazioneUtentiHelper.findById(UsrUser.class, idUserIam);
-            statoUser.setUsrUser(user);
-            statoUser.setTsStato(new Timestamp(new Date().getTime()));
-            statoUser.setTiStatoUser(ConstUsrStatoUser.TiStatotUser.ATTIVO.name());
-            statoUser.setUsrRichGestUser(richiestaDaEvadere.getUsrRichGestUser());
-            amministrazioneUtentiHelper.insertEntity(statoUser, true);
-            user.setIdStatoUserCor(BigDecimal.valueOf(statoUser.getIdStatoUser()));
-
-            user.setFlAttivo("1");
-
-            // Resetto la password (All'interno della logica eseguo il log dell'utente)
-            resetPwd = authEjb.resetPwd(param, idUserIam);
-            /* registra l'evento di riattivazione nella tabella LOG_EVENTO_LOGIN_USER */
-            LogDto logDto = new LogDto();
-            logDto.setNmAttore(ConstLogEventoLoginUser.NM_ATTORE_ONLINE);
-            logDto.setNmUser(user.getNmUserid());
-            // FORSE INUTILE
-            // tmpLogDto.setCdIndIpClient(indirizzoIP);
-            //
-            logDto.setTsEvento(new Date());
-            logDto.setTipoEvento(LogDto.TipiEvento.SET_PSW);
-            logDto.setDsEvento(ConstLogEventoLoginUser.DS_EVENTO_RIATTIVA_USER);
-
-            idpLogger.scriviLog(logDto);
-
-            /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
-            userHelper.registraLogUserDaReplic(user.getNmUserid(), ApplEnum.TiOperReplic.MOD);
-            // Setto la richiesta come evasa
-            richiestaDaEvadere.setFlAzioneRichEvasa("1");
-            amministrazioneUtentiHelper.getEntityManager().flush();
-            if (!amministrazioneUtentiHelper.existAzioni(richiestaDaEvadere.getUsrRichGestUser().getIdRichGestUser(),
-                    "0")) {
-                richiestaDaEvadere.getUsrRichGestUser()
-                        .setTiStatoRichGestUser(ConstUsrRichGestUser.TiStatoRichGestUser.EVASA.name());
+            mex = inviaMailAttivazione(user.getNmUserid());
+            if (mex.getTipoMessaggio().equals(KeycloakMessageSent.TIPO_INFO)) {
+                statoUser.setUsrUser(user);
+                statoUser.setTsStato(new Timestamp(new Date().getTime()));
+                statoUser.setTiStatoUser(ConstUsrStatoUser.TiStatotUser.ATTIVO.name());
+                statoUser.setUsrRichGestUser(richiestaDaEvadere.getUsrRichGestUser());
+                amministrazioneUtentiHelper.insertEntity(statoUser, true);
+                user.setIdStatoUserCor(BigDecimal.valueOf(statoUser.getIdStatoUser()));
+                user.setFlAttivo("1");
+                /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
+                amministrazioneUtentiHelper.getEntityManager().flush();
+                userHelper.registraLogUserDaReplic(user.getNmUserid(), ApplEnum.TiOperReplic.MOD);
+                // Setto la richiesta come evasa
+                richiestaDaEvadere.setFlAzioneRichEvasa("1");
+                amministrazioneUtentiHelper.getEntityManager().flush();
+                if (!amministrazioneUtentiHelper
+                        .existAzioni(richiestaDaEvadere.getUsrRichGestUser().getIdRichGestUser(), "0")) {
+                    richiestaDaEvadere.getUsrRichGestUser()
+                            .setTiStatoRichGestUser(ConstUsrRichGestUser.TiStatoRichGestUser.EVASA.name());
+                }
+                amministrazioneUtentiHelper.getEntityManager().flush();
+                /*
+                 * Codice aggiuntivo per il logging...
+                 */
+                sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+                        param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_RICHIESTA,
+                        BigDecimal.valueOf(richiestaDaEvadere.getUsrRichGestUser().getIdRichGestUser()),
+                        param.getNomePagina());
             }
-            amministrazioneUtentiHelper.getEntityManager().flush();
-            /*
-             * Codice aggiuntivo per il logging...
-             */
-            // sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
-            // param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_UTENTE, new
-            // BigDecimal(user.getIdUserIam()), param.getNomePagina());
-            sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
-                    param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_RICHIESTA,
-                    BigDecimal.valueOf(richiestaDaEvadere.getUsrRichGestUser().getIdRichGestUser()),
-                    param.getNomePagina());
+
         } catch (Exception e) {
             String messaggio = "Eccezione imprevista nel salvataggio dell'utente ";
             messaggio += ExceptionUtils.getRootCauseMessage(e);
             log.error(messaggio, e);
             throw new ParerUserError(messaggio);
         }
-        return resetPwd;
+        return mex;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -1427,9 +1434,7 @@ public class AmministrazioneUtentiEjb {
             statoUser.setUsrRichGestUser(richiestaDaEvadere.getUsrRichGestUser());
             amministrazioneUtentiHelper.insertEntity(statoUser, true);
             user.setIdStatoUserCor(BigDecimal.valueOf(statoUser.getIdStatoUser()));
-
             user.setFlAttivo("0");
-
             if (!user.getTipoUser().equals("NON_DI_SISTEMA")) {
                 /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
                 userHelper.registraLogUserDaReplic(user.getNmUserid(), ApplEnum.TiOperReplic.MOD);
@@ -1446,7 +1451,6 @@ public class AmministrazioneUtentiEjb {
             /*
              * Codice aggiuntivo per il logging...
              */
-
             sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
                     param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_RICHIESTA,
                     BigDecimal.valueOf(richiestaDaEvadere.getUsrRichGestUser().getIdRichGestUser()),
@@ -1473,7 +1477,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     /**
-     * Verifica se nella lista di abilitazioni organizzazioni sono già presenti dichiarazioni gerarchicamente 'figlie'
+     * Verifica se nella lista di abilitazioni organizzazioni sono giÃ  presenti dichiarazioni gerarchicamente 'figlie'
      * dell'organizzazione non di ultimo livello passata come parametro
      *
      *
@@ -1482,7 +1486,7 @@ public class AmministrazioneUtentiEjb {
      * @param applicazione
      *            lista elementi di tipo {@link PairAuth}
      *
-     * @return true se la lista contiene già delle dichiarazioni
+     * @return true se la lista contiene giÃ  delle dichiarazioni
      */
     public boolean checkDichAutorSetOrganizForChilds(BigDecimal idOrganizIam, Set<PairAuth> applicazione) {
         boolean result = false;
@@ -1517,7 +1521,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     /**
-     * Verifica se nella lista di abilitazioni organizzazioni sono già presenti dichiarazioni gerarchicamente 'figlie'
+     * Verifica se nella lista di abilitazioni organizzazioni sono giÃ  presenti dichiarazioni gerarchicamente 'figlie'
      * dell'organizzazione non di ultimo livello passata come parametro
      *
      *
@@ -1528,7 +1532,7 @@ public class AmministrazioneUtentiEjb {
      * @param applicazione
      *            lista elementi di tipo {@link PairAuth}
      *
-     * @return true se la lista contiene già delle dichiarazioni
+     * @return true se la lista contiene giÃ  delle dichiarazioni
      */
     public boolean checkDichAutorTipiDatoSetOrganizForChilds(BigDecimal idOrganizIam, BigDecimal idClasseTipoDato,
             Set<PairAuth> applicazione) {
@@ -1581,7 +1585,7 @@ public class AmministrazioneUtentiEjb {
     // if (inclLoginOK.equals("0") && tipoEvento != null
     // && tipoEvento.equals(ConstLogEventoLoginUser.TipoEvento.LOGIN_OK.name())) {
     // throw new ParerUserError(
-    // "Attenzione: è stato selezionato di visualizzare i login di tipo LOGIN_OK e al tempo stesso di escluderli dalla
+    // "Attenzione: Ã¨ stato selezionato di visualizzare i login di tipo LOGIN_OK e al tempo stesso di escluderli dalla
     // ricerca (flag includi login OK) ");
     // }
     //
@@ -1617,12 +1621,13 @@ public class AmministrazioneUtentiEjb {
     // }
 
     public LogVRicAccessiTableBean getLogVRicAccessiTableBean(Date dtEventoDa, Date dtEventoA, String nmUserid,
-            String tipoEvento, String inclUtentiAutomi, String inclLoginOK) throws ParerUserError {
+            String tipoEvento, String inclUtentiAutomi, String inclLoginOK, String nome, String cognome, String cf,
+            String email, String idEsterno) throws ParerUserError {
         LogVRicAccessiTableBean loginEventiTB = new LogVRicAccessiTableBean();
         if (inclLoginOK.equals("0") && tipoEvento != null
                 && tipoEvento.equals(ConstLogEventoLoginUser.TipoEvento.LOGIN_OK.name())) {
             throw new ParerUserError(
-                    "Attenzione: è stato selezionato di visualizzare i login di tipo LOGIN_OK e al tempo stesso di escluderli dalla ricerca (flag includi login OK) ");
+                    "Attenzione: Ã¨ stato selezionato di visualizzare i login di tipo LOGIN_OK e al tempo stesso di escluderli dalla ricerca (flag includi login OK) ");
         }
 
         // Preparo il filtro di ricerca per il tipo evento
@@ -1644,7 +1649,7 @@ public class AmministrazioneUtentiEjb {
         }
 
         List<LogVRicAccessi> loginEventiList = amministrazioneUtentiHelper.retrieveLogVRicAccessiList(dtEventoDa,
-                dtEventoA, nmUserid, tipiEventoSet, inclUtentiAutomi);
+                dtEventoA, nmUserid, tipiEventoSet, inclUtentiAutomi, nome, cognome, cf, email, idEsterno);
         try {
             if (loginEventiList != null && !loginEventiList.isEmpty()) {
                 loginEventiTB = (LogVRicAccessiTableBean) Transform.entities2TableBean(loginEventiList);
@@ -1837,10 +1842,10 @@ public class AmministrazioneUtentiEjb {
      */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void deleteUsrRichGestUser(LogParam param, BigDecimal idRichGestUser) throws ParerUserError {
-        // Controllo se vi è almeno una azione con stato evasa
+        // Controllo se vi Ã¨ almeno una azione con stato evasa
         if (amministrazioneUtentiHelper.existAzioni(idRichGestUser.longValue(), "1")) {
             throw new ParerUserError(
-                    "Eliminazione della richiesta non possibile perchè esiste almeno una azione evasa");
+                    "Eliminazione della richiesta non possibile perchÃ¨ esiste almeno una azione evasa");
         }
         try {
             UsrRichGestUser richGestUser = amministrazioneUtentiHelper.findById(UsrRichGestUser.class, idRichGestUser);
@@ -1939,23 +1944,25 @@ public class AmministrazioneUtentiEjb {
 
     private void controlliInserimentoRichiestaUtente(UsrRichGestUserRowBean richGestUserRowBean,
             BigDecimal idRichGestUserExcluded) throws ParerUserError {
-        // Controllo che non esista già uno stesso identificativo UD, se presente, diverso da quello che sto modificando
+        // Controllo che non esista giÃ  uno stesso identificativo UD, se presente, diverso da quello che sto
+        // modificando
         if (richGestUserRowBean.getCdRegistroRichGestUser() != null) {
             if (amministrazioneUtentiHelper
                     .getUsrRichGestUserByOrganizzazioneAndUd(richGestUserRowBean.getBigDecimal("id_organiz_iam"),
                             richGestUserRowBean.getCdRegistroRichGestUser(), richGestUserRowBean.getAaRichGestUser(),
                             richGestUserRowBean.getCdKeyRichGestUser(), idRichGestUserExcluded)
                     .size() > 0) {
-                throw new ParerUserError("Il numero protocollo della richiesta è già associato ad un'altra richiesta");
+                throw new ParerUserError(
+                        "Il numero protocollo della richiesta Ã¨ giÃ  associato ad un'altra richiesta");
             }
         }
 
-        // Controllo che non esista già uno stesso identificativo richiesta, se esiste, per uno stesso ente
+        // Controllo che non esista giÃ  uno stesso identificativo richiesta, se esiste, per uno stesso ente
         // convenzionato
         if (richGestUserRowBean.getCdRichGestUser() != null) {
             if (amministrazioneUtentiHelper.getUsrRichGestUserByRichEnte(richGestUserRowBean.getCdRichGestUser(),
                     richGestUserRowBean.getIdEnteRich(), idRichGestUserExcluded).size() > 0) {
-                throw new ParerUserError("L'identificativo della richiesta è già associato ad un'altra richiesta");
+                throw new ParerUserError("L'identificativo della richiesta Ã¨ giÃ  associato ad un'altra richiesta");
             }
         }
 
@@ -1977,7 +1984,7 @@ public class AmministrazioneUtentiEjb {
             if (!user.getTipoUser().equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
                     && !user.getTipoUser().equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name())) {
                 throw new ParerUserError(
-                        "L’utente richiedente deve avere tipologia pari a PERSONA_FISICA o NON_DI_SISTEMA");
+                        "Lâ€™utente richiedente deve avere tipologia pari a PERSONA_FISICA o NON_DI_SISTEMA");
             }
         }
     }
@@ -2161,41 +2168,68 @@ public class AmministrazioneUtentiEjb {
             azioniUtente = amministrazioneUtentiHelper.getUsrAppartUserRichByUser(idRichGestUser,
                     appartUserRichRowBean.getNmUserid(), appartUserRichRowBean.getIdUserIam(), null);
         }
-        // Nel caso in cui esistano già altre azioni per l'utente che sto inserendo, eseguo dei controlli
-        for (UsrAppartUserRich azioneUtente : azioniUtente) {
-            ConstUsrAppartUserRich.TiAzioneRich azioneUtenteEnum = ConstUsrAppartUserRich.TiAzioneRich
-                    .getEnum(azioneUtente.getTiAzioneRich());
-            // Se sto inserendo una richiesta di modifica abilitazioni
-            boolean confrontoOK = false;
-            switch (azioneEnum) {
-            case RICHIESTA_MODIFICA_ABILITAZIONI:
-            case RICHIESTA_MODIFICA_ENTE_APPARTENENZA:
-                if ((azioneUtenteEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RIATTIVZIONE)
-                        || azioneUtenteEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD))) {
-                    confrontoOK = true;
-                }
-                break;
-            case RICHIESTA_RIATTIVZIONE:
-                if ((azioneUtenteEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_MODIFICA_ABILITAZIONI)
-                        || azioneUtenteEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD)
-                        || azioneUtenteEnum
-                                .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_MODIFICA_ENTE_APPARTENENZA))) {
-                    confrontoOK = true;
-                }
-                break;
-            case RICHIESTA_RESET_PWD:
-                if ((azioneUtenteEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_MODIFICA_ABILITAZIONI)
-                        || azioneUtenteEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RIATTIVZIONE)
-                        || azioneUtenteEnum
-                                .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_MODIFICA_ENTE_APPARTENENZA))) {
-                    confrontoOK = true;
-                }
-                break;
-            }
 
-            if (!confrontoOK) {
-                throw new ParerUserError("Attenzione: è già stata inserita un'azione per il medesimo utente");
+        // MAC#30423 - Amministrazione utenti / Gestione richieste: revisione ammissibilità di più azioni
+        // da evadere per lo stesso utente
+        //
+        // è possibile inserire una azione di "Modifica abilitazioni" qualora esista già per lo stesso utente una azione
+        // tra:
+        // - Riattivazione utente
+        // - Reset password
+        //
+        // è possibile inserire una azione di "Riattivazione utente" qualora esista già per lo stesso utente una azione
+        // tra:
+        // - Modifica abilitazioni
+        // - Modifica ente
+        // - Reset password
+        //
+        // è possibile inserire una azione di "Reset password" qualora esista già per lo stesso utente una azione tra:
+        // - Modifica abilitazioni
+        // - Modifica ente
+        // - Riattivazione utente
+
+        switch (azioneEnum) {
+        case RICHIESTA_MODIFICA_ABILITAZIONI:
+            for (UsrAppartUserRich azioneUtente : azioniUtente) {
+                ConstUsrAppartUserRich.TiAzioneRich azioneUtenteEnum = ConstUsrAppartUserRich.TiAzioneRich
+                        .getEnum(azioneUtente.getTiAzioneRich());
+                switch (azioneUtenteEnum) {
+                case RICHIESTA_RIATTIVZIONE:
+                case RICHIESTA_RESET_PWD:
+                    break;
+                default:
+                    throw new ParerUserError(AZIONI_GIA_PRESENTI);
+                }
             }
+            break;
+        case RICHIESTA_RIATTIVZIONE:
+            for (UsrAppartUserRich azioneUtente : azioniUtente) {
+                ConstUsrAppartUserRich.TiAzioneRich azioneUtenteEnum = ConstUsrAppartUserRich.TiAzioneRich
+                        .getEnum(azioneUtente.getTiAzioneRich());
+                switch (azioneUtenteEnum) {
+                case RICHIESTA_MODIFICA_ABILITAZIONI:
+                case RICHIESTA_MODIFICA_ENTE_APPARTENENZA:
+                case RICHIESTA_RESET_PWD:
+                    break;
+                default:
+                    throw new ParerUserError(AZIONI_GIA_PRESENTI);
+                }
+            }
+            break;
+        case RICHIESTA_RESET_PWD:
+            for (UsrAppartUserRich azioneUtente : azioniUtente) {
+                ConstUsrAppartUserRich.TiAzioneRich azioneUtenteEnum = ConstUsrAppartUserRich.TiAzioneRich
+                        .getEnum(azioneUtente.getTiAzioneRich());
+                switch (azioneUtenteEnum) {
+                case RICHIESTA_MODIFICA_ABILITAZIONI:
+                case RICHIESTA_MODIFICA_ENTE_APPARTENENZA:
+                case RICHIESTA_RIATTIVZIONE:
+                    break;
+                default:
+                    throw new ParerUserError(AZIONI_GIA_PRESENTI);
+                }
+            }
+            break;
         }
 
         // Controlli UTENTE_CODIFICATO
@@ -2218,13 +2252,14 @@ public class AmministrazioneUtentiEjb {
             // }
             // }
             // Controllo tipo RICHIESTA DI RESET PASSWORD
-            if (azioneEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD)) {
-                if (!statoUserCorrente.equals(ConstUsrStatoUser.TiStatotUser.ATTIVO.getDescrizione())
-                        || user.getTipoUser().equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name())) {
-                    throw new ParerUserError(
-                            "L'azione 'Richiesta di reset password' è possibile solo se l'utente ha stato corrente pari ad ATTIVO e non sia di tipo NON_DI_SISTEMA");
-                }
-            }
+            // if (azioneEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD)) {
+            // if (!statoUserCorrente.equals(ConstUsrStatoUser.TiStatotUser.ATTIVO.getDescrizione())
+            // || user.getTipoUser().equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name())) {
+            // throw new ParerUserError(
+            // "L'azione 'Richiesta di reset password' Ã¨ possibile solo se l'utente ha stato corrente pari ad ATTIVO e
+            // non sia di tipo NON_DI_SISTEMA");
+            // }
+            // }
 
             // Controllo stato RICHIESTA DI CESSAZIONE
             if (azioneEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CESSAZIONE)) {
@@ -2264,12 +2299,10 @@ public class AmministrazioneUtentiEjb {
             }
         } // UTENTE NON CODIFICATO
         else {
-            // Sicuramente sarà una richiesta di creazione, ma controllo ugualmente...
+            // Sicuramente sarÃ  una richiesta di creazione, ma controllo ugualmente...
             if (azioneEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CREAZIONE)) {
                 if (existsUtenteByUseridAndTipo(appartUserRichRowBean.getNmUserid())) {
-                    throw new ParerUserError("Lo username dell’utente da creare è già presente nel sistema");
-                    // throw new ParerUserError("Utente non esistente o non appartenente al dominio gestito per lo
-                    // username "+appartUserRichRowBean.getNmUserid()+" specificato");
+                    throw new ParerUserError("Lo username dell'utente da creare è già presente nel sistema");
                 }
             }
         }
@@ -2293,14 +2326,6 @@ public class AmministrazioneUtentiEjb {
         appartUserRich.setNmNomeUser(appartUserRichRowBean.getNmNomeUser());
         appartUserRich.setNmCognomeUser(appartUserRichRowBean.getNmCognomeUser());
         appartUserRich.setNmUserid(appartUserRichRowBean.getNmUserid());
-        // // Assegno null ad fl_user_admin se l'azione è diversa da Richiesta di creazione
-        // if
-        // (!appartUserRichRowBean.getTiAzioneRich().equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CREAZIONE.getDescrizione()))
-        // {
-        // appartUserRich.setFlUserAdmin(null);
-        // } else {
-        // appartUserRich.setFlUserAdmin(appartUserRichRowBean.getFlUserAdmin());
-        // }
         if (appartUserRichRowBean.getIdUserIam() != null) {
             appartUserRich.setUsrUser(
                     amministrazioneUtentiHelper.findById(UsrUser.class, appartUserRichRowBean.getIdUserIam()));
@@ -2375,7 +2400,7 @@ public class AmministrazioneUtentiEjb {
                 UsrVAbilOrganizRowBean abilOrganizRB = (UsrVAbilOrganizRowBean) Transform.entity2RowBean(abilOrganiz);
                 abilOrganizTB.add(abilOrganizRB);
             } else {
-                AplApplic applic = amministrazioneUtentiHelper.getAplApplic("SACER");
+                AplApplic applic = amministrazioneUtentiHelper.getAplApplicByName("SACER");
                 List<UsrVAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVAbilOrganizList(
                         idUserIamCorrente, BigDecimal.valueOf(applic.getIdApplic()), "STRUTTURA", null, false);
                 if (!abilOrganizList.isEmpty()) {
@@ -2391,8 +2416,8 @@ public class AmministrazioneUtentiEjb {
     public UsrVAbilOrganizTableBean getOrganizAbilitate(BigDecimal idUserIamCorrente) {
         UsrVAbilOrganizTableBean abilOrganizTB = new UsrVAbilOrganizTableBean();
         try {
-            // Ricavo le organizzazioni di SACER alle quali l'utente è abilitato
-            AplApplic applic = amministrazioneUtentiHelper.getAplApplic("SACER");
+            // Ricavo le organizzazioni di SACER alle quali l'utente Ã¨ abilitato
+            AplApplic applic = amministrazioneUtentiHelper.getAplApplicByName("SACER");
             List<UsrVAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVAbilOrganizList(
                     idUserIamCorrente, BigDecimal.valueOf(applic.getIdApplic()), "STRUTTURA", null, false);
             if (!abilOrganizList.isEmpty()) {
@@ -2440,7 +2465,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public String resetPassword(LogParam param, BigDecimal idUserIam) throws ParerUserError {
+    public KeycloakMessageSent resetPassword(LogParam param, BigDecimal idUserIam) throws ParerUserError {
         // UsrAppartUserRich richiestaDaEvadere = amministrazioneUtentiHelper.getRichiestaDaEvadere(idUserIam,
         // ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione());
         UsrAppartUserRich richiestaDaEvadere = amministrazioneUtentiHelper.getRichiestaDaEseguire(idUserIam,
@@ -2449,38 +2474,34 @@ public class AmministrazioneUtentiEjb {
             // throw new ParerUserError("Attenzione: richiesta di reset password non presente, non \u00E8 possibile
             // procedere");
             throw new ParerUserError(
-                    "La richiesta di gestione utenti specificata non presenta una azione di reset password relativa all’utente non evasa, oppure presenta una azione reset password relativa all’utente già evasa ma la richiesta non e’ l’ultima in cui e’ coinvolto l’utente");
+                    "La richiesta di gestione utenti specificata non presenta una azione di reset password relativa allâ€™utente non evasa, oppure presenta una azione reset password relativa allâ€™utente giÃ  evasa ma la richiesta non eâ€™ lâ€™ultima in cui eâ€™ coinvolto lâ€™utente");
         }
         /*
          * Codice aggiuntivo per il logging...
          */
         UsrUser user = amministrazioneUtentiHelper.findById(UsrUser.class, idUserIam);
+        KeycloakMessageSent mex = inviaMailAttivazione(user.getNmUserid());
+        if (mex.getTipoMessaggio().equals(KeycloakMessageSent.TIPO_INFO)) {
+            // String password = authEjb.resetPwd(param, idUserIam);
 
-        String password = authEjb.resetPwd(param, idUserIam);
-        /* registra l'evento di riattivazione nella tabella LOG_EVENTO_LOGIN_USER */
-        LogDto logDto = new LogDto();
-        logDto.setNmAttore(ConstLogEventoLoginUser.NM_ATTORE_ONLINE);
-        logDto.setNmUser(user.getNmUserid());
-        // FORSE INUTILE
-        // tmpLogDto.setCdIndIpClient(indirizzoIP);
-        //
-        logDto.setTsEvento(new Date());
-        logDto.setTipoEvento(LogDto.TipiEvento.SET_PSW);
-        logDto.setDsEvento(ConstLogEventoLoginUser.DS_EVENTO_RESET_PSW);
+            /*
+             * Codice aggiuntivo per il logging...
+             */
+            sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
+                    param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_UTENTE,
+                    new BigDecimal(user.getIdUserIam()), param.getNomePagina());
 
-        idpLogger.scriviLog(logDto);
-
-        /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
-        userHelper.registraLogUserDaReplic(user.getNmUserid(), ApplEnum.TiOperReplic.MOD);
-        richiestaDaEvadere.setFlAzioneRichEvasa("1");
-        amministrazioneUtentiHelper.getEntityManager().flush();
-        if (!amministrazioneUtentiHelper.existAzioni(richiestaDaEvadere.getUsrRichGestUser().getIdRichGestUser(),
-                "0")) {
-            richiestaDaEvadere.getUsrRichGestUser()
-                    .setTiStatoRichGestUser(ConstUsrRichGestUser.TiStatoRichGestUser.EVASA.name());
+            /* registra l'evento di riattivazione nella tabella LOG_EVENTO_LOGIN_USER */
+            /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
+            richiestaDaEvadere.setFlAzioneRichEvasa("1");
+            amministrazioneUtentiHelper.getEntityManager().flush();
+            if (!amministrazioneUtentiHelper.existAzioni(richiestaDaEvadere.getUsrRichGestUser().getIdRichGestUser(),
+                    "0")) {
+                richiestaDaEvadere.getUsrRichGestUser()
+                        .setTiStatoRichGestUser(ConstUsrRichGestUser.TiStatoRichGestUser.EVASA.name());
+            }
         }
-
-        return password;
+        return mex;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -2501,9 +2522,6 @@ public class AmministrazioneUtentiEjb {
         LogDto logDto = new LogDto();
         logDto.setNmAttore(ConstLogEventoLoginUser.NM_ATTORE_ONLINE);
         logDto.setNmUser(user.getNmUserid());
-        // FORSE INUTILE
-        // tmpLogDto.setCdIndIpClient(indirizzoIP);
-        //
         logDto.setTsEvento(new Date());
         logDto.setTipoEvento(LogDto.TipiEvento.SET_PSW);
         logDto.setDsEvento(ConstLogEventoLoginUser.DS_EVENTO_INSERT_PSW);
@@ -2555,9 +2573,36 @@ public class AmministrazioneUtentiEjb {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void cessaUtente(LogParam param, BigDecimal idUserIam, UsrAppartUserRich richiestaDaEvadere)
             throws ParerUserError {
-        UsrVChkUserCancPing cancPing = amministrazioneUtentiHelper.findViewById(UsrVChkUserCancPing.class, idUserIam);
-        boolean cancOkPing = (amministrazioneUtentiHelper.getAplApplicByName("SACER_PREINGEST") != null)
-                ? (cancPing == null || cancPing.getFlCancOk().equals("1")) : true;
+        // MEV#27457 - Rendere indipendente SIAM da PING
+        //
+        AplApplic apl = amministrazioneUtentiHelper.getAplApplicByName("SACER_PREINGEST");
+        boolean esistonoVersamentiPing = false;
+        if (apl != null) {
+            try {
+                esistonoVersamentiPing = restTemplateEjb.chiamaExistsVersamentiPerUtente(idUserIam.longValueExact());
+            } catch (RestClientException ex) {
+                log.error("Errore durante l'invocazione del WS Rest 'versatoreCessato'", ex);
+                throw ex;
+            }
+        }
+        // UsrVChkUserCancPing cancPing = amministrazioneUtentiHelper.findViewById(UsrVChkUserCancPing.class,
+        // idUserIam);
+        // boolean cancOkPing = (apl != null)
+        // ? (cancPing == null || cancPing.getFlCancOk().equals("1")) : true;
+        /*
+         * Se è configurato PING nel sistema e se non esistono versamenti il flag diventa Ok si può procedere altrimenti
+         * e ci sono versamenti il flag è KO non si può procedere.
+         */
+        boolean cancOkPing = false;
+        if (apl != null) {
+            if (esistonoVersamentiPing) {
+                cancOkPing = false;
+            } else {
+                cancOkPing = true;
+            }
+        } else {
+            cancOkPing = true;
+        }
         UsrVChkUserCancSacer cancSacer = amministrazioneUtentiHelper.findViewById(UsrVChkUserCancSacer.class,
                 idUserIam);
         boolean cancOkSacer = (cancSacer == null || cancSacer.getFlCancOk().equals("1"));
@@ -2591,8 +2636,41 @@ public class AmministrazioneUtentiEjb {
             user.setIdStatoUserCor(BigDecimal.valueOf(statoUser.getIdStatoUser()));
             user.setFlAttivo("0");
 
+            // Se l'utente cessato non ha versato UD:
+            // - su SACER se è AUTOMA
+            // - su PING se è PERSONA_FISICA
+            // allora annullo il riferimento al sistema versante
+
+            // MEV#27457 - Rendere indipendente SIAM da PING
+            boolean esistonoVersamentiPing = false;
+            if (amministrazioneUtentiHelper
+                    .getAplApplicByName(ConstAplApplic.NmApplic.SACER_PREINGEST.name()) != null) {
+                try {
+                    esistonoVersamentiPing = restTemplateEjb.chiamaExistsVersamentiPerUtente(idUserIam.longValue());
+                } catch (RestClientException ex) {
+                    log.error("Errore durante l'invocazione del WS Rest per l'Help Online.", ex);
+                    throw ex;
+                }
+            }
+            if (user.getTipoUser().equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
+                    // && !amministrazioneUtentiHelper.checkExistsVersamentiPing(idUserIam.longValue())) {
+                    && !esistonoVersamentiPing) {
+                user.setAplSistemaVersante(null);
+            }
+            // -- Fine intervento MEV
+            if (user.getTipoUser().equals(ApplEnum.TipoUser.AUTOMA.name())
+                    && !amministrazioneUtentiHelper.checkExistsVersamentiSacer(idUserIam.longValue())) {
+                user.setAplSistemaVersante(null);
+            }
+
             /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
             userHelper.registraLogUserDaReplic(user.getNmUserid(), ApplEnum.TiOperReplic.MOD);
+
+            // Per l'utente cessato il sistema provvede ad eliminare le seguenti informazioni
+            userHelper.deleteUsoUserApplic(idUserIam);
+            userHelper.deleteDichAbilEnteConvenz(idUserIam);
+            userHelper.deleteAbilEnteSiam(idUserIam);
+
         } else {
             /* Per ogni applicazione dell'utente, registra nel log degli utenti da replicare */
             userHelper.registraLogUserDaReplic(user.getNmUserid(), ApplEnum.TiOperReplic.CANC);
@@ -2604,13 +2682,6 @@ public class AmministrazioneUtentiEjb {
         sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
                 param.getNomeUtente(), param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_UTENTE,
                 BigDecimal.valueOf(user.getIdUserIam()), param.getNomePagina());
-
-        // Per l'utente cessato il sistema provvede ad eliminare le seguenti informazioni
-        // List<UsrUsoUserApplic> uuuaList = amministrazioneUtentiHelper.getUsrUsoUserApplicList(idUserIam);
-        userHelper.deleteUsoUserApplic(idUserIam);
-        userHelper.deleteDichAbilEnteConvenz(idUserIam);
-        userHelper.deleteAbilEnteSiam(idUserIam);
-        user.setAplSistemaVersante(null);
 
         if (deleteUser) {
             /* Elimino l'utente */
@@ -2793,13 +2864,13 @@ public class AmministrazioneUtentiEjb {
                 idSistemaVersante);
         if (tipoUser.equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
                 && sistemaVersante.getFlAssociaPersonaFisica().equals("0")) {
-            errore = "Il sistema versante non è associabile a una persona fisica";
+            errore = "Il sistema versante non Ã¨ associabile a una persona fisica";
         } else if (tipoUser.equals(ApplEnum.TipoUser.AUTOMA.name())
                 && sistemaVersante.getFlAssociaPersonaFisica().equals("1")) {
-            errore = "Il sistema versante non è associabile a un automa";
+            errore = "Il sistema versante non Ã¨ associabile a un automa";
         } else if (tipoUser.equals(ApplEnum.TipoUser.AUTOMA.name())
                 && !sistemiVersantiHelper.checkSistemaVersantePerAutoma(idSistemaVersante, idEnteAppart)) {
-            errore = "Il sistema versante deve appartenere all’ente a cui appartiene l’utente oppure ad un ente di tipo fornitore collegato all’ente a cui appartiene l’utente";
+            errore = "Il sistema versante deve appartenere allâ€™ente a cui appartiene lâ€™utente oppure ad un ente di tipo fornitore collegato allâ€™ente a cui appartiene lâ€™utente";
         }
         return errore;
     }
@@ -2914,31 +2985,6 @@ public class AmministrazioneUtentiEjb {
         return enteSiam.getTiEnte().name();
     }
 
-    // /**
-    // * Metodo di eliminazione delle abilitazioni
-    // *
-    // * @param idUserIam
-    // * @param param
-    // * @throws ParerUserError
-    // */
-    // @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    // public void deleteUsrDichAbil(BigDecimal idUserIam) throws ParerUserError {
-    // try {
-    // List<Long> uuuaList = amministrazioneUtentiHelper.getIdUsrUsoUserApplicList(idUserIam);
-    // userHelper.deleteDichAbilOrganiz(uuuaList);
-    // userHelper.deleteAbilOrganiz(uuuaList);
-    // userHelper.deleteDichAbilDati(uuuaList);
-    // userHelper.deleteAbilDati(uuuaList);
-    // userHelper.deleteDichAbilEnteConvenz(idUserIam);
-    // userHelper.deleteAbilEnteSiam(idUserIam);
-    // //sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(), param.getNomeUtente(),
-    // param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_RICHIESTA, idRichGestUser, param.getNomePagina());
-    // } catch (Exception e) {
-    // log.error("Errore durante la cancellazione delle dichiarazioni e abilitazioni dell'utente" +
-    // ExceptionUtils.getRootCauseMessage(e), e);
-    // throw new ParerUserError("Errore durante la cancellazione delle dichiarazioni e abilitazioni dell'utente");
-    // }
-    // }
     public boolean existsRichiestaUtente(BigDecimal idUserIam) {
         return amministrazioneUtentiHelper.existsRichiestaUtente(idUserIam);
     }
@@ -2987,7 +3033,7 @@ public class AmministrazioneUtentiEjb {
      * Verifico se per le applicazioni SACER o SACER_PING sono stati effettuati versamenti
      *
      * @param nmApplic
-     *            può valere SACER o SACER_PREINGEST
+     *            puo' valere SACER o SACER_PREINGEST
      * @param idUsoUserApplic
      *            l'identificativo che mette in relazione l'utente con l'applicazione
      *
@@ -3002,7 +3048,21 @@ public class AmministrazioneUtentiEjb {
                         .checkExistsVersamentiSacer(usoUserApplic.getUsrUser().getIdUserIam());
                 // Controllo PING
             } else if (nmApplic.equals("SACER_PREINGEST")) {
-                return amministrazioneUtentiHelper.checkExistsVersamentiPing(usoUserApplic.getUsrUser().getIdUserIam());
+                // MEV#27457 - Rendere indipendente SIAM da PING
+                // return
+                // amministrazioneUtentiHelper.checkExistsVersamentiPing(usoUserApplic.getUsrUser().getIdUserIam());
+                boolean risposta = false;
+                if (amministrazioneUtentiHelper
+                        .getAplApplicByName(ConstAplApplic.NmApplic.SACER_PREINGEST.name()) != null) {
+                    try {
+                        risposta = restTemplateEjb
+                                .chiamaExistsVersamentiPerUtente(usoUserApplic.getUsrUser().getIdUserIam());
+                    } catch (RestClientException ex) {
+                        log.error("Errore durante l'invocazione del WS Rest per l'Help Online.", ex);
+                        throw ex;
+                    }
+                }
+                return risposta;
             }
         }
         return false;
@@ -3012,4 +3072,57 @@ public class AmministrazioneUtentiEjb {
         return amministrazioneUtentiHelper.getQualificaUser(idUserIam);
     }
 
+    public KeycloakMessageSent inviaMailAttivazione(String username) {
+        KeycloakMessageSent mex = null;
+        String url = paramHelper.getValoreParamApplic(ConstIamParamApplic.NmParamApplic.URL_KEYCLOAK.name(), null, null,
+                Constants.TipoIamVGetValAppart.APPLIC);
+        String clientId = paramHelper.getValoreParamApplic(ConstIamParamApplic.NmParamApplic.KEYCLOAK_CLIENT_ID.name(),
+                null, null, Constants.TipoIamVGetValAppart.APPLIC);
+        String clientSecret = paramHelper.getValoreParamApplic(
+                ConstIamParamApplic.NmParamApplic.KEYCLOAK_CLIENT_SECRET.name(), null, null,
+                Constants.TipoIamVGetValAppart.APPLIC);
+        String keycloakUserProviderId = paramHelper.getValoreParamApplic(
+                ConstIamParamApplic.NmParamApplic.KEYCLOAK_USER_PROVIDER_ID.name(), null, null,
+                Constants.TipoIamVGetValAppart.APPLIC);
+        Integer timeout = Integer
+                .parseInt(paramHelper.getValoreParamApplic(ConstIamParamApplic.NmParamApplic.TIMEOUT_RECUP_UD.name(),
+                        null, null, Constants.TipoIamVGetValAppart.APPLIC));
+        KeycloakRestUtil keycloak = new KeycloakRestUtil(url, timeout, clientId, clientSecret);
+        if (keycloak.getToken()) {
+            log.debug("Ottenuto il token da keycloak");
+            String userId = "f:" + keycloakUserProviderId + ":" + username;
+            if (keycloak.sendUserActivation(userId)) {
+                log.debug("E-mail inviata");
+                mex = new KeycloakMessageSent(KeycloakMessageSent.TIPO_INFO,
+                        "E-mail di attivazione inviata correttamente.");
+            } else {
+                mex = new KeycloakMessageSent(KeycloakMessageSent.TIPO_WARNING,
+                        "Problemi nell'invio dell'e-mail di attivazione utente.");
+                log.warn("Problemi nell'invio dell'e-mail di attivazione utente.");
+            }
+        }
+        return mex;
+    }
+
+    public class KeycloakMessageSent {
+
+        public static final String TIPO_INFO = "INFO";
+        public static final String TIPO_WARNING = "WARNING";
+        private String tipoMessaggio = TIPO_INFO;
+        private String messaggio = "";
+
+        public KeycloakMessageSent(String tipoMessaggio, String messaggio) {
+            this.tipoMessaggio = tipoMessaggio;
+            this.messaggio = messaggio;
+        }
+
+        public String getTipoMessaggio() {
+            return tipoMessaggio;
+        }
+
+        public String getMessaggio() {
+            return messaggio;
+        }
+
+    }
 }

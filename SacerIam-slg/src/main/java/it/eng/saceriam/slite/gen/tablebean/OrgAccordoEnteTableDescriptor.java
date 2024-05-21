@@ -1,12 +1,28 @@
-package it.eng.saceriam.slite.gen.tablebean;
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
 
-import it.eng.spagoLite.db.oracle.bean.column.ColumnDescriptor;
-import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
+package it.eng.saceriam.slite.gen.tablebean;
 
 import java.sql.Types;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.annotation.Generated;
+
+import it.eng.spagoLite.db.oracle.bean.column.ColumnDescriptor;
+import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
 
 /**
  * @author Sloth
@@ -66,9 +82,9 @@ public class OrgAccordoEnteTableDescriptor extends TableDescriptor {
     public static final String COL_CD_CLIENTE_FATTURAZIONE = "cd_cliente_fatturazione";
     public static final String COL_DT_FINE_VALID_ACCORDO = "dt_fine_valid_accordo";
     public static final String COL_FL_ACCORDO_CHIUSO = "fl_accordo_chiuso";
-    public static final String COL_NI_CLUSTER = "ni_cluster";
-    public static final String COL_NI_FASCIA_STANDARD = "ni_fascia_standard";
-    public static final String COL_NI_FASCIA_MANUALE = "ni_fascia_manuale";
+    public static final String COL_ID_CLUSTER_ACCORDO = "id_cluster_accordo";
+    public static final String COL_ID_FASCIA_STORAGE_STANDARD_ACCORDO = "id_fascia_storage_standard_accordo";
+    public static final String COL_ID_FASCIA_STORAGE_MANUALE_ACCORDO = "id_fascia_storage_manuale_accordo";
     public static final String COL_NI_TIPO_UD_STANDARD = "ni_tipo_ud_standard";
     public static final String COL_NI_TIPO_UD_MANUALE = "ni_tipo_ud_manuale";
     public static final String COL_IM_ATTIV_DOC_AMM = "im_attiv_doc_amm";
@@ -133,9 +149,11 @@ public class OrgAccordoEnteTableDescriptor extends TableDescriptor {
                 new ColumnDescriptor(COL_CD_CLIENTE_FATTURAZIONE, Types.VARCHAR, 100, false));
         map.put(COL_DT_FINE_VALID_ACCORDO, new ColumnDescriptor(COL_DT_FINE_VALID_ACCORDO, Types.TIMESTAMP, 7, false));
         map.put(COL_FL_ACCORDO_CHIUSO, new ColumnDescriptor(COL_FL_ACCORDO_CHIUSO, Types.VARCHAR, 1, false));
-        map.put(COL_NI_CLUSTER, new ColumnDescriptor(COL_NI_CLUSTER, Types.DECIMAL, 22, false));
-        map.put(COL_NI_FASCIA_STANDARD, new ColumnDescriptor(COL_NI_FASCIA_STANDARD, Types.DECIMAL, 22, false));
-        map.put(COL_NI_FASCIA_MANUALE, new ColumnDescriptor(COL_NI_FASCIA_MANUALE, Types.DECIMAL, 22, false));
+        map.put(COL_ID_CLUSTER_ACCORDO, new ColumnDescriptor(COL_ID_CLUSTER_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_FASCIA_STORAGE_STANDARD_ACCORDO,
+                new ColumnDescriptor(COL_ID_FASCIA_STORAGE_STANDARD_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_FASCIA_STORAGE_MANUALE_ACCORDO,
+                new ColumnDescriptor(COL_ID_FASCIA_STORAGE_MANUALE_ACCORDO, Types.DECIMAL, 22, false));
         map.put(COL_NI_TIPO_UD_STANDARD, new ColumnDescriptor(COL_NI_TIPO_UD_STANDARD, Types.DECIMAL, 22, false));
         map.put(COL_NI_TIPO_UD_MANUALE, new ColumnDescriptor(COL_NI_TIPO_UD_MANUALE, Types.DECIMAL, 22, false));
         map.put(COL_IM_ATTIV_DOC_AMM, new ColumnDescriptor(COL_IM_ATTIV_DOC_AMM, Types.DECIMAL, 22, false));

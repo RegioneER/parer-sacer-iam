@@ -1,9 +1,33 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.viewEntity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the ORG_V_RIC_ACCORDO_ENTE database table.
@@ -28,6 +52,7 @@ public class OrgVRicAccordoEnte implements Serializable {
     private String flEsistonoGestAcc;
     private String flEsistonoSae;
     private String flEsistonoSue;
+    private String flFasciaManuale;
     private String flRecesso;
     private BigDecimal idAccordoEnte;
     private BigDecimal idAmbienteEnteConvenz;
@@ -37,6 +62,8 @@ public class OrgVRicAccordoEnte implements Serializable {
     private BigDecimal idUserIamCor;
     private String nmAmbienteEnteConvenz;
     private String nmEnteConvenz;
+    private String tiFasciaStandard;
+    private String tiFasciaManuale;
 
     public OrgVRicAccordoEnte() {
     }
@@ -46,7 +73,8 @@ public class OrgVRicAccordoEnte implements Serializable {
             String cdKeyRepertorio, BigDecimal idTipoAccordo, String cdTipoAccordo, Date dtDecAccordo,
             Date dtFineValidAccordo, Date dtDecAccordoInfo, Date dtScadAccordo, String flRecesso,
             String flEsistonoGestAcc, String idTipoGestioneAccordo, String cdTipoGestioneAccordo,
-            String flEsisteNotaFatturazione, String dsNotaFatturazione, String flEsistonoSae, String flEsistonoSue) {
+            String flEsisteNotaFatturazione, String dsNotaFatturazione, String flFasciaManuale, String flEsistonoSae,
+            String flEsistonoSue, String tiFasciaStandard, String tiFasciaManuale) {
         this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
         this.idEnteConvenz = idEnteConvenz;
         this.idAccordoEnte = idAccordoEnte;
@@ -68,9 +96,12 @@ public class OrgVRicAccordoEnte implements Serializable {
         this.idTipoGestioneAccordo = idTipoGestioneAccordo;
         this.cdTipoGestioneAccordo = cdTipoGestioneAccordo;
         this.flEsisteNotaFatturazione = flEsisteNotaFatturazione;
+        this.flFasciaManuale = flFasciaManuale;
         this.dsNotaFatturazione = dsNotaFatturazione;
         this.flEsistonoSae = flEsistonoSae;
         this.flEsistonoSue = flEsistonoSue;
+        this.tiFasciaStandard = tiFasciaStandard;
+        this.tiFasciaManuale = tiFasciaManuale;
     }
 
     @Column(name = "AA_REPERTORIO")
@@ -203,6 +234,15 @@ public class OrgVRicAccordoEnte implements Serializable {
         this.flEsistonoSue = flEsistonoSue;
     }
 
+    @Column(name = "FL_FASCIA_MANUALE", columnDefinition = "char(1)")
+    public String getFlFasciaManuale() {
+        return this.flFasciaManuale;
+    }
+
+    public void setFlFasciaManuale(String flFasciaManuale) {
+        this.flFasciaManuale = flFasciaManuale;
+    }
+
     @Column(name = "FL_RECESSO", columnDefinition = "char(1)")
     public String getFlRecesso() {
         return this.flRecesso;
@@ -284,6 +324,24 @@ public class OrgVRicAccordoEnte implements Serializable {
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
         this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+    }
+
+    @Column(name = "TI_FASCIA_STANDARD")
+    public String getTiFasciaStandard() {
+        return this.tiFasciaStandard;
+    }
+
+    public void setTiFasciaStandard(String tiFasciaStandard) {
+        this.tiFasciaStandard = tiFasciaStandard;
+    }
+
+    @Column(name = "TI_FASCIA_MANUALE")
+    public String getTiFasciaManuale() {
+        return this.tiFasciaManuale;
+    }
+
+    public void setTiFasciaManuale(String tiFasciaManuale) {
+        this.tiFasciaManuale = tiFasciaManuale;
     }
 
 }

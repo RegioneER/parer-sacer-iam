@@ -1,6 +1,78 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.action;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.ejb.EJB;
+
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import it.eng.parer.jboss.timer.service.JbossTimerEjb;
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.slite.gen.form.GestioneLogEventiForm;
@@ -21,7 +93,9 @@ import it.eng.saceriam.slite.gen.Application;
 import it.eng.saceriam.slite.gen.action.AmministrazioneUtentiAbstractAction;
 import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm;
 import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm.DettaglioUtente;
+import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm.FiltriJobSchedulati;
 import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm.FiltriReplica;
+import it.eng.saceriam.slite.gen.form.GestioneJobForm;
 import it.eng.saceriam.slite.gen.tablebean.AplApplicRowBean;
 import it.eng.saceriam.slite.gen.tablebean.AplApplicTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplApplicTableDescriptor;
@@ -49,6 +123,7 @@ import it.eng.saceriam.slite.gen.tablebean.UsrUsoRuoloUserDefaultRowBean;
 import it.eng.saceriam.slite.gen.tablebean.UsrUsoRuoloUserDefaultTableBean;
 import it.eng.saceriam.slite.gen.tablebean.UsrUsoUserApplicRowBean;
 import it.eng.saceriam.slite.gen.tablebean.UsrUsoUserApplicTableBean;
+import it.eng.saceriam.slite.gen.viewbean.LogVVisLastSchedRowBean;
 import it.eng.saceriam.slite.gen.viewbean.OrgVRicEnteConvenzTableBean;
 import it.eng.saceriam.slite.gen.viewbean.OrgVRicEnteNonConvenzTableBean;
 import it.eng.saceriam.slite.gen.viewbean.PrfVLisRuoloRowBean;
@@ -78,7 +153,10 @@ import it.eng.saceriam.web.dto.PairAuth;
 import it.eng.saceriam.web.ejb.AmministrazioneRuoliEjb;
 import it.eng.saceriam.web.ejb.AmministrazioneUtentiEjb;
 import it.eng.saceriam.web.ejb.AuthEjb;
+import it.eng.saceriam.web.ejb.GestioneJobEjb;
 import it.eng.saceriam.web.ejb.SistemiVersantiEjb;
+import it.eng.saceriam.web.helper.AmministrazioneUtentiHelper;
+import it.eng.saceriam.web.helper.GestioneJobHelper;
 import it.eng.saceriam.web.helper.UserHelper;
 import it.eng.saceriam.web.util.ActionEnums;
 import it.eng.saceriam.web.util.ApplEnum;
@@ -99,62 +177,15 @@ import it.eng.spagoLite.db.base.table.BaseTable;
 import it.eng.spagoLite.db.decodemap.DecodeMapIF;
 import it.eng.spagoLite.db.oracle.decode.DecodeMap;
 import it.eng.spagoLite.form.base.BaseElements.Status;
+import it.eng.spagoLite.form.fields.impl.Button;
+import it.eng.spagoLite.form.fields.impl.CheckBox;
+import it.eng.spagoLite.form.fields.impl.Input;
 import it.eng.spagoLite.message.Message;
+import it.eng.spagoLite.message.Message.MessageLevel;
 import it.eng.spagoLite.message.MessageBox;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
 import it.eng.spagoLite.security.Secure;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.ejb.EJB;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.security.web.header.Header;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
+import it.eng.spagoLite.security.User;
 
 /**
  *
@@ -162,10 +193,17 @@ import org.springframework.web.client.RestTemplate;
  */
 public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAction {
 
+    public static final String FROM_GESTIONE_JOB = "fromGestioneJob";
+
     private static final Logger log = LoggerFactory.getLogger(AmministrazioneUtentiAction.class);
+    public static final String ECCEZIONE_MSG = "Eccezione";
+    public static final String FROM_RICERCA_JOB = "fromRicercaJob";
+    private static final String WARNING_NO_JOB_SELEZIONATO = "Attenzione: nessun JOB selezionato";
 
     @EJB(mappedName = "java:app/SacerIam-ejb/AuthEjb")
     private AuthEjb auth;
+    @EJB(mappedName = "java:app/SacerIam-ejb/AmministrazioneUtentiHelper")
+    private AmministrazioneUtentiHelper amministrazioneUtentiHelper;
     @EJB(mappedName = "java:app/SacerIam-ejb/AmministrazioneUtentiEjb")
     private AmministrazioneUtentiEjb amministrazioneUtentiEjb;
     @EJB(mappedName = "java:app/SacerIam-ejb/AmministrazioneRuoliEjb")
@@ -186,18 +224,18 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     @EJB(mappedName = "java:app/JbossTimerWrapper-ejb/JbossTimerEjb")
     private JbossTimerEjb jbossTimerEjb;
 
+    @EJB(mappedName = "java:app/SacerIam-ejb/GestioneJobEjb")
+    private GestioneJobEjb gestioneJobEjb;
+
+    @EJB(mappedName = "java:app/SacerIam-ejb/GestioneJobHelper")
+    private GestioneJobHelper gestioneJobHelper;
+
     private static final String IP_ADDRESS = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
-    // private static final String USERNAME = "^[A-Za-z0-9_\\-\\.]+$";
     private static final String USERNAME = "^[a-zA-Z0-9]+([_\\.\\-]*[a-zA-Z0-9])*$";
-    // private static final String USERNAME = "^([A-Za-z0-9])*([A-Za-z0-9_\\-\\.])*([A-Za-z0-9])$";
 
-    // Accetta tutte le stringhe che contengono almeno una lettera, almeno un numero ed almeno un carattere speciale tra
-    // quelli riportati (tabella ASCII)
-    // private static final String PASSWORD_REGEX =
-    // "(?=.*\\d)(?=.*[a-zA-Z])(?=.*[\\\"#$%!&'()*+,-./:;,\\{\\}?<>\\\\_@^|=`~\\]\\[])[A-Za-z\\d\\\"#$%!&'()*+,-./:;,\\{\\}?<>\\\\_@^|=`~\\]\\[]{8,}$";
     private static final String PASSWORD_REGEX = "(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!-/:-@\\[-`{-~])[A-Za-z\\d!-/:-@\\[-`{-~]{8,}$";
     private static final String SLASH_FORMAT = IP_ADDRESS.substring(0, IP_ADDRESS.length() - 1)
             + "/([1-9]{1}|[1-2][0-9]?|3[0-2])$";
@@ -493,13 +531,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 /* Se la dichiarazione e' ALL_ORG non deve essere visualizzata la lista per organizzazioni */
                 if (!getForm().getDichAbilOrgList().getTable().getCurrentRow().getString("ti_scopo_dich_abil_organiz")
                         .equals(ActionEnums.ScopoDichAbilOrganiz.ALL_ORG.name())) {
-                    // getForm().getGestioneRuoliOrganizzazione().setStatus(Status.update);
 
-                    /* Metto editabili i campi riferiti all'inserimento dei ruoli specifici per organizzazione */
-                    // getForm().getGestioneRuoliOrganizzazione().getTi_scopo_dich_abil_organiz().setHidden(false);
                     getForm().getGestioneRuoliOrganizzazione().getTi_scopo_ruolo().setHidden(true);
-                    // getForm().getGestioneRuoliOrganizzazione().getTi_scopo_dich_abil_organiz_combo().setDecodeMap(ComboGetter.getTiScopoDichAbilOrganiz(getForm().getDichAbilOrgList().getTable().getCurrentRow().getString("ti_scopo_dich_abil_organiz")));
-                    // getForm().getGestioneRuoliOrganizzazione().getDl_composito_organiz().setHidden(false);
                     getForm().getGestioneRuoliOrganizzazione().getDl_composito_organiz_ruolo().setHidden(true);
                     getForm().getGestioneRuoliOrganizzazione().getNm_ruolo().setHidden(true);
                     getForm().getGestioneRuoliOrganizzazione().getDs_ruolo().setHidden(true);
@@ -579,7 +612,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                         getForm().getGestioneRuoliOrganizzazione().getId_organiz_iam_dich().setValue("" + idOrganizIam);
 
                         // Carico la lista dei ruoli
-                        // PrfRuoloTableBean ruoli = amministrazioneUtentiEjb.getRuoliAbilOrganiz(idDichAbilOrg);
                         UsrVLisUsoRuoloDichTableBean lisUsoRuoloDich = amministrazioneUtentiEjb
                                 .getUsrVLisUsoRuoloDichTableBean(idDichAbilOrg);
                         getForm().getRuoliList().setTable(lisUsoRuoloDich);
@@ -598,7 +630,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
                 } else if (getTableName().equals(getForm().getAzioniList().getName())
                         && !getNavigationEvent().equals(NE_DETTAGLIO_INSERT)) {
-                    // initAzioneDetail();
                     // Carico il dettaglio dell'azione
                     BigDecimal idAppartGestUser = ((UsrAppartUserRichRowBean) getForm().getAzioniList().getTable()
                             .getCurrentRow()).getIdAppartUserRich();
@@ -640,6 +671,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getRichiestaDetail().setViewMode();
         // Inizializzo i bottoni in edit mode
         getForm().getRichiestaDetail().getLogEventiRichiesta().setEditMode();
+        getForm().getRichiestaDetail().getScaricaFileRichiesta().setDisableHourGlass(true);
         getForm().getRichiestaDetail().getScaricaFileRichiesta().setEditMode();
         getForm().getRichiestaDetail().getRichiestaCompletata().setEditMode();
         // Visualizzazione del bottone Scarica file richiesta
@@ -729,7 +761,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         try {
             UsrUserRowBean utente;
             if (idUser != null) {
-                // utenteBean = amministrazioneUtentiEjb.getUsrVLisUserRowBean(idUser);
                 utente = amministrazioneUtentiEjb.getUserRowBean(idUser);
                 // Ricavo l'indice di riga nel quale si trova il record nella tabella a video
                 int count = -1;
@@ -851,17 +882,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             // Abilito o meno la tab degli enti convenzionati
             abilitaEnteConvenzTab(utente.getIdEnteSiam(), utente.getTipoUser());
 
-            // OrgEnteSiamRowBean ente = entiConvenzionatiEjb.getOrgEnteConvenzRowBean(utente.getIdEnteSiam());
-            // setFlagUtente(ente.getTiEnte(), ente.getTiEnteNonConvenz(),
-            // getForm().getDettaglioUtente().getTipo_user().parse());
-            // getForm().getDettaglioUtente().getFl_resp_ente_convenz()
-            // .setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
-            // getForm().getDettaglioUtente().getFl_abil_enti_colleg_autom()
-            // .setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
-            // getForm().getDettaglioUtente().getFl_abil_organiz_autom()
-            // .setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
-            // getForm().getDettaglioUtente().getFl_abil_fornit_autom()
-            // .setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
             // Carico la lista degli indirizzi IP dell'utente
             UsrIndIpUserTableBean uiiuTB = amministrazioneUtentiEjb.getUsrIndIpUserTableBean(utente.getIdUserIam());
             getForm().getIndIpList().setTable(uiiuTB);
@@ -970,11 +990,11 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
         getForm().getDettaglioUtente().getDuplicaUtente().setEditMode();
         getForm().getDettaglioUtente().getLogEventi().setEditMode();
-        getForm().getDettaglioUtente().getResetPassword().setEditMode();
         getForm().getDettaglioUtente().getVisualizzaReplicheUtenti().setEditMode();
         getForm().getDettaglioUtente().getNuovaPassword().setEditMode();
         getForm().getDettaglioUtente().getAttivaUtente().setEditMode();
         getForm().getDettaglioUtente().getDisattivaUtente().setEditMode();
+        getForm().getDettaglioUtente().getInviaMailAttivazione().setEditMode();
         getForm().getDettaglioUtente().getCessaUtente().setEditMode();
 
         getForm().getGestioneRuoliOrganizzazione().getAggiungiRuoloOrg().setViewMode();
@@ -987,13 +1007,12 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getDettaglioUtente().getAttivaUtente().setHidden(true);
         getForm().getDettaglioUtente().getDisattivaUtente().setHidden(true);
         getForm().getDettaglioUtente().getCessaUtente().setHidden(true);
-        getForm().getDettaglioUtente().getResetPassword().setHidden(true);
         getForm().getDettaglioUtente().getNuovaPassword().setHidden(true);
+        getForm().getDettaglioUtente().getInviaMailAttivazione().setHidden(true);
 
         if (idUserIam != null) {
             UsrUserRowBean userRowBean = amministrazioneUtentiEjb.getUserRowBean(idUserIam);
             String tiStatoUser = amministrazioneUtentiEjb.getStatoCorrenteUser(idUserIam);
-            boolean nonDiSistema = userRowBean.getTipoUser().equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name());
 
             if (tiStatoUser.equals(ConstUsrStatoUser.TiStatotUser.DISATTIVO.name())) {
                 getForm().getDettaglioUtente().getAttivaUtente().setHidden(false);
@@ -1015,7 +1034,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 }
 
                 if (userRowBean.getTipoUser().equals(ApplEnum.TipoUser.PERSONA_FISICA.name())) {
-                    getForm().getDettaglioUtente().getResetPassword().setHidden(false);
+                    getForm().getDettaglioUtente().getInviaMailAttivazione().setHidden(false);
                 }
 
             }
@@ -1250,11 +1269,11 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
                 // Coerenza se è non codificato...
                 if (StringUtils.isBlank(getForm().getAzioneDetail().getNm_userid().parse())
-                        && getForm().getAzioneDetail().getId_user_iam().parse() == null
-                        && (getForm().getAzioneDetail().getTi_azione_rich().parse()
-                                .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione())
-                                || getForm().getAzioneDetail().getTi_azione_rich().parse().equals(
-                                        ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CESSAZIONE.getDescrizione())
+                        && getForm().getAzioneDetail().getId_user_iam().parse() == null && ( // getForm().getAzioneDetail().getTi_azione_rich().parse()
+                        // .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione())
+                        // ||
+                        getForm().getAzioneDetail().getTi_azione_rich().parse()
+                                .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CESSAZIONE.getDescrizione())
                                 || getForm().getAzioneDetail().getTi_azione_rich().parse()
                                         .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_MODIFICA_ABILITAZIONI
                                                 .getDescrizione())
@@ -1281,7 +1300,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
                 if (getForm().getAzioneDetail().getTi_azione_rich().parse()
                         .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CREAZIONE.getDescrizione())) {
-                    // hasCaratteriSpecialiUsername(getForm().getAzioneDetail().getNm_userid().parse());
                     checkUsername(getForm().getAzioneDetail().getNm_userid().parse());
                 }
 
@@ -1348,17 +1366,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         forwardToPublisher(Application.Publisher.DETTAGLIO_AZIONE);
     }
 
-    private boolean hasCaratteriSpecialiUsername(String nmUserid) throws EMFError {
-        // Controllo su caratteri accettati per username
-        Pattern p = Pattern.compile("[àéèìòù'ÀÉÈÌÒÙ]");
-        Matcher m = p.matcher(nmUserid);
-        if (m.find()) {
-            getMessageBox().addError("La username contiene caratteri non validi");
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void elencoOnClick() throws EMFError {
         goBack();
@@ -1382,10 +1389,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     @Override
     public void inserimentoWizardOnCancel() throws EMFError {
         getSession().removeAttribute("applicationsEditList");
-        // getSession().removeAttribute("flUserAdmin");
         if (getForm().getListaUtenti().getStatus().equals(Status.insert)) {
             setDettaglioUtentiToViewMode();
-            // SessionManager.removeLastExecutionHistory(getSession());
             goBack();
         } else if (getForm().getListaUtenti().getStatus().equals(Status.update)) {
             setNavigationEvent(NE_DETTAGLIO_VIEW);
@@ -1564,11 +1569,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                             getForm().getRichiestaWizard().getId_rich_gest_user()
                                     .setValue(usrRichGest.getIdRichGestUser().toPlainString());
                             if (getForm().getListaUtenti().getStatus().equals(Status.insert)) {
-                                // // Richiesta inserita, inserisco un utente di tipo AUTOMA o PERSONA_FISICA
-                                // getForm().getDettaglioUtente().getTipo_user().setDecodeMap(ComboGetter.getMappaSortedGenericEnum("tipo_user",
-                                // ApplEnum.TipoUser.getComboTipiTotali()));
-                                // getForm().getDettaglioUtente().getTipo_user().setValue(ApplEnum.TipoUser.PERSONA_FISICA.name());
-                                // Richiesta inserita, controllo l'ente di appartenenza
 
                                 try {
                                     OrgEnteSiamRowBean ente = entiConvenzionatiEjb
@@ -1829,12 +1829,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             getForm().getDettaglioUtente().getDt_ini_cert().setEditMode();
             getForm().getDettaglioUtente().getDt_fin_cert().setEditMode();
             getForm().getDettaglioUtente().getDl_cert_client().setEditMode();
-
-            /*
-             * if (getForm().getDettaglioUtente().getTipo_auth().parse()!=null &&
-             * getForm().getDettaglioUtente().getTipo_auth().parse().equals(ApplEnum.TipoAuth.AUTH_CERT.name()) ) {
-             * getForm().getDettaglioUtente().getTipo_auth()setEditMode(); }
-             */
             getForm().getDettaglioUtente().getId_sistema_versante().setEditMode();
             getForm().getDettaglioUtente().getFl_resp_ente_convenz().setEditMode();
             getForm().getDettaglioUtente().getFl_abil_enti_colleg_autom().setEditMode();
@@ -2009,7 +2003,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             }
 
             if (result) {
-                // result = hasCaratteriSpecialiUsername(getForm().getDettaglioUtente().getNm_userid().parse());
                 result = checkUsername(getForm().getDettaglioUtente().getNm_userid().parse());
             }
             // Controllo date certificato
@@ -2062,7 +2055,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                         // Recupero l'id azione in base allo userId dell'utente
 
                         // Se arrivo dal bottone esegui, ho anche l'id della azione
-                        // idAppartUserRich = getForm().getRichiestaWizard().getId_appart_user_rich().parse();
                         BigDecimal idUserIam = getForm().getDettaglioUtente().getId_user_iam().parse();
                         List<String> listaTiAzioneRich = new ArrayList<>();
                         listaTiAzioneRich.add(
@@ -2161,8 +2153,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                     String dsEmailSecondaria = getForm().getDettaglioUtente().getDs_email_secondaria().parse();
                     String flContrIp = getForm().getDettaglioUtente().getFl_contr_ip().parse();
                     String flAttivo = getForm().getDettaglioUtente().getFl_attivo().parse();
-                    // String flUserAdmin = getForm().getDettaglioUtente().getFl_user_admin().parse();
-                    // String tipoUser = getForm().getDettaglioUtente().getTipo_user().parse();
 
                     if (amministrazioneUtentiEjb.checkModificheCampiUtente(nmUserid, nmCognomeUser, nmNomeUser,
                             flAttivo, cdFisc, dsEmail, dsEmailSecondaria, flContrIp, tipoUser)
@@ -2303,24 +2293,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
     private void checkUserType() throws EMFError {
         getSession().setAttribute("userType", (String) getForm().getDettaglioUtente().getTipo_user().parse());
-        // if (getForm().getDettaglioUtente().getTipo_user().parse().equals(ApplEnum.TipoUser.AUTOMA.name()) // ||
-        // // getForm().getDettaglioUtente().getTipo_user().parse().equals(ApplEnum.TipoUser.TEAM.name())
-        // ) {
-        // if (getForm().getListaUtenti().getStatus().equals(Status.update)) {
-        // getForm().getDettaglioUtente().getCd_psw().setViewMode();
-        // getForm().getDettaglioUtente().getCd_psw().setHidden(true);
-        // }
-        // if (getForm().getListaUtenti().getStatus().equals(Status.insert)) {
-        // getForm().getDettaglioUtente().getCd_psw().setEditMode();
-        // getForm().getDettaglioUtente().getCd_psw().setHidden(false);
-        //
-        // }
-        // } else {
-        // getForm().getDettaglioUtente().getCd_psw().setViewMode();
-        // getForm().getDettaglioUtente().getCd_psw().setHidden(true);
-        // }
         if (getForm().getDettaglioUtente().getTipo_user().parse().equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name()) // ||
-        // getForm().getDettaglioUtente().getTipo_user().parse().equals(ApplEnum.TipoUser.TEAM.name())
         ) {
             getForm().getDettaglioUtente().getCd_psw().setViewMode();
             getForm().getDettaglioUtente().getCd_psw().setHidden(true);
@@ -2480,7 +2453,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             }
         } else if (tableBean instanceof UsrDichAbilOrganizTableBean
                 && getForm().getWizardListsTabs().getListaWizardAbilOrganiz().isCurrent()) {
-            Set<PairAuth> scopoSet = new HashSet<PairAuth>();
+            Set<PairAuth> scopoSet = new HashSet<>();
             for (UsrDichAbilOrganizRowBean row : (UsrDichAbilOrganizTableBean) tableBean) {
                 String applicazione = row.getString("nm_applic");
                 scopoSet = getScopoOrgSet(applicazione);
@@ -2493,7 +2466,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             }
         } else if (tableBean instanceof UsrDichAbilDatiTableBean
                 && getForm().getWizardListsTabs().getListaWizardTipiDato().isCurrent()) {
-            Set<PairAuth> scopoSet = new HashSet<PairAuth>();
+            Set<PairAuth> scopoSet = new HashSet<>();
             for (UsrDichAbilDatiRowBean row : (UsrDichAbilDatiTableBean) tableBean) {
                 String applicazione = row.getString("nm_applic");
                 BigDecimal idClasseTipoDato = row.getIdClasseTipoDato();
@@ -3005,6 +2978,18 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             getMessageBox()
                     .addError("Attenzione: se utilizzato, nel campo Codice fiscale vanno inseriti almeno 6 caratteri");
         }
+        if (getForm().getFiltriUtenti().getFl_utenti_automa_cessati().parse() != null
+                && getForm().getFiltriUtenti().getFl_utenti_automa_cessati().parse().equals("1")
+                && getForm().getFiltriUtenti().getTipo_user().parse() != null
+                && !getForm().getFiltriUtenti().getTipo_user().parse().isEmpty()
+                && (getForm().getFiltriUtenti().getTipo_user().parse().contains(ApplEnum.TipoUser.PERSONA_FISICA.name())
+                        || getForm().getFiltriUtenti().getTipo_user().parse()
+                                .contains(ApplEnum.TipoUser.NON_DI_SISTEMA.name()))
+                && getForm().getFiltriUtenti().getTi_stato_user().parse() != null
+                && !getForm().getFiltriUtenti().getTi_stato_user().parse().isEmpty()) {
+            getMessageBox().addError(
+                    "Attenzione: si sta effettuando la ricerca di 'Utenti automa cessati', il filtro Tipologia utente deve essere valorizzato solo con AUTOMA e il filtro Stato utente non deve essere valorizzato");
+        }
 
         if (!getMessageBox().hasError()) {
             if (getForm().getFiltriUtenti().validate(getMessageBox())) {
@@ -3036,6 +3021,27 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     @Override
     public void pulisciUtenti() throws EMFError {
         resetRicercaUtentiPageFiltriGenerici();
+        forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
+    }
+
+    @Override
+    public void attivaTriggerUtentiAutomaCessati() throws EMFError {
+        getForm().getFiltriUtenti().post(getRequest());
+        String flUtentiAutomaCessati = getForm().getFiltriUtenti().getFl_utenti_automa_cessati().parse();
+        getForm().getFiltriUtenti().getTi_stato_user().setValue("");
+        String[] automa;
+
+        if (flUtentiAutomaCessati.equals("1")) {
+            automa = new String[] { ApplEnum.TipoUser.AUTOMA.name() };
+            getForm().getFiltriUtenti().getTipo_user().setValues(automa);
+            getForm().getFiltriUtenti().getTi_stato_user().setViewMode();
+            getForm().getFiltriUtenti().getTipo_user().setViewMode();
+        } else {
+            automa = new String[] { "" };
+            getForm().getFiltriUtenti().getTipo_user().setValues(automa);
+            getForm().getFiltriUtenti().getTi_stato_user().setEditMode();
+            getForm().getFiltriUtenti().getTipo_user().setEditMode();
+        }
         forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
     }
 
@@ -3171,43 +3177,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
         getForm().getInserimentoWizard().reset();
         forwardToPublisher(Application.Publisher.DETTAGLIO_UTENTE_WIZARD);
-    }
-
-    /**
-     * Metodo chiamato al click del bottone omonimo, Esegue il reset della password per l'utente del dettaglio e mostra
-     * la password temporanea nel messaggio di informazione
-     *
-     * @throws EMFError
-     *             errore generico
-     */
-    @Override
-    public void resetPassword() throws EMFError {
-        try {
-            /*
-             * Codice aggiuntivo per il logging...
-             */
-            LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
-                    getUser().getUsername(), SpagoliteLogUtil.getPageName(this));
-            class Local {
-            }
-            ;
-            String nomeMetodo = Local.class.getEnclosingMethod().getName();
-            param.setNomeAzione(SpagoliteLogUtil.getButtonActionName(this.getForm(),
-                    this.getForm().getDettaglioUtente(), nomeMetodo));
-            param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-            UsrVLisUserRowBean user = (UsrVLisUserRowBean) getForm().getListaUtenti().getTable().getCurrentRow();
-            String password = amministrazioneUtentiEjb.resetPassword(param, user.getIdUserIam());
-            getMessageBox().addInfo("Password utente resettata con successo.<br/>"
-                    + "Richiedere all'utente il primo accesso per modifica password utilizzando i dati:<br/><ul><li>Username: "
-                    + user.getNmUserid() + "</li><li>Password: " + password + "</li><li>E-mail: " + user.getDsEmail()
-                    + "</li></ul>");
-            getMessageBox().setViewMode(ViewMode.plain);
-        } catch (ParerUserError ex) {
-            getMessageBox().addError(ex.getDescription());
-        } catch (Exception e) {
-            getMessageBox().addError("Errore durante il salvataggio della password", e);
-        }
-        forwardToPublisher(getLastPublisher());
     }
 
     @Override
@@ -3646,7 +3615,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 user.setNmNomeUser(getForm().getDettaglioUtente().getNm_nome_user().parse());
                 user.setNmUserid(getForm().getDettaglioUtente().getNm_userid().parse());
                 user.setFlAttivo(getForm().getDettaglioUtente().getFl_attivo().parse());
-                // user.setFlUserAdmin(getForm().getDettaglioUtente().getFl_user_admin().parse());
                 user.setDtRegPsw(new Timestamp(Calendar.getInstance().getTimeInMillis()));
                 user.setCdFisc(getForm().getDettaglioUtente().getCd_fisc().parse());
                 user.setDsEmail(getForm().getDettaglioUtente().getDs_email().parse());
@@ -3663,11 +3631,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 user.setFlAbilEntiCollegAutom(getForm().getDettaglioUtente().getFl_abil_enti_colleg_autom().parse());
                 user.setFlAbilOrganizAutom(getForm().getDettaglioUtente().getFl_abil_organiz_autom().parse());
                 user.setFlAbilFornitAutom(getForm().getDettaglioUtente().getFl_abil_fornit_autom().parse());
-                // user.setFlUtenteDitta(getForm().getDettaglioUtente().getFl_utente_ditta().parse());
                 if (userType.equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
-                        || userType.equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name()) // ||
-                // userType.equals(ApplEnum.TipoUser.TEAM.name()
-                ) {
+                        || userType.equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name())) {
                     password = RandomStringUtils.randomAlphanumeric(8);
                     user.setCdPsw(password);
                     Date dataScad = new Date();
@@ -3704,6 +3669,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 oldUserType = userHelper.getTipologiaUtenteAdmin(idUser.longValue());
                 try {
                     user = amministrazioneUtentiEjb.getUserRowBean(idUser);
+                    log.debug("MAC 30075 - Inizio salvataggio modifica utente " + user.getNmUserid());
                 } catch (Exception ex) {
                     throw new EMFError(EMFError.BLOCKING, "Errore nel caricamento dei dati utente", ex);
                 }
@@ -3827,8 +3793,19 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                         .getRuoliDefaultList().getTable();
                 UsrDichAbilOrganizTableBean dichAbilOrganizTableBean = (UsrDichAbilOrganizTableBean) getForm()
                         .getDichAbilOrgList().getTable();
+
+                log.debug(
+                        "MAC 30075 - In questo istante, prima di iniziare a salvare su DB, la 'Lista dich. abil. organiz' dell'utente "
+                                + user.getNmUserid() + " contiene i seguenti record: ");
                 UsrDichAbilDatiTableBean dichAbilDatiTableBean = (UsrDichAbilDatiTableBean) getForm()
                         .getDichAbilTipiDatoList().getTable();
+                // MAC 30075
+                dichAbilOrganizTableBean.forEach((dichAbilOrganizRowBean) -> log
+                        .debug("MAC 30075 - Dichiarazione alle organizzazioni presente - applicazione: "
+                                + dichAbilOrganizRowBean.getString("nm_applic") + ", scopo: "
+                                + dichAbilOrganizRowBean.getTiScopoDichAbilOrganiz() + ", organizzazione: "
+                                + dichAbilOrganizRowBean.getString("dl_composito_organiz")));
+
                 UsrDichAbilEnteConvenzTableBean dichAbilEnteConvenzTableBean = (UsrDichAbilEnteConvenzTableBean) getForm()
                         .getDichAbilEnteConvenzList().getTable();
 
@@ -3844,6 +3821,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                         // Report del salvataggio
                         ultimateSalvataggioUtente(userType, user, idUser, password, oldUserType);
                     } else if (getForm().getListaUtenti().getStatus().equals(Status.update)) {
+                        log.debug("MAC 30075 - Dopo i controlli, entro nel ramo di salvaggio modifica utente "
+                                + user.getNmUserid());
                         // Controllo se il sistema versante è stato modificato/eliminato
                         if (idSistemaVersantePreUpdate != null) {
                             // Se è stato eliminato oppure c'è ancora ma è diverso dal precedente
@@ -3922,14 +3901,15 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             getSession().removeAttribute("datiAggiuntivi");
 
             if (getForm().getListaUtenti().getStatus().equals(Status.insert)) {
-                getMessageBox().addInfo("Utente creato con successo.<br/>"
-                        + (userType.equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
-                                ? "Richiedere all'utente il primo accesso per modifica password utilizzando i dati:<br/>"
-                                : "")
-                        + "<ul><li>Username: " + user.getNmUserid() + "</li>"
-                        + (userType.equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name()) ? ""
-                                : "<li>Password: " + password + "</li>")
-                        + "<li>E-mail: " + user.getDsEmail() + "</li>" + "</ul>");
+                getMessageBox().addInfo(
+                        "Utente creato con successo.<br/>" + (userType.equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
+                                // ? "Richiedere all'utente il primo accesso per modifica password utilizzando i
+                                // dati:<br/>"
+                                ? "Inviare all'utente la e-mail di attivazione cliccando sull'apposito pulsante. <br/>"
+                                : "") + "<ul><li>Username: " + user.getNmUserid() + "</li>"
+                        // + (userType.equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name()) ? ""
+                        // : "<li>Password: " + password + "</li>")
+                                + "<li>E-mail: " + user.getDsEmail() + "</li>" + "</ul>");
                 user.setIdUserIam(idUser);
                 if (getForm().getListaUtenti().getTable() == null) {
                     getForm().getListaUtenti().setTable(new UsrVLisUserTableBean());
@@ -3940,9 +3920,10 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 if (oldUserType.equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name())
                         && (userType.equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
                                 || userType.equals(ApplEnum.TipoUser.AUTOMA.name()))) {
-                    getMessageBox().addInfo("Utente modificato con successo.<br/>" + "<ul><li>Username: "
-                            + user.getNmUserid() + "</li>" + "<li>Password: " + password + "</li>" + "<li>E-mail: "
-                            + user.getDsEmail() + "</li>" + "</ul>");
+                    getMessageBox().addInfo(
+                            "Utente modificato con successo.<br/>" + "<ul><li>Username: " + user.getNmUserid() + "</li>"
+                            // + "<li>Password: " + password + "</li>"
+                                    + "<li>E-mail: " + user.getDsEmail() + "</li>" + "</ul>");
                 } else {
                     getMessageBox().addInfo("Utente modificato con successo.");
                 }
@@ -4041,29 +4022,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
         getForm().getApplicazioniFields().getNm_applic().setDecodeMap(comboGetter
                 .getMappaApplicAbilitateUtente(getUser().getIdUtente(), isEnteAmministratore, isEnteOrganoVigilanza));
-
-        // if (isEnteAmministratore) {
-        //
-        // /*
-        // * Se sono in inserimento nuovo utente, di default l'applicazione SACER_IAM viene già inserita in lista
-        // * (sempre che non sia già presente)
-        // */
-        // if (getForm().getListaUtenti().getStatus().equals(Status.insert)) {
-        // UsrUsoUserApplicTableBean ap = (UsrUsoUserApplicTableBean) getForm().getApplicazioniList().getTable();
-        // boolean siPresente = false;
-        // for (UsrUsoUserApplicRowBean r : ap) {
-        // if (r.getString("nm_applic").equals("SACER_IAM")) {
-        // siPresente = true;
-        // break;
-        // }
-        // }
-        //
-        // if (!siPresente) {
-        // AplApplicRowBean row = amministrazioneUtentiEjb.getAplApplicRowBean("SACER_IAM");
-        // getForm().getApplicazioniList().getTable().add(row);
-        // }
-        // }
-        // }
         populateApplicationSet((UsrUsoUserApplicTableBean) getForm().getApplicazioniList().getTable());
         getForm().getApplicazioniList().setHidden(false);
         getForm().getDettaglioUtente().setViewMode();
@@ -4425,8 +4383,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         if (!currentRow.getString("nm_applic").equals("SACER_IAM")) {
             // Elimino le applicazioni SACER o SACER_PING solo se per esse non sono stati effettuati versamenti
             // onde evitare possibili problemi di integrità
-            if (!amministrazioneUtentiEjb.checkExistsVersamenti(currentRow.getString("nm_applic"),
-                    currentRow.getIdUsoUserApplic())) {
+            if (currentRow.getIdUsoUserApplic() == null || !amministrazioneUtentiEjb
+                    .checkExistsVersamenti(currentRow.getString("nm_applic"), currentRow.getIdUsoUserApplic())) {
                 int rowIndex = getForm().getApplicazioniList().getTable().getCurrentRowIndex();
                 Set<BigDecimal> applicationsDeleteList = getApplicationsDeleteList();
                 if (currentRow.getIdUsoUserApplic() != null) {
@@ -4689,7 +4647,9 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
     @Override
     public void reloadAfterGoBack(String publisherName) {
-
+        User u = (User) getRequest().getSession().getAttribute("###_USER_CONTAINER");
+        int lastIndex = u.getMenu().getSelectedPath("").size() - 1;
+        String lastMenuEntry = (u.getMenu().getSelectedPath("").get(lastIndex)).getCodice();
         /*
          * Ricarico la lista organizzazioni presente in dettaglio utente in quanto potrebbe aver subito modifiche:
          * recupero le vecchie, e le richiedo da DB
@@ -4717,7 +4677,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 this.lazyLoadGoPage(getForm().getDichAbilOrgList(), paginaCorrenteOrg);
                 getForm().getDichAbilOrgList().getTable().setCurrentRowIndex(inizioOrg);
             } catch (EMFError ex) {
-                log.error("Eccezione", ex);
+                log.error(ECCEZIONE_MSG, ex);
             }
         } else if (publisherName.equals(Application.Publisher.RICERCA_UTENTI)) {
             try {
@@ -4790,6 +4750,15 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             try {
                 setTableName(getForm().getListaUtenti().getName());
                 loadDettaglio();
+            } catch (EMFError ex) {
+                log.error("Eccezione", ex);
+            }
+        } else if (lastMenuEntry.contains("SchedulazioniJob")) {
+            try {
+                if (getForm().getFiltriJobSchedulati().getNm_job().parse() != null) {
+                    ricercaJobSchedulati();
+                }
+
             } catch (EMFError ex) {
                 log.error("Eccezione", ex);
             }
@@ -5089,6 +5058,9 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 }
 
                 if (!getMessageBox().hasError()) {
+                    log.debug("MAC 30075 - L'utente corrente " + getUser().getUsername()
+                            + " inserisce in 'Lista dich. abil. organiz' la dichiarazione di abilitazione alle organizzazioni per l'utenza "
+                            + getForm().getDettaglioUtente().getNm_userid().parse());
                     // Inserisce l'organizzazione nella lista
                     scopoSet.add(new PairAuth(scopo, idOrganizIam));
                     getSession().setAttribute("scopoOrgSet_" + applicazione, scopoSet);
@@ -5114,13 +5086,14 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                                 org.setBigDecimal("id_supt_est_ente_convenz", (BigDecimal) o[2]);
                             }
                         }
-                        // dichsRB.setString("tipoEnte", tipoEnte);
-                        // dichsRB.setString("ds_causale_dich", (String) o[2]);
-                        // dichsRB.setBigDecimal("id_ente", (BigDecimal) o[3]);
+
                     }
 
                     getForm().getDichAbilOrgList().getTable().add(org);
                     getForm().getDichAbilOrgList().getTable().sort();
+
+                    log.debug("MAC 30075 - Ecco la dichiarazione appena inserita tramite wizard - applicazione: "
+                            + applicazione + ", scopo: " + scopo + ", organizzazione: " + dlCompositoOrganiz);
 
                     Set<BigDecimal> applicationsEditList = getApplicationsEditList();
                     applicationsEditList.add(idApplic);
@@ -5299,9 +5272,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                                     org.setBigDecimal("id_supt_est_ente_convenz", (BigDecimal) o[2]);
                                 }
                             }
-                            // dichsRB.setString("tipoEnte", tipoEnte);
-                            // dichsRB.setString("ds_causale_dich", (String) o[2]);
-                            // dichsRB.setBigDecimal("id_ente", (BigDecimal) o[3]);
+
                         }
 
                         getForm().getDichAbilTipiDatoList().getTable().add(org);
@@ -5442,9 +5413,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         BigDecimal idRichGestUser = getForm().getRichiestaWizard().getId_rich_gest_user().parse();
         if (scopo != null) {
             if (scopo.equals(ActionEnums.ScopoDichAbilOrganiz.ALL_ORG_CHILD.name())) {
-                // UsrVTreeOrganizIamTableBean tb =
-                // amministrazioneUtentiEjb.getUsrVTreeOrganizIamNoLastLevelTableBean(getUser().getIdUtente(),
-                // idApplic);
+
                 BaseTable tb = amministrazioneUtentiEjb.getUsrVTreeOrganizIamAllOrgChildTableBean(
                         getUser().getIdUtente(), idApplic, tipoEnte, idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom,
                         idRichGestUser);
@@ -5467,8 +5436,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
             } else if (scopo.equals(ActionEnums.ScopoDichAbilOrganiz.ORG_DEFAULT.name())
                     || scopo.equals(ActionEnums.ScopoDichAbilOrganiz.UNA_ORG.name())) {
-                // UsrVAbilOrganizTableBean tb =
-                // amministrazioneUtentiEjb.getUsrVAbilOrganizLastLevelTableBean(getUser().getIdUtente(), idApplic);
+
                 BaseTable tb = amministrazioneUtentiEjb.getUsrVTreeOrganizIamUnaOrgTableBean(getUser().getIdUtente(),
                         idApplic, tipoEnte, idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichGestUser);
                 DecodeMap mappa = new DecodeMap();
@@ -5545,7 +5513,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getDettaglioUtente().getQualifica_user().setViewMode();
 
         getForm().getDettaglioUtente().getDuplicaUtente().setViewMode();
-        getForm().getDettaglioUtente().getResetPassword().setViewMode();
+        // getForm().getDettaglioUtente().getResetPassword().setViewMode();
         getForm().getDettaglioUtente().getNuovaPassword().setViewMode();
         // Imposto i campi delle liste come eliminabili
         getForm().getIndIpList().setUserOperations(false, false, false, true);
@@ -5908,15 +5876,15 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                     SpagoliteLogUtil.getPageName(this), SpagoliteLogUtil.getButtonActionName(this.getForm(),
                             this.getForm().getDettaglioUtente(), nomeMetodo));
             param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-            String nmUserId = getForm().getDettaglioUtente().getNm_userid().parse();
-            String password = amministrazioneUtentiEjb.attivaUtente(param,
+            AmministrazioneUtentiEjb.KeycloakMessageSent mex = amministrazioneUtentiEjb.attivaUtente(param,
                     getForm().getDettaglioUtente().getId_user_iam().parse());
-            String dsEmail = getForm().getDettaglioUtente().getDs_email().parse();
-            getForm().getDettaglioUtente().getFl_attivo().setValue("1");
-            setVisibilityAbilitaDisabilitaUtente(getForm().getDettaglioUtente().getId_user_iam().parse());
-            getMessageBox().addInfo("Utente attivato con successo.<br/>"
-                    + "Richiedere all'utente il primo accesso per modifica password utilizzando i dati:<br/><ul><li>Username: "
-                    + nmUserId + "</li><li>Password: " + password + "</li><li>E-mail: " + dsEmail + "</li></ul>");
+            if (mex.getTipoMessaggio().equals(AmministrazioneUtentiEjb.KeycloakMessageSent.TIPO_INFO)) {
+                getMessageBox().addInfo(mex.getMessaggio());
+                getForm().getDettaglioUtente().getFl_attivo().setValue("1");
+                setVisibilityAbilitaDisabilitaUtente(getForm().getDettaglioUtente().getId_user_iam().parse());
+            } else {
+                getMessageBox().addWarning(mex.getMessaggio());
+            }
             getMessageBox().setViewMode(ViewMode.plain);
         } catch (ParerUserError e) {
             getMessageBox().addError(e.getDescription());
@@ -5992,56 +5960,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 "?operation=inizializzaLogEventi", form);
     }
 
-    // @Override
-    // public void addUtentiArchivistiToEnteConvenz() throws EMFError {
-    // boolean forceGoBack = false;
-    // if (!getForm().getUtentiArchivistiList().getTable().isEmpty()) {
-    // BigDecimal idEnteConvenz = getForm().getUtentiArchivistiPerEnteConvenzionato().getId_ente_convenz().parse();
-    // try {
-    // if (idEnteConvenz != null) {
-    // /*
-    // Codice aggiuntivo per il logging...
-    // */
-    // LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
-    // getUser().getUsername(),
-    // Application.Publisher.RICERCA_UTENTI);
-    // AmministrazioneUtentiForm form = (AmministrazioneUtentiForm) SpagoliteLogUtil.getForm(this);
-    // param.setNomeAzione(SpagoliteLogUtil.getButtonActionName(form, form.getFiltriUtenti(),
-    // form.getFiltriUtenti().getAddUtentiArchivistiToEnteConvenz().getName()));
-    // param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-    // for (BaseRowInterface row : getForm().getUtentiArchivistiList().getTable()) {
-    // BigDecimal idUserIam = row.getBigDecimal("id_user_iam");
-    // String cognome = row.getString("nm_cognome_user");
-    // String nome = row.getString("nm_nome_user");
-    //
-    // if (!entiConvenzionatiEjb.isUtenteArchivistaInEnteConvenz(idEnteConvenz, idUserIam)) {
-    // entiConvenzionatiEjb.insertUtenteArchivistaToEnteConvenzionato(param, idEnteConvenz, idUserIam);
-    // } else {
-    // getMessageBox().addError("L'utente " + nome + " " + cognome + " \u00E8 gi\u00E0 presente come archivista
-    // nell'ente convenzionato ");
-    // }
-    // }
-    // if (!getMessageBox().hasError()) {
-    // getMessageBox().addInfo("Gli utenti selezionati sono stati aggiunti con successo all'ente convenzionato ");
-    // getMessageBox().setViewMode(MessageBox.ViewMode.plain);
-    // getForm().getUtentiArchivistiList().getTable().clear();
-    // }
-    // } else {
-    // getMessageBox().addError("Errore inaspettato nell'aggiunta di utenti archivisti all'ente convenzionato");
-    // forceGoBack = true;
-    // }
-    // } catch (ParerUserError ex) {
-    // getMessageBox().addError(ex.getDescription());
-    // }
-    // } else {
-    // getMessageBox().addError("Selezionare almeno un utente da aggiungere come archivista all'ente convenzionato");
-    // }
-    // if (forceGoBack) {
-    // goBack();
-    // } else {
-    // forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
-    // }
-    // }
     @Override
     public void addUtentiArchivistiToSistemaVersante() throws EMFError {
         boolean forceGoBack = false;
@@ -6086,73 +6004,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         }
     }
 
-    // @Override
-    // public void addReferentiEnteConvenzionato() throws EMFError {
-    // boolean forceGoBack = false;
-    // if (!getForm().getReferentiEnteList().getTable().isEmpty()) {
-    // BigDecimal idEnteConvenz = getForm().getReferentiPerEnteConvenzionato().getId_ente_convenz().parse();
-    // try {
-    // if (idEnteConvenz != null) {
-    // /*
-    // Codice aggiuntivo per il logging...
-    // */
-    // LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
-    // getUser().getUsername(),
-    // Application.Publisher.RICERCA_UTENTI);
-    // AmministrazioneUtentiForm form = (AmministrazioneUtentiForm) SpagoliteLogUtil.getForm(this);
-    // param.setNomeAzione(SpagoliteLogUtil.getButtonActionName(form, form.getFiltriUtenti(),
-    // form.getFiltriUtenti().getAddReferentiEnteConvenzionato().getName()));
-    // param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-    // for (BaseRowInterface row : getForm().getReferentiEnteList().getTable()) {
-    // BigDecimal idUserIam = row.getBigDecimal("id_user_iam");
-    // String cognome = row.getString("nm_cognome_user");
-    // String nome = row.getString("nm_nome_user");
-    //
-    // if (!entiConvenzionatiEjb.isReferenteEnteInEnteConvenz(idEnteConvenz, idUserIam)) {
-    // entiConvenzionatiEjb.addReferenteEnteToEnteConvenzionato(param, idEnteConvenz, idUserIam);
-    // } else {
-    // getMessageBox().addError("L'utente " + nome + " " + cognome + " \u00E8 gi\u00E0 presente come referente nell'ente
-    // convenzionato ");
-    // }
-    // }
-    // if (!getMessageBox().hasError()) {
-    // getMessageBox().addInfo("Gli utenti selezionati sono stati aggiunti con successo come referenti dell'ente
-    // convenzionato ");
-    // getMessageBox().setViewMode(MessageBox.ViewMode.plain);
-    // getForm().getReferentiEnteList().getTable().clear();
-    // }
-    // } else {
-    // getMessageBox().addError("Errore inaspettato nell'aggiunta di utenti referenti all'ente convenzionato");
-    // forceGoBack = true;
-    // }
-    // } catch (ParerUserError ex) {
-    // getMessageBox().addError(ex.getDescription());
-    // }
-    // } else {
-    // getMessageBox().addError("Selezionare almeno un utente da aggiungere come referente all'ente convenzionato");
-    // }
-    // if (forceGoBack) {
-    // goBack();
-    // } else {
-    // forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
-    // }
-    // }
-    // @Override
-    // public void selectReferentiEnteList() throws EMFError {
-    // BaseRowInterface row = getForm().getReferentiEnteList().getTable().getCurrentRow();
-    // int index = getForm().getReferentiEnteList().getTable().getCurrentRowIndex();
-    // getForm().getReferentiEnteList().getTable().remove(index);
-    // getForm().getListaUtenti().getTable().addFullIdx(row);
-    // forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
-    // }
-    // @Override
-    // public void selectUtentiArchivistiList() throws EMFError {
-    // BaseRowInterface row = getForm().getUtentiArchivistiList().getTable().getCurrentRow();
-    // int index = getForm().getUtentiArchivistiList().getTable().getCurrentRowIndex();
-    // getForm().getUtentiArchivistiList().getTable().remove(index);
-    // getForm().getListaUtenti().getTable().addFullIdx(row);
-    // forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
-    // }
     @Override
     public void selectReferentiDittaProduttriceList() throws EMFError {
         BaseRowInterface row = getForm().getReferentiDittaProduttriceList().getTable().getCurrentRow();
@@ -6387,19 +6238,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     }
 
     private void initRichiestaDetail() {
-        // Combo ambiente/ente convenzionato
-        // UsrVAbilEnteConvenzTableBean abilEnteConvenzTableBean =
-        // entiConvenzionatiEjb.getUsrVAbilEnteConvenzTableBean(new BigDecimal(getUser().getIdUtente()), new Date());
-        // abilEnteConvenzTableBean.addSortingRule(UsrVAbilEnteConvenzTableDescriptor.COL_NM_AMBIENTE_ENTE_CONVENZ,
-        // SortingRule.ASC);
-        // abilEnteConvenzTableBean.addSortingRule(UsrVAbilEnteConvenzTableDescriptor.COL_NM_ENTE_CONVENZ,
-        // SortingRule.ASC);
-        // abilEnteConvenzTableBean.sort();
-        // getForm().getRichiestaDetail().getId_ente_convenz().setDecodeMap(DecodeMap.Factory.newInstance(abilEnteConvenzTableBean,
-        // "id_ente_convenz", "nmAmbienteEnteCongiunti"));
-        // if (abilEnteConvenzTableBean.size() == 1) {
-        // getForm().getRichiestaDetail().getId_ente_convenz().setValue(abilEnteConvenzTableBean.getRow(0).getIdEnteConvenz().toPlainString());
-        // }
+
         // Combo ambiente ente convenzionato
         UsrVAbilAmbEnteConvenzTableBean abilAmbEnteConvenzTableBean = entiConvenzionatiEjb
                 .getUsrVAbilAmbEnteConvenzTableBean(new BigDecimal(getUser().getIdUtente()));
@@ -6491,13 +6330,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getRichiestaDetail().getRichiestaCompletata().setHidden(true);
         getForm().getRichiestaDetail().getLogEventiRichiesta().setHidden(true);
         getForm().getRichiestaDetail().setStatus(Status.update);
-        // if (getForm().getRichiestaDetail().getTi_stato_rich_gest_user().parse()
-        // .equals(ConstUsrRichGestUser.TiStatoRichGestUser.EVASA.name())
-        // || getForm().getRichiestaDetail().getTi_stato_rich_gest_user().parse()
-        // .equals(ConstUsrRichGestUser.TiStatoRichGestUser.DA_EVADERE.name())) {
-        // getForm().getRichiestaDetail().getId_ente_rich().setViewMode();
-        // getForm().getRichiestaDetail().getId_ambiente_ente_convenz().setViewMode();
-        // }
+
         getForm().getRichiestaDetail().getId_ente_rich().setViewMode();
         getForm().getRichiestaDetail().getId_ambiente_ente_convenz().setViewMode();
         if (getForm().getAzioniList().getTable().isEmpty()) {
@@ -6559,8 +6392,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 }
                 amministrazioneUtentiEjb.deleteUsrAppartUserRich(param, idAppartUserRich, idUserIam, tiAzioneRich,
                         flAzioneRichEvasa);
-                // int riga = getForm().getAzioniList().getTable().getCurrentRowIndex();
-                // getForm().getAzioniList().getTable().remove(riga);
+
                 loadDettaglioRichiesta(idRichGestUser);
                 getMessageBox().addInfo("Azione eliminata con successo");
                 getMessageBox().setViewMode(ViewMode.plain);
@@ -6656,8 +6488,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
              * Codice aggiuntivo per il logging...
              */
             // Param per richiesta
-            String password;
             LogParam param = null;
+            AmministrazioneUtentiEjb.KeycloakMessageSent mex = null;
             switch (azioneEnum) {
             case RICHIESTA_CREAZIONE:
                 if (amministrazioneUtentiEjb.existsUtenteByUseridAndTipo(nmUserid,
@@ -6730,14 +6562,12 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                                 this.getForm().getDettaglioUtente(), "attivaUtente"));
                 param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
                 // Eseguo operazione di attivazione utente
-                password = amministrazioneUtentiEjb.attivaUtente(param, idUserIam);
+                mex = amministrazioneUtentiEjb.attivaUtente(param, idUserIam);
                 loadDettaglioRichiesta(idRichGestUser);
-                UsrUserRowBean userRowBean = amministrazioneUtentiEjb.getUserRowBean(idUserIam);
-                if (!userRowBean.getTipoUser().equals(ApplEnum.TipoUser.AUTOMA.name())) {
-                    getMessageBox().addInfo("Utente attivato con successo.<br/>"
-                            + "Richiedere all'utente il primo accesso per modifica password utilizzando i dati:<br/><ul><li>Username: "
-                            + nmUserid + "</li><li>Password: " + password + "</li><li>E-mail: "
-                            + userRowBean.getDsEmail() + "</li></ul>");
+                if (mex.getTipoMessaggio().equals(AmministrazioneUtentiEjb.KeycloakMessageSent.TIPO_INFO)) {
+                    getMessageBox().addInfo(mex.getMessaggio());
+                } else {
+                    getMessageBox().addWarning(mex.getMessaggio());
                 }
                 forwardToPublisher(Application.Publisher.DETTAGLIO_RICHIESTA);
                 break;
@@ -6749,7 +6579,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 // Eseguo operazione di disattivazione utente
                 amministrazioneUtentiEjb.disattivaUtente(param, idUserIam);
                 loadDettaglioRichiesta(idRichGestUser);
-                userRowBean = amministrazioneUtentiEjb.getUserRowBean(idUserIam);
                 getMessageBox().addInfo("Utente disattivato con successo. ");
                 forwardToPublisher(Application.Publisher.DETTAGLIO_RICHIESTA);
                 break;
@@ -6769,6 +6598,9 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 getForm().getDettaglioUtente().getId_sistema_versante().setViewMode();
                 break;
             case RICHIESTA_RESET_PWD:
+                //
+                // MEV#28279 - Inserimento richiesta: aggiunta azione di "Reset password" nel menù a tendina
+                //
                 // Se l'utente è diverso da PERSONA_FISICA
                 if (!amministrazioneUtentiEjb.existsUtenteByUseridAndTipo(nmUserid,
                         ApplEnum.TipoUser.PERSONA_FISICA.name())) {
@@ -6779,12 +6611,13 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                         Application.Publisher.DETTAGLIO_UTENTE, SpagoliteLogUtil.getButtonActionName(this.getForm(),
                                 this.getForm().getDettaglioUtente(), "resetPassword"));
                 param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-                password = amministrazioneUtentiEjb.resetPassword(param, idUserIam);
+                mex = amministrazioneUtentiEjb.resetPassword(param, idUserIam);
                 loadDettaglioRichiesta(idRichGestUser);
-                getMessageBox().addInfo("Password utente resettata con successo.<br/>"
-                        + "Richiedere all'utente il primo accesso per modifica password utilizzando i dati:<br/><ul><li>Username: "
-                        + nmUserid + "</li><li>Password: " + password + "</li><li>E-mail: "
-                        + amministrazioneUtentiEjb.getUserRowBean(idUserIam).getDsEmail() + "</li></ul>");
+                if (mex.getTipoMessaggio().equals(AmministrazioneUtentiEjb.KeycloakMessageSent.TIPO_INFO)) {
+                    getMessageBox().addInfo(mex.getMessaggio());
+                } else {
+                    getMessageBox().addWarning(mex.getMessaggio());
+                }
                 forwardToPublisher(Application.Publisher.DETTAGLIO_RICHIESTA);
                 break;
             default:
@@ -7226,6 +7059,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                         if (getForm().getRichiestaDetail().getCd_registro_rich_gest_user().parse() != null
                                 && getForm().getRichiestaDetail().getAa_rich_gest_user().parse() != null
                                 && getForm().getRichiestaDetail().getCd_key_rich_gest_user().parse() != null) {
+                            getForm().getUdButtonList().getScaricaCompFileUdRichiesta().setDisableHourGlass(true);
                             getForm().getUdButtonList().getScaricaCompFileUdRichiesta().setEditMode();
                         } else {
                             getForm().getUdButtonList().getScaricaCompFileUdRichiesta().setViewMode();
@@ -7348,7 +7182,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             String fileName = response.getHeaders().getFirst("Content-Disposition");
             MediaType contentType = response.getHeaders().getContentType();
 
-            if (contentType.getSubtype().equals("zip")) {
+            if (contentType != null && "zip".equals(contentType.getSubtype()) && StringUtils.isNotBlank(fileName)) {
                 fileName = fileName.substring(fileName.indexOf("\"") + 1, fileName.length());
                 // Creo il file temporaneo
                 temp = File.createTempFile("prefisso", "suffisso");
@@ -7755,8 +7589,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 out.flush();
                 out.close();
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (EMFError | IOException e) {
+                throw new EMFError("Errore durante il recupero delle email utente", e);
             } finally {
                 freeze();
             }
@@ -7766,6 +7600,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
         }
     }
+
     /*
      * @Override public JSONObject triggerDettaglioUtenteTipo_authOnTrigger() throws EMFError { DettaglioUtente d =
      * getForm().getDettaglioUtente(); d.post(getRequest()); String tipoAuth = d.getTipo_auth().parse(); if (tipoAuth !=
@@ -7775,4 +7610,412 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
      * d.getDl_cert_client().clear(); d.getDt_ini_cert().setReadonly(true); d.getDt_fin_cert().setReadonly(true);
      * d.getDl_cert_client().setReadonly(true); } return getForm().getDettaglioUtente().asJSON(); }
      */
+    @Override
+    public void inviaMailAttivazione() throws EMFError {
+        String username = getForm().getDettaglioUtente().getNm_userid().parse();
+        AmministrazioneUtentiEjb.KeycloakMessageSent mex = amministrazioneUtentiEjb.inviaMailAttivazione(username);
+        if (mex.getTipoMessaggio().equals(AmministrazioneUtentiEjb.KeycloakMessageSent.TIPO_INFO)) {
+            getMessageBox().addMessage(MessageLevel.INF, mex.getMessaggio());
+        } else {
+            getMessageBox().addMessage(MessageLevel.WAR, mex.getMessaggio());
+        }
+        forwardToPublisher(getLastPublisher());
+    }
+
+    @Override
+    public void ricercaJobSchedulati() throws EMFError {
+        getForm().getFiltriJobSchedulati().getRicercaJobSchedulati().setDisableHourGlass(true);
+        FiltriJobSchedulati filtri = getForm().getFiltriJobSchedulati();
+
+        // Esegue la post dei filtri compilati
+        if (getSession().getAttribute(FROM_GESTIONE_JOB) != null) {
+            getSession().removeAttribute(FROM_GESTIONE_JOB);
+        } else {
+            filtri.post(getRequest());
+        }
+
+        // Valida i filtri per verificare quelli obbligatori
+        if (filtri.validate(getMessageBox())) {
+            // Valida in maniera piÃ¹ specifica i dati
+            String nmJob = filtri.getNm_job().parse();
+            Date datada = filtri.getDt_reg_log_job_da().parse();
+            Date dataa = filtri.getDt_reg_log_job_a().parse();
+            BigDecimal oreda = filtri.getOre_dt_reg_log_job_da().parse();
+            BigDecimal orea = filtri.getOre_dt_reg_log_job_a().parse();
+            BigDecimal minutida = filtri.getMinuti_dt_reg_log_job_da().parse();
+            BigDecimal minutia = filtri.getMinuti_dt_reg_log_job_a().parse();
+            String descrizioneDataDa = filtri.getDt_reg_log_job_da().getHtmlDescription();
+            String descrizioneDataA = filtri.getDt_reg_log_job_a().getHtmlDescription();
+
+            // Valida i campi di ricerca
+            AmministrazioneUtentiValidator validator = new AmministrazioneUtentiValidator(getMessageBox());
+            Date[] dateValidate = validator.validaDate(datada, oreda, minutida, dataa, orea, minutia, descrizioneDataDa,
+                    descrizioneDataA);
+
+            if (!getMessageBox().hasError()) {
+                // Setta la lista dei job in base ai filtri di ricerca
+                getForm().getJobSchedulatiList()
+                        .setTable(amministrazioneUtentiHelper.getMonVLisSchedJobViewBean(filtri, dateValidate));
+
+                getForm().getJobSchedulatiList().getTable().setPageSize(10);
+                // Workaround in modo che la lista punti al primo record, non all'ultimo
+                getForm().getJobSchedulatiList().getTable().first();
+
+                // Setto i campi di "Stato Job"
+                setStatoJob(nmJob);
+
+            }
+        }
+        forwardToPublisher(Application.Publisher.SCHEDULAZIONI_JOB_LIST);
+    }
+
+    @Override
+    public void pulisciJobSchedulati() throws EMFError {
+        try {
+            this.schedulazioniJob();
+        } catch (Exception ex) {
+            log.error(ECCEZIONE_MSG, ex);
+        }
+    }
+
+    @Secure(action = "Menu.Monitoraggio.SchedulazioniJob")
+    public void schedulazioniJob() throws EMFError {
+        getUser().getMenu().reset();
+        getUser().getMenu().select("Menu.Monitoraggio.SchedulazioniJob");
+        getForm().getFiltriJobSchedulati().reset();
+        getForm().getJobSchedulatiList().setTable(null);
+        getForm().getStatoJob().reset();
+        populateFiltriJob();
+        getForm().getFiltriJobSchedulati().setEditMode();
+        // Resetto i valori delle label
+        getForm().getInformazioniJob().reset();
+        getForm().getInformazioniJob().setViewMode();
+        getForm().getInformazioniJob().post(getRequest());
+        getForm().getFiltriJobSchedulati().post(getRequest());
+        String nmJob = getForm().getFiltriJobSchedulati().getNm_job().parse();
+        if (nmJob != null) {
+            setStatoJob(nmJob);
+        }
+
+        forwardToPublisher(Application.Publisher.SCHEDULAZIONI_JOB_LIST);
+    }
+
+    private void populateFiltriJob() {
+        getForm().getFiltriJobSchedulati().getNm_job().setDecodeMap(
+                ComboGetter.getMappaSortedGenericEnum("nm_job", Constants.NomiJob.getComboSchedulazioniJob()));
+
+        // Inserisco il valore di default nel campo data
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat(Constants.DATE_FORMAT);
+        getForm().getFiltriJobSchedulati().getDt_reg_log_job_da().setValue(df.format(cal.getTime()));
+    }
+
+    public void ricercaJobSchedulatiDaGestioneJob() throws EMFError {
+        // String nmJob = getForm().getFiltriJobSchedulati().getNm_job().parse();
+        // triggerFiltriJobSchedulatiNm_jobOnTrigger();
+        ricercaJobSchedulati();
+    }
+
+    @Override
+    public void gestioneJobPage() throws EMFError {
+        GestioneJobForm form = new GestioneJobForm();
+        form.getGestioneJobRicercaFiltri().setEditMode();
+        form.getGestioneJobRicercaFiltri().reset();
+        form.getGestioneJobRicercaList().setTable(null);
+        BaseTable ambitoTableBean = gestioneJobEjb.getAmbitoJob();
+        form.getGestioneJobRicercaFiltri().getNm_ambito()
+                .setDecodeMap(DecodeMap.Factory.newInstance(ambitoTableBean, "nm_ambito", "nm_ambito"));
+        form.getGestioneJobRicercaFiltri().getTi_stato_job().setDecodeMap(ComboGetter.getMappaTiStatoJob());
+        getForm().getFiltriJobSchedulati().post(getRequest());
+        String nmJob = getForm().getFiltriJobSchedulati().getNm_job().parse();
+        if (nmJob != null) {
+            String dsJob = gestioneJobEjb.getDsJob(nmJob);
+            form.getGestioneJobRicercaFiltri().getDs_job().setValue(dsJob);
+        }
+        getSession().setAttribute("backToSchedulazioniJob", true);
+        form.getGestioneJobRicercaFiltri().setEditMode();
+        redirectToAction(Application.Actions.GESTIONE_JOB, "?operation=gestioneJobDaRicercaJobSchedulatiAction", form);
+
+    }
+
+    @Override
+    public void startJobSchedulati() throws EMFError {
+        // Eseguo lo start del job interessato
+        getForm().getFiltriJobSchedulati().post(getRequest());
+        String nmJob = getForm().getFiltriJobSchedulati().getNm_job().parse();
+        if (nmJob != null) {
+            String dsJob = gestioneJobEjb.getDsJob(nmJob);
+            startGestioneJobOperation(nmJob, dsJob);
+        } else {
+            getMessageBox().addWarning(WARNING_NO_JOB_SELEZIONATO);
+            forwardToPublisher(getLastPublisher());
+        }
+    }
+
+    @Override
+    public void stopJobSchedulati() throws EMFError {
+        // Eseguo lo start del job interessato
+        getForm().getFiltriJobSchedulati().post(getRequest());
+        String nmJob = getForm().getFiltriJobSchedulati().getNm_job().parse();
+        if (nmJob != null) {
+            String dsJob = gestioneJobEjb.getDsJob(nmJob);
+            stopGestioneJobOperation(nmJob, dsJob);
+        } else {
+            getMessageBox().addWarning(WARNING_NO_JOB_SELEZIONATO);
+            forwardToPublisher(getLastPublisher());
+        }
+    }
+
+    @Override
+    public void esecuzioneSingolaJobSchedulati() throws EMFError {
+        // Eseguo lo start del job interessato
+        getForm().getFiltriJobSchedulati().post(getRequest());
+        String nmJob = getForm().getFiltriJobSchedulati().getNm_job().parse();
+        if (nmJob != null) {
+            String dsJob = gestioneJobEjb.getDsJob(nmJob);
+            esecuzioneSingolaGestioneJobOperation(nmJob, dsJob);
+        } else {
+            getMessageBox().addWarning(WARNING_NO_JOB_SELEZIONATO);
+            forwardToPublisher(getLastPublisher());
+        }
+    }
+
+    public void startGestioneJobOperation(String nmJob, String dsJob) throws EMFError {
+        // Se il JOB è di tipo NO_TIMER in ogni caso il tasto di START va inibito
+        if (gestioneJobEjb.isNoTimerJob(nmJob)) {
+            getMessageBox().addWarning(
+                    "Attenzione: si sta tentando di schedulare un JOB di tipo NO_TIMER. Operazione non consentita");
+            forwardToPublisher(getLastPublisher());
+        } else {
+            eseguiNuovo(nmJob, dsJob, null, OPERAZIONE.START);
+            setStatoJob(nmJob);
+        }
+    }
+
+    public void stopGestioneJobOperation(String nmJob, String dsJob) throws EMFError {
+        // Se il JOB è di tipo NO_TIMER in ogni caso il tasto di STOP va inibito
+        if (gestioneJobEjb.isNoTimerJob(nmJob)) {
+            getMessageBox().addWarning(
+                    "Attenzione: si sta tentando di stoppare un JOB di tipo NO_TIMER. Operazione non consentita");
+            forwardToPublisher(getLastPublisher());
+        } else {
+            eseguiNuovo(nmJob, dsJob, null, OPERAZIONE.STOP);
+            setStatoJob(nmJob);
+        }
+    }
+
+    public void esecuzioneSingolaGestioneJobOperation(String nmJob, String dsJob) throws EMFError {
+        eseguiNuovo(nmJob, dsJob, null, OPERAZIONE.ESECUZIONE_SINGOLA);
+        setStatoJob(nmJob);
+    }
+
+    private Timestamp getActivationDateJob(String jobName) {
+        Timestamp res = null;
+        LogVVisLastSchedRowBean rb = gestioneJobHelper.getLogVVisLastSched(jobName);
+
+        if (rb.getFlJobAttivo() != null) {
+            if (rb.getFlJobAttivo().equals("1")) {
+                res = rb.getDtRegLogJobIni();
+            }
+        }
+
+        return res;
+    }
+
+    private void setStatoJob(String nmJob) {
+        Timestamp dataAttivazioneJob = getActivationDateJob(nmJob);
+        StatoJob job = new StatoJob(nmJob, getForm().getInformazioniJob().getFl_data_accurata(),
+                getForm().getInformazioniJob().getStartJobSchedulati(),
+                getForm().getInformazioniJob().getEsecuzioneSingolaJobSchedulati(),
+                getForm().getInformazioniJob().getStopJobSchedulati(),
+                getForm().getInformazioniJob().getDt_prossima_attivazione(), getForm().getInformazioniJob().getAttivo(),
+                getForm().getInformazioniJob().getDt_reg_log_job_ini(), dataAttivazioneJob);
+
+        gestisciStatoJobNuovo(job);
+        forwardToPublisher(Application.Publisher.SCHEDULAZIONI_JOB_LIST);
+    }
+
+    private void gestisciStatoJobNuovo(StatoJob statoJob) {
+        // se non è ancora passato un minuto da quando è stato premuto un pulsante non posso fare nulla
+        boolean operazioneInCorso = jbossTimerEjb.isEsecuzioneInCorso(statoJob.getNomeJob());
+
+        statoJob.getFlagDataAccurata().setViewMode();
+        statoJob.getFlagDataAccurata().setValue("L'operazione richiesta verrà effettuata entro il prossimo minuto.");
+        statoJob.getFlagDataAccurata().setHidden(!operazioneInCorso);
+
+        // Posso operare sulla pagina
+        Date nextActivation = jbossTimerEjb.getDataProssimaAttivazione(statoJob.getNomeJob());
+        boolean dataAccurata = jbossTimerEjb.isDataProssimaAttivazioneAccurata(statoJob.getNomeJob());
+        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        /*
+         * Se il job è già schedulato o in esecuzione singola nascondo il pulsante Start/esecuzione singola, mostro Stop
+         * e visualizzo la prossima attivazione. Viceversa se è fermo mostro Start e nascondo Stop
+         */
+        if (nextActivation != null) {
+            statoJob.getStart().setViewMode();
+            statoJob.getEsecuzioneSingola().setViewMode();
+            statoJob.getStop().setEditMode();
+            statoJob.getStart().setHidden(true);
+            statoJob.getEsecuzioneSingola().setHidden(true);
+            statoJob.getStop().setHidden(false);
+            statoJob.getDataProssimaAttivazione().setValue(formato.format(nextActivation));
+        } else {
+            statoJob.getStart().setEditMode();
+            statoJob.getEsecuzioneSingola().setEditMode();
+            statoJob.getStop().setViewMode();
+            statoJob.getStart().setHidden(false);
+            statoJob.getEsecuzioneSingola().setHidden(false);
+            statoJob.getStop().setHidden(true);
+            statoJob.getDataProssimaAttivazione().setValue(null);
+        }
+
+        boolean flagHidden = nextActivation == null || dataAccurata;
+        // se la data c'è ma non è accurata non visualizzare la "data prossima attivazione"
+        statoJob.getDataProssimaAttivazione().setHidden(!flagHidden);
+
+        if (statoJob.getDataAttivazione() != null) {
+            statoJob.getCheckAttivo().setChecked(true);
+            statoJob.getDataRegistrazioneJob()
+                    .setValue(formato.format(new Date(statoJob.getDataAttivazione().getTime())));
+        } else {
+            statoJob.getCheckAttivo().setChecked(false);
+            statoJob.getDataRegistrazioneJob().setValue(null);
+        }
+
+        // Se il JOB è di tipo NO_TIMER in ogni caso il tasto di START va inibito
+        if (gestioneJobEjb.isNoTimerJob(statoJob.getNomeJob())) {
+            statoJob.getStart().setViewMode();
+            statoJob.getStart().setHidden(true);
+        }
+
+    }
+
+    private enum OPERAZIONE {
+        START("lancio il timer"), ESECUZIONE_SINGOLA("esecuzione singola"), STOP("stop");
+
+        protected String desc;
+
+        OPERAZIONE(String desc) {
+            this.desc = desc;
+        }
+
+        public String description() {
+            return desc;
+        }
+    }
+
+    private void eseguiNuovo(String nomeJob, String descrizioneJob, String nomeApplicazione, OPERAZIONE operazione) {
+        // Messaggio sul logger di sistema
+        StringBuilder info = new StringBuilder(descrizioneJob);
+        info.append(": ").append(operazione.description()).append(" [").append(nomeJob);
+        if (nomeApplicazione != null) {
+            info.append("_").append(nomeApplicazione);
+        }
+        info.append("]");
+        log.info(info.toString());
+
+        String message = "Errore durante la schedulazione del job";
+
+        switch (operazione) {
+        case START:
+            jbossTimerEjb.start(nomeJob, null);
+            message = descrizioneJob
+                    + ": job correttamente schedulato. L'operazione richiesta verrà schedulata correttamente entro il prossimo minuto.";
+            break;
+        case ESECUZIONE_SINGOLA:
+            jbossTimerEjb.esecuzioneSingola(nomeJob, null);
+            message = descrizioneJob
+                    + ": job correttamente schedulato per esecuzione singola. L'operazione richiesta verrà effettuata entro il prossimo minuto.";
+            break;
+        case STOP:
+            jbossTimerEjb.stop(nomeJob);
+            message = descrizioneJob
+                    + ": schedulazione job annullata. L'operazione richiesta diventerà effettiva entro il prossimo minuto.";
+            break;
+        }
+
+        // Segnalo l'avvenuta operazione sul job
+        getMessageBox().addMessage(new Message(MessageLevel.INF, message));
+        getMessageBox().setViewMode(ViewMode.plain);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Classe che mappa lo stato dei job">
+    /**
+     * Astrazione dei componenti della pagina Schedulazioni Job
+     *
+     */
+    public static final class StatoJob {
+
+        private final String nomeJob;
+        private final Input<String> flagDataAccurata;
+        private final Button<String> start;
+        private final Button<String> esecuzioneSingola;
+        private final Button<String> stop;
+        private final Input<Timestamp> dataProssimaAttivazione;
+        private final CheckBox<String> checkAttivo;
+        private final Input<Timestamp> dataRegistrazioneJob;
+        private final Timestamp dataAttivazione;
+
+        // Mi serve per evitare una null pointer Exception
+        private static final Button<String> NULL_BUTTON = new Button<>(null, "EMPTY_BUTTON", "Pulsante vuoto", null,
+                null, null, false, true, true, false);
+
+        public StatoJob(String nomeJob, Input<String> flagDataAccurata, Button<String> start,
+                Button<String> esecuzioneSingola, Button<String> stop, Input<Timestamp> dataProssimaAttivazione,
+                CheckBox<String> checkAttivo, Input<Timestamp> dataRegistrazioneJob, Timestamp dataAttivazione) {
+            this.nomeJob = nomeJob;
+            this.flagDataAccurata = flagDataAccurata;
+            this.start = start;
+            this.esecuzioneSingola = esecuzioneSingola;
+            this.stop = stop;
+            this.dataProssimaAttivazione = dataProssimaAttivazione;
+            this.checkAttivo = checkAttivo;
+            this.dataRegistrazioneJob = dataRegistrazioneJob;
+            this.dataAttivazione = dataAttivazione;
+        }
+
+        public String getNomeJob() {
+            return nomeJob;
+        }
+
+        public Input<String> getFlagDataAccurata() {
+            return flagDataAccurata;
+        }
+
+        public Button<String> getStart() {
+            if (start == null) {
+                return NULL_BUTTON;
+            }
+            return start;
+        }
+
+        public Button<String> getEsecuzioneSingola() {
+            return esecuzioneSingola;
+        }
+
+        public Button<String> getStop() {
+            if (stop == null) {
+                return NULL_BUTTON;
+            }
+            return stop;
+        }
+
+        public Input<Timestamp> getDataProssimaAttivazione() {
+            return dataProssimaAttivazione;
+        }
+
+        public CheckBox<String> getCheckAttivo() {
+            return checkAttivo;
+        }
+
+        public Input<Timestamp> getDataRegistrazioneJob() {
+            return dataRegistrazioneJob;
+        }
+
+        public Timestamp getDataAttivazione() {
+            return dataAttivazione;
+        }
+    }
+    // </editor-fold>
 }

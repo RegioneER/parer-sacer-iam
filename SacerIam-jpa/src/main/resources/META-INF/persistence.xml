@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
     <persistence-unit name="SacerIamPU" transaction-type="JTA">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <jta-data-source>jdbc/SiamDs</jta-data-source>    
+        <jta-data-source>jboss/datasources/SiamDs</jta-data-source>
+        <mapping-file>META-INF/xmldbNativeQueries/xmlQueries.xml</mapping-file>        
         <!-- Classi del modulo di logging applicativo -->
         <class>it.eng.parer.sacerlog.entity.LogOggettoEvento</class>
         <class>it.eng.parer.sacerlog.entity.LogFotoOggettoEvento</class>
@@ -11,6 +17,7 @@
         <class>it.eng.parer.sacerlog.entity.LogChiaveAccessoEvento</class>
         <class>it.eng.parer.sacerlog.entity.LogAgenteEvento</class>
         <class>it.eng.parer.sacerlog.entity.LogEventoByScript</class>
+        <class>it.eng.parer.sacerlog.entity.LogEventoLoginUser</class>
         <!-- Classi per le view del logging applicativo -->
         <class>it.eng.parer.sacerlog.viewEntity.AplVParamApplic</class>
         <class>it.eng.parer.sacerlog.viewEntity.LogVLogAgente</class>
@@ -31,23 +38,20 @@
         <class>it.eng.parer.sacerlog.viewEntity.LogVRicEventiOrganiz</class>
         <class>it.eng.parer.sacerlog.viewEntity.LogVVisEventoPrincTx</class>
         <class>it.eng.parer.sacerlog.viewEntity.LogVUsrAbilOrganiz</class>
-                
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <shared-cache-mode>NONE</shared-cache-mode> 
-         <properties>
+        
+	<exclude-unlisted-classes>false</exclude-unlisted-classes>
+	<shared-cache-mode>NONE</shared-cache-mode>  	
+	<properties>
             <!-- Hibernate properties -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
             <property name="hibernate.format_sql" value="false"/>
-            <property name="hibernate.show_sql" value="false"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="validate"/> -->
+            <property name="hibernate.show_sql" value="${hibernate.show_sql}"/>
+            <property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}"/>
             <property name="hibernate.generate_statistics" value="true"/>
             <property name="hibernate.id.new_generator_mappings" value="true"/>
             <property name="hibernate.session.events.log" value="false"/>
-            <property name="hibernate.ejb.interceptor.session_scoped" value="it.eng.paginator.hibernate.OracleSqlInterceptor"/>            
-        </properties>
-        
-        <mapping-file>META-INF/xmldbNativeQueries/xmlQueries.xml</mapping-file>
-        
+            <property name="hibernate.ejb.interceptor.session_scoped" value="it.eng.paginator.hibernate.OracleSqlInterceptor"/>
+    </properties>
+     
     </persistence-unit>
-
 </persistence>

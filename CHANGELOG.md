@@ -1,4 +1,161 @@
 
+## 5.2.0 (15-04-2024)
+
+### Novità: 2
+- [#31670](https://parermine.regione.emilia-romagna.it/issues/31670) Adeguamento funzionalità di "gestione HELP on line"
+- [#31306](https://parermine.regione.emilia-romagna.it/issues/31306) Disattivazione esposizione del federationMetadata
+
+## 5.1.0 (15-02-2024)
+
+### Bugfix: 2
+- [#31084](https://parermine.regione.emilia-romagna.it/issues/31084) Risoluzione di errore bloccante in inserimento nuovo ente: "Campo 'importo' formalmente errato"
+- [#31044](https://parermine.regione.emilia-romagna.it/issues/31044) Togliere arrotondamento all'importo ivato nella lista  "Tipi servizio"
+
+### Novità: 4
+- [#30152](https://parermine.regione.emilia-romagna.it/issues/30152) Pagina Dettaglio accordo: modifiche alla sezione Annualità
+- [#30151](https://parermine.regione.emilia-romagna.it/issues/30151) Dettaglio ente convenzionato: aggiunta campo Note
+- [#27457](https://parermine.regione.emilia-romagna.it/issues/27457) Rendere indipendente SIAM da PING
+- [#22940](https://parermine.regione.emilia-romagna.it/issues/22940) Gestione accordi di vigilanza
+
+## 5.0.0 (08-01-2024)
+
+### Novità: 1
+- [#29941](https://parermine.regione.emilia-romagna.it/issues/29941) Aggiornamento a Spring 5 
+
+## 4.20.0 (20-12-2023)
+
+### Bugfix: 1
+- [#30701](https://parermine.regione.emilia-romagna.it/issues/30701) Enti/Gestione accordi: aggiunta filtro di ricerca per impostazione fascia manuale
+
+### Novità: 1
+- [#30908](https://parermine.regione.emilia-romagna.it/issues/30908) Dettaglio accordo: aggiunta dell'importo ivato nella lista  "Tipi servizio"
+
+## 4.19.0 (05-12-2023)
+
+### Bugfix: 6
+- [#30868](https://parermine.regione.emilia-romagna.it/issues/30868) Correzione logging sui tipi di dato nelle abilitazioni utenti
+- [#30817](https://parermine.regione.emilia-romagna.it/issues/30817) Modifica media annuale occupazione storage per accordi a pagamento per enti GESTORI/CONSERVATORI
+- [#30757](https://parermine.regione.emilia-romagna.it/issues/30757) Correzione "Errore critico sulla funzionalità" all'esegui azione di cessazione utente
+- [#30423](https://parermine.regione.emilia-romagna.it/issues/30423) Amministrazione utenti / Gestione richieste: revisione ammissibilità di più azioni da evadere per lo stesso utente 
+- [#30418](https://parermine.regione.emilia-romagna.it/issues/30418) Accordi: integrazione della condizione per estrarre lo stato dell'accordo "Accordo valido" 
+- [#29592](https://parermine.regione.emilia-romagna.it/issues/29592) Inserimento utente e ruolo nel logging asincrono
+
+### Novità: 5
+- [#30850](https://parermine.regione.emilia-romagna.it/issues/30850) Creazione endpoint con informazioni sulla versione
+- [#30653](https://parermine.regione.emilia-romagna.it/issues/30653) Modifica lettura UFE per estrazione righe per fatture
+- [#30150](https://parermine.regione.emilia-romagna.it/issues/30150) Ricerca enti convenzionati: modifiche alla pagina
+- [#29931](https://parermine.regione.emilia-romagna.it/issues/29931) Indicazione delle "Abilitazioni concesse" tramite collegamento tra enti/relazione di supporto o vigilanza in "Dettaglio ente convenzionato"
+- [#29430](https://parermine.regione.emilia-romagna.it/issues/29430) Integrazione con SPID professionale
+
+## 4.18.0 (03-10-2023)
+
+### Bugfix: 2
+- [#30133](https://parermine.regione.emilia-romagna.it/issues/30133) Corretta estrazione dei "Formati ammessi" nel Disciplinare Tecnico
+- [#30002](https://parermine.regione.emilia-romagna.it/issues/30002) Modulo informazioni: gestione dell'errore nel caso di immissione di nome che eccede il numero massimo di caratteri consentiti
+
+### Novità: 3
+- [#30075](https://parermine.regione.emilia-romagna.it/issues/30075) Introduzione di un logging sui tipi di dato nelle abilitazioni utenti
+- [#24551](https://parermine.regione.emilia-romagna.it/issues/24551) Sistemazione problemi di performance della ricerca utenti 
+- [#20277](https://parermine.regione.emilia-romagna.it/issues/20277) Cancellazione collegamenti e relazioni tra enti: prevedere messaggio di warning
+
+## 4.17.0 (30-08-2023)
+
+### Bugfix: 6
+- [#30022](https://parermine.regione.emilia-romagna.it/issues/30022) Correzione dell'errore critico quando si aggiunge un ente al collegamento
+- [#29962](https://parermine.regione.emilia-romagna.it/issues/29962) Correzione del Disciplinare Tecnico - Sezione "Formati ammessi"
+- [#29954](https://parermine.regione.emilia-romagna.it/issues/29954) Correzione campi che non risultano in compilazione nella sezione "Informazioni rimborso costi" in Inserimento ente convenzionato
+- [#29902](https://parermine.regione.emilia-romagna.it/issues/29902) Correzione del funzionamento del link diretto alla pagina gestione JOB
+- [#29687](https://parermine.regione.emilia-romagna.it/issues/29687) Risoluzione "Errore critico sulla funzionalita'" dopo il download dell'UD dell'accordo dal pulsante Indietro
+- [#29654](https://parermine.regione.emilia-romagna.it/issues/29654) Gestione mancata visualizzazione in Logging/Log accessi degli accessi con SPID
+
+### Novità: 2
+- [#29866](https://parermine.regione.emilia-romagna.it/issues/29866) Aggiunto il pulsante "Scarica xml" alla pagina di visualizzazione di una foto del log eventi 
+- [#29760](https://parermine.regione.emilia-romagna.it/issues/29760) Inserimento media annuale occupazione storage per accordi a pagamento per enti GESTORI/CONSERVATORI
+
+## 4.16.0 (03-08-2023)
+
+### Novità: 1
+- [#29662](https://parermine.regione.emilia-romagna.it/issues/29662) Aggiornamento librerie obsolete 2023
+
+## 4.15.0 (30-06-2023)
+
+### Bugfix: 1
+- [#29523](https://parermine.regione.emilia-romagna.it/issues/29523) Visualizzazione corretta dei decimali nella tabella "Tipi servizio"
+
+### Novità: 2
+- [#29507](https://parermine.regione.emilia-romagna.it/issues/29507) Aggiornamento creazione annualità per accordi a pagamento
+- [#29093](https://parermine.regione.emilia-romagna.it/issues/29093) Inserimento media annuale occupazione storage per accordi a pagamento
+
+## 4.14.0 (09-06-2023)
+
+### Bugfix: 3
+- [#29467](https://parermine.regione.emilia-romagna.it/issues/29467) Visualizzazione sistema versante e data primo versamento effettuati da utenti automa cessati
+- [#29383](https://parermine.regione.emilia-romagna.it/issues/29383) Correzione errore pagina grigia dopo il download
+- [#29078](https://parermine.regione.emilia-romagna.it/issues/29078) Correzione log di errore 
+
+### Novità: 2
+- [#29469](https://parermine.regione.emilia-romagna.it/issues/29469) Inserita nella Ricerca utenti la possibilità ricerca degli utenti automa in caso di cessazione
+- [#29272](https://parermine.regione.emilia-romagna.it/issues/29272) Aggiunta possibilità di start e stop dei job direttamente dal monitoraggio esame  job schedulati
+
+## 4.13.1 (31-05-2023)
+
+### Bugfix: 1
+- [#29629](https://parermine.regione.emilia-romagna.it/issues/29629) Correzione estrazione nome utente durante l'autenticazione SPID
+
+## 4.13.0 (15-05-2023)
+
+### Bugfix: 5
+- [#29585](https://parermine.regione.emilia-romagna.it/issues/29585) Corretta la gestione del timeout per la replica utenti 
+- [#29334](https://parermine.regione.emilia-romagna.it/issues/29334) Correzione Errore bloccante nella modifica del disciplinare tecnico in Siam
+- [#28729](https://parermine.regione.emilia-romagna.it/issues/28729) Correzione del tempo di esecuzione dell'ssociazione di un ente a collegamento
+- [#28278](https://parermine.regione.emilia-romagna.it/issues/28278) Correzione refuso ed eliminazione messaggio da interfaccia 
+- [#24648](https://parermine.regione.emilia-romagna.it/issues/24648) Risoluzione errore critico nell'inserimento di enti in collegamenti
+
+### Novità: 3
+- [#28936](https://parermine.regione.emilia-romagna.it/issues/28936) Eliminazione repliche utenti 
+- [#27568](https://parermine.regione.emilia-romagna.it/issues/27568) Inserimento controllo nella associazione utente SPID con anagrafica utenti
+- [#16785](https://parermine.regione.emilia-romagna.it/issues/16785) Modifiche varie all'interfaccia
+
+## 4.12.0 (27-04-2023)
+
+### Novità: 1
+- [#18349](https://parermine.regione.emilia-romagna.it/issues/18349)  Creazione pacchetto unico per Sacer IAM
+
+## 4.11.0 (13-04-2023)
+
+### Bugfix: 3
+- [#27999](https://parermine.regione.emilia-romagna.it/issues/27999) Errore HTTP nell'apertura della pagina ModificaPsw.html da SIAM
+- [#27913](https://parermine.regione.emilia-romagna.it/issues/27913) Modifica delle pagine dettaglio ente con aggiunta campo ID ente SIAM
+- [#27588](https://parermine.regione.emilia-romagna.it/issues/27588) Correzione modifica utente
+
+### Novità: 6
+- [#28958](https://parermine.regione.emilia-romagna.it/issues/28958) Nuova pagina gestione JOB 
+- [#28512](https://parermine.regione.emilia-romagna.it/issues/28512) Messaggio automatico alla riattivazione di un utente
+- [#28355](https://parermine.regione.emilia-romagna.it/issues/28355) adeguamento SAML per regione PUGLIA
+- [#28279](https://parermine.regione.emilia-romagna.it/issues/28279) Inserimento richiesta: aggiunta azione di "Reset password" nel menù a tendina
+- [#27656](https://parermine.regione.emilia-romagna.it/issues/27656) Nuovo Monitoraggio job in SIAM
+- [#27406](https://parermine.regione.emilia-romagna.it/issues/27406)  Logging accessi SPID non autorizzati
+
+## 4.10.1 (19-12-2022)
+
+### Bugfix: 2
+- [#27582](https://parermine.regione.emilia-romagna.it/issues/27582) Correzione errore nel modulo informazioni nella preparazione del download
+- [#27581](https://parermine.regione.emilia-romagna.it/issues/27581) Correzione errore critico alla cancellazione di un accordo
+
+### Novità: 2
+- [#27586](https://parermine.regione.emilia-romagna.it/issues/27586) Modifica lettura CIG per estrazione righe per fatture
+- [#27507](https://parermine.regione.emilia-romagna.it/issues/27507) Integrazione idp KeyCloak in ecosistema Parer - Sviluppo FASE 2
+
+## 4.9.3 (16-09-2022)
+
+### Bugfix: 1
+- [#27700](https://parermine.regione.emilia-romagna.it/issues/27700) Aggiornamento loghi
+
+## 4.9.2 (09-09-2022)
+
+### Bugfix: 1
+- [#27598](https://parermine.regione.emilia-romagna.it/issues/27598) Correzione di un errore job replica utenti
+
 ## 4.9.1 (22-06-2022)
 
 ### Bugfix: 1

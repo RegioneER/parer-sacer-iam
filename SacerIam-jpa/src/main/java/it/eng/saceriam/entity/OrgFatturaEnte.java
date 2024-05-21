@@ -1,16 +1,49 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the ORG_FATTURA_ENTE database table.
- *
  */
 @Entity
 @Table(name = "ORG_FATTURA_ENTE")
@@ -18,50 +51,82 @@ import javax.persistence.*;
 public class OrgFatturaEnte implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idFatturaEnte;
+
     private BigDecimal aaEmissFattura;
+
     private BigDecimal aaEmissNotaCredito;
+
     private BigDecimal aaFattura;
+
     private String cdEmisFattura;
+
     private String cdEmisNotaCredito;
+
     private String cdFattura;
+
     private String cdFatturaSap;
+
     private String cdRegistroEmisFattura;
+
     private String cdRegistroEmisNotaCredito;
+
     private String dsTestoFattura;
+
     private Date dtEmisFattura;
+
     private Date dtEmisNotaCredito;
+
     private Date dtScadFattura;
+
     private String flDaRiemis;
+
     private BigDecimal idStatoFatturaEnteCor;
+
     private BigDecimal imTotDaPagare;
+
     private BigDecimal imTotFattura;
+
     private BigDecimal imTotIva;
+
     private String ntEmisFattura;
+
     private String ntEmisNotaCredito;
+
     private String ntFattura;
+
     private BigDecimal pgFattura;
+
     private OrgEnteSiam orgEnteSiam;
+
     private OrgFatturaEnte orgFatturaEnte;
+
     private List<OrgFatturaEnte> orgFatturaEntes = new ArrayList<>();
+
     private List<OrgServizioFattura> orgServizioFatturas = new ArrayList<>();
+
     private List<OrgStatoFatturaEnte> orgStatoFatturaEntes = new ArrayList<>();
+
     private List<OrgPagamFatturaEnte> orgPagamFatturaEntes = new ArrayList<>();
+
     private List<OrgSollecitoFatturaEnte> orgSollecitoFatturaEntes = new ArrayList<>();
+
     private List<OrgModifFatturaEnte> orgModifFatturaEntes = new ArrayList<>();
+
     private String nmEnte;
+
     private String nmStrut;
 
     public OrgFatturaEnte() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_FATTURA_ENTE") // @SequenceGenerator(name =
-                                                                       // "ORG_FATTURA_ENTE_IDFATTURAENTE_GENERATOR",
-                                                                       // sequenceName = "SORG_FATTURA_ENTE",
-                                                                       // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_FATTURA_ENTE_IDFATTURAENTE_GENERATOR")
     @Column(name = "ID_FATTURA_ENTE")
+    @GenericGenerator(name = "SORG_FATTURA_ENTE_ID_FATTURA_ENTE_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_FATTURA_ENTE"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_FATTURA_ENTE_ID_FATTURA_ENTE_GENERATOR")
     public Long getIdFatturaEnte() {
         return this.idFatturaEnte;
     }
@@ -206,14 +271,12 @@ public class OrgFatturaEnte implements Serializable {
     public OrgServizioFattura addOrgServizioFattura(OrgServizioFattura orgServizioFattura) {
         getOrgServizioFatturas().add(orgServizioFattura);
         orgServizioFattura.setOrgFatturaEnte(this);
-
         return orgServizioFattura;
     }
 
     public OrgServizioFattura removeOrgServizioFattura(OrgServizioFattura orgServizioFattura) {
         getOrgServizioFatturas().remove(orgServizioFattura);
         orgServizioFattura.setOrgFatturaEnte(null);
-
         return orgServizioFattura;
     }
 
@@ -230,14 +293,12 @@ public class OrgFatturaEnte implements Serializable {
     public OrgStatoFatturaEnte addOrgStatoFatturaEnte(OrgStatoFatturaEnte orgStatoFatturaEnte) {
         getOrgStatoFatturaEntes().add(orgStatoFatturaEnte);
         orgStatoFatturaEnte.setOrgFatturaEnte(this);
-
         return orgStatoFatturaEnte;
     }
 
     public OrgStatoFatturaEnte removeOrgStatoFatturaEnte(OrgStatoFatturaEnte orgStatoFatturaEnte) {
         getOrgStatoFatturaEntes().remove(orgStatoFatturaEnte);
         orgStatoFatturaEnte.setOrgFatturaEnte(null);
-
         return orgStatoFatturaEnte;
     }
 
@@ -398,5 +459,4 @@ public class OrgFatturaEnte implements Serializable {
     public void setNmStrut(String nmStrut) {
         this.nmStrut = nmStrut;
     }
-
 }

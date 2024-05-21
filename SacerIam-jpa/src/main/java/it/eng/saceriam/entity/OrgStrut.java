@@ -1,4 +1,21 @@
 /*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +25,7 @@ package it.eng.saceriam.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,14 +33,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * The persistent class for the ORG_STRUT database table.
  *
  */
 @Entity
-@XmlRootElement
 @Cacheable(true)
 @Table(schema = "SACER", name = "ORG_STRUT")
 public class OrgStrut implements Serializable {
@@ -43,9 +59,6 @@ public class OrgStrut implements Serializable {
     }
 
     @Id
-    // @NonMonotonicSequenceGenerator(sequenceName = "SORG_STRUT") //@SequenceGenerator(name =
-    // "ORG_STRUT_IDSTRUT_GENERATOR", sequenceName = "SORG_STRUT", allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_STRUT_IDSTRUT_GENERATOR")
     @Column(name = "ID_STRUT")
     public Long getIdStrut() {
         return this.idStrut;

@@ -10,7 +10,26 @@
         <sl:menu showChangePasswordBtn="true" />
         <sl:content>
             <slf:messageBox />
+            <c:if test="${!empty requestScope.customDeleteAppartenenzaCollegamentoDaDettaglioEnteMessageBox}">                
+                <div class="messages confermaDeleteAppartenenzaCollegamentoDaDettaglioEnte ">
+                    <ul>
+                        <li class="message warning ">Attenzione! La cancellazione dell'appartenenza al collegamento comporterà l'eliminazione delle abilitazioni concesse ai seguenti <c:out value = "${requestScope.numeroUtentiAppartenenzaCollegamentoDaDettaglioEnte}"/> utenti:</li>
+                    </ul>
+                    <p  style="padding-left: 70px">                                                 
+                        <c:forTokens items = "${requestScope.listaUtentiAppartenenzaCollegamentoDaDettaglioEnte}" delims = "," var = "utentiAppartenenzaCollegamentoDaDettaglioEnte">
+                            <c:out value = "${utentiAppartenenzaCollegamentoDaDettaglioEnte}"/><br>                        
+                        </c:forTokens>
+                    <p>
+                    <ul style="text-indent: 30px">
+                    Si desidera procedere?
+                    </ul>
+                </div>      
+            </c:if> 
+            
+            
+            
             <sl:newLine skipLine="true"/>
+            <script type="text/javascript" src="<c:url value='/js/customDeleteAppartenenzaCollegamentoDaDettaglioEnteMessageBox.js'/>" ></script>
             <sl:contentTitle title="<%=AmministrazioneEntiConvenzionatiForm.CollegamentoEnteAppartDetail.DESCRIPTION%>" />
             
             <c:if test="${sessionScope['###_FORM_CONTAINER']['collegamentiEnteAppartList'].table['empty']}">

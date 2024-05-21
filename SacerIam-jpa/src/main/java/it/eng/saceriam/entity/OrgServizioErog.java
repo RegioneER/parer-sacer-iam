@@ -1,16 +1,48 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  * The persistent class for the ORG_SERVIZIO_EROG database table.
- *
  */
 @Entity
 @Table(name = "ORG_SERVIZIO_EROG")
@@ -18,30 +50,42 @@ import javax.persistence.*;
 public class OrgServizioErog implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idServizioErogato;
+
     private Date dtErog;
+
     private String flPagamento;
+
     private BigDecimal imValoreTariffa;
+
     private String nmServizioErogato;
+
     private String ntServizioErog;
+
     private AplSistemaVersante aplSistemaVersante;
+
     private OrgAccordoEnte orgAccordoEnte;
+
     private OrgTariffa orgTariffa;
+
     private OrgTipoServizio orgTipoServizio;
+
     private List<OrgServizioFattura> orgServizioFatturas = new ArrayList<>();
+
     private OrgTariffaAccordo orgTariffaAccordo;
+
     private OrgTariffaAaAccordo orgTariffaAaAccordo;
 
     public OrgServizioErog() {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_SERVIZIO_EROG") // @SequenceGenerator(name =
-                                                                        // "ORG_SERVIZIO_EROG_IDSERVIZIOEROGATO_GENERATOR",
-                                                                        // sequenceName = "SORG_SERVIZIO_EROG",
-                                                                        // allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_SERVIZIO_EROG_IDSERVIZIOEROGATO_GENERATOR")
     @Column(name = "ID_SERVIZIO_EROGATO")
+    @GenericGenerator(name = "SORG_SERVIZIO_EROG_ID_SERVIZIO_EROGATO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_SERVIZIO_EROG"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_SERVIZIO_EROG_ID_SERVIZIO_EROGATO_GENERATOR")
     public Long getIdServizioErogato() {
         return this.idServizioErogato;
     }
@@ -153,14 +197,12 @@ public class OrgServizioErog implements Serializable {
     public OrgServizioFattura addOrgServizioFattura(OrgServizioFattura orgServizioFattura) {
         getOrgServizioFatturas().add(orgServizioFattura);
         orgServizioFattura.setOrgServizioErog(this);
-
         return orgServizioFattura;
     }
 
     public OrgServizioFattura removeOrgServizioFattura(OrgServizioFattura orgServizioFattura) {
         getOrgServizioFatturas().remove(orgServizioFattura);
         orgServizioFattura.setOrgServizioErog(null);
-
         return orgServizioFattura;
     }
 
@@ -185,5 +227,4 @@ public class OrgServizioErog implements Serializable {
     public void setOrgTariffaAaAccordo(OrgTariffaAaAccordo orgTariffaAaAccordo) {
         this.orgTariffaAaAccordo = orgTariffaAaAccordo;
     }
-
 }

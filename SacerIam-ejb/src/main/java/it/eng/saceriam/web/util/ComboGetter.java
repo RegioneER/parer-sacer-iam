@@ -1,6 +1,33 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.web.util;
 
-import it.eng.saceriam.amministrazioneEntiConvenzionati.helper.EntiConvenzionatiHelper;
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import it.eng.parer.sacerlog.entity.constraint.ConstLogEventoLoginUser;
 import it.eng.saceriam.entity.AplApplic;
 import it.eng.saceriam.entity.AplEntryMenu;
 import it.eng.saceriam.entity.AplPaginaWeb;
@@ -15,7 +42,6 @@ import it.eng.saceriam.entity.constraint.ConstPrfRuolo;
 import it.eng.saceriam.entity.constraint.ConstUsrAppartUserRich;
 import it.eng.saceriam.entity.constraint.ConstUsrRichGestUser;
 import it.eng.saceriam.entity.constraint.ConstUsrStatoUser;
-import it.eng.saceriam.grantedEntity.constraint.ConstLogEventoLoginUser;
 import it.eng.saceriam.slite.gen.tablebean.AplApplicTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplEntryMenuTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplPaginaWebTableBean;
@@ -30,13 +56,6 @@ import it.eng.spagoLite.db.base.sorting.SortingRule;
 import it.eng.spagoLite.db.base.table.BaseTable;
 import it.eng.spagoLite.db.decodemap.DecodeMapIF;
 import it.eng.spagoLite.db.oracle.decode.DecodeMap;
-import java.math.BigDecimal;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -63,8 +82,6 @@ public class ComboGetter {
     private UserHelper userHelper;
     @EJB
     private AmministrazioneUtentiHelper amministrazioneUtentiHelper;
-    @EJB
-    private EntiConvenzionatiHelper entiConvenzionatiHelper;
 
     private static final Logger log = LoggerFactory.getLogger(ComboGetter.class);
 
@@ -338,12 +355,6 @@ public class ComboGetter {
         BaseTable bt = new BaseTable();
         DecodeMap mappaTipoUser = new DecodeMap();
         String key = "tipo_user";
-        // if (tipoUserAdmin.equals(ApplEnum.TipoUser.TEAM.name())) {
-        // /* Imposto i valori della combo */
-        // for (ApplEnum.TipoUser tipoUser : Utils.sortEnum(ApplEnum.TipoUser.values())) {
-        // bt.add(createKeyValueBaseRow(key, tipoUser.name()));
-        // }
-        // } else {
         BaseRow br = new BaseRow();
         br.setString(key, ApplEnum.TipoUser.PERSONA_FISICA.name());
         bt.add(br);
@@ -477,16 +488,23 @@ public class ComboGetter {
         return pagineDM;
     }
 
-    /*
-     * public DecodeMapIF getMappaPaginePerApplicazione(String applName, boolean sortedByDesc) throws EMFError {
-     * AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
-     * 
-     * List<AplPaginaWeb> pagineWeb=userHelper.getListAplPaginaWeb(applName); try { if (pagineWeb != null &&
-     * !pagineWeb.isEmpty()) { paginaWebTableBean = (AplPaginaWebTableBean) Transform.entities2TableBean(pagineWeb); if
-     * (sortedByDesc) { paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web")); paginaWebTableBean.sort();
-     * } } } catch (Exception e) { log.error(e.getMessage(), e); } DecodeMap pagineDM =
-     * DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web", "ds_pagina_web"); return pagineDM; }
-     */
+    public DecodeMapIF getMappaApplicAbilitateConPaginaInfoPrivacy(long idUserIamCorrente, boolean isUserAdmin,
+            boolean estraiDescApplic) throws EMFError {
+        AplApplicTableBean applicTableBean = new AplApplicTableBean();
+
+        List<AplApplic> applicList = comboHelper.getAplApplicAbilitateInfoPrivacyList(idUserIamCorrente);
+        try {
+            if (applicList != null && !applicList.isEmpty()) {
+                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
+                estraiDescApplic ? "ds_applic" : "nm_applic");
+        return applicDM;
+    }
+
     public DecodeMapIF getMappaPaginePerApplicazione(BigDecimal idApplic, String tiHelpOnLine, boolean sortedByDesc)
             throws EMFError {
         AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
@@ -897,6 +915,22 @@ public class ComboGetter {
         bt.add(br1);
         mappaTipiValori.populatedMap(bt, CAMPO_VALORE, CAMPO_NOME);
         return mappaTipiValori;
+    }
+
+    public static DecodeMap getMappaTiStatoJob() {
+        BaseTable bt = new BaseTable();
+        BaseRow br = new BaseRow();
+        BaseRow br1 = new BaseRow();
+        BaseRow br2 = new BaseRow();
+        DecodeMap mappaStatoAgg = new DecodeMap();
+        br.setString("ti_stato_job", "ATTIVO");
+        bt.add(br);
+        br1.setString("ti_stato_job", "DISATTIVO");
+        bt.add(br1);
+        br2.setString("ti_stato_job", "IN_ESECUZIONE");
+        bt.add(br2);
+        mappaStatoAgg.populatedMap(bt, "ti_stato_job", "ti_stato_job");
+        return mappaStatoAgg;
     }
 
 }

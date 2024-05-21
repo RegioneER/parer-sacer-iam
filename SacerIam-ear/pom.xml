@@ -4,10 +4,9 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>4.9.2-SNAPSHOT</version>
+        <version>5.2.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>it.eng.parer</groupId>
     <artifactId>saceriam-jboss-ear</artifactId>
     <packaging>ear</packaging>
     <name>SacerIam-ear</name>
@@ -20,11 +19,10 @@
 
     <build>
         <finalName>saceriam-${project.version}</finalName>
-        <plugins>
+        <plugins>     
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>2.6</version>        
                 <configuration>
                     <modules>
                         <webModule>                            
@@ -52,7 +50,7 @@
                     </modules>   
                     <archive>                                  
                         <manifestEntries>
-                            <App-Name>Sacer IAM @application.xml_env@</App-Name> 
+                            <App-Name>Sacer IAM</App-Name> 
                             <App-Version>${project.version}</App-Version>
                             <App-BuildDate>${maven.build.timestamp}</App-BuildDate>
                             <Logging-Profile>SACERIAM</Logging-Profile>
@@ -107,13 +105,6 @@
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-middle</artifactId> 
         </dependency>
-<!--        
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
-        </dependency>                
--->                    
         <dependency>
             <groupId>org.springframework.security.extensions</groupId>
             <artifactId>spring-security-saml2-core</artifactId>            
@@ -141,10 +132,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>   
-        </dependency>
-        <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
             <exclusions>
@@ -161,7 +148,6 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>${commons-codec.version}</version>
         </dependency>        
         <dependency> 
             <groupId>commons-collections</groupId>
@@ -171,7 +157,6 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>${commons-beanutils.version}</version>
         </dependency>        
         <!-- Incluso per l'ejb del logging applicativo -->
         <dependency>
@@ -211,7 +196,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-            <version>4.11</version>
         </dependency>
     </dependencies>
 </project>

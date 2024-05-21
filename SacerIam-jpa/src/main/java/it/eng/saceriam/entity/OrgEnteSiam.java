@@ -1,19 +1,56 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.entity;
 
-import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteConvenz;
-import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteNonConvenz;
-import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteSiam;
-import it.eng.sequences.hibernate.NonMonotonicSequenceGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteConvenz;
+import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteNonConvenz;
+import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteSiam;
 
 /**
  * The persistent class for the ORG_ENTE_SIAM database table.
- *
  */
 @Entity
 @Table(name = "ORG_ENTE_SIAM")
@@ -21,63 +58,110 @@ import javax.persistence.*;
 public class OrgEnteSiam implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long idEnteSiam;
+
     private String cdCapSedeLegale;
+
     private String cdEnteConvenz;
+
     private String cdFisc;
+
     private String cdNazioneSedeLegale;
     private String cdUfe;
     private String dsCittaSedeLegale;
+
     private String dsNote;
     private String dsUfe;
     private String dsViaSedeLegale;
+
     private Date dtCessazione;
+
     private Date dtIniVal;
+
     private Date dtRichModuloInfo;
     private Date dtIniValAppartAmbiente;
     private Date dtFinValAppartAmbiente;
     private BigDecimal idAmbitoTerrit;
+
     private BigDecimal idCategEnte;
+
     private BigDecimal idProvSedeLegale;
+
     private String nmEnteSiam;
+
     private String tiCdEnteConvenz;
     private String tiModPagam;
     private TiEnteSiam tiEnte;
+
     private TiEnteConvenz tiEnteConvenz;
+
     private TiEnteNonConvenz tiEnteNonConvenz;
+
     private List<OrgAccordoEnte> orgAccordoEntes = new ArrayList<>();
+
     private List<OrgAccordoEnte> orgAccordoEnteByIdEnteConvenzAmministratores = new ArrayList<>();
+
     private List<OrgAccordoEnte> orgAccordoEnteByIdEnteConvenzConservs = new ArrayList<>();
+
     private List<OrgAccordoEnte> orgAccordoEnteByIdEnteConvenzGestores = new ArrayList<>();
+
     private List<OrgEnteArkRif> orgEnteArkRifs = new ArrayList<>();
     private OrgCdIva orgCdIva;
     private OrgEnteSiam orgEnteSiamByIdEnteConvenzNuovo;
+
     private OrgEnteSiam orgEnteSiamByIdEnteConvenzCreazione;
+
     private OrgEnteSiam orgEnteSiamByIdEnteProdutCorrisp;
+
     private OrgAmbienteEnteConvenz orgAmbienteEnteConvenz;
+
     private List<OrgEnteSiam> orgEnteSiamByIdEnteConvenzNuovos = new ArrayList<>();
+
     private List<OrgEnteSiam> orgEnteSiamByIdEnteConvenzCreaziones = new ArrayList<>();
+
     private List<OrgEnteSiam> orgEnteSiamByIdEnteProdutCorrisps = new ArrayList<>();
+
     private List<OrgEnteConvenzOrg> orgEnteConvenzOrgs = new ArrayList<>();
+
     private List<OrgEnteUserRif> orgEnteUserRifs = new ArrayList<>();
+
     private List<OrgFatturaEnte> orgFatturaEntes = new ArrayList<>();
+
     private List<OrgStoEnteConvenz> orgStoEnteConvenzs = new ArrayList<>();
+
     private List<UsrAbilEnteSiam> usrAbilEnteSiams = new ArrayList<>();
+
     private List<UsrDichAbilEnteConvenz> usrDichAbilEnteConvenzs = new ArrayList<>();
+
     private List<UsrRichGestUser> usrRichGestUsers = new ArrayList<>();
+
     private List<UsrUser> usrUsers = new ArrayList<>();
+
     private List<IamValoreParamApplic> iamValoreParamApplics = new ArrayList<>();
+
     private List<OrgAmbienteEnteConvenz> orgAmbienteEnteConvenzByIdEnteConservs = new ArrayList<>();
+
     private List<OrgAmbienteEnteConvenz> orgAmbienteEnteConvenzByIdEnteGestores = new ArrayList<>();
+
     private List<OrgSuptEsternoEnteConvenz> orgSuptEsternoEnteConvenzByIdEnteFornitEsts = new ArrayList<>();
+
     private List<OrgSuptEsternoEnteConvenz> orgSuptEsternoEnteConvenzByIdEnteProduts = new ArrayList<>();
+
     private List<OrgAccordoVigil> orgAccordoVigilByIdEnteConservs = new ArrayList<>();
+
     private List<OrgAccordoVigil> orgAccordoVigilByIdEnteOrganoVigils = new ArrayList<>();
+
     private List<OrgVigilEnteProdut> orgVigilEnteProduts = new ArrayList<>();
+
     private List<AplSistemaVersante> aplSistemaVersantes = new ArrayList<>();
+
     private List<OrgCollegEntiConvenz> orgCollegEntiConvenzs = new ArrayList<>();
+
     private List<OrgAppartCollegEnti> orgAppartCollegEntis = new ArrayList<>();
+
     private List<OrgModuloInfoAccordo> orgModuloInfoAccordos;
+
     private List<OrgDiscipStrut> orgDiscipStruts;
     private List<OrgStoEnteAmbienteConvenz> orgStoEnteAmbienteConvenzs;
 
@@ -85,12 +169,11 @@ public class OrgEnteSiam implements Serializable {
     }
 
     @Id
-    @NonMonotonicSequenceGenerator(sequenceName = "SORG_ENTE_SIAM") // @SequenceGenerator(name =
-                                                                    // "ORG_ENTE_SIAM_IDENTESIAM_GENERATOR",
-                                                                    // sequenceName = "SORG_ENTE_SIAM", allocationSize =
-                                                                    // 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_ENTE_SIAM_IDENTESIAM_GENERATOR")
     @Column(name = "ID_ENTE_SIAM")
+    @GenericGenerator(name = "SORG_ENTE_SIAM_ID_ENTE_SIAM_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_ENTE_SIAM"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_ENTE_SIAM_ID_ENTE_SIAM_GENERATOR")
     public Long getIdEnteSiam() {
         return this.idEnteSiam;
     }
@@ -338,14 +421,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgAccordoEnte addOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
         getOrgAccordoEntes().add(orgAccordoEnte);
         orgAccordoEnte.setOrgEnteSiam(this);
-
         return orgAccordoEnte;
     }
 
     public OrgAccordoEnte removeOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
         getOrgAccordoEntes().remove(orgAccordoEnte);
         orgAccordoEnte.setOrgEnteSiam(null);
-
         return orgAccordoEnte;
     }
 
@@ -364,7 +445,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAccordoEnte orgAccordoEnteByIdEnteConvenzAmministratore) {
         getOrgAccordoEnteByIdEnteConvenzAmministratores().add(orgAccordoEnteByIdEnteConvenzAmministratore);
         orgAccordoEnteByIdEnteConvenzAmministratore.setOrgEnteSiam(this);
-
         return orgAccordoEnteByIdEnteConvenzAmministratore;
     }
 
@@ -372,7 +452,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAccordoEnte orgAccordoEnteByIdEnteConvenzAmministratore) {
         getOrgAccordoEnteByIdEnteConvenzAmministratores().remove(orgAccordoEnteByIdEnteConvenzAmministratore);
         orgAccordoEnteByIdEnteConvenzAmministratore.setOrgEnteSiam(null);
-
         return orgAccordoEnteByIdEnteConvenzAmministratore;
     }
 
@@ -389,7 +468,6 @@ public class OrgEnteSiam implements Serializable {
     public OrgAccordoEnte addOrgAccordoEnteByIdEnteConvenzConserv(OrgAccordoEnte orgAccordoEnteByIdEnteConvenzConserv) {
         getOrgAccordoEnteByIdEnteConvenzConservs().add(orgAccordoEnteByIdEnteConvenzConserv);
         orgAccordoEnteByIdEnteConvenzConserv.setOrgEnteSiam(this);
-
         return orgAccordoEnteByIdEnteConvenzConserv;
     }
 
@@ -397,7 +475,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAccordoEnte orgAccordoEnteByIdEnteConvenzConserv) {
         getOrgAccordoEnteByIdEnteConvenzConservs().remove(orgAccordoEnteByIdEnteConvenzConserv);
         orgAccordoEnteByIdEnteConvenzConserv.setOrgEnteSiam(null);
-
         return orgAccordoEnteByIdEnteConvenzConserv;
     }
 
@@ -414,7 +491,6 @@ public class OrgEnteSiam implements Serializable {
     public OrgAccordoEnte addOrgAccordoEnteByIdEnteConvenzGestore(OrgAccordoEnte orgAccordoEnteByIdEnteConvenzGestore) {
         getOrgAccordoEnteByIdEnteConvenzGestores().add(orgAccordoEnteByIdEnteConvenzGestore);
         orgAccordoEnteByIdEnteConvenzGestore.setOrgEnteSiam(this);
-
         return orgAccordoEnteByIdEnteConvenzGestore;
     }
 
@@ -422,7 +498,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAccordoEnte orgAccordoEnteByIdEnteConvenzGestore) {
         getOrgAccordoEnteByIdEnteConvenzGestores().remove(orgAccordoEnteByIdEnteConvenzGestore);
         orgAccordoEnteByIdEnteConvenzGestore.setOrgEnteSiam(null);
-
         return orgAccordoEnteByIdEnteConvenzGestore;
     }
 
@@ -439,14 +514,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgEnteArkRif addOrgEnteArkRif(OrgEnteArkRif orgEnteArkRif) {
         getOrgEnteArkRifs().add(orgEnteArkRif);
         orgEnteArkRif.setOrgEnteSiam(this);
-
         return orgEnteArkRif;
     }
 
     public OrgEnteArkRif removeOrgEnteArkRif(OrgEnteArkRif orgEnteArkRif) {
         getOrgEnteArkRifs().remove(orgEnteArkRif);
         orgEnteArkRif.setOrgEnteSiam(null);
-
         return orgEnteArkRif;
     }
 
@@ -474,14 +547,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgEnteSiam addOrgEnteSiamByIdEnteConvenzNuovo(OrgEnteSiam orgEnteSiamByIdEnteConvenzNuovo) {
         getOrgEnteSiamByIdEnteConvenzNuovos().add(orgEnteSiamByIdEnteConvenzNuovo);
         orgEnteSiamByIdEnteConvenzNuovo.setOrgEnteSiamByIdEnteConvenzNuovo(this);
-
         return orgEnteSiamByIdEnteConvenzNuovo;
     }
 
     public OrgEnteSiam removeOrgEnteSiamByIdEnteConvenzNuovo(OrgEnteSiam orgEnteSiamByIdEnteConvenzNuovo) {
         getOrgEnteSiamByIdEnteConvenzNuovos().remove(orgEnteSiamByIdEnteConvenzNuovo);
         orgEnteSiamByIdEnteConvenzNuovo.setOrgEnteSiamByIdEnteConvenzNuovo(null);
-
         return orgEnteSiamByIdEnteConvenzNuovo;
     }
 
@@ -509,14 +580,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgEnteSiam addOrgEnteSiamByIdEnteConvenzCreazione(OrgEnteSiam orgEnteSiamByIdEnteConvenzCreazione) {
         getOrgEnteSiamByIdEnteConvenzCreaziones().add(orgEnteSiamByIdEnteConvenzCreazione);
         orgEnteSiamByIdEnteConvenzCreazione.setOrgEnteSiamByIdEnteConvenzCreazione(this);
-
         return orgEnteSiamByIdEnteConvenzCreazione;
     }
 
     public OrgEnteSiam removeOrgEnteSiamByIdEnteConvenzCreazione(OrgEnteSiam orgEnteSiamByIdEnteConvenzCreazione) {
         getOrgEnteSiamByIdEnteConvenzCreaziones().remove(orgEnteSiamByIdEnteConvenzCreazione);
         orgEnteSiamByIdEnteConvenzCreazione.setOrgEnteSiamByIdEnteConvenzCreazione(null);
-
         return orgEnteSiamByIdEnteConvenzCreazione;
     }
 
@@ -544,14 +613,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgEnteSiam addOrgEnteSiamByIdEnteProdutCorrisp(OrgEnteSiam orgEnteSiamByIdEnteProdutCorrisp) {
         getOrgEnteSiamByIdEnteProdutCorrisps().add(orgEnteSiamByIdEnteProdutCorrisp);
         orgEnteSiamByIdEnteProdutCorrisp.setOrgEnteSiamByIdEnteProdutCorrisp(this);
-
         return orgEnteSiamByIdEnteProdutCorrisp;
     }
 
     public OrgEnteSiam removeOrgEnteSiamByIdEnteProdutCorrisp(OrgEnteSiam orgEnteSiamByIdEnteProdutCorrisp) {
         getOrgEnteSiamByIdEnteProdutCorrisps().remove(orgEnteSiamByIdEnteProdutCorrisp);
         orgEnteSiamByIdEnteProdutCorrisp.setOrgEnteSiamByIdEnteProdutCorrisp(null);
-
         return orgEnteSiamByIdEnteProdutCorrisp;
     }
 
@@ -568,14 +635,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgEnteConvenzOrg addOrgEnteConvenzOrg(OrgEnteConvenzOrg orgEnteConvenzOrg) {
         getOrgEnteConvenzOrgs().add(orgEnteConvenzOrg);
         orgEnteConvenzOrg.setOrgEnteSiam(this);
-
         return orgEnteConvenzOrg;
     }
 
     public OrgEnteConvenzOrg removeOrgEnteConvenzOrg(OrgEnteConvenzOrg orgEnteConvenzOrg) {
         getOrgEnteConvenzOrgs().remove(orgEnteConvenzOrg);
         orgEnteConvenzOrg.setOrgEnteSiam(null);
-
         return orgEnteConvenzOrg;
     }
 
@@ -613,14 +678,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgFatturaEnte addOrgFatturaEnte(OrgFatturaEnte orgFatturaEnte) {
         getOrgFatturaEntes().add(orgFatturaEnte);
         orgFatturaEnte.setOrgEnteSiam(this);
-
         return orgFatturaEnte;
     }
 
     public OrgFatturaEnte removeOrgFatturaEnte(OrgFatturaEnte orgFatturaEnte) {
         getOrgFatturaEntes().remove(orgFatturaEnte);
         orgFatturaEnte.setOrgEnteSiam(null);
-
         return orgFatturaEnte;
     }
 
@@ -637,14 +700,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgStoEnteConvenz addOrgStoEnteConvenz(OrgStoEnteConvenz orgStoEnteConvenz) {
         getOrgStoEnteConvenzs().add(orgStoEnteConvenz);
         orgStoEnteConvenz.setOrgEnteSiam(this);
-
         return orgStoEnteConvenz;
     }
 
     public OrgStoEnteConvenz removeOrgStoEnteConvenz(OrgStoEnteConvenz orgStoEnteConvenz) {
         getOrgStoEnteConvenzs().remove(orgStoEnteConvenz);
         orgStoEnteConvenz.setOrgEnteSiam(null);
-
         return orgStoEnteConvenz;
     }
 
@@ -701,14 +762,12 @@ public class OrgEnteSiam implements Serializable {
     public IamValoreParamApplic addIamValoreParamApplic(IamValoreParamApplic iamValoreParamApplic) {
         getIamValoreParamApplics().add(iamValoreParamApplic);
         iamValoreParamApplic.setOrgEnteSiam(this);
-
         return iamValoreParamApplic;
     }
 
     public IamValoreParamApplic removeIamValoreParamApplic(IamValoreParamApplic iamValoreParamApplic) {
         getIamValoreParamApplics().remove(iamValoreParamApplic);
         iamValoreParamApplic.setOrgEnteSiam(null);
-
         return iamValoreParamApplic;
     }
 
@@ -727,7 +786,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAmbienteEnteConvenz orgAmbienteEnteConvenzByIdEnteConserv) {
         getOrgAmbienteEnteConvenzByIdEnteConservs().add(orgAmbienteEnteConvenzByIdEnteConserv);
         orgAmbienteEnteConvenzByIdEnteConserv.setOrgEnteSiamByIdEnteConserv(this);
-
         return orgAmbienteEnteConvenzByIdEnteConserv;
     }
 
@@ -735,7 +793,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAmbienteEnteConvenz orgAmbienteEnteConvenzByIdEnteConserv) {
         getOrgAmbienteEnteConvenzByIdEnteConservs().remove(orgAmbienteEnteConvenzByIdEnteConserv);
         orgAmbienteEnteConvenzByIdEnteConserv.setOrgEnteSiamByIdEnteConserv(null);
-
         return orgAmbienteEnteConvenzByIdEnteConserv;
     }
 
@@ -754,7 +811,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAmbienteEnteConvenz orgAmbienteEnteConvenzByIdEnteGestore) {
         getOrgAmbienteEnteConvenzByIdEnteGestores().add(orgAmbienteEnteConvenzByIdEnteGestore);
         orgAmbienteEnteConvenzByIdEnteGestore.setOrgEnteSiamByIdEnteGestore(this);
-
         return orgAmbienteEnteConvenzByIdEnteGestore;
     }
 
@@ -762,7 +818,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAmbienteEnteConvenz orgAmbienteEnteConvenzByIdEnteGestore) {
         getOrgAmbienteEnteConvenzByIdEnteGestores().remove(orgAmbienteEnteConvenzByIdEnteGestore);
         orgAmbienteEnteConvenzByIdEnteGestore.setOrgEnteSiamByIdEnteGestore(null);
-
         return orgAmbienteEnteConvenzByIdEnteGestore;
     }
 
@@ -781,7 +836,6 @@ public class OrgEnteSiam implements Serializable {
             OrgSuptEsternoEnteConvenz orgSuptEsternoEnteConvenzByIdEnteFornitEst) {
         getOrgSuptEsternoEnteConvenzByIdEnteFornitEsts().add(orgSuptEsternoEnteConvenzByIdEnteFornitEst);
         orgSuptEsternoEnteConvenzByIdEnteFornitEst.setOrgEnteSiamByIdEnteFornitEst(this);
-
         return orgSuptEsternoEnteConvenzByIdEnteFornitEst;
     }
 
@@ -789,7 +843,6 @@ public class OrgEnteSiam implements Serializable {
             OrgSuptEsternoEnteConvenz orgSuptEsternoEnteByIdEnteFornitEst) {
         getOrgSuptEsternoEnteConvenzByIdEnteFornitEsts().remove(orgSuptEsternoEnteByIdEnteFornitEst);
         orgSuptEsternoEnteByIdEnteFornitEst.setOrgEnteSiamByIdEnteFornitEst(null);
-
         return orgSuptEsternoEnteByIdEnteFornitEst;
     }
 
@@ -808,7 +861,6 @@ public class OrgEnteSiam implements Serializable {
             OrgSuptEsternoEnteConvenz orgSuptEsternoEnteConvenzByIdEnteProdut) {
         getOrgSuptEsternoEnteConvenzByIdEnteProduts().add(orgSuptEsternoEnteConvenzByIdEnteProdut);
         orgSuptEsternoEnteConvenzByIdEnteProdut.setOrgEnteSiamByIdEnteProdut(this);
-
         return orgSuptEsternoEnteConvenzByIdEnteProdut;
     }
 
@@ -816,7 +868,6 @@ public class OrgEnteSiam implements Serializable {
             OrgSuptEsternoEnteConvenz orgSuptEsternoEnteByIdEnteProdut) {
         getOrgSuptEsternoEnteConvenzByIdEnteProduts().remove(orgSuptEsternoEnteByIdEnteProdut);
         orgSuptEsternoEnteByIdEnteProdut.setOrgEnteSiamByIdEnteProdut(null);
-
         return orgSuptEsternoEnteByIdEnteProdut;
     }
 
@@ -833,14 +884,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgAccordoVigil addOrgAccordoVigilByIdEnteConserv(OrgAccordoVigil orgAccordoVigilByIdEnteConserv) {
         getOrgAccordoVigilByIdEnteConservs().add(orgAccordoVigilByIdEnteConserv);
         orgAccordoVigilByIdEnteConserv.setOrgEnteSiamByIdEnteConserv(this);
-
         return orgAccordoVigilByIdEnteConserv;
     }
 
     public OrgAccordoVigil removeOrgAccordoVigilByIdEnteConserv(OrgAccordoVigil orgAccordoVigilByIdEnteConserv) {
         getOrgAccordoVigilByIdEnteConservs().remove(orgAccordoVigilByIdEnteConserv);
         orgAccordoVigilByIdEnteConserv.setOrgEnteSiamByIdEnteConserv(null);
-
         return orgAccordoVigilByIdEnteConserv;
     }
 
@@ -857,7 +906,6 @@ public class OrgEnteSiam implements Serializable {
     public OrgAccordoVigil addOrgAccordoVigilByIdEnteOrganoVigil(OrgAccordoVigil orgAccordoVigilByIdEnteOrganoVigil) {
         getOrgAccordoVigilByIdEnteOrganoVigils().add(orgAccordoVigilByIdEnteOrganoVigil);
         orgAccordoVigilByIdEnteOrganoVigil.setOrgEnteSiamByIdEnteOrganoVigil(this);
-
         return orgAccordoVigilByIdEnteOrganoVigil;
     }
 
@@ -865,7 +913,6 @@ public class OrgEnteSiam implements Serializable {
             OrgAccordoVigil orgAccordoVigilByIdEnteOrganoVigil) {
         getOrgAccordoVigilByIdEnteOrganoVigils().remove(orgAccordoVigilByIdEnteOrganoVigil);
         orgAccordoVigilByIdEnteOrganoVigil.setOrgEnteSiamByIdEnteOrganoVigil(null);
-
         return orgAccordoVigilByIdEnteOrganoVigil;
     }
 
@@ -882,14 +929,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgVigilEnteProdut addOrgVigilEnteProdut(OrgVigilEnteProdut orgVigilEnteProdut) {
         getOrgVigilEnteProduts().add(orgVigilEnteProdut);
         orgVigilEnteProdut.setOrgEnteSiam(this);
-
         return orgVigilEnteProdut;
     }
 
     public OrgVigilEnteProdut removeOrgVigilEnteProdut(OrgVigilEnteProdut orgVigilEnteProdut) {
         getOrgVigilEnteProduts().remove(orgVigilEnteProdut);
         orgVigilEnteProdut.setOrgEnteSiam(null);
-
         return orgVigilEnteProdut;
     }
 
@@ -906,14 +951,12 @@ public class OrgEnteSiam implements Serializable {
     public AplSistemaVersante addAplSistemaVersante(AplSistemaVersante aplSistemaVersante) {
         getAplSistemaVersantes().add(aplSistemaVersante);
         aplSistemaVersante.setOrgEnteSiam(this);
-
         return aplSistemaVersante;
     }
 
     public AplSistemaVersante removeAplSistemaVersante(AplSistemaVersante aplSistemaVersante) {
         getAplSistemaVersantes().remove(aplSistemaVersante);
         aplSistemaVersante.setOrgEnteSiam(null);
-
         return aplSistemaVersante;
     }
 
@@ -930,14 +973,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgCollegEntiConvenz addOrgCollegEntiConvenz(OrgCollegEntiConvenz orgCollegEntiConvenz) {
         getOrgCollegEntiConvenzs().add(orgCollegEntiConvenz);
         orgCollegEntiConvenz.setOrgEnteSiam(this);
-
         return orgCollegEntiConvenz;
     }
 
     public OrgCollegEntiConvenz removeOrgCollegEntiConvenz(OrgCollegEntiConvenz orgCollegEntiConvenz) {
         getOrgCollegEntiConvenzs().remove(orgCollegEntiConvenz);
         orgCollegEntiConvenz.setOrgEnteSiam(null);
-
         return orgCollegEntiConvenz;
     }
 
@@ -954,14 +995,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgAppartCollegEnti addOrgAppartCollegEnti(OrgAppartCollegEnti orgAppartCollegEnti) {
         getOrgAppartCollegEntis().add(orgAppartCollegEnti);
         orgAppartCollegEnti.setOrgEnteSiam(this);
-
         return orgAppartCollegEnti;
     }
 
     public OrgAppartCollegEnti removeOrgAppartCollegEnti(OrgAppartCollegEnti orgAppartCollegEnti) {
         getOrgAppartCollegEntis().remove(orgAppartCollegEnti);
         orgAppartCollegEnti.setOrgEnteSiam(null);
-
         return orgAppartCollegEnti;
     }
 
@@ -978,14 +1017,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgModuloInfoAccordo addOrgModuloInfoAccordo(OrgModuloInfoAccordo orgModuloInfoAccordo) {
         getOrgModuloInfoAccordos().add(orgModuloInfoAccordo);
         orgModuloInfoAccordo.setOrgEnteConvenz(this);
-
         return orgModuloInfoAccordo;
     }
 
     public OrgModuloInfoAccordo removeOrgModuloInfoAccordo(OrgModuloInfoAccordo orgModuloInfoAccordo) {
         getOrgModuloInfoAccordos().remove(orgModuloInfoAccordo);
         orgModuloInfoAccordo.setOrgEnteConvenz(null);
-
         return orgModuloInfoAccordo;
     }
 
@@ -1002,14 +1039,12 @@ public class OrgEnteSiam implements Serializable {
     public OrgDiscipStrut addOrgDiscipStrut(OrgDiscipStrut orgDiscipStrut) {
         getOrgDiscipStruts().add(orgDiscipStrut);
         orgDiscipStrut.setOrgEnteConvenz(this);
-
         return orgDiscipStrut;
     }
 
     public OrgDiscipStrut removeOrgDiscipStrut(OrgDiscipStrut orgDiscipStrut) {
         getOrgDiscipStruts().remove(orgDiscipStrut);
         orgDiscipStrut.setOrgEnteConvenz(null);
-
         return orgDiscipStrut;
     }
 

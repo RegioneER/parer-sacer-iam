@@ -21,6 +21,14 @@
                 <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.INCL_UTENTI_AUTOMI%>" colSpan="2" width="w20" />
                 <sl:newLine />
                 <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.INCL_LOGIN__OK%>" colSpan="2" width="w20" />
+                <sl:newLine />
+                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.NM_NOME_USER%>" colSpan="2" width="w20" />
+                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.NM_COGNOME_USER%>" colSpan="2" width="w20" />
+                <sl:newLine />
+                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.DS_EMAIL_USER%>" colSpan="2" width="w20" />
+                <sl:newLine />
+                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.CD_FISC_USER%>" colSpan="2" width="w20" />
+                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.CD_ID_ESTERNO%>" colSpan="2" width="w20" />
             </slf:fieldSet>
 
             <sl:newLine skipLine="true"/>

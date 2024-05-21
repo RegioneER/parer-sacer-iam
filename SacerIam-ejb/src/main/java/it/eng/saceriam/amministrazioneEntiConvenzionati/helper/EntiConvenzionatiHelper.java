@@ -1,6 +1,34 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.saceriam.amministrazioneEntiConvenzionati.helper;
 
-import static it.eng.paginator.util.HibernateUtils.*;
+import static it.eng.paginator.util.HibernateUtils.bigDecimalFrom;
+import static it.eng.paginator.util.HibernateUtils.longFrom;
+import static it.eng.paginator.util.HibernateUtils.longListFrom;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+
 import it.eng.saceriam.amministrazioneEntiConvenzionati.dto.ServizioFatturatoBean;
 import it.eng.saceriam.entity.DecTipoUnitaDoc;
 import it.eng.saceriam.entity.IamParamApplic;
@@ -57,19 +85,22 @@ import it.eng.saceriam.viewEntity.OrgVCreaServFattUnaPrec;
 import it.eng.saceriam.viewEntity.OrgVCreaServFattUnatantum;
 import it.eng.saceriam.viewEntity.OrgVEnteConvByDelabilorg;
 import it.eng.saceriam.viewEntity.OrgVEnteConvenzByOrganiz;
+import it.eng.saceriam.viewEntity.OrgVOccupStorageAccordo;
 import it.eng.saceriam.viewEntity.OrgVRicAccordoEnte;
 import it.eng.saceriam.viewEntity.OrgVRicEnteConvenz;
 import it.eng.saceriam.viewEntity.OrgVRicEnteNonConvenz;
 import it.eng.saceriam.viewEntity.OrgVRicFatture;
-import it.eng.saceriam.viewEntity.OrgVVisFattura;
 import it.eng.saceriam.viewEntity.OrgVRicFatturePerAccordo;
+import it.eng.saceriam.viewEntity.OrgVVisFattura;
 import it.eng.saceriam.viewEntity.UsrVAbilAmbConvenzXente;
 import it.eng.saceriam.viewEntity.UsrVAbilAmbEnteConvenz;
 import it.eng.saceriam.viewEntity.UsrVAbilAmbEnteXente;
+import it.eng.saceriam.viewEntity.UsrVAbilEnteCollegToDel;
 import it.eng.saceriam.viewEntity.UsrVAbilEnteConvenz;
 import it.eng.saceriam.viewEntity.UsrVTreeOrganizIam;
 import java.math.BigDecimal;
-import java.util.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.stream.Collectors;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -212,22 +243,22 @@ public class EntiConvenzionatiHelper extends GenericHelper {
     }
 
     /**
-     * Ritorna la lista degli enti convenzionati del tipo passato in input
+     * Ritorna la lista degli enti convenzionati dei tipi passati in input
      *
      * @param tiEnteConvenz
      *            ente convenzionato di tipo {@link TiEnteConvenz}
      *
      * @return lista elementi di tipo {@link OrgEnteSiam}
      */
-    public List<OrgEnteSiam> getOrgEnteConvenzList(ConstOrgEnteSiam.TiEnteConvenz tiEnteConvenz) {
+    public List<OrgEnteSiam> getOrgEnteConvenzList(ConstOrgEnteSiam.TiEnteConvenz... tiEnteConvenz) {
         String queryStr = "SELECT ente FROM OrgEnteSiam ente ";
         if (tiEnteConvenz != null) {
-            queryStr = queryStr + "WHERE ente.tiEnteConvenz = :tiEnteConvenz ";
+            queryStr = queryStr + "WHERE ente.tiEnteConvenz IN :tiEnteConvenz ";
         }
         queryStr = queryStr + "ORDER BY ente.nmEnteSiam";
         Query query = getEntityManager().createQuery(queryStr);
         if (tiEnteConvenz != null) {
-            query.setParameter("tiEnteConvenz", tiEnteConvenz);
+            query.setParameter("tiEnteConvenz", Arrays.asList(tiEnteConvenz));
         }
         List<OrgEnteSiam> list = query.getResultList();
         return list;
@@ -390,8 +421,8 @@ public class EntiConvenzionatiHelper extends GenericHelper {
 
     /**
      * Ritorna la lista degli utenti appartenenti ad enti (diversi da quello aggiunto al collegamento) coinvolti nel
-     * collegamento, per i quali eâ€™ settato lâ€™indicatore che deve essere abilitato in automatico agli enti
-     * produttori appartenenti ai collegamenti (fl_abil_enti_colleg_autom)
+     * collegamento, per i quali è settato l'indicatore che deve essere abilitato in automatico agli enti produttori
+     * appartenenti ai collegamenti (fl_abil_enti_colleg_autom)
      *
      * @param idCollegEntiConvenz
      *            id ente collegamento enti convezionati
@@ -541,7 +572,7 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             Date dtFineValidAccordoA, Date dtScadAccordoDa, Date dtScadAccordoA, List<BigDecimal> idArchivista,
             String noArchivista, String flRicev, String flRichModuloInfo, String flNonConvenz, String flRecesso,
             String flChiuso, String flEsistonoGestAcc, List<BigDecimal> idTipoGestioneAccordo, String flGestAccNoRisp,
-            String tiStatoAccordo, Date dtDecAccordoDa, Date dtDecAccordoA, Date dtDecAccordoInfoDa,
+            String tiStatoAccordo, String cdFisc, Date dtDecAccordoDa, Date dtDecAccordoA, Date dtDecAccordoInfoDa,
             Date dtDecAccordoInfoA) {
         StringBuilder queryStr = new StringBuilder(
                 "SELECT DISTINCT new it.eng.saceriam.viewEntity.OrgVRicEnteConvenz (ente.idEnteConvenz, ente.nmEnteConvenz, "
@@ -679,6 +710,11 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             clause = " AND ";
         }
 
+        if (StringUtils.isNotBlank(cdFisc)) {
+            queryStr.append(clause).append("ente.cdFisc LIKE :cdFisc");
+            clause = " AND ";
+        }
+
         queryStr.append(" ORDER BY ente.nmEnteConvenz");
         Query query = getEntityManager().createQuery(queryStr.toString());
 
@@ -726,6 +762,9 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         }
         if (!idTipoAccordo.isEmpty()) {
             query.setParameter("idTipoAccordo", idTipoAccordo);
+        }
+        if (StringUtils.isNotBlank(cdFisc)) {
+            query.setParameter("cdFisc", cdFisc);
         }
         if (dtDecAccordoDa != null && dtDecAccordoA != null) {
             query.setParameter("dtDecAccordoDa", dtDecAccordoDa);
@@ -852,11 +891,7 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         }
 
         List l = query.getResultList();
-        if (l != null && l.size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return l != null && !l.isEmpty();
     }
 
     public boolean esisteModelloInfoPerDataIdentificativoEnteConvenz(BigDecimal idEnteConvenz, String cdModuloInfo,
@@ -881,11 +916,7 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         }
 
         List l = query.getResultList();
-        if (l != null && l.size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return l != null && !l.isEmpty();
     }
 
     /**
@@ -1864,27 +1895,13 @@ public class EntiConvenzionatiHelper extends GenericHelper {
     }
 
     public boolean checkEsistenzaAnnualitaPerAccordo(BigDecimal aaAnnoAccordo, BigDecimal idAccordoEnte) {
-        StringBuilder queryStr = new StringBuilder("SELECT accordoEnte FROM OrgAccordoEnte accordoEnte "
+        String queryStr = "SELECT accordoEnte FROM OrgAccordoEnte accordoEnte "
                 + "WHERE accordoEnte.idAccordoEnte = :idAccordoEnte "
                 + "AND EXISTS (SELECT annualita FROM OrgAaAccordo annualita "
-                + "WHERE annualita.orgAccordoEnte = accordoEnte " + "AND annualita.aaAnnoAccordo = :aaAnnoAccordo) ");
-        // if (idServizioErogato != null) {
-        // queryStr.append("AND servizioErog.idServizioErogato != :idServizioErogato ");
-        // }
-        // if (idSistemaVersante != null) {
-        // queryStr.append("AND servizioErog.aplSistemaVersante.idSistemaVersante = :idSistemaVersante ");
-        // }
-        // queryStr.append(")");
-        Query query = getEntityManager().createQuery(queryStr.toString());
-
+                + "WHERE annualita.orgAccordoEnte = accordoEnte " + "AND annualita.aaAnnoAccordo = :aaAnnoAccordo) ";
+        Query query = getEntityManager().createQuery(queryStr);
         query.setParameter("idAccordoEnte", longFrom(idAccordoEnte));
         query.setParameter("aaAnnoAccordo", aaAnnoAccordo);
-        // if (idServizioErogato != null) {
-        // query.setParameter("idServizioErogato", idServizioErogato);
-        // }
-        // if (idSistemaVersante != null) {
-        // query.setParameter("idSistemaVersante", idSistemaVersante);
-        // }
         List<OrgAccordoEnte> list = query.getResultList();
         return !list.isEmpty();
     }
@@ -2158,7 +2175,7 @@ public class EntiConvenzionatiHelper extends GenericHelper {
     }
 
     /**
-     * Controlla che la denominazione del tariffario non sia giÃ  presente nel sistema
+     * Controlla che la denominazione del tariffario non sia già presente nel sistema
      *
      * @param nmTariffario
      *            nome tariffario
@@ -3488,11 +3505,6 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             query.setParameter("aaServizioFattura", aaServizioFattura);
         }
         return (List<OrgVCreaFatturaByAnno>) query.getResultList();
-        // if (!creaFattureByAnnoList.isEmpty()) {
-        // return creaFattureByAnnoList.get(0);
-        // } else {
-        // return null;
-        // }
     }
 
     /*
@@ -3661,10 +3673,6 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         return (List<OrgFatturaEnte>) q.getResultList();
     }
 
-    // public boolean existsVariazioneBlobbo(BigDecimal idVarAccordo) {
-    // OrgVarAccordo varAccordo = getEntityManager().find(OrgVarAccordo.class, idVarAccordo.longValue());
-    // return varAccordo != null && varAccordo.getBlVarAccordo() != null;
-    // }
     /**
      * Recupera le fatture per l'ente convenzionato e lo stato corrente passati in ingresso
      *
@@ -3906,6 +3914,23 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         query.setParameter("idOrganizIam", idOrganizIam.longValue());
         query.setParameter("dtDiscipStrut", dtDiscipStrut);
         return !query.getResultList().isEmpty();
+    }
+
+    public OrgDiscipStrut getDisciplinareByEnteOrganizData(BigDecimal idEnteConvenz, BigDecimal idOrganizIam,
+            Date dtDiscipStrut) {
+        String queryStr = "SELECT discipStrut FROM OrgDiscipStrut discipStrut "
+                + "WHERE discipStrut.orgEnteConvenz.idEnteSiam = :idEnteConvenz "
+                + "AND discipStrut.usrOrganizIam.idOrganizIam = :idOrganizIam "
+                + "AND discipStrut.dtDiscipStrut = :dtDiscipStrut ";
+        Query query = getEntityManager().createQuery(queryStr);
+        query.setParameter("idEnteConvenz", idEnteConvenz.longValue());
+        query.setParameter("idOrganizIam", idOrganizIam.longValue());
+        query.setParameter("dtDiscipStrut", dtDiscipStrut);
+        List<OrgDiscipStrut> lista = (List<OrgDiscipStrut>) query.getResultList();
+        if (!lista.isEmpty()) {
+            return lista.get(0);
+        }
+        return null;
     }
 
     public int getNumMaxGestAccordoEnte(BigDecimal idAccordoEnte) {
@@ -4393,12 +4418,10 @@ public class EntiConvenzionatiHelper extends GenericHelper {
     }
 
     public List<Object[]> getTipiServizioAssociatiTariffarioPerAccordoDaCreare(BigDecimal idTariffario) {
-        Query query = getEntityManager().createQuery(
-                "SELECT tipoServizio.idTipoServizio, tipoServizio.cdTipoServizio " + "FROM OrgTariffa tariffa "
-                        + "JOIN tariffa.orgTariffario tariffario " + "JOIN tariffa.orgTipoServizio tipoServizio "
-                        // + "LEFT JOIN tipoServizio.orgTariffaAccordos tariffeAccordo "
-                        + "WHERE tariffario.idTariffario = :idTariffario " + "AND tipoServizio.flTariffaAccordo = '1' "
-                        + "ORDER BY tipoServizio.cdTipoServizio ");
+        Query query = getEntityManager().createQuery("SELECT tipoServizio.idTipoServizio, tipoServizio.cdTipoServizio "
+                + "FROM OrgTariffa tariffa " + "JOIN tariffa.orgTariffario tariffario "
+                + "JOIN tariffa.orgTipoServizio tipoServizio " + "WHERE tariffario.idTariffario = :idTariffario "
+                + "AND tipoServizio.flTariffaAccordo = '1' " + "ORDER BY tipoServizio.cdTipoServizio ");
         query.setParameter("idTariffario", longFrom(idTariffario));
         return query.getResultList();
     }
@@ -4417,7 +4440,6 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         Query query = getEntityManager().createQuery(
                 "SELECT tipoServizio.idTipoServizio, tipoServizio.cdTipoServizio, 0, 0 " + "FROM OrgTariffa tariffa "
                         + "JOIN tariffa.orgTariffario tariffario " + "JOIN tariffa.orgTipoServizio tipoServizio "
-                        // + "LEFT JOIN tipoServizio.orgTariffaAccordos tariffeAccordo "
                         + "WHERE tariffario.idTariffario = :idTariffario " + "AND tipoServizio.flTariffaAccordo = '1' "
                         + "ORDER BY tipoServizio.cdTipoServizio ");
         query.setParameter("idTariffario", longFrom(idTariffario));
@@ -4702,14 +4724,14 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             Date dtFineValidAccordoA, Date dtDecAccordoInfoDa, Date dtDecAccordoInfoA, Date dtScadAccordoDa,
             Date dtScadAccordoA, String flRecesso, List<BigDecimal> idTipoGestioneAccordo,
             String flEsisteNotaFatturazione, String flEsistonoSae, Date saeDa, Date saeA, String flEsistonoSue,
-            Date sueDa, Date sueA) {
+            Date sueDa, Date sueA, String flFasciaManuale) {
         StringBuilder queryStr = new StringBuilder(
                 "SELECT DISTINCT new it.eng.saceriam.viewEntity.OrgVRicAccordoEnte (ente.idAmbienteEnteConvenz, ente.idEnteConvenz, ente.idAccordoEnte, "
                         + "ente.nmAmbienteEnteConvenz, ente.nmEnteConvenz, "
                         + "ente.cdRegistroRepertorio, ente.aaRepertorio, ente.cdKeyRepertorio, "
                         + "ente.idTipoAccordo, ente.cdTipoAccordo, ente.dtDecAccordo, ente.dtFineValidAccordo, ente.dtDecAccordoInfo, ente.dtScadAccordo, "
                         + "ente.flRecesso, ente.flEsistonoGestAcc,  ente.idTipoGestioneAccordo, ente.cdTipoGestioneAccordo, ente.flEsisteNotaFatturazione, ente.dsNotaFatturazione, "
-                        + "ente.flEsistonoSae, ente.flEsistonoSue ) FROM OrgVRicAccordoEnte ente ");
+                        + "ente.flFasciaManuale, ente.flEsistonoSae, ente.flEsistonoSue, ente.tiFasciaStandard, ente.tiFasciaManuale ) FROM OrgVRicAccordoEnte ente ");
 
         String clause = " WHERE ";
 
@@ -4805,6 +4827,11 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             clause = " AND ";
         }
 
+        if (StringUtils.isNotBlank(flFasciaManuale)) {
+            queryStr.append(clause).append("ente.flFasciaManuale = :flFasciaManuale ");
+            clause = " AND ";
+        }
+
         queryStr.append(" ORDER BY ente.nmEnteConvenz");
         Query query = getEntityManager().createQuery(queryStr.toString());
 
@@ -4875,6 +4902,10 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             query.setParameter("sueA", sueA);
         }
 
+        if (StringUtils.isNotBlank(flFasciaManuale)) {
+            query.setParameter("flFasciaManuale", flFasciaManuale);
+        }
+
         List<OrgVRicAccordoEnte> list = query.getResultList();
         return list;
     }
@@ -4904,10 +4935,10 @@ public class EntiConvenzionatiHelper extends GenericHelper {
     public List<Object[]> getReportFattureCalcolate() {
         String queryNativeSQL = "select  " + " ente.nm_ente_siam, " + "ente.CD_FISC, "
                 + "serv.nm_servizio_erogato||' - '||serv_fatt.nm_servizio_fattura AS nm_servizio_erogato_completo, "
-                + "serv_fatt.aa_servizio_fattura, " + "aa_acc.DS_ATTO_AA_ACCORDO, " + "acc.cd_UFE, " + "acc.cd_cig, "
-                + "round(serv_fatt.im_servizio_fattura, 0), " + "case " + "when iva.cd_iva in ('PB', 'HB') "
-                + "then round(serv_fatt.im_servizio_fattura * 1.22, 2) "
-                + "else round(serv_fatt.im_servizio_fattura, 2) " + "end im_totale, " + "iva.cd_iva, " + "case "
+                + "serv_fatt.aa_servizio_fattura, " + "aa_acc.DS_ATTO_AA_ACCORDO, " + "ente.cd_UFE, "
+                + "aa_acc.cd_cig_aa_accordo, " + "round(serv_fatt.im_servizio_fattura, 2), " + "case "
+                + "when iva.cd_iva in ('PB', 'HB') " + "then round(serv_fatt.im_servizio_fattura * 1.22, 0) "
+                + "else round(serv_fatt.im_servizio_fattura, 0) " + "end im_totale, " + "iva.cd_iva, " + "case "
                 + "when ente.TI_MOD_PAGAM = 'conto tesoreria unica' then ente.TI_MOD_PAGAM " + "    else null "
                 + "  end conto_tesoreria_unica, " + " case "
                 + "    when ente.TI_MOD_PAGAM = 'conto IBAN' then ente.TI_MOD_PAGAM " + "    else null "
@@ -4944,10 +4975,10 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             Date dtEmisFatturaA, Set<String> tiStatoFatturaEnte) {
         StringBuilder queryStr = new StringBuilder("select  " + " ente.nm_ente_siam, " + "ente.CD_FISC, "
                 + "serv.nm_servizio_erogato||' - '||serv_fatt.nm_servizio_fattura AS nm_servizio_erogato_completo, "
-                + "serv_fatt.aa_servizio_fattura, " + "aa_acc.DS_ATTO_AA_ACCORDO, " + "acc.cd_UFE, " + "acc.cd_cig, "
-                + "round(serv_fatt.im_servizio_fattura, 0), " + "case " + "when iva.cd_iva in ('PB', 'HB') "
-                + "then round(serv_fatt.im_servizio_fattura * 1.22, 2) "
-                + "else round(serv_fatt.im_servizio_fattura, 2) " + "end im_totale, " + "iva.cd_iva, " + "case "
+                + "serv_fatt.aa_servizio_fattura, " + "aa_acc.DS_ATTO_AA_ACCORDO, " + "ente.cd_UFE, "
+                + "aa_acc.cd_cig_aa_accordo, " + "round(serv_fatt.im_servizio_fattura, 2), " + "case "
+                + "when iva.cd_iva in ('PB', 'HB') " + "then round(serv_fatt.im_servizio_fattura * 1.22, 0) "
+                + "else round(serv_fatt.im_servizio_fattura, 0) " + "end im_totale, " + "iva.cd_iva, " + "case "
                 + "when ente.TI_MOD_PAGAM = 'conto tesoreria unica' then ente.TI_MOD_PAGAM " + "    else null "
                 + "  end conto_tesoreria_unica, " + " case "
                 + "    when ente.TI_MOD_PAGAM = 'conto IBAN' then ente.TI_MOD_PAGAM " + "    else null "
@@ -5089,6 +5120,169 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         List<Object[]> lista = (List<Object[]>) query.getResultList();
         return lista;
 
+    }
+
+    public void writeLogEventoByScript() {
+        String queryStr = "insert into sacer_log.LOG_EVENTO_BY_SCRIPT " + "( id_evento_by_script, "
+                + "  id_tipo_oggetto, " + "  id_oggetto, " + "  dt_reg_evento, " + "  id_agente, "
+                + "  id_azione_comp_sw, " + "  ti_ruolo_oggetto_evento, " + "  ti_ruolo_agente_evento, "
+                + "  id_applic, " + "  ds_motivo_script) " + "select "
+                + "to_number(1000 || to_char (sacer_log.slog_evento_by_script.nextval)), " + "config.id_tipo_oggetto, "
+                + "tmp.id_oggetto id_oggetto, " + "sysdate, " + "config.id_agente, " + "config.id_azione_comp_sw, "
+                + "'outcome', " + "'executing program', " + "config.id_applic, " + "'Inserimento asincrono' "
+                + "from tmp_nuova_richiesta tmp, " + "   (select " + "     ti_ogg.id_tipo_oggetto, "
+                + "     comp_sw.id_agente, " + "     azio_sw.id_azione_comp_sw, " + "     apl.id_applic "
+                + "    from sacer_iam.apl_applic apl " + "    join sacer_iam.apl_comp_sw comp_sw "
+                + "     on (comp_sw.id_applic = apl.id_applic) " + "    join sacer_iam.apl_azione_comp_sw azio_sw "
+                + "     on (azio_sw.id_comp_sw = comp_sw.id_comp_sw) " + "    join sacer_iam.apl_tipo_oggetto ti_ogg "
+                + "     on (ti_ogg.id_applic = apl.id_applic) " + "    where apl.nm_applic = 'SACER_IAM' "
+                + "    and comp_sw.nm_comp_sw = 'SCRIPT_SACER_IAM' "
+                + "    and azio_sw.nm_azione_comp_sw = 'Modifica con script' "
+                + "    and ti_ogg.nm_tipo_oggetto = 'Ente convenzionato' " + "    ) config ";
+
+        Query query = getEntityManager().createNativeQuery(queryStr);
+        query.executeUpdate();
+    }
+
+    public Object[] getDatiLogByScript() {
+        String queryStr = "select " + "     ti_ogg.id_tipo_oggetto, " + "     comp_sw.id_agente, "
+                + "     azio_sw.id_azione_comp_sw, " + "     apl.id_applic " + "    from sacer_iam.apl_applic apl "
+                + "    join sacer_iam.apl_comp_sw comp_sw " + "     on (comp_sw.id_applic = apl.id_applic) "
+                + "    join sacer_iam.apl_azione_comp_sw azio_sw "
+                + "     on (azio_sw.id_comp_sw = comp_sw.id_comp_sw) " + "    join sacer_iam.apl_tipo_oggetto ti_ogg "
+                + "     on (ti_ogg.id_applic = apl.id_applic) " + "    where apl.nm_applic = 'SACER_IAM' "
+                + "    and comp_sw.nm_comp_sw = 'SCRIPT_SACER_IAM' "
+                + "    and azio_sw.nm_azione_comp_sw = 'Modifica con script' "
+                + "    and ti_ogg.nm_tipo_oggetto = 'Ente convenzionato' ";
+        //
+        Query query = getEntityManager().createNativeQuery(queryStr);
+        List<Object[]> lista = (List<Object[]>) query.getResultList();
+        if (!lista.isEmpty()) {
+            return lista.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * Recupera l'elenco dei cluster presenti su DB
+     * 
+     * @return la lista dei cluster e relativa fascia associabili ad un accordo
+     */
+    public List<Object[]> getOrgClusterAccordoList() {
+        Query query = getEntityManager().createQuery(
+                "SELECT clusterAccordo.idClusterAccordo, clusterAccordo.cdCluster || ' - ' || clusterAccordo.orgFasciaStorageAccordo.tiFascia as ds_cluster_accordo "
+                        + "FROM OrgClusterAccordo clusterAccordo " + "ORDER BY clusterAccordo.idClusterAccordo ");
+        return query.getResultList();
+    }
+
+    public List<Object[]> getOrgFasciaStorageAccordoList() {
+        Query query = getEntityManager().createQuery("SELECT fasciaStorageAccordo.idFasciaStorageAccordo, "
+                + "fasciaStorageAccordo.tiFascia, fasciaStorageAccordo.niFasciaDa, fasciaStorageAccordo.niFasciaA "
+                + "FROM OrgFasciaStorageAccordo fasciaStorageAccordo ");
+        return query.getResultList();
+    }
+
+    public Object[] getFasciaDaOccupazione(BigDecimal dimBytesMediaAnno) {
+        Query query = getEntityManager()
+                .createQuery("SELECT fasciaStorageAccordo.idFasciaStorageAccordo, fasciaStorageAccordo.tiFascia, "//
+                        + "fasciaStorageAccordo.niFasciaDa, fasciaStorageAccordo.niFasciaA "
+                        + "FROM OrgFasciaStorageAccordo fasciaStorageAccordo "
+                        + "WHERE :dimBytesMediaAnno BETWEEN fasciaStorageAccordo.niFasciaDa AND fasciaStorageAccordo.niFasciaA ");//
+        query.setParameter("dimBytesMediaAnno", dimBytesMediaAnno);
+        List<Object[]> resultList = query.getResultList();
+        Object[] fascia = null;//
+        if (resultList != null && !resultList.isEmpty()) {
+            fascia = new Object[2];
+            Object[] result = resultList.get(0);
+            // Formatto la descrizione inserendo anche i punti e virgola separatori
+            DecimalFormat df = new DecimalFormat("#,###.00");
+            Locale currentLocale = Locale.getDefault();
+            df.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(currentLocale));
+            BigDecimal fasciaDa = (BigDecimal) result[2];
+            BigDecimal fasciaA = (BigDecimal) result[3];
+            String fasciaDaFormattata = df.format(fasciaDa.longValue());
+            fasciaDaFormattata = fasciaDaFormattata.equals(",00") ? "0,00" : fasciaDaFormattata;
+            String fasciaAFormattata = df.format(fasciaA.longValue());
+            fascia[0] = result[0];
+            fascia[1] = (String) result[1] + " - da " + fasciaDaFormattata + " a " + fasciaAFormattata;
+        }
+        return fascia;
+    }
+
+    public OrgVOccupStorageAccordo getOrgVOccupStorageAccordo(BigDecimal idAccordoEnte, List<String> cdTipoAccordo) {
+        Query query = getEntityManager().createQuery(
+                "SELECT a FROM OrgVOccupStorageAccordo a WHERE a.idAccordoEnte = :idAccordoEnte AND a.cdTipoAccordo IN :cdTipoAccordo");
+        query.setParameter("idAccordoEnte", idAccordoEnte);
+        query.setParameter("cdTipoAccordo", cdTipoAccordo);
+        List<OrgVOccupStorageAccordo> list = query.getResultList();
+        if (list != null && !list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+    public Object[] getOccupStorageGestore(String dtDecAccordoCorrente, BigDecimal idEnteConvenzGestore) {
+        Query query = getEntityManager().createNativeQuery(STORAGE_GESTORE);
+        query.setParameter("dtDecAccordoCorrente", dtDecAccordoCorrente);
+        query.setParameter("idEnteConvenzGestore", idEnteConvenzGestore);
+        List<Object[]> list = query.getResultList();
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+    public List<Object[]> getReportStorageExtraRer(List<String> cdTipoAccordo) {
+        String queryNativeSQL = "SELECT OCCUP.AMBIENTE_ENTE, OCCUP.DIM_BYTES_MEDIA_ANNO, "
+                + "TO_CHAR(OCCUP.DT_DEC_ACCORDO,'DD/MM/YYYY'), TO_CHAR(OCCUP.DT_FINE_ACCORDO, 'DD/MM/YYYY'), "
+                + "OCCUP.FASCIA_ACCORDO, OCCUP.FASCIA_OCCUPAZIONE, OCCUP.FL_SFORO "
+                + "FROM SACER_IAM.ORG_V_OCCUP_STORAGE_ACCORDO OCCUP ";
+        if (cdTipoAccordo != null && !cdTipoAccordo.isEmpty()) {
+            queryNativeSQL = queryNativeSQL + "WHERE OCCUP.CD_TIPO_ACCORDO IN ?1 ";
+        }
+
+        queryNativeSQL = queryNativeSQL + " ORDER BY OCCUP.AMBIENTE_ENTE ";
+
+        Query query = getEntityManager().createNativeQuery(queryNativeSQL);
+        if (cdTipoAccordo != null && !cdTipoAccordo.isEmpty()) {
+            query.setParameter(1, cdTipoAccordo);
+        }
+        List<Object[]> lista = (List<Object[]>) query.getResultList();
+        return lista;
+    }
+
+    public static String STORAGE_GESTORE = "SELECT "
+            + " round(months_between(sysdate, to_date(:dtDecAccordoCorrente, 'dd/MM/yyyy'))) AS mesi_validita,   "
+            + "    trunc(12 *((SUM(mon.ni_size_vers) + SUM(mon.ni_size_agg) - SUM(mon.ni_size_annul_ud)) / round(months_between(sysdate, to_date(:dtDecAccordoCorrente, 'dd/MM/yyyy'))))) AS dim_bytes_media_anno "
+            + "FROM" + "    sacer.mon_conta_ud_doc_comp    mon, " + "    (" + "        SELECT DISTINCT "
+            + "            str.id_strut " + "        FROM " + "            sacer_iam.org_accordo_ente acc "
+            + "            join sacer_iam.org_ente_siam ente on (acc.id_ente_convenz = ente.id_ente_siam) "
+            + "			join sacer_iam.org_ambiente_ente_convenz ambiente on (ambiente.id_ambiente_ente_convenz = ente.id_ambiente_ente_convenz) "
+            + "            join sacer_iam.org_tipo_accordo tipo_acc on (tipo_acc.id_tipo_accordo = acc.id_tipo_accordo),            "
+            + "            sacer.org_strut               str			" + "        WHERE "
+            + "            acc.id_ente_convenz = ente.id_ente_siam            "
+            + "            AND nvl(acc.fl_recesso, 0) = 0 "
+            + "            AND nvl(acc.dt_dec_accordo, sysdate) <= sysdate			"
+            + "            AND str.id_ente_convenz = ente.id_ente_siam "
+            + "            and acc.id_ente_convenz_gestore = :idEnteConvenzGestore "
+            + "    )                              struts " + "WHERE " + "        mon.id_strut = struts.id_strut "
+            + "    AND mon.dt_rif_conta >= to_date(:dtDecAccordoCorrente, 'dd/MM/yyyy') "
+            + "    AND to_date(:dtDecAccordoCorrente, 'dd/MM/yyyy')+365<SYSDATE ";
+
+    public List<BigDecimal> getAbilitazioniDaCancellare(List<BigDecimal> idAppartCollegEntiList) {
+        Query q = getEntityManager().createQuery(
+                "SELECT u FROM UsrVAbilEnteCollegToDel u " + "WHERE u.idAppartCollegEnti IN :idAppartCollegEntiList ");
+
+        q.setParameter("idAppartCollegEntiList", idAppartCollegEntiList);
+
+        List<UsrVAbilEnteCollegToDel> abilEnteCollegToDelList = (List<UsrVAbilEnteCollegToDel>) q.getResultList();
+        List<BigDecimal> utenti = new ArrayList<>();
+
+        for (UsrVAbilEnteCollegToDel abilEnteCollegToDel : abilEnteCollegToDelList) {
+            utenti.add(abilEnteCollegToDel.getIdUserIam());
+        }
+
+        return utenti;
     }
 
 }

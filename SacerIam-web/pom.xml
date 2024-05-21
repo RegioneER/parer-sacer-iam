@@ -4,18 +4,20 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>4.9.2-SNAPSHOT</version>
+        <version>5.2.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>it.eng.parer</groupId>
     <artifactId>saceriam-jboss-web</artifactId>
     <packaging>war</packaging>
 
     <name>SacerIam-web</name>
-	<description>WEB</description>
+    <description>WEB</description>
     <properties>        
         <maven.build.timestamp.format>dd-MM-yyyy HH:mm</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- resource filter -->
+        <web.session-config.cookie-config.http-only>true</web.session-config.cookie-config.http-only>
+        <web.session-config.cookie-config.secure>true</web.session-config.cookie-config.secure>
     </properties>
 
     <dependencies>
@@ -59,11 +61,11 @@
         </dependency>
         
         <!-- Jboss -->
-        <dependency>  
-            <groupId>org.jboss.spec</groupId>  
-            <artifactId>jboss-javaee-6.0</artifactId>  
-            <type>pom</type>  
-            <scope>provided</scope>  
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-jakartaee-8.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency> 
         
         <dependency>
@@ -150,7 +152,7 @@
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                     <archive>                                  
                         <manifestEntries>
-                            <App-Name>Siam @application.xml_env@</App-Name>
+                            <App-Name>Siam</App-Name>
                             <App-Version>${project.version}</App-Version>
                             <App-BuildDate>${maven.build.timestamp}</App-BuildDate>
                         </manifestEntries>                        
@@ -175,4 +177,16 @@
             </plugin>     
         </plugins>
     </build>
+     
+              
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <web.session-config.cookie-config.http-only>false</web.session-config.cookie-config.http-only>
+                <web.session-config.cookie-config.secure>false</web.session-config.cookie-config.secure>
+            </properties>
+        </profile>
+    </profiles>
+     
 </project>
