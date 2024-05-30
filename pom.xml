@@ -29,15 +29,7 @@
             <id>github</id>
             <url>https://maven.pkg.github.com/RegioneER/parer.sacer.parent/</url>           
         </repository>      
-        <repository>
-			<id>redhatga</id>
-			<url>https://maven.repository.redhat.com/ga/</url>
-		</repository> 
-        <repository>
-			<id>pentaho</id>
-			<url>https://public.nexus.pentaho.org/content/groups/omni</url>
-		</repository>     
-     </repositories>
+    </repositories>
     
     <modules>
         <module>SacerIam-ear</module>
