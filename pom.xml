@@ -24,12 +24,20 @@
         <javacsv.version>2.0</javacsv.version>
     </properties>
     
+    <distributionManagement>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
+        </repository>      
+    </distributionManagement>
+
     <repositories>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/RegioneER/parer.sacer.parent/</url>           
-        </repository>      
-    </repositories>
+            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
+        </repository>          
+     </repositories>
+
     
     <modules>
         <module>SacerIam-ear</module>
