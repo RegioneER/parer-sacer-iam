@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -32,7 +31,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "IAM_V_GETVAL_PARAM_BY_APL")
-@NamedQuery(name = "IamVGetvalParamByApl.findAll", query = "SELECT i FROM IamVGetvalParamByApl i")
 public class IamVGetvalParamByApl implements Serializable {
 
     private static final long serialVersionUID = 1L;

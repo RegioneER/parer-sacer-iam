@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -32,7 +31,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "APL_V_TREE_MENU_PAG_AZIO")
-@NamedQuery(name = "AplVTreeMenuPagAzio.findAll", query = "SELECT a FROM AplVTreeMenuPagAzio a")
 public class AplVTreeMenuPagAzio implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -33,7 +33,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -48,7 +47,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "USR_RICH_GEST_USER")
-@NamedQuery(name = "UsrRichGestUser.findAll", query = "SELECT u FROM UsrRichGestUser u")
 public class UsrRichGestUser implements Serializable {
 
     private static final long serialVersionUID = 1L;

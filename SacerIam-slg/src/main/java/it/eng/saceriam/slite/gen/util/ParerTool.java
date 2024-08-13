@@ -36,6 +36,9 @@ public class ParerTool extends SpringLiteTool {
 
     public static void main(String[] args)
             throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+
+        System.setProperty("file.encoding", "UTF-8");
+
         if (args.length == 0) {
             throw new IllegalArgumentException();
         }
@@ -45,12 +48,11 @@ public class ParerTool extends SpringLiteTool {
         }
         System.out.println("Percorso corrente : " + new File(".").getAbsolutePath());
 
-        System.setProperty("file.encoding", "UTF-8");
         java.lang.reflect.Field charset = Charset.class.getDeclaredField("defaultCharset");
         charset.setAccessible(true);
         charset.set(null, null);
-        String actionPath = basedir.replaceAll("\\\\", "/")
-                + "/../SacerIam-web/src/main/java/it/eng/saceriam/web/action";
+
+        String actionPath = basedir.replace("\\", "/") + "/../SacerIam-web/src/main/java/it/eng/saceriam/web/action";
 
         ParerTool myParerTool = new ParerTool(actionPath, null, GEN_PACKAGE, ACTION_PACKAGE, FORM_PACKAGE);
 

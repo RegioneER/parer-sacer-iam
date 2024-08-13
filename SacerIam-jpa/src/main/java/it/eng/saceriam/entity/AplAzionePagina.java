@@ -30,7 +30,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -44,7 +43,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 @Entity
 @Cacheable(true)
 @Table(name = "APL_AZIONE_PAGINA")
-@NamedQuery(name = "AplAzionePagina.findAll", query = "SELECT a FROM AplAzionePagina a")
 public class AplAzionePagina implements Serializable {
 
     private static final long serialVersionUID = 1L;

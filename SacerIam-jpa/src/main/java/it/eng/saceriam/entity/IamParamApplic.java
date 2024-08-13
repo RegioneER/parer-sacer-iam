@@ -26,7 +26,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -39,7 +38,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "IAM_PARAM_APPLIC")
-@NamedQuery(name = "IamParamApplic.findAll", query = "SELECT i FROM IamParamApplic i")
 public class IamParamApplic implements Serializable {
 
     private static final long serialVersionUID = 1L;

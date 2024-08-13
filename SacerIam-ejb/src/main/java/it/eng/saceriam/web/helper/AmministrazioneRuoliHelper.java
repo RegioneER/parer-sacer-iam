@@ -297,6 +297,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      * 
      * @return voci di menu delle abilitazioni
      */
+    @Deprecated
     public List<Object[]> getAbilitazioniEntryMenu4Applic(PrfUsoRuoloApplicRowBean usoRuoloApplicRowBean,
             String tiDichAutor) {
         return getAbilitazioniEntryMenu4Applic(usoRuoloApplicRowBean);

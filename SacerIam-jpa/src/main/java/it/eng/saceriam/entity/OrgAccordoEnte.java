@@ -34,7 +34,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -53,7 +52,6 @@ import it.eng.saceriam.entity.constraint.ConstOrgAccordoEnte.TiScopoAccordo;
  */
 @Entity
 @Table(name = "ORG_ACCORDO_ENTE")
-@NamedQuery(name = "OrgAccordoEnte.findAll", query = "SELECT o FROM OrgAccordoEnte o")
 public class OrgAccordoEnte implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,4 +1,21 @@
 
+## 6.0.0 (13-08-2024)
+
+### Bugfix: 1
+- [#32788](https://parermine.regione.emilia-romagna.it/issues/32788) Aggiornamento framework - Conflitti nei nomi dei tipi XML generati da JAXB
+
+## 5.4.0 (10-07-2024)
+
+### Novità: 3
+- [#32852](https://parermine.regione.emilia-romagna.it/issues/32852) Gestire arrotondamento all'importo ivato nella lista  "Tipi servizio"
+- [#32664](https://parermine.regione.emilia-romagna.it/issues/32664) Aggiunta campi di ricerca in "Gestione enti convenzionati"
+- [#30346](https://parermine.regione.emilia-romagna.it/issues/30346) Pulizia mappaggi jpa
+
+## 5.3.0 (07-06-2024)
+
+### Novità: 1
+- [#29992](https://parermine.regione.emilia-romagna.it/issues/29992) Aggiornamento a Java 11
+
 ## 5.2.0 (15-04-2024)
 
 ### Novità: 2

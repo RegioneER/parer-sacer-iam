@@ -27,7 +27,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ORG_CLUSTER_ACCORDO")
-@NamedQuery(name = "OrgClusterAccordo.findAll", query = "SELECT o FROM OrgClusterAccordo o")
 public class OrgClusterAccordo implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long idClusterAccordo;

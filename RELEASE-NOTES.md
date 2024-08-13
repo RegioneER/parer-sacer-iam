@@ -1,5 +1,4 @@
-## 5.2.0 (15-04-2024)
+## 6.0.0 (13-08-2024)
 
-### Novità: 2
-- [#31670](https://parermine.regione.emilia-romagna.it/issues/31670) Adeguamento funzionalità di "gestione HELP on line"
-- [#31306](https://parermine.regione.emilia-romagna.it/issues/31306) Disattivazione esposizione del federationMetadata
+### Bugfix: 1
+- [#32788](https://parermine.regione.emilia-romagna.it/issues/32788) Aggiornamento framework - Conflitti nei nomi dei tipi XML generati da JAXB

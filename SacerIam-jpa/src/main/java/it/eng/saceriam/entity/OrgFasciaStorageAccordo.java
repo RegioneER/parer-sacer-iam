@@ -28,7 +28,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ORG_FASCIA_STORAGE_ACCORDO")
-@NamedQuery(name = "OrgFasciaStorageAccordo.findAll", query = "SELECT o FROM OrgFasciaStorageAccordo o")
 public class OrgFasciaStorageAccordo implements Serializable {
     private static final long serialVersionUID = 1L;
     private long idFasciaStorageAccordo;
@@ -42,11 +41,6 @@ public class OrgFasciaStorageAccordo implements Serializable {
     public OrgFasciaStorageAccordo() {
     }
 
-    // @Id
-    // @SequenceGenerator(name = "ORG_FASCIA_STORAGE_ACCORDO_IDFASCIASTORAGEACCORDO_GENERATOR", sequenceName =
-    // "$STABLE")
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-    // "ORG_FASCIA_STORAGE_ACCORDO_IDFASCIASTORAGEACCORDO_GENERATOR")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_FASCIA_STORAGE_ACCORDO")

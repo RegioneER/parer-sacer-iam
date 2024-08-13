@@ -29,7 +29,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,7 +41,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "APL_TIPO_EVENTO")
-@NamedQuery(name = "AplTipoEvento.findAll", query = "SELECT a FROM AplTipoEvento a")
 public class AplTipoEvento implements Serializable {
 
     private static final long serialVersionUID = 1L;

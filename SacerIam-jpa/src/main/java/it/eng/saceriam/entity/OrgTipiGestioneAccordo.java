@@ -27,7 +27,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,7 +39,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "ORG_TIPI_GESTIONE_ACCORDO")
-@NamedQuery(name = "OrgTipiGestioneAccordo.findAll", query = "SELECT o FROM OrgTipiGestioneAccordo o")
 public class OrgTipiGestioneAccordo implements Serializable {
 
     private static final long serialVersionUID = 1L;
