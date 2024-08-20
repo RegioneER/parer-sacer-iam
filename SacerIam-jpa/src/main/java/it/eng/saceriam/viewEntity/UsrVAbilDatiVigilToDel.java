@@ -23,16 +23,14 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  * The persistent class for the USR_V_ABIL_DATI_VIGIL_TO_DEL database table.
- * 
+ *
  */
 @Entity
 @Table(name = "USR_V_ABIL_DATI_VIGIL_TO_DEL")
-@NamedQuery(name = "UsrVAbilDatiVigilToDel.findAll", query = "SELECT u FROM UsrVAbilDatiVigilToDel u")
 public class UsrVAbilDatiVigilToDel implements Serializable {
     private static final long serialVersionUID = 1L;
     private String dsCausaleAbil;

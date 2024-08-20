@@ -24,18 +24,16 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the ORG_V_RIC_ACCORDO_ENTE database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_V_RIC_ACCORDO_ENTE")
-@NamedQuery(name = "OrgVRicAccordoEnte.findAll", query = "SELECT o FROM OrgVRicAccordoEnte o")
 public class OrgVRicAccordoEnte implements Serializable {
     private static final long serialVersionUID = 1L;
     private BigDecimal aaRepertorio;

@@ -69,6 +69,7 @@ import it.eng.saceriam.helper.ParamHelper;
 import it.eng.saceriam.slite.gen.Application;
 import it.eng.saceriam.slite.gen.action.GestioneFatturazioneServiziAbstractAction;
 import it.eng.saceriam.slite.gen.form.GestioneFatturazioneServiziForm;
+import it.eng.saceriam.slite.gen.form.GestioneFatturazioneServiziForm.ListaEstraiRigheFatture;
 import it.eng.saceriam.slite.gen.tablebean.OrgPagamFatturaEnteRowBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgPagamFatturaEnteTableBean;
 import it.eng.saceriam.slite.gen.tablebean.OrgSollecitoFatturaEnteRowBean;
@@ -103,6 +104,7 @@ import it.eng.spagoLite.security.Secure;
  *
  * @author Gilioli_P
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServiziAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(GestioneFatturazioneServiziAction.class);
@@ -1200,7 +1202,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 
     @Override
     public void deleteListaFatture() throws EMFError {
-        BigDecimal idFatturaEnte = ((BaseTableInterface) getForm().getListaFatture().getTable()).getCurrentRow()
+        BigDecimal idFatturaEnte = ((BaseTableInterface<?>) getForm().getListaFatture().getTable()).getCurrentRow()
                 .getBigDecimal("id_fattura_ente");
         int riga = getForm().getListaFatture().getTable().getCurrentRowIndex();
         try {
@@ -1756,7 +1758,6 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 
     private void initSollecitoDetail() throws ParerUserError, EMFError {
         BigDecimal idAmbienteEnteConvenz = getForm().getFatturaDetail().getId_ambiente_ente_convenz().parse();
-        BigDecimal idEnteConvenz = getForm().getFatturaDetail().getId_ente_convenz().parse();
         String nmEnteUnitaDocAccordo = paramHelper.getValoreParamApplic(
                 ConstIamParamApplic.NmParamApplic.NM_ENTE_UNITA_DOC_ACCORDO.name(), idAmbienteEnteConvenz, null,
                 Constants.TipoIamVGetValAppart.AMBIENTEENTECONVENZ);
@@ -2141,7 +2142,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
     @Override
     public void cambiaStatoFatture() throws EMFError {
         // Ricavo gli id delle fatture da trattare
-        Map<BigDecimal, Map<String, String>> fattureDaElaborare = new HashMap();
+        Map<BigDecimal, Map<String, String>> fattureDaElaborare = new HashMap<>();
         getForm().getListaFatture().post(getRequest());
         OrgVRicFattureTableBean fattureTableBean = (OrgVRicFattureTableBean) getForm().getListaFatture().getTable();
         if (fattureTableBean != null) {
@@ -2205,7 +2206,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
         getForm().getListaEstraiRigheFatture().setTable(tabella);
         getForm().getListaEstraiRigheFatture().setExcelFileName("FattureCalcolateTotali_" + df.format(new Date()));
 
-        listNavigationOnClick(getForm().getListaEstraiRigheFatture().NAME, ListAction.NE_EXPORT_XLS, "-1", "false");
+        listNavigationOnClick(ListaEstraiRigheFatture.NAME, ListAction.NE_EXPORT_XLS, "-1", "false");
     }
 
     @Override
@@ -2239,7 +2240,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
             getForm().getListaEstraiRigheFatture()
                     .setExcelFileName("FattureCalcolateDaRicerca_" + df.format(new Date()));
 
-            listNavigationOnClick(getForm().getListaEstraiRigheFatture().NAME, ListAction.NE_EXPORT_XLS, "-1", "false");
+            listNavigationOnClick(ListaEstraiRigheFatture.NAME, ListAction.NE_EXPORT_XLS, "-1", "false");
         }
     }
 

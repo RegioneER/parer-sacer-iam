@@ -28,7 +28,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -43,7 +42,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "DEC_MODELLO_COMUNIC")
-@NamedQuery(name = "DecModelloComunic.findAll", query = "SELECT d FROM DecModelloComunic d")
 public class DecModelloComunic implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -23,11 +23,10 @@ import java.util.List;
 
 /**
  * The persistent class for the ORG_CLUSTER_ACCORDO database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_CLUSTER_ACCORDO")
-@NamedQuery(name = "OrgClusterAccordo.findAll", query = "SELECT o FROM OrgClusterAccordo o")
 public class OrgClusterAccordo implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long idClusterAccordo;

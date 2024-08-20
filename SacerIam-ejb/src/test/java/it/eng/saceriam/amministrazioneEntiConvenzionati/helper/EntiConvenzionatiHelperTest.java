@@ -272,6 +272,10 @@ public class EntiConvenzionatiHelperTest {
         Date dtDecAccordoA = tomorrowTs();
         Date dtDecAccordoInfoDa = todayTs();
         Date dtDecAccordoInfoA = tomorrowTs();
+        Date dtIniValDa = todayTs();
+        Date dtIniValA = tomorrowTs();
+        Date dtCessazioneDa = todayTs();
+        Date dtCessazioneA = tomorrowTs();
 
         List<BigDecimal> idArchivista = aListOfBigDecimal(2);
         String noArchivista = aString();
@@ -290,14 +294,14 @@ public class EntiConvenzionatiHelperTest {
                 idTipoAccordo, dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA, idArchivista,
                 noArchivista, flRicev, flRichModuloInfo, flNonConvenz, flRecesso, flChiuso, flEsistonoGestAcc,
                 idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc, dtDecAccordoDa, dtDecAccordoA,
-                dtDecAccordoInfoDa, dtDecAccordoInfoA);
+                dtDecAccordoInfoDa, dtDecAccordoInfoA, dtIniValDa, dtIniValA, dtCessazioneDa, dtCessazioneA);
         tiStatoAccordo = "Accordo non valido";
         helper.retrieveOrgEnteConvenzList(nmEnteConvenz, idUserIamCor, idAmbienteEnteConvenz, flEnteAttivo,
                 flEnteCessato, idCategEnte, idAmbitoTerritRegione, idAmbitoTerritProv, idAmbitoTerritFormAssoc,
                 idTipoAccordo, dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA, idArchivista,
                 noArchivista, flRicev, flRichModuloInfo, flNonConvenz, flRecesso, flChiuso, flEsistonoGestAcc,
                 idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc, dtDecAccordoDa, dtDecAccordoA,
-                dtDecAccordoInfoDa, dtDecAccordoInfoA);
+                dtDecAccordoInfoDa, dtDecAccordoInfoA, dtIniValDa, dtIniValA, dtCessazioneDa, dtCessazioneA);
         assertTrue(true);
     }
 

@@ -825,7 +825,7 @@ public class AmministrazioneUtentiEjb {
                             BigDecimal.valueOf(idUserIamCorr), idAmbienteEnteConvenzAppart, null, null, null,
                             new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList(), null, null, null, null,
                             new ArrayList(), "0", null, null, null, null, null, null, new ArrayList(), null, null, null,
-                            null, null, null, null);
+                            null, null, null, null, null, null, null, null);
                     Set<BigDecimal> idEnteAppartAbilitati = new HashSet<>();
                     for (OrgVRicEnteConvenzRowBean row : table) {
                         idEnteAppartAbilitati.add(row.getIdEnteConvenz());

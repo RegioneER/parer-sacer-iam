@@ -17,20 +17,11 @@
 
 package it.eng.saceriam.web.util;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import javax.ejb.EJB;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Collection;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import it.eng.parer.sacerlog.entity.constraint.ConstLogEventoLoginUser;
-import it.eng.saceriam.entity.AplApplic;
-import it.eng.saceriam.entity.AplEntryMenu;
-import it.eng.saceriam.entity.AplPaginaWeb;
 import it.eng.saceriam.entity.constraint.ConstOrgAccordoEnte;
 import it.eng.saceriam.entity.constraint.ConstOrgCollegEntiConvenz;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam;
@@ -42,17 +33,7 @@ import it.eng.saceriam.entity.constraint.ConstPrfRuolo;
 import it.eng.saceriam.entity.constraint.ConstUsrAppartUserRich;
 import it.eng.saceriam.entity.constraint.ConstUsrRichGestUser;
 import it.eng.saceriam.entity.constraint.ConstUsrStatoUser;
-import it.eng.saceriam.slite.gen.tablebean.AplApplicTableBean;
-import it.eng.saceriam.slite.gen.tablebean.AplEntryMenuTableBean;
-import it.eng.saceriam.slite.gen.tablebean.AplPaginaWebTableBean;
-import it.eng.saceriam.slite.gen.viewbean.UsrVAbilOrganizTableBean;
-import it.eng.saceriam.viewEntity.UsrVAbilOrganiz;
-import it.eng.saceriam.web.helper.AmministrazioneUtentiHelper;
-import it.eng.saceriam.web.helper.ComboHelper;
-import it.eng.saceriam.web.helper.UserHelper;
-import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.db.base.row.BaseRow;
-import it.eng.spagoLite.db.base.sorting.SortingRule;
 import it.eng.spagoLite.db.base.table.BaseTable;
 import it.eng.spagoLite.db.decodemap.DecodeMapIF;
 import it.eng.spagoLite.db.oracle.decode.DecodeMap;
@@ -61,8 +42,6 @@ import it.eng.spagoLite.db.oracle.decode.DecodeMap;
  *
  * @author Gilioli_P
  */
-@Stateless
-@LocalBean
 public class ComboGetter {
 
     public static final String CAMPO_REGISTRO_AG = "registro_ag";
@@ -73,31 +52,21 @@ public class ComboGetter {
     public static final String CAMPO_NOME = "nome";
     public static final String CAMPO_ANNO = "anno";
 
-    public ComboGetter() {
-    }
-
-    @EJB
-    private ComboHelper comboHelper;
-    @EJB
-    private UserHelper userHelper;
-    @EJB
-    private AmministrazioneUtentiHelper amministrazioneUtentiHelper;
-
-    private static final Logger log = LoggerFactory.getLogger(ComboGetter.class);
-
     /*
      * GESTIONE DECODEMAP GENERICHE
      */
+    @SafeVarargs
     public static <T extends Enum<?>> DecodeMap getMappaSortedGenericEnum(String key, T... enumerator) {
         BaseTable bt = new BaseTable();
         DecodeMap mappa = new DecodeMap();
-        for (T mod : Utils.sortEnum(enumerator)) {
+        for (T mod : sortEnum(enumerator)) {
             bt.add(createKeyValueBaseRow(key, mod.name()));
         }
         mappa.populatedMap(bt, key, key);
         return mappa;
     }
 
+    @SafeVarargs
     public static <T extends Enum<?>> DecodeMap getMappaOrdinalGenericEnum(String key, T... enumerator) {
         BaseTable bt = new BaseTable();
         DecodeMap mappa = new DecodeMap();
@@ -131,7 +100,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "ti_oper_replic";
-        for (ApplEnum.TiOperReplic oper : Utils.sortEnum(ApplEnum.TiOperReplic.values())) {
+        for (ApplEnum.TiOperReplic oper : sortEnum(ApplEnum.TiOperReplic.values())) {
             bt.add(createKeyValueBaseRow(key, oper.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -146,7 +115,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "ti_stato_replic";
-        for (ApplEnum.TiStatoReplic stato : Utils.sortEnum(ApplEnum.TiStatoReplic.values())) {
+        for (ApplEnum.TiStatoReplic stato : sortEnum(ApplEnum.TiStatoReplic.values())) {
             bt.add(createKeyValueBaseRow(key, stato.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -161,7 +130,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "ti_stato_replic";
-        for (ApplEnum.TiStatoReplicForSched stato : Utils.sortEnum(ApplEnum.TiStatoReplicForSched.values())) {
+        for (ApplEnum.TiStatoReplicForSched stato : sortEnum(ApplEnum.TiStatoReplicForSched.values())) {
             bt.add(createKeyValueBaseRow(key, stato.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -177,12 +146,12 @@ public class ComboGetter {
         DecodeMap mappaDich = new DecodeMap();
         String key = "dich";
         if (isEnteAmministratore) {
-            for (ApplEnum.TiScopoDichAbilOrganiz abil : Utils.sortEnum(ApplEnum.TiScopoDichAbilOrganiz.values())) {
+            for (ApplEnum.TiScopoDichAbilOrganiz abil : sortEnum(ApplEnum.TiScopoDichAbilOrganiz.values())) {
                 bt.add(createKeyValueBaseRow(key, abil.name()));
             }
         } else {
-            for (ApplEnum.TiScopoDichAbilOrganiz abil : Utils
-                    .sortEnum(ApplEnum.TiScopoDichAbilOrganiz.getComboScopiNonAllOrg())) {
+            for (ApplEnum.TiScopoDichAbilOrganiz abil : sortEnum(
+                    ApplEnum.TiScopoDichAbilOrganiz.getComboScopiNonAllOrg())) {
                 bt.add(createKeyValueBaseRow(key, abil.name()));
             }
         }
@@ -199,12 +168,11 @@ public class ComboGetter {
         DecodeMap mappaDich = new DecodeMap();
         String key = "dich";
         if (isEnteAmministratore) {
-            for (ApplEnum.TiScopoDichAbilDati abil : Utils.sortEnum(ApplEnum.TiScopoDichAbilDati.values())) {
+            for (ApplEnum.TiScopoDichAbilDati abil : sortEnum(ApplEnum.TiScopoDichAbilDati.values())) {
                 bt.add(createKeyValueBaseRow(key, abil.name()));
             }
         } else {
-            for (ApplEnum.TiScopoDichAbilDati abil : Utils
-                    .sortEnum(ApplEnum.TiScopoDichAbilDati.getComboScopiNonAllOrg())) {
+            for (ApplEnum.TiScopoDichAbilDati abil : sortEnum(ApplEnum.TiScopoDichAbilDati.getComboScopiNonAllOrg())) {
                 bt.add(createKeyValueBaseRow(key, abil.name()));
             }
         }
@@ -220,8 +188,8 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaDich = new DecodeMap();
         String key = "dich";
-        for (ApplEnum.ScopoDichAbilEnteConvenz abil : Utils
-                .sortEnum(ApplEnum.ScopoDichAbilEnteConvenz.getComboScopiNonAllOrg(tipoEnte))) {
+        for (ApplEnum.ScopoDichAbilEnteConvenz abil : sortEnum(
+                ApplEnum.ScopoDichAbilEnteConvenz.getComboScopiNonAllOrg(tipoEnte))) {
             bt.add(createKeyValueBaseRow(key, abil.name()));
         }
         mappaDich.populatedMap(bt, key, key);
@@ -259,98 +227,6 @@ public class ComboGetter {
         return mappaIndicatore;
     }
 
-    /**
-     * Ricava la lista di applicazioni per l'utente che sta per essere creato (sulla base di quelle abilitate
-     * all'amministratore che sta inserendo il record)
-     *
-     * @param idUserIamCorrente
-     *            l'id dell'utente "amministratore" (quello corrente)
-     * @param isUserAdmin
-     *            id user Admin
-     * 
-     * @return la mappa con le applicazioni abilitate
-     * 
-     * @throws EMFError
-     *             errore generico
-     */
-    public DecodeMapIF getMappaApplicAbilitate(long idUserIamCorrente, boolean isUserAdmin) throws EMFError {
-        return getMappaApplicAbilitate(idUserIamCorrente, isUserAdmin, false);
-    }
-
-    public DecodeMapIF getMappaApplicAbilitateUtente(long idUserIamCorrente, boolean isAppartEnteConvenzAdmin,
-            boolean isEnteOrganoVigilanza) {
-        List<AplApplic> applicList = comboHelper.getAplApplicAbilitateUtenteList(idUserIamCorrente,
-                isAppartEnteConvenzAdmin, isEnteOrganoVigilanza);
-        AplApplicTableBean applicTableBean = new AplApplicTableBean();
-        try {
-            if (applicList != null && !applicList.isEmpty()) {
-                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic", "nm_applic");
-        return applicDM;
-    }
-
-    /**
-     * Ricava la lista di applicazioni per l'utente che sta per essere creato (sulla base di quelle abilitate
-     * all'amministratore che sta inserendo il record)
-     *
-     * @param idUserIamCorrente
-     *            l'id dell'utente "amministratore" (quello corrente)
-     * @param isUserAdmin
-     *            id user Admin
-     * @param estraiDescApplic
-     *            estrae la descrizione dell'applicazione se true, altrimenti il nome dell'applicazione
-     * 
-     * @return la mappa con le applicazioni abilitate
-     * 
-     * @throws EMFError
-     *             errore generico
-     */
-    public DecodeMapIF getMappaApplicAbilitate(long idUserIamCorrente, boolean isUserAdmin, boolean estraiDescApplic)
-            throws EMFError {
-        AplApplicTableBean applicTableBean = new AplApplicTableBean();
-        List<AplApplic> applicList = comboHelper.getAplApplicAbilitateList(idUserIamCorrente);
-        try {
-            if (applicList != null && !applicList.isEmpty()) {
-                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
-                estraiDescApplic ? "ds_applic" : "nm_applic");
-        return applicDM;
-    }
-
-    /**
-     * Ricava la lista di applicazioni per l'utente che sta per essere creato (sulla base di quelle abilitate
-     * all'amministratore che sta inserendo il record)
-     *
-     * @param idUserIamCorrente
-     *            l'id dell'utente "amministratore" (quello corrente)
-     * 
-     * @return la mappa con le applicazioni abilitate
-     * 
-     * @throws EMFError
-     *             errore generico
-     */
-    public DecodeMapIF getMappaApplicAbilitateRicercaRepliche(long idUserIamCorrente) throws EMFError {
-        AplApplicTableBean applicTableBean = new AplApplicTableBean();
-        List<AplApplic> applicList = comboHelper.getAplApplicAbilitateRicercaReplicheList(idUserIamCorrente);
-        try {
-            if (applicList != null && !applicList.isEmpty()) {
-                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic", "nm_applic");
-        return applicDM;
-    }
-
     public static DecodeMapIF getMappaTipoUser(String tipoUserAdmin) {
         BaseTable bt = new BaseTable();
         DecodeMap mappaTipoUser = new DecodeMap();
@@ -369,8 +245,8 @@ public class ComboGetter {
         String key = "ti_stato_user";
         String key2 = "desc_ti_stato_user";
         /* Imposto i valori della combo */
-        for (ConstUsrStatoUser.TiStatotUser tiStatoUser : Utils
-                .sortEnum(ConstUsrStatoUser.TiStatotUser.getComboFiltriRicercaUtente())) {
+        for (ConstUsrStatoUser.TiStatotUser tiStatoUser : sortEnum(
+                ConstUsrStatoUser.TiStatotUser.getComboFiltriRicercaUtente())) {
             bt.add(createKeyValueBaseRow(key, tiStatoUser.name(), key2, tiStatoUser.getDescrizione()));
         }
         mappaTiStatoUser.populatedMap(bt, key2, key2);
@@ -394,22 +270,6 @@ public class ComboGetter {
 
         mappaTiStatoUser.populatedMap(bt, key, key);
         return mappaTiStatoUser;
-    }
-
-    public DecodeMapIF getTipoGestioneAccordo() {
-        BaseTable bt = new BaseTable();
-        BaseRow br = new BaseRow();
-        BaseRow br1 = new BaseRow();
-        DecodeMap mappaTipoVarAccordo = new DecodeMap();
-        String key = "tipo_var_accordo";
-        /* Imposto i valori della combo */
-        br.setString(key, "Adeguamento GDPR Allegato A");
-        br1.setString(key, "Calcolo servizi su sistema versante");
-        bt.add(br);
-        bt.add(br1);
-
-        mappaTipoVarAccordo.populatedMap(bt, key, key);
-        return mappaTipoVarAccordo;
     }
 
     public static DecodeMapIF getMappaTiStatoAccordo() {
@@ -461,153 +321,12 @@ public class ComboGetter {
         DecodeMap mappaTipoTrasmissione = new DecodeMap();
         String key = "tipo_trasmissione";
         /* Imposto i valori della combo */
-        for (ConstOrgGestioneAccordo.TipoTrasmissione tipoTrasmissione : Utils
-                .sortEnum(ConstOrgGestioneAccordo.TipoTrasmissione.values())) {
+        for (ConstOrgGestioneAccordo.TipoTrasmissione tipoTrasmissione : sortEnum(
+                ConstOrgGestioneAccordo.TipoTrasmissione.values())) {
             bt.add(createKeyValueBaseRow(key, tipoTrasmissione.name()));
         }
         mappaTipoTrasmissione.populatedMap(bt, key, key);
         return mappaTipoTrasmissione;
-    }
-
-    public DecodeMapIF getMappaPaginePerApplicazione(String applName, boolean sortedByDesc) throws EMFError {
-        AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
-
-        List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(applName);
-        try {
-            if (pagineWeb != null && !pagineWeb.isEmpty()) {
-                paginaWebTableBean = (AplPaginaWebTableBean) Transform.entities2TableBean(pagineWeb);
-                if (sortedByDesc) {
-                    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
-                    paginaWebTableBean.sort();
-                }
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web", "ds_pagina_web");
-        return pagineDM;
-    }
-
-    public DecodeMapIF getMappaApplicAbilitateConPaginaInfoPrivacy(long idUserIamCorrente, boolean isUserAdmin,
-            boolean estraiDescApplic) throws EMFError {
-        AplApplicTableBean applicTableBean = new AplApplicTableBean();
-
-        List<AplApplic> applicList = comboHelper.getAplApplicAbilitateInfoPrivacyList(idUserIamCorrente);
-        try {
-            if (applicList != null && !applicList.isEmpty()) {
-                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
-                estraiDescApplic ? "ds_applic" : "nm_applic");
-        return applicDM;
-    }
-
-    public DecodeMapIF getMappaPaginePerApplicazione(BigDecimal idApplic, String tiHelpOnLine, boolean sortedByDesc)
-            throws EMFError {
-        AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
-
-        List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(idApplic, tiHelpOnLine);
-        try {
-            if (pagineWeb != null && !pagineWeb.isEmpty()) {
-                paginaWebTableBean = (AplPaginaWebTableBean) Transform.entities2TableBean(pagineWeb);
-                if (sortedByDesc) {
-                    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
-                    paginaWebTableBean.sort();
-                }
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web", "ds_pagina_web");
-        return pagineDM;
-    }
-
-    public DecodeMapIF getMappaPaginePerApplicazione(BigDecimal idApplic, boolean sortedByDesc) throws EMFError {
-        AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
-
-        List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(idApplic);
-        try {
-            if (pagineWeb != null && !pagineWeb.isEmpty()) {
-                paginaWebTableBean = (AplPaginaWebTableBean) Transform.entities2TableBean(pagineWeb);
-                if (sortedByDesc) {
-                    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
-                    paginaWebTableBean.sort();
-                }
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web", "ds_pagina_web");
-        return pagineDM;
-    }
-
-    public DecodeMapIF getMappaMenuPerApplicazione(String applName) throws EMFError {
-        AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
-
-        List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenu(applName);
-        try {
-            if (entryMenu != null && !entryMenu.isEmpty()) {
-                aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform.entities2TableBean(entryMenu);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu", "nm_entry_menu");
-        return menuDM;
-    }
-
-    public DecodeMapIF getMappaMenuUltimoLivelloPerApplSortedByDesc(String applName) throws EMFError {
-        AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
-
-        List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenuUltimoLivello(applName);
-        try {
-            if (entryMenu != null && !entryMenu.isEmpty()) {
-                aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform.entities2TableBean(entryMenu);
-                aplEntryMenuTableBean.addSortingRule(new SortingRule("nm_entry_menu"));
-                aplEntryMenuTableBean.sort();
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu", "ds_entry_menu");
-        return menuDM;
-    }
-
-    public DecodeMapIF getMappaMenuUltimoLivelloPerApplSortedByDesc(BigDecimal idApplic) throws EMFError {
-        AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
-
-        List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenuUltimoLivello(idApplic);
-        try {
-            if (entryMenu != null && !entryMenu.isEmpty()) {
-                aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform.entities2TableBean(entryMenu);
-                aplEntryMenuTableBean.addSortingRule(new SortingRule("nm_entry_menu"));
-                aplEntryMenuTableBean.sort();
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu", "ds_entry_menu");
-        return menuDM;
-    }
-
-    public DecodeMapIF getMappaUsrVAbilOrganiz(BigDecimal idUserIam, BigDecimal idApplic, String nmTipoOrganiz,
-            List<BigDecimal> idOrganizIamDaTogliere) {
-        UsrVAbilOrganizTableBean abilOrganizTableBean = new UsrVAbilOrganizTableBean();
-        List<UsrVAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVAbilOrganizList(idUserIam, idApplic,
-                nmTipoOrganiz, idOrganizIamDaTogliere, true);
-        try {
-            if (abilOrganizList != null && !abilOrganizList.isEmpty()) {
-                abilOrganizTableBean = (UsrVAbilOrganizTableBean) Transform.entities2TableBean(abilOrganizList);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DecodeMap abilOrganizDM = DecodeMap.Factory.newInstance(abilOrganizTableBean, "id_organiz_iam",
-                "dl_composito_organiz");
-        return abilOrganizDM;
     }
 
     public static DecodeMapIF getMappaTiClasseTipoServizio() {
@@ -615,8 +334,8 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTiClasse = new DecodeMap();
         String key = "ti_classe_tipo_servizio";
-        for (ConstOrgTipoServizio.TiClasseTipoServizio classe : Utils
-                .sortEnum(ConstOrgTipoServizio.TiClasseTipoServizio.values())) {
+        for (ConstOrgTipoServizio.TiClasseTipoServizio classe : sortEnum(
+                ConstOrgTipoServizio.TiClasseTipoServizio.values())) {
             bt.add(createKeyValueBaseRow(key, classe.name()));
         }
         mappaTiClasse.populatedMap(bt, key, key);
@@ -628,8 +347,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "ti_classe_tipo_servizio";
-        for (ConstOrgTipoServizio.TipoFatturazione tipo : Utils
-                .sortEnum(ConstOrgTipoServizio.TipoFatturazione.values())) {
+        for (ConstOrgTipoServizio.TipoFatturazione tipo : sortEnum(ConstOrgTipoServizio.TipoFatturazione.values())) {
             bt.add(createKeyValueBaseRow(key, tipo.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -641,7 +359,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "tipo_tariffa";
-        for (ConstOrgTariffa.TipoTariffa tipo : Utils.sortEnum(ConstOrgTariffa.TipoTariffa.values())) {
+        for (ConstOrgTariffa.TipoTariffa tipo : sortEnum(ConstOrgTariffa.TipoTariffa.values())) {
             bt.add(createKeyValueBaseRow(key, tipo.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -653,8 +371,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "tipo_tariffa";
-        for (ConstOrgTariffa.TipoTariffa tipo : Utils
-                .sortEnum(ConstOrgTariffa.TipoTariffa.getTipoTariffaSoloValoreFisso())) {
+        for (ConstOrgTariffa.TipoTariffa tipo : sortEnum(ConstOrgTariffa.TipoTariffa.getTipoTariffaSoloValoreFisso())) {
             bt.add(createKeyValueBaseRow(key, tipo.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -666,7 +383,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "ti_colleg";
-        for (ConstOrgCollegEntiConvenz.TiColleg tipo : Utils.sortEnum(ConstOrgCollegEntiConvenz.TiColleg.values())) {
+        for (ConstOrgCollegEntiConvenz.TiColleg tipo : sortEnum(ConstOrgCollegEntiConvenz.TiColleg.values())) {
             bt.add(createKeyValueBaseRow(key, tipo.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -690,7 +407,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTiScopoAccordo = new DecodeMap();
         String key = "ti_scopo_accordo";
-        for (ConstOrgAccordoEnte.TiScopoAccordo scopo : Utils.sortEnum(ConstOrgAccordoEnte.TiScopoAccordo.values())) {
+        for (ConstOrgAccordoEnte.TiScopoAccordo scopo : sortEnum(ConstOrgAccordoEnte.TiScopoAccordo.values())) {
             bt.add(createKeyValueBaseRow(key, scopo.name()));
         }
         mappaTiScopoAccordo.populatedMap(bt, key, key);
@@ -717,8 +434,8 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaStato = new DecodeMap();
         String key = "ti_stato_fattura_ente";
-        for (ConstOrgStatoFatturaEnte.TiStatoFatturaEnte stato : Utils
-                .sortEnum(ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.values())) {
+        for (ConstOrgStatoFatturaEnte.TiStatoFatturaEnte stato : sortEnum(
+                ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.values())) {
             bt.add(createKeyValueBaseRow(key, stato.getDescrizione()));
         }
         mappaStato.populatedMap(bt, key, key);
@@ -730,7 +447,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipoRuolo = new DecodeMap();
         String key = "ti_ruolo";
-        for (ConstPrfRuolo.TiRuolo tipoRuolo : Utils.sortEnum(ConstPrfRuolo.TiRuolo.values())) {
+        for (ConstPrfRuolo.TiRuolo tipoRuolo : sortEnum(ConstPrfRuolo.TiRuolo.values())) {
             bt.add(createKeyValueBaseRow(key, tipoRuolo.name()));
         }
         mappaTipoRuolo.populatedMap(bt, key, key);
@@ -742,7 +459,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaCategRuolo = new DecodeMap();
         String key = "ti_categ_ruolo";
-        for (ConstPrfRuolo.TiCategRuolo categRuolo : Utils.sortEnum(ConstPrfRuolo.TiCategRuolo.values())) {
+        for (ConstPrfRuolo.TiCategRuolo categRuolo : sortEnum(ConstPrfRuolo.TiCategRuolo.values())) {
             bt.add(createKeyValueBaseRow(key, categRuolo.name()));
         }
         mappaCategRuolo.populatedMap(bt, key, key);
@@ -754,8 +471,8 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaStatoRich = new DecodeMap();
         String key = "ti_stato_rich_gest_user";
-        for (ConstUsrRichGestUser.TiStatoRichGestUser tipoStato : Utils
-                .sortEnum(ConstUsrRichGestUser.TiStatoRichGestUser.values())) {
+        for (ConstUsrRichGestUser.TiStatoRichGestUser tipoStato : sortEnum(
+                ConstUsrRichGestUser.TiStatoRichGestUser.values())) {
             bt.add(createKeyValueBaseRow(key, tipoStato.name()));
         }
         mappaStatoRich.populatedMap(bt, key, key);
@@ -767,7 +484,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "ti_rich_gest_user";
-        for (ConstUsrRichGestUser.TiRichGestUser tipo : Utils.sortEnum(ConstUsrRichGestUser.TiRichGestUser.values())) {
+        for (ConstUsrRichGestUser.TiRichGestUser tipo : sortEnum(ConstUsrRichGestUser.TiRichGestUser.values())) {
             bt.add(createKeyValueBaseRow(key, tipo.getDescrizione()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -810,7 +527,7 @@ public class ComboGetter {
         } else {
             tipiAzione = ConstUsrAppartUserRich.TiAzioneRich.getListaEnumConvenz();
         }
-        for (ConstUsrAppartUserRich.TiAzioneRich tipo : Utils.sortEnum(tipiAzione)) {
+        for (ConstUsrAppartUserRich.TiAzioneRich tipo : sortEnum(tipiAzione)) {
             bt.add(createKeyValueBaseRow(key, tipo.name(), key2, tipo.getDescrizione()));
         }
         mappaTipo.populatedMap(bt, key2, key2);
@@ -835,8 +552,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipoEvento = new DecodeMap();
         String key = "tipoEvento";
-        for (ConstLogEventoLoginUser.TipoEvento tipoEvento : Utils
-                .sortEnum(ConstLogEventoLoginUser.TipoEvento.values())) {
+        for (ConstLogEventoLoginUser.TipoEvento tipoEvento : sortEnum(ConstLogEventoLoginUser.TipoEvento.values())) {
             bt.add(createKeyValueBaseRow(key, tipoEvento.name()));
         }
         mappaTipoEvento.populatedMap(bt, key, key);
@@ -865,7 +581,7 @@ public class ComboGetter {
         /* Imposto i valori della combo */
         DecodeMap mappaTipo = new DecodeMap();
         String key = "ti_categ_ruolo";
-        for (ApplEnum.TipoUser categ : Utils.sortEnum(ApplEnum.TipoUser.getComboTipiCategoriaPerRuoli())) {
+        for (ApplEnum.TipoUser categ : sortEnum(ApplEnum.TipoUser.getComboTipiCategoriaPerRuoli())) {
             bt.add(createKeyValueBaseRow(key, categ.name()));
         }
         mappaTipo.populatedMap(bt, key, key);
@@ -931,6 +647,14 @@ public class ComboGetter {
         bt.add(br2);
         mappaStatoAgg.populatedMap(bt, "ti_stato_job", "ti_stato_job");
         return mappaStatoAgg;
+    }
+
+    private static <T extends Enum<?>> Collection<T> sortEnum(T[] enumValues) {
+        SortedMap<String, T> map = new TreeMap<>();
+        for (T val : enumValues) {
+            map.put(val.name(), val);
+        }
+        return map.values();
     }
 
 }

@@ -31,18 +31,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
  * The persistent class for the ORG_TARIFFA_AA_ACCORDO database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_TARIFFA_AA_ACCORDO")
-@NamedQuery(name = "OrgTariffaAaAccordo.findAll", query = "SELECT o FROM OrgTariffaAaAccordo o")
 public class OrgTariffaAaAccordo implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long idTariffaAaAccordo;

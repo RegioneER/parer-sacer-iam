@@ -4,12 +4,14 @@
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>saceriam-jboss</artifactId>
-        <version>5.2.1-SNAPSHOT</version>
+        <version>6.1.0</version>
     </parent>
-
     <artifactId>saceriam-jboss-slg</artifactId>
     <name>SacerIam-slg</name>
     <description>SLG</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <url>http://maven.apache.org</url>
     <build>
         <plugins>
@@ -70,26 +72,16 @@
                     <arguments>
                         <argument>${project.basedir}</argument>                                              
                     </arguments>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>commons-collections</groupId>
-                        <artifactId>commons-collections</artifactId>
-                        <version>3.2.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            
+                </configuration>               
+            </plugin>      
         </plugins>
     </build>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+		<dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-jakartaee-8.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>it.eng.parer</groupId>
@@ -104,9 +96,14 @@
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-sl-jpa</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
 			<groupId>org.dom4j</groupId>
 			<artifactId>dom4j</artifactId>
-		</dependency>       
+		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>		
     </dependencies>
 </project>

@@ -186,7 +186,7 @@ public class RecuperoAutorizzazioniRisposta {
         }
         /*
          * public boolean isFlHelpPresente() { return flHelpPresente; }
-         * 
+         *
          * public void setFlHelpPresente(boolean flHelpPresente) { this.flHelpPresente = flHelpPresente; }
          */
     }

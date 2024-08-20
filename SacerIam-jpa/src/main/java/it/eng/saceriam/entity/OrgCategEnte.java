@@ -26,7 +26,7 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the ORG_CATEG_ENTE database table.
- * 
+ *
  */
 /* ORG_CATEG_ENTE */
 @Entity

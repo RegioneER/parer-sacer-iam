@@ -573,7 +573,7 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             String noArchivista, String flRicev, String flRichModuloInfo, String flNonConvenz, String flRecesso,
             String flChiuso, String flEsistonoGestAcc, List<BigDecimal> idTipoGestioneAccordo, String flGestAccNoRisp,
             String tiStatoAccordo, String cdFisc, Date dtDecAccordoDa, Date dtDecAccordoA, Date dtDecAccordoInfoDa,
-            Date dtDecAccordoInfoA) {
+            Date dtDecAccordoInfoA, Date dtIniValDa, Date dtIniValA, Date dtCessazioneDa, Date dtCessazioneA) {
         StringBuilder queryStr = new StringBuilder(
                 "SELECT DISTINCT new it.eng.saceriam.viewEntity.OrgVRicEnteConvenz (ente.idEnteConvenz, ente.nmEnteConvenz, "
                         + "ente.idCategEnte, ente.idAmbitoTerrit, ente.dtIniVal, ente.dtCessazione, ente.flEsistonoModuli, ente.dtRichModuloInfo, "
@@ -663,6 +663,16 @@ public class EntiConvenzionatiHelper extends GenericHelper {
 
         if (dtScadAccordoDa != null && dtScadAccordoA != null) {
             queryStr.append(clause).append("(ente.dtScadAccordo BETWEEN :dtScadAccordoDa AND :dtScadAccordoA) ");
+            clause = " AND ";
+        }
+
+        if (dtIniValDa != null && dtIniValA != null) {
+            queryStr.append(clause).append("(ente.dtIniVal BETWEEN :dtIniValDa AND :dtIniValA) ");
+            clause = " AND ";
+        }
+
+        if (dtCessazioneDa != null && dtCessazioneA != null) {
+            queryStr.append(clause).append("(ente.dtCessazione BETWEEN :dtCessazioneDa AND :dtCessazioneA) ");
             clause = " AND ";
         }
 
@@ -774,6 +784,16 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             query.setParameter("dtFineValidAccordoDa", dtFineValidAccordoDa);
             query.setParameter("dtFineValidAccordoA", dtFineValidAccordoA);
         }
+
+        if (dtIniValDa != null && dtIniValA != null) {
+            query.setParameter("dtIniValDa", dtIniValDa);
+            query.setParameter("dtIniValA", dtIniValA);
+        }
+        if (dtCessazioneDa != null && dtCessazioneA != null) {
+            query.setParameter("dtCessazioneDa", dtCessazioneDa);
+            query.setParameter("dtCessazioneA", dtCessazioneA);
+        }
+
         if (dtDecAccordoInfoDa != null && dtDecAccordoInfoA != null) {
             query.setParameter("dtDecAccordoInfoDa", dtDecAccordoInfoDa);
             query.setParameter("dtDecAccordoInfoA", dtDecAccordoInfoA);
@@ -5165,7 +5185,7 @@ public class EntiConvenzionatiHelper extends GenericHelper {
 
     /**
      * Recupera l'elenco dei cluster presenti su DB
-     * 
+     *
      * @return la lista dei cluster e relativa fascia associabili ad un accordo
      */
     public List<Object[]> getOrgClusterAccordoList() {

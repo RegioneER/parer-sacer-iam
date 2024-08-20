@@ -73,7 +73,7 @@ public class OrgVServSistVersDaErogRowBean extends BaseRow implements BaseRowInt
 
     /*
      * public Timestamp getDtRegAccordo() { return getTimestamp("dt_reg_accordo"); }
-     * 
+     *
      * public void setDtRegAccordo(Timestamp dtRegAccordo) { setObject("dt_reg_accordo", dtRegAccordo); }
      */
 

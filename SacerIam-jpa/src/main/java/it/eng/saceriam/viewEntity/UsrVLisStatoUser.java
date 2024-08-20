@@ -24,7 +24,6 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -33,7 +32,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USR_V_LIS_STATO_USER")
-@NamedQuery(name = "UsrVLisStatoUser.findAll", query = "SELECT u FROM UsrVLisStatoUser u")
 public class UsrVLisStatoUser implements Serializable {
 
     private static final long serialVersionUID = 1L;

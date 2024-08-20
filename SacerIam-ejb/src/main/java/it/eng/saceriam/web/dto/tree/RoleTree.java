@@ -193,7 +193,7 @@ public class RoleTree extends RoleTreeElement {
      * righe eseguo anche il controllo sui nodi selezionati
      *
      * @return il tableBean dei nodi selezionati
-     * 
+     *
      * @throws it.eng.saceriam.exception.ParerUserError
      *             errore di incoerenza nei nodi
      */

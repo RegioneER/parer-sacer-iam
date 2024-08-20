@@ -4,7 +4,7 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>5.2.1-SNAPSHOT</version>
+        <version>6.1.0</version>
     </parent>
 
     <artifactId>saceriam-jboss-web</artifactId>
@@ -21,17 +21,12 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>            
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>            
-            <scope>provided</scope> 
-        </dependency>
-              
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-jakartaee-8.0</artifactId>
+			<type>pom</type>
+		</dependency>
+      
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-core</artifactId>
@@ -59,15 +54,7 @@
             <type>ejb</type>            
             <scope>provided</scope>
         </dependency>
-        
-        <!-- Jboss -->
-        <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-jakartaee-8.0</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency> 
-        
+
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-sl-ejb</artifactId>
@@ -96,12 +83,25 @@
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
+        
+          
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>            
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>            
+            <scope>provided</scope> 
+        </dependency>
+              
     </dependencies>
     <build>
         <resources>
             <resource>
-                <!-- il filtraggio riguarda solo questo file: verranno sostituite  -->
-                <!-- le proprietà del repo GIT fornite dal plugin git-commit-id-plugin  -->
+				<!-- il filtraggio riguarda solo questo file: verranno sostituite  -->
+				<!-- le proprietà del repo GIT fornite dal plugin git-commit-id-plugin  -->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
@@ -129,9 +129,9 @@
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-                            <!-- il riferimento alla directory, posizionata sul progetto padre -->
+							<!-- il riferimento alla directory, posizionata sul progetto padre -->
                             <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
-                            <!-- -->
+							<!-- -->
                             <failOnNoGitDirectory>false</failOnNoGitDirectory>
                             <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
                             <gitDescribe>
@@ -162,7 +162,7 @@
                             <groupId>it.eng.parer</groupId>
                             <artifactId>spagofat-sl-web</artifactId>
 
-                            <!-- 
+							<!-- 
                                 Escludo i .class perché sono già contenuti nell'artifact it.eng.parer/sacerlog-web con 
                                 il classifier "classes"
                             -->

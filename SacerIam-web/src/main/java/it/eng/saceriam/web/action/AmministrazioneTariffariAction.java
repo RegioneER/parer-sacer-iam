@@ -68,6 +68,7 @@ import it.eng.spagoLite.security.Secure;
  *
  * @author Gilioli_P
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(AmministrazioneTariffariAction.class);
@@ -561,7 +562,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
      * Carica il publisher di default del wizard di inserimento
      *
      * @return il publisher del wizard
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -668,7 +669,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
      * errore validazione
      *
      * @return true se i dati sono validati
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -809,7 +810,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
     /*
      * Metodo che mantiene in sessione il set di id degli scaglioni che sono stati selezionati per l'eliminazione dalla
      * lista.
-     * 
+     *
      */
     private Set<BigDecimal> getScaglioniDeleteSet() {
         if (getSession().getAttribute("scaglioniDeleteSet") == null) {
@@ -832,7 +833,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
 
     /*
      * Getter per mantenere un set di scaglioni, utile per i controlli di coerenza
-     * 
+     *
      * @return il set di scaglioni
      */
     private Set<PairNiScaglioni> getScaglioniSet() {

@@ -24,18 +24,16 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the LOG_V_RIC_ACCESSI database table.
- * 
+ *
  */
 @Entity
 @Table(name = "LOG_V_RIC_ACCESSI")
-@NamedQuery(name = "LogVRicAccessi.findAll", query = "SELECT l FROM LogVRicAccessi l")
 public class LogVRicAccessi implements Serializable {
     private static final long serialVersionUID = 1L;
     private String cdIndIpClient;

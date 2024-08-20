@@ -29,7 +29,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "USR_USER")
-@NamedQuery(name = "UsrUser.findAll", query = "SELECT u FROM UsrUserForTest u")
 public class UsrUserForTest implements Serializable {
 
     private static final long serialVersionUID = 1L;

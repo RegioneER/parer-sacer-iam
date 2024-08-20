@@ -24,11 +24,10 @@ import java.util.Date;
 
 /**
  * The persistent class for the ORG_V_OCCUP_STORAGE_ACCORDO database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_V_OCCUP_STORAGE_ACCORDO")
-@NamedQuery(name = "OrgVOccupStorageAccordo.findAll", query = "SELECT o FROM OrgVOccupStorageAccordo o")
 public class OrgVOccupStorageAccordo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String ambienteEnte;

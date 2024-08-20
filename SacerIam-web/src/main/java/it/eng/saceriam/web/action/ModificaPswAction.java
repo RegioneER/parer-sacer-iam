@@ -22,9 +22,6 @@ import java.net.URLEncoder;
 
 import javax.ejb.EJB;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.util.LogParam;
 import it.eng.parer.sacerlog.util.web.SpagoliteLogUtil;
@@ -40,13 +37,10 @@ import it.eng.util.EncryptionUtil;
 public class ModificaPswAction extends ActionBase {
 
     private static final long serialVersionUID = 1L;
-    private static final String USERID = "###_USERID";
 
     // Accetta tutte le stringhe che contengono almeno una lettera, almeno un numero ed almeno un carattere speciale tra
     // quelli riportati (tabella ASCII)
     private static final String PASSWORD_REGEX = "(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!-/:-@\\[-`{-~])[A-Za-z\\d!-/:-@\\[-`{-~]{8,}$";
-
-    private static final Logger logger = LoggerFactory.getLogger(ModificaPswAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/AuthEjb")
     private AuthEjb authEjb;

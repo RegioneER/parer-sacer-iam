@@ -34,7 +34,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -54,7 +53,6 @@ import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteSiam;
  */
 @Entity
 @Table(name = "ORG_ENTE_SIAM")
-@NamedQuery(name = "OrgEnteSiam.findAll", query = "SELECT o FROM OrgEnteSiam o")
 public class OrgEnteSiam implements Serializable {
 
     private static final long serialVersionUID = 1L;

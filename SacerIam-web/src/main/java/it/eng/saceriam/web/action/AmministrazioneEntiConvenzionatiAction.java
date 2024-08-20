@@ -21,12 +21,58 @@ import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.D
 import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.MODULO_INFORMAZIONI_MAX_FILE_SIZE;
 import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.VARIAZIONE_ACCORDO_MAX_FILE_SIZE;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.codehaus.jettison.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.slite.gen.form.GestioneLogEventiForm;
@@ -127,65 +173,18 @@ import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.message.Message;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
 import it.eng.spagoLite.security.Secure;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.stream.Collectors;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author Bonora_L feat. Gilioli_P feat DiLorenzo_F
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiConvenzionatiAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(AmministrazioneEntiConvenzionatiAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
     private EntiConvenzionatiEjb entiConvenzionatiEjb;
-    @EJB(mappedName = "java:app/SacerIam-ejb/ComboGetter")
-    private ComboGetter comboGetter;
     @EJB(mappedName = "java:app/SacerIam-ejb/SistemiVersantiEjb")
     private SistemiVersantiEjb sistemiVersantiEjb;
     @EJB(mappedName = "java:app/SacerIam-ejb/ParamHelper")
@@ -736,7 +735,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getForm().getReferenteEnteDetail().setStatus(Status.insert);
                 getForm().getReferenteEnteDetail().setEditMode();
                 getForm().getReferenteEnteDetail().getQualifica_user()
-                        .setDecodeMap(comboGetter.getMappaQualificaUser());
+                        .setDecodeMap(ComboGetter.getMappaQualificaUser());
                 forwardToPublisher(Application.Publisher.DETTAGLIO_REFERENTE_ENTE);
             } else if (getTableName().equals(getForm().getDisciplinariTecniciList().getName())) {
                 getForm().getDisciplinareTecnicoDetail().clear();
@@ -1054,6 +1053,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 Date dtFineValidAccordoA = getForm().getFiltriEntiConvenzionati().getDt_fine_valid_accordo_a().parse();
                 Date dtScadAccordoDa = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().parse();
                 Date dtScadAccordoA = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse();
+                Date dtIniValDa = getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().parse();
+                Date dtIniValA = getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().parse();
+                Date dtCessazioneDa = getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().parse();
+                Date dtCessazioneA = getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().parse();
                 List<BigDecimal> idArchivista = getForm().getFiltriEntiConvenzionati().getArchivista().parse();
                 String noArchivista = getForm().getFiltriEntiConvenzionati().getNo_archivista().parse();
                 String flRicev = getForm().getFiltriEntiConvenzionati().getFl_ricezione_modulo_inf().parse();
@@ -1073,7 +1076,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA, idArchivista,
                         noArchivista, flRicev, flRichModuloInfo, flNonConvenz, flRecesso, flChiuso, flEsistonoGestAcc,
                         idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc, dtDecAccordoDa, dtDecAccordoA,
-                        dtDecAccordoInfoDa, dtDecAccordoInfoA);
+                        dtDecAccordoInfoDa, dtDecAccordoInfoA, dtIniValDa, dtIniValA, dtCessazioneDa, dtCessazioneA);
                 getForm().getListaEntiConvenzionati().setTable(table);
                 getForm().getListaEntiConvenzionati().getTable().setPageSize(pageSize);
                 getForm().getListaEntiConvenzionati().getTable().setCurrentRowIndex(rowIndex);
@@ -1394,7 +1397,11 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_info_da().parse(),
                     getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_info_a().parse(),
                     getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().parse(),
-                    getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse());
+                    getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().parse());
 
             Date dtDecAccordoDa = getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_da().parse();
             Date dtDecAccordoA = getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_a().parse();
@@ -1404,12 +1411,18 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             Date dtFineValidAccordoA = getForm().getFiltriEntiConvenzionati().getDt_fine_valid_accordo_a().parse();
             Date dtScadAccordoDa = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().parse();
             Date dtScadAccordoA = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse();
+            Date dtIniValDa = getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().parse();
+            Date dtIniValA = getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().parse();
+            Date dtCessazioneDa = getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().parse();
+            Date dtCessazioneA = getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().parse();
 
             String errorDateDec = null;
             String errorDateScad = null;
             String errorDateIniVal = null;
             String errorDateFineVal = null;
             String errorCdFisc = null;
+            String errorDateIniValEnte = null;
+            String errorDateCessazione = null;
 
             errorDateDec = DateUtil.ucContrDate("", dtDecAccordoInfoDa, dtDecAccordoInfoA, "decorrenza Da",
                     "decorrenza A");
@@ -1418,6 +1431,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     "inizio validità A");
             errorDateFineVal = DateUtil.ucContrDate("", dtFineValidAccordoDa, dtFineValidAccordoA, "fine validità Da",
                     "fine validità A");
+            errorDateIniValEnte = DateUtil.ucContrDate("", dtIniValDa, dtIniValA, "inizio validità ente Da",
+                    "inizio validità ente A");
+            errorDateCessazione = DateUtil.ucContrDate("", dtCessazioneDa, dtCessazioneA, "cessazione Da",
+                    "cessazione A");
             if (!StringUtils.isBlank(cdFisc)) {
                 errorCdFisc = !StringUtils.isAlphanumeric(cdFisc)
                         ? "Il codice fiscale/partita IVA contiene caratteri non validi." : null;
@@ -1435,6 +1452,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             if (errorDateFineVal != null) {
                 getMessageBox().addError(errorDateFineVal);
             }
+            if (errorDateIniValEnte != null) {
+                getMessageBox().addError(errorDateIniValEnte);
+            }
+            if (errorDateCessazione != null) {
+                getMessageBox().addError(errorDateCessazione);
+            }
             if (errorCdFisc != null) {
                 getMessageBox().addError(errorCdFisc);
             }
@@ -1449,9 +1472,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             nmEnteConvenz, idUserIamCor, idAmbienteEnteConvenz, flEnteAttivo, flEnteCessato,
                             idCategEnte, idAmbitoTerritRegione, idAmbitoTerritProv, idAmbitoTerritFormAssoc,
                             cdTipoAccordo, dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA,
-                            idArchivista, noArchivista, flRicev, flRichiestaModuloInf, flNonConvenz, flRecesso,
+                            idArchivista, noArchivista, flRicev, flRichiestaModuloInf, flNonConvenz, flRecesso, // bdc
                             flChiuso, flEsistonoGestAcc, idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc,
-                            dtDecAccordoDa, dtDecAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA);
+                            dtDecAccordoDa, dtDecAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA, dtIniValDa, dtIniValA,
+                            dtCessazioneDa, dtCessazioneA);
                     getForm().getListaEntiConvenzionati().setTable(table);
                     getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
                     getForm().getListaEntiConvenzionati().getTable().first();
@@ -1474,8 +1498,11 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         forwardToPublisher(getLastPublisher());
     }
 
+    // bdc stop
+
     private void decoraDateRicercaEnti(Date dtDecAccordoDa, Date dtDecAccordoA, Date dtFineValDa, Date dtFineValA,
-            Date dtDecAccordoInfoDa, Date dtDecAccordoInfoA, Date dtScadAccordoDa, Date dtScadAccordoA) {
+            Date dtDecAccordoInfoDa, Date dtDecAccordoInfoA, Date dtScadAccordoDa, Date dtScadAccordoA, Date dtIniValDa,
+            Date dtIniValA, Date dtCessazioneDa, Date dtCessazioneA) {
         DateFormat formato = new SimpleDateFormat(DateUtil.DATE_FORMAT_SLASH);
 
         if (dtDecAccordoDa != null && dtDecAccordoA == null) {
@@ -1539,6 +1566,37 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             dtScadAccordoDa = c.getTime();
             getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().setValue(formato.format(dtScadAccordoDa));
         }
+
+        if (dtIniValDa != null && dtIniValA == null) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            dtIniValA = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().setValue(formato.format(dtIniValA));
+        } else if (dtIniValDa == null && dtIniValA != null) {
+            Calendar c = Calendar.getInstance();
+            c.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
+            dtIniValDa = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().setValue(formato.format(dtIniValDa));
+        }
+
+        if (dtCessazioneDa != null && dtCessazioneA == null) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            dtCessazioneA = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().setValue(formato.format(dtCessazioneA));
+        } else if (dtCessazioneDa == null && dtCessazioneA != null) {
+            Calendar c = Calendar.getInstance();
+            c.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
+            dtCessazioneDa = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().setValue(formato.format(dtCessazioneDa));
+        }
+
     }
 
     @Override
@@ -2500,7 +2558,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         getForm().getEnteConvenzionatoDetail().getDt_cessazione().parse());
                 if (!controlloOK) {
                     getMessageBox().addError(
-                            "Attenzione: impossibile modificare la validitÃ  dell'ente in quanto risulta in contrasto con la validitÃ  delle anagrafiche presenti.");
+                            "Attenzione: impossibile modificare la validità dell'ente in quanto risulta in contrasto con la validità delle anagrafiche presenti.");
                 }
             }
 
@@ -3334,7 +3392,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         BigDecimal idAmbienteEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz().parse();
         BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
         getForm().getGestioneAccordoDetail().getTipo_trasmissione()
-                .setDecodeMap(comboGetter.getMappaTipoTrasmissione());
+                .setDecodeMap(ComboGetter.getMappaTipoTrasmissione());
         getForm().getGestioneAccordoDetail().getId_tipo_gestione_accordo()
                 .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgTipiGestioneAccordoTableBean(),
                         "id_tipo_gestione_accordo", "cd_tipo_gestione_accordo"));

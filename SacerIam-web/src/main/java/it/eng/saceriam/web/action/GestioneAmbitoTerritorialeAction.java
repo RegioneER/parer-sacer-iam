@@ -71,7 +71,7 @@ public class GestioneAmbitoTerritorialeAction extends GestioneAmbitoTerritoriale
         BaseTable bt = new BaseTable();
         BaseRow br = new BaseRow();
 
-        for (Enum tipo : WebConstants.TipoAmbitoTerritoriale.values()) {
+        for (Enum<?> tipo : WebConstants.TipoAmbitoTerritoriale.values()) {
             br.setString("ti_ambito_territ", tipo.name());
             bt.add(br);
         }

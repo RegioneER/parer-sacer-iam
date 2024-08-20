@@ -132,7 +132,7 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
      *
      * @param nmEnteSiam
      *            nome ente
-     * 
+     *
      * @return l'entity richiesta se esiste, oppure <code>null</code>
      */
     public OrgEnteSiam getOrgEnteSiam(String nmEnteSiam) {
@@ -156,7 +156,7 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
      *
      * @param tiEnteConvenz
      *            tipo ente convenz
-     * 
+     *
      * @return l'entity richiesta se esiste, oppure <code>null</code>
      */
     public OrgEnteSiam getOrgEnteConvenzByTiEnteConvenz(TiEnteConvenz tiEnteConvenz) {
@@ -180,7 +180,7 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
      *
      * @param idEnteNonConvenzDaEscludere
      *            id ente da escludere
-     * 
+     *
      * @return lista elementi di tipo {@link OrgEnteSiam}
      */
     public List<OrgEnteSiam> getOrgEnteNonConvenzList(BigDecimal idEnteNonConvenzDaEscludere) {
@@ -202,7 +202,7 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
      *
      * @param idEnteFornitEst
      *            id ente fornitore esterno
-     * 
+     *
      * @return lista elementi di tipo {@link OrgSuptEsternoEnteConvenz}
      */
     public List<OrgSuptEsternoEnteConvenz> getOrgSuptEsternoEnteConvenzList(BigDecimal idEnteFornitEst) {
@@ -219,7 +219,7 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
      *
      * @param idEnteFornitEst
      *            id fornitore esterno
-     * 
+     *
      * @return lista elementi di tipo {@link OrgEnteConvenzOrg}
      */
     public List<OrgEnteConvenzOrg> getOrgEnteConvenzOrgList(BigDecimal idEnteFornitEst) {
@@ -322,7 +322,7 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
      *
      * @param idEnteOrganoVigil
      *            id ente organo di vigilanza
-     * 
+     *
      * @return la lista di accordi
      */
     public List<OrgAccordoVigil> retrieveOrgAccordoVigil(BigDecimal idEnteOrganoVigil) {
@@ -465,7 +465,7 @@ public class EntiNonConvenzionatiHelper extends GenericHelper {
      *
      * @param idAmbienteEnteConvenz
      *            id ambiente ente non convenzionato
-     * 
+     *
      * @return la lista di enti non convenzionati
      */
     @Deprecated

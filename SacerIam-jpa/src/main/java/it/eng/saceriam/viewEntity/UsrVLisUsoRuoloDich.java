@@ -23,16 +23,14 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  * The persistent class for the USR_V_LIS_USO_RUOLO_DICH database table.
- * 
+ *
  */
 @Entity
 @Table(name = "USR_V_LIS_USO_RUOLO_DICH")
-@NamedQuery(name = "UsrVLisUsoRuoloDich.findAll", query = "SELECT u FROM UsrVLisUsoRuoloDich u")
 public class UsrVLisUsoRuoloDich implements Serializable {
     private static final long serialVersionUID = 1L;
     private String dlCompositoOrganiz;

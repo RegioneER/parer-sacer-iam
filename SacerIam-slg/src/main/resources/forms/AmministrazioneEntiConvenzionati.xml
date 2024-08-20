@@ -12,6 +12,10 @@
         <MultiSelect Name="cd_ambito_territ_regione" Description="Regione" Type="INTEGER" Trigger="true"/>
         <MultiSelect Name="cd_ambito_territ_provincia" Description="Provincia" Type="INTEGER" Trigger="true"/>
         <MultiSelect Name="cd_ambito_territ_forma_associata" Description="Forma associata" Type="INTEGER" />
+        <Input Description="Data inizio validita dell'ente da" Name="dt_ini_val_da" Type="DATE"/>
+        <Input Description="Data inizio validita dell'ente a" Name="dt_ini_val_a" Type="DATE"/>
+        <Input Description="Data fine validità dell'ente da" Name="dt_cessazione_da" Type="DATE"/>
+        <Input Description="Data fine validità dell'ente a" Name="dt_cessazione_a" Type="DATE"/>
         <MultiSelect Name="cd_tipo_accordo" Description="Tipo accordo" Type="INTEGER"/>
         <Input Description="Data inizio validita da" Name="dt_dec_accordo_da" Type="DATE"/>
         <Input Description="Data inizio validita a" Name="dt_dec_accordo_a" Type="DATE"/>
@@ -42,6 +46,7 @@
     <List Name="ListaEntiConvenzionati" Description="Enti convenzionati">
         <Input Name="id_ente_convenz" Description="id ente convenz" Type="INTEGER" Hidden="true" />
         <Input Name="nm_ente_convenz" Description="Denominazione" Type="STRING" />
+        <Input Name="dt_ini_val" Description="Data inizio validita dell'ente" Type="DATE"/>
         <Input Name="dt_fine_valid_accordo" Description="Data fine validità accordo" Type="DATE" />
         <Input Name="archivista" Description="Archivista di riferimento" Type="STRING" />
         <Input Name="ds_categ_ente" Description="Categoria" Type="STRING" />

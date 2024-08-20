@@ -129,14 +129,14 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param username
      *            username
      * @param password
      *            password
-     * 
+     *
      * @return l'utente {@link UsrUser}
-     * 
+     *
      * @throws Exception
      *             eccezione
      */
@@ -302,7 +302,7 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idUserIam
      *            id user
      * @param newExpirationDate
@@ -338,10 +338,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param ruoli
      *            ruoli
-     * 
+     *
      * @return pagine {@link AplPaginaWeb}
      */
     @Deprecated
@@ -363,10 +363,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated metodo non utilizzato, da recuperare quando la MenuUtil farò a meno della CONNECT BY PRIOR
-     * 
+     *
      * @param ruoli
      *            ruoli
-     * 
+     *
      * @return lista di {@link AplEntryMenu}
      */
     @Deprecated
@@ -389,14 +389,14 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idUtente
      *            id utente
      * @param idOrgStrut
      *            id organizzazione
-     * 
+     *
      * @return lista di {@link PrfRuolo}
-     * 
+     *
      * @throws AuthorizationException
      *             eccezione
      */
@@ -426,12 +426,12 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param userRoles
      *            ruoli utente
      * @param idPagina
      *            id pagina
-     * 
+     *
      * @return lista di {@link AplAzionePagina}
      */
     @Deprecated
@@ -464,10 +464,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param usrUsoUserApplicList
      *            lista di uso user applic
-     * 
+     *
      * @return lista di {@link UsrUsoUserApplic}
      */
     @Deprecated
@@ -487,7 +487,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param idApplicSet
      *            lista distinta di id applicazione
-     * 
+     *
      * @return lista elemnti di tipo {@link AplApplic}
      */
     public List<AplApplic> getAplApplicFiltrate(Set<BigDecimal> idApplicSet) {
@@ -505,7 +505,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param idApplicSet
      *            lista distinta di id applicazione
-     * 
+     *
      * @return table bean {@link AplApplicTableBean}
      */
     public AplApplicTableBean getAplApplicConOrganizzazioni(Set<BigDecimal> idApplicSet) {
@@ -533,7 +533,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param nmApplic
      *            nome applicazione
-     * 
+     *
      * @return true se applicazione consentita
      */
     public boolean isApplicConsentita(String nmApplic) {
@@ -582,9 +582,9 @@ public class UserHelper extends GenericHelper {
      *            nome menu
      * @param applName
      *            nome applicazione
-     * 
+     *
      * @return AplEntryMenu la menuEntry corrispondente
-     * 
+     *
      * @throws Exception
      *             nel caso siano stati trovati più record corrispondenti
      */
@@ -613,7 +613,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param aplPaginaWeb
      *            entity {@link AplPaginaWeb}
-     * 
+     *
      * @return la lista di azioni
      */
     public List<AplAzionePagina> getAplAzionePagina(AplPaginaWeb aplPaginaWeb) {
@@ -635,9 +635,9 @@ public class UserHelper extends GenericHelper {
      *            nome pagina
      * @param nomeApplicazione
      *            nome applicazione
-     * 
+     *
      * @return AplPaginaWeb la pagina corrispondente
-     * 
+     *
      * @throws Exception
      *             nel caso siano stati trovati più record corrispondenti
      */
@@ -755,7 +755,7 @@ public class UserHelper extends GenericHelper {
      *            nome pagina
      * @param descAzione
      *            descrizione azione
-     * 
+     *
      * @throws Exception
      *             errore generico
      */
@@ -778,10 +778,10 @@ public class UserHelper extends GenericHelper {
      *            nome azione
      * @param descAzione
      *            descrizione azione
-     * 
+     *
      * @throws Exception
      *             errore generico
-     * 
+     *
      * @return pk
      */
     public Long insertAplAzionePagina(String nomeApplicazione, String nomePagina, String nomeAzione, String descAzione)
@@ -830,7 +830,7 @@ public class UserHelper extends GenericHelper {
      *            nome pagina
      * @param pageActions
      *            action
-     * 
+     *
      * @return lista elementi di tipo {@link AplAzionePagina}
      */
     public List<AplAzionePagina> getActionsNotInCsv(String nomeAppl, String nomePag, List<String> pageActions) {
@@ -855,7 +855,7 @@ public class UserHelper extends GenericHelper {
      *            nome applicazione
      * @param dati
      *            lista dati
-     * 
+     *
      * @return lista elementi di tipo {@link AplPaginaWeb}
      */
     public List<AplPaginaWeb> getPagesNotInCsv(String nomeAppl, List<String> dati) {
@@ -878,7 +878,7 @@ public class UserHelper extends GenericHelper {
      *            nome applicazione
      * @param dati
      *            lista dati potenzialmente cancellabili
-     * 
+     *
      * @return lista elementi di tipo {@link AplEntryMenu}
      */
     public List<AplEntryMenu> getMenusNotInCsvPerHelpOnLine(String nomeAppl, List<String> dati) {
@@ -901,7 +901,7 @@ public class UserHelper extends GenericHelper {
      *            nome applicazione
      * @param dati
      *            lista dati
-     * 
+     *
      * @return lista elementi di tipo {@link AplPaginaWeb}
      */
     public List<AplPaginaWeb> getPagesNotInCsvAiutoInLinea(String nomeAppl, List<String> dati) {
@@ -993,7 +993,7 @@ public class UserHelper extends GenericHelper {
      *            nome applicazione
      * @param dati
      *            lista dati
-     * 
+     *
      * @return numero eliminati
      */
     public int deleteWebServices(String nomeAppl, List<String> dati) {
@@ -1014,7 +1014,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param applName
      *            nome applicazione
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplEntryMenu> getListAplEntryMenu(String applName) {
@@ -1030,7 +1030,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param applName
      *            nome applicazione
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplEntryMenu> getListAplEntryMenuUltimoLivello(String applName) {
@@ -1048,7 +1048,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param idApplic
      *            id applicazione
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplEntryMenu> getListAplEntryMenuUltimoLivello(BigDecimal idApplic) {
@@ -1066,7 +1066,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param applName
      *            nome applicazione
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplPaginaWeb> getListAplPaginaWeb(String applName) {
@@ -1082,12 +1082,12 @@ public class UserHelper extends GenericHelper {
      * può essere HELP_PAGINA oppure HELP_RICERCA_DIPS
      *
      * @deprecated
-     * 
+     *
      * @param applName
      *            nome applicazione
      * @param tiHelpOnLine
      *            tipo help
-     * 
+     *
      * @return la lista corrispondente
      */
     @Deprecated
@@ -1105,7 +1105,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param idApplic
      *            id applicazione
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplPaginaWeb> getListAplPaginaWeb(BigDecimal idApplic) {
@@ -1124,7 +1124,7 @@ public class UserHelper extends GenericHelper {
      *            id applicazione
      * @param tiHelpOnLine
      *            tipo help
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplPaginaWeb> getListAplPaginaWeb(BigDecimal idApplic, String tiHelpOnLine) {
@@ -1141,7 +1141,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param applName
      *            nome applicazione
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplServizioWeb> getListAplServizioWeb(String applName) {
@@ -1157,7 +1157,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param applName
      *            nome applicazione
-     * 
+     *
      * @return la lista corrispondente
      */
     public List<AplAzionePagina> getListAplAzionePagina(String applName) {
@@ -1185,7 +1185,7 @@ public class UserHelper extends GenericHelper {
      *            entry padre
      * @param linkEntryMenu
      *            link menu
-     * 
+     *
      * @throws Exception
      *             errore generico
      */
@@ -1225,7 +1225,7 @@ public class UserHelper extends GenericHelper {
      *            nome entry menu padre
      * @param linkEntryMenu
      *            link
-     * 
+     *
      * @throws Exception
      *             errore generico
      */
@@ -1266,7 +1266,7 @@ public class UserHelper extends GenericHelper {
      *
      * @param applName
      *            nome applicazione
-     * 
+     *
      * @return lista dei ruoli
      */
     public List<PrfUsoRuoloApplic> getPrfUsoRuoloApplic(String applName) {
@@ -1331,7 +1331,7 @@ public class UserHelper extends GenericHelper {
      *            autore
      * @param tiScopoDichAutor
      *            scopo
-     * 
+     *
      * @return Lista di dichiarazioni
      */
     public List<PrfDichAutor> getDichAutor(PrfUsoRuoloApplic ruolo, String tiDichAutor, String tiScopoDichAutor) {
@@ -1361,7 +1361,7 @@ public class UserHelper extends GenericHelper {
      *            contatore delle pagine create
      * @param listAplServizioWeb
      *            lista servizi pagine web di tipo {@link AplPaginaWeb}
-     * 
+     *
      * @return il contatore counter aggiornato
      */
     public int insertAuthAllAbilitazioni(PrfUsoRuoloApplic ruolo, List<AplEntryMenu> listAplEntryMenu,
@@ -1432,7 +1432,7 @@ public class UserHelper extends GenericHelper {
      *            contatore delle autorizzazioni inserite
      * @param counterPages
      *            contatore delle pagine inserite
-     * 
+     *
      * @return il contatore counter aggiornato alle nuove autorizzazioni
      */
     public int insertAuthAllAbilitazioniChild(PrfUsoRuoloApplic ruolo, List<PrfDichAutor> dichiarazioni,
@@ -1512,7 +1512,7 @@ public class UserHelper extends GenericHelper {
      *            contatore delle autorizzazioni inserite
      * @param counterPages
      *            contatore delle pagine inserite
-     * 
+     *
      * @return counter aggiornato alle nuove autorizzazioni
      */
     public int insertAuthUnaAbilitazione(PrfUsoRuoloApplic ruolo, List<PrfDichAutor> dichiarazioni, String dichAutor,
@@ -1576,7 +1576,7 @@ public class UserHelper extends GenericHelper {
      *            tipo di dichiarazione
      * @param pagina
      *            la pagina web all'interno della dichiarazione
-     * 
+     *
      * @return true se esiste la dichiarazione
      */
     public boolean isAuthorizedAplPaginaWeb(PrfUsoRuoloApplic ruolo, String dichAutor, AplPaginaWeb pagina) {
@@ -1595,12 +1595,12 @@ public class UserHelper extends GenericHelper {
      * l'autorizzazione
      *
      * @deprecated
-     * 
+     *
      * @param ruoli
      *            lista elementi di tipo {@link PrfRuolo}
      * @param servizioWeb
      *            nome servizio
-     * 
+     *
      * @return true se il servizioWeb è autorizzato
      */
     @Deprecated
@@ -1787,7 +1787,7 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param usrUsoUserApplic
      *            usr uso user applic
      */
@@ -1802,7 +1802,7 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param usrUsoUserApplic
      *            usr uso user applic
      */
@@ -1825,7 +1825,7 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param usrUsoUserApplic
      *            usr uso user applic
      */
@@ -1901,12 +1901,12 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idUserIam
      *            id user
      * @param idApplic
      *            id applicazione
-     * 
+     *
      * @return l'oggetto {@link UsrUsoUserApplic}
      */
     @Deprecated
@@ -1930,10 +1930,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idUsoUsrApplic
      *            id uso user applic
-     * 
+     *
      * @return lista di {@link UsrUsoUserApplic}
      */
     @Deprecated
@@ -1959,7 +1959,7 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @return lista di {@link UsrUsoUserApplic}
      */
     @Deprecated
@@ -2138,10 +2138,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idUsoRuoloUserDefaul
      *            id ruolo di default
-     * 
+     *
      * @return {@link UsrUsoRuoloUserDefault}
      */
     @Deprecated
@@ -2176,7 +2176,7 @@ public class UserHelper extends GenericHelper {
      *            id user IAM
      * @param idDichAbilOrganizAggiunta
      *            id dichiarazione
-     * 
+     *
      * @return la lista delle organizzazioni non abilitate per l'amministratore rispetto alla dichiarazione
      */
     public List<UsrVCheckDichAbilOrganiz> getUsrVCheckDichAbilOrganizList(long idUserIamCorrente,
@@ -2246,7 +2246,7 @@ public class UserHelper extends GenericHelper {
      *            l'id del ruolo
      * @param tiDichAutor
      *            il tipo di dichiarazione
-     * 
+     *
      * @return la lista di dichiarazioni
      */
     public List<PrfVLisDichAutor> getPrfVLisDichAutorList(BigDecimal idRuolo, String tiDichAutor) {
@@ -2312,10 +2312,10 @@ public class UserHelper extends GenericHelper {
      * Determina se l’utente e’ abilitato a dei servizi web in funzione dei suoi ruoli di default
      *
      * @deprecated
-     * 
+     *
      * @param idUserIam
      *            id user IAM
-     * 
+     *
      * @return true se autorizzato
      */
     @Deprecated
@@ -2356,7 +2356,7 @@ public class UserHelper extends GenericHelper {
      *            entity {@link UsrUsoUserApplic}
      * @param tipiDato
      *            il tablebean cui aggiungere la dichiarazione per mostrarlo poi nell'online
-     * 
+     *
      * @return pk
      */
     public long aggiungiDichAbilTipoDato(UsrVCreaAbilDati creaAbilDato, UsrUser user, UsrUsoUserApplic usrUsoUserApplic,
@@ -2461,7 +2461,7 @@ public class UserHelper extends GenericHelper {
      *            id applicazione
      * @param idClasseTipoDato
      *            id classe tipo dato
-     * 
+     *
      * @return pk
      */
     public int aggiungiAbilDatiToAdd(long idUserIam, long idApplic, Long idClasseTipoDato) {
@@ -2555,10 +2555,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idAmbienteEnteConvenz
      *            id ambiente ente convenzionato
-     * 
+     *
      * @return lista degli id degli utenti
      */
     @Deprecated
@@ -2572,10 +2572,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idEnteConvenz
      *            id ente convenzionato
-     * 
+     *
      * @return lista degli id degli utenti
      */
     @Deprecated
@@ -2620,10 +2620,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idSistemaVersante
      *            id sistema versante
-     * 
+     *
      * @return true se il sistema versante è abilitato, false altrimenti
      */
     @Deprecated
@@ -2642,7 +2642,7 @@ public class UserHelper extends GenericHelper {
      * <code>Integer.MAX_VALUE - 1</code>.
      *
      * @return Integer between min and max, inclusive.
-     * 
+     *
      * @see java.util.Random#nextInt(int)
      */
     private static int randInt() {
@@ -2654,12 +2654,12 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idUserIamCor
      *            id user
      * @param idUserIamGestito
      *            id user gestito
-     * 
+     *
      * @return lista di {@link UsrVAbilOrgVigilToAdd}
      */
     @Deprecated
@@ -3115,7 +3115,7 @@ public class UserHelper extends GenericHelper {
      *            id user IAM
      * @param idEnteSiam
      *            id ente
-     * 
+     *
      * @return true se abilitato
      */
     public boolean isAbilEntiConv(long idUserIam, long idEnteSiam) {
@@ -3136,7 +3136,7 @@ public class UserHelper extends GenericHelper {
      *            id user su applicazione
      * @param idOrganizIam
      *            id organizzazione
-     * 
+     *
      * @return true se abilitato
      */
     public boolean isAbilEntiConvOrg(long idUsoUserApplic, long idOrganizIam) {
@@ -3159,7 +3159,7 @@ public class UserHelper extends GenericHelper {
      *            id user IAM
      * @param idTipoDatoIam
      *            id ente
-     * 
+     *
      * @return true se abilitato
      */
     public boolean isAbilEntiConvDati(long idUsoUserApplic, long idTipoDatoIam) {
@@ -3196,14 +3196,14 @@ public class UserHelper extends GenericHelper {
      * Recupera la dichiarazione di tipo UN_ENTE per l'utente, l'ambiente e l'ente specificati
      *
      * @deprecated
-     * 
+     *
      * @param idUserIam
      *            id user IAM
      * @param idAmbienteEnteConvenz
      *            id ambiente convenzionato
      * @param idEnteSiam
      *            id ente
-     * 
+     *
      * @return entity {@link UsrDichAbilEnteConvenz}
      */
     @Deprecated
@@ -3242,10 +3242,10 @@ public class UserHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idAmbienteEnteConvenz
      *            id ambiente ente convenzionato
-     * 
+     *
      * @return lista degli id
      */
     @Deprecated

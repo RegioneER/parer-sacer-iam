@@ -4,7 +4,7 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>5.2.1-SNAPSHOT</version>
+        <version>6.1.0</version>
     </parent>
 
     <artifactId>saceriam-jboss-ejb</artifactId>
@@ -16,8 +16,8 @@
     </properties>
 
     <dependencyManagement>
-    <dependencies>
-        <dependency>
+        <dependencies>
+            <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
                 <version>1.4.0.Final</version>
@@ -28,20 +28,16 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>            
-        </dependency>
+     
         <dependency>
             <groupId>net.sourceforge.javacsv</groupId>
             <artifactId>javacsv</artifactId>            
         </dependency>
-        <!-- JBOSS -->
+		<!-- JBOSS -->
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-jakartaee-8.0</artifactId>
             <type>pom</type>
-            <scope>provided</scope>
         </dependency>
         <dependency>        
             <groupId>it.eng.parer</groupId>
@@ -79,8 +75,8 @@
         <dependency>  
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-databind</artifactId>  
-        </dependency> 
-        <!-- Incluso per l'ejb del logging applicativo -->
+        </dependency>
+		<!-- Incluso per l'ejb del logging applicativo -->
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-sl-ejb</artifactId>
@@ -96,7 +92,7 @@
             <artifactId>spagofat-timer-wrapper-ejb</artifactId>
             <type>ejb</type>
         </dependency>
-        <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
+		<!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>idp-jaas-rdbms</artifactId>
@@ -151,6 +147,34 @@
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
+                <dependencies>
+					<dependency>
+						<groupId>javax.xml.bind</groupId>
+						<artifactId>jaxb-api</artifactId>
+						<version>2.3.0</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.activation</groupId>
+						<artifactId>activation</artifactId>
+						<version>1.1.1</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.xml.ws</groupId>
+						<artifactId>jaxws-api</artifactId>
+						<version>2.3.1</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.ws</groupId>
+						<artifactId>jaxws-rt</artifactId>
+						<version>2.3.5</version>
+						<scope>compile</scope>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.logging.log4j</groupId>
+						<artifactId>log4j-slf4j-impl</artifactId>
+						<version>2.18.0</version>
+					</dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>generate-cxf-sources</id>
@@ -172,7 +196,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>          
+            </plugin>
         </plugins>
     </build>
 </project>

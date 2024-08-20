@@ -19,9 +19,6 @@ package it.eng.saceriam.web.action;
 
 import javax.ejb.EJB;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import it.eng.saceriam.amministrazioneEntiConvenzionati.ejb.EntiConvenzionatiEjb;
 import it.eng.saceriam.exception.ParerUserError;
 import it.eng.saceriam.slite.gen.Application;
@@ -35,8 +32,6 @@ import it.eng.spagoLite.security.Secure;
  * @author Gilioli_P
  */
 public class AmministrazioneClasseEnteAction extends AmministrazioneClasseEnteAbstractAction {
-
-    private static final Logger logger = LoggerFactory.getLogger(AmministrazioneClasseEnteAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
     private EntiConvenzionatiEjb entiConvenzionatiEjb;

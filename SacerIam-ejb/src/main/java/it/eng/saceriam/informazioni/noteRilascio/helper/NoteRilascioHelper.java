@@ -29,7 +29,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import it.eng.saceriam.entity.AplApplic;
 import it.eng.saceriam.entity.AplNotaRilascio;
@@ -50,10 +50,10 @@ public class NoteRilascioHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param nmApplic
      *            nome applicazione
-     * 
+     *
      * @return l'applicazione {@link AplApplic}
      */
     @Deprecated
@@ -94,10 +94,10 @@ public class NoteRilascioHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param cdVersione
      *            codice versione
-     * 
+     *
      * @return la nota di rilascio {@link AplNotaRilascio}
      */
     @Deprecated

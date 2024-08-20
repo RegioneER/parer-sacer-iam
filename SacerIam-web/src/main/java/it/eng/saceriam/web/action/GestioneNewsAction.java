@@ -57,6 +57,7 @@ import it.eng.spagoLite.security.Secure;
  *
  * @author Gilioli_P feat. Pippo_Em
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class GestioneNewsAction extends GestioneNewsAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(GestioneNewsAction.class);
@@ -501,7 +502,7 @@ public class GestioneNewsAction extends GestioneNewsAbstractAction {
 
     /*
      * Getter per mantenere un set di applicazioni, utile per i controlli di coerenza
-     * 
+     *
      * @return il set di applicazioni presenti in sessione
      */
     private Set<BigDecimal> getApplicationsSet() {
