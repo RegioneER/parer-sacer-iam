@@ -89,6 +89,7 @@ import it.eng.saceriam.web.dto.tree.RoleTreeElement;
 import it.eng.saceriam.web.ejb.AmministrazioneRuoliEjb;
 import it.eng.saceriam.web.ejb.AmministrazioneRuoliEjb.AllineaAmbiente;
 import it.eng.saceriam.web.ejb.AuthEjb;
+import it.eng.saceriam.web.ejb.ComboEjb;
 import it.eng.saceriam.web.util.ApplEnum;
 import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.saceriam.web.util.Constants;
@@ -112,6 +113,7 @@ import it.eng.spagoLite.message.MessageBox;
 import it.eng.spagoLite.security.Secure;
 import it.eng.spagoLite.security.SuppressLogging;
 
+@SuppressWarnings("unchecked")
 public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractAction {
 
     private static final Logger log = LoggerFactory.getLogger(AmministrazioneRuoliAction.class);
@@ -120,8 +122,8 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
     private AuthEjb auth;
     @EJB(mappedName = "java:app/SacerIam-ejb/AmministrazioneRuoliEjb")
     private AmministrazioneRuoliEjb amministrazioneRuoliEjb;
-    @EJB(mappedName = "java:app/SacerIam-ejb/ComboGetter")
-    private ComboGetter comboGetter;
+    @EJB(mappedName = "java:app/SacerIam-ejb/ComboEjb")
+    private ComboEjb comboEjb;
     @EJB(mappedName = "java:app/SacerIam-ejb/ParamHelper")
     private ParamHelper paramHelper;
     @EJB(mappedName = "java:app/sacerlog-ejb/SacerLogEjb")
@@ -139,7 +141,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
 
     /*
      * Getter per mantenere un set di categorie, utile per i controlli di coerenza
-     * 
+     *
      * @return il set di applicazioni presenti in sessione
      */
     private Set<String> getCategorieSet() {
@@ -151,7 +153,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
 
     /*
      * Getter per mantenere un set di applicazioni, utile per i controlli di coerenza
-     * 
+     *
      * @return il set di applicazioni presenti in sessione
      */
     private Set<BigDecimal> getApplicationsSet() {
@@ -313,7 +315,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
         }
 
         // Imposto i valori nelle combo
-        getForm().getDettaglioRuolo().getTi_ruolo().setDecodeMap(comboGetter.getTiRuolo());
+        getForm().getDettaglioRuolo().getTi_ruolo().setDecodeMap(ComboGetter.getTiRuolo());
         // getForm().getDettaglioRuolo().getTi_categ_ruolo().setDecodeMap(comboGetter.getTiCategRuolo());
         // In primis imposto che vengano visualizzate le dichiarazioni come alberi
         getForm().getDettaglioRuolo().getShow_tree().setValue(String.valueOf(true));
@@ -485,7 +487,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
         getForm().getApplicazioniFields().getDs_applic().clear();
         getForm().getApplicazioniFields().getNm_applic().setEditMode();
         getForm().getApplicazioniFields().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true));
         // getForm().getDichAutorFields().getNodi_superiori().setValue("\u00A0");
     }
 
@@ -537,7 +539,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param newRow
      *            true se si tratta dell'inserimento di una nuova riga, false in caso di modifica
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -571,7 +573,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param newRow
      *            true se si tratta dell'inserimento di una nuova riga, false in caso di modifica
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -604,7 +606,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param newRow
      *            true se si tratta dell'inserimento di una nuova riga, false in caso di modifica
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -762,7 +764,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param newRow
      *            true se si tratta dell'inserimento di una nuova riga, false in caso di modifica
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -888,7 +890,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param newRow
      *            true se si tratta dell'inserimento di una nuova riga, false in caso di modifica
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -1063,7 +1065,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param newRow
      *            true se si tratta dell'inserimento di una nuova riga, false in caso di modifica
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -1266,7 +1268,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
         }
         // Popolo la combo delle applicazioni
         getForm().getFiltriRuoli().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true));
         //
         getForm().getFiltriRuoli().getTi_ruolo().setDecodeMap(
                 ComboGetter.getMappaSortedGenericEnum("ti_ruolo", ApplEnum.TipoUser.getComboTipiPerRuoli()));
@@ -1566,9 +1568,9 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param entryMenu
      *            l'id dell'entry menu
-     * 
+     *
      * @return true se la lista contiene già delle dichiarazioni
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -1598,9 +1600,9 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param entryMenu
      *            l'id dell'entry menu
-     * 
+     *
      * @return true se la lista contiene già delle dichiarazioni
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -1628,9 +1630,9 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param pagina
      *            l'id della pagina
-     * 
+     *
      * @return true se la lista contiene già delle dichiarazioni
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -1915,7 +1917,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      * azione o servizio
      *
      * @return la form aggiornata in formato JSONObject
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -1932,7 +1934,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      * Selezionata la pagina da inserire carica le azioni per quella pagina
      *
      * @return la form aggiornata in formato JSONObject
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -1970,7 +1972,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param scopo
      *            valore combo
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -2003,7 +2005,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
              * getForm().getDichPagineList().getTable()) { if (row.getTiScopoDichAutor().equals(scopo) &&
              * row.getIdApplic().compareTo(getForm().getDichAutorFields().getNm_applic().parse()) == 0) {
              * pagineGiaPresenti.add(row.getDsPaginaWeb()); } }
-             * 
+             *
              * AplPaginaWebTableBean pages =
              * amministrazioneRuoliEjb.getPagesList(getForm().getDichAutorFields().getNm_applic().parse(),
              * pagineGiaPresenti); pages.addSortingRule(AplPaginaWebTableDescriptor.COL_DS_PAGINA_WEB, SortingRule.ASC);
@@ -2106,7 +2108,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
                 getForm().getDichServiziList().clear();
 
                 // Imposto i valori nelle combo
-                getForm().getDettaglioRuolo().getTi_ruolo().setDecodeMap(comboGetter.getTiRuolo());
+                getForm().getDettaglioRuolo().getTi_ruolo().setDecodeMap(ComboGetter.getTiRuolo());
                 // getForm().getDettaglioRuolo().getTi_categ_ruolo().setDecodeMap(comboGetter.getTiCategRuolo());
 
                 // Mi salvo in sessione un attributo sul nome da dare al ruolo
@@ -2181,7 +2183,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
 
     public void reloadListaRuoli() {
         try {
-            Set<String> nmApplics = new HashSet();
+            Set<String> nmApplics = new HashSet<>();
             String nmApplic = getForm().getFiltriRuoli().getNm_applic().getDecodedValue();
             String nmRuolo = getForm().getFiltriRuoli().getNm_ruolo().parse();
             String tiRuolo = getForm().getFiltriRuoli().getTi_ruolo().parse();
@@ -2192,8 +2194,8 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
                 nmApplics.add(nmApplic);
             } else {
                 DecodeMapIF mappaApplic = getForm().getFiltriRuoli().getNm_applic().getDecodeMap();
-                Set keys = mappaApplic.keySet(); // The set of keys in the map.
-                Iterator keyIter = keys.iterator();
+                Set<?> keys = mappaApplic.keySet(); // The set of keys in the map.
+                Iterator<?> keyIter = keys.iterator();
                 while (keyIter.hasNext()) {
                     BigDecimal key = (BigDecimal) keyIter.next(); // Get the next key.
                     nmApplics.add(getForm().getFiltriRuoli().getNm_applic().getValue(key)); // Get the value for that
@@ -2222,7 +2224,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      * Metodo eseguito al salvataggio del wizard di creazione/modifica ruolo
      *
      * @return true in caso di salvataggio riuscito
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -2402,7 +2404,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      * Carica il publisher di default del wizard di inserimento
      *
      * @return il publisher del wizard
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -2430,7 +2432,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      * errore validazione
      *
      * @return true se i dati sono validati
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -2545,7 +2547,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      * semplicemente la pagina.
      *
      * @return true
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -2727,8 +2729,8 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
     @Override
     public void ricercaRuoli() throws EMFError {
         getForm().getFiltriRuoli().post(getRequest());
-        Set<String> nmApplics = new HashSet();
-        Set<String> tiCategRuolos = new HashSet();
+        Set<String> nmApplics = new HashSet<>();
+        Set<String> tiCategRuolos = new HashSet<>();
         String nmApplic = getForm().getFiltriRuoli().getNm_applic().getDecodedValue();
         String nmRuolo = getForm().getFiltriRuoli().getNm_ruolo().parse();
         String tiRuolo = getForm().getFiltriRuoli().getTi_ruolo().parse();
@@ -2740,8 +2742,8 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
             nmApplics.add(nmApplic);
         } else {
             DecodeMapIF mappaApplic = getForm().getFiltriRuoli().getNm_applic().getDecodeMap();
-            Set keys = mappaApplic.keySet(); // The set of keys in the map.
-            Iterator keyIter = keys.iterator();
+            Set<?> keys = mappaApplic.keySet(); // The set of keys in the map.
+            Iterator<?> keyIter = keys.iterator();
             while (keyIter.hasNext()) {
                 BigDecimal key = (BigDecimal) keyIter.next(); // Get the next key.
                 nmApplics.add(getForm().getFiltriRuoli().getNm_applic().getValue(key)); // Get the value for that key.
@@ -2751,8 +2753,8 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
             tiCategRuolos.add(tiCategRuolo);
         } else {
             DecodeMapIF mappaCateg = getForm().getFiltriRuoli().getTi_categ_ruolo().getDecodeMap();
-            Set keys = mappaCateg.keySet(); // The set of keys in the map.
-            Iterator keyIter = keys.iterator();
+            Set<?> keys = mappaCateg.keySet(); // The set of keys in the map.
+            Iterator<?> keyIter = keys.iterator();
             while (keyIter.hasNext()) {
                 String key = (String) keyIter.next(); // Get the next key.
                 tiCategRuolos.add(getForm().getFiltriRuoli().getTi_categ_ruolo().getValue(key)); // Get the value for
@@ -2973,7 +2975,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *            id applicazione
      * @param nmApplic
      *            nome applicazione
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -3076,7 +3078,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *            id del ruolo da gestire
      * @param tiDichAutor
      *            identifica il tipo di albero di cui popolare i nodi
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -3231,7 +3233,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
      *
      * @param sessionAttributeTree
      *            identifica l'albero per cui eseguire la selezione
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -3748,7 +3750,7 @@ public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractActi
                 .getObject("set_usi");
         PrfVLisDichAutorTableBean services = amministrazioneRuoliEjb.getPrfDichAutorViewBean(idUsoRuoloSet,
                 ConstPrfDichAutor.TiDichAutor.SERVIZIO_WEB.name(), getForm().getFiltriRuoli().getNm_applic().parse());
-        Set<BigDecimal> setApplicServizi = new HashSet();
+        Set<BigDecimal> setApplicServizi = new HashSet<>();
         for (PrfVLisDichAutorRowBean rowAut : services) {
             setApplicServizi.add(rowAut.getIdApplic());
         }

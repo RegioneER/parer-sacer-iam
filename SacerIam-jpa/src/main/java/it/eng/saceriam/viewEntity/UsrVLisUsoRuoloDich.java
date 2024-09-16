@@ -27,7 +27,7 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the USR_V_LIS_USO_RUOLO_DICH database table.
- * 
+ *
  */
 @Entity
 @Table(name = "USR_V_LIS_USO_RUOLO_DICH")

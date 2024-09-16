@@ -27,7 +27,7 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the USR_V_ABIL_DATI_SUPEST_TO_DEL database table.
- * 
+ *
  */
 @Entity
 @Table(name = "USR_V_ABIL_DATI_SUPEST_TO_DEL")

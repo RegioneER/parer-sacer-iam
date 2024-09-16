@@ -48,7 +48,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import org.codehaus.jackson.map.ObjectMapper; // rimosso da FF 
+//import org.codehaus.jackson.map.ObjectMapper; // rimosso da FF
 //       (sostituito la dipendenza con com.fasterxml.jackson nel pom del modulo ejb)
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,6 +63,7 @@ import it.eng.saceriam.slite.gen.viewbean.AplVVisHelpOnLineTableBean;
 import it.eng.saceriam.util.DateUtil;
 import it.eng.saceriam.viewEntity.constraint.ConstAplVVisHelpOnLine;
 import it.eng.saceriam.web.ejb.AmministrazioneUtentiEjb;
+import it.eng.saceriam.web.ejb.ComboEjb;
 import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.saceriam.web.util.HelpZipProcessor;
 import it.eng.saceriam.web.util.WebConstants;
@@ -86,8 +87,8 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 
     private static final String MSG_ERROR_DOC_ZIP = "Il file ZIP deve contenere nella ROOT almeno un file .docx (o .doc), almeno un file .htm e opzionalmente una cartella con all'interno le immagini dell'help";
 
-    @EJB(mappedName = "java:app/SacerIam-ejb/ComboGetter")
-    private ComboGetter comboGetter;
+    @EJB(mappedName = "java:app/SacerIam-ejb/ComboEjb")
+    private ComboEjb comboEjb;
 
     @EJB(mappedName = "java:app/SacerIam-ejb/AmministrazioneUtentiEjb")
     private AmministrazioneUtentiEjb amministrazioneUtentiEjb;
@@ -145,9 +146,9 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
                 getForm().getFiltriHelpOnLine().getPagina().setDecodeMap(null);
             } else {
                 getForm().getFiltriHelpOnLine().getPagina()
-                        .setDecodeMap(comboGetter.getMappaPaginePerApplicazione(applic, tiHelpOnLine, true));
+                        .setDecodeMap(comboEjb.getMappaPaginePerApplicazione(applic, tiHelpOnLine, true));
                 getForm().getFiltriHelpOnLine().getNm_menu().setDecodeMap(
-                        comboGetter.getMappaMenuUltimoLivelloPerApplSortedByDesc(aplApplicById.getIdApplic()));
+                        comboEjb.getMappaMenuUltimoLivelloPerApplSortedByDesc(aplApplicById.getIdApplic()));
             }
         } else {
             getForm().getFiltriHelpOnLine().getNm_applic().setValue("");
@@ -212,10 +213,10 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 
         if (tiHelpOnLine.equals("INFO_PRIVACY")) {
             getForm().getFiltriHelpOnLine().getNm_applic().setDecodeMap(
-                    comboGetter.getMappaApplicAbilitateConPaginaInfoPrivacy(getUser().getIdUtente(), true, true));
+                    comboEjb.getMappaApplicAbilitateConPaginaInfoPrivacy(getUser().getIdUtente(), true, true));
         } else {
             getForm().getFiltriHelpOnLine().getNm_applic()
-                    .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true, true));
+                    .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true, true));
         }
 
         getForm().getFiltriHelpOnLine().getPagina().setValue("");
@@ -359,9 +360,9 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
         getForm().getDettaglioHelpOnLine().getTi_help_on_line().setDecodeMap(ogg2);
         BigDecimal idAppl = new BigDecimal(getForm().getFiltriHelpOnLine().getNm_applic().getValue());
         getForm().getDettaglioHelpOnLine().getNm_pagina()
-                .setDecodeMap(comboGetter.getMappaPaginePerApplicazione(idAppl, true));
+                .setDecodeMap(comboEjb.getMappaPaginePerApplicazione(idAppl, true));
         getForm().getDettaglioHelpOnLine().getNm_entry_menu()
-                .setDecodeMap(comboGetter.getMappaMenuUltimoLivelloPerApplSortedByDesc(idAppl));
+                .setDecodeMap(comboEjb.getMappaMenuUltimoLivelloPerApplSortedByDesc(idAppl));
         getForm().getDettaglioHelpOnLine().getNm_applic()
                 .setValue(getForm().getFiltriHelpOnLine().getNm_applic().getDecodedValue());
         getForm().getDettaglioHelpOnLine().getTi_help_on_line()
@@ -707,7 +708,7 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
         String tiHelpOnLine = null;
         tiHelpOnLine = getForm().getDettaglioHelpOnLine().getTi_help_on_line().getValue();
         getForm().getDettaglioHelpOnLine().getNm_pagina()
-                .setDecodeMap(comboGetter.getMappaPaginePerApplicazione(idAppl, tiHelpOnLine, true));
+                .setDecodeMap(comboEjb.getMappaPaginePerApplicazione(idAppl, tiHelpOnLine, true));
 
         getForm().getDettaglioHelpOnLine().getNm_pagina().setValue("");
         getForm().getDettaglioHelpOnLine().getNm_entry_menu().setValue("");

@@ -99,7 +99,7 @@ public class ParerWarningException extends ParerAbstractError implements Seriali
 
     /**
      * Ritorna il codice dell'errore.
-     * 
+     *
      * @return <em>String</em> codice dell'errore.
      */
     public String getErrorCode() {

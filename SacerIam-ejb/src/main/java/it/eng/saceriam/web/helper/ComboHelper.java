@@ -49,12 +49,12 @@ public class ComboHelper {
      * "amministratore" (quello corrente)
      *
      * @deprecated il parametro idUserAdmin non viene mai usato, richiamare il metodo senza questo parametro
-     * 
+     *
      * @param idUserIamCorrente
      *            id user IAM
      * @param isUserAdmin
      *            id user Admin
-     * 
+     *
      * @return la lista delle applicazioni
      */
     @Deprecated
@@ -68,7 +68,7 @@ public class ComboHelper {
      *
      * @param idUserIamCorrente
      *            id user IAM
-     * 
+     *
      * @return la lista delle applicazioni
      */
     public List<AplApplic> getAplApplicAbilitateList(long idUserIamCorrente) {
@@ -85,10 +85,10 @@ public class ComboHelper {
     /**
      * Ritorna la lista di applicazioni per le quali l'utente corrente è abilitato e che mettano a disposizione la
      * pagina di informativa sulla privacy
-     * 
+     *
      * @param idUserIamCorrente
      *            id user iam corrente
-     * 
+     *
      * @return la lista di applicazioni
      */
     public List<AplApplic> getAplApplicAbilitateInfoPrivacyList(long idUserIamCorrente) {
@@ -114,14 +114,14 @@ public class ComboHelper {
     /*
      * public String getFederationMetadata() { String queryStr = "SELECT asm.blSamlMetadati " +
      * "FROM AplSamlMetadati asm "; Query query = em.createQuery(queryStr); return (String) query.getSingleResult();
-     * 
+     *
      * }
      */
     /**
      * Metodo che ritorna la lista delle applicazioni ordinate per nome in base all'ente a cui appartiene l'utente
      *
      * @deprecated il parametro isEnteFornitoreEsterno non è mai usato
-     * 
+     *
      * @param idUserIamCorrente
      *            id user IAM
      * @param isAppartEnteConvenzAdmin
@@ -130,7 +130,7 @@ public class ComboHelper {
      *            true se ente organo vigilanza
      * @param isEnteFornitoreEsterno
      *            true se ente fornitore esterno
-     * 
+     *
      * @return la lista delle applicazioni
      *
      */
@@ -149,7 +149,7 @@ public class ComboHelper {
      *            id ente di appartenenza
      * @param isEnteOrganoVigilanza
      *            true se ente organo vigilanza
-     * 
+     *
      * @return la lista delle applicazioni
      *
      */

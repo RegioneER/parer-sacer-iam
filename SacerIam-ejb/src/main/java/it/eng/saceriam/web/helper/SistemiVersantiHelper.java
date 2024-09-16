@@ -65,9 +65,9 @@ public class SistemiVersantiHelper extends GenericHelper {
      *            bean di tipo {@link FiltriSistemiVersanti}
      * @param idUserIam
      *            id user IAM
-     * 
+     *
      * @return lista elementi di tipo {@link AplVRicSistemaVersante}
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -209,7 +209,7 @@ public class SistemiVersantiHelper extends GenericHelper {
      *            id user IAM
      * @param idOrganizIam
      *            id organizzazione
-     * 
+     *
      * @return bean {@link AplVRicSistemaVersante}
      */
     public AplVRicSistemaVersante getAplVRicSistemaVersante(BigDecimal idSistemaVersante, BigDecimal idUserIam,
@@ -240,7 +240,7 @@ public class SistemiVersantiHelper extends GenericHelper {
      *            id sistema versante
      * @param idUserIam
      *            id user IAM
-     * 
+     *
      * @return bean {@link AplVRicSistemaVersante}
      */
     public AplVRicSistemaVersante getAplVRicSistemaVersante(BigDecimal idSistemaVersante, long idUserIam) {
@@ -290,7 +290,7 @@ public class SistemiVersantiHelper extends GenericHelper {
      *
      * @param idSistemaVersante
      *            id sistema
-     * 
+     *
      * @return true se è eliminabile
      */
     public boolean canDeleteSistemaVersante(long idSistemaVersante) {
@@ -396,10 +396,10 @@ public class SistemiVersantiHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idSistemaVersante
      *            id sistema versante
-     * 
+     *
      * @return lista di {@link String}
      */
     @Deprecated

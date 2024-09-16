@@ -49,6 +49,7 @@ import it.eng.spagoLite.security.Secure;
  *
  * @author DiLorenzo_F
  */
+@SuppressWarnings({ "unchecked" })
 public class NoteRilascioAction extends NoteRilascioAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(NoteRilascioAction.class);
@@ -207,7 +208,7 @@ public class NoteRilascioAction extends NoteRilascioAbstractAction {
      *
      * @param nmApplic
      *            nome applicazione
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */

@@ -36,7 +36,7 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the ORG_TARIFFA_ACCORDO database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_TARIFFA_ACCORDO")

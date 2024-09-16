@@ -34,7 +34,7 @@ public class EliminaReplicheHelper extends GenericHelper {
     private EntityManager entityManager;
 
     /**
-     * 
+     *
      * @param dtLogUserDaReplic
      *            data LogUserDaReplic
      */

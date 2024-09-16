@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * The persistent class for the ORG_FASCIA_STORAGE_ACCORDO database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_FASCIA_STORAGE_ACCORDO")

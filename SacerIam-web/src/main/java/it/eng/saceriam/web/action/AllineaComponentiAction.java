@@ -55,6 +55,7 @@ import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
 import it.eng.spagoLite.security.Secure;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class AllineaComponentiAction extends AllineaComponentiAbstractAction {
 
     private static final Logger log = LoggerFactory.getLogger(AllineaComponentiAction.class);
@@ -157,7 +158,7 @@ public class AllineaComponentiAction extends AllineaComponentiAbstractAction {
      *            l'iterator sulla lista
      * @param charset
      *            il charset da utilizzare per il parsing
-     * 
+     *
      * @throws EMFError
      *             errore generico
      * @throws SQLException

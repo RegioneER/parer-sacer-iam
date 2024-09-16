@@ -53,6 +53,7 @@ import it.eng.spagoLite.security.Secure;
  *
  * @author Gilioli_P
  */
+@SuppressWarnings({ "unchecked" })
 public class AmministrazioneTipiServizioAction extends AmministrazioneTipiServizioAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(AmministrazioneTipiServizioAction.class);

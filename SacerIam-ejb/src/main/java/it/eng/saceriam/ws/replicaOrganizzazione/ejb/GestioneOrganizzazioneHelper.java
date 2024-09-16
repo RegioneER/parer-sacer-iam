@@ -66,7 +66,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            id organizzazione
      * @param nmTipoOrganiz
      *            nome tipo organizzazione
-     * 
+     *
      * @return l'entità di tipo UsrOrganizIam
      *
      */
@@ -90,7 +90,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *
      * @param idOrganizIam
      *            id organizzazione, potrà restituire risultati nel caso in cui venga passata una struttura
-     * 
+     *
      * @return la lista degli enti convenzionati
      */
     public List<OrgEnteConvenzOrg> retrieveOrgEnteConvenzOrg(long idOrganizIam) {
@@ -108,7 +108,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            id applicazione
      * @param nmTipoOrganiz
      *            nome tipo organizzazione
-     * 
+     *
      * @return true, se l'organizzazione è di ultimo livello
      */
     public boolean isLastLevel(BigDecimal idApplic, String nmTipoOrganiz) {
@@ -135,7 +135,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            id organizzazione
      * @param tiOperReplic
      *            tipo operazione replica
-     * 
+     *
      * @return l'insieme degli utenti
      */
     public Set<BigDecimal> getUsersOnDich(Long idOrganizIam, ApplEnum.TiOperReplic tiOperReplic) {
@@ -164,7 +164,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *
      * @param idOrganizIam
      *            id organizzazione
-     * 
+     *
      * @return la lista utenti (idUserIam)
      */
     public Set<BigDecimal> getUsersWithOrganizDadDich(Long idOrganizIam) {
@@ -186,9 +186,9 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            contenente i valori da inserire
      * @param rispostaWs
      *            la risposta in cui tenere traccia dell'esito dell'operazione
-     * 
+     *
      * @return l'organizzazione inserita
-     * 
+     *
      * @throws TransactionException
      *             errore generico
      */
@@ -258,7 +258,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            id applicazione
      * @param nmClasseTipoDato
      *            nome classe tipo dato
-     * 
+     *
      * @return entity AplClasseTipoDato
      */
     public AplClasseTipoDato getAplClasseTipoDato(Long idApplic, String nmClasseTipoDato) {
@@ -277,7 +277,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            id applicazione
      * @param nmTipoOrganiz
      *            nome tipo organizzazione
-     * 
+     *
      * @return entity AplTipoOrganiz
      */
     public AplTipoOrganiz getAplTipoOrganiz(Long idApplic, String nmTipoOrganiz) {
@@ -298,7 +298,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            id applicazione
      * @param rispostaWs
      *            riposta ws
-     * 
+     *
      * @throws TransactionException
      *             errore generico
      */
@@ -343,7 +343,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            bean {@link CancellaOrganizzazioneInput}
      * @param rispostaWs
      *            risposta ws
-     * 
+     *
      * @throws TransactionException
      *             errore generico
      */
@@ -380,9 +380,9 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            bean {@link ModificaOrganizzazioneExt}
      * @param rispostaWs
      *            risposta ws
-     * 
+     *
      * @return array pk
-     * 
+     *
      * @throws TransactionException
      *             errore generico
      */
@@ -483,7 +483,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *
      * @param idUserTipoDatoIamSet
      *            l'insieme dei tipi dato da eliminare
-     * 
+     *
      * @return il numero di elementi cancellati
      */
     public int deleteUsrTipoDatoIam(Set<Long> idUserTipoDatoIamSet) {
@@ -503,7 +503,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
      *            id organizzazione
      * @param nmTipoDato
      *            nome tipo dato
-     * 
+     *
      * @return il record dell'entity in questione
      *
      */

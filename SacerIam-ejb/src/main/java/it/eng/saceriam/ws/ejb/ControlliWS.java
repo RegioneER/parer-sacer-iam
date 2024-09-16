@@ -61,7 +61,7 @@ public class ControlliWS {
      *            l'id associato all'organizzazione all'applicazione
      * @param nmTipoOrganiz
      *            nome tipo organizzazione
-     * 
+     *
      * @return RispostaControlli.isrBoolean() == true se esiste l'organizzazione
      *
      */
@@ -99,7 +99,7 @@ public class ControlliWS {
      *            nome applicazione
      * @param nmTipoOrganiz
      *            nome tipo organizzazione
-     * 
+     *
      * @return RispostaControlli.isrBoolean() == true in caso la verifica dia esito positivo (tipo organizzazione
      *         correttamente presente nell'organizzazione)
      */
@@ -132,7 +132,7 @@ public class ControlliWS {
      *            lista tipi dato {@link ListaTipiDato}
      * @param nmApplic
      *            nome applicazione
-     * 
+     *
      * @return RispostaControlli.isrBoolean() == true in caso la verifica dia esito positivo
      */
     public RispostaControlli verificaNomeTipoDato(ListaTipiDato listaTipiDato, String nmApplic) {
@@ -167,7 +167,7 @@ public class ControlliWS {
      *
      * @param nmApplic
      *            il nome dell'applicazione da verificare
-     * 
+     *
      * @return RispostaControlli contenente l'esito del controllo e, in caso positivo, l'applicazione
      */
     public RispostaControlli verificaApplicazione(String nmApplic) {

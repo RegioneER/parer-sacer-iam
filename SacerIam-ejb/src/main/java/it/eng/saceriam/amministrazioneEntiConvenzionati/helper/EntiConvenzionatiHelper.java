@@ -5185,7 +5185,7 @@ public class EntiConvenzionatiHelper extends GenericHelper {
 
     /**
      * Recupera l'elenco dei cluster presenti su DB
-     * 
+     *
      * @return la lista dei cluster e relativa fascia associabili ad un accordo
      */
     public List<Object[]> getOrgClusterAccordoList() {

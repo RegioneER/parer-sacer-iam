@@ -88,7 +88,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            tipo ruolo
      * @param tiCategRuolo
      *            categoria
-     * 
+     *
      * @return lista elementi di tipo {@link PrfVLisRuolo}
      */
     public List<PrfVLisRuolo> getPrfVLisRuoloList(Set<String> nmApplics, String tiStatoAllinea1, String tiStatoAllinea2,
@@ -153,7 +153,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *
      * @param idRuolo
      *            id ruolo
-     * 
+     *
      * @return entity {@link PrfVLisRuolo}
      */
     public PrfVLisRuolo getPrfVLisRuolo(BigDecimal idRuolo) {
@@ -231,7 +231,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id applicazione
      * @param tiDichAutor
      *            il tipo di dichiarazione
-     * 
+     *
      * @return la lista di dichiarazioni
      */
     public List<PrfVLisDichAutor> getPrfVLisDichAutorList(Set idUsoRuoloSet, String tiDichAutor, BigDecimal idApplic) {
@@ -266,7 +266,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id applicazione
      * @param tiDichAutor
      *            il tipo di dichiarazione
-     * 
+     *
      * @return la lista di dichiarazioni
      */
     public List<PrfVLisDichAutor> getPrfVLisDichAutorList(BigDecimal idRuolo, String tiDichAutor, BigDecimal idApplic) {
@@ -289,12 +289,12 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
 
     /**
      * @deprecated tiDichAutor non viene mai usato, richiamare il metodo senza questo parametro
-     * 
+     *
      * @param usoRuoloApplicRowBean
      *            uso ruolo
      * @param tiDichAutor
      *            tipo dich autore
-     * 
+     *
      * @return voci di menu delle abilitazioni
      */
     @Deprecated
@@ -306,7 +306,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
     /**
      * @param usoRuoloApplicRowBean
      *            uso Ruolo applicazione
-     * 
+     *
      * @return voci di menu delle abilitazioni
      */
     public List<Object[]> getAbilitazioniEntryMenu4Applic(PrfUsoRuoloApplicRowBean usoRuoloApplicRowBean) {
@@ -321,7 +321,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            nome applicazione
      * @param idRuolo
      *            id ruolo
-     * 
+     *
      * @return voci di menu delle abilitazioni
      */
     public List<Object[]> getAbilitazioniEntryMenu4Applic(BigDecimal idUsoRuoloApplic, String nmApplic,
@@ -353,7 +353,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id applicazione
      * @param ricercaFoglie
      *            ricerca
-     * 
+     *
      * @return il tableBean della lista di entry menu
      */
     public List<AplEntryMenu> getEntryMenuList(BigDecimal idApplicazione, boolean ricercaFoglie) {
@@ -384,7 +384,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            ricerca
      * @param nodiGiaPresenti
      *            lista nodi
-     * 
+     *
      * @return il tableBean della lista di entry menu
      */
     public List<AplVTreeEntryMenu> getEntryMenuList2(BigDecimal idApplic, boolean ricercaFoglie,
@@ -450,7 +450,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *
      * @param idEntryMenu
      *            id entry menu
-     * 
+     *
      * @return il tableBean contenente i figli dell'entry menu specificata
      */
     public List<AplEntryMenu> getEntryMenuChilds(BigDecimal idEntryMenu) {
@@ -469,7 +469,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *
      * @param idEntryMenu
      *            id entry menu
-     * 
+     *
      * @return il tableBean contenente i padri dell'entry menu specificata
      */
     public List<AplEntryMenu> getEntryMenuParentsList(BigDecimal idEntryMenu) {
@@ -492,7 +492,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *
      * @param idPaginaWeb
      *            l'id della pagina web
-     * 
+     *
      * @return il tableBean contenente la lista di azioni
      */
     public List<AplAzionePagina> getActionChilds(BigDecimal idPaginaWeb) {
@@ -505,10 +505,10 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
 
     /**
      * Metodo che ritorna l'azione in base al suo id
-     * 
+     *
      * @param idAzionePagina
      *            id azione per pagina
-     * 
+     *
      * @return bean {@link AplAzionePagina}
      */
     public AplAzionePagina getAplAzionePagina(BigDecimal idAzionePagina) {
@@ -522,7 +522,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id applicazione
      * @param nodiGiaPresenti
      *            nodi presenti
-     * 
+     *
      * @return il tableBean della lista di pagine
      */
     public List<AplPaginaWeb> getPagesList(BigDecimal idApplicazione, Set<String> nodiGiaPresenti) {
@@ -547,7 +547,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id applicazione
      * @param azioniGiaPresenti
      *            lista azioni presenti
-     * 
+     *
      * @return il tableBean della lista di pagine
      */
     public List<AplPaginaWeb> getPagesAzioniList(BigDecimal idApplicazione, Set<BigDecimal> azioniGiaPresenti) {
@@ -572,7 +572,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id applicazione
      * @param idPaginaWeb
      *            id pagina
-     * 
+     *
      * @return il tableBean della lista di azioni
      */
     public List<AplAzionePagina> getActionsList(BigDecimal idApplicazione, BigDecimal idPaginaWeb) {
@@ -594,7 +594,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id pagina
      * @param azioniGiaInserite
      *            lista azioni inserite
-     * 
+     *
      * @return il tableBean della lista di azioni
      */
     public List<AplAzionePagina> getActionsPagesList(BigDecimal idApplicazione, BigDecimal idPaginaWeb,
@@ -621,7 +621,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id applicazione
      * @param nodiGiaPresenti
      *            nodi presenti
-     * 
+     *
      * @return il tableBean della lista di servizi
      */
     public List<AplServizioWeb> getServicesList(BigDecimal idApplicazione, Set<String> nodiGiaPresenti) {
@@ -653,7 +653,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            AZIONE
      * @param idPrfUsoRuoloApplic
      *            l'id uso ruolo associato alla dichiarazione
-     * 
+     *
      * @return il rowBean della dichiarazione
      */
     public List<PrfDichAutor> getPrfDichAutor(String tiScopoDichAutor, String tiDichAutor, BigDecimal idObject,
@@ -694,7 +694,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id ruolo
      * @param idAppl
      *            id applicazione
-     * 
+     *
      * @return idUsoRuoloApplic
      */
     public List<Long> getIdUsoRuoloApplic(BigDecimal idRuolo, BigDecimal idAppl) {
@@ -818,7 +818,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *
      * @param userName
      *            username
-     * 
+     *
      * @return true se l'utente esiste già
      */
     public boolean checkUserExists(String userName) {
@@ -856,7 +856,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id ruolo
      * @param idAppl
      *            id applicazione
-     * 
+     *
      * @return UsoRuoloApplic
      */
     public PrfUsoRuoloApplic getPrfUsoRuoloApplic(long idRuolo, long idAppl) {
@@ -886,7 +886,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *
      * @param idRuolo
      *            id ruolo
-     * 
+     *
      * @return numero di record eliminati
      */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -913,7 +913,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
      *            id ruolo
      * @param nmApplic
      *            nome applicazione
-     * 
+     *
      * @return numero di record eliminati
      */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -986,12 +986,12 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idRuolo
      *            id ruolo
      * @param tiCategRuolo
      *            tipo categoria ruolo
-     * 
+     *
      * @return lista di {@link PrfRuoloCategoria}
      */
     @Deprecated

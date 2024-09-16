@@ -153,6 +153,7 @@ import it.eng.saceriam.web.dto.PairAuth;
 import it.eng.saceriam.web.ejb.AmministrazioneRuoliEjb;
 import it.eng.saceriam.web.ejb.AmministrazioneUtentiEjb;
 import it.eng.saceriam.web.ejb.AuthEjb;
+import it.eng.saceriam.web.ejb.ComboEjb;
 import it.eng.saceriam.web.ejb.GestioneJobEjb;
 import it.eng.saceriam.web.ejb.SistemiVersantiEjb;
 import it.eng.saceriam.web.helper.AmministrazioneUtentiHelper;
@@ -191,6 +192,7 @@ import it.eng.spagoLite.security.User;
  *
  * @author Gilioli_P feat. Sbonny_I
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAction {
 
     public static final String FROM_GESTIONE_JOB = "fromGestioneJob";
@@ -208,8 +210,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     private AmministrazioneUtentiEjb amministrazioneUtentiEjb;
     @EJB(mappedName = "java:app/SacerIam-ejb/AmministrazioneRuoliEjb")
     private AmministrazioneRuoliEjb amministrazioneRuoliEjb;
-    @EJB(mappedName = "java:app/SacerIam-ejb/ComboGetter")
-    private ComboGetter comboGetter;
+    @EJB(mappedName = "java:app/SacerIam-ejb/ComboEjb")
+    private ComboEjb comboEjb;
     @EJB(mappedName = "java:app/SacerIam-ejb/UserHelper")
     UserHelper userHelper;
     @EJB(mappedName = "java:app/SacerIam-ejb/SistemiVersantiEjb")
@@ -267,7 +269,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
     /*
      * Getter per mantenere un set di applicazioni, utile per i controlli di coerenza
-     * 
+     *
      * @return il set di applicazioni presenti in sessione
      */
     private Set<BigDecimal> getApplicationsSet() {
@@ -279,7 +281,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
     /*
      * Getter per mantenere un set di indirizzi IP, utile per i controlli di coerenza
-     * 
+     *
      * @return il set di indirizzi IP sotto forma di stringa, presenti in sessione
      */
     private Set<String> getIndIpSet() {
@@ -291,7 +293,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
     /*
      * Getter per mantenere un set di idRuoli, utile per i controlli di coerenza
-     * 
+     *
      * @return il set di ruoli presenti in sessione
      */
     private Set<BigDecimal> getRolesSet(String applicazione) {
@@ -304,7 +306,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Getter per mantenere un set di coppie di dati (SCOPO,ABILITAZIONE) per ogni applicazione gestita dall'utente,
      * utile per i controlli di coerenza
-     * 
+     *
      * @return
      */
     private Set<PairAuth> getScopoOrgSet(String applicazione) {
@@ -317,7 +319,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Getter per mantenere un set di coppie di dati (SCOPO,ABILITAZIONE) per ogni applicazione gestita dall'utente,
      * utile per i controlli di coerenza
-     * 
+     *
      * @return
      */
     private Set<PairAuth> getScopoTipiDatoSet(String applicazione) {
@@ -330,7 +332,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Getter per mantenere un set di coppie di dati (SCOPO,ABILITAZIONE) per gli enti convenzionati abilitati, utile
      * per i controlli di coerenza
-     * 
+     *
      * @return
      */
     private Set<PairAuth> getScopoEnteConvenzSet() {
@@ -342,7 +344,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
     /*
      * Getter per mantenere un set di idRuoli, utile per i controlli di coerenza su Ruoli per Organizzazioni
-     * 
+     *
      * @return il set di ruoli presenti in sessione
      */
     private Set<BigDecimal> getOrgRolesSet() {
@@ -355,7 +357,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di idIndIpUser per cancellare gli indirizzi IP che sono state selezionati
      * per l'eliminazione dalla lista.
-     * 
+     *
      * @return il set di applicazioni salvato in sessione
      */
     private Set<BigDecimal> getIndIpDeleteList() {
@@ -368,7 +370,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di idUsoUserApplic per cancellare le applicazioni che sono state
      * selezionate per l'eliminazione dalla lista.
-     * 
+     *
      * @return il set di applicazioni salvato in sessione
      */
     private Set<BigDecimal> getApplicationsDeleteList() {
@@ -381,7 +383,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di idUsoUserApplic per replicare solo le applicazioni che sono state
      * modificate
-     * 
+     *
      * @return il set di applicazioni salvato in sessione
      */
     private Set<BigDecimal> getApplicationsEditList() {
@@ -394,7 +396,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di id dei ruoli di default che sono stati selezionati per l'eliminazione
      * dalla lista.
-     * 
+     *
      * @return il set di ruoli salvato in sessione
      */
     private Set<BigDecimal> getDefaultRolesDeleteList() {
@@ -407,7 +409,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di id delle dichiarazioni di organizzazione che sono state selezionate per
      * l'eliminazione dalla lista.
-     * 
+     *
      * @return il set di dichiarazioni salvato in sessione
      */
     private Set<BigDecimal> getDichOrganizDeleteList() {
@@ -420,7 +422,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di id delle dichiarazioni di tipi dato che sono state selezionate per
      * l'eliminazione dalla lista.
-     * 
+     *
      * @return il set di dichiarazioni salvato in sessione
      */
     private Set<BigDecimal> getDichTipiDatoDeleteList() {
@@ -433,7 +435,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di id delle dichiarazioni di abilitazione degli enti convenzionati che
      * sono state selezionate per l'eliminazione dalla lista.
-     * 
+     *
      * @return il set di dichiarazioni salvato in sessione
      */
     private Set<BigDecimal> getDichAbilEnteConvenzDeleteList() {
@@ -446,7 +448,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo che mantiene in sessione il set di id dei ruoli dichiarati per la struttura che sono stati selezionati per
      * l'eliminazione dalla lista.
-     * 
+     *
      * @return il set di dichiarazioni salvato in sessione
      */
     private Set<BigDecimal> getOrgRolesDeleteList() {
@@ -2366,7 +2368,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                     .getTipoEnteConvenzNonConvenz(getForm().getDettaglioUtente().getId_ente_siam_appart().parse())
                     .equals("AMMINISTRATORE");
             getForm().getDichAbilFields().getTi_scopo_dich_abil_organiz()
-                    .setDecodeMap(comboGetter.getMappaDichOrganiz(isEnteAmministratore));
+                    .setDecodeMap(ComboGetter.getMappaDichOrganiz(isEnteAmministratore));
             getForm().getDichAbilFields().getTi_scopo_dich_abil_organiz().setEditMode();
             getForm().getDichAbilFields().getDl_composito_organiz().setDecodeMap(new DecodeMap());
             getForm().getDichAbilFields().getDl_composito_organiz().setEditMode();
@@ -2378,7 +2380,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                     .getTipoEnteConvenzNonConvenz(getForm().getDettaglioUtente().getId_ente_siam_appart().parse())
                     .equals("AMMINISTRATORE");
             getForm().getDichAbilFields().getTi_scopo_dich_abil_dati()
-                    .setDecodeMap(comboGetter.getMappaDichDato(isEnteAmministratore));
+                    .setDecodeMap(ComboGetter.getMappaDichDato(isEnteAmministratore));
             getForm().getDichAbilFields().getTi_scopo_dich_abil_dati().setEditMode();
             getForm().getDichAbilFields().getDl_composito_organiz().setDecodeMap(new DecodeMap());
             getForm().getDichAbilFields().getDl_composito_organiz().setEditMode();
@@ -2390,7 +2392,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             String tipoEnte = amministrazioneUtentiEjb
                     .getTipoEnteConvenzNonConvenz(getForm().getDettaglioUtente().getId_ente_siam_appart().parse());
             getForm().getDichAbilFields().getTi_scopo_dich_abil_ente()
-                    .setDecodeMap(comboGetter.getMappaDichAbilEnteConvenz(tipoEnte));
+                    .setDecodeMap(ComboGetter.getMappaDichAbilEnteConvenz(tipoEnte));
             getForm().getDichAbilFields().getTi_scopo_dich_abil_ente().setEditMode();
             getForm().getDichAbilFields().getNm_ambiente_ente_convenz().setDecodeMap(new DecodeMap());
             getForm().getDichAbilFields().getNm_ambiente_ente_convenz().setEditMode();
@@ -2438,7 +2440,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
      * Metodo che carica in sessione il set di record presenti nella lista del dettaglio utente scelta di cui è stato
      * passato come parametro il tableBean. L'utilizzo dei set riguarda la fase dei controlli di coerenza in fase di
      * inserimento/modifica utente
-     * 
+     *
      * @param tableBean
      */
     private void populateSet(AbstractBaseTable tableBean) throws EMFError {
@@ -2537,7 +2539,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         //
         /* Carico la combo delle applicazioni in base all'utente corrente */
         getForm().getFiltriUtenti().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), false));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), false));
         /* Setto i filtri generici */
         resetRicercaUtentiPageFiltriGenerici();
         /* Gestione sezione utenti archivisti */
@@ -2568,7 +2570,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         //
         /* Carico la combo delle applicazioni in base all'utente corrente */
         getForm().getFiltriUtenti().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true));
         /* Setto i filtri generici */
         resetRicercaUtentiPageFiltriGenericiArchivisti();
         /* Filtro ricerca enti abilitati */
@@ -2601,7 +2603,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         //
         /* Carico la combo delle applicazioni in base all'utente corrente */
         getForm().getFiltriUtenti().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true));
         /* Setto i filtri generici */
         resetRicercaUtentiPageFiltriGenerici();
         // Imposto i filtri con utenti attivi e di tipo PERSONA_FISICA o NON DI SISTEMA
@@ -2656,7 +2658,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         //
         /* Carico la combo delle applicazioni in base all'utente corrente */
         getForm().getFiltriUtenti().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), false));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), false));
         /* Setto i filtri generici */
         resetRicercaUtentiPageFiltriGenerici();
         /* Gestione sezione utenti archivisti */
@@ -2886,7 +2888,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 
     public void resetReplicaUtentiPage() throws EMFError {
         getForm().getFiltriReplica().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitateRicercaRepliche(getUser().getIdUtente()));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitateRicercaRepliche(getUser().getIdUtente()));
         getForm().getFiltriReplica().getTi_oper_replic().setDecodeMap(ComboGetter.getMappaTiOperReplic());
         getForm().getFiltriReplica().getTi_stato_replic().setDecodeMap(ComboGetter.getMappaTiStatoReplic());
 
@@ -3495,7 +3497,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo per il salvataggio dei ruoli di default Esegue i controlli di coerenza prima del salvataggio. In caso
      * affermativo, inseriscono il ruolo nella lista, altrimenti errore
-     * 
+     *
      * @throws EMFError errore generico
      */
     private void saveRuoliDefaultList() throws EMFError {
@@ -4020,7 +4022,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         boolean isEnteOrganoVigilanza = amministrazioneUtentiEjb
                 .isEnteOrganoVigilanza(getForm().getDettaglioUtente().getId_ente_siam_appart().parse());
 
-        getForm().getApplicazioniFields().getNm_applic().setDecodeMap(comboGetter
+        getForm().getApplicazioniFields().getNm_applic().setDecodeMap(comboEjb
                 .getMappaApplicAbilitateUtente(getUser().getIdUtente(), isEnteAmministratore, isEnteOrganoVigilanza));
         populateApplicationSet((UsrUsoUserApplicTableBean) getForm().getApplicazioniList().getTable());
         getForm().getApplicazioniList().setHidden(false);
@@ -4966,7 +4968,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo per il salvataggio delle dichiarazioni di abilitazione organizzazione Esegue i controlli di coerenza prima
      * del salvataggio. In caso affermativo, inseriscono l'abilitazione nella lista, altrimenti errore
-     * 
+     *
      * @throws EMFError errore generico
      */
     private void saveOrganizList() throws EMFError {
@@ -5114,7 +5116,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo per il salvataggio delle dichiarazioni di abilitazione tipi dato Esegue i controlli di coerenza prima del
      * salvataggio. In caso affermativo, inseriscono l'abilitazione nella lista, altrimenti errore
-     * 
+     *
      * @throws EMFError errore generico
      */
     private void saveTipiDatoList() throws EMFError {
@@ -5302,7 +5304,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
     /*
      * Metodo per il salvataggio delle dichiarazioni di abilitazione sugli enti convenzionati Esegue i controlli di
      * coerenza prima del salvataggio. In caso affermativo, inseriscono l'abilitazione nella lista, altrimenti errore
-     * 
+     *
      * @throws EMFError errore generico
      */
     private void saveEnteConvenzList() throws EMFError {

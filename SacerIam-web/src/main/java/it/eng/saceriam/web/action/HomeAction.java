@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
@@ -45,6 +46,7 @@ import it.eng.spagoLite.form.fields.Fields;
 import it.eng.spagoLite.security.auth.PwdUtil;
 import it.eng.util.EncryptionUtil;
 
+@SuppressWarnings({ "rawtypes" })
 public class HomeAction extends HomeAbstractAction {
 
     private static final long serialVersionUID = 1L;
@@ -154,12 +156,12 @@ public class HomeAction extends HomeAbstractAction {
     }
 
     private void findNews() {
-        ArrayList list = new ArrayList();
+        List<Map<String, Comparable>> list = new ArrayList<>();
         RestituzioneNewsApplicazioneRisposta resp = ejbRef.restituzioneNewsApplicazione(Constants.SACERIAM);
         String newline = System.getProperty("line.separator");
         if (resp.getListaNews() != null) {
             for (News row : resp.getListaNews().getNews()) {
-                Map news = new HashMap();
+                Map<String, Comparable> news = new HashMap<>();
                 String line = "";
                 if (row.getDlTesto() != null) {
                     line = row.getDlTesto().replaceAll(newline, "<br />");

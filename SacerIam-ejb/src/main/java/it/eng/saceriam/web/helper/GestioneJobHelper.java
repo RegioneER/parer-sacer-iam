@@ -64,7 +64,7 @@ public class GestioneJobHelper extends GenericHelper {
      *
      * @param nmJob
      *            nome job
-     * 
+     *
      * @return row bean {@link LogVVisLastSchedRowBean}
      *
      */

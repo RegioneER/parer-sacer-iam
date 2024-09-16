@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  * The persistent class for the ORG_V_OCCUP_STORAGE_ACCORDO database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_V_OCCUP_STORAGE_ACCORDO")

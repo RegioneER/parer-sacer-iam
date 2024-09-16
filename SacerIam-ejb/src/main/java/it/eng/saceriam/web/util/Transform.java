@@ -33,13 +33,13 @@ import it.eng.spagoLite.db.base.table.AbstractBaseTable;
 
 /*
  * @author Quaranta_M
- * 
+ *
  * La trasformazione funziona purché siano soddisatte le seguenti condizioni:
  *  - nomeRowBean = nome Entity + "RowBean" (NB: Dali tronca una eventuale 's' posta alla fine del nome della entity)
  *  - nomeTableBean = nome Entity + "TableBean"
  *  - i nomi delle variabili degli oggetti referenziati dalle entity (e le PK di tali oggetti) hanno la parte finale del nome uguale alle FK dei rowBean
  *  - le PK Embeddable nelle entity devono avere il nome "id"
- * 
+ *
  */
 public class Transform {
 
@@ -63,9 +63,9 @@ public class Transform {
      *
      * @param entities
      *            la lista di entity da trasformare
-     * 
+     *
      * @return il rowBean trasformato
-     * 
+     *
      * @throws ClassNotFoundException
      *             errore generico
      * @throws NoSuchMethodException
@@ -105,9 +105,9 @@ public class Transform {
      *
      * @param entity
      *            oggetto da trasformare
-     * 
+     *
      * @return il rowBean trasformato
-     * 
+     *
      * @throws ClassNotFoundException
      *             errore generico
      * @throws NoSuchMethodException
@@ -146,7 +146,7 @@ public class Transform {
      *
      * @param rowBean
      *            bean da trasformare
-     * 
+     *
      * @return l'entity trasformata
      */
     public static Object rowBean2Entity(Object rowBean) {

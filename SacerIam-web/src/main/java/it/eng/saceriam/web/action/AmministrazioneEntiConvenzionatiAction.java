@@ -21,12 +21,58 @@ import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.D
 import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.MODULO_INFORMAZIONI_MAX_FILE_SIZE;
 import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.VARIAZIONE_ACCORDO_MAX_FILE_SIZE;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.codehaus.jettison.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
 import it.eng.parer.sacerlog.slite.gen.form.GestioneLogEventiForm;
@@ -127,65 +173,18 @@ import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.message.Message;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
 import it.eng.spagoLite.security.Secure;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.stream.Collectors;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author Bonora_L feat. Gilioli_P feat DiLorenzo_F
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiConvenzionatiAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(AmministrazioneEntiConvenzionatiAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
     private EntiConvenzionatiEjb entiConvenzionatiEjb;
-    @EJB(mappedName = "java:app/SacerIam-ejb/ComboGetter")
-    private ComboGetter comboGetter;
     @EJB(mappedName = "java:app/SacerIam-ejb/SistemiVersantiEjb")
     private SistemiVersantiEjb sistemiVersantiEjb;
     @EJB(mappedName = "java:app/SacerIam-ejb/ParamHelper")
@@ -736,7 +735,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getForm().getReferenteEnteDetail().setStatus(Status.insert);
                 getForm().getReferenteEnteDetail().setEditMode();
                 getForm().getReferenteEnteDetail().getQualifica_user()
-                        .setDecodeMap(comboGetter.getMappaQualificaUser());
+                        .setDecodeMap(ComboGetter.getMappaQualificaUser());
                 forwardToPublisher(Application.Publisher.DETTAGLIO_REFERENTE_ENTE);
             } else if (getTableName().equals(getForm().getDisciplinariTecniciList().getName())) {
                 getForm().getDisciplinareTecnicoDetail().clear();
@@ -3393,7 +3392,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         BigDecimal idAmbienteEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz().parse();
         BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
         getForm().getGestioneAccordoDetail().getTipo_trasmissione()
-                .setDecodeMap(comboGetter.getMappaTipoTrasmissione());
+                .setDecodeMap(ComboGetter.getMappaTipoTrasmissione());
         getForm().getGestioneAccordoDetail().getId_tipo_gestione_accordo()
                 .setDecodeMap(DecodeMap.Factory.newInstance(entiConvenzionatiEjb.getOrgTipiGestioneAccordoTableBean(),
                         "id_tipo_gestione_accordo", "cd_tipo_gestione_accordo"));

@@ -39,6 +39,7 @@ import it.eng.spagoLite.message.MessageBox;
 import it.eng.spagoLite.message.MessageUtil;
 import it.eng.util.EncryptionUtil;
 
+@SuppressWarnings({ "rawtypes" })
 public class AssociazioneUtenteAction extends ActionBase {
 
     private static final long serialVersionUID = 1L;

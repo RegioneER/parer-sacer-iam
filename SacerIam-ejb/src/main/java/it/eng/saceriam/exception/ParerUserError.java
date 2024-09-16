@@ -99,7 +99,7 @@ public class ParerUserError extends ParerAbstractError implements Serializable {
 
     /**
      * Ritorna il codice dell'errore.
-     * 
+     *
      * @return <em>String</em> codice dell'errore.
      */
     public String getErrorCode() {

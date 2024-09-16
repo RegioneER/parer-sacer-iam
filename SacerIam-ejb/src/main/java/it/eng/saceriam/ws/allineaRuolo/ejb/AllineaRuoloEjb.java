@@ -192,7 +192,7 @@ public class AllineaRuoloEjb {
      *            id ruolo
      * @param applics
      *            lista applicazioni di tipo {@link ListaApplic}
-     * 
+     *
      * @return cdErr da ritornare in {@link AllineaRuoloRisposta}
      */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)

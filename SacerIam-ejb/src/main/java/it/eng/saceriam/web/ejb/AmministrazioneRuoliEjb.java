@@ -106,7 +106,7 @@ public class AmministrazioneRuoliEjb {
      * Metodo che ritorna la lista delle applicazioni ordinate per nome
      *
      * @return il table bean delle applicazioni
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -172,9 +172,9 @@ public class AmministrazioneRuoliEjb {
      *
      * @param idRuolo
      *            id ruolo
-     * 
+     *
      * @return row bean PrfVLisRuoloRowBean
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -262,7 +262,7 @@ public class AmministrazioneRuoliEjb {
      *            autore
      *
      * @return table bean {@link PrfVLisDichAutorTableBean}
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -315,12 +315,12 @@ public class AmministrazioneRuoliEjb {
     }
 
     /**
-     * 
+     *
      * @param idEntryMenu
      *            id menu
-     * 
+     *
      * @return table bean {@link AplEntryMenuTableBean}
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -343,9 +343,9 @@ public class AmministrazioneRuoliEjb {
      *
      * @param idUsoRuoloApplic
      *            lista distinta id ruolo applicativo
-     * 
+     *
      * @return il table bean delle applicazioni
-     * 
+     *
      * @throws EMFError
      *             errore generico
      */
@@ -413,10 +413,10 @@ public class AmministrazioneRuoliEjb {
      * Metodo che ritorna dato un'entry menu la lista dei suoi figli
      *
      * @deprecated
-     * 
+     *
      * @param idEntryMenu
      *            id menu
-     * 
+     *
      * @return il tableBean contenente i figli dell'entry menu specificata
      */
     @Deprecated
@@ -438,7 +438,7 @@ public class AmministrazioneRuoliEjb {
      *
      * @param idPaginaWeb
      *            l'id della pagina web
-     * 
+     *
      * @return il tableBean contenente la lista di azioni
      */
     public AplAzionePaginaTableBean getActionChilds(BigDecimal idPaginaWeb) {
@@ -461,7 +461,7 @@ public class AmministrazioneRuoliEjb {
      *            id applicazione
      * @param idPaginaWeb
      *            id pagina web
-     * 
+     *
      * @return il tableBean della lista di azioni
      */
     public AplAzionePaginaTableBean getActionsList(BigDecimal idApplicazione, BigDecimal idPaginaWeb) {

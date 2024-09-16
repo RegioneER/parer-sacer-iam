@@ -80,7 +80,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *            nome job
      * @param flJobAttivo
      *            flag 1/0 (true/false)
-     * 
+     *
      * @return List valori job
      */
     public List<String> getFreeAsyncJobs(String asyncJob, String flJobAttivo) {
@@ -104,7 +104,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *            lista di utenti
      * @param idLogJob
      *            id log job
-     * 
+     *
      * @return numero di record aggiornati
      */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -127,7 +127,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *            lista di utenti
      * @param idLogJob
      *            id log job
-     * 
+     *
      * @return la lista dei record della tabella LogUserDaReplic
      */
     public List<LogUserDaReplic> getLogUserDaReplicList(Collection<BigDecimal> users, Long idLogJob) {
@@ -245,7 +245,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *            id user IAM
      * @param idApplic
      *            id applicazione
-     * 
+     *
      * @return la lista di entity
      */
     public List<UsrVAllAutor> getUsrVAllAutorServiziWeb(Long idUserIam, Long idApplic) {
@@ -267,7 +267,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *            id user IAM
      * @param idApplic
      *            id applicazione
-     * 
+     *
      * @return la lista di entity
      */
     public List<UsrVAbilOrganiz> getUsrVAbilOrganizList(Long idUserIam, Long idApplic) {
@@ -286,7 +286,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *            id user IAM
      * @param idApplic
      *            id applicazione
-     * 
+     *
      * @return la lista dei tipi dato
      */
     public List<UsrVAbilDati> getUsrVAbilDatiList(Long idUserIam, Long idApplic) {
@@ -302,7 +302,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *
      * @param idUserIam
      *            id user IAM
-     * 
+     *
      * @return la lista di indirizzi IP
      */
     public List<String> getUsrIndIpUserList(Long idUserIam) {
@@ -362,7 +362,7 @@ public class ReplicaUtentiHelper extends GenericHelper {
      *
      * @param idUserIam
      *            id utente
-     * 
+     *
      * @return la lista dei record della tabella UsrUsoUserApplic
      */
     public List<UsrUsoUserApplic> getUsrUsoUserApplic(Long idUserIam) {

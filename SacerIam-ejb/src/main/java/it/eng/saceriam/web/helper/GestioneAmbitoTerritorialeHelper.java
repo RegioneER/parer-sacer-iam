@@ -95,10 +95,10 @@ public class GestioneAmbitoTerritorialeHelper extends GenericHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param idAmbitoTerrit
      *            id ambito territoriale
-     * 
+     *
      * @return elenco degli {@link OrgAmbitoTerrit}
      */
     @Deprecated

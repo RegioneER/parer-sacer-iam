@@ -24,9 +24,6 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import it.eng.saceriam.exception.ParerUserError;
 import it.eng.saceriam.slite.gen.Application;
 import it.eng.saceriam.slite.gen.action.GestioneAccessiFallitiAbstractAction;
@@ -42,8 +39,6 @@ import it.eng.spagoLite.security.Secure;
  * @author Gilioli_P
  */
 public class GestioneAccessiFallitiAction extends GestioneAccessiFallitiAbstractAction {
-
-    private static final Logger logger = LoggerFactory.getLogger(GestioneAccessiFallitiAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/AmministrazioneUtentiEjb")
     private AmministrazioneUtentiEjb amministrazioneUtentiEjb;

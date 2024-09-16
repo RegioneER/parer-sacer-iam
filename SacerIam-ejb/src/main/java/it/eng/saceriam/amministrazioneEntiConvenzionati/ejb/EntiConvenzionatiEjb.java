@@ -7214,9 +7214,9 @@ public class EntiConvenzionatiEjb {
      * Recupera la lista dei nomi degli enti convenzionati cui lÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢utente \u00E8 abilitato
      *
      * @param idUserIamCor
-     * 
+     *
      * @param idAmbienteEnteConvenz
-     * 
+     *
      * @return
      */
     public OrgVRicEnteConvenzTableBean getOrgVRicEnteConvenzAbilTableBean(BigDecimal idUserIamCor,

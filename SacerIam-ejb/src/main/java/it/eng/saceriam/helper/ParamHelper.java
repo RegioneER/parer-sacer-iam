@@ -92,7 +92,7 @@ public class ParamHelper {
      *            id ente IAM
      * @param tipoIamVGetValAppart
      *            tipo valore {@link TipoIamVGetValAppart}
-     * 
+     *
      * @return valore
      */
     @SuppressWarnings("unchecked")
@@ -267,7 +267,7 @@ public class ParamHelper {
      *
      * @param nmParamApplic
      *            codice del parametro
-     * 
+     *
      * @return valore del parametro filtrato per tipologia <em>APPLIC</em> .
      */
     public String getValoreParamApplicByApplic(String nmParamApplic) {

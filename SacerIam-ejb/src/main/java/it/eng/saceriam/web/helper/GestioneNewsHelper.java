@@ -61,7 +61,7 @@ public class GestioneNewsHelper {
      *            data inizio
      * @param dataFine
      *            data fine
-     * 
+     *
      * @return lista delle news {@link AplNews}
      */
     public List<AplNews> getAplNewsList(String dsOggetto, Date dataInizio, Date dataFine) {
@@ -108,10 +108,10 @@ public class GestioneNewsHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param dsOggetto
      *            descrizione oggetto
-     * 
+     *
      * @return lista di news {@link AplNews}
      */
     @Deprecated
@@ -163,14 +163,14 @@ public class GestioneNewsHelper {
 
     /**
      * @deprecated
-     * 
+     *
      * @param findLogin
      *            find login
      * @param findHome
      *            find home
      * @param date
      *            data
-     * 
+     *
      * @return lista di news {@link AplNews}
      */
     @Deprecated

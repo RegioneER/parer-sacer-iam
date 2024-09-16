@@ -84,7 +84,7 @@ public abstract class JobTimer implements JbossJobTimer {
      *
      * @param timer
      *            timer
-     * 
+     *
      * @throws Exception
      *             eccezione
      */
@@ -95,7 +95,7 @@ public abstract class JobTimer implements JbossJobTimer {
      *
      * @param applicationName
      *            nome applicazione
-     * 
+     *
      * @return data prossima elaborazione
      */
     public Date getNextElaboration(String applicationName) {

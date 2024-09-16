@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the ORG_V_RIC_ACCORDO_ENTE database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_V_RIC_ACCORDO_ENTE")

@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * The persistent class for the ORG_CLUSTER_ACCORDO database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ORG_CLUSTER_ACCORDO")

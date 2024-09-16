@@ -38,8 +38,8 @@ import it.eng.saceriam.slite.gen.form.GestioneNoteRilascioForm.FiltriNoteRilasci
 import it.eng.saceriam.slite.gen.tablebean.AplNotaRilascioRowBean;
 import it.eng.saceriam.slite.gen.tablebean.AplNotaRilascioTableBean;
 import it.eng.saceriam.slite.gen.tablebean.AplNotaRilascioTableDescriptor;
+import it.eng.saceriam.web.ejb.ComboEjb;
 import it.eng.saceriam.web.ejb.GestioneNoteRilascioEjb;
-import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.db.base.BaseTableInterface;
 import it.eng.spagoLite.db.base.sorting.SortingRule;
@@ -57,6 +57,7 @@ import it.eng.spagoLite.security.Secure;
  *
  * @author DiLorenzo_F
  */
+@SuppressWarnings({ "unchecked" })
 public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(GestioneNoteRilascioAction.class);
@@ -64,8 +65,8 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
     @EJB(mappedName = "java:app/SacerIam-ejb/GestioneNoteRilascioEjb")
     private GestioneNoteRilascioEjb gestioneNoteRilascioEjb;
 
-    @EJB(mappedName = "java:app/SacerIam-ejb/ComboGetter")
-    private ComboGetter comboGetter;
+    @EJB(mappedName = "java:app/SacerIam-ejb/ComboEjb")
+    private ComboEjb comboEjb;
 
     @Override
     public void initOnClick() throws EMFError {
@@ -88,7 +89,7 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
             getForm().getDettaglioNoteRilascio().setStatus(Status.insert);
             // Inizializzo la combo applicazioni
             getForm().getDettaglioNoteRilascio().getId_applic()
-                    .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true, false));
+                    .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true, false));
             getForm().getDettaglioNoteRilascio().getId_applic().setEditMode();
 
             // Inizializzo, senza valori, la lista delle note di rilascio precedenti
@@ -125,7 +126,7 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
                 getForm().getDettaglioNoteRilascio().setViewMode();
                 // Inizializzo la combo applicazioni
                 getForm().getDettaglioNoteRilascio().getId_applic()
-                        .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true, false));
+                        .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true, false));
 
                 // Carico le info del dettaglio NOTE DI RILASCIO
                 BigDecimal idNotaRilascio = ((AplNotaRilascioTableBean) getForm().getListaNoteRilascio().getTable())
@@ -280,7 +281,7 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
         getForm().getFiltriNoteRilascio().getRicercaNoteRilascio().setEditMode();
 
         getForm().getFiltriNoteRilascio().getNm_applic()
-                .setDecodeMap(comboGetter.getMappaApplicAbilitate(getUser().getIdUtente(), true, false));
+                .setDecodeMap(comboEjb.getMappaApplicAbilitate(getUser().getIdUtente(), true, false));
         getForm().getFiltriNoteRilascio().getNm_applic().setEditMode();
 
         getForm().getListaNoteRilascio().clear();
@@ -328,7 +329,7 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
         noteRilascioDetail.post(getRequest());
 
         // ArrayList contenente il nome dei campi obbligatori che non sono stati compilati
-        List<String> campiErrati = new ArrayList();
+        List<String> campiErrati = new ArrayList<>();
 
         // Valida i filtri per verificare quelli obbligatori
         BigDecimal idApplic = noteRilascioDetail.getId_applic().parse();
