@@ -29,7 +29,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -44,7 +43,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "ORG_APPART_COLLEG_ENTI")
-@NamedQuery(name = "OrgAppartCollegEnti.findAll", query = "SELECT o FROM OrgAppartCollegEnti o")
 public class OrgAppartCollegEnti implements Serializable {
 
     private static final long serialVersionUID = 1L;

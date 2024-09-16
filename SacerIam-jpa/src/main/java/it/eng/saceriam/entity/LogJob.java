@@ -27,7 +27,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,7 +41,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "LOG_JOB")
-@NamedQuery(name = "LogJob.findAll", query = "SELECT l FROM LogJob l")
 public class LogJob implements Serializable {
 
     private static final long serialVersionUID = 1L;

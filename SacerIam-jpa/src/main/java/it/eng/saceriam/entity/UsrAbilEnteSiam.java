@@ -27,7 +27,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -40,7 +39,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "USR_ABIL_ENTE_SIAM")
-@NamedQuery(name = "UsrAbilEnteSiam.findAll", query = "SELECT u FROM UsrAbilEnteSiam u")
 public class UsrAbilEnteSiam implements Serializable {
 
     private static final long serialVersionUID = 1L;

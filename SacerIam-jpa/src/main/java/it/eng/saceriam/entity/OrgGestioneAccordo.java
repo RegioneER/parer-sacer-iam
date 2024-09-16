@@ -32,7 +32,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,7 +47,6 @@ import it.eng.saceriam.entity.constraint.ConstOrgGestioneAccordo.TipoTrasmission
  */
 @Entity
 @Table(name = "ORG_GESTIONE_ACCORDO")
-@NamedQuery(name = "OrgGestioneAccordo.findAll", query = "SELECT o FROM OrgGestioneAccordo o")
 public class OrgGestioneAccordo implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -32,7 +31,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ORG_V_CALC_TOT_FATT")
-@NamedQuery(name = "OrgVCalcTotFatt.findAll", query = "SELECT o FROM OrgVCalcTotFatt o")
 public class OrgVCalcTotFatt implements Serializable {
     private static final long serialVersionUID = 1L;
     private BigDecimal idFatturaEnte;

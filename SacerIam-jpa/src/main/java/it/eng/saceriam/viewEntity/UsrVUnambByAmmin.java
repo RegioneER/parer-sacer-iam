@@ -22,7 +22,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -30,7 +29,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USR_V_UNAMB_BY_AMMIN")
-@NamedQuery(name = "UsrVUnambByAmmin.findAll", query = "SELECT u FROM UsrVUnambByAmmin u")
 public class UsrVUnambByAmmin implements Serializable {
 
     private static final long serialVersionUID = 1L;

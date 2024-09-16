@@ -1054,6 +1054,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 Date dtFineValidAccordoA = getForm().getFiltriEntiConvenzionati().getDt_fine_valid_accordo_a().parse();
                 Date dtScadAccordoDa = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().parse();
                 Date dtScadAccordoA = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse();
+                Date dtIniValDa = getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().parse();
+                Date dtIniValA = getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().parse();
+                Date dtCessazioneDa = getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().parse();
+                Date dtCessazioneA = getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().parse();
                 List<BigDecimal> idArchivista = getForm().getFiltriEntiConvenzionati().getArchivista().parse();
                 String noArchivista = getForm().getFiltriEntiConvenzionati().getNo_archivista().parse();
                 String flRicev = getForm().getFiltriEntiConvenzionati().getFl_ricezione_modulo_inf().parse();
@@ -1073,7 +1077,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA, idArchivista,
                         noArchivista, flRicev, flRichModuloInfo, flNonConvenz, flRecesso, flChiuso, flEsistonoGestAcc,
                         idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc, dtDecAccordoDa, dtDecAccordoA,
-                        dtDecAccordoInfoDa, dtDecAccordoInfoA);
+                        dtDecAccordoInfoDa, dtDecAccordoInfoA, dtIniValDa, dtIniValA, dtCessazioneDa, dtCessazioneA);
                 getForm().getListaEntiConvenzionati().setTable(table);
                 getForm().getListaEntiConvenzionati().getTable().setPageSize(pageSize);
                 getForm().getListaEntiConvenzionati().getTable().setCurrentRowIndex(rowIndex);
@@ -1394,7 +1398,11 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_info_da().parse(),
                     getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_info_a().parse(),
                     getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().parse(),
-                    getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse());
+                    getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().parse(),
+                    getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().parse());
 
             Date dtDecAccordoDa = getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_da().parse();
             Date dtDecAccordoA = getForm().getFiltriEntiConvenzionati().getDt_dec_accordo_a().parse();
@@ -1404,12 +1412,18 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             Date dtFineValidAccordoA = getForm().getFiltriEntiConvenzionati().getDt_fine_valid_accordo_a().parse();
             Date dtScadAccordoDa = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().parse();
             Date dtScadAccordoA = getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_a().parse();
+            Date dtIniValDa = getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().parse();
+            Date dtIniValA = getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().parse();
+            Date dtCessazioneDa = getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().parse();
+            Date dtCessazioneA = getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().parse();
 
             String errorDateDec = null;
             String errorDateScad = null;
             String errorDateIniVal = null;
             String errorDateFineVal = null;
             String errorCdFisc = null;
+            String errorDateIniValEnte = null;
+            String errorDateCessazione = null;
 
             errorDateDec = DateUtil.ucContrDate("", dtDecAccordoInfoDa, dtDecAccordoInfoA, "decorrenza Da",
                     "decorrenza A");
@@ -1418,6 +1432,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     "inizio validità A");
             errorDateFineVal = DateUtil.ucContrDate("", dtFineValidAccordoDa, dtFineValidAccordoA, "fine validità Da",
                     "fine validità A");
+            errorDateIniValEnte = DateUtil.ucContrDate("", dtIniValDa, dtIniValA, "inizio validità ente Da",
+                    "inizio validità ente A");
+            errorDateCessazione = DateUtil.ucContrDate("", dtCessazioneDa, dtCessazioneA, "cessazione Da",
+                    "cessazione A");
             if (!StringUtils.isBlank(cdFisc)) {
                 errorCdFisc = !StringUtils.isAlphanumeric(cdFisc)
                         ? "Il codice fiscale/partita IVA contiene caratteri non validi." : null;
@@ -1435,6 +1453,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             if (errorDateFineVal != null) {
                 getMessageBox().addError(errorDateFineVal);
             }
+            if (errorDateIniValEnte != null) {
+                getMessageBox().addError(errorDateIniValEnte);
+            }
+            if (errorDateCessazione != null) {
+                getMessageBox().addError(errorDateCessazione);
+            }
             if (errorCdFisc != null) {
                 getMessageBox().addError(errorCdFisc);
             }
@@ -1449,9 +1473,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             nmEnteConvenz, idUserIamCor, idAmbienteEnteConvenz, flEnteAttivo, flEnteCessato,
                             idCategEnte, idAmbitoTerritRegione, idAmbitoTerritProv, idAmbitoTerritFormAssoc,
                             cdTipoAccordo, dtFineValidAccordoDa, dtFineValidAccordoA, dtScadAccordoDa, dtScadAccordoA,
-                            idArchivista, noArchivista, flRicev, flRichiestaModuloInf, flNonConvenz, flRecesso,
+                            idArchivista, noArchivista, flRicev, flRichiestaModuloInf, flNonConvenz, flRecesso, // bdc
                             flChiuso, flEsistonoGestAcc, idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc,
-                            dtDecAccordoDa, dtDecAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA);
+                            dtDecAccordoDa, dtDecAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA, dtIniValDa, dtIniValA,
+                            dtCessazioneDa, dtCessazioneA);
                     getForm().getListaEntiConvenzionati().setTable(table);
                     getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
                     getForm().getListaEntiConvenzionati().getTable().first();
@@ -1474,8 +1499,11 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         forwardToPublisher(getLastPublisher());
     }
 
+    // bdc stop
+
     private void decoraDateRicercaEnti(Date dtDecAccordoDa, Date dtDecAccordoA, Date dtFineValDa, Date dtFineValA,
-            Date dtDecAccordoInfoDa, Date dtDecAccordoInfoA, Date dtScadAccordoDa, Date dtScadAccordoA) {
+            Date dtDecAccordoInfoDa, Date dtDecAccordoInfoA, Date dtScadAccordoDa, Date dtScadAccordoA, Date dtIniValDa,
+            Date dtIniValA, Date dtCessazioneDa, Date dtCessazioneA) {
         DateFormat formato = new SimpleDateFormat(DateUtil.DATE_FORMAT_SLASH);
 
         if (dtDecAccordoDa != null && dtDecAccordoA == null) {
@@ -1539,6 +1567,37 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             dtScadAccordoDa = c.getTime();
             getForm().getFiltriEntiConvenzionati().getDt_scad_accordo_da().setValue(formato.format(dtScadAccordoDa));
         }
+
+        if (dtIniValDa != null && dtIniValA == null) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            dtIniValA = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_ini_val_a().setValue(formato.format(dtIniValA));
+        } else if (dtIniValDa == null && dtIniValA != null) {
+            Calendar c = Calendar.getInstance();
+            c.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
+            dtIniValDa = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_ini_val_da().setValue(formato.format(dtIniValDa));
+        }
+
+        if (dtCessazioneDa != null && dtCessazioneA == null) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            dtCessazioneA = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_cessazione_a().setValue(formato.format(dtCessazioneA));
+        } else if (dtCessazioneDa == null && dtCessazioneA != null) {
+            Calendar c = Calendar.getInstance();
+            c.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
+            dtCessazioneDa = c.getTime();
+            getForm().getFiltriEntiConvenzionati().getDt_cessazione_da().setValue(formato.format(dtCessazioneDa));
+        }
+
     }
 
     @Override
@@ -2500,7 +2559,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         getForm().getEnteConvenzionatoDetail().getDt_cessazione().parse());
                 if (!controlloOK) {
                     getMessageBox().addError(
-                            "Attenzione: impossibile modificare la validitÃ  dell'ente in quanto risulta in contrasto con la validitÃ  delle anagrafiche presenti.");
+                            "Attenzione: impossibile modificare la validità dell'ente in quanto risulta in contrasto con la validità delle anagrafiche presenti.");
                 }
             }
 

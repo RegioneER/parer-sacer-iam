@@ -22,7 +22,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -30,7 +29,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ORG_V_CHK_REF_ENTE")
-@NamedQuery(name = "OrgVChkRefEnte.findAll", query = "SELECT u FROM OrgVChkRefEnte u")
 public class OrgVChkRefEnte implements Serializable {
 
     private static final long serialVersionUID = 1L;

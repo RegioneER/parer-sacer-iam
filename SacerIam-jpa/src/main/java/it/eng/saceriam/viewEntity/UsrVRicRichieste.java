@@ -24,7 +24,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +33,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "USR_V_RIC_RICHIESTE")
-@NamedQuery(name = "UsrVRicRichieste.findAll", query = "SELECT u FROM UsrVRicRichieste u")
 public class UsrVRicRichieste implements Serializable {
 
     private static final long serialVersionUID = 1L;

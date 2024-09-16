@@ -43,6 +43,10 @@
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.CD_AMBITO_TERRIT_REGIONE%>" colSpan="2" /><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.CD_AMBITO_TERRIT_PROVINCIA%>" colSpan="2" /><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.CD_AMBITO_TERRIT_FORMA_ASSOCIATA%>" colSpan="2" /><sl:newLine />
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.DT_INI_VAL_DA%>" colSpan="2"/>
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.DT_INI_VAL_A%>" colSpan="2"/><sl:newLine />
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.DT_CESSAZIONE_DA%>" colSpan="2"/>
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.DT_CESSAZIONE_A%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.CD_TIPO_ACCORDO%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.DT_DEC_ACCORDO_DA%>" colSpan="2"/>
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriEntiConvenzionati.DT_DEC_ACCORDO_A%>" colSpan="2"/><sl:newLine />

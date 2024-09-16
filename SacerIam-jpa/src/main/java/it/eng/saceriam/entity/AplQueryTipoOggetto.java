@@ -30,7 +30,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -43,7 +42,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
  */
 @Entity
 @Table(name = "APL_QUERY_TIPO_OGGETTO")
-@NamedQuery(name = "AplQueryTipoOggetto.findAll", query = "SELECT a FROM AplQueryTipoOggetto a")
 public class AplQueryTipoOggetto implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -57,6 +57,7 @@ public class ComboHelper {
      * 
      * @return la lista delle applicazioni
      */
+    @Deprecated
     public List<AplApplic> getAplApplicAbilitateList(long idUserIamCorrente, boolean isUserAdmin) {
         return getAplApplicAbilitateList(idUserIamCorrente);
     }

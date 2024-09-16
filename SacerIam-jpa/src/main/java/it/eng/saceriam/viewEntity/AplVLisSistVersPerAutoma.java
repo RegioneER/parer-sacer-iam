@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -32,7 +31,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "APL_V_LIS_SIST_VERS_PER_AUTOMA")
-@NamedQuery(name = "AplVLisSistVersPerAutoma.findAll", query = "SELECT a FROM AplVLisSistVersPerAutoma a")
 public class AplVLisSistVersPerAutoma implements Serializable {
     private static final long serialVersionUID = 1L;
     private String cdVersione;

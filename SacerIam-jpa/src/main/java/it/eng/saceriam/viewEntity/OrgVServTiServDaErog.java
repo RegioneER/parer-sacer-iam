@@ -24,7 +24,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +34,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "ORG_V_SERV_TI_SERV_DA_EROG")
-@NamedQuery(name = "OrgVServTiServDaErog.findAll", query = "SELECT o FROM OrgVServTiServDaErog o")
 public class OrgVServTiServDaErog implements Serializable {
 
     private static final long serialVersionUID = 1L;

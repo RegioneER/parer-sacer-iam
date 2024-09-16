@@ -409,14 +409,16 @@ public class EntiConvenzionatiEjb {
             String noArchivista, String flRicev, String flRichModuloInf, String flNonConvenz, String flRecesso,
             String flChiuso, String flEsistonoGestAcc, List<BigDecimal> idTipoGestioneAccordo, String flGestAccNoRisp,
             String tiStatoAccordo, String cdFisc, Date dtDecAccordoDa, Date dtDecAccordoA, Date dtDecAccordoInfoDa,
-            Date dtDecAccordoInfoA) throws ParerUserError {
+            Date dtDecAccordoInfoA, Date dtIniValDa, Date dtIniValA, Date dtCessazioneDa, Date dtCessazioneA)
+            throws ParerUserError {
         OrgVRicEnteConvenzTableBean orgEnteConvenzTableBean = new OrgVRicEnteConvenzTableBean();
         List<OrgVRicEnteConvenz> enteConvenzs = helper.retrieveOrgEnteConvenzList(nmEnteConvenz, idUserIamCor,
                 idAmbienteEnteConvenz, flEnteAttivo, flEnteCessato, idCategEnte, idAmbitoTerritRegione,
                 idAmbitoTerritProv, idAmbitoTerritFormAssoc, idTipoAccordo, dtFineValidAccordoDa, dtFineValidAccordoA,
                 dtScadAccordoDa, dtScadAccordoA, idArchivista, noArchivista, flRicev, flRichModuloInf, flNonConvenz,
                 flRecesso, flChiuso, flEsistonoGestAcc, idTipoGestioneAccordo, flGestAccNoRisp, tiStatoAccordo, cdFisc,
-                dtDecAccordoDa, dtDecAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA);
+                dtDecAccordoDa, dtDecAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA, dtIniValDa, dtIniValA,
+                dtCessazioneDa, dtCessazioneA);
         if (!enteConvenzs.isEmpty()) {
             try {
                 orgEnteConvenzTableBean = customEntities2EnteConvenzTableBean(enteConvenzs);
@@ -10474,7 +10476,7 @@ public class EntiConvenzionatiEjb {
                 BigDecimal imponibile = ((BigDecimal) tipoServizio[2]);
                 BigDecimal iva = imponibile.multiply(new BigDecimal(22).divide(new BigDecimal(100)));
                 BigDecimal ivato = imponibile.add(iva);
-                BigDecimal ivatoArrotondato = ivato.setScale(0, RoundingMode.DOWN);
+                BigDecimal ivatoArrotondato = ivato.setScale(0, RoundingMode.HALF_UP);
                 row.setBigDecimal("im_tariffa_accordo_ivato", ivatoArrotondato);
                 // Formatto "all'italiana" il campo stringa im_tariffa_accordo recuperato come numerico da DB
                 String imTariffaAccordoString = decimalFormatter.format(imTariffaAccordo);

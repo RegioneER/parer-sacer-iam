@@ -301,66 +301,66 @@ public class AllineaRuoloEjb {
         return cdErr;
     }
 
-    public boolean checkToProcedeAlignRuoli(ListaApplic applics, String nmRuolo) {
-        PrfRuolo ruolo = ammRuoliHelper.getPrfRuolo(nmRuolo);
-
-        if (ruolo != null) {
-            // Elimina i record relativi al ruolo creati in precedenza
-            ammRuoliHelper.deletePrfAllineaRuolo(ruolo.getIdRuolo(), null);
-
-            boolean flAllineamentoParziale = false;
-            PrfUsoRuoloApplic usoRuolo = null;
-            if (ruolo.getPrfAllineaRuolos() == null) {
-                ruolo.setPrfAllineaRuolos(new ArrayList<PrfAllineaRuolo>());
-            }
-
-            for (Applic applic : applics) {
-                // Verifica la presenza dell'applicazione
-                RispostaControlli verificaApplicazione = controlliWs.verificaApplicazione(applic.getNmApplic());
-                if (verificaApplicazione.isrBoolean()) {
-                    AplApplic applicDb = (AplApplic) verificaApplicazione.getrObject();
-                    if (applicDb.getCdVersioneComp().equalsIgnoreCase(applic.getCdVersioneComp())) {
-                        // Verifica la presenza della relazione Applicazione-Ruolo (PrfUsoRuoloApplic)
-                        usoRuolo = ammRuoliHelper.getPrfUsoRuoloApplic(ruolo.getIdRuolo(), applicDb.getIdApplic());
-                        if (usoRuolo == null) {
-                            usoRuolo = new PrfUsoRuoloApplic();
-                            usoRuolo.setAplApplic(applicDb);
-                            usoRuolo.setPrfRuolo(ammRuoliHelper.findById(PrfRuolo.class, ruolo.getIdRuolo()));
-
-                            ammRuoliHelper.insertEntity(usoRuolo, true);
-                        }
-                        // Si appoggia sulla tabella PrfAllineaRuolo per ottenere le dichiarazioni da eliminare e creare
-                        for (DichAutor dichAutor : applic.getListaDichAutor()) {
-                            PrfAllineaRuolo allineaRuolo = new PrfAllineaRuolo();
-                            allineaRuolo.setPrfRuolo(ruolo);
-                            allineaRuolo.setNmApplic(applic.getNmApplic());
-                            allineaRuolo.setNmAzionePagina(dichAutor.getNmAzionePagina());
-                            allineaRuolo.setNmPaginaWeb(dichAutor.getNmPaginaWeb());
-                            allineaRuolo.setNmServizioWeb(dichAutor.getNmServizioWeb());
-                            allineaRuolo.setTiDichAutor(dichAutor.getTiDichAutor());
-                            allineaRuolo.setTiScopoDichAutor(dichAutor.getTiScopoDichAutor());
-                            allineaRuolo.setDsPathEntryMenuPadre(dichAutor.getDsPathEntryMenuPadre());
-                            allineaRuolo.setDsPathEntryMenuFoglia(dichAutor.getDsPathEntryMenuFoglia());
-                            ammRuoliHelper.insertEntity(allineaRuolo, true);
-                        }
-                        // Il flag potrebbe essere di nuovo a true se ci sono incongruenze tra i csv di profilazione
-                        // delle
-                        // due applicazioni
-                        PrfVChkAllineaRuolo prfVChkAllineaRuolo = ammRuoliHelper
-                                .getPrfVChkAllineaRuolo(ruolo.getIdRuolo(), applic.getNmApplic());
-                        flAllineamentoParziale = prfVChkAllineaRuolo.getFlAllineamentoParziale().equals("1");
-                    } else {
-                        flAllineamentoParziale = true;
-                    }
-                }
-            }
-
-            // 13) se per il ruolo corrente la tabella PRF_ALLINEA_RUOLO e’ vuota
-            Long countAllineaRuolo = ammRuoliHelper.countPrfAllineaRuolo(ruolo.getIdRuolo());
-            if (flAllineamentoParziale && countAllineaRuolo == 0L) {
-                return false;
-            }
-        }
-        return true;
-    }
+    // public boolean checkToProcedeAlignRuoli(ListaApplic applics, String nmRuolo) {
+    // PrfRuolo ruolo = ammRuoliHelper.getPrfRuolo(nmRuolo);
+    //
+    // if (ruolo != null) {
+    // // Elimina i record relativi al ruolo creati in precedenza
+    // ammRuoliHelper.deletePrfAllineaRuolo(ruolo.getIdRuolo(), null);
+    //
+    // boolean flAllineamentoParziale = false;
+    // PrfUsoRuoloApplic usoRuolo = null;
+    // if (ruolo.getPrfAllineaRuolos() == null) {
+    // ruolo.setPrfAllineaRuolos(new ArrayList<PrfAllineaRuolo>());
+    // }
+    //
+    // for (Applic applic : applics) {
+    // // Verifica la presenza dell'applicazione
+    // RispostaControlli verificaApplicazione = controlliWs.verificaApplicazione(applic.getNmApplic());
+    // if (verificaApplicazione.isrBoolean()) {
+    // AplApplic applicDb = (AplApplic) verificaApplicazione.getrObject();
+    // if (applicDb.getCdVersioneComp().equalsIgnoreCase(applic.getCdVersioneComp())) {
+    // // Verifica la presenza della relazione Applicazione-Ruolo (PrfUsoRuoloApplic)
+    // usoRuolo = ammRuoliHelper.getPrfUsoRuoloApplic(ruolo.getIdRuolo(), applicDb.getIdApplic());
+    // if (usoRuolo == null) {
+    // usoRuolo = new PrfUsoRuoloApplic();
+    // usoRuolo.setAplApplic(applicDb);
+    // usoRuolo.setPrfRuolo(ammRuoliHelper.findById(PrfRuolo.class, ruolo.getIdRuolo()));
+    //
+    // ammRuoliHelper.insertEntity(usoRuolo, true);
+    // }
+    // // Si appoggia sulla tabella PrfAllineaRuolo per ottenere le dichiarazioni da eliminare e creare
+    // for (DichAutor dichAutor : applic.getListaDichAutor()) {
+    // PrfAllineaRuolo allineaRuolo = new PrfAllineaRuolo();
+    // allineaRuolo.setPrfRuolo(ruolo);
+    // allineaRuolo.setNmApplic(applic.getNmApplic());
+    // allineaRuolo.setNmAzionePagina(dichAutor.getNmAzionePagina());
+    // allineaRuolo.setNmPaginaWeb(dichAutor.getNmPaginaWeb());
+    // allineaRuolo.setNmServizioWeb(dichAutor.getNmServizioWeb());
+    // allineaRuolo.setTiDichAutor(dichAutor.getTiDichAutor());
+    // allineaRuolo.setTiScopoDichAutor(dichAutor.getTiScopoDichAutor());
+    // allineaRuolo.setDsPathEntryMenuPadre(dichAutor.getDsPathEntryMenuPadre());
+    // allineaRuolo.setDsPathEntryMenuFoglia(dichAutor.getDsPathEntryMenuFoglia());
+    // ammRuoliHelper.insertEntity(allineaRuolo, true);
+    // }
+    // // Il flag potrebbe essere di nuovo a true se ci sono incongruenze tra i csv di profilazione
+    // // delle
+    // // due applicazioni
+    // PrfVChkAllineaRuolo prfVChkAllineaRuolo = ammRuoliHelper
+    // .getPrfVChkAllineaRuolo(ruolo.getIdRuolo(), applic.getNmApplic());
+    // flAllineamentoParziale = prfVChkAllineaRuolo.getFlAllineamentoParziale().equals("1");
+    // } else {
+    // flAllineamentoParziale = true;
+    // }
+    // }
+    // }
+    //
+    // // 13) se per il ruolo corrente la tabella PRF_ALLINEA_RUOLO e’ vuota
+    // Long countAllineaRuolo = ammRuoliHelper.countPrfAllineaRuolo(ruolo.getIdRuolo());
+    // if (flAllineamentoParziale && countAllineaRuolo == 0L) {
+    // return false;
+    // }
+    // }
+    // return true;
+    // }
 }
