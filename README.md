@@ -108,104 +108,152 @@ L'accordo/convenzione contiene le informazioni relative a decorrenze, scadenze, 
 
 # Librerie utilizzate
 
-|  GroupId | ArtifactId  | Version  | Type   |  Licenses |
-|---|---|---|---|---|
-|commons-beanutils|commons-beanutils|1.9.4|jar|Apache License, Version 2.0|
-|commons-codec|commons-codec|1.15.0.redhat-00001|jar|Apache License, Version 2.0|
-|commons-collections|commons-collections|3.2.2|jar|Apache License, Version 2.0|
-|commons-fileupload|commons-fileupload|1.5|jar|Apache-2.0|
-|commons-io|commons-io|2.12.0|jar|Apache-2.0|
-|it.eng.parer|saceriam-jboss-ejb|4.18.0|ejb|-|
-|it.eng.parer|saceriam-jboss-jpa|4.18.0|jar|-|
-|it.eng.parer|saceriam-jboss-slg|4.18.0|jar|-|
-|it.eng.parer|saceriam-jboss-web|4.18.0|war|-|
-|it.eng.parer|spagofat-core|4.11.0|jar|-|
-|it.eng.parer|spagofat-middle|4.11.0|jar|-|
-|it.eng.parer|spagofat-paginator-ejb|4.11.0|ejb|-|
-|it.eng.parer|spagofat-sl-ejb|4.11.0|ejb|-|
-|it.eng.parer|spagofat-sl-slg|4.11.0|jar|-|
-|org.springframework.security.extensions|spring-security-saml2-core|1.0.10.RELEASE|jar|The Apache Software License, Version 2.0|
-|xalan|xalan|2.7.2|jar|The Apache Software License, Version 2.0|
-|xml-resolver|xml-resolver|1.2.0.redhat-10|jar|The Apache Software License, Version 2.0|
-|antlr|antlr|2.7.7.redhat-7|jar|BSD License|
-|aopalliance|aopalliance|1.0|jar|Public Domain|
-||com.fasterxml|classmate|1.5.1.redhat-00001|jar|Apache License, Version 2.0|
-|com.fasterxml.jackson.core|jackson-annotations|2.12.7.redhat-00003|jar|The Apache Software License, Version 2.0|
-|com.fasterxml.jackson.core|jackson-core|2.12.7.redhat-00003|jar|The Apache Software License, Version 2.0|
-|com.fasterxml.jackson.core|jackson-databind|2.12.7.redhat-00003|jar|The Apache Software License, Version 2.0|
-|com.io7m.xom|xom|1.2.10|jar|The GNU Lesser General Public License, Version 2.1|
-|com.narupley|not-going-to-be-commons-ssl|0.3.20|jar|The Apache License, Version 2.0|
-|com.sun.activation|jakarta.activation|1.2.2.redhat-00001|jar|EDL 1.0|
-|com.sun.istack|istack-commons-runtime|3.0.10.redhat-00001|jar|Eclipse Distribution License - v 1.0|
-|com.zaxxer|SparseBitSet|1.2|jar|The Apache Software License, Version 2.0|
-|commons-httpclient|commons-httpclient|3.1|jar|-|
-|commons-logging|commons-logging|1.2|jar|The Apache Software License, Version 2.0|
-|commons-net|commons-net|3.9.0|jar|Apache License, Version 2.0|
-|it.eng.parer|idp-jaas-rdbms|0.0.9|jar|-|
-|it.eng.parer|spagofat-paginator-gf|4.11.0|jar|-|
-|it.eng.parer|spagofat-si-client|4.11.0|jar|-|
-|it.eng.parer|spagofat-si-util|4.11.0|jar|-|
-|it.eng.parer|spagofat-sl-jpa|4.11.0|jar|-|
-|it.eng.parer|spagofat-timer-wrapper-common|4.11.0|jar|-|
-|it.eng.parer|spagofat-timer-wrapper-ejb|4.11.0|ejb|-|
-|jakarta.xml.bind|jakarta.xml.bind-api|2.3.2|jar|Eclipse Distribution License - v 1.0|
-|joda-time|joda-time|2.12.5|jar|Apache License, Version 2.0|
-|net.bytebuddy|byte-buddy|1.11.12.redhat-00002|jar|Apache License, Version 2.0|
-|net.sourceforge.javacsv|javacsv|2.0|jar|GNU Library or Lesser General Public License|
-|org.apache-extras.beanshell|bsh|2.0b6|jar|Apache License, Version 2.0|
-|org.apache.commons|commons-collections4|4.4|jar|Apache License, Version 2.0|
-|org.apache.commons|commons-lang3|3.8.1|jar|Apache License, Version 2.0|
-|org.apache.commons|commons-math3|3.6.1|jar|Apache License, Version 2.0|
-|org.apache.commons|commons-text|1.10.0|jar|Apache License, Version 2.0|
-|org.apache.httpcomponents|httpclient|4.5.13.redhat-00001|jar|Apache License, Version 2.0|
-|org.apache.httpcomponents|httpcore|4.4.14.redhat-00001|jar|Apache License, Version 2.0|
-|org.apache.poi|poi|4.1.2|jar|Apache License, Version 2.0|
-|org.apache.santuario|xmlsec|2.2.3.redhat-00001|jar|Apache License, Version 2.0|
-|org.apache.tika|tika-core|2.8.0|jar|Apache-2.0|
-|org.apache.velocity|velocity-engine-core|2.0|jar|Apache License, Version 2.0|
-|org.apache.xmlbeans|xmlbeans|3.1.0|jar|The Apache Software License, Version 2.0|
-|org.bouncycastle|bcpkix-jdk15on|1.70|jar|Bouncy Castle Licence|
-|org.bouncycastle|bcprov-jdk15on|1.70|jar|Bouncy Castle Licence|
-|org.bouncycastle|bcutil-jdk15on|1.70|jar|Bouncy Castle Licence|
-|org.codehaus.jettison|jettison|1.5.2.redhat-00002|jar|Apache License, Version 2.0|
-|org.dom4j|dom4j|2.1.3.redhat-00001|jar|BSD 3-clause New License|
-|org.glassfish.jaxb|jaxb-runtime|2.3.3.b02-redhat-00002|jar|Eclipse Distribution License - v 1.0|
-|org.glassfish.jaxb|txw2|2.3.3.b02-redhat-00002|jar|Eclipse Distribution License - v 1.0|
-|org.hibernate|hibernate-core|5.3.29.Final-redhat-00001|jar|GNU Library General Public License v2.1 or later|
-|org.hibernate|hibernate-entitymanager|5.3.29.Final-redhat-00001|jar|GNU Library General Public License v2.1 or later|
-|org.hibernate|hibernate-jpamodelgen|5.3.29.Final-redhat-00001|jar|GNU Library General Public License v2.1 or later|
-|org.hibernate.common|hibernate-commons-annotations|5.0.5.Final-redhat-00002|jar|GNU Lesser General Public License v2.1 or later|
-|org.hibernate.validator|hibernate-validator|6.0.23.Final-redhat-00001|jar|Apache License 2.0|
-|org.javassist|javassist|3.27.0.GA-redhat-00001|jar|MPL 1.1LGPL 2.1Apache License 2.0|
-|org.jboss|jandex|2.4.2.Final-redhat-00001|jar|Apache License, Version 2.0|
-|org.jboss.logging|jboss-logging|3.4.1.Final-redhat-00001|jar|Apache License, version 2.0|
-|org.keycloak|keycloak-adapter-core|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-adapter-spi|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-authz-client|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-common|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-core|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-crypto-default|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-policy-enforcer|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-server-spi|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-server-spi-private|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-servlet-adapter-spi|21.1.1|jar|Apache License, Version 2.0|
-|org.keycloak|keycloak-servlet-filter-adapter|21.1.1|jar|Apache License, Version 2.0|
-|org.opensaml|opensaml|2.6.6|jar|The Apache Software License, Version 2.0|
-|org.opensaml|openws|1.5.6|jar|The Apache Software License, Version 2.0|
-|org.opensaml|xmltooling|1.4.6|jar|The Apache Software License, Version 2.0|
-|org.owasp.esapi|esapi|2.2.0.0|jar|BSDCreative Commons 3.0 BY-SA|
-|org.slf4j|slf4j-api|1.7.22.redhat-2|jar|MIT License|
-|org.springframework|spring-aop|4.3.30.RELEASE|jar|Apache License, Version 2.0|
-|org.springframework|spring-beans|4.3.30.RELEASE|jar|Apache License, Version 2.0|
-|org.springframework|spring-context|4.3.30.RELEASE|jar|Apache License, Version 2.0|
-|org.springframework|spring-core|4.3.30.RELEASE|jar|Apache License, Version 2.0|
-|org.springframework|spring-expression|4.3.30.RELEASE|jar|Apache License, Version 2.0|
-|org.springframework|spring-web|4.3.30.RELEASE|jar|Apache License, Version 2.0|
-|org.springframework|spring-webmvc|4.3.30.RELEASE|jar|Apache License, Version 2.0|
-|org.springframework.security|spring-security-config|4.2.20.RELEASE|jar|The Apache Software License, Version 2.0|
-|org.springframework.security|spring-security-core|4.2.20.RELEASE|jar|The Apache Software License, Version 2.0|
-|org.springframework.security|spring-security-web|4.2.20.RELEASE|jar|The Apache Software License, Version 2.0|
-|xalan|serializer|2.7.2|jar|The Apache Software License, Version 2.0|
+
+|  GroupId | ArtifactId  | Version |
+|:---:|:---:|:---:|
+|none|||
+|antlr|antlr|2.7.7.redhat-7|
+|com.fasterxml.jackson.core|jackson-annotations|2.12.7.redhat-00003|
+|com.fasterxml.jackson.core|jackson-core|2.12.7.redhat-00003|
+|com.fasterxml.jackson.core|jackson-databind|2.12.7.redhat-00003|
+|com.fasterxml.woodstox|woodstox-core|6.4.0.redhat-00001|
+|com.fasterxml|classmate|1.5.1.redhat-00001|
+|com.io7m.xom|xom|1.2.10|
+|com.narupley|not-going-to-be-commons-ssl|0.3.20|
+|com.sun.activation|jakarta.activation|1.2.2.redhat-00001|
+|com.sun.istack|istack-commons-runtime|3.0.10.redhat-00001|
+|com.sun.mail|jakarta.mail|1.6.7.redhat-00001|
+|com.zaxxer|SparseBitSet|1.2|
+|commons-beanutils|commons-beanutils|1.9.4|
+|commons-codec|commons-codec|1.15.0.redhat-00001|
+|commons-fileupload|commons-fileupload|1.5|
+|commons-io|commons-io|2.12.0|
+|commons-logging|commons-logging|1.2|
+|commons-net|commons-net|3.9.0|
+|it.eng.parer|spagofat-core|5.14.0|
+|it.eng.parer|spagofat-middle|5.14.0|
+|it.eng.parer|spagofat-paginator-ejb|5.14.0|
+|it.eng.parer|spagofat-paginator-gf|5.14.0|
+|it.eng.parer|spagofat-sl-jpa|5.14.0|
+|it.eng.parer|spagofat-timer-wrapper-common|5.14.0|
+|jakarta.enterprise|jakarta.enterprise.cdi-api|2.0.2.redhat-00002|
+|jakarta.inject|jakarta.inject-api|1.0.3.redhat-00001|
+|jakarta.json.bind|jakarta.json.bind-api|1.0.2.redhat-00001|
+|jakarta.json|jakarta.json-api|1.1.6.redhat-00001|
+|jakarta.persistence|jakarta.persistence-api|2.2.3.redhat-00001|
+|jakarta.security.enterprise|jakarta.security.enterprise-api|1.0.2.redhat-00001|
+|jakarta.validation|jakarta.validation-api|2.0.2.redhat-00001|
+|jakarta.xml.bind|jakarta.xml.bind-api|2.3.2|
+|javax.jws|jsr181-api|1.0.0.MR1-redhat-8|
+|javax.xml.bind|jaxb-api|2.4.0-b180830.0359|
+|joda-time|joda-time|2.12.5|
+|junit|junit|4.13.2|
+|net.bytebuddy|byte-buddy|1.11.12.redhat-00002|
+|org.apache-extras.beanshell|bsh|2.0b6|
+|org.apache.commons|commons-collections4|4.4|
+|org.apache.commons|commons-lang3|3.8.1|
+|org.apache.commons|commons-math3|3.6.1|
+|org.apache.commons|commons-text|1.10.0|
+|org.apache.httpcomponents|httpclient|4.5.13.redhat-00001|
+|org.apache.httpcomponents|httpcore|4.4.14.redhat-00001|
+|org.apache.logging.log4j|log4j-api|2.18.0|
+|org.apache.poi|poi|5.2.3|
+|org.apache.santuario|xmlsec|2.2.3.redhat-00001|
+|org.apache.taglibs|taglibs-standard-impl|1.2.6.RC1-redhat-1|
+|org.apache.taglibs|taglibs-standard-spec|1.2.6.RC1-redhat-1|
+|org.apache.velocity|velocity-engine-core|2.0|
+|org.apache.xmlbeans|xmlbeans|3.1.0|
+|org.bouncycastle|bcpkix-jdk15on|1.70|
+|org.bouncycastle|bcprov-jdk15on|1.70|
+|org.bouncycastle|bcutil-jdk15on|1.70|
+|org.codehaus.jettison|jettison|1.5.2.redhat-00002|
+|org.codehaus.woodstox|stax2-api|4.2.1.redhat-00001|
+|org.dom4j|dom4j|2.1.3.redhat-00001|
+|org.glassfish.jaxb|jaxb-runtime|2.3.3.b02-redhat-00002|
+|org.glassfish.jaxb|txw2|2.3.3.b02-redhat-00002|
+|org.hamcrest|hamcrest-core|1.3|
+|org.hibernate.common|hibernate-commons-annotations|5.0.5.Final-redhat-00002|
+|org.hibernate.validator|hibernate-validator|6.0.23.Final-redhat-00001|
+|org.hibernate|hibernate-core|5.3.29.Final-redhat-00001|
+|org.hibernate|hibernate-entitymanager|5.3.29.Final-redhat-00001|
+|org.hibernate|hibernate-jpamodelgen|5.3.29.Final-redhat-00001|
+|org.javassist|javassist|3.27.0.GA-redhat-00001|
+|org.jboss.logging|jboss-logging|3.4.1.Final-redhat-00001|
+|org.jboss.spec.javax.annotation|jboss-annotations-api_1.3_spec|2.0.1.Final-redhat-00001|
+|org.jboss.spec.javax.batch|jboss-batch-api_1.0_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.ejb|jboss-ejb-api_3.2_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.el|jboss-el-api_3.0_spec|2.0.1.Final-redhat-00001|
+|org.jboss.spec.javax.enterprise.concurrent|jboss-concurrency-api_1.0_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.faces|jboss-jsf-api_2.3_spec|3.0.0.SP07-redhat-00001|
+|org.jboss.spec.javax.interceptor|jboss-interceptors-api_1.2_spec|2.0.0.Final-redhat-00002|
+|org.jboss.spec.javax.jms|jboss-jms-api_2.0_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.management.j2ee|jboss-j2eemgmt-api_1.1_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.resource|jboss-connector-api_1.7_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.security.auth.message|jboss-jaspi-api_1.1_spec|2.0.1.Final-redhat-00001|
+|org.jboss.spec.javax.security.jacc|jboss-jacc-api_1.5_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.servlet.jsp|jboss-jsp-api_2.3_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.servlet|jboss-servlet-api_4.0_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.transaction|jboss-transaction-api_1.3_spec|2.0.0.Final-redhat-00005|
+|org.jboss.spec.javax.websocket|jboss-websocket-api_1.1_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec.javax.ws.rs|jboss-jaxrs-api_2.1_spec|2.0.1.Final-redhat-00001|
+|org.jboss.spec.javax.xml.bind|jboss-jaxb-api_2.3_spec|2.0.1.Final-redhat-00001|
+|org.jboss.spec.javax.xml.soap|jboss-saaj-api_1.4_spec|1.0.2.Final-redhat-00002|
+|org.jboss.spec.javax.xml.ws|jboss-jaxws-api_2.3_spec|2.0.0.Final-redhat-00001|
+|org.jboss.spec|jboss-jakartaee-8.0|1.0.1.Final-redhat-00007|
+|org.jboss|jandex|2.4.2.Final-redhat-00001|
+|org.jboss|jboss-vfs|3.2.15.Final-redhat-00001|
+|org.keycloak|keycloak-adapter-core|21.1.1|
+|org.keycloak|keycloak-adapter-spi|21.1.1|
+|org.keycloak|keycloak-authz-client|21.1.1|
+|org.keycloak|keycloak-common|21.1.1|
+|org.keycloak|keycloak-core|21.1.1|
+|org.keycloak|keycloak-crypto-default|21.1.1|
+|org.keycloak|keycloak-policy-enforcer|21.1.1|
+|org.keycloak|keycloak-server-spi-private|21.1.1|
+|org.keycloak|keycloak-server-spi|21.1.1|
+|org.keycloak|keycloak-servlet-adapter-spi|21.1.1|
+|org.keycloak|keycloak-servlet-filter-adapter|21.1.1|
+|org.opensaml|opensaml|2.6.6|
+|org.opensaml|openws|1.5.6|
+|org.opensaml|xmltooling|1.4.6|
+|org.owasp.esapi|esapi|2.2.0.0|
+|org.slf4j|slf4j-api|1.7.22.redhat-2|
+|org.springframework.security.extensions|spring-security-saml2-core|1.0.10.RELEASE|
+|org.springframework.security|spring-security-config|5.8.8|
+|org.springframework.security|spring-security-core|5.8.8|
+|org.springframework.security|spring-security-crypto|5.8.8|
+|org.springframework.security|spring-security-web|5.8.8|
+|org.springframework|spring-aop|5.3.30|
+|org.springframework|spring-beans|5.3.30|
+|org.springframework|spring-context|5.3.30|
+|org.springframework|spring-core|5.3.30|
+|org.springframework|spring-expression|5.3.30|
+|org.springframework|spring-jcl|5.3.30|
+|org.springframework|spring-web|5.3.30|
+|org.springframework|spring-webmvc|5.3.30|
+|xml-apis|xml-apis|1.4.01|
+
+
+## Lista licenze in uso
+
+
+ * agpl_v3     : GNU Affero General Public License (AGPL) version 3.0
+ * apache_v2   : Apache License version 2.0
+ * bsd_2       : BSD 2-Clause License
+ * bsd_3       : BSD 3-Clause License
+ * cddl_v1     : COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
+ * epl_only_v1 : Eclipse Public License - v 1.0
+ * epl_only_v2 : Eclipse Public License - v 2.0
+ * epl_v1      : Eclipse Public + Distribution License - v 1.0
+ * epl_v2      : Eclipse Public License - v 2.0 with Secondary License
+ * eupl_v1_1   : European Union Public License v1.1
+ * fdl_v1_3    : GNU Free Documentation License (FDL) version 1.3
+ * gpl_v1      : GNU General Public License (GPL) version 1.0
+ * gpl_v2      : GNU General Public License (GPL) version 2.0
+ * gpl_v3      : GNU General Public License (GPL) version 3.0
+ * lgpl_v2_1   : GNU General Lesser Public License (LGPL) version 2.1
+ * lgpl_v3     : GNU General Lesser Public License (LGPL) version 3.0
+ * mit         : MIT-License
 
 # Supporto
 
