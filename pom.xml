@@ -6,7 +6,6 @@
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
-    <url>https://nexus.ente.regione.emr.it/repository/parer-site/saceriam/${project.version}/</url>
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>parer-pom</artifactId>
@@ -26,11 +25,19 @@
     </properties>
     
     <distributionManagement>
-        <site>
-            <id>site</id>
-            <url>dav:https://nexus.ente.regione.emr.it/repository/parer-site/saceriam/${project.version}</url>
-        </site>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
+        </repository>      
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
+        </repository>          
+     </repositories>
+
     
     <modules>
         <module>SacerIam-ear</module>
@@ -216,7 +223,7 @@
     
 	
     <scm>
-        <developerConnection>scm:git:git@gitlab.ente.regione.emr.it:parer/jboss/sacer-iam.git</developerConnection>
-        <tag>saceriam-jboss-6.0.0</tag>
+        <developerConnection>scm:git:https://github.com/RegioneER/parer.sacer.iam.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 </project>
