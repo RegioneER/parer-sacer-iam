@@ -4046,6 +4046,113 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         return params;
     }
 
+    // MEV #32361
+    /**
+     * Metodo che ritorna i parametri di configurazione
+     *
+     * @param tiParamApplic
+     *            tipo parametro applicativo
+     * @param tiGestioneParam
+     *            tipo gestione parametro
+     * @param flAppartApplic
+     *            flag appartenenza applicativo 1/0 (true/false)
+     * @param flApparteEnte
+     *            flag appartenenza ente 1/0 (true/false)
+     * @param flAppartAmbiente
+     *            flag appartenenza ambiente 1/0 (true/false)
+     * @param filterValid
+     *            flag per mostrare o meno i parametri cessati
+     *
+     * @return lista elementi di tipo {@link IamParamApplic}
+     */
+    public List<IamParamApplic> getIamParamApplicList(String tiParamApplic, String tiGestioneParam,
+            String flAppartApplic, String flAppartAmbiente, String flApparteEnte, boolean filterValid) {
+        StringBuilder queryStr = new StringBuilder("SELECT paramApplic FROM IamParamApplic paramApplic ");
+        String whereWord = " WHERE ";
+        if (tiParamApplic != null) {
+            queryStr.append(whereWord).append("paramApplic.tiParamApplic = :tiParamApplic ");
+            whereWord = "AND ";
+        }
+        if (tiGestioneParam != null) {
+            queryStr.append(whereWord).append("paramApplic.tiGestioneParam = :tiGestioneParam ");
+            whereWord = "AND ";
+        }
+        if (flAppartApplic != null) {
+            queryStr.append(whereWord).append("paramApplic.flAppartApplic = :flAppartApplic ");
+            whereWord = "AND ";
+        }
+        if (flAppartAmbiente != null) {
+            queryStr.append(whereWord).append("paramApplic.flAppartAmbiente = :flAppartAmbiente ");
+            whereWord = "AND ";
+        }
+        if (flApparteEnte != null) {
+            queryStr.append(whereWord).append("paramApplic.flApparteEnte = :flApparteEnte ");
+            whereWord = "AND ";
+        }
+        if (filterValid) {
+            queryStr.append(whereWord).append("paramApplic.cdVersioneAppFine IS NULL ");
+        }
+        queryStr.append("ORDER BY paramApplic.tiParamApplic, paramApplic.nmParamApplic ");
+        Query q = getEntityManager().createQuery(queryStr.toString());
+        if (tiParamApplic != null) {
+            q.setParameter("tiParamApplic", tiParamApplic);
+        }
+        if (tiGestioneParam != null) {
+            q.setParameter("tiGestioneParam", tiGestioneParam);
+        }
+        if (flAppartApplic != null) {
+            q.setParameter("flAppartApplic", flAppartApplic);
+        }
+        if (flAppartAmbiente != null) {
+            q.setParameter("flAppartAmbiente", flAppartAmbiente);
+        }
+        if (flApparteEnte != null) {
+            q.setParameter("flApparteEnte", flApparteEnte);
+        }
+        List<IamParamApplic> params = (List<IamParamApplic>) q.getResultList();
+        return params;
+    }
+
+    public List<IamParamApplic> getIamParamApplicListAmbiente(String tiGestioneParam, boolean filterValid) {
+        String queryStr = "SELECT paramApplic FROM IamParamApplic paramApplic WHERE paramApplic.flAppartAmbiente = '1' ";
+        if (tiGestioneParam != null) {
+            queryStr = queryStr + "AND paramApplic.tiGestioneParam = :tiGestioneParam ";
+        }
+        if (filterValid) {
+            queryStr = queryStr + "AND paramApplic.cdVersioneAppFine IS NULL ";
+        }
+
+        queryStr = queryStr + "ORDER BY paramApplic.tiParamApplic, paramApplic.nmParamApplic";
+
+        Query q = getEntityManager().createQuery(queryStr);
+        if (tiGestioneParam != null) {
+            q.setParameter("tiGestioneParam", tiGestioneParam);
+        }
+        List<IamParamApplic> lista = q.getResultList();
+        return lista;
+    }
+
+    public List<IamParamApplic> getIamParamApplicListEnte(String tiGestioneParam, boolean filterValid) {
+        String queryStr = "SELECT paramApplic FROM IamParamApplic paramApplic WHERE paramApplic.flApparteEnte = '1' ";
+        if (tiGestioneParam != null) {
+            queryStr = queryStr + "AND paramApplic.tiGestioneParam = :tiGestioneParam ";
+        }
+        if (filterValid) {
+            queryStr = queryStr + "AND paramApplic.cdVersioneAppFine IS NULL ";
+        }
+
+        queryStr = queryStr + "ORDER BY paramApplic.tiParamApplic, paramApplic.nmParamApplic";
+
+        Query q = getEntityManager().createQuery(queryStr);
+        if (tiGestioneParam != null) {
+            q.setParameter("tiGestioneParam", tiGestioneParam);
+        }
+        List<IamParamApplic> lista = q.getResultList();
+        return lista;
+    }
+
+    // end MEV #32361
+
     public boolean existsIamValoreParamApplic(long idParamApplic, String tiAppart) {
         Query q = getEntityManager().createQuery("SELECT 1 FROM IamValoreParamApplic valoreParamApplic "
                 + "WHERE valoreParamApplic.iamParamApplic.idParamApplic = :idParamApplic "
@@ -4744,14 +4851,14 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             Date dtFineValidAccordoA, Date dtDecAccordoInfoDa, Date dtDecAccordoInfoA, Date dtScadAccordoDa,
             Date dtScadAccordoA, String flRecesso, List<BigDecimal> idTipoGestioneAccordo,
             String flEsisteNotaFatturazione, String flEsistonoSae, Date saeDa, Date saeA, String flEsistonoSue,
-            Date sueDa, Date sueA, String flFasciaManuale) {
+            Date sueDa, Date sueA, String flFasciaManuale, String tiStatoAccordo) {
         StringBuilder queryStr = new StringBuilder(
                 "SELECT DISTINCT new it.eng.saceriam.viewEntity.OrgVRicAccordoEnte (ente.idAmbienteEnteConvenz, ente.idEnteConvenz, ente.idAccordoEnte, "
                         + "ente.nmAmbienteEnteConvenz, ente.nmEnteConvenz, "
                         + "ente.cdRegistroRepertorio, ente.aaRepertorio, ente.cdKeyRepertorio, "
                         + "ente.idTipoAccordo, ente.cdTipoAccordo, ente.dtDecAccordo, ente.dtFineValidAccordo, ente.dtDecAccordoInfo, ente.dtScadAccordo, "
                         + "ente.flRecesso, ente.flEsistonoGestAcc,  ente.idTipoGestioneAccordo, ente.cdTipoGestioneAccordo, ente.flEsisteNotaFatturazione, ente.dsNotaFatturazione, "
-                        + "ente.flFasciaManuale, ente.flEsistonoSae, ente.flEsistonoSue, ente.tiFasciaStandard, ente.tiFasciaManuale ) FROM OrgVRicAccordoEnte ente ");
+                        + "ente.flFasciaManuale, ente.flEsistonoSae, ente.flEsistonoSue, ente.tiFasciaStandard, ente.tiFasciaManuale, ente.tiStatoAccordo ) FROM OrgVRicAccordoEnte ente ");
 
         String clause = " WHERE ";
 
@@ -4852,6 +4959,20 @@ public class EntiConvenzionatiHelper extends GenericHelper {
             clause = " AND ";
         }
 
+        if (StringUtils.isNotBlank(tiStatoAccordo)) {
+            // MAC#22374
+            if (tiStatoAccordo.equals("Accordo valido")) {
+                queryStr.append(clause).append("UPPER(ente.tiStatoAccordo) like :tiStatoAccordo");
+            } else if (tiStatoAccordo.equals("Accordo non valido")) {
+                queryStr.append(clause).append(
+                        "(UPPER(ente.tiStatoAccordo) like :tiStatoAccordo OR UPPER(ente.tiStatoAccordo) = 'ACCORDO IN CORSO DI STIPULA')");
+            } else {
+                queryStr.append(clause).append("UPPER(ente.tiStatoAccordo) = :tiStatoAccordo");
+            }
+            // end MAC#22374
+            clause = " AND ";
+        }
+
         queryStr.append(" ORDER BY ente.nmEnteConvenz");
         Query query = getEntityManager().createQuery(queryStr.toString());
 
@@ -4924,6 +5045,16 @@ public class EntiConvenzionatiHelper extends GenericHelper {
 
         if (StringUtils.isNotBlank(flFasciaManuale)) {
             query.setParameter("flFasciaManuale", flFasciaManuale);
+        }
+
+        if (StringUtils.isNotBlank(tiStatoAccordo)) {
+            // MAC#22374
+            if (tiStatoAccordo.equals("Accordo valido") || tiStatoAccordo.equals("Accordo non valido")) {
+                query.setParameter("tiStatoAccordo", tiStatoAccordo.toUpperCase() + "%");
+            } else {
+                query.setParameter("tiStatoAccordo", tiStatoAccordo.toUpperCase());
+            }
+            // end MAC#22374
         }
 
         List<OrgVRicAccordoEnte> list = query.getResultList();
@@ -5023,68 +5154,69 @@ public class EntiConvenzionatiHelper extends GenericHelper {
 
         String clause = " AND ";
         if (StringUtils.isNotBlank(nmEnteConvenz)) {
-            queryStr.append(clause).append("UPPER(ente.nm_Ente_siam) LIKE ?1");
+            queryStr.append(clause).append("UPPER(ente.nm_Ente_siam) LIKE :nmEnteConvenz");
             clause = " AND ";
         }
         if (idTipoAccordo != null) {
-            queryStr.append(clause).append("acc.id_Tipo_Accordo = ?3");
+            queryStr.append(clause).append("acc.id_Tipo_Accordo = :idTipoAccordo");
             clause = " AND ";
         }
         if (idTipoServizio != null) {
-            queryStr.append(clause).append("ti_serv.id_Tipo_Servizio = ?4");
+            queryStr.append(clause).append("ti_serv.id_Tipo_Servizio = :idTipoServizio");
             clause = " AND ";
         }
 
         if (aaFatturaDa != null && aaFatturaA == null) {
-            queryStr.append(clause).append("fatt.aa_Fattura >= ?5");
+            queryStr.append(clause).append("fatt.aa_Fattura >= :aaFatturaDa");
             clause = " AND ";
         } else if (aaFatturaDa == null && aaFatturaA != null) {
-            queryStr.append(clause).append("fatt.aa_Fattura <= ?6");
+            queryStr.append(clause).append("fatt.aa_Fattura <= :aaFatturaA");
             clause = " AND ";
         } else if (aaFatturaDa != null && aaFatturaA != null) {
-            queryStr.append(clause).append("(fatt.aa_Fattura >= ?5 AND fatt.aa_Fattura <= ?6)");
+            queryStr.append(clause).append("(fatt.aa_Fattura >= :aaFatturaDa AND fatt.aa_Fattura <= :aaFatturaA)");
             clause = " AND ";
         }
 
         if (pgFatturaEnteDa != null && pgFatturaEnteA == null) {
-            queryStr.append(clause).append("fatt.pg_Fattura>= ?7");
+            queryStr.append(clause).append("fatt.pg_Fattura>= :pgFatturaEnteDa");
             clause = " AND ";
         } else if (pgFatturaEnteDa == null && pgFatturaEnteA != null) {
-            queryStr.append(clause).append("fatt.pg_Fattura<= ?8");
+            queryStr.append(clause).append("fatt.pg_Fattura<= :pgFatturaEnteA");
             clause = " AND ";
         } else if (pgFatturaEnteDa != null && pgFatturaEnteA != null) {
-            queryStr.append(clause).append("(fatt.pg_Fattura>= ?7 AND fatt.pg_Fattura<= ?8)");
+            queryStr.append(clause)
+                    .append("(fatt.pg_Fattura>= :pgFatturaEnteDa AND fatt.pg_Fattura<= :pgFatturaEnteA)");
             clause = " AND ";
         }
         if (StringUtils.isNotBlank(cdFattura)) {
-            queryStr.append(clause).append("fatt.cd_Fattura = ?9");
+            queryStr.append(clause).append("fatt.cd_Fattura = :cdFattura");
             clause = " AND ";
         }
         if (StringUtils.isNotBlank(cdRegistroEmisFattura)) {
-            queryStr.append(clause).append("UPPER(fatt.cd_Registro_Emis_Fattura) LIKE ?10");
+            queryStr.append(clause).append("UPPER(fatt.cd_Registro_Emis_Fattura) LIKE :cdRegistroEmisFattura");
             clause = " AND ";
         }
         if (aaEmissFattura != null) {
-            queryStr.append(clause).append("fatt.aa_Emiss_Fattura = ?11");
+            queryStr.append(clause).append("fatt.aa_Emiss_Fattura = :aaEmissFattura");
             clause = " AND ";
         }
         if (StringUtils.isNotBlank(cdEmisFattura)) {
-            queryStr.append(clause).append("UPPER(fatt.cd_Emis_Fattura) LIKE ?12");
+            queryStr.append(clause).append("UPPER(fatt.cd_Emis_Fattura) LIKE :cdEmisFattura");
             clause = " AND ";
         }
         if (pgFatturaEmis != null) {
-            queryStr.append(clause).append("fatt.pg_Fattura = ?13");
+            queryStr.append(clause).append("fatt.pg_Fattura = :pgFatturaEmis");
             clause = " AND ";
         }
 
         if (dtEmisFatturaDa != null && dtEmisFatturaA == null) {
-            queryStr.append(clause).append("fatt.dt_Emis_Fattura >= ?14");
+            queryStr.append(clause).append("fatt.dt_Emis_Fattura >= :dtEmisFatturaDa");
             clause = " AND ";
         } else if (dtEmisFatturaDa == null && dtEmisFatturaA != null) {
-            queryStr.append(clause).append("(fatt.dt_Emis_Fattura <= ?15)");
+            queryStr.append(clause).append("(fatt.dt_Emis_Fattura <= :dtEmisFatturaA)");
             clause = " AND ";
         } else if (dtEmisFatturaDa != null && dtEmisFatturaA != null) {
-            queryStr.append(clause).append("(fatt.dt_Emis_Fattura BETWEEN ?14 AND ?15)");
+            queryStr.append(clause).append("(fatt.dt_Emis_Fattura BETWEEN :dtEmisFatturaDa AND :dtEmisFatturaA)");
             clause = " AND ";
         }
 
@@ -5095,46 +5227,46 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         Query query = getEntityManager().createNativeQuery(queryStr.toString());
 
         if (StringUtils.isNotBlank(nmEnteConvenz)) {
-            query.setParameter(1, "%" + nmEnteConvenz.toUpperCase() + "%");
+            query.setParameter("nmEnteConvenz", "%" + nmEnteConvenz.toUpperCase() + "%");
         }
         if (idTipoAccordo != null) {
-            query.setParameter(3, idTipoAccordo);
+            query.setParameter("idTipoAccordo", idTipoAccordo);
         }
         if (idTipoServizio != null) {
-            query.setParameter(4, idTipoServizio);
+            query.setParameter("idTipoServizio", idTipoServizio);
         }
         if (aaFatturaDa != null) {
-            query.setParameter(5, aaFatturaDa);
+            query.setParameter("aaFatturaDa", aaFatturaDa);
         }
         if (aaFatturaA != null) {
-            query.setParameter(6, aaFatturaA);
+            query.setParameter("aaFatturaA", aaFatturaA);
         }
         if (pgFatturaEnteDa != null) {
-            query.setParameter(7, pgFatturaEnteDa);
+            query.setParameter("pgFatturaEnteDa", pgFatturaEnteDa);
         }
         if (pgFatturaEnteA != null) {
-            query.setParameter(8, pgFatturaEnteA);
+            query.setParameter("pgFatturaEnteA", pgFatturaEnteA);
         }
         if (StringUtils.isNotBlank(cdFattura)) {
-            query.setParameter(9, cdFattura);
+            query.setParameter("cdFattura", cdFattura);
         }
         if (StringUtils.isNotBlank(cdRegistroEmisFattura)) {
-            query.setParameter(10, "%" + cdRegistroEmisFattura.toUpperCase() + "%");
+            query.setParameter("cdRegistroEmisFattura", "%" + cdRegistroEmisFattura.toUpperCase() + "%");
         }
         if (aaEmissFattura != null) {
-            query.setParameter(11, aaEmissFattura);
+            query.setParameter("aaEmissFattura", aaEmissFattura);
         }
         if (StringUtils.isNotBlank(cdEmisFattura)) {
-            query.setParameter(12, "%" + cdEmisFattura.toUpperCase() + "%");
+            query.setParameter("cdEmisFattura", "%" + cdEmisFattura.toUpperCase() + "%");
         }
         if (pgFatturaEmis != null) {
-            query.setParameter(13, pgFatturaEmis);
+            query.setParameter("pgFatturaEmis", pgFatturaEmis);
         }
         if (dtEmisFatturaDa != null) {
-            query.setParameter(14, dtEmisFatturaDa);
+            query.setParameter("dtEmisFatturaDa", dtEmisFatturaDa);
         }
         if (dtEmisFatturaA != null) {
-            query.setParameter(15, dtEmisFatturaA);
+            query.setParameter("dtEmisFatturaA", dtEmisFatturaA);
         }
 
         List<Object[]> lista = (List<Object[]>) query.getResultList();

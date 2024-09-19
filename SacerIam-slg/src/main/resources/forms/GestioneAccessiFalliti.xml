@@ -4,7 +4,11 @@
     
     <Fields Name="FiltriAccessiFalliti" Description="Ricerca degli accessi" >
         <Input Type="DATE" Description="Data accesso da" Name="dt_evento_da"/>
-        <Input Type="DATE" Description="Data accesso a" Name="dt_evento_a"/>
+        <Input Type="INTEGER" Description="Orario" Name="ora_rif_da" Required="false"/>
+        <Input Type="INTEGER" Description="Orario" Name="min_rif_da" Required="false"/>
+        <Input Type="DATE" Description="Data accesso a" Name="dt_evento_a"/>    
+        <Input Type="INTEGER" Description="Orario" Name="ora_rif_a" Required="false"/>
+        <Input Type="INTEGER" Description="Orario" Name="min_rif_a" Required="false"/>
         <Input Type="STRING" Description="Username" Name="nm_userid"/>
         <ComboBox Type="STRING" Description="Tipo evento" Name="tipo_evento"/>
         <CheckBox Type="STRING" Description="Includi utenti automi" Name="incl_utenti_automi"/>

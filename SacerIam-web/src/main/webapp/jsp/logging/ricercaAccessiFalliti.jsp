@@ -11,8 +11,10 @@
             <sl:newLine skipLine="true"/>
             <sl:contentTitle title="<%= GestioneAccessiFallitiForm.AccessiFallitiList.DESCRIPTION%>" />
             <slf:fieldSet borderHidden="false">
-                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.DT_EVENTO_DA%>" colSpan="2" width="w20" />
-                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.DT_EVENTO_A%>" colSpan="2" width="w20" />
+                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.DT_EVENTO_DA%>" colSpan="1" width="w0" />
+                <slf:doubleLblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.ORA_RIF_DA%>" name2="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.MIN_RIF_DA%>" controlWidth="w20" controlWidth2="w20" labelWidth="w5" colSpan="1" />
+                <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.DT_EVENTO_A%>" colSpan="1" width="w0" />
+                <slf:doubleLblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.ORA_RIF_A%>" name2="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.MIN_RIF_A%>" controlWidth="w20" controlWidth2="w20" labelWidth="w5" colSpan="1" />
                 <sl:newLine />
                 <slf:lblField name="<%=GestioneAccessiFallitiForm.FiltriAccessiFalliti.NM_USERID%>" colSpan="2" width="w20" />
                 <sl:newLine />

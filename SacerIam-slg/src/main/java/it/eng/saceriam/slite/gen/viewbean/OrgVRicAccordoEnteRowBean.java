@@ -255,6 +255,14 @@ public class OrgVRicAccordoEnteRowBean extends BaseRow implements BaseRowInterfa
         setObject("ti_fascia_manuale", ti_fascia_manuale);
     }
 
+    public String getTiStatoAccordo() {
+        return getString("ti_stato_accordo");
+    }
+
+    public void setTiStatoAccordo(String ti_stato_accordo) {
+        setObject("ti_stato_accordo", ti_stato_accordo);
+    }
+
     @Override
     public void entityToRowBean(Object obj) {
         OrgVRicAccordoEnte entity = (OrgVRicAccordoEnte) obj;
@@ -292,6 +300,7 @@ public class OrgVRicAccordoEnteRowBean extends BaseRow implements BaseRowInterfa
         this.setFlFasciaManuale(entity.getFlFasciaManuale());
         this.setTiFasciaStandard(entity.getTiFasciaStandard());
         this.setTiFasciaManuale(entity.getTiFasciaManuale());
+        this.setTiStatoAccordo(entity.getTiStatoAccordo());
         // PERSONALIZZATO
         String registro = entity.getCdRegistroRepertorio();
         BigDecimal anno = entity.getAaRepertorio();
@@ -330,6 +339,7 @@ public class OrgVRicAccordoEnteRowBean extends BaseRow implements BaseRowInterfa
         entity.setFlEsistonoSue(this.getFlEsistonoSue());
         entity.setTiFasciaStandard(this.getTiFasciaStandard());
         entity.setTiFasciaManuale(this.getTiFasciaManuale());
+        entity.setTiStatoAccordo(this.getTiStatoAccordo());
         return entity;
     }
 

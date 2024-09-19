@@ -276,6 +276,10 @@ public class EntiConvenzionatiEjb {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EntiConvenzionatiEjb.class);
 
+    private static final String TI_GEST_PARAM_AMM = "amministrazione";
+    private static final String TI_GEST_PARAM_CONS = "conservazione";
+    private static final String TI_GEST_PARAM_GEST = "gestione";
+
     @EJB
     EntiConvenzionatiHelper helper;
     @EJB
@@ -9913,6 +9917,285 @@ public class EntiConvenzionatiEjb {
         return paramApplicTableBean;
     }
 
+    // MEV #32361
+    public IamParamApplicTableBean getIamParamApplicTableBean(String tiParamApplic, String tiGestioneParam,
+            String flAppartApplic, String flAppartAmbiente, String flApparteEnte, boolean filterValid) {
+        IamParamApplicTableBean paramApplicTableBean = new IamParamApplicTableBean();
+        List<IamParamApplic> paramApplicList = helper.getIamParamApplicList(tiParamApplic, tiGestioneParam,
+                flAppartApplic, flAppartAmbiente, flApparteEnte, filterValid);
+
+        try {
+            if (paramApplicList != null && !paramApplicList.isEmpty()) {
+                for (IamParamApplic paramApplic : paramApplicList) {
+                    IamParamApplicRowBean paramApplicRowBean = (IamParamApplicRowBean) Transform
+                            .entity2RowBean(paramApplic);
+                    paramApplicRowBean.setString("ds_valore_param_applic", "");
+                    for (IamValoreParamApplic valoreParamApplic : paramApplic.getIamValoreParamApplics()) {
+                        if (valoreParamApplic.getTiAppart().equals("APPLIC")) {
+                            paramApplicRowBean.setString("ds_valore_param_applic",
+                                    valoreParamApplic.getDsValoreParamApplic());
+                        }
+                    }
+                    paramApplicTableBean.add(paramApplicRowBean);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return paramApplicTableBean;
+    }
+
+    /**
+     * Restituisce un array di object con i tablebean dei parametri di amministrazione dell'ambiente ente convenzionato
+     *
+     * @param idAmbienteEnteConvenz
+     *            id ambiente ente convenzionato
+     * @param filterValid
+     *            visualizzare o meno i record parametri cessati
+     *
+     * @return il tablebean
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    public IamParamApplicTableBean getIamParamApplicAmministrazioneAmbiente(BigDecimal idAmbienteEnteConvenz,
+            boolean filterValid) throws ParerUserError {
+        IamParamApplicTableBean paramApplicAmministrazioneTableBean = new IamParamApplicTableBean();
+
+        // Ricavo la lista dei parametri di amministrazione definiti per l'AMBIENTE
+        List<IamParamApplic> paramApplicList = helper.getIamParamApplicListAmbiente(TI_GEST_PARAM_AMM, filterValid);
+        if (!paramApplicList.isEmpty()) {
+            try {
+                // Per ogni parametro, popolo i valori su applicazione e ambiente ricavandoli da
+                // IAM_VALORE_PARAM_APPLIC
+                for (IamParamApplic paramApplic : paramApplicList) {
+                    IamParamApplicRowBean paramApplicRowBean = (IamParamApplicRowBean) Transform
+                            .entity2RowBean(paramApplic);
+                    populateParamApplicAmbienteRowBean(paramApplicRowBean, idAmbienteEnteConvenz,
+                            paramApplic.getTiGestioneParam());
+                    paramApplicAmministrazioneTableBean.add(paramApplicRowBean);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException
+                    | NoSuchMethodException | InvocationTargetException e) {
+                LOGGER.error("Errore durante il recupero dei parametri di amministrazione sull'ambiente "
+                        + ExceptionUtils.getRootCauseMessage(e), e);
+                throw new ParerUserError("Errore durante il recupero dei parametri di amministrazione sull'ambiente ");
+            }
+        }
+        return paramApplicAmministrazioneTableBean;
+    }
+
+    /**
+     * Restituisce un array di object con i tablebean dei parametri di gestione dell'ambiente ente convenzionato
+     *
+     * @param idAmbienteEnteConvenz
+     *            id ambiente ente convenzionato
+     * @param filterValid
+     *            visualizzare o meno i record parametri cessati
+     *
+     * @return il tablebean
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    public IamParamApplicTableBean getIamParamApplicGestioneAmbiente(BigDecimal idAmbienteEnteConvenz,
+            boolean filterValid) throws ParerUserError {
+        IamParamApplicTableBean paramApplicGestioneTableBean = new IamParamApplicTableBean();
+
+        // Ricavo la lista dei parametri di gestione definiti per l'AMBIENTE
+        List<IamParamApplic> paramApplicList = helper.getIamParamApplicListAmbiente(TI_GEST_PARAM_GEST, filterValid);
+        if (!paramApplicList.isEmpty()) {
+            try {
+                // Per ogni parametro, popolo i valori su applicazione e ambiente ricavandoli da
+                // IAM_VALORE_PARAM_APPLIC
+                for (IamParamApplic paramApplic : paramApplicList) {
+                    IamParamApplicRowBean paramApplicRowBean = (IamParamApplicRowBean) Transform
+                            .entity2RowBean(paramApplic);
+                    populateParamApplicAmbienteRowBean(paramApplicRowBean, idAmbienteEnteConvenz,
+                            paramApplic.getTiGestioneParam());
+                    paramApplicGestioneTableBean.add(paramApplicRowBean);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException
+                    | NoSuchMethodException | InvocationTargetException e) {
+                LOGGER.error("Errore durante il recupero dei parametri di gestione sull'ambiente "
+                        + ExceptionUtils.getRootCauseMessage(e), e);
+                throw new ParerUserError("Errore durante il recupero dei parametri di gestione sull'ambiente ");
+            }
+        }
+        return paramApplicGestioneTableBean;
+    }
+
+    /**
+     * Restituisce un array di object con i tablebean dei parametri di conservazione sull'ambiente ente convenzionato
+     *
+     * @param idAmbienteEnteConvenz
+     *            id ambiente ente convenzionato
+     * @param filterValid
+     *            visualizzare o meno i record parametri cessati
+     *
+     * @return il tablebean
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    public IamParamApplicTableBean getIamParamApplicConservazioneAmbiente(BigDecimal idAmbienteEnteConvenz,
+            boolean filterValid) throws ParerUserError {
+        IamParamApplicTableBean paramApplicConservazioneTableBean = new IamParamApplicTableBean();
+
+        // Ricavo la lista dei parametri di amministrazione definiti per l'AMBIENTE
+        List<IamParamApplic> paramApplicList = helper.getIamParamApplicListAmbiente(TI_GEST_PARAM_CONS, filterValid);
+        if (!paramApplicList.isEmpty()) {
+            try {
+                // Per ogni parametro, popolo i valori su applicazione e ambiente ricavandoli da
+                // IAM_VALORE_PARAM_APPLIC
+                for (IamParamApplic paramApplic : paramApplicList) {
+                    IamParamApplicRowBean paramApplicRowBean = (IamParamApplicRowBean) Transform
+                            .entity2RowBean(paramApplic);
+                    populateParamApplicAmbienteRowBean(paramApplicRowBean, idAmbienteEnteConvenz,
+                            paramApplic.getTiGestioneParam());
+                    paramApplicConservazioneTableBean.add(paramApplicRowBean);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException
+                    | NoSuchMethodException | InvocationTargetException e) {
+                LOGGER.error("Errore durante il recupero dei parametri di conservazione sull'ambiente "
+                        + ExceptionUtils.getRootCauseMessage(e), e);
+                throw new ParerUserError("Errore durante il recupero dei parametri di conservazione sull'ambiente ");
+            }
+        }
+        return paramApplicConservazioneTableBean;
+    }
+
+    /**
+     * Restituisce un array di object con i tablebean dei parametri di amministrazione dell'ente convenzionato
+     *
+     * @param idAmbienteEnteConvenz
+     *            id ambiente ente convenzionato
+     * @param idEnteConvenz
+     *            id ente convenzionato
+     * @param filterValid
+     *            visualizzare o meno i record parametri cessati
+     *
+     * @return il tablebean
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    public IamParamApplicTableBean getIamParamApplicAmministrazioneEnte(BigDecimal idAmbienteEnteConvenz,
+            BigDecimal idEnteConvenz, boolean filterValid) throws ParerUserError {
+        IamParamApplicTableBean paramApplicAmministrazioneTableBean = new IamParamApplicTableBean();
+
+        // Ricavo la lista dei parametri di amministrazione definiti per l'ENTE CONVENZIONATO
+        List<IamParamApplic> paramApplicList = helper.getIamParamApplicListEnte(TI_GEST_PARAM_AMM, filterValid);
+        if (!paramApplicList.isEmpty()) {
+            try {
+                // Per ogni parametro, popolo i valori su applicazione, ambiente ed ente convenzionato ricavandoli da
+                // IAM_VALORE_PARAM_APPLIC
+                for (IamParamApplic paramApplic : paramApplicList) {
+                    IamParamApplicRowBean paramApplicRowBean = (IamParamApplicRowBean) Transform
+                            .entity2RowBean(paramApplic);
+                    populateParamApplicRowBean(paramApplicRowBean, idAmbienteEnteConvenz, idEnteConvenz,
+                            paramApplic.getTiGestioneParam());
+                    paramApplicAmministrazioneTableBean.add(paramApplicRowBean);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException
+                    | NoSuchMethodException | InvocationTargetException e) {
+                LOGGER.error("Errore durante il recupero dei parametri di amministrazione sull'ente convenzionato "
+                        + ExceptionUtils.getRootCauseMessage(e), e);
+                throw new ParerUserError(
+                        "Errore durante il recupero dei parametri di amministrazione sull'ente convenzionato ");
+            }
+        }
+        return paramApplicAmministrazioneTableBean;
+    }
+
+    /**
+     * Restituisce un array di object con i tablebean dei parametri di gestione dell'ente convenzionato
+     *
+     * @param idAmbienteEnteConvenz
+     *            id ambiente ente convenzionato
+     * @param idEnteConvenz
+     *            id ente convenzionato
+     * @param filterValid
+     *            visualizzare o meno i record parametri cessati
+     *
+     * @return il tablebean
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    public IamParamApplicTableBean getIamParamApplicGestioneEnte(BigDecimal idAmbienteEnteConvenz,
+            BigDecimal idEnteConvenz, boolean filterValid) throws ParerUserError {
+        IamParamApplicTableBean paramApplicGestioneTableBean = new IamParamApplicTableBean();
+
+        // Ricavo la lista dei parametri di gestione definiti per l'ENTE CONVENZIONATO
+        List<IamParamApplic> paramApplicList = helper.getIamParamApplicListEnte(TI_GEST_PARAM_GEST, filterValid);
+        if (!paramApplicList.isEmpty()) {
+            try {
+                // Per ogni parametro, popolo i valori su applicazione, ambiente ed ente convenzionato ricavandoli da
+                // IAM_VALORE_PARAM_APPLIC
+                for (IamParamApplic paramApplic : paramApplicList) {
+                    IamParamApplicRowBean paramApplicRowBean = (IamParamApplicRowBean) Transform
+                            .entity2RowBean(paramApplic);
+                    populateParamApplicRowBean(paramApplicRowBean, idAmbienteEnteConvenz, idEnteConvenz,
+                            paramApplic.getTiGestioneParam());
+                    paramApplicGestioneTableBean.add(paramApplicRowBean);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException
+                    | NoSuchMethodException | InvocationTargetException e) {
+                LOGGER.error("Errore durante il recupero dei parametri di gestione sull'ente convenzionato "
+                        + ExceptionUtils.getRootCauseMessage(e), e);
+                throw new ParerUserError(
+                        "Errore durante il recupero dei parametri di gestione sull'ente convenzionato ");
+            }
+        }
+        return paramApplicGestioneTableBean;
+    }
+
+    /**
+     * Restituisce un array di object con i tablebean dei parametri di conservazione sull'ente convenzionato
+     *
+     * @param idAmbienteEnteConvenz
+     *            id ambiente ente convenzionato
+     * @param idEnteConvenz
+     *            id ente convenz
+     * @param filterValid
+     *            visualizzare o meno i record parametri cessati
+     *
+     * @return il tablebean
+     *
+     * @throws ParerUserError
+     *             errore generico
+     */
+    public IamParamApplicTableBean getIamParamApplicConservazioneEnte(BigDecimal idAmbienteEnteConvenz,
+            BigDecimal idEnteConvenz, boolean filterValid) throws ParerUserError {
+        IamParamApplicTableBean paramApplicConservazioneTableBean = new IamParamApplicTableBean();
+
+        // Ricavo la lista dei parametri di amministrazione definiti per l'ENTE CONVENZIONATO
+        List<IamParamApplic> paramApplicList = helper.getIamParamApplicListEnte(TI_GEST_PARAM_CONS, filterValid);
+        if (!paramApplicList.isEmpty()) {
+            try {
+                // Per ogni parametro, popolo i valori su applicazione, ambiente ed ente convenzionato ricavandoli da
+                // IAM_VALORE_PARAM_APPLIC
+                for (IamParamApplic paramApplic : paramApplicList) {
+                    IamParamApplicRowBean paramApplicRowBean = (IamParamApplicRowBean) Transform
+                            .entity2RowBean(paramApplic);
+                    populateParamApplicRowBean(paramApplicRowBean, idAmbienteEnteConvenz, idEnteConvenz,
+                            paramApplic.getTiGestioneParam());
+                    paramApplicConservazioneTableBean.add(paramApplicRowBean);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException
+                    | NoSuchMethodException | InvocationTargetException e) {
+                LOGGER.error("Errore durante il recupero dei parametri di conservazione sull'ente convenzionato "
+                        + ExceptionUtils.getRootCauseMessage(e), e);
+                throw new ParerUserError(
+                        "Errore durante il recupero dei parametri di conservazione sull'ente convenzionato ");
+            }
+        }
+        return paramApplicConservazioneTableBean;
+    }
+
+    // end MEV #32361
+
     /**
      * Esegue il salvataggio del rowBean del parametro di configurazione
      *
@@ -9947,6 +10230,8 @@ public class EntiConvenzionatiEjb {
             config.setFlAppartApplic(row.getFlAppartApplic());
             config.setFlAppartAmbiente(row.getFlAppartAmbiente());
             config.setFlApparteEnte(row.getFlApparteEnte());
+            config.setCdVersioneAppIni(row.getCdVersioneAppIni());
+            config.setCdVersioneAppFine(row.getCdVersioneAppFine());
 
             if (newRow) {
                 helper.getEntityManager().persist(config);
@@ -10957,14 +11242,14 @@ public class EntiConvenzionatiEjb {
             Date dtFineValidAccordoA, Date dtDecAccordoInfoDa, Date dtDecAccordoInfoA, Date dtScadAccordoDa,
             Date dtScadAccordoA, String flRecesso, List<BigDecimal> idTipoGestioneAccordo,
             String flEsisteNotaFatturazione, String flEsistonoSeAnnuali, Date saeDa, Date saeA, String flEsistonoSeUt,
-            Date sueDa, Date sueA, String flFasciaManuale) throws ParerUserError {
+            Date sueDa, Date sueA, String flFasciaManuale, String tiStatoAccordo) throws ParerUserError {
         OrgVRicAccordoEnteTableBean ricAccordiEnteTableBean = new OrgVRicAccordoEnteTableBean();
         List<OrgVRicAccordoEnte> ricAccordiEnteList = helper.retrieveOrgVRicAccordoEnteList(idUserIamCor,
                 idAmbienteEnteConvenz, nmEnteConvenz, idAccordoEnte, cdRegistroRepertorio, aaRepertorio,
                 cdKeyRepertorio, idTipoAccordo, dtDecAccordoDa, dtDecAccordoA, dtFineValidAccordoDa,
                 dtFineValidAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA, dtScadAccordoDa, dtScadAccordoA, flRecesso,
                 idTipoGestioneAccordo, flEsisteNotaFatturazione, flEsistonoSeAnnuali, saeDa, saeA, flEsistonoSeUt,
-                sueDa, sueA, flFasciaManuale);
+                sueDa, sueA, flFasciaManuale, tiStatoAccordo);
         if (!ricAccordiEnteList.isEmpty()) {
             try {
                 // Se ho impostato il filtro sui tipi gestione accordo devo "scremare" i risultati

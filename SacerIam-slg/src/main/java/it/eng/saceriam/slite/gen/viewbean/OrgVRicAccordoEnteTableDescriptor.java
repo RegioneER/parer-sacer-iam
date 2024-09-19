@@ -63,6 +63,7 @@ public class OrgVRicAccordoEnteTableDescriptor extends TableDescriptor {
     public static final String COL_FL_FASCIA_MANUALE = "fl_fascia_manuale";
     public static final String COL_FL_ESISTONO_SAE = "fl_esistono_sae";
     public static final String COL_FL_ESISTONO_SUE = "fl_esistono_sue";
+    public static final String COL_TI_STATO_ACCORDO = "ti_stato_accordo";
 
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
@@ -96,6 +97,7 @@ public class OrgVRicAccordoEnteTableDescriptor extends TableDescriptor {
         map.put(COL_FL_FASCIA_MANUALE, new ColumnDescriptor(COL_FL_FASCIA_MANUALE, Types.VARCHAR, 1, true));
         map.put(COL_FL_ESISTONO_SAE, new ColumnDescriptor(COL_FL_ESISTONO_SAE, Types.VARCHAR, 1, true));
         map.put(COL_FL_ESISTONO_SUE, new ColumnDescriptor(COL_FL_ESISTONO_SUE, Types.VARCHAR, 1, true));
+        map.put(COL_TI_STATO_ACCORDO, new ColumnDescriptor(COL_TI_STATO_ACCORDO, Types.VARCHAR, 31, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {

@@ -62,6 +62,7 @@ public class OrgVRicAccordoEnte implements Serializable {
     private String nmEnteConvenz;
     private String tiFasciaStandard;
     private String tiFasciaManuale;
+    private String tiStatoAccordo;
 
     public OrgVRicAccordoEnte() {
     }
@@ -72,7 +73,7 @@ public class OrgVRicAccordoEnte implements Serializable {
             Date dtFineValidAccordo, Date dtDecAccordoInfo, Date dtScadAccordo, String flRecesso,
             String flEsistonoGestAcc, String idTipoGestioneAccordo, String cdTipoGestioneAccordo,
             String flEsisteNotaFatturazione, String dsNotaFatturazione, String flFasciaManuale, String flEsistonoSae,
-            String flEsistonoSue, String tiFasciaStandard, String tiFasciaManuale) {
+            String flEsistonoSue, String tiFasciaStandard, String tiFasciaManuale, String tiStatoAccordo) {
         this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
         this.idEnteConvenz = idEnteConvenz;
         this.idAccordoEnte = idAccordoEnte;
@@ -100,6 +101,7 @@ public class OrgVRicAccordoEnte implements Serializable {
         this.flEsistonoSue = flEsistonoSue;
         this.tiFasciaStandard = tiFasciaStandard;
         this.tiFasciaManuale = tiFasciaManuale;
+        this.tiStatoAccordo = tiStatoAccordo;
     }
 
     @Column(name = "AA_REPERTORIO")
@@ -340,6 +342,15 @@ public class OrgVRicAccordoEnte implements Serializable {
 
     public void setTiFasciaManuale(String tiFasciaManuale) {
         this.tiFasciaManuale = tiFasciaManuale;
+    }
+
+    @Column(name = "TI_STATO_ACCORDO")
+    public String getTiStatoAccordo() {
+        return this.tiStatoAccordo;
+    }
+
+    public void setTiStatoAccordo(String tiStatoAccordo) {
+        this.tiStatoAccordo = tiStatoAccordo;
     }
 
 }

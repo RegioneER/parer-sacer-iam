@@ -89,10 +89,8 @@ public class AppInfosSrvlt extends HttpServlet {
             // final result
             final Map<String, Map<String, String>> infos = Collections.synchronizedMap(new LinkedHashMap<>());
             // props or root to skip
-            final String rootToSkip = Objects.toString(System.getProperty(SYS_CONFIG_ROOT_TO_SKIP),
-                    StringUtils.EMPTY);
-            final String propToSkip = Objects.toString(System.getProperty(SYS_CONFIG_PROP_TO_SKIP),
-                    StringUtils.EMPTY);
+            final String rootToSkip = Objects.toString(System.getProperty(SYS_CONFIG_ROOT_TO_SKIP), StringUtils.EMPTY);
+            final String propToSkip = Objects.toString(System.getProperty(SYS_CONFIG_PROP_TO_SKIP), StringUtils.EMPTY);
             // infos
             // git
             Map<String, String> git = gitproperties.entrySet().stream()
