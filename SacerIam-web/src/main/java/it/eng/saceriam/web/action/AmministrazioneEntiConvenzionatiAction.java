@@ -2976,8 +2976,14 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getOrganiVigilanzaList().getTable().setPageSize(10);
         getForm().getOrganiVigilanzaList().getTable().first();
 
-        loadListeParametriEnte(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(), idEnteConvenz, null,
-                false, false, false, false);
+        // loadListeParametriEnte(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(), idEnteConvenz, null,
+        // false, false, false, false);
+        loadListaParametriAmministrazione(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(), idEnteConvenz,
+                false, false, false);
+        loadListaParametriConservazione(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(), idEnteConvenz,
+                false, false, false);
+        loadListaParametriGestione(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(), idEnteConvenz, false,
+                false, false);
     }
 
     private void loadDettaglioGestioneAccordo(BigDecimal idGestAccordo) throws ParerUserError, EMFError {
@@ -3033,7 +3039,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
         // Parametri da gestire senza offuscamento
         try {
-            loadListeParametriEnte(idAmbienteEnteConvenz, idEnteConvenz, null, true, true, true, true);
+            // loadListeParametriEnte(idAmbienteEnteConvenz, idEnteConvenz, null, true, true, true, true);
+            loadListaParametriAmministrazione(idAmbienteEnteConvenz, idEnteConvenz, true, true, true);
+            loadListaParametriConservazione(idAmbienteEnteConvenz, idEnteConvenz, true, true, true);
+            loadListaParametriGestione(idAmbienteEnteConvenz, idEnteConvenz, true, true, true);
         } catch (ParerUserError ex) {
             getMessageBox().addError(ex.getDescription());
         }
@@ -6756,7 +6765,13 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
         getForm().getListaEntiConvenzionati().getTable().first();
 
-        loadListeParametriAmbiente(idAmbienteEnteConvenz, null, false, false, false, false);
+        // loadListeParametriAmbiente(idAmbienteEnteConvenz, null, false, false, false, false);
+        loadListaParametriAmministrazioneAmbiente(idAmbienteEnteConvenz, false, false,
+                getForm().getParametriAmministrazioneAmbienteList().isFilterValidRecords());
+        loadListaParametriGestioneAmbiente(idAmbienteEnteConvenz, false, false,
+                getForm().getParametriGestioneAmbienteList().isFilterValidRecords());
+        loadListaParametriConservazioneAmbiente(idAmbienteEnteConvenz, false, false,
+                getForm().getParametriConservazioneAmbienteList().isFilterValidRecords());
     }
 
     private void loadListeParametriAmbiente(BigDecimal idAmbiente, List<String> funzione, boolean hideDeleteButtons,
@@ -6898,8 +6913,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             Date dtIniVal = getForm().getAmbienteEnteConvenzionatoDetail().getDt_ini_val().parse();
             Date dtFineVal = getForm().getAmbienteEnteConvenzionatoDetail().getDt_fine_val().parse();
             if (dtFineVal.before(dtIniVal)) {
-                getMessageBox()
-                        .addError("Attenzione: data fine validit\u00E0Â  inferiore a data inizio validit\u00E0Â ");
+                getMessageBox().addError("Attenzione: data fine validità inferiore a data inizio validità");
             }
 
             IamParamApplicTableBean parametriAmministrazione = (IamParamApplicTableBean) getForm()
@@ -6918,7 +6932,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (!inValoriPossibili(paramApplicRowBean.getString("ds_valore_param_applic_ambiente_amm"),
                                 paramApplicRowBean.getString("ds_lista_valori_ammessi"))) {
                             getMessageBox().addError(
-                                    "Il valore del parametro non ÃƒÆ’Ã‚Â¨ compreso tra i valori ammessi sul parametro");
+                                    "Il valore del parametro non è compreso tra i valori ammessi sul parametro");
                         }
                     }
                 }
@@ -6932,7 +6946,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (!inValoriPossibili(paramApplicRowBean.getString("ds_valore_param_applic_ambiente_cons"),
                                 paramApplicRowBean.getString("ds_lista_valori_ammessi"))) {
                             getMessageBox().addError(
-                                    "Il valore del parametro non ÃƒÆ’Ã‚Â¨ compreso tra i valori ammessi sul parametro");
+                                    "Il valore del parametro non è compreso tra i valori ammessi sul parametro");
                         }
                     }
                 }
@@ -6946,7 +6960,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                         if (!inValoriPossibili(paramApplicRowBean.getString("ds_valore_param_applic_ambiente_gest"),
                                 paramApplicRowBean.getString("ds_lista_valori_ammessi"))) {
                             getMessageBox().addError(
-                                    "Il valore del parametro non ÃƒÆ’Ã‚Â¨ compreso tra i valori ammessi sul parametro");
+                                    "Il valore del parametro non è compreso tra i valori ammessi sul parametro");
                         }
                     }
                 }
@@ -7158,7 +7172,13 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
         // Parametri da gestire senza offuscamento
         try {
-            loadListeParametriAmbiente(idAmbienteEnteConvenz, null, true, true, true, true);
+            // loadListeParametriAmbiente(idAmbienteEnteConvenz, null, true, true, true, true);
+            loadListaParametriAmministrazioneAmbiente(idAmbienteEnteConvenz, true, true,
+                    getForm().getParametriAmministrazioneAmbienteList().isFilterValidRecords());
+            loadListaParametriGestioneAmbiente(idAmbienteEnteConvenz, false, false,
+                    getForm().getParametriGestioneAmbienteList().isFilterValidRecords());
+            loadListaParametriConservazioneAmbiente(idAmbienteEnteConvenz, false, false,
+                    getForm().getParametriConservazioneAmbienteList().isFilterValidRecords());
         } catch (ParerUserError ex) {
             getMessageBox().addError(ex.getDescription());
         }
@@ -9055,7 +9075,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
         // Carico i valori della lista configurazioni
         IamParamApplicTableBean paramApplicTableBean = entiConvenzionatiEjb.getIamParamApplicTableBean(tiParamApplic,
-                tiGestioneParam, flAppartApplic, flAppartAmbiente, flApparteEnte);
+                tiGestioneParam, flAppartApplic, flAppartAmbiente, flApparteEnte,
+                getForm().getConfigurationList().isFilterValidRecords());
 
         paramApplicTableBean = obfuscatePasswordParamApplic(paramApplicTableBean);
 
@@ -9088,6 +9109,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getConfigurationList().getTi_valore_param_applic().setViewMode();
         getForm().getConfigurationList().getDs_lista_valori_ammessi().setViewMode();
         getForm().getConfigurationList().getDs_valore_param_applic().setViewMode();
+        getForm().getConfigurationList().getCd_versione_app_ini().setViewMode();
+        getForm().getConfigurationList().getCd_versione_app_fine().setViewMode();
         getForm().getConfigurationList().getFl_appart_applic().setEditMode();
         getForm().getConfigurationList().getFl_appart_ambiente().setEditMode();
         getForm().getConfigurationList().getFl_apparte_ente().setEditMode();
@@ -9126,6 +9149,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         String dsValoreParamApplicName = getForm().getConfigurationList().getDs_valore_param_applic().getName();
         String flAppartApplicName = getForm().getConfigurationList().getFl_appart_applic().getName();
         String tiValoreParamApplic = getForm().getConfigurationList().getTi_valore_param_applic().getName();
+        String cdVersioneAppIni = getForm().getConfigurationList().getCd_versione_app_ini().getName();
         Set<Integer> completeRows = new HashSet<>();
         Set<String> nmParamApplicSet = new HashSet<>();
         // Tiro su i dati i request di tutti i record della lista
@@ -9142,9 +9166,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             String dsValoreParamApplicValue = r.getString(dsValoreParamApplicName);
             String tiValoreParamApplicValue = r.getString(tiValoreParamApplic);
             String flAppartApplicValue = r.getString(flAppartApplicName);
+            String cdVersioneAppIniValue = r.getString(cdVersioneAppIni);
             if (StringUtils.isNotBlank(tiParamApplicValue) && StringUtils.isNotBlank(tiGestioneParamValue)
                     && StringUtils.isNotBlank(nmParamApplicValue) && StringUtils.isNotBlank(dsParamApplicValue)
-                    && StringUtils.isNotBlank(tiValoreParamApplicValue)// &&
+                    && StringUtils.isNotBlank(tiValoreParamApplicValue) && StringUtils.isNotBlank(cdVersioneAppIniValue)// &&
             ) {
                 if (StringUtils.isNotBlank(dsValoreParamApplicValue)) {
                     if (flAppartApplicValue.equals("1")) {
@@ -9260,6 +9285,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getConfiguration().getFl_appart_ambiente_combo().setEditMode();
         getForm().getConfiguration().getFl_apparte_ente_combo().setEditMode();
 
+        // Azzero il Mostra/Nascondi
+        getForm().getConfigurationList().setFilterValidRecords(Boolean.TRUE);
+
         getForm().getConfiguration().getLoad_config_list().setEditMode();
 
         getForm().getConfiguration().getEdit_config().setViewMode();
@@ -9307,6 +9335,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         // Rendo editabili i campi della lista
         getForm().getConfigurationList().getTi_param_applic().setEditMode();
         getForm().getConfigurationList().getTi_gestione_param().setEditMode();
+        getForm().getConfigurationList().getCd_versione_app_ini().setEditMode();
+        getForm().getConfigurationList().getCd_versione_app_fine().setEditMode();
         getForm().getConfigurationList().getNm_param_applic().setEditMode();
         getForm().getConfigurationList().getDs_param_applic().setEditMode();
         getForm().getConfigurationList().getTi_valore_param_applic().setEditMode();
@@ -9786,6 +9816,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 .setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getFiltriAccordi().getFl_esistono_sae_combo().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
         getForm().getFiltriAccordi().getFl_esistono_sue_combo().setDecodeMap(ComboGetter.getMappaGenericFlagSiNo());
+        getForm().getFiltriAccordi().getTi_stato_accordo().setDecodeMap(ComboGetter.getMappaTiStatoAccordo());
     }
 
     @Override
@@ -9798,6 +9829,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             String cdRegistroRepertorio = getForm().getFiltriAccordi().getCd_registro_repertorio().parse();
             BigDecimal aaRepertorio = getForm().getFiltriAccordi().getAa_repertorio().parse();
             String cdKeyRepertorio = getForm().getFiltriAccordi().getCd_key_repertorio().parse();
+            String tiStatoAccordo = getForm().getFiltriAccordi().getTi_stato_accordo().parse();
 
             List<BigDecimal> idTipoAccordo = getForm().getFiltriAccordi().getId_tipo_accordo().parse();
             // Sistemo il range di date
@@ -9894,7 +9926,8 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                             aaRepertorio, cdKeyRepertorio, idTipoAccordo, dtDecAccordoDa, dtDecAccordoA,
                             dtFineValidAccordoDa, dtFineValidAccordoA, dtDecAccordoInfoDa, dtDecAccordoInfoA,
                             dtScadAccordoDa, dtScadAccordoA, flRecesso, idTipoGestioneAccordo, flEsisteNotaFatturazione,
-                            flEsistonoSeAnnuali, saeDa, saeA, flEsistonoSeUt, sueDa, sueA, flFasciaManuale);
+                            flEsistonoSeAnnuali, saeDa, saeA, flEsistonoSeUt, sueDa, sueA, flFasciaManuale,
+                            tiStatoAccordo);
                     getForm().getListaAccordi().setTable(table);
                     getForm().getListaAccordi().getTable().setPageSize(10);
                     getForm().getListaAccordi().getTable().first();
@@ -10151,5 +10184,282 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
         forwardToPublisher(Application.Publisher.RICERCA_ACCORDI);
     }
+
+    // MEV #32651
+    @Override
+    public void filterInactiveRecordsConfigurationList() throws EMFError {
+        int rowIndex = 0;
+        int pageSize = WebConstants.DEFAULT_PAGE_SIZE;
+        if (getForm().getConfigurationList().getTable() != null) {
+            rowIndex = getForm().getConfigurationList().getTable().getCurrentRowIndex();
+            pageSize = getForm().getConfigurationList().getTable().getPageSize();
+        }
+
+        // getForm().getConfiguration().post(getRequest());
+        String tiParamApplic = getForm().getConfiguration().getTi_param_applic_combo().parse();
+        String tiGestioneParam = getForm().getConfiguration().getTi_gestione_param_combo().parse();
+        String flAppartApplic = getForm().getConfiguration().getFl_appart_applic_combo().parse();
+        String flAppartAmbiente = getForm().getConfiguration().getFl_appart_ambiente_combo().parse();
+        String flApparteEnte = getForm().getConfiguration().getFl_apparte_ente_combo().parse();
+
+        // Carico i valori della lista configurazioni
+        IamParamApplicTableBean paramApplicTableBean = entiConvenzionatiEjb.getIamParamApplicTableBean(tiParamApplic,
+                tiGestioneParam, flAppartApplic, flAppartAmbiente, flApparteEnte,
+                getForm().getConfigurationList().isFilterValidRecords());
+
+        paramApplicTableBean = obfuscatePasswordParamApplic(paramApplicTableBean);
+
+        getForm().getConfigurationList().setTable(paramApplicTableBean);
+
+        setConfigListReadOnly();
+
+        // se non ho trovato risultati nascondo il pulsate "Edita"
+        if (paramApplicTableBean.isEmpty())
+            getForm().getConfiguration().getEdit_config().setViewMode();
+
+        getForm().getConfigurationList().getTable().setCurrentRowIndex(rowIndex);
+        getForm().getConfigurationList().getTable().setPageSize(pageSize);
+
+        forwardToPublisher(Application.Publisher.REGISTRO_PARAMETRI);
+    }
+
+    @Override
+    public void filterInactiveRecordsParametriAmministrazioneAmbienteList() throws EMFError {
+        BigDecimal idAmbiente = ((BaseRowInterface) getForm().getListaAmbientiEntiConvenzionati().getTable()
+                .getCurrentRow()).getBigDecimal("id_ambiente_ente_convenz");
+        boolean filterValid = getForm().getParametriAmministrazioneAmbienteList().isFilterValidRecords();
+        try {
+
+            loadListaParametriAmministrazioneAmbiente(idAmbiente, false, false, filterValid);
+
+        } catch (ParerUserError ex) {
+            getMessageBox().addError("Errore durante il recupero dei parametri di amministrazione dell'ambiente");
+        }
+        forwardToPublisher(getLastPublisher());
+    }
+
+    @Override
+    public void filterInactiveRecordsParametriConservazioneAmbienteList() throws EMFError {
+        BigDecimal idAmbiente = ((BaseRowInterface) getForm().getListaAmbientiEntiConvenzionati().getTable()
+                .getCurrentRow()).getBigDecimal("id_ambiente_ente_convenz");
+        boolean filterValid = getForm().getParametriConservazioneAmbienteList().isFilterValidRecords();
+        try {
+
+            loadListaParametriConservazioneAmbiente(idAmbiente, false, false, filterValid);
+
+        } catch (ParerUserError ex) {
+            getMessageBox().addError("Errore durante il recupero dei parametri di conservazione dell'ambiente");
+        }
+        forwardToPublisher(getLastPublisher());
+    }
+
+    @Override
+    public void filterInactiveRecordsParametriGestioneAmbienteList() throws EMFError {
+        BigDecimal idAmbiente = ((BaseRowInterface) getForm().getListaAmbientiEntiConvenzionati().getTable()
+                .getCurrentRow()).getBigDecimal("id_ambiente_ente_convenz");
+        boolean filterValid = getForm().getParametriGestioneAmbienteList().isFilterValidRecords();
+        try {
+
+            loadListaParametriGestioneAmbiente(idAmbiente, false, false, filterValid);
+
+        } catch (ParerUserError ex) {
+            getMessageBox().addError("Errore durante il recupero dei parametri di gestione dell'ambiente");
+        }
+        forwardToPublisher(getLastPublisher());
+    }
+
+    private void loadListaParametriAmministrazioneAmbiente(BigDecimal idAmbiente, boolean hideDeleteButtons,
+            boolean editModeAmministrazione, boolean filterValid) throws ParerUserError {
+
+        IamParamApplicTableBean parametriAmministrazione = entiConvenzionatiEjb
+                .getIamParamApplicAmministrazioneAmbiente(idAmbiente, filterValid);
+
+        if (!editModeAmministrazione) {
+            parametriAmministrazione = obfuscatePasswordParamApplic(parametriAmministrazione);
+        }
+
+        getForm().getParametriAmministrazioneAmbienteList().setTable(parametriAmministrazione);
+        getForm().getParametriAmministrazioneAmbienteList().getTable().setPageSize(300);
+        getForm().getParametriAmministrazioneAmbienteList().getTable().first();
+        getForm().getParametriAmministrazioneAmbienteList().setHideDeleteButton(hideDeleteButtons);
+        if (editModeAmministrazione) {
+            getForm().getParametriAmministrazioneAmbienteList().getDs_valore_param_applic_ambiente_amm().setEditMode();
+            getForm().getParametriAmministrazioneAmbienteList().setStatus(Status.update);
+        } else {
+            getForm().getParametriAmministrazioneAmbienteList().getDs_valore_param_applic_ambiente_amm().setViewMode();
+            getForm().getParametriAmministrazioneAmbienteList().setStatus(Status.view);
+        }
+    }
+
+    private void loadListaParametriConservazioneAmbiente(BigDecimal idAmbiente, boolean hideDeleteButtons,
+            boolean editModeConservazione, boolean filterValid) throws ParerUserError {
+
+        IamParamApplicTableBean parametriConservazione = entiConvenzionatiEjb
+                .getIamParamApplicConservazioneAmbiente(idAmbiente, filterValid);
+
+        if (!editModeConservazione) {
+            parametriConservazione = obfuscatePasswordParamApplic(parametriConservazione);
+        }
+
+        getForm().getParametriConservazioneAmbienteList().setTable(parametriConservazione);
+        getForm().getParametriConservazioneAmbienteList().getTable().setPageSize(300);
+        getForm().getParametriConservazioneAmbienteList().getTable().first();
+        getForm().getParametriConservazioneAmbienteList().setHideDeleteButton(hideDeleteButtons);
+        if (editModeConservazione) {
+            getForm().getParametriConservazioneAmbienteList().getDs_valore_param_applic_ambiente_cons().setEditMode();
+            getForm().getParametriConservazioneAmbienteList().setStatus(Status.update);
+        } else {
+            getForm().getParametriConservazioneAmbienteList().getDs_valore_param_applic_ambiente_cons().setViewMode();
+            getForm().getParametriConservazioneAmbienteList().setStatus(Status.view);
+        }
+    }
+
+    private void loadListaParametriGestioneAmbiente(BigDecimal idAmbiente, boolean hideDeleteButtons,
+            boolean editModeGestione, boolean filterValid) throws ParerUserError {
+
+        IamParamApplicTableBean parametriGestione = entiConvenzionatiEjb.getIamParamApplicGestioneAmbiente(idAmbiente,
+                filterValid);
+
+        if (!editModeGestione) {
+            parametriGestione = obfuscatePasswordParamApplic(parametriGestione);
+        }
+
+        getForm().getParametriGestioneAmbienteList().setTable(parametriGestione);
+        getForm().getParametriGestioneAmbienteList().getTable().setPageSize(300);
+        getForm().getParametriGestioneAmbienteList().getTable().first();
+        getForm().getParametriGestioneAmbienteList().setHideDeleteButton(hideDeleteButtons);
+        if (editModeGestione) {
+            getForm().getParametriGestioneAmbienteList().getDs_valore_param_applic_ambiente_gest().setEditMode();
+            getForm().getParametriGestioneAmbienteList().setStatus(Status.update);
+        } else {
+            getForm().getParametriGestioneAmbienteList().getDs_valore_param_applic_ambiente_gest().setViewMode();
+            getForm().getParametriGestioneAmbienteList().setStatus(Status.view);
+        }
+    }
+
+    @Override
+    public void filterInactiveRecordsParametriAmministrazioneList() throws EMFError {
+        BigDecimal idEnteConvenz = ((BaseRowInterface) getForm().getListaEntiConvenzionati().getTable().getCurrentRow())
+                .getBigDecimal("id_ente_convenz");
+        OrgAmbienteEnteConvenzRowBean orgAmbienteEnteConvenzByEnteConvenz = entiConvenzionatiEjb
+                .getOrgAmbienteEnteConvenzByEnteConvenz(idEnteConvenz);
+        boolean filterValid = getForm().getParametriAmministrazioneList().isFilterValidRecords();
+        try {
+            loadListaParametriAmministrazione(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(),
+                    idEnteConvenz, false, false, filterValid);
+        } catch (ParerUserError ex) {
+            getMessageBox()
+                    .addError("Errore durante il recupero dei parametri di amministrazione dell'ente convenzionato");
+        }
+        forwardToPublisher(getLastPublisher());
+    }
+
+    @Override
+    public void filterInactiveRecordsParametriConservazioneList() throws EMFError {
+        BigDecimal idEnteConvenz = ((BaseRowInterface) getForm().getListaEntiConvenzionati().getTable().getCurrentRow())
+                .getBigDecimal("id_ente_convenz");
+        OrgAmbienteEnteConvenzRowBean orgAmbienteEnteConvenzByEnteConvenz = entiConvenzionatiEjb
+                .getOrgAmbienteEnteConvenzByEnteConvenz(idEnteConvenz);
+        boolean filterValid = getForm().getParametriConservazioneList().isFilterValidRecords();
+        try {
+
+            loadListaParametriConservazione(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(),
+                    idEnteConvenz, false, false, filterValid);
+
+        } catch (ParerUserError ex) {
+            getMessageBox()
+                    .addError("Errore durante il recupero dei parametri di conservazione dell'ente convenzionato");
+        }
+        forwardToPublisher(getLastPublisher());
+    }
+
+    @Override
+    public void filterInactiveRecordsParametriGestioneList() throws EMFError {
+        BigDecimal idEnteConvenz = ((BaseRowInterface) getForm().getListaEntiConvenzionati().getTable().getCurrentRow())
+                .getBigDecimal("id_ente_convenz");
+        OrgAmbienteEnteConvenzRowBean orgAmbienteEnteConvenzByEnteConvenz = entiConvenzionatiEjb
+                .getOrgAmbienteEnteConvenzByEnteConvenz(idEnteConvenz);
+        boolean filterValid = getForm().getParametriGestioneList().isFilterValidRecords();
+        try {
+
+            loadListaParametriGestione(orgAmbienteEnteConvenzByEnteConvenz.getIdAmbienteEnteConvenz(), idEnteConvenz,
+                    false, false, filterValid);
+
+        } catch (ParerUserError ex) {
+            getMessageBox().addError("Errore durante il recupero dei parametri di gestione dell'ente convenzionato");
+        }
+        forwardToPublisher(getLastPublisher());
+    }
+
+    private void loadListaParametriAmministrazione(BigDecimal idAmbienteEnteConvenz, BigDecimal idEnteConvenz,
+            boolean hideDeleteButtons, boolean editModeAmministrazione, boolean filterValid) throws ParerUserError {
+
+        IamParamApplicTableBean parametriAmministrazione = entiConvenzionatiEjb
+                .getIamParamApplicAmministrazioneEnte(idAmbienteEnteConvenz, idEnteConvenz, filterValid);
+
+        if (!editModeAmministrazione) {
+            parametriAmministrazione = obfuscatePasswordParamApplic(parametriAmministrazione);
+        }
+
+        getForm().getParametriAmministrazioneList().setTable(parametriAmministrazione);
+        getForm().getParametriAmministrazioneList().getTable().setPageSize(300);
+        getForm().getParametriAmministrazioneList().getTable().first();
+        getForm().getParametriAmministrazioneList().setHideDeleteButton(hideDeleteButtons);
+        if (editModeAmministrazione) {
+            getForm().getParametriAmministrazioneList().getDs_valore_param_applic_ente_amm().setEditMode();
+            getForm().getParametriAmministrazioneList().setStatus(Status.update);
+        } else {
+            getForm().getParametriAmministrazioneList().getDs_valore_param_applic_ente_amm().setViewMode();
+            getForm().getParametriAmministrazioneList().setStatus(Status.view);
+        }
+    }
+
+    private void loadListaParametriConservazione(BigDecimal idAmbienteEnteConvenz, BigDecimal idEnteConvenz,
+            boolean hideDeleteButtons, boolean editModeConservazione, boolean filterValid) throws ParerUserError {
+
+        IamParamApplicTableBean parametriConservazione = entiConvenzionatiEjb
+                .getIamParamApplicConservazioneEnte(idAmbienteEnteConvenz, idEnteConvenz, filterValid);
+
+        if (!editModeConservazione) {
+            parametriConservazione = obfuscatePasswordParamApplic(parametriConservazione);
+        }
+
+        getForm().getParametriConservazioneList().setTable(parametriConservazione);
+        getForm().getParametriConservazioneList().getTable().setPageSize(300);
+        getForm().getParametriConservazioneList().getTable().first();
+        getForm().getParametriConservazioneList().setHideDeleteButton(hideDeleteButtons);
+        if (editModeConservazione) {
+            getForm().getParametriConservazioneList().getDs_valore_param_applic_ente_cons().setEditMode();
+            getForm().getParametriConservazioneList().setStatus(Status.update);
+        } else {
+            getForm().getParametriConservazioneList().getDs_valore_param_applic_ente_cons().setViewMode();
+            getForm().getParametriConservazioneList().setStatus(Status.view);
+        }
+    }
+
+    private void loadListaParametriGestione(BigDecimal idAmbienteEnteConvenz, BigDecimal idEnteConvenz,
+            boolean hideDeleteButtons, boolean editModeGestione, boolean filterValid) throws ParerUserError {
+
+        IamParamApplicTableBean parametriGestione = entiConvenzionatiEjb
+                .getIamParamApplicGestioneEnte(idAmbienteEnteConvenz, idEnteConvenz, filterValid);
+
+        if (!editModeGestione) {
+            parametriGestione = obfuscatePasswordParamApplic(parametriGestione);
+        }
+
+        getForm().getParametriGestioneList().setTable(parametriGestione);
+        getForm().getParametriGestioneList().getTable().setPageSize(300);
+        getForm().getParametriGestioneList().getTable().first();
+        getForm().getParametriGestioneList().setHideDeleteButton(hideDeleteButtons);
+        if (editModeGestione) {
+            getForm().getParametriGestioneList().getDs_valore_param_applic_ente_gest().setEditMode();
+            getForm().getParametriGestioneList().setStatus(Status.update);
+        } else {
+            getForm().getParametriGestioneList().getDs_valore_param_applic_ente_gest().setViewMode();
+            getForm().getParametriGestioneList().setStatus(Status.view);
+        }
+    }
+
+    // end MEV #32651
 
 }

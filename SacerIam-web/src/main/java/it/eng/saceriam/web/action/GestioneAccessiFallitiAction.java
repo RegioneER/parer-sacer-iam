@@ -17,6 +17,7 @@
 
 package it.eng.saceriam.web.action;
 
+import it.eng.saceriam.web.validator.TypeValidator;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +34,7 @@ import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.form.base.BaseElements.Status;
 import it.eng.spagoLite.security.Secure;
+import java.math.BigDecimal;
 
 /**
  *
@@ -66,29 +68,43 @@ public class GestioneAccessiFallitiAction extends GestioneAccessiFallitiAbstract
     @Override
     public void ricercaAccessiFalliti() throws EMFError {
         getForm().getFiltriAccessiFalliti().post(getRequest());
-        Date dtEventoDa = getForm().getFiltriAccessiFalliti().getDt_evento_da().parse();
-        Date dtEventoA = getForm().getFiltriAccessiFalliti().getDt_evento_a().parse();
-        Date[] dateDecorate = decorateDate(dtEventoDa, dtEventoA);
-        String nmUserid = getForm().getFiltriAccessiFalliti().getNm_userid().parse();
-        String tipoEvento = getForm().getFiltriAccessiFalliti().getTipo_evento().parse();
-        String inclUtentiAutomi = getForm().getFiltriAccessiFalliti().getIncl_utenti_automi().parse();
-        String inclLoginOK = getForm().getFiltriAccessiFalliti().getIncl_login_OK().parse();
-        String nome = getForm().getFiltriAccessiFalliti().getNm_nome_user().parse();
-        String cognome = getForm().getFiltriAccessiFalliti().getNm_cognome_user().parse();
-        String cf = getForm().getFiltriAccessiFalliti().getCd_fisc_user().parse();
-        String email = getForm().getFiltriAccessiFalliti().getDs_email_user().parse();
-        String idEsterno = getForm().getFiltriAccessiFalliti().getCd_id_esterno().parse();
-        LogVRicAccessiTableBean loginEventoTableBean = new LogVRicAccessiTableBean();
-        try {
-            loginEventoTableBean = amministrazioneUtentiEjb.getLogVRicAccessiTableBean(dateDecorate[0], dateDecorate[1],
-                    nmUserid, tipoEvento, inclUtentiAutomi, inclLoginOK, nome, cognome, cf, email, idEsterno);
-        } catch (ParerUserError ex) {
-            getMessageBox().addError(ex.getDescription());
+        if (getForm().getFiltriAccessiFalliti().validate(getMessageBox())) {
+            Date dtEventoDa = getForm().getFiltriAccessiFalliti().getDt_evento_da().parse();
+            Date dtEventoA = getForm().getFiltriAccessiFalliti().getDt_evento_a().parse();
+            BigDecimal oraRifDa = getForm().getFiltriAccessiFalliti().getOra_rif_da().parse();
+            BigDecimal minRifDa = getForm().getFiltriAccessiFalliti().getMin_rif_da().parse();
+            BigDecimal oraRifA = getForm().getFiltriAccessiFalliti().getOra_rif_a().parse();
+            BigDecimal minRifA = getForm().getFiltriAccessiFalliti().getMin_rif_a().parse();
+            String descrizioneDataDa = getForm().getFiltriAccessiFalliti().getDt_evento_da().getHtmlDescription();
+            String descrizioneDataA = getForm().getFiltriAccessiFalliti().getDt_evento_a().getHtmlDescription();
+
+            TypeValidator valid = new TypeValidator(getMessageBox());
+            Date[] dateDecorate = valid.validaDate(dtEventoDa, oraRifDa, minRifDa, dtEventoA, oraRifA, minRifA,
+                    descrizioneDataDa, descrizioneDataA);
+
+            String nmUserid = getForm().getFiltriAccessiFalliti().getNm_userid().parse();
+            String tipoEvento = getForm().getFiltriAccessiFalliti().getTipo_evento().parse();
+            String inclUtentiAutomi = getForm().getFiltriAccessiFalliti().getIncl_utenti_automi().parse();
+            String inclLoginOK = getForm().getFiltriAccessiFalliti().getIncl_login_OK().parse();
+            String nome = getForm().getFiltriAccessiFalliti().getNm_nome_user().parse();
+            String cognome = getForm().getFiltriAccessiFalliti().getNm_cognome_user().parse();
+            String cf = getForm().getFiltriAccessiFalliti().getCd_fisc_user().parse();
+            String email = getForm().getFiltriAccessiFalliti().getDs_email_user().parse();
+            String idEsterno = getForm().getFiltriAccessiFalliti().getCd_id_esterno().parse();
+            LogVRicAccessiTableBean loginEventoTableBean = new LogVRicAccessiTableBean();
+            try {
+                loginEventoTableBean = amministrazioneUtentiEjb.getLogVRicAccessiTableBean(dateDecorate[0],
+                        dateDecorate[1], nmUserid, tipoEvento, inclUtentiAutomi, inclLoginOK, nome, cognome, cf, email,
+                        idEsterno);
+            } catch (ParerUserError ex) {
+                getMessageBox().addError(ex.getDescription());
+            }
+            getForm().getAccessiFallitiList().setTable(loginEventoTableBean);
+            getForm().getAccessiFallitiList().getTable().first();
+            getForm().getAccessiFallitiList().getTable().setPageSize(10);
+            getForm().getAccessiFallitiList().setStatus(Status.view);
         }
-        getForm().getAccessiFallitiList().setTable(loginEventoTableBean);
-        getForm().getAccessiFallitiList().getTable().first();
-        getForm().getAccessiFallitiList().getTable().setPageSize(10);
-        getForm().getAccessiFallitiList().setStatus(Status.view);
+
         forwardToPublisher(Application.Publisher.RICERCA_ACCESSI_FALLITI);
     }
 

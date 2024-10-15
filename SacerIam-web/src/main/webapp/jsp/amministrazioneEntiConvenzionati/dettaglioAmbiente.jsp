@@ -86,12 +86,15 @@
             </c:if>
              <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.ParametriAmministrazioneSection.NAME%>" styleClass="noborder w100">
                 <slf:editableList name="<%= AmministrazioneEntiConvenzionatiForm.ParametriAmministrazioneAmbienteList.NAME%>" multiRowEdit="true"/>
+                <slf:listNavBar  name="<%= AmministrazioneEntiConvenzionatiForm.ParametriAmministrazioneAmbienteList.NAME%>" />
             </slf:section>
             <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.ParametriConservazioneSection.NAME%>" styleClass="noborder w100">
                 <slf:editableList name="<%= AmministrazioneEntiConvenzionatiForm.ParametriConservazioneAmbienteList.NAME%>" multiRowEdit="true"/>
+                <slf:listNavBar  name="<%= AmministrazioneEntiConvenzionatiForm.ParametriConservazioneAmbienteList.NAME%>" />
             </slf:section>
             <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.ParametriGestioneSection.NAME%>" styleClass="noborder w100">
                 <slf:editableList name="<%= AmministrazioneEntiConvenzionatiForm.ParametriGestioneAmbienteList.NAME%>" multiRowEdit="true"/>
+                <slf:listNavBar  name="<%= AmministrazioneEntiConvenzionatiForm.ParametriGestioneAmbienteList.NAME%>" />
             </slf:section>
         </sl:content>
         <sl:footer />

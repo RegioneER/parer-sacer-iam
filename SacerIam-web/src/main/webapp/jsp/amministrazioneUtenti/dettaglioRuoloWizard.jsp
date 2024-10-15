@@ -217,6 +217,12 @@
                     for (var index in readOnlyIds) {
                         var noType;
                         var id = readOnlyIds[index] + "";
+                        if(id===null){
+                            alert("Trovato id null");
+                        }else{
+                            console.log(id);
+                        }
+                        
                         if (id.lastIndexOf('M', 0) !== 0
                                 && id.lastIndexOf('P', 0) !== 0
                                 && id.lastIndexOf('A', 0) !== 0) {

@@ -55,6 +55,22 @@ public class IamParamApplicRowBean extends BaseRow implements BaseRowInterface, 
         setObject("id_param_applic", idParamApplic);
     }
 
+    public String getCdVersioneAppIni() {
+        return getString("cd_versione_app_ini");
+    }
+
+    public void setCdVersioneAppIni(String cdVersioneAppIni) {
+        setObject("cd_versione_app_ini", cdVersioneAppIni);
+    }
+
+    public String getCdVersioneAppFine() {
+        return getString("cd_versione_app_fine");
+    }
+
+    public void setCdVersioneAppFine(String cdVersioneAppFine) {
+        setObject("cd_versione_app_fine", cdVersioneAppFine);
+    }
+
     public String getNmParamApplic() {
         return getString("nm_param_applic");
     }
@@ -131,6 +147,8 @@ public class IamParamApplicRowBean extends BaseRow implements BaseRowInterface, 
     public void entityToRowBean(Object obj) {
         IamParamApplic entity = (IamParamApplic) obj;
         this.setIdParamApplic(new BigDecimal(entity.getIdParamApplic()));
+        this.setCdVersioneAppIni(entity.getCdVersioneAppIni());
+        this.setCdVersioneAppFine(entity.getCdVersioneAppFine());
         this.setNmParamApplic(entity.getNmParamApplic());
         this.setDsParamApplic(entity.getDsParamApplic());
         this.setTiParamApplic(entity.getTiParamApplic());
@@ -148,6 +166,8 @@ public class IamParamApplicRowBean extends BaseRow implements BaseRowInterface, 
         if (this.getIdParamApplic() != null) {
             entity.setIdParamApplic(this.getIdParamApplic().longValue());
         }
+        entity.setCdVersioneAppIni(this.getCdVersioneAppIni());
+        entity.setCdVersioneAppFine(this.getCdVersioneAppFine());
         entity.setNmParamApplic(this.getNmParamApplic());
         entity.setDsParamApplic(this.getDsParamApplic());
         entity.setTiParamApplic(this.getTiParamApplic());

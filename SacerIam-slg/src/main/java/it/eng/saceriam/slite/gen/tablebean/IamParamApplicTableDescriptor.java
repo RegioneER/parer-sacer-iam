@@ -40,6 +40,8 @@ public class IamParamApplicTableDescriptor extends TableDescriptor {
     public static final String SELECT = "Select * from Iam_Param_Applic /**/";
     public static final String TABLE_NAME = "Iam_Param_Applic";
     public static final String COL_ID_PARAM_APPLIC = "id_param_applic";
+    public static final String COL_CD_VERSIONE_APP_INI = "cd_versione_app_ini";
+    public static final String COL_CD_VERSIONE_APP_FINE = "cd_versione_app_fine";
     public static final String COL_NM_PARAM_APPLIC = "nm_param_applic";
     public static final String COL_DS_PARAM_APPLIC = "ds_param_applic";
     public static final String COL_DS_VALORE_PARAM_APPLIC = "ds_valore_param_applic";
@@ -55,6 +57,8 @@ public class IamParamApplicTableDescriptor extends TableDescriptor {
 
     static {
         map.put(COL_ID_PARAM_APPLIC, new ColumnDescriptor(COL_ID_PARAM_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_CD_VERSIONE_APP_INI, new ColumnDescriptor(COL_CD_VERSIONE_APP_INI, Types.VARCHAR, 11, false));
+        map.put(COL_CD_VERSIONE_APP_FINE, new ColumnDescriptor(COL_CD_VERSIONE_APP_FINE, Types.VARCHAR, 11, false));
         map.put(COL_NM_PARAM_APPLIC, new ColumnDescriptor(COL_NM_PARAM_APPLIC, Types.VARCHAR, 100, false));
         map.put(COL_DS_PARAM_APPLIC, new ColumnDescriptor(COL_DS_PARAM_APPLIC, Types.VARCHAR, 254, false));
         map.put(COL_DS_VALORE_PARAM_APPLIC,

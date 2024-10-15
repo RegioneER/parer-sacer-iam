@@ -424,6 +424,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
                 for (UsrTipoDatoIam tipoDatoIam : listaTipiDatoIam) {
                     if (tipoDato.getIdTipoDatoApplic() == tipoDatoIam.getIdTipoDatoApplic().intValue() && tipoDato
                             .getNmClasseTipoDato().equals(tipoDatoIam.getAplClasseTipoDato().getNmClasseTipoDato())) {
+                        // && organiz.getIdOrganizIam()==tipoDatoIam.getUsrOrganizIam().getIdOrganizIam().longValue()) {
                         // b. Aggiorno i tipi di dato presenti nella lista in input e presenti in IAM
                         tipoDatoIam.setNmTipoDato(tipoDato.getNmTipoDato());
                         tipoDatoIam.setDsTipoDato(tipoDato.getDsTipoDato());

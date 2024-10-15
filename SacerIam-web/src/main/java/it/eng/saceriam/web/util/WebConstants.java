@@ -28,6 +28,8 @@ package it.eng.saceriam.web.util;
  */
 public class WebConstants {
 
+    public static final int DEFAULT_PAGE_SIZE = 10;
+
     public static final String MIME_TYPE_MICROSOFT_WORD = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     public static final String MIME_TYPE_GENERIC = "application/octet-stream";
 

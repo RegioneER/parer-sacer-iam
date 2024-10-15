@@ -92,6 +92,7 @@
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.DT_SCAD_ACCORDO_A%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_RECESSO%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.ID_TIPO_GESTIONE_ACCORDO%>" colSpan="2"/><sl:newLine />
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.TI_STATO_ACCORDO%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_ESISTE_NOTA_FATTURAZIONE%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_FASCIA_MANUALE%>" colSpan="2"/><sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.FiltriAccordi.FL_ESISTONO_SAE_COMBO%>" colSpan="2"/><sl:newLine />
