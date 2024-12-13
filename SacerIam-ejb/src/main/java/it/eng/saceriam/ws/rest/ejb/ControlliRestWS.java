@@ -72,7 +72,7 @@ public class ControlliRestWS {
 
         try {
             WSLoginHandler.loginAndCheckAuthzIAM(loginName, password, descrizione.getNomeWs(), indirizzoIP,
-                    entityManager);
+                    entityManager, false);
             // se l'autenticazione riesce, non va in eccezione.
             // passo quindi a leggere i dati dell'utente dal db
             UsrUser iamUser;

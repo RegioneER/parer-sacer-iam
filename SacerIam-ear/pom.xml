@@ -4,7 +4,7 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>6.2.1-SNAPSHOT</version>
+        <version>6.3.0</version>
     </parent>
 
     <artifactId>saceriam-jboss-ear</artifactId>
@@ -103,7 +103,13 @@
         </dependency>
         <dependency>
             <groupId>it.eng.parer</groupId>
-            <artifactId>spagofat-middle</artifactId> 
+            <artifactId>spagofat-middle</artifactId>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.apache.logging.log4j</groupId>
+            		<artifactId>log4j-api</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.security.extensions</groupId>
@@ -128,6 +134,10 @@
                 <exclusion>
                     <groupId>xml-apis</groupId>
                     <artifactId>xml-apis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -172,6 +182,10 @@
                 <exclusion>
                     <groupId>xml-apis</groupId>
                     <artifactId>xml-apis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

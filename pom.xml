@@ -2,21 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>saceriam-jboss</artifactId>
-    <version>6.2.1-SNAPSHOT</version>
+    <version>6.3.0</version>
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>parer-pom</artifactId>
-        <version>6.4.0</version>
+        <version>6.5.0</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Skiptests by default : esecuzione su CI 
         <skipTests>true</skipTests>-->
         <!-- spagofat bom -->
-        <spagofat.version>6.15.0</spagofat.version>
+        <spagofat.version>6.16.0</spagofat.version>
         <idp-jaas-rdbms.version>0.0.9</idp-jaas-rdbms.version>
         <!-- third party libraries -->
         <naming-java.version>0.8</naming-java.version>
@@ -111,7 +111,7 @@
                 <artifactId>javacsv</artifactId>
                 <version>${javacsv.version}</version>
             </dependency>
-			<!-- Xalan & co -->
+            <!-- Xalan & co -->
             <dependency>
                 <groupId>xalan</groupId>
                 <artifactId>xalan</artifactId>
@@ -134,20 +134,7 @@
                 <artifactId>xml-resolver</artifactId>
                 <version>${xml-resolver.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-jakartaee8-with-tools</artifactId>
-                <version>${jboss-eap-jakartaee8-with-tools.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-jakartaee-8.0</artifactId>
-                <type>pom</type>
-                <version>${jboss-jakartaee-8.0.version}</version>
-            </dependency>
-			<!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
+            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
             <dependency>
                 <groupId>it.eng.parer</groupId>
                 <artifactId>idp-jaas-rdbms</artifactId>

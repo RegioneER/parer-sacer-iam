@@ -68,7 +68,7 @@ public class RecuperoHelpController {
 
             if (recuperoHelpEjb.appExists(nmApplic)) {
                 try {
-                    recuperoHelpEjb.loginAndAuth(nmUserId, cdPwd, "RecuperoHelp");
+                    recuperoHelpEjb.loginAndAuth(nmUserId, cdPwd, "RecuperoHelp", false);
                     AplVVisHelpOnLine help = recuperoHelpEjb.recuperoHelp(nmApplic, tiHelpOnLine, nmPaginaWeb,
                             nmEntryMenu);
                     if (help == null) {
