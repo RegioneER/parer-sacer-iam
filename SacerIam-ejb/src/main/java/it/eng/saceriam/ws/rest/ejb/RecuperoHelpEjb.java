@@ -148,8 +148,9 @@ public class RecuperoHelpEjb {
         recuperoHelpHelper.cancellaHelp(idHelp);
     }
 
-    public boolean loginAndAuth(String utente, String password, String servizioWeb) throws AuthWSException {
-        return WSLoginHandler.loginAndCheckAuthzIAM(utente, password, servizioWeb, null, em);
+    public boolean loginAndAuth(String utente, String password, String servizioWeb, boolean isOAuth2)
+            throws AuthWSException {
+        return WSLoginHandler.loginAndCheckAuthzIAM(utente, password, servizioWeb, null, em, isOAuth2);
     }
 
     public boolean appExists(String nomeApplicazione) throws AuthWSException {

@@ -1,10 +1,9 @@
-## 6.2.0 (19-09-2024)
+## 6.3.0 (09-12-2024)
 
 ### Bugfix: 1
-- [#34035](https://parermine.regione.emilia-romagna.it/issues/34035) Errore critico di funzionalità utilizzando "Estrai righe fatture da ricerca"
+- [#34056](https://parermine.regione.emilia-romagna.it/issues/34056) Visualizzazione corretta dei decimali nel Dettaglio di un servizio erogato
 
-### Novità: 4
-- [#32999](https://parermine.regione.emilia-romagna.it/issues/32999) Enti/Gestione accordi: introduzione campo di ricerca "Stato accordo"
-- [#32651](https://parermine.regione.emilia-romagna.it/issues/32651) Associazione tra parametri e versione dell'applicazione
-- [#31350](https://parermine.regione.emilia-romagna.it/issues/31350) Modifiche alla pagina Lista degli accessi per la gestione dell'ora di accesso
-- [#31276](https://parermine.regione.emilia-romagna.it/issues/31276) Richiesta modifica di disciplinare tecnico
+### Novità: 3
+- [#34738](https://parermine.regione.emilia-romagna.it/issues/34738) Aggiornamento CSV per rilascio microservizi censiti in SIAM
+- [#33125](https://parermine.regione.emilia-romagna.it/issues/33125) Aggiornamento alle ultimi versioni librerie jakarata-ee8 per jboss 7.4
+- [#32826](https://parermine.regione.emilia-romagna.it/issues/32826) Modifiche alla conservazione dei log dei job

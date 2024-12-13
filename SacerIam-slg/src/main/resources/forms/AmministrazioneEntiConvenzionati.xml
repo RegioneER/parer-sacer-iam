@@ -957,9 +957,9 @@
         <Input Name="ni_unita_doc_vers" Description="Numero unità documentarie versate" Type="INTEGER" />
         <Input Name="ni_byte_vers" Description="Storage occupato (in bytes)" Type="INTEGER" />
         <Input Name="ni_abitanti" Description="Numero di abitanti" Type="INTEGER" />        
-        <Input Name="im_netto" Description="Importo netto" Type="INTEGER" />        
+        <Input Name="im_netto" Description="Importo netto" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />        
         <Input Name="cd_iva" Description="Codice IVA" Type="STRING" />
-        <Input Name="im_iva" Description="Importo IVA" Type="INTEGER" />        
+        <Input Name="im_iva" Description="Importo IVA" Type="DECIMAL" Format="#.######" GroupingDecimal="true" />        
     </List>
     
     <!-- Lista dei disciplinari tecnici -->
