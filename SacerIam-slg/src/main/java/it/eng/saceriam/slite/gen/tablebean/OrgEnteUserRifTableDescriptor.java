@@ -44,6 +44,14 @@ public class OrgEnteUserRifTableDescriptor extends TableDescriptor {
     public static final String COL_ID_USER_IAM = "id_user_iam";
     public static final String COL_QUALIFICA_USER = "qualifica_user";
     public static final String COL_DL_NOTE = "dl_note";
+    public static final String COL_CD_REGISTRO_ENTE_USER_RIF = "cd_registro_ente_user_rif";
+    public static final String COL_AA_ENTE_USER_RIF = "aa_ente_user_rif";
+    public static final String COL_CD_KEY_ENTE_USER_RIF = "cd_key_ente_user_rif";
+    public static final String COL_DT_REG_ENTE_USER_RIF = "dt_reg_ente_user_rif";
+    public static final String COL_CD_ENTE_USER_RIF = "cd_ente_user_rif";
+    public static final String COL_BL_ENTE_USER_RIF = "bl_ente_user_rif";
+    public static final String COL_NM_FILE_ENTE_USER_RIF = "nm_file_ente_user_rif";
+    public static final String COL_DS_ENTE_USER_RIF = "ds_ente_user_rif";
 
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
@@ -53,6 +61,15 @@ public class OrgEnteUserRifTableDescriptor extends TableDescriptor {
         map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
         map.put(COL_QUALIFICA_USER, new ColumnDescriptor(COL_QUALIFICA_USER, Types.VARCHAR, 40, false));
         map.put(COL_DL_NOTE, new ColumnDescriptor(COL_DL_NOTE, Types.VARCHAR, 254, false));
+        map.put(COL_CD_REGISTRO_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_CD_REGISTRO_ENTE_USER_RIF, Types.VARCHAR, 100, false));
+        map.put(COL_AA_ENTE_USER_RIF, new ColumnDescriptor(COL_AA_ENTE_USER_RIF, Types.DECIMAL, 22, false));
+        map.put(COL_CD_KEY_ENTE_USER_RIF, new ColumnDescriptor(COL_CD_KEY_ENTE_USER_RIF, Types.VARCHAR, 100, false));
+        map.put(COL_DT_REG_ENTE_USER_RIF, new ColumnDescriptor(COL_DT_REG_ENTE_USER_RIF, Types.TIMESTAMP, 0, false));
+        map.put(COL_CD_ENTE_USER_RIF, new ColumnDescriptor(COL_CD_ENTE_USER_RIF, Types.VARCHAR, 40, false));
+        map.put(COL_BL_ENTE_USER_RIF, new ColumnDescriptor(COL_BL_ENTE_USER_RIF, Types.BLOB, 4000, false));
+        map.put(COL_NM_FILE_ENTE_USER_RIF, new ColumnDescriptor(COL_NM_FILE_ENTE_USER_RIF, Types.VARCHAR, 100, false));
+        map.put(COL_DS_ENTE_USER_RIF, new ColumnDescriptor(COL_DS_ENTE_USER_RIF, Types.VARCHAR, 1024, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {

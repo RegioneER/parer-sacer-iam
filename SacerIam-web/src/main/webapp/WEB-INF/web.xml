@@ -57,6 +57,19 @@
         <url-pattern>*.html</url-pattern>
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SAMLFederationMetadata</servlet-name>
+        <servlet-class>it.eng.saceriam.ws.SAMLFederationMetadata</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SAMLFederationMetadata</servlet-name>
+        <url-pattern>/federationMetadata</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatusMonitorSrvlt</servlet-name>
+        <url-pattern>/StatusMonitor</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>60</session-timeout>
         <cookie-config>
