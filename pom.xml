@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>saceriam-jboss</artifactId>
-    <version>6.3.1-SNAPSHOT</version>
+    <version>6.4.0</version>
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
@@ -23,7 +23,9 @@
         <xml-resolver.version>1.2.0.redhat-12</xml-resolver.version>
         <javacsv.version>2.0</javacsv.version>
         <!-- tika -->
-        <tika.version>2.9.2</tika.version>        
+        <tika.version>2.9.2</tika.version>
+        <!-- jaxp-jdk11 -->
+        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>     
     </properties>
     
 <distributionManagement>
@@ -110,29 +112,6 @@
                 <groupId>net.sourceforge.javacsv</groupId>
                 <artifactId>javacsv</artifactId>
                 <version>${javacsv.version}</version>
-            </dependency>
-            <!-- Xalan & co -->
-            <dependency>
-                <groupId>xalan</groupId>
-                <artifactId>xalan</artifactId>
-                <version>${xalan.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-				<groupId>xalan</groupId>
-				<artifactId>serializer</artifactId>
-				<version>${xalan.version}</version>
-				<scope>runtime</scope>
-			</dependency>
-            <dependency>
-                <groupId>xerces</groupId>
-                <artifactId>xercesImpl</artifactId>
-                <version>${xerces.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>xml-resolver</groupId>
-                <artifactId>xml-resolver</artifactId>
-                <version>${xml-resolver.version}</version>
             </dependency>
             <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
             <dependency>

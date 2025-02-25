@@ -8,7 +8,7 @@
     <sl:body>
         <sl:header showChangeOrganizationBtn="false" />
         <sl:menu showChangePasswordBtn="true" />
-        <sl:content>
+        <sl:content multipartForm="true" >
             <slf:messageBox />
             <sl:newLine skipLine="true"/>
             <sl:contentTitle title="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DESCRIPTION%>" />
@@ -42,7 +42,46 @@
                 <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DL_NOTE%>" colSpan="2"/>
             </slf:section>
-            <sl:newLine skipLine="true"/>
+
+		<slf:section
+			name="<%=AmministrazioneEntiConvenzionatiForm.RiferimentiSection.NAME%>"
+			styleClass="importantContainer noborder w100">
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.ID_ENTE_USER_RIF%>"
+				colSpan="2" />
+			<sl:newLine />
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.CD_REGISTRO_ENTE_USER_RIF%>"
+				colSpan="2" />
+                        <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.UdButtonList.SCARICA_COMP_FILE_UD_ENTE_USER_RIF%>" colSpan="2"/><sl:newLine />
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.AA_ENTE_USER_RIF%>"
+				colSpan="2" />
+			<sl:newLine />
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.CD_KEY_ENTE_USER_RIF%>"
+				colSpan="2" />
+			<sl:newLine />
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DT_REG_ENTE_USER_RIF%>"
+				colSpan="2" />
+			<sl:newLine />
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.BL_ENTE_USER_RIF%>"
+				colSpan="2" />
+			<sl:newLine />
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.NM_FILE_ENTE_USER_RIF%>"
+				colSpan="2" />
+			<sl:newLine />
+			<slf:lblField
+				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DS_ENTE_USER_RIF%>"
+				colSpan="2" />
+		</slf:section>
+		<sl:newLine skipLine="true"/>
+                <sl:pulsantiera>
+                <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DOWNLOAD_FILE_ENTE_USER_RIF%>" colSpan="2" />
+            </sl:pulsantiera>
         </sl:content>
         <sl:footer />
     </sl:body>

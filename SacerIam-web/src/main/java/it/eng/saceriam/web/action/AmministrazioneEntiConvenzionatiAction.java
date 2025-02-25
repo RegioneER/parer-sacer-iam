@@ -86,6 +86,7 @@ import it.eng.saceriam.common.Constants;
 import it.eng.saceriam.entity.OrgAccordoEnte;
 import it.eng.saceriam.entity.OrgAppartCollegEnti;
 import it.eng.saceriam.entity.OrgEnteConvenzOrg;
+import it.eng.saceriam.entity.OrgEnteUserRif;
 import it.eng.saceriam.entity.OrgModuloInfoAccordo;
 import it.eng.saceriam.entity.constraint.ConstIamParamApplic;
 import it.eng.saceriam.entity.constraint.ConstOrgAmbitoTerrit;
@@ -173,6 +174,7 @@ import it.eng.spagoLite.form.fields.SingleValueField;
 import it.eng.spagoLite.message.Message;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
 import it.eng.spagoLite.security.Secure;
+import java.util.logging.Level;
 
 /**
  *
@@ -305,6 +307,10 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     BigDecimal idEnteUserRif = currentRow.getBigDecimal("id_ente_user_rif");
                     OrgEnteUserRifRowBean enteUserRifRowBean = entiConvenzionatiEjb
                             .getOrgEnteUserRifRowBean(idEnteUserRif);
+                    getForm().getReferenteEnteDetail().reset();
+                    loadDettaglioRifReferenteEnte();
+                    getForm().getReferenteEnteDetail().getQualifica_user()
+                            .setDecodeMap(ComboGetter.getMappaQualificaUser());
                     getForm().getReferenteEnteDetail().copyFromBean(enteUserRifRowBean);
                 } else if (getTableName().equals(getForm().getCollegamentiEnteAppartList().getName())) {
                     OrgAppartCollegEntiRowBean currentRow = (OrgAppartCollegEntiRowBean) getForm()
@@ -736,6 +742,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 getForm().getReferenteEnteDetail().setEditMode();
                 getForm().getReferenteEnteDetail().getQualifica_user()
                         .setDecodeMap(ComboGetter.getMappaQualificaUser());
+                initRiferimentiReferenteDetail();
                 forwardToPublisher(Application.Publisher.DETTAGLIO_REFERENTE_ENTE);
             } else if (getTableName().equals(getForm().getDisciplinariTecniciList().getName())) {
                 getForm().getDisciplinareTecnicoDetail().clear();
@@ -3019,6 +3026,19 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getModuloInformazioniDetail().copyFromBean(bean);
     }
 
+    private void loadDettaglioRifReferenteEnte() throws ParerUserError, EMFError {
+        BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
+        BigDecimal idAmbienteEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz().parse();
+        String[][] ambEnteStrut = entiConvenzionatiEjb.getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz,
+                idEnteConvenz);
+
+        getForm().getReferenteEnteDetail().getCd_registro_ente_user_rif()
+                .setDecodeMap(DecodeMap.Factory.newInstance(
+                        entiConvenzionatiEjb.getRegistriStrutturaTableBean(new BigDecimal(ambEnteStrut[2][0])),
+                        "cd_registro", "cd_registro"));
+
+    }
+
     @Override
     public void updateListaEntiConvenzionati() throws EMFError {
         BigDecimal idEnteConvenz = getForm().getListaEntiConvenzionati().getTable().getCurrentRow()
@@ -3434,6 +3454,20 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         // Carico i valori precompilati
         getForm().getModuloInformazioniDetail().getNm_ente().setValue(ambEnteStrut[1][1]);
         getForm().getModuloInformazioniDetail().getNm_strut().setValue(ambEnteStrut[2][1]);
+    }
+
+    private void initRiferimentiReferenteDetail() throws ParerUserError, EMFError {
+        BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
+        BigDecimal idAmbienteEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ambiente_ente_convenz().parse();
+        String[][] ambEnteStrut = entiConvenzionatiEjb.getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz,
+                idEnteConvenz);
+        getForm().getReferenteEnteDetail().getCd_registro_ente_user_rif()
+                .setDecodeMap(DecodeMap.Factory.newInstance(
+                        entiConvenzionatiEjb.getRegistriStrutturaTableBean(new BigDecimal(ambEnteStrut[2][0])),
+                        "cd_registro", "cd_registro"));
+        // Carico i valori precompilati
+        // getForm().getReferenteEnteDetail().getNm_ente().setValue(ambEnteStrut[1][1]);
+        // getForm().getReferenteEnteDetail().getNm_strut().setValue(ambEnteStrut[2][1]);
     }
 
     private void initDisciplinareTecnicoDetail() throws ParerUserError, EMFError {
@@ -5185,6 +5219,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
     @Override
     public void updateReferentiEnteList() throws EMFError {
         getForm().getReferenteEnteDetail().getDl_note().setEditMode();
+        getForm().getReferenteEnteDetail().getBl_ente_user_rif().setEditMode();
+        getForm().getReferenteEnteDetail().getDs_ente_user_rif().setEditMode();
+        getForm().getReferenteEnteDetail().getCd_registro_ente_user_rif().setEditMode();
+        getForm().getReferenteEnteDetail().getAa_ente_user_rif().setEditMode();
+        getForm().getReferenteEnteDetail().getCd_key_ente_user_rif().setEditMode();
+        getForm().getReferenteEnteDetail().getDt_reg_ente_user_rif().setEditMode();
         getForm().getReferenteEnteDetail().setStatus(Status.update);
         getForm().getReferentiEnteList().setStatus(Status.update);
     }
@@ -6234,6 +6274,31 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     getForm().getUdButtonList().getScaricaCompFileUdModInfo().setViewMode();
                 }
             }
+            if (getForm().getReferenteEnteDetail().getStatus() != null) {
+                getForm().getReferenteEnteDetail().getBl_ente_user_rif().setHidden(false);
+                // // Visualizzo il bottone di download del file
+                getForm().getReferenteEnteDetail().getDownloadFileEnteUserRif().setHidden(true);
+                getForm().getReferenteEnteDetail().getDownloadFileEnteUserRif().setEditMode();
+                try {
+                    BigDecimal identeUser = getForm().getReferenteEnteDetail().getId_ente_user_rif().parse();
+                    if (identeUser != null && entiConvenzionatiEjb.isNmFileReferentePresente(identeUser)) {
+                        getForm().getReferenteEnteDetail().getDownloadFileEnteUserRif().setHidden(false);
+                    }
+                    getForm().getUdButtonList().getScaricaCompFileUdEnteUserRif().setViewMode();
+
+                    if (getForm().getReferenteEnteDetail().getId_ente_user_rif() != null
+                            && (getForm().getReferenteEnteDetail().getCd_registro_ente_user_rif().parse() != null
+                                    && getForm().getReferenteEnteDetail().getAa_ente_user_rif().parse() != null
+                                    && getForm().getReferenteEnteDetail().getCd_key_ente_user_rif().parse() != null)) {
+                        getForm().getUdButtonList().getScaricaCompFileUdEnteUserRif().setDisableHourGlass(true);
+                        getForm().getUdButtonList().getScaricaCompFileUdEnteUserRif().setEditMode();
+                    } else {
+                        getForm().getUdButtonList().getScaricaCompFileUdEnteUserRif().setViewMode();
+                    }
+                } catch (EMFError ex) {
+                    getMessageBox().addError("Errore durante il recupero del nome file");
+                }
+            }
 
             if (getForm().getAccordoDetail().getStatus() != null) {
                 // Se il flag è "checked" ripristino i campi che sono stati messi in stato "readonly" dal
@@ -6408,7 +6473,34 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         logger.debug(">>>PROCESS");
         boolean isMultipart = ServletFileUpload.isMultipartContent(getRequest());
         if (isMultipart) {
-            if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_MODULO_INFORMAZIONI)) {
+            if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_REFERENTE_ENTE)) {
+                try {
+                    int fileSize = ConfigSingleton.getInstance().getIntValue(MODULO_INFORMAZIONI_MAX_FILE_SIZE.name());
+                    String[] a = getForm().getReferenteEnteDetail().postMultipart(getRequest(), fileSize);
+
+                    if (a != null) {
+                        String operationMethod = a[0];
+                        String[] navigationParams = Arrays.copyOfRange(a, 1, a.length);
+
+                        if (navigationParams != null && navigationParams.length > 0) {
+                            Method method = AmministrazioneEntiConvenzionatiAction.class.getMethod(operationMethod,
+                                    String[].class);
+                            method.invoke(this, (Object) navigationParams);
+
+                        } else {
+                            Method method = AmministrazioneEntiConvenzionatiAction.class.getMethod(operationMethod);
+                            method.invoke(this);
+                        }
+                    }
+
+                } catch (FileUploadException | SecurityException | IllegalArgumentException | NoSuchMethodException
+                        | IllegalAccessException | InvocationTargetException ex) {
+                    logger.error("Errore nell'invocazione del metodo di navigazione  :"
+                            + ExceptionUtils.getRootCauseMessage(ex), ex);
+                    getMessageBox().addError("Errore nella navigazione ");
+                    goBack();
+                }
+            } else if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_MODULO_INFORMAZIONI)) {
                 try {
                     int fileSize = ConfigSingleton.getInstance().getIntValue(MODULO_INFORMAZIONI_MAX_FILE_SIZE.name());
                     String[] a = getForm().getModuloInformazioniDetail().postMultipart(getRequest(), fileSize);
@@ -6549,6 +6641,17 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         downloadFileCommon(idModello);
     }
 
+    @Override
+    public void downloadFileEnteUserRif() throws EMFError {
+        BigDecimal idEnteUserRif = getForm().getReferenteEnteDetail().getId_ente_user_rif().parse();
+        if (idEnteUserRif == null) {
+            OrgEnteUserRifRowBean row = (OrgEnteUserRifRowBean) getForm().getReferentiEnteList().getTable()
+                    .getCurrentRow();
+            idEnteUserRif = row.getIdEnteUserRif();
+        }
+        downloadFileCommonReferente(idEnteUserRif);
+    }
+
     private void downloadFileCommonGestAccordo(BigDecimal idGestAccordo) throws EMFError {
         File tmpFile = null;
         FileOutputStream out = null;
@@ -6600,6 +6703,43 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 tmpFile = new File(System.getProperty("java.io.tmpdir"), rec.getNmFileModuloInfo());
                 out = new FileOutputStream(tmpFile);
                 IOUtils.write(rec.getBlModuloInfo(), out);
+
+                getRequest().setAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_ACTION.name(), getControllerName());
+                getSession().setAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_FILENAME.name(), tmpFile.getName());
+                getSession().setAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_FILEPATH.name(), tmpFile.getPath());
+                getSession().setAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_DELETEFILE.name(),
+                        Boolean.toString(true));
+                getSession().setAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_CONTENTTYPE.name(),
+                        WebConstants.MIME_TYPE_GENERIC);
+            }
+        } catch (Exception ex) {
+            logger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
+            getMessageBox().addError("Errore inatteso nella preparazione del download<br/>");
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+
+        if (getMessageBox().hasError()) {
+            forwardToPublisher(getLastPublisher());
+        } else {
+            forwardToPublisher(Application.Publisher.DOWNLOAD_PAGE);
+        }
+
+    }
+
+    private void downloadFileCommonReferente(BigDecimal idEnteUserRif) throws EMFError {
+        File tmpFile = null;
+        FileOutputStream out = null;
+
+        try {
+            OrgEnteUserRif rec = entiConvenzionatiHelper.findById(OrgEnteUserRif.class, idEnteUserRif);
+            // Controllo per scrupolo
+            if (rec.getBlEnteUserRif() == null) {
+                getMessageBox().addError("Non c'\u00E8 alcun file da scaricare<br/>");
+            } else {
+                tmpFile = new File(System.getProperty("java.io.tmpdir"), rec.getNmFileEnteUserRif());
+                out = new FileOutputStream(tmpFile);
+                IOUtils.write(rec.getBlEnteUserRif(), out);
 
                 getRequest().setAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_ACTION.name(), getControllerName());
                 getSession().setAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_FILENAME.name(), tmpFile.getName());
@@ -6693,6 +6833,23 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 .getCurrentRow();
         BigDecimal idModello = row.getIdModuloInfoAccordo();
         downloadFileCommon(idModello);
+    }
+
+    public void downloadFileReferenteDaLista() throws EMFError, Throwable {
+        logger.debug(">>>DOWNLOAD da Lista");
+        setTableName(getForm().getReferentiEnteList().getName());
+        setRiga(getRequest().getParameter("riga"));
+        getForm().getReferentiEnteList().getTable().setCurrentRowIndex(Integer.parseInt(getRiga()));
+        OrgEnteUserRifRowBean row = (OrgEnteUserRifRowBean) getForm().getReferentiEnteList().getTable().getCurrentRow();
+        BigDecimal idReferente = row.getIdEnteUserRif();
+        OrgEnteUserRif rec = entiConvenzionatiHelper.findById(OrgEnteUserRif.class, idReferente);
+
+        if (rec.getBlEnteUserRif() != null) {
+            downloadFileCommonReferente(BigDecimal.valueOf(rec.getIdEnteUserRif()));
+        } else if (rec.getCdRegistroEnteUserRif() != null && rec.getAaEnteUserRif() != null
+                && rec.getCdKeyEnteUserRif() != null) {
+            scaricaCompFileUdEnteUserRif();
+        }
     }
 
     public void downloadFileGestAccDaLista() throws EMFError {
@@ -8125,7 +8282,22 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
     @Override
     public void selezionaReferenteEnte() throws EMFError {
-        getForm().getReferenteEnteDetail().post(getRequest());
+        // Verifica se la richiesta è multipart
+        // if (ServletFileUpload.isMultipartContent(getRequest())) {
+        // try {
+        // // Usa postMultipart invece di post per la gestione dei file
+        // getForm().getReferenteEnteDetail().postMultipart(getRequest(), 0);
+        // } catch (FileUploadException ex) {
+        // logger.error(
+        // "Errore nell'invocazione del metodo di navigazione :" + ExceptionUtils.getRootCauseMessage(ex),
+        // ex);
+        // getMessageBox().addError("Errore nella navigazione ");
+        // goBack();
+        // }
+        // } else {
+        // // Se la richiesta non è multipart, puoi usare il metodo post normale
+        // getForm().getReferenteEnteDetail().post(getRequest());
+        // }
         AmministrazioneUtentiForm amministrazioneUtentiForm = new AmministrazioneUtentiForm();
         final BigDecimal idEnteConvenz = getForm().getEnteConvenzionatoDetail().getId_ente_siam().parse();
         amministrazioneUtentiForm.getReferentePerEnteConvenzionato().getId_ente_convenz()
@@ -8141,14 +8313,13 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
 
     @Override
     public void rimuoviReferenteEnte() throws EMFError {
-        getForm().getReferenteEnteDetail().post(getRequest());
         getForm().getReferenteEnteDetail().getId_user_iam().setValue(null);
         getForm().getReferenteEnteDetail().getNm_userid_codificato().setValue(null);
         forwardToPublisher(Application.Publisher.DETTAGLIO_REFERENTE_ENTE);
     }
 
     private void saveReferenteEnte() throws EMFError {
-        if (getForm().getReferenteEnteDetail().postAndValidate(getRequest(), getMessageBox())) {
+        if (getForm().getReferenteEnteDetail().validate(getMessageBox())) {
             // CONTROLLI DI COERENZA NELLA MASCHERA
             // Controllo che solo uno tra utente manuale ed utente codificato sia valorizzato
             if ((getForm().getReferenteEnteDetail().getNm_userid().parse() != null
@@ -8156,6 +8327,31 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     || (getForm().getReferenteEnteDetail().getNm_userid().parse() == null)
                             && getForm().getReferenteEnteDetail().getNm_userid_codificato().parse() == null) {
                 getMessageBox().addError("E' obbligatorio inserire l'utente manuale o l'utente codificato (uno solo)");
+            }
+
+            if (getForm().getReferenteEnteDetail().getDt_reg_ente_user_rif().parse() != null
+                    && getForm().getReferenteEnteDetail().getDt_reg_ente_user_rif().parse().after(new Date())) {
+                getMessageBox().addError("Attenzione: data registrazione non pu\u00F2 essere una data futura");
+            }
+
+            // Controlli di congruità
+            if (getForm().getReferenteEnteDetail().getBl_ente_user_rif().parse() != null) {
+                if (StringUtils.isNotBlank(getForm().getReferenteEnteDetail().getCd_registro_ente_user_rif().getValue())
+                        || StringUtils.isNotBlank(getForm().getReferenteEnteDetail().getAa_ente_user_rif().getValue())
+                        || StringUtils
+                                .isNotBlank(getForm().getReferenteEnteDetail().getCd_key_ente_user_rif().getValue())
+                        || StringUtils
+                                .isNotBlank(getForm().getReferenteEnteDetail().getDt_reg_ente_user_rif().getValue())) {
+                    getMessageBox().addError(
+                            "Caricare un file semplice oppure inserire la chiave Registro/Anno/Numero/Data Registrazione<br>");
+                    getForm().getReferenteEnteDetail().getBl_ente_user_rif().setValue(null);
+                }
+            }
+            String nmFileEnteUser = getForm().getReferenteEnteDetail().getBl_ente_user_rif().parse();
+            if (nmFileEnteUser != null && nmFileEnteUser.length() > 100) {
+                getMessageBox().addError("Il nome del file caricato supera i 100 caratteri ammessi<br>");
+            } else if (nmFileEnteUser != null) {
+                getForm().getReferenteEnteDetail().getNm_file_ente_user_rif().setValue(nmFileEnteUser);
             }
 
             try {
@@ -8204,6 +8400,19 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     }
                     /* end MEV 19339 */
 
+                    String cdRegistroEnteUserRif = getForm().getReferenteEnteDetail().getCd_registro_ente_user_rif()
+                            .parse();
+                    BigDecimal aaEnteUserRif = getForm().getReferenteEnteDetail().getAa_ente_user_rif().parse();
+                    String cdKeyEnteUserRif = getForm().getReferenteEnteDetail().getCd_key_ente_user_rif().parse();
+                    Date dtRegEnteUserRif = getForm().getReferenteEnteDetail().getDt_reg_ente_user_rif().parse();
+                    byte[] blEnteUserRif = null;
+                    if (getForm().getReferenteEnteDetail().getBl_ente_user_rif().getValue() != null) {
+                        blEnteUserRif = getForm().getReferenteEnteDetail().getBl_ente_user_rif().getFileBytes();
+                    }
+
+                    String dsEnteUserRif = getForm().getReferenteEnteDetail().getDs_ente_user_rif().parse();
+                    String nmFileEnteUserRif = getForm().getReferenteEnteDetail().getNm_file_ente_user_rif().parse();
+
                     OrgEnteUserRifRowBean enteUserRifRowBean = new OrgEnteUserRifRowBean();
                     getForm().getReferenteEnteDetail().copyToBean(enteUserRifRowBean);
 
@@ -8216,7 +8425,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     if (getForm().getReferentiEnteList().getStatus().equals(Status.insert)) {
                         param.setNomeAzione(SpagoliteLogUtil.getToolbarInsert());
                         Long idEnteUserRif = entiConvenzionatiEjb.insertReferenteEnteToEnteSiam(param, idEnteSiam,
-                                getForm().getReferenteEnteDetail().getId_user_iam().parse(), qualificaUser, dlNote);
+                                getForm().getReferenteEnteDetail().getId_user_iam().parse(), qualificaUser, dlNote,
+                                cdRegistroEnteUserRif, aaEnteUserRif, cdKeyEnteUserRif, dtRegEnteUserRif, blEnteUserRif,
+                                nmFileEnteUserRif, dsEnteUserRif);
                         if (idEnteUserRif != null) {
                             enteUserRifRowBean.setIdEnteUserRif(new BigDecimal(idEnteUserRif));
                         }
@@ -8225,7 +8436,9 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                     } else if (getForm().getReferentiEnteList().getStatus().equals(Status.update)) {
                         param.setNomeAzione(SpagoliteLogUtil.getToolbarUpdate());
                         BigDecimal idEnteUserRif = getForm().getReferenteEnteDetail().getId_ente_user_rif().parse();
-                        entiConvenzionatiEjb.updateReferenteEnteToEnteSiam(param, idEnteSiam, idEnteUserRif, dlNote);
+                        entiConvenzionatiEjb.updateReferenteEnteToEnteSiam(param, idEnteSiam, idEnteUserRif, dlNote,
+                                cdRegistroEnteUserRif, aaEnteUserRif, cdKeyEnteUserRif, dtRegEnteUserRif, blEnteUserRif,
+                                nmFileEnteUserRif, dsEnteUserRif);
                     }
 
                     getForm().getReferenteEnteDetail().setViewMode();
@@ -8242,6 +8455,7 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 forwardToPublisher(Application.Publisher.DETTAGLIO_REFERENTE_ENTE);
             }
         }
+
     }
 
     private void saveCollegamentoEnte() throws EMFError {
@@ -8659,6 +8873,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
             OrgGestioneAccordoRowBean accordoEnteRowBean = entiConvenzionatiEjb.getOrgGestioneAccordoRowBean(idEntita);
             nmEnteUnitaDocAccordo = accordoEnteRowBean.getEnteGestAccordo();
             nmStrutUnitaDocAccordo = accordoEnteRowBean.getStrutturaGestAccordo();
+        } else if (tipoEntita.equals("user")) {
+            // OrgEnteUserRifRowBean accordoEnteRowBean = entiConvenzionatiEjb.getOrgEnteUserRifRowBean(idEntita);
+            String[][] ambEnteStrut = entiConvenzionatiEjb.getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz,
+                    idEnteConvenz);
+            nmEnteUnitaDocAccordo = ambEnteStrut[1][1];
+            nmStrutUnitaDocAccordo = ambEnteStrut[2][1];
         }
         BigDecimal idOrganizApplic = amministrazioneUtentiHelper.getIdOrganizIamByParam(nmEnteUnitaDocAccordo,
                 nmStrutUnitaDocAccordo);
@@ -8699,6 +8919,62 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         String numero = getForm().getGestioneAccordoDetail().getCd_key_gest_accordo().parse();
         BigDecimal idGestAccordo = getForm().getGestioneAccordoDetail().getId_gest_accordo().parse();
         scaricaCompFileUd(idGestAccordo, "gestione", registro, anno, numero);
+    }
+
+    @Override
+    public void scaricaCompFileUdEnteUserRif() throws Throwable {
+        // Recupero i parametri
+        ParamsDocumentoReferente params = loadParametriReferenteEnte();
+        // Recupero l'idEnteUser
+        BigDecimal idEnteUser = getForm().getReferenteEnteDetail().getId_ente_user_rif().parse();
+        scaricaCompFileUd(idEnteUser, "user", params.getRegistro(), params.getAnno(), params.getNumero());
+    }
+
+    // Metodo privato per caricare i parametri
+    private ParamsDocumentoReferente loadParametriReferenteEnte() throws Throwable {
+        // Recupero i parametri dal form
+        String registro = getForm().getReferenteEnteDetail().getCd_registro_ente_user_rif().parse();
+        BigDecimal anno = getForm().getReferenteEnteDetail().getAa_ente_user_rif().parse();
+        String numero = getForm().getReferenteEnteDetail().getCd_key_ente_user_rif().parse();
+
+        // Se i parametri dal form sono nulli, uso i valori salvati
+        if (registro == null && anno == null && numero == null) {
+            OrgEnteUserRifRowBean row = (OrgEnteUserRifRowBean) getForm().getReferentiEnteList().getTable()
+                    .getCurrentRow();
+            BigDecimal idReferente = row.getIdEnteUserRif();
+            OrgEnteUserRif rec = entiConvenzionatiHelper.findById(OrgEnteUserRif.class, idReferente);
+            registro = rec.getCdRegistroEnteUserRif();
+            anno = rec.getAaEnteUserRif();
+            numero = rec.getCdKeyEnteUserRif();
+        }
+
+        return new ParamsDocumentoReferente(registro, anno, numero);
+    }
+
+    // Classe per incapsulare i parametri
+    private static class ParamsDocumentoReferente {
+
+        private final String registro;
+        private final BigDecimal anno;
+        private final String numero;
+
+        public ParamsDocumentoReferente(String registro, BigDecimal anno, String numero) {
+            this.registro = registro;
+            this.anno = anno;
+            this.numero = numero;
+        }
+
+        public String getRegistro() {
+            return registro;
+        }
+
+        public BigDecimal getAnno() {
+            return anno;
+        }
+
+        public String getNumero() {
+            return numero;
+        }
     }
 
     private void loadDettaglioDisciplinareTecnico(BigDecimal idDiscipStrut) throws ParerUserError, EMFError {

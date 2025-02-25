@@ -105,6 +105,9 @@
     
     <Section Name="annualitaSenzaAttoSection" Description="" Legend="Annualità senza atto" ShowButton="false" LoadOpened="true"/>    
     
+    <Section Name="riferimentiSection" Description="" Legend="Riferimenti" ShowButton="false" LoadOpened="true" />
+   
+    
     <Fields Name="EnteConvenzionatoDetail" Description="Dettaglio ente convenzionato">
         <Input Name="id_ente_siam" Description="ID ente" Type="INTEGER" Readonly="true" />
         <Input Name="cd_ente_convenz" Description="Codice ente" Type="STRING" MaxLength="100" Required="true" />
@@ -314,6 +317,7 @@
         <Input Name="nm_nome_user" Description="Nome" Type="STRING" />        
         <Input Name="ds_email" Description="Email" Type="STRING" />
         <Input Name="dl_note" Description="Note" Type="STRING" />
+        <Link Name="download" Description="Download file" Type="STRING" Tooltip="Download file" isTargetList="false" Target="downloadFileReferenteDaLista" VisibilityProperty="download_visibile"/>
     </List>
     
     <Fields Name="ReferenteEnteDetail" Description="Dettaglio referente dell'ente convenzionato">
@@ -324,7 +328,17 @@
         <ComboBox Name="qualifica_user" Description="Qualifica" Type="STRING" Required="true" />
         <TextArea Name="dl_note" Description="Note" Type="STRING" Rows="10" Cols="10" MaxLength="254" />
         <Button Name="selezionaReferenteEnte" Description="Seleziona" Type="STRING" />
-        <Button Name="rimuoviReferenteEnte" Description="Rimuovi" Type="STRING" />        
+        <Button Name="rimuoviReferenteEnte" Description="Rimuovi" Type="STRING" /> 
+        
+        <ComboBox Name="cd_registro_ente_user_rif" Description="Registro" Type="STRING" />
+        <Input Name="aa_ente_user_rif" Description="Anno" Type="INTEGER" />
+        <Input Name="cd_key_ente_user_rif" Description="Numero" Type="STRING" />
+        <Input Name="dt_reg_ente_user_rif" Description="Data registrazione" Type="DATE" />
+        <Input Name="cd_ente_user_rif" Description="Codice ente user rif" Type="STRING" />
+        <Input Name="bl_ente_user_rif" Description="File" Type="FILE" Required="false" />
+        <Input Name="nm_file_ente_user_rif" Description="Nome file" Type="STRING" Hidden="true" />
+        <TextArea Name="ds_ente_user_rif" Description="Descrizione" Type="STRING" Rows="10" Cols="10" MaxLength="1024" />
+        <Button Name="downloadFileEnteUserRif" Description="Download file" Type="STRING" />     
     </Fields>
     
     <!-- Ricerca collegamenti -->
@@ -829,7 +843,8 @@
         <Button Name="scaricaCompFileUdAccordoAdozione" Description="Scarica file unità documentaria" Type="STRING"/>        
         <Button Name="scaricaCompFileUdModInfo" Description="Scarica file unità documentaria" Type="STRING"/>        
         <Button Name="scaricaCompFileUdDiscip" Description="Scarica file unità documentaria" Type="STRING"/>        
-        <Button Name="scaricaCompFileUdGestAccordo" Description="Scarica file unità documentaria" Type="STRING"/>                               
+        <Button Name="scaricaCompFileUdGestAccordo" Description="Scarica file unità documentaria" Type="STRING"/>   
+        <Button Name="scaricaCompFileUdEnteUserRif" Description="Scarica file unità documentaria" Type="STRING"/>                               
     </ButtonList>
     
     <Section Name="gestioniAccordoSection" Description="" Legend="Gestioni accordo" ShowButton="false" LoadOpened="true"/>

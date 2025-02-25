@@ -19,6 +19,7 @@ package it.eng.saceriam.slite.gen.tablebean;
 
 import java.math.BigDecimal;
 
+import java.util.Date;
 import it.eng.saceriam.entity.OrgEnteSiam;
 import it.eng.saceriam.entity.OrgEnteUserRif;
 import it.eng.saceriam.entity.UsrUser;
@@ -26,6 +27,7 @@ import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.JEEBaseRowInterface;
 import it.eng.spagoLite.db.base.row.BaseRow;
 import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
+import java.sql.Timestamp;
 
 /**
  * RowBean per la tabella Org_Ente_User_Rif
@@ -89,6 +91,62 @@ public class OrgEnteUserRifRowBean extends BaseRow implements BaseRowInterface, 
         setObject("qualifica_user", qualificaUser);
     }
 
+    public String getCdRegistroEnteUserRif() {
+        return getString("cd_registro_ente_user_rif");
+    }
+
+    public void setCdRegistroEnteUserRif(String cdRegistroEnteUserRif) {
+        setObject("cd_registro_ente_user_rif", cdRegistroEnteUserRif);
+    }
+
+    public BigDecimal getAaEnteUserRif() {
+        return getBigDecimal("aa_ente_user_rif");
+    }
+
+    public void setAaEnteUserRif(BigDecimal aaEnteUserRif) {
+        setObject("aa_ente_user_rif", aaEnteUserRif);
+    }
+
+    public String getCdKeyEnteUserRif() {
+        return getString("cd_key_ente_user_rif");
+    }
+
+    public void setCdKeyEnteUserRif(String cdKeyEnteUserRif) {
+        setObject("cd_key_ente_user_rif", cdKeyEnteUserRif);
+    }
+
+    public Timestamp getDtRegEnteUserRif() {
+        return getTimestamp("dt_reg_ente_user_rif");
+    }
+
+    public void setDtRegEnteUserRif(Timestamp dtRegEnteUserRif) {
+        setObject("dt_reg_ente_user_rif", dtRegEnteUserRif);
+    }
+
+    public String getCdEnteUserRif() {
+        return getString("cd_ente_user_rif");
+    }
+
+    public void setCdEnteUserRif(String cdEnteUserRif) {
+        setObject("cd_ente_user_rif", cdEnteUserRif);
+    }
+
+    public String getNmFileEnteUserRif() {
+        return getString("nm_file_ente_user_rif");
+    }
+
+    public void setNmFileEnteUserRif(String nmFileEnteUserRif) {
+        setObject("nm_file_ente_user_rif", nmFileEnteUserRif);
+    }
+
+    public String getDsEnteUserRif() {
+        return getString("ds_ente_user_rif");
+    }
+
+    public void setDsEnteUserRif(String dsEnteUserRif) {
+        setObject("ds_ente_user_rif", dsEnteUserRif);
+    }
+
     @Override
     public void entityToRowBean(Object obj) {
         OrgEnteUserRif entity = (OrgEnteUserRif) obj;
@@ -103,6 +161,14 @@ public class OrgEnteUserRifRowBean extends BaseRow implements BaseRowInterface, 
         }
         this.setQualificaUser(entity.getQualificaUser());
         this.setDlNote(entity.getDlNote());
+        this.setCdRegistroEnteUserRif(entity.getCdRegistroEnteUserRif());
+        this.setAaEnteUserRif(entity.getAaEnteUserRif());
+        this.setCdKeyEnteUserRif(entity.getCdKeyEnteUserRif());
+        this.setDtRegEnteUserRif(
+                entity.getDtRegEnteUserRif() != null ? new Timestamp(entity.getDtRegEnteUserRif().getTime()) : null);
+        this.setCdEnteUserRif(entity.getCdEnteUserRif());
+        this.setNmFileEnteUserRif(entity.getNmFileEnteUserRif());
+        this.setDsEnteUserRif(entity.getDsEnteUserRif());
     }
 
     @Override

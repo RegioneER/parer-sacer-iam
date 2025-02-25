@@ -18,6 +18,8 @@
 package it.eng.saceriam.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +30,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Lob;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -49,6 +52,15 @@ public class OrgEnteUserRif implements Serializable {
     private UsrUser usrUser;
     private String qualificaUser;
     private String dlNote;
+
+    private String cdRegistroEnteUserRif;
+    private BigDecimal aaEnteUserRif;
+    private String cdKeyEnteUserRif;
+    private Date dtRegEnteUserRif;
+    private String cdEnteUserRif;
+    private byte[] blEnteUserRif;
+    private String nmFileEnteUserRif;
+    private String dsEnteUserRif;
 
     public OrgEnteUserRif() {
     }
@@ -91,7 +103,7 @@ public class OrgEnteUserRif implements Serializable {
 
     @Column(name = "QUALIFICA_USER")
     public String getQualificaUser() {
-        return qualificaUser;
+        return this.qualificaUser;
     }
 
     public void setQualificaUser(String qualificaUser) {
@@ -100,10 +112,84 @@ public class OrgEnteUserRif implements Serializable {
 
     @Column(name = "DL_NOTE")
     public String getDlNote() {
-        return dlNote;
+        return this.dlNote;
     }
 
     public void setDlNote(String dlNote) {
         this.dlNote = dlNote;
     }
+
+    @Column(name = "CD_REGISTRO_ENTE_USER_RIF")
+    public String getCdRegistroEnteUserRif() {
+        return this.cdRegistroEnteUserRif;
+    }
+
+    public void setCdRegistroEnteUserRif(String cdRegistroEnteUserRif) {
+        this.cdRegistroEnteUserRif = cdRegistroEnteUserRif;
+    }
+
+    @Column(name = "AA_ENTE_USER_RIF")
+    public BigDecimal getAaEnteUserRif() {
+        return this.aaEnteUserRif;
+    }
+
+    public void setAaEnteUserRif(BigDecimal aaEnteUserRif) {
+        this.aaEnteUserRif = aaEnteUserRif;
+    }
+
+    @Column(name = "CD_KEY_ENTE_USER_RIF")
+    public String getCdKeyEnteUserRif() {
+        return this.cdKeyEnteUserRif;
+    }
+
+    public void setCdKeyEnteUserRif(String cdKeyEnteUserRif) {
+        this.cdKeyEnteUserRif = cdKeyEnteUserRif;
+    }
+
+    @Column(name = "DT_REG_ENTE_USER_RIF")
+    public Date getDtRegEnteUserRif() {
+        return this.dtRegEnteUserRif;
+    }
+
+    public void setDtRegEnteUserRif(Date dtRegEnteUserRif) {
+        this.dtRegEnteUserRif = dtRegEnteUserRif;
+    }
+
+    @Column(name = "CD_ENTE_USER_RIF")
+    public String getCdEnteUserRif() {
+        return this.cdEnteUserRif;
+    }
+
+    public void setCdEnteUserRif(String cdEnteUserRif) {
+        this.cdEnteUserRif = cdEnteUserRif;
+    }
+
+    @Lob
+    @Column(name = "BL_ENTE_USER_RIF")
+    public byte[] getBlEnteUserRif() {
+        return this.blEnteUserRif;
+    }
+
+    public void setBlEnteUserRif(byte[] blEnteUserRif) {
+        this.blEnteUserRif = blEnteUserRif;
+    }
+
+    @Column(name = "NM_FILE_ENTE_USER_RIF")
+    public String getNmFileEnteUserRif() {
+        return this.nmFileEnteUserRif;
+    }
+
+    public void setNmFileEnteUserRif(String nmFileEnteUserRif) {
+        this.nmFileEnteUserRif = nmFileEnteUserRif;
+    }
+
+    @Column(name = "DS_ENTE_USER_RIF")
+    public String getDsEnteUserRif() {
+        return this.dsEnteUserRif;
+    }
+
+    public void setDsEnteUserRif(String dsEnteUserRif) {
+        this.dsEnteUserRif = dsEnteUserRif;
+    }
+
 }

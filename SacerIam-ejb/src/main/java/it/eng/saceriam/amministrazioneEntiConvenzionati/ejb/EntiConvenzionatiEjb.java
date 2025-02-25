@@ -2288,6 +2288,21 @@ public class EntiConvenzionatiEjb {
                     row.setString("qualifica_user", enteUserRif.getQualificaUser());
                     row.setString("dl_note", enteUserRif.getDlNote());
                     row.setBigDecimal("id_ente_user_rif", new BigDecimal(enteUserRif.getIdEnteUserRif()));
+                    row.setString("nm_file_ente_user_rif", enteUserRif.getNmFileEnteUserRif());
+
+                    if (enteUserRif.getNmFileEnteUserRif() != null) {
+                        row.setString("download", "download");
+                        row.setString("download_visibile", "1");
+                    } else if (enteUserRif.getCdRegistroEnteUserRif() != null && enteUserRif.getAaEnteUserRif() != null
+                            && enteUserRif.getCdKeyEnteUserRif() != null) {
+                        String str = enteUserRif.getCdRegistroEnteUserRif() + " - " + enteUserRif.getAaEnteUserRif()
+                                + " - " + enteUserRif.getCdKeyEnteUserRif();
+                        row.setString("download", str);
+                        row.setString("download_visibile", "1");
+                    } else {
+                        row.setString("download_visibile", "0");
+                    }
+
                     table.add(row);
                 }
             } catch (IllegalArgumentException ex) {
@@ -5435,7 +5450,9 @@ public class EntiConvenzionatiEjb {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Long insertReferenteEnteToEnteSiam(LogParam param, BigDecimal idEnteSiam, BigDecimal idUserIam,
-            String qualificaUser, String dlNote) throws ParerUserError {
+            String qualificaUser, String dlNote, String cdRegistroEnteUserRif, BigDecimal aaEnteUserRif,
+            String cdKeyEnteUserRif, Date dtRegEnteUserRif, byte[] blEnteUserRif, String nmFileEnteUserRif,
+            String dsEnteUserRif) throws ParerUserError {
         UsrUser user = helper.findByIdWithLock(UsrUser.class, idUserIam);
 
         // Controlli
@@ -5458,6 +5475,13 @@ public class EntiConvenzionatiEjb {
         enteUserRif.setUsrUser(user);
         enteUserRif.setQualificaUser(qualificaUser);
         enteUserRif.setDlNote(dlNote);
+        enteUserRif.setCdRegistroEnteUserRif(cdRegistroEnteUserRif);
+        enteUserRif.setAaEnteUserRif(aaEnteUserRif);
+        enteUserRif.setCdKeyEnteUserRif(cdKeyEnteUserRif);
+        enteUserRif.setDtRegEnteUserRif(dtRegEnteUserRif);
+        enteUserRif.setBlEnteUserRif(blEnteUserRif);
+        enteUserRif.setNmFileEnteUserRif(nmFileEnteUserRif);
+        enteUserRif.setDsEnteUserRif(dsEnteUserRif);
         helper.insertEntity(enteUserRif, true);
 
         String nmTipoOggetto = SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO;
@@ -5477,10 +5501,23 @@ public class EntiConvenzionatiEjb {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void updateReferenteEnteToEnteSiam(LogParam param, BigDecimal idEnteSiam, BigDecimal idEnteUserRif,
-            String dlNote) throws ParerUserError {
+            String dlNote, String cdRegistroEnteUserRif, BigDecimal aaEnteUserRif, String cdKeyEnteUserRif,
+            Date dtRegEnteUserRif, byte[] blEnteUserRif, String nmFileEnteUserRif, String dsEnteUserRif)
+            throws ParerUserError {
         OrgEnteSiam enteSiam = helper.findByIdWithLock(OrgEnteSiam.class, idEnteSiam);
         OrgEnteUserRif enteUserRif = helper.findById(OrgEnteUserRif.class, idEnteUserRif);
         enteUserRif.setDlNote(dlNote);
+        enteUserRif.setCdRegistroEnteUserRif(cdRegistroEnteUserRif);
+        enteUserRif.setAaEnteUserRif(aaEnteUserRif);
+        enteUserRif.setCdKeyEnteUserRif(cdKeyEnteUserRif);
+        enteUserRif.setDtRegEnteUserRif(dtRegEnteUserRif);
+        enteUserRif.setBlEnteUserRif(blEnteUserRif);
+        enteUserRif.setNmFileEnteUserRif(nmFileEnteUserRif);
+        if (blEnteUserRif == null) {
+            enteUserRif.setNmFileEnteUserRif(null);
+        }
+        enteUserRif.setDsEnteUserRif(dsEnteUserRif);
+
         helper.mergeEntity(enteUserRif);
         helper.getEntityManager().flush();
 
@@ -11479,6 +11516,16 @@ public class EntiConvenzionatiEjb {
     public boolean isNmFileModuloInfoPresente(BigDecimal idModuloInfo) {
         OrgModuloInfoAccordo moduloInfoAccordo = helper.findById(OrgModuloInfoAccordo.class, idModuloInfo);
         if (moduloInfoAccordo != null && moduloInfoAccordo.getNmFileModuloInfo() != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean isNmFileReferentePresente(BigDecimal identeUserRif) {
+        OrgEnteUserRif enteUserRif = helper.findById(OrgEnteUserRif.class, identeUserRif);
+        if (enteUserRif != null && enteUserRif.getNmFileEnteUserRif() != null) {
             return true;
         } else {
             return false;

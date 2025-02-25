@@ -111,12 +111,13 @@ public class ComboHelper {
         return list;
     }
 
-    /*
-     * public String getFederationMetadata() { String queryStr = "SELECT asm.blSamlMetadati " +
-     * "FROM AplSamlMetadati asm "; Query query = em.createQuery(queryStr); return (String) query.getSingleResult();
-     *
-     * }
-     */
+    public String getFederationMetadata() {
+        String queryStr = "SELECT asm.blSamlMetadati " + "FROM AplSamlMetadati asm ";
+        Query query = em.createQuery(queryStr);
+        return (String) query.getSingleResult();
+
+    }
+
     /**
      * Metodo che ritorna la lista delle applicazioni ordinate per nome in base all'ente a cui appartiene l'utente
      *

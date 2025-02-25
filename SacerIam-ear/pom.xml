@@ -4,7 +4,7 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>6.3.1-SNAPSHOT</version>
+        <version>6.4.0</version>
     </parent>
 
     <artifactId>saceriam-jboss-ear</artifactId>
@@ -142,24 +142,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-			<groupId>xalan</groupId>
-			<artifactId>serializer</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>xml-resolver</groupId>
-            <artifactId>xml-resolver</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>        
@@ -183,9 +165,13 @@
                     <groupId>xml-apis</groupId>
                     <artifactId>xml-apis</artifactId>
                 </exclusion>
+                 <exclusion>
+                    <artifactId>xalan</artifactId>
+                    <groupId>xalan</groupId>
+                </exclusion>
                 <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
+                    <artifactId>xercesImpl</artifactId>
+                    <groupId>xerces</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -205,6 +191,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jaxp.jdk</groupId>
+            <artifactId>jaxp-jdk11</artifactId>
+            <version>${jaxp-jdk11.version}</version>  
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>
