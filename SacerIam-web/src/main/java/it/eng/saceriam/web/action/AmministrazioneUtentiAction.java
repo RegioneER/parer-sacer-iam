@@ -2426,7 +2426,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         return true;
     }
 
-    private void deleteRolesDichOrgDichTipiDatoSets() throws EMFError {
+    private void deleteRolesDichOrgDichTipiDatoSets() {
         AplApplicTableBean aplApplicTableBean = amministrazioneUtentiEjb.getAplApplicTableBean();
         for (AplApplicRowBean row : aplApplicTableBean) {
             getSession().setAttribute("rolesSet_" + row.getNmApplic(), new HashSet<>());
@@ -3821,7 +3821,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                                 getApplicationsEditList(), mappaOrgApplic, mappaTipiDatoApplic, oper, idRichGestUser,
                                 idAppartUserRich);
                         // Report del salvataggio
-                        ultimateSalvataggioUtente(userType, user, idUser, password, oldUserType);
+                        ultimateSalvataggioUtente(userType, user, idUser, oldUserType);
                     } else if (getForm().getListaUtenti().getStatus().equals(Status.update)) {
                         log.debug("MAC 30075 - Dopo i controlli, entro nel ramo di salvaggio modifica utente "
                                 + user.getNmUserid());
@@ -3890,8 +3890,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         return result;
     }
 
-    private void ultimateSalvataggioUtente(String userType, UsrUserRowBean user, BigDecimal idUser, String password,
-            String oldUserType) throws EMFError {
+    private void ultimateSalvataggioUtente(String userType, UsrUserRowBean user, BigDecimal idUser, String oldUserType)
+            throws EMFError {
         if (!getMessageBox().hasError()) {
             getSession().removeAttribute("indIpDeleteList");
             getSession().removeAttribute("applicationsDeleteList");
@@ -4003,7 +4003,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 tipiDato, dichAbilEnteConvenzTableBean, indIpDeleteList, applicationsDeleteList, defaultRolesDeleteList,
                 dichOrganizDeleteList, tipiDatoDeleteList, dichAbilEnteConvenzDeleteList, applicationsEditSet,
                 mappaOrgApplic, mappaTipiDatoApplic, oper, idRichGestUser, idAppartUserRich);
-        ultimateSalvataggioUtente(userType, user, idUser, password, oldUserType);
+        ultimateSalvataggioUtente(userType, user, idUser, oldUserType);
     }
 
     @Override
@@ -4043,7 +4043,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         return false;
     }
 
-    public DecodeMap getMappaApplic() throws EMFError {
+    public DecodeMap getMappaApplic() {
         getForm().getFiltriUtenti().getNm_applic().clear();
         AplApplicTableBean applicTableBean = amministrazioneUtentiEjb.getAplApplicTableBean();
         DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic", "nm_applic");
@@ -5515,7 +5515,6 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getDettaglioUtente().getQualifica_user().setViewMode();
 
         getForm().getDettaglioUtente().getDuplicaUtente().setViewMode();
-        // getForm().getDettaglioUtente().getResetPassword().setViewMode();
         getForm().getDettaglioUtente().getNuovaPassword().setViewMode();
         // Imposto i campi delle liste come eliminabili
         getForm().getIndIpList().setUserOperations(false, false, false, true);

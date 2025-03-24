@@ -41,17 +41,21 @@ public class SoapClients {
 
     private static AllineaRuolo_Service allineaRuoloService;
 
+    private SoapClients() {
+        //
+    }
+
     public static AllineaRuolo allineaRuoloClient(String username, String password, String serviceURL,
             Integer timeout) {
         try {
-            logger.info("Connessione al WS: " + serviceURL);
+            logger.info("Connessione al WS: {}", serviceURL);
             if (allineaRuoloService == null) {
                 synchronized (IAMSoapClients.class) {
                     if (allineaRuoloService == null) {
                         URL wsdlURL = new URL(serviceURL + "?wsdl");
                         allineaRuoloService = new AllineaRuolo_Service(wsdlURL);
                         allineaRuoloService.setHandlerResolver(new SOAPClientLoginHandlerResolver());
-                        logger.info("Creato il client service per il WS: " + serviceURL);
+                        logger.info("Creato il client service per il WS: {}", serviceURL);
                     }
                 }
             }

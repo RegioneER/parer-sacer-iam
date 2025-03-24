@@ -56,8 +56,6 @@ import org.slf4j.LoggerFactory;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class CancellaOrganizzazioneEjb {
 
-    private static final Logger log = LoggerFactory.getLogger(CancellaOrganizzazioneEjb.class);
-
     @EJB
     private GestioneOrganizzazioneHelper goh;
     @Resource
@@ -102,23 +100,15 @@ public class CancellaOrganizzazioneEjb {
             try {
                 wtm.beginTrans(rispostaWs);
 
-                // AplApplic applic = goh.getAplApplic(coExt.getIdApplic());
                 // Registro gli utenti da replicare...
                 Set<BigDecimal> usersToReply = goh.getUsersOnDich(coExt.getIdOrganizIam(), ApplEnum.TiOperReplic.CANC);
                 for (BigDecimal idUserIam : usersToReply) {
                     goh.registraUtenteDaReplicare(idUserIam, coExt.getIdApplic(), rispostaWs);
                 }
 
-                // /*
-                // Codice aggiuntivo per il logging...
-                // */
-                // LogParam param = new LogParam();
-                // param.setNomeApplicazione(paramHelper.getParamApplicApplicationName());
-                // param.setNomeUtente("Servizio Allinea ente convenzionato");
-                // param.setNomeTipoOggetto(SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO);
-                // param.setNomeComponenteSoftware("ALLINEA_ENTE_CONVENZIONATO");
-                // param.setNomeAzione("Allinea Ente convenzionato per organizzazione");
-                // param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
+                /*
+                 * Codice aggiuntivo per il logging...
+                 */
                 // MAC #19526
                 Set<BigDecimal> usersSacer = new HashSet<>();
                 if (nmApplic.equals("SACER")) {
@@ -146,13 +136,6 @@ public class CancellaOrganizzazioneEjb {
                 }
 
                 // // ...e cancello l'organizzazione...
-                // Set<BigDecimal> enteConvenzIdSet = goh.cancellaOrganizzazione(coExt.getIdApplic(), coInput,
-                // rispostaWs);
-                // //goh.cancellaOrganizzazione(coExt.getIdApplic(), coInput, rispostaWs);
-                // //...ed infine ricalcolo i servizi
-                // for (BigDecimal enteConvenzId : enteConvenzIdSet) {
-                // ecEjb.calcolaServiziErogatiSuUltimoAccordo(enteConvenzId);
-                // }
                 // Popola la risposta
                 rispostaWs.getCancellaOrganizzazioneRisposta().setNmApplic(coInput.getNmApplic());
                 rispostaWs.getCancellaOrganizzazioneRisposta().setIdOrganizApplic(coInput.getIdOrganizApplic());

@@ -42,9 +42,9 @@ public class RecuperoAutorizzazioniRisposta {
     private List<Azione> azioniList;
 
     public RecuperoAutorizzazioniRisposta() {
-        this.pagineList = new ArrayList();
-        this.menuList = new ArrayList();
-        this.azioniList = new ArrayList();
+        this.pagineList = new ArrayList<>();
+        this.menuList = new ArrayList<>();
+        this.azioniList = new ArrayList<>();
 
     }
 
@@ -143,7 +143,6 @@ public class RecuperoAutorizzazioniRisposta {
         private Integer niLivelloEntryMenu;
         private Integer niOrdEntryMenu;
         private String dsLinkEntryMenu;
-        // private boolean flHelpPresente;
 
         public String getNmEntryMenu() {
             return nmEntryMenu;
@@ -184,11 +183,7 @@ public class RecuperoAutorizzazioniRisposta {
         public void setDsLinkEntryMenu(String dsLinkEntryMenu) {
             this.dsLinkEntryMenu = dsLinkEntryMenu;
         }
-        /*
-         * public boolean isFlHelpPresente() { return flHelpPresente; }
-         *
-         * public void setFlHelpPresente(boolean flHelpPresente) { this.flHelpPresente = flHelpPresente; }
-         */
+
     }
 
     public static class Pagina {

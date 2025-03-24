@@ -17,7 +17,6 @@
 
 package it.eng.saceriam.ws.replicaOrganizzazione.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -42,8 +41,7 @@ public class ModificaOrganizzazioneInput {
 
     public ModificaOrganizzazioneInput(String nmApplic, Integer idOrganizApplic, String nmTipoOrganiz,
             Integer idEnteConserv, Integer idEnteGestore, String nmOrganiz, String dsOrganiz,
-            Integer idOrganizApplicPadre, String nmTipoOrganizPadre, Integer idEnteConvenz, Date dtIniVal,
-            Date dtFineVal, ListaTipiDato listaTipiDato) {
+            Integer idOrganizApplicPadre, String nmTipoOrganizPadre, ListaTipiDato listaTipiDato) {
 
         this.nmApplic = nmApplic;
         this.idOrganizApplic = idOrganizApplic;

@@ -17,9 +17,9 @@
 
 package it.eng.saceriam.web.action;
 
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.DISCIPLINARE_TECNICO_MAX_FILE_SIZE;
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.MODULO_INFORMAZIONI_MAX_FILE_SIZE;
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.VARIAZIONE_ACCORDO_MAX_FILE_SIZE;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.DISCIPLINARE_TECNICO_MAX_FILE_SIZE;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.MODULO_INFORMAZIONI_MAX_FILE_SIZE;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.VARIAZIONE_ACCORDO_MAX_FILE_SIZE;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -160,7 +160,7 @@ import it.eng.saceriam.web.util.NavigatorDetailBean;
 import it.eng.saceriam.web.util.NavigatorDetailBeanManager;
 import it.eng.saceriam.web.util.WebConstants;
 import it.eng.saceriam.web.validator.AmministrazioneEntiConvenzionatiValidator;
-import it.eng.spagoCore.configuration.ConfigSingleton;
+import it.eng.spagoCore.ConfigSingleton;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.SessionManager;
 import it.eng.spagoLite.actions.form.ListAction;
@@ -6922,129 +6922,12 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
         getForm().getListaEntiConvenzionati().getTable().setPageSize(10);
         getForm().getListaEntiConvenzionati().getTable().first();
 
-        // loadListeParametriAmbiente(idAmbienteEnteConvenz, null, false, false, false, false);
         loadListaParametriAmministrazioneAmbiente(idAmbienteEnteConvenz, false, false,
                 getForm().getParametriAmministrazioneAmbienteList().isFilterValidRecords());
         loadListaParametriGestioneAmbiente(idAmbienteEnteConvenz, false, false,
                 getForm().getParametriGestioneAmbienteList().isFilterValidRecords());
         loadListaParametriConservazioneAmbiente(idAmbienteEnteConvenz, false, false,
                 getForm().getParametriConservazioneAmbienteList().isFilterValidRecords());
-    }
-
-    private void loadListeParametriAmbiente(BigDecimal idAmbiente, List<String> funzione, boolean hideDeleteButtons,
-            boolean editModeAmministrazione, boolean editModeConservazione, boolean editModeGestione)
-            throws ParerUserError {
-        // Parametri
-        Object[] parametriObj = entiConvenzionatiEjb.getIamParamApplicAmbiente(idAmbiente);
-
-        // MEV26588
-        IamParamApplicTableBean parametriAmministrazione = (IamParamApplicTableBean) parametriObj[0];
-        IamParamApplicTableBean parametriGestione = (IamParamApplicTableBean) parametriObj[1];
-        IamParamApplicTableBean parametriConservazione = (IamParamApplicTableBean) parametriObj[2];
-
-        if (!editModeAmministrazione) {
-            parametriAmministrazione = obfuscatePasswordParamApplic(parametriAmministrazione);
-        }
-
-        if (!editModeGestione) {
-            parametriGestione = obfuscatePasswordParamApplic(parametriGestione);
-        }
-
-        if (!editModeConservazione) {
-            parametriConservazione = obfuscatePasswordParamApplic(parametriConservazione);
-        }
-
-        getForm().getParametriAmministrazioneAmbienteList()
-                .setTable((IamParamApplicTableBean) parametriAmministrazione);
-        getForm().getParametriAmministrazioneAmbienteList().getTable().setPageSize(300);
-        getForm().getParametriAmministrazioneAmbienteList().getTable().first();
-        getForm().getParametriGestioneAmbienteList().setTable((IamParamApplicTableBean) parametriGestione);
-        getForm().getParametriGestioneAmbienteList().getTable().setPageSize(300);
-        getForm().getParametriGestioneAmbienteList().getTable().first();
-        getForm().getParametriConservazioneAmbienteList().setTable((IamParamApplicTableBean) parametriConservazione);
-        getForm().getParametriConservazioneAmbienteList().getTable().setPageSize(300);
-        getForm().getParametriConservazioneAmbienteList().getTable().first();
-        getForm().getParametriAmministrazioneAmbienteList().setHideDeleteButton(hideDeleteButtons);
-        getForm().getParametriGestioneAmbienteList().setHideDeleteButton(hideDeleteButtons);
-        getForm().getParametriConservazioneAmbienteList().setHideDeleteButton(hideDeleteButtons);
-
-        if (editModeAmministrazione) {
-            getForm().getParametriAmministrazioneAmbienteList().getDs_valore_param_applic_ambiente_amm().setEditMode();
-        } else {
-            getForm().getParametriAmministrazioneAmbienteList().getDs_valore_param_applic_ambiente_amm().setViewMode();
-        }
-        if (editModeConservazione) {
-            getForm().getParametriConservazioneAmbienteList().getDs_valore_param_applic_ambiente_cons().setEditMode();
-        } else {
-            getForm().getParametriConservazioneAmbienteList().getDs_valore_param_applic_ambiente_cons().setViewMode();
-        }
-        if (editModeGestione) {
-            getForm().getParametriGestioneAmbienteList().getDs_valore_param_applic_ambiente_gest().setEditMode();
-        } else {
-            getForm().getParametriGestioneAmbienteList().getDs_valore_param_applic_ambiente_gest().setViewMode();
-        }
-
-        getForm().getParametriAmministrazioneSection().setLoadOpened(true);
-        getForm().getParametriConservazioneSection().setLoadOpened(true);
-        getForm().getParametriGestioneSection().setLoadOpened(true);
-
-    }
-
-    private void loadListeParametriEnte(BigDecimal idAmbiente, BigDecimal idEnteConvenz, List<String> funzione,
-            boolean hideDeleteButtons, boolean editModeAmministrazione, boolean editModeConservazione,
-            boolean editModeGestione) throws ParerUserError {
-        // Parametri
-        Object[] parametriObj = entiConvenzionatiEjb.getIamParamApplicEnte(idAmbiente, idEnteConvenz);
-
-        // MEV26588
-        IamParamApplicTableBean parametriAmministrazione = (IamParamApplicTableBean) parametriObj[0];
-        IamParamApplicTableBean parametriGestione = (IamParamApplicTableBean) parametriObj[1];
-        IamParamApplicTableBean parametriConservazione = (IamParamApplicTableBean) parametriObj[2];
-
-        if (!editModeAmministrazione) {
-            parametriAmministrazione = obfuscatePasswordParamApplic(parametriAmministrazione);
-        }
-
-        if (!editModeGestione) {
-            parametriGestione = obfuscatePasswordParamApplic(parametriGestione);
-        }
-
-        if (!editModeConservazione) {
-            parametriConservazione = obfuscatePasswordParamApplic(parametriConservazione);
-        }
-
-        getForm().getParametriAmministrazioneSection().setLoadOpened(true);
-        getForm().getParametriConservazioneSection().setLoadOpened(true);
-        getForm().getParametriGestioneSection().setLoadOpened(true);
-        getForm().getParametriAmministrazioneList().setTable((IamParamApplicTableBean) parametriAmministrazione);
-        getForm().getParametriAmministrazioneList().getTable().setPageSize(300);
-        getForm().getParametriAmministrazioneList().getTable().first();
-        getForm().getParametriGestioneList().setTable((IamParamApplicTableBean) parametriGestione);
-        getForm().getParametriGestioneList().getTable().setPageSize(300);
-        getForm().getParametriGestioneList().getTable().first();
-        getForm().getParametriConservazioneList().setTable((IamParamApplicTableBean) parametriConservazione);
-        getForm().getParametriConservazioneList().getTable().setPageSize(300);
-        getForm().getParametriConservazioneList().getTable().first();
-        getForm().getParametriAmministrazioneList().setHideDeleteButton(hideDeleteButtons);
-        getForm().getParametriGestioneList().setHideDeleteButton(hideDeleteButtons);
-        getForm().getParametriConservazioneList().setHideDeleteButton(hideDeleteButtons);
-
-        if (editModeAmministrazione) {
-            getForm().getParametriAmministrazioneList().getDs_valore_param_applic_ente_amm().setEditMode();
-        } else {
-            getForm().getParametriAmministrazioneList().getDs_valore_param_applic_ente_amm().setViewMode();
-        }
-        if (editModeConservazione) {
-            getForm().getParametriConservazioneList().getDs_valore_param_applic_ente_cons().setEditMode();
-        } else {
-            getForm().getParametriConservazioneList().getDs_valore_param_applic_ente_cons().setViewMode();
-        }
-        if (editModeGestione) {
-            getForm().getParametriGestioneList().getDs_valore_param_applic_ente_gest().setEditMode();
-        } else {
-            getForm().getParametriGestioneList().getDs_valore_param_applic_ente_gest().setViewMode();
-        }
-
     }
 
     private void saveAmbienteEnteConvenzionato() throws EMFError {

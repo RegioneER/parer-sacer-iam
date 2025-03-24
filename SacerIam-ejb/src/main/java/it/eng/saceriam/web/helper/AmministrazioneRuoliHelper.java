@@ -865,12 +865,12 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
         Query q = getEntityManager().createQuery(queryStr);
         q.setParameter("idrole", idRuolo);
         q.setParameter("idappl", idAppl);
-        PrfUsoRuoloApplic record = null;
+        PrfUsoRuoloApplic rec = null;
         List<PrfUsoRuoloApplic> usoRuoloApplic = q.getResultList();
         if (usoRuoloApplic != null && !usoRuoloApplic.isEmpty()) {
-            record = usoRuoloApplic.get(0);
+            rec = usoRuoloApplic.get(0);
         }
-        return record;
+        return rec;
     }
 
     public List<PrfVLisUserDaReplic> retrievePrfVLisUserDaReplic(Long idRuolo) {
@@ -981,7 +981,7 @@ public class AmministrazioneRuoliHelper extends GenericHelper {
                 + "WHERE ruoloCategoria.prfRuolo.idRuolo = :idRuolo ORDER BY ruoloCategoria.tiCategRuolo ";
         Query query = getEntityManager().createQuery(queryStr);
         query.setParameter("idRuolo", longFrom(idRuolo));
-        return new HashSet(query.getResultList());
+        return new HashSet<String>(query.getResultList());
     }
 
     /**

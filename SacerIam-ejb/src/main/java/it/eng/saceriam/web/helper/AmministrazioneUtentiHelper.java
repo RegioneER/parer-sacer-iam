@@ -1272,12 +1272,6 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         }
     }
 
-    /*
-     * public AplApplic getAplApplic(String name) { String queryStr =
-     * "SELECT applic FROM AplApplic applic WHERE applic.nmApplic = :nomeappl"; Query q =
-     * getEntityManager().createQuery(queryStr); q.setParameter("nomeappl", name); AplApplic applic = (AplApplic)
-     * q.getSingleResult(); return applic; }
-     */
     public UsrUser getUsrUser(BigDecimal idUser) {
         return getEntityManager().find(UsrUser.class, idUser.longValue());
     }
@@ -1867,7 +1861,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
             String nmCognomeUserRich, String nmNomeUserRich, String nmUseridRich, BigDecimal idOrganizIam,
             String cdRegistroRichGestUser, BigDecimal aaRichGestUser, String cdKeyRichGestUser, String cdRichGestUser,
             String tiStatoRichGestUser) {
-        List<UsrVRicRichieste> list = new ArrayList();
+        List<UsrVRicRichieste> list = new ArrayList<>();
         String whereWord = "WHERE ";
         StringBuilder queryStr = new StringBuilder(
                 "SELECT DISTINCT new it.eng.saceriam.viewEntity.UsrVRicRichieste(ricRichieste.id.idRichGestUser, "
@@ -2272,13 +2266,6 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
             if (!resultList2.isEmpty()) {
                 result = resultList2.get(0);
                 return result;
-                // if (result.getTiAzioneRich()
-                // .equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione())
-                // && result.getUsrRichGestUser().getTiStatoRichGestUser().equals("EVASA")) {
-                // return result;
-                // } else {
-                // return null;
-                // }
             }
 
         }
@@ -2499,15 +2486,15 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
                 .createQuery("SELECT view FROM UsrVVisLastRichGestUser view where view.idUserIam = :idUserIam");
         query.setParameter("idUserIam", idUserIam);
         List<UsrVVisLastRichGestUser> resultList = query.getResultList();
-        UsrVVisLastRichGestUser record = null;
+        UsrVVisLastRichGestUser rec = null;
         if (resultList != null && !resultList.isEmpty()) {
             if (resultList.size() == 1) {
-                record = resultList.get(0);
+                rec = resultList.get(0);
             } else {
                 throw new IllegalStateException("Errore nel caricamento dell'ultima richiesta per l'utente");
             }
         }
-        return record;
+        return rec;
     }
 
     public List<UsrVLisEntiSiamPerAzio> getUsrVLisEntiSiamPerAzioList(BigDecimal idRichGestUser, long idUserIamCor) {
@@ -2737,25 +2724,6 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         query.setMaxResults(1);
         return !query.getResultList().isEmpty();
     }
-
-    /**
-     * Controlla se l'utente passato in input ha effettuato versamenti di oggetti in Ping
-     *
-     * @param idUserIam
-     *            l'utente versante
-     *
-     * @return true se sono presenti versamenti in Ping effettuati dall'utente
-     */
-    //
-    // MEV#27457 - Rendere indipendente SIAM da PING
-    //
-    // public boolean checkExistsVersamentiPing(long idUserIam) {
-    // Query query = getEntityManager().createQuery(
-    // "SELECT oggetto FROM PigObject oggetto " + "WHERE oggetto.iamUser.idUserIam = :idUserIam ");
-    // query.setParameter("idUserIam", idUserIam);
-    // query.setMaxResults(1);
-    // return !query.getResultList().isEmpty();
-    // }
 
     public String getQualificaUser(long idUserIam) {
         Query query = getEntityManager().createQuery("SELECT enteUserRif.qualificaUser FROM OrgEnteUserRif enteUserRif "

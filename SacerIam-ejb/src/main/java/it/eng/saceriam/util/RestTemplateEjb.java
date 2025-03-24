@@ -73,17 +73,22 @@ public class RestTemplateEjb {
      */
     public boolean chiamaVersatoreCessato(Long idOrganizApplic) {
         boolean risposta = false;
-        MultiValueMap<String, String> valori = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> valori = new LinkedMultiValueMap<>();
         valori.add("idOrganizApplic", Long.toString(idOrganizApplic));
         try {
             log.debug("Invoco il servizio {}" + VERSATORE_CESSATO);
-            URI targetUrl = targetUrl = UriComponentsBuilder.fromHttpUrl(paramHelper.getUrlPing() + VERSATORE_CESSATO)
+            URI targetUrl = UriComponentsBuilder.fromHttpUrl(paramHelper.getUrlPing() + VERSATORE_CESSATO)
                     .queryParams(valori).build().toUri();
             ResponseEntity<Boolean> resp = restTemplate.postForEntity(targetUrl, getRequest(), Boolean.class);
-            risposta = resp.getBody();
-            log.debug("OK");
+            if (resp != null) {
+                risposta = resp.getBody();
+                log.debug("OK");
+            } else {
+                log.info("RISPOSTA WS nulla!");
+                throw new RestClientException("Il servizio " + VERSATORE_CESSATO + " ha tornato un risultato nullo!");
+            }
         } catch (RestClientException ex) {
-            log.error("Errore durante l'invocazione del WS Rest " + VERSATORE_CESSATO, ex);
+            throw new RestClientException("Errore durante l'invocazione del WS Rest " + VERSATORE_CESSATO, ex);
         }
         return risposta;
     }
@@ -92,19 +97,25 @@ public class RestTemplateEjb {
      * Verifica su PING se esistono versamenti per l'utente passato come parametro
      */
     public boolean chiamaExistsVersamentiPerUtente(Long idUserIam) {
-        MultiValueMap<String, String> valori = new LinkedMultiValueMap();
+        MultiValueMap<String, String> valori = new LinkedMultiValueMap<>();
         valori.add("idUserIam", Long.toString(idUserIam));
         boolean risposta = false;
         try {
             log.debug("Invoco il servizio {}" + EXISTS_VERSAMENTI_PER_UTENTE);
-            URI targetUrl = targetUrl = UriComponentsBuilder
-                    .fromHttpUrl(paramHelper.getUrlPing() + EXISTS_VERSAMENTI_PER_UTENTE).queryParams(valori).build()
-                    .toUri();
+            URI targetUrl = UriComponentsBuilder.fromHttpUrl(paramHelper.getUrlPing() + EXISTS_VERSAMENTI_PER_UTENTE)
+                    .queryParams(valori).build().toUri();
             ResponseEntity<Boolean> resp = restTemplate.postForEntity(targetUrl, getRequest(), Boolean.class);
-            risposta = resp.getBody();
-            log.debug("OK");
+            if (resp != null) {
+                risposta = resp.getBody();
+                log.debug("OK");
+            } else {
+                log.info("RISPOSTA WS nulla!");
+                throw new RestClientException(
+                        "Il servizio " + EXISTS_VERSAMENTI_PER_UTENTE + " ha tornato un risultato nullo!");
+            }
         } catch (RestClientException ex) {
-            log.error("Errore durante l'invocazione del WS Rest " + EXISTS_VERSAMENTI_PER_UTENTE, ex);
+            throw new RestClientException("Errore durante l'invocazione del WS Rest " + EXISTS_VERSAMENTI_PER_UTENTE,
+                    ex);
         }
         return risposta;
     }
@@ -135,7 +146,7 @@ public class RestTemplateEjb {
         String base64Creds = new String(base64CredsBytes);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Basic " + base64Creds);
-        request = new HttpEntity<String>(headers);
+        request = new HttpEntity<>(headers);
         return request;
     }
 }

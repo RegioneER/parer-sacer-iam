@@ -1,10 +1,7 @@
-## 6.4.0 (13-02-2025)
+## 7.0.0 (24-03-2025)
 
 ### Bugfix: 1
-- [#34750](https://parermine.regione.emilia-romagna.it/issues/34750) Correzione warning: Illegal reflective access
+- [#37133](https://parermine.regione.emilia-romagna.it/issues/37133) Correzione caricamento icona di selezione utenti all'interno della ricerca utenti archivisti/referenti
 
-### Novità: 4
-- [#35399](https://parermine.regione.emilia-romagna.it/issues/35399) Configurazione modulo jaxp-jdk per JBoss 7 per JDK 11
-- [#34837](https://parermine.regione.emilia-romagna.it/issues/34837) Dettaglio referente dell'ente convenzionato: aggiungere possibilità di caricare file o indicare Registro-Chiave-Numero
-- [#34798](https://parermine.regione.emilia-romagna.it/issues/34798) Riattivazione esposizione del federationMetadata per RIUSO
-- [#34001](https://parermine.regione.emilia-romagna.it/issues/34001) Migrazione alle nuove dipendenze / pattern legate a xecers, xalan, jaxb, ecc
+### Novità: 1
+- [#34442](https://parermine.regione.emilia-romagna.it/issues/34442) Aggiornamento librerie ESAPI (OWASP) e SAML + Spring Security 5
