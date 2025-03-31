@@ -25,8 +25,8 @@ tree.bind("move_node.jstree",function(e, data){
 //    if(nodeDestId === "tree_GestAmbTree"){
 //        nodeDestId = "0";
 //    }
-	nodeDestId = data.node.parent;          
-    nodeId= data.node.id;
+    var nodeDestId = data.node.parent;          
+    var nodeId= data.node.id;
     window.location = "GestioneAmbitoTerritoriale.html?operation=moveNode&nodeId="+nodeId+"&nodeDestId="+nodeDestId; 
 });
                

@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Affero General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-
 package it.eng.saceriam.amministrazioneEntiConvenzionati.ejb;
 
 import java.util.Arrays;
@@ -262,7 +261,6 @@ import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import it.eng.spagoLite.util.Casting.Casting;
-import org.springframework.web.client.RestClientException;
 import java.math.RoundingMode;
 
 /**
@@ -296,9 +294,6 @@ public class EntiConvenzionatiEjb {
     private RestTemplateEjb restTemplateEjb;
     @Resource
     private SessionContext ctx;
-
-    // @Autowired(required = false)
-    // protected RestTemplate restTemplate;
 
     /**
      * Ritorna il tableBean contenente gli ambiti territoriali dato il tipo, in ordine gerarchico
@@ -2080,18 +2075,8 @@ public class EntiConvenzionatiEjb {
             }
         } else {
             // MEV#27457 - Rendere indipendente SIAM da PING
-
-            // PigVers vers = helper.findById(PigVers.class, idOrganizApplic);
-            // if (vers != null) {
-            // return vers.getFlCessato() != null ? vers.getFlCessato().equals("1") : false;
-            // }
             if (utentiHelper.getAplApplicByName(ConstAplApplic.NmApplic.SACER_PREINGEST.name()) != null) {
-                try {
-                    risposta = restTemplateEjb.chiamaVersatoreCessato(idOrganizApplic.longValueExact());
-                } catch (RestClientException ex) {
-                    LOGGER.error("Errore durante l'invocazione del WS Rest 'versatoreCessato'", ex);
-                    throw ex;
-                }
+                risposta = restTemplateEjb.chiamaVersatoreCessato(idOrganizApplic.longValueExact());
             }
         }
         return risposta;
@@ -3280,7 +3265,7 @@ public class EntiConvenzionatiEjb {
         // In caso di cambio gestore sull'accordo, aggiorno l'accordo precedente definendo data di fine validità pari
         // all'inizio nuovo accordo meno 1 gg
         if (idAmbienteEnteConvenzCambio != null) {
-            OrgAccordoEnte lastAccordoEnte = (OrgAccordoEnte) helper.retrieveOrgAccordoEntePiuRecente(idEnteConvenz);
+            OrgAccordoEnte lastAccordoEnte = helper.retrieveOrgAccordoEntePiuRecente(idEnteConvenz);
             if (lastAccordoEnte != null) { // dovrebbe essere sempre NON nullo
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(dtDecAccordo);
@@ -3293,7 +3278,7 @@ public class EntiConvenzionatiEjb {
         // In caso di nuovo accordo, se il precedente accordo ha data scadenza < data fine validità, il sistema ne
         // imposta la data di fine validità = data di scadenza di tale accordo.
         if (nuovoAccordo) {
-            OrgAccordoEnte lastAccordoEnte = (OrgAccordoEnte) helper.retrieveOrgAccordoEntePiuRecente(idEnteConvenz);
+            OrgAccordoEnte lastAccordoEnte = helper.retrieveOrgAccordoEntePiuRecente(idEnteConvenz);
             if (lastAccordoEnte != null
                     && lastAccordoEnte.getDtScadAccordo().before(lastAccordoEnte.getDtFineValidAccordo())) {
                 lastAccordoEnte.setDtFineValidAccordo(lastAccordoEnte.getDtScadAccordo());
@@ -3317,7 +3302,7 @@ public class EntiConvenzionatiEjb {
             helper.insertEntity(accordoEnte, true);
 
             // In caso di primo accordo sull'ente, modifico i campi di last_accordo dell'ente
-            OrgEnteSiam enteConvenz = (OrgEnteSiam) helper.findById(OrgEnteSiam.class, idEnteConvenz);
+            OrgEnteSiam enteConvenz = helper.findById(OrgEnteSiam.class, idEnteConvenz);
 
             insertTipiServizioCompilati(tipiServizioCompilati, accordoEnte);
 
@@ -3348,8 +3333,8 @@ public class EntiConvenzionatiEjb {
 
                 // Aggiorno l'ambiente ente convenzionato definito sull'ente produttore dando il valore dell'ambiente
                 // scelto in inserimento accordo
-                OrgAmbienteEnteConvenz ambienteEnteConvenzNew = (OrgAmbienteEnteConvenz) helper
-                        .findById(OrgAmbienteEnteConvenz.class, idAmbienteEnteConvenzCambio);
+                OrgAmbienteEnteConvenz ambienteEnteConvenzNew = helper.findById(OrgAmbienteEnteConvenz.class,
+                        idAmbienteEnteConvenzCambio);
                 enteConvenz.setOrgAmbienteEnteConvenz(ambienteEnteConvenzNew);
 
                 // Determina gli utenti per cui è definita una dichiarazione di abilitazione relativa all'ambiente
@@ -3740,7 +3725,7 @@ public class EntiConvenzionatiEjb {
     public Long saveServizioErogato(LogParam param, BigDecimal idAccordoEnte,
             ServizioErogatoDetail servizioErogatoDetail) throws ParerUserError, EMFError {
         LOGGER.debug("Eseguo il salvataggio del servizio erogato");
-        String tiClasseTipoServizio = ((OrgTipoServizio) helper.findById(OrgTipoServizio.class,
+        String tiClasseTipoServizio = (helper.findById(OrgTipoServizio.class,
                 servizioErogatoDetail.getId_tipo_servizio().parse())).getTiClasseTipoServizio();
         BigDecimal idSistemaVersante = null;
         Date dtErog = null;
@@ -3845,7 +3830,7 @@ public class EntiConvenzionatiEjb {
         try {
             idSistemaVersante = servizioErogatoDetail.getId_sistema_versante().parse();
             dtErog = servizioErogatoDetail.getDt_erog().parse();
-            tiClasseTipoServizio = ((OrgTipoServizio) helper.findById(OrgTipoServizio.class,
+            tiClasseTipoServizio = (helper.findById(OrgTipoServizio.class,
                     servizioErogatoDetail.getId_tipo_servizio().parse())).getTiClasseTipoServizio();
             idTipoServizio = servizioErogatoDetail.getId_tipo_servizio().parse();
         } catch (EMFError ex) {
@@ -5271,13 +5256,13 @@ public class EntiConvenzionatiEjb {
         OrgTipoServizio tipoServizio = helper.findById(OrgTipoServizio.class, idTipoServizio);
 
         // Check in caso di modifica (inversione) flag rimborso costi su accordo
-        if (tipoServizio.getOrgTariffaAccordos() != null && tipoServizio.getOrgTariffaAccordos().size() > 0
+        if (tipoServizio.getOrgTariffaAccordos() != null && !tipoServizio.getOrgTariffaAccordos().isEmpty()
                 && flTariffaAccordo.equals("0")) {
             throw new ParerUserError(
                     "Impossibile modificare il rimborso costi su accordo in quanto già definiti in alcuni enti <br/>");
         }
 
-        if (tipoServizio.getOrgTariffaAaAccordos() != null && tipoServizio.getOrgTariffaAaAccordos().size() > 0
+        if (tipoServizio.getOrgTariffaAaAccordos() != null && !tipoServizio.getOrgTariffaAaAccordos().isEmpty()
                 && flTariffaAnnualita.equals("0")) {
             throw new ParerUserError(
                     "Impossibile modificare il rimborso costi su annualità in quanto già definiti in alcuni enti <br/>");
@@ -5502,8 +5487,7 @@ public class EntiConvenzionatiEjb {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void updateReferenteEnteToEnteSiam(LogParam param, BigDecimal idEnteSiam, BigDecimal idEnteUserRif,
             String dlNote, String cdRegistroEnteUserRif, BigDecimal aaEnteUserRif, String cdKeyEnteUserRif,
-            Date dtRegEnteUserRif, byte[] blEnteUserRif, String nmFileEnteUserRif, String dsEnteUserRif)
-            throws ParerUserError {
+            Date dtRegEnteUserRif, byte[] blEnteUserRif, String nmFileEnteUserRif, String dsEnteUserRif) {
         OrgEnteSiam enteSiam = helper.findByIdWithLock(OrgEnteSiam.class, idEnteSiam);
         OrgEnteUserRif enteUserRif = helper.findById(OrgEnteUserRif.class, idEnteUserRif);
         enteUserRif.setDlNote(dlNote);
@@ -5879,8 +5863,7 @@ public class EntiConvenzionatiEjb {
         }
     }
 
-    private void insertScaglioni(OrgTariffa tariffa, OrgScaglioneTariffaTableBean scaglioneTariffaTableBean)
-            throws ParerUserError {
+    private void insertScaglioni(OrgTariffa tariffa, OrgScaglioneTariffaTableBean scaglioneTariffaTableBean) {
         for (OrgScaglioneTariffaRowBean scaglioneTariffaRowBean : scaglioneTariffaTableBean) {
             OrgScaglioneTariffa scaglioneTariffa = new OrgScaglioneTariffa();
             scaglioneTariffa.setOrgTariffa(tariffa);
@@ -5895,7 +5878,7 @@ public class EntiConvenzionatiEjb {
     }
 
     private void manageScaglioni(OrgTariffa tariffa, OrgScaglioneTariffaTableBean scaglioneTariffaTableBean,
-            Set<BigDecimal> scaglioneTariffaDaEliminareList) throws ParerUserError {
+            Set<BigDecimal> scaglioneTariffaDaEliminareList) {
         LOGGER.info(EntiConvenzionatiEjb.class.getName() + " Elimino gli scaglioni da eliminare");
         /* Elimino gli scaglioni da eliminare (cancellando il record in OrgScaglioneTariffa) */
         if (!scaglioneTariffaDaEliminareList.isEmpty()) {
@@ -6919,7 +6902,7 @@ public class EntiConvenzionatiEjb {
         }
         UsrUser userIamArk = helper.findById(UsrUser.class, idUserIamArk);
         for (OrgEnteSiam enteConvenz : enteConvenzList) {
-            if (userIamArk.getOrgEnteSiam().getIdEnteSiam() == enteConvenz.getIdEnteSiam()) {
+            if (userIamArk.getOrgEnteSiam().getIdEnteSiam().equals(enteConvenz.getIdEnteSiam())) {
                 result = true;
                 break;
             } else {
@@ -6993,8 +6976,8 @@ public class EntiConvenzionatiEjb {
                                         servizioErogatoVISTA.getIdSistemaVersante());
                                 if (servizioErogatoVISTA.getIdTipoServizio()
                                         .longValue() == (servizioErog.getOrgTipoServizio().getIdTipoServizio())
-                                        && sistemaVersanteVISTA.getIdSistemaVersante() == (servizioErog
-                                                .getAplSistemaVersante().getIdSistemaVersante())) {
+                                        && sistemaVersanteVISTA.getIdSistemaVersante()
+                                                .equals(servizioErog.getAplSistemaVersante().getIdSistemaVersante())) {
                                     trovato = true;
                                     break;
                                 }
@@ -7051,8 +7034,8 @@ public class EntiConvenzionatiEjb {
                                         servizioErogatoSuAccordo.getIdSistemaVersante());
                                 if (servizioErogatoSuAccordo.getIdTipoServizio()
                                         .longValue() == (elemento.getOrgTipoServizio().getIdTipoServizio())
-                                        && sistemaVersanteVISTA.getIdSistemaVersante() == (elemento
-                                                .getAplSistemaVersante().getIdSistemaVersante())) {
+                                        && sistemaVersanteVISTA.getIdSistemaVersante()
+                                                .equals((elemento.getAplSistemaVersante().getIdSistemaVersante()))) {
                                     trovato = true;
                                     break;
                                 }
@@ -7093,7 +7076,7 @@ public class EntiConvenzionatiEjb {
             // con data erogazione nulla
             OrgEnteSiam enteSiam = helper.findById(OrgEnteSiam.class, accordoEnte.getOrgEnteSiam().getIdEnteSiam());
             for (OrgAccordoEnte acc : enteSiam.getOrgAccordoEntes()) {
-                if (acc.getIdAccordoEnte() != accordoEnte.getIdAccordoEnte()
+                if ((!acc.getIdAccordoEnte().equals(accordoEnte.getIdAccordoEnte()))
                         && acc.getDtDecAccordo().before(accordoEnte.getDtDecAccordo())
                         && acc.getDtScadAccordo().before(new Date())) {
                     Iterator<OrgServizioErog> servizioErogIterator = acc.getOrgServizioErogs().iterator();
@@ -7346,7 +7329,7 @@ public class EntiConvenzionatiEjb {
     }
 
     /**
-     * Recupera la lista dei nomi degli enti NON convenzionati cui lÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢utente \u00E8 abilitato
+     * Recupera la lista dei nomi degli enti NON convenzionati cui l'utente \u00E8 abilitato
      *
      * @param idUserIam
      *            id user IAM
@@ -7373,58 +7356,6 @@ public class EntiConvenzionatiEjb {
 
     public OrgVRicEnteNonConvenzTableBean getOrgVRicEnteNonConvenzAbilListTableBean(BigDecimal idUserIam,
             List<String> tiEnteNonConvenz) {
-        OrgVRicEnteNonConvenzTableBean ricEnteNonConvenzTableBean = new OrgVRicEnteNonConvenzTableBean();
-        List<OrgVRicEnteNonConvenz> ricEnteNonConvenzList = helper.retrieveEntiNonConvenzAbilitati(idUserIam,
-                tiEnteNonConvenz);
-        if (!ricEnteNonConvenzList.isEmpty()) {
-            try {
-                ricEnteNonConvenzTableBean = (OrgVRicEnteNonConvenzTableBean) Transform
-                        .entities2TableBean(ricEnteNonConvenzList);
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage());
-            }
-        }
-        return ricEnteNonConvenzTableBean;
-    }
-
-    /**
-     * Recupera la lista dei nomi degli enti NON convenzionati cui l'utente è abilitato
-     *
-     * @param idUserIam
-     *            id user IAM
-     * @param tiEnteNonConvenz
-     *            tipo ente convenzionato
-     *
-     * @return table bean {@link OrgVRicEnteNonConvenzTableBean}
-     */
-    public OrgVRicEnteNonConvenzTableBean getOrgVRicEnteNonConvenzExcludeAbilTableBean(BigDecimal idUserIam,
-            String tiEnteNonConvenz) {
-        OrgVRicEnteNonConvenzTableBean ricEnteNonConvenzTableBean = new OrgVRicEnteNonConvenzTableBean();
-        List<OrgVRicEnteNonConvenz> ricEnteNonConvenzList = helper.retrieveEntiNonConvenzAbilitati(idUserIam,
-                tiEnteNonConvenz);
-        if (!ricEnteNonConvenzList.isEmpty()) {
-            try {
-                ricEnteNonConvenzTableBean = (OrgVRicEnteNonConvenzTableBean) Transform
-                        .entities2TableBean(ricEnteNonConvenzList);
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage());
-            }
-        }
-        return ricEnteNonConvenzTableBean;
-    }
-
-    /**
-     * Recupera la lista dei nomi degli enti NON convenzionati cui lÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢utente \u00E8 abilitato
-     *
-     * @param idUserIam
-     *            id user IAM
-     * @param tiEnteNonConvenz
-     *            tipo ente convenzionato
-     *
-     * @return table bean {@link OrgVRicEnteNonConvenzTableBean}
-     */
-    public OrgVRicEnteNonConvenzTableBean getOrgVRicEnteNonConvenzAbilAccordoValidoTableBean(BigDecimal idUserIam,
-            String tiEnteNonConvenz) {
         OrgVRicEnteNonConvenzTableBean ricEnteNonConvenzTableBean = new OrgVRicEnteNonConvenzTableBean();
         List<OrgVRicEnteNonConvenz> ricEnteNonConvenzList = helper.retrieveEntiNonConvenzAbilitati(idUserIam,
                 tiEnteNonConvenz);
@@ -7472,7 +7403,7 @@ public class EntiConvenzionatiEjb {
     }
 
     /**
-     * Recupera la lista dei nomi degli enti convenzionati cui lÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢utente \u00E8 abilitato
+     * Recupera la lista dei nomi degli enti convenzionati cui l'utente \u00E8 abilitato
      *
      * @param idUserIamCor
      *            id user IAM
@@ -8628,7 +8559,7 @@ public class EntiConvenzionatiEjb {
             statoFatturaEnteNuovaEmissione.setOrgFatturaEnte(fatturaProvvisoria);
             statoFatturaEnteNuovaEmissione
                     .setTiStatoFatturaEnte(ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.CALCOLATA.name());
-            fatturaProvvisoria.setOrgStatoFatturaEntes(new ArrayList<OrgStatoFatturaEnte>());
+            fatturaProvvisoria.setOrgStatoFatturaEntes(new ArrayList<>());
             fatturaProvvisoria.addOrgStatoFatturaEnte(statoFatturaEnteNuovaEmissione);
             //
             helper.getEntityManager().persist(fatturaProvvisoria);
@@ -8787,14 +8718,14 @@ public class EntiConvenzionatiEjb {
         OrgServizioErog servizioErog = helper.findById(OrgServizioErog.class, idServizioErogato);
         servizioFattura.setOrgServizioErog(servizioErog);
         if (servizioErog.getOrgServizioFatturas() == null) {
-            servizioErog.setOrgServizioFatturas(new ArrayList<OrgServizioFattura>());
+            servizioErog.setOrgServizioFatturas(new ArrayList<>());
         }
         servizioErog.addOrgServizioFattura(servizioFattura);
         // Relazione con OrgFatturaEnte (provvisoria)
         OrgFatturaEnte fatturaEnte = helper.findById(OrgFatturaEnte.class, idFatturaEnte);
         servizioFattura.setOrgFatturaEnte(fatturaEnte);
         if (fatturaEnte.getOrgServizioFatturas() == null) {
-            fatturaEnte.setOrgServizioFatturas(new ArrayList<OrgServizioFattura>());
+            fatturaEnte.setOrgServizioFatturas(new ArrayList<>());
         }
         fatturaEnte.addOrgServizioFattura(servizioFattura);
         // Relazione con OrgCdIva
@@ -8802,7 +8733,7 @@ public class EntiConvenzionatiEjb {
             OrgCdIva cdIva = helper.findById(OrgCdIva.class, idCdIva);
             servizioFattura.setOrgCdIva(cdIva);
             if (cdIva.getOrgServizioFatturas() == null) {
-                cdIva.setOrgServizioFatturas(new ArrayList<OrgServizioFattura>());
+                cdIva.setOrgServizioFatturas(new ArrayList<>());
             }
             cdIva.getOrgServizioFatturas().add(servizioFattura);
         }
@@ -8859,7 +8790,7 @@ public class EntiConvenzionatiEjb {
             statoFatturaEnteNuovaEmissione.setOrgFatturaEnte(fatturaProvvisoria);
             statoFatturaEnteNuovaEmissione
                     .setTiStatoFatturaEnte(ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.CALCOLATA.name());
-            fatturaProvvisoria.setOrgStatoFatturaEntes(new ArrayList<OrgStatoFatturaEnte>());
+            fatturaProvvisoria.setOrgStatoFatturaEntes(new ArrayList<>());
             fatturaProvvisoria.addOrgStatoFatturaEnte(statoFatturaEnteNuovaEmissione);
             //
             helper.getEntityManager().persist(fatturaProvvisoria);
@@ -8975,7 +8906,7 @@ public class EntiConvenzionatiEjb {
             OrgFatturaEnte fatturaEnte = helper.findById(OrgFatturaEnte.class, idFatturaEnte);
             sollecito.setOrgFatturaEnte(fatturaEnte);
             if (fatturaEnte.getOrgSollecitoFatturaEntes() == null) {
-                fatturaEnte.setOrgSollecitoFatturaEntes(new ArrayList<OrgSollecitoFatturaEnte>());
+                fatturaEnte.setOrgSollecitoFatturaEntes(new ArrayList<>());
             }
             fatturaEnte.getOrgSollecitoFatturaEntes().add(sollecito);
 
@@ -9699,7 +9630,7 @@ public class EntiConvenzionatiEjb {
     }
 
     // BigDecimal
-    public boolean existsFileDiscip(BigDecimal idDiscipStrut) throws ParerUserError {
+    public boolean existsFileDiscip(BigDecimal idDiscipStrut) {
         OrgDiscipStrut discipStrut = helper.findById(OrgDiscipStrut.class, idDiscipStrut);
         return discipStrut.getBlDiscipStrut() != null;
     }
@@ -9710,7 +9641,6 @@ public class EntiConvenzionatiEjb {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
         String data = formatter.format(discipStrut.getDtDiscipStrut());// data
         // MEV #16785
-        // dt[0] = data + "_" + discipStrut.getIdDiscipStrut() + ".pdf";
         data = data.replace(":", "_");
         dt[0] = "disciplinare_" + discipStrut.getUsrOrganizIam().getUsrOrganizIam().getNmOrganiz() + "_"
                 + discipStrut.getUsrOrganizIam().getNmOrganiz() + "_" + data + ".pdf";
@@ -10232,7 +10162,6 @@ public class EntiConvenzionatiEjb {
     }
 
     // end MEV #32361
-
     /**
      * Esegue il salvataggio del rowBean del parametro di configurazione
      *
@@ -10335,7 +10264,7 @@ public class EntiConvenzionatiEjb {
         IamParamApplic config;
         boolean result = false;
         try {
-            config = (IamParamApplic) helper.findById(IamParamApplic.class, row.getIdParamApplic().longValue());
+            config = helper.findById(IamParamApplic.class, row.getIdParamApplic().longValue());
             // Rimuovo il record
             helper.getEntityManager().remove(config);
             helper.getEntityManager().flush();
@@ -10365,7 +10294,7 @@ public class EntiConvenzionatiEjb {
         Long idEnteConvenz = null;
         boolean result = false;
         try {
-            parametro = (IamValoreParamApplic) helper.findById(IamValoreParamApplic.class, idValoreParamApplic);
+            parametro = helper.findById(IamValoreParamApplic.class, idValoreParamApplic);
             if (parametro.getOrgEnteSiam() != null) {
                 idEnteConvenz = parametro.getOrgEnteSiam().getIdEnteSiam();
             }
@@ -10399,7 +10328,7 @@ public class EntiConvenzionatiEjb {
         Long idAmbienteEnteConvenz = null;
         boolean result = false;
         try {
-            parametro = (IamValoreParamApplic) helper.findById(IamValoreParamApplic.class, idValoreParamApplic);
+            parametro = helper.findById(IamValoreParamApplic.class, idValoreParamApplic);
             if (parametro.getOrgAmbienteEnteConvenz() != null) {
                 idAmbienteEnteConvenz = parametro.getOrgAmbienteEnteConvenz().getIdAmbienteEnteConvenz();
             }
@@ -11105,7 +11034,7 @@ public class EntiConvenzionatiEjb {
     }
 
     private void manageTipiServizioAnnualitaAccordo(OrgAaAccordo aaAccordo,
-            TipoServizioAnnualitaAccordoList tipoServizioAnnualitaAccordoList) throws ParerUserError {
+            TipoServizioAnnualitaAccordoList tipoServizioAnnualitaAccordoList) {
         // Ricavo le Entità rimborso costi annualita accordo salvate sul DB
         List<OrgTariffaAaAccordo> tabellaDB = helper
                 .getOrgTariffaAaAccordo(BigDecimal.valueOf(aaAccordo.getIdAaAccordo()));

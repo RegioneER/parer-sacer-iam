@@ -70,23 +70,20 @@ public class AllineamentoEnteConvenzionatoEjb {
             param.setNomeComponenteSoftware("ALLINEA_ENTE_CONVENZIONATO");
             param.setNomeAzione("Allinea Ente convenzionato per organizzazione");
             param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-
             log.info(
-                    "Allineamento Ente Convenzionato - Ricalcolo dei servizi erogati sull'ultimo accordo per l'ente convenzionato "
-                            + idEnteConvenz);
+                    "Allineamento Ente Convenzionato - Ricalcolo dei servizi erogati sull'ultimo accordo per l'ente convenzionato {}",
+                    idEnteConvenz);
             ecEjb.calcolaServiziErogatiSuUltimoAccordo(BigDecimal.valueOf(idEnteConvenz));
-
-            // ecEjb.ricalcolaTotaliListaFatture(param, idFattureProvvisorie);
             sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(), param.getNomeUtente(),
                     param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO,
                     BigDecimal.valueOf(idEnteConvenz), param.getNomeComponenteSoftware());
-
-            log.info("Allineamento Ente Convenzionato - Esecuzione del servizio per l'ente convenzionato "
-                    + idEnteConvenz + " terminato con successo");
+            log.info(
+                    "Allineamento Ente Convenzionato - Esecuzione del servizio per l'ente convenzionato {} terminato con successo",
+                    idEnteConvenz);
 
         } catch (ParerUserError e) {
-            log.error("Errore durante l'esecuzione del servizio di allineamento ente convenzionato per l'ente "
-                    + idEnteConvenz, e);
+            log.error("Errore durante l'esecuzione del servizio di allineamento ente convenzionato per l'ente {}",
+                    idEnteConvenz, e);
             rispostaWsAec.setEsito(RispostaWSAllineamentoEnteConvenzionato.EsitoEnum.ERROR);
             rispostaWsAec.setErrorCode(MessaggiWSBundle.ERR_666);
             rispostaWsAec.setErrorMessage(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666));

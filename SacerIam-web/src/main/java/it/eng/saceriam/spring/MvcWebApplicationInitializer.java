@@ -15,40 +15,36 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package it.eng.saceriam.ws.dto;
+package it.eng.saceriam.spring;
 
-import java.io.Serializable;
+import javax.servlet.Filter;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  *
- * @author Fioravanti_F
+ * @author Marco Iacolucci
  */
-public interface IRispostaWS extends Serializable {
+public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    public enum SeverityEnum {
-
-        OK, WARNING, ERROR
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return null;
     }
 
-    public enum ErrorTypeEnum {
-
-        NOERROR, WS_DATA, WS_SIGNATURE, DB_FATAL
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[] { ApplicationConfiguration.class, SecurityConfiguration.class };
     }
 
-    String getErrorCode();
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/" };
+    }
 
-    String getErrorMessage();
+    @Override
+    protected Filter[] getServletFilters() {
 
-    ErrorTypeEnum getErrorType();
-
-    SeverityEnum getSeverity();
-
-    void setErrorCode(String errorCode);
-
-    void setErrorMessage(String errorMessage);
-
-    void setErrorType(ErrorTypeEnum errorType);
-
-    void setSeverity(SeverityEnum severity);
+        return null;
+    }
 
 }

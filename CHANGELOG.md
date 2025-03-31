@@ -1,4 +1,17 @@
 
+## 7.1.0 (31-03-2025)
+
+### Bugfix: 1
+- [#37611](https://parermine.regione.emilia-romagna.it/issues/37611) Correzione per la mancata chiusura dei file e protocollo NFS
+
+## 7.0.0 (24-03-2025)
+
+### Bugfix: 1
+- [#37133](https://parermine.regione.emilia-romagna.it/issues/37133) Correzione caricamento icona di selezione utenti all'interno della ricerca utenti archivisti/referenti
+
+### Novità: 1
+- [#34442](https://parermine.regione.emilia-romagna.it/issues/34442) Aggiornamento librerie ESAPI (OWASP) e SAML + Spring Security 5
+
 ## 6.4.0 (13-02-2025)
 
 ### Bugfix: 1

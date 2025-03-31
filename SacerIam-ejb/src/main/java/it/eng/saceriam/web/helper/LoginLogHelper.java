@@ -45,6 +45,7 @@ import it.eng.spagoLite.security.IUser;
 public class LoginLogHelper {
 
     private static final Logger log = LoggerFactory.getLogger(LoginLogHelper.class);
+    private static final String ECCEZIONE_NEL_LOG_DELLEVENTO_LOGINLOGOUT = "Eccezione nel log dell'evento login/logout (writeLogEvento)";
 
     @PersistenceContext(unitName = "SacerIamPU")
     private EntityManager entityManager;
@@ -84,8 +85,8 @@ public class LoginLogHelper {
             entityManager.flush();
 
         } catch (Exception e) {
-            log.error("Eccezione nel log dell'evento login/logout (writeLogEvento) ", e);
-            throw new RuntimeException(e);
+            log.error(ECCEZIONE_NEL_LOG_DELLEVENTO_LOGINLOGOUT, e);
+            throw new RuntimeException(ECCEZIONE_NEL_LOG_DELLEVENTO_LOGINLOGOUT, e);
         }
     }
 }

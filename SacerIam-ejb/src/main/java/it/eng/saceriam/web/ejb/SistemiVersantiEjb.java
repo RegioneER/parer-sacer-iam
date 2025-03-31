@@ -253,8 +253,7 @@ public class SistemiVersantiEjb {
 
     public void updateSistemaVersante(BigDecimal idSistemaVersante, String denominazione, String descrizione,
             String versione, BigDecimal idEnteSiam, String dsEmail, String flPec, String flIntegrazione,
-            String flAssociaPersonaFisica, long idUserIam, Date dtIniVal, Date dtFineVal, String dsNote)
-            throws IncoherenceException {
+            String flAssociaPersonaFisica, Date dtIniVal, Date dtFineVal, String dsNote) throws IncoherenceException {
         // Verifico se il sistema versante con il nome passato come parametro è già presente su DB
         AplSistemaVersante sistemaVersanteByName = sistemiVersantiHelper.getAplSistemaVersanteByName(denominazione);
         AplSistemaVersante sistemaVersante = sistemiVersantiHelper.findById(AplSistemaVersante.class,

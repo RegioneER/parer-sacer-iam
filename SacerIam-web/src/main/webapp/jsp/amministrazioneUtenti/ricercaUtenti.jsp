@@ -6,7 +6,7 @@
     <sl:head title="Utenti - Ricerca" >
         <style>
             a.VisualizzaUtenteRichiedente, a.VisualizzaUtenteArchivista, a.VisualizzaReferenteEnte { 
-                background-image: url("../../img/toolBar/download.png");
+                background-image: url("img/toolBar/download.png");
                 background-repeat: no-repeat;
                 padding-right : 1.5em;
                 text-decoration: none;

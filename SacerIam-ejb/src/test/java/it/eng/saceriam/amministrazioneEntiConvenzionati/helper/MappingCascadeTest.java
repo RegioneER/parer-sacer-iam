@@ -1427,43 +1427,6 @@ public class MappingCascadeTest {
         }
     }
 
-    // @Test
-    // public void usrUser_NOmergeCascadeUsrAppartUserRich() {
-    // Long idUsrUser = null;
-    // Long idUsrAppartUserRich = null;
-    // try {
-    // UsrUser usrUser = newUsrUser();
-    // helper.insertEntity(usrUser, true);
-    // idUsrUser = usrUser.getIdUserIam();
-    //
-    // UsrAppartUserRich usrAppartUserRich = new UsrAppartUserRich();
-    // usrAppartUserRich.setUsrRichGestUser(aUsrRichGestUser());
-    // usrAppartUserRich.setTiAppartUserRich(ConstUsrAppartUserRich.TiAppartUserRich.UTENTE_NON_CODIFICATO.name());
-    // usrAppartUserRich
-    // .setTiAzioneRich(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CESSAZIONE.getDescrizione());
-    // usrAppartUserRich.setFlAzioneRichEvasa("1");
-    // usrAppartUserRich.setOrgEnteSiam(anEnteSiam());
-    // usrAppartUserRich.setUsrUser(usrUser);
-    //
-    // helper.insertEntity(usrAppartUserRich, true);
-    // idUsrAppartUserRich = usrAppartUserRich.getIdAppartUserRich();
-    //
-    // UsrUser usrUserReloaded = helper.findByIdForceLazyField(UsrUser.class, idUsrUser,
-    // u -> u.getUsrAppartUserRiches().get(0).getTiAppartUserRich());
-    // final String nmNomeUser = "MERGED";
-    // usrUserReloaded.setNmNomeUser(nmNomeUser);
-    // final String tiAzioneRich = ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione();
-    // usrUserReloaded.getUsrAppartUserRiches().get(0).setTiAzioneRich(tiAzioneRich);
-    // helper.mergeEntity(usrUserReloaded);
-    // assertEquals(nmNomeUser, helper.findById(UsrUser.class, idUsrUser).getNmNomeUser());
-    // assertNotEquals(tiAzioneRich, helper.findById(UsrAppartUserRich.class, idUsrAppartUserRich));
-    //
-    // } finally {
-    // delete(UsrUser.class, idUsrUser);
-    // delete(UsrAppartUserRich.class, idUsrAppartUserRich);
-    // }
-    // }
-
     @Test
     public void UsrUser_persistCascdeUsrStatoUser() {
         Long idUsrUser = null;

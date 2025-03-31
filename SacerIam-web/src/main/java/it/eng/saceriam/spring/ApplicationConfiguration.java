@@ -15,40 +15,17 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package it.eng.saceriam.ws.dto;
+package it.eng.saceriam.spring;
 
-import java.io.Serializable;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
  *
- * @author Fioravanti_F
+ * @author Marco Iacolucci
  */
-public interface IRispostaWS extends Serializable {
-
-    public enum SeverityEnum {
-
-        OK, WARNING, ERROR
-    }
-
-    public enum ErrorTypeEnum {
-
-        NOERROR, WS_DATA, WS_SIGNATURE, DB_FATAL
-    }
-
-    String getErrorCode();
-
-    String getErrorMessage();
-
-    ErrorTypeEnum getErrorType();
-
-    SeverityEnum getSeverity();
-
-    void setErrorCode(String errorCode);
-
-    void setErrorMessage(String errorMessage);
-
-    void setErrorType(ErrorTypeEnum errorType);
-
-    void setSeverity(SeverityEnum severity);
+@Configuration
+@ComponentScan
+public class ApplicationConfiguration {
 
 }

@@ -4,17 +4,15 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>6.4.1-SNAPSHOT</version>
+        <version>7.1.0</version>
     </parent>
-
     <artifactId>saceriam-jboss-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>SacerIam-ejb</name>
-	<description>EJB</description> 
+    <description>EJB</description> 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -26,9 +24,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
-     
         <dependency>
             <groupId>net.sourceforge.javacsv</groupId>
             <artifactId>javacsv</artifactId>            
@@ -41,7 +37,7 @@
             <scope>provided</scope>
         </dependency>
         <!-- jboss-annotations-api_1.3_spec -->
-        <dependency>
+        <dependency>        
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.3_spec</artifactId>
             <scope>provided</scope>
@@ -69,12 +65,12 @@
         </dependency>
         <dependency>        
             <groupId>it.eng.parer</groupId>
-            <artifactId>spagofat-middle</artifactId>
+            <artifactId>spagofat-middle</artifactId>            
             <exclusions>
-            	<exclusion>
-            		<groupId>org.apache.logging.log4j</groupId>
-            		<artifactId>log4j-api</artifactId>
-            	</exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -101,7 +97,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-databind</artifactId>  
         </dependency>
-		<!-- Incluso per l'ejb del logging applicativo -->
+        <!-- Incluso per l'ejb del logging applicativo -->
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-sl-ejb</artifactId>
@@ -117,7 +113,7 @@
             <artifactId>spagofat-timer-wrapper-ejb</artifactId>
             <type>ejb</type>
         </dependency>
-		<!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
+        <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>idp-jaas-rdbms</artifactId>
@@ -161,8 +157,11 @@
             <groupId>org.apache.tika</groupId>
             <artifactId>tika-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>            
             <plugin>
@@ -173,32 +172,32 @@
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
                 <dependencies>
-					<dependency>
-						<groupId>javax.xml.bind</groupId>
-						<artifactId>jaxb-api</artifactId>
-						<version>2.3.0</version>
-					</dependency>
-					<dependency>
-						<groupId>javax.activation</groupId>
-						<artifactId>activation</artifactId>
-						<version>1.1.1</version>
-					</dependency>
-					<dependency>
-						<groupId>javax.xml.ws</groupId>
-						<artifactId>jaxws-api</artifactId>
-						<version>2.3.1</version>
-					</dependency>
-					<dependency>
-						<groupId>com.sun.xml.ws</groupId>
-						<artifactId>jaxws-rt</artifactId>
-						<version>2.3.5</version>
-						<scope>compile</scope>
-					</dependency>
-					<dependency>
-						<groupId>org.apache.logging.log4j</groupId>
-						<artifactId>log4j-slf4j-impl</artifactId>
-						<version>2.18.0</version>
-					</dependency>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>2.3.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                        <version>1.1.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.xml.ws</groupId>
+                        <artifactId>jaxws-api</artifactId>
+                        <version>2.3.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.ws</groupId>
+                        <artifactId>jaxws-rt</artifactId>
+                        <version>2.3.5</version>
+                        <scope>compile</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-slf4j-impl</artifactId>
+                        <version>2.18.0</version>
+                    </dependency>
                 </dependencies>
                 <executions>
                     <execution>

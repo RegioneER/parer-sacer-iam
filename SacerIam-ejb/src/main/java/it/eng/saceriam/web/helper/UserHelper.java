@@ -118,6 +118,7 @@ public class UserHelper extends GenericHelper {
     WsIdpLogger idpLogger;
 
     private static final Logger log = LoggerFactory.getLogger(UserHelper.class);
+    private static final String USERNAME = "username";
 
     private static final SecureRandom rand = new SecureRandom();
     private static final int MAX = 9999;
@@ -128,7 +129,6 @@ public class UserHelper extends GenericHelper {
     }
 
     /**
-     * @deprecated
      *
      * @param username
      *            username
@@ -140,10 +140,9 @@ public class UserHelper extends GenericHelper {
      * @throws Exception
      *             eccezione
      */
-    @Deprecated
     public UsrUser findUser(String username, String password) throws Exception {
         Query q = getEntityManager().createQuery("SELECT u FROM UsrUser u WHERE (u.nmUserid = :username)");
-        q.setParameter("username", username);
+        q.setParameter(USERNAME, username);
         UsrUser user = null;
         try {
             user = (UsrUser) q.getSingleResult();
@@ -240,7 +239,7 @@ public class UserHelper extends GenericHelper {
 
     public UsrUser findUserByName(String username) throws NoResultException {
         Query q = getEntityManager().createQuery("SELECT u FROM UsrUser u WHERE u.nmUserid = :username");
-        q.setParameter("username", username);
+        q.setParameter(USERNAME, username);
         return (UsrUser) q.getSingleResult();
     }
 
@@ -252,7 +251,7 @@ public class UserHelper extends GenericHelper {
         Query q = getEntityManager()
                 .createQuery("SELECT u FROM UsrUser u WHERE lower(u.nmUserid) = :username  AND u.flAttivo='1'");
         // MAC#29629 - Correzione estrazione nome utente durante l'autenticazione SPID
-        q.setParameter("username", username.toLowerCase());
+        q.setParameter(USERNAME, username.toLowerCase());
         return q.getResultList();
     }
 
@@ -384,7 +383,6 @@ public class UserHelper extends GenericHelper {
         q.setParameter("ruoli", idRuoli);
         q.setParameter("nomeapp", Constants.SACERIAM);
         return q.getResultList();
-
     }
 
     /**
@@ -1737,7 +1735,7 @@ public class UserHelper extends GenericHelper {
         q.setParameter("nmAgente", nmAgente);
         List<LogAgente> l = q.getResultList();
         if (!l.isEmpty()) {
-            return (LogAgente) l.get(0);
+            return l.get(0);
         } else {
             return null;
         }

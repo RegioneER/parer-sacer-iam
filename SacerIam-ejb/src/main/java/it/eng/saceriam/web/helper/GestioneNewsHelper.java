@@ -83,7 +83,6 @@ public class GestioneNewsHelper {
         if (dataFine != null) {
             queryStr.append(whereWord);
             queryStr.append(" news.dtFinPubblic <= :dataFine");
-            whereWord = " AND ";
         }
 
         queryStr.append(" ORDER BY news.idNews DESC");
@@ -159,51 +158,6 @@ public class GestioneNewsHelper {
     public void remove(AplNews o) {
         entityManager.remove(o);
         entityManager.flush();
-    }
-
-    /**
-     * @deprecated
-     *
-     * @param findLogin
-     *            find login
-     * @param findHome
-     *            find home
-     * @param date
-     *            data
-     *
-     * @return lista di news {@link AplNews}
-     */
-    @Deprecated
-    public List<AplNews> getAplNewsListToShow(String findLogin, String findHome, Date date) {
-
-        StringBuilder queryStr = new StringBuilder(
-                "SELECT news FROM AplNews news WHERE " + " news.dtIniPubblic <= :date AND news.dtFinPubblic >= :date ");
-
-        if (findLogin.equals("1")) {
-            queryStr.append(" AND news.flPubblicLogin = :findLogin ");
-        }
-        if (findHome.equals("1")) {
-            queryStr.append(" AND news.flPubblicHomepage = :findHome ");
-        }
-
-        queryStr.append(" ORDER BY news.dtIniPubblic DESC");
-
-        Query query = entityManager.createQuery(queryStr.toString());
-
-        if (findLogin.equals("1")) {
-            query.setParameter("findLogin", findLogin);
-        }
-        if (findHome.equals("1")) {
-            query.setParameter("findHome", findHome);
-        }
-        query.setParameter("date", date);
-
-        List<AplNews> list = query.getResultList();
-
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list;
     }
 
     public List<AplApplic> getAplApplicList() {

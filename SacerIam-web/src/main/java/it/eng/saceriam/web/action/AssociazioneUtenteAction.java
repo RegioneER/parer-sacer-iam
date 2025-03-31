@@ -45,8 +45,7 @@ public class AssociazioneUtenteAction extends ActionBase {
     private static final long serialVersionUID = 1L;
     public static final String SESSION_CF_USER_ATTEMPTS = "TENTATIVI_CF_UTENTE";
     public static final int MAX_CF_USER_ATTEMPTS = 3;
-
-    private static final Logger logger = LoggerFactory.getLogger(AssociazioneUtenteAction.class);
+    private static final String MEX_RICHIETA_NON_CORRETTA = "Richiesta HTTP non corretta<br/>";
 
     @EJB(mappedName = "java:app/SacerIam-ejb/AuthEjb")
     private AuthEjb authEjb;
@@ -86,7 +85,7 @@ public class AssociazioneUtenteAction extends ActionBase {
             getMessageBox().addError("Il campo utente è obbligatorio<br/>");
         }
         if (returnurl == null || hmac == null || salt == null || codiceFiscale == null) {
-            getMessageBox().addError("Richiesta HTTP non corretta<br/>");
+            getMessageBox().addError(MEX_RICHIETA_NON_CORRETTA);
         } else {
             cf = new String(EncryptionUtil.aesDecrypt(Base64.decodeBase64(codiceFiscale), EncryptionUtil.Aes.BIT_256),
                     StandardCharsets.UTF_8);
@@ -94,7 +93,7 @@ public class AssociazioneUtenteAction extends ActionBase {
                     + cf + ":" + salt;
             String res = EncryptionUtil.getHMAC(calc);
             if (!res.equals(hmac)) {
-                getMessageBox().addError("Richiesta HTTP non corretta<br/>");
+                getMessageBox().addError(MEX_RICHIETA_NON_CORRETTA);
             }
         }
         if (!getMessageBox().hasError()) {
@@ -155,7 +154,7 @@ public class AssociazioneUtenteAction extends ActionBase {
         String salt = getRequest().getParameter("s");
         String f = getRequest().getParameter("f");
         if (returnurl == null || hmac == null || salt == null || f == null) {
-            getMessageBox().addError("Richiesta HTTP non corretta<br/>");
+            getMessageBox().addError(MEX_RICHIETA_NON_CORRETTA);
         } else {
             String retUrlDecoded = new String(Base64.decodeBase64(returnurl));
             String cfDecoded = new String(EncryptionUtil.aesDecrypt(Base64.decodeBase64(f), EncryptionUtil.Aes.BIT_256),
@@ -163,7 +162,7 @@ public class AssociazioneUtenteAction extends ActionBase {
             String calc = retUrlDecoded + ":" + cfDecoded + ":" + salt;
             String res = EncryptionUtil.getHMAC(calc);
             if (!res.equals(hmac)) {
-                getMessageBox().addError("Richiesta HTTP non corretta<br/>");
+                getMessageBox().addError(MEX_RICHIETA_NON_CORRETTA);
             } else {
                 Object tentativi = getSession().getAttribute(SESSION_CF_USER_ATTEMPTS);
                 if (tentativi != null && Integer.parseInt(tentativi.toString()) <= 0) {

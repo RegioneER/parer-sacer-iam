@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Affero General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-
 package it.eng.saceriam.web.ejb;
 
 import java.lang.reflect.InvocationTargetException;
@@ -181,7 +180,6 @@ import it.eng.saceriam.ws.ejb.WsIdpLogger;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.db.base.row.BaseRow;
 import it.eng.spagoLite.db.base.table.BaseTable;
-import org.springframework.web.client.RestClientException;
 
 /**
  * Ejb Amministrazione Utenti di SacerIam
@@ -193,6 +191,7 @@ import org.springframework.web.client.RestClientException;
 public class AmministrazioneUtentiEjb {
 
     private static final String AZIONI_GIA_PRESENTI = "Attenzione: E' già stata inserita un'azione per il medesimo utente";
+    private static final String APP_SACER = "SACER";
 
     @EJB
     private AmministrazioneUtentiHelper amministrazioneUtentiHelper;
@@ -227,10 +226,8 @@ public class AmministrazioneUtentiEjb {
      *
      * @return il table bean delle applicazioni
      *
-     * @throws EMFError
-     *             errore generico
      */
-    public AplApplicTableBean getAplApplicTableBean() throws EMFError {
+    public AplApplicTableBean getAplApplicTableBean() {
         AplApplicTableBean applicTableBean = new AplApplicTableBean();
         List<AplApplic> applicList = amministrazioneUtentiHelper.getAplApplicList();
         try {
@@ -243,7 +240,7 @@ public class AmministrazioneUtentiEjb {
         return applicTableBean;
     }
 
-    public PrfRuoloTableBean getPrfRuoliTableBean(BigDecimal idApplic) throws EMFError {
+    public PrfRuoloTableBean getPrfRuoliTableBean(BigDecimal idApplic) {
         PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
         List<PrfRuolo> ruoliList = amministrazioneUtentiHelper.getPrfRuoli(idApplic);
 
@@ -257,8 +254,7 @@ public class AmministrazioneUtentiEjb {
         return ruoliTB;
     }
 
-    public PrfRuoloTableBean getPrfRuoliUtenteTableBean(BigDecimal idApplic, String tipoEnte, String tipoUtente)
-            throws EMFError {
+    public PrfRuoloTableBean getPrfRuoliUtenteTableBean(BigDecimal idApplic, String tipoEnte, String tipoUtente) {
         PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
         List<PrfRuolo> ruoliList = amministrazioneUtentiHelper.getPrfRuoliUtente(idApplic, tipoEnte, tipoUtente);
 
@@ -272,7 +268,7 @@ public class AmministrazioneUtentiEjb {
         return ruoliTB;
     }
 
-    public PrfRuoloTableBean getPrfRuoliTableBean(String nmApplic) throws EMFError {
+    public PrfRuoloTableBean getPrfRuoliTableBean(String nmApplic) {
         PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
         List<PrfRuolo> ruoliList = amministrazioneUtentiHelper.getPrfRuoli(nmApplic);
 
@@ -286,7 +282,7 @@ public class AmministrazioneUtentiEjb {
         return ruoliTB;
     }
 
-    public PrfRuoloTableBean getPrfRuoliTableBean(String nmApplic, Set<BigDecimal> idRuoliExcluded) throws EMFError {
+    public PrfRuoloTableBean getPrfRuoliTableBean(String nmApplic, Set<BigDecimal> idRuoliExcluded) {
         PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
         PrfRuoloRowBean ruoloRB = new PrfRuoloRowBean();
         List<PrfRuolo> ruoliList = amministrazioneUtentiHelper.getPrfRuoli(nmApplic);
@@ -305,7 +301,7 @@ public class AmministrazioneUtentiEjb {
         return ruoliTB;
     }
 
-    public PrfRuoloTableBean getRuoliSpecificiTableBean(String nmApplic, long idUserIam) throws EMFError {
+    public PrfRuoloTableBean getRuoliSpecificiTableBean(String nmApplic, long idUserIam) {
         PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
         List<PrfRuolo> ruoliList = amministrazioneUtentiHelper.getPrfRuoli(nmApplic);
         List<PrfRuolo> ruoliDefaultList = amministrazioneUtentiHelper.getRuoliDefaultUtenteApplic(nmApplic, idUserIam);
@@ -320,7 +316,7 @@ public class AmministrazioneUtentiEjb {
         return ruoliTB;
     }
 
-    public PrfRuoloTableBean getPrfRuoliTableBean() throws EMFError {
+    public PrfRuoloTableBean getPrfRuoliTableBean() {
         PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
         List<PrfRuolo> ruoliList = amministrazioneUtentiHelper.getPrfRuoli();
         try {
@@ -365,11 +361,10 @@ public class AmministrazioneUtentiEjb {
      *
      * @return table bean {@link PrfVLisDichAutorTableBean}
      *
-     * @throws EMFError
-     *             errore generico
+     *         errore generico
      */
     public PrfVLisDichAutorTableBean getPrfDichAutorViewBean(Set<BigDecimal> idUsoRuoloSet, String tiDichAutor,
-            BigDecimal idApplic) throws EMFError {
+            BigDecimal idApplic) {
         List<PrfVLisDichAutor> dichAutorList = amministrazioneUtentiHelper.getPrfDichAutorList(idUsoRuoloSet,
                 tiDichAutor, idApplic);
         PrfVLisDichAutorTableBean dichsTB = new PrfVLisDichAutorTableBean();
@@ -383,8 +378,8 @@ public class AmministrazioneUtentiEjb {
         return dichsTB;
     }
 
-    public UsrVAbilOrganizTableBean getOrganizAbilitateByUserCorrente(BigDecimal idUserIamCorrente, BigDecimal idApplic)
-            throws EMFError {
+    public UsrVAbilOrganizTableBean getOrganizAbilitateByUserCorrente(BigDecimal idUserIamCorrente,
+            BigDecimal idApplic) {
         List<UsrVAbilOrganiz> organizAbilitateList = amministrazioneUtentiHelper
                 .getUsrVAbilOrganizList(idUserIamCorrente, idApplic);
         UsrVAbilOrganizTableBean organizAbilitateTB = new UsrVAbilOrganizTableBean();
@@ -398,7 +393,7 @@ public class AmministrazioneUtentiEjb {
         return organizAbilitateTB;
     }
 
-    public PrfRuoloTableBean getRuoliByApplic(BigDecimal idApplic, ApplEnum.TipoRuolo tipoRuolo) throws EMFError {
+    public PrfRuoloTableBean getRuoliByApplic(BigDecimal idApplic, ApplEnum.TipoRuolo tipoRuolo) {
         List<PrfRuolo> ruoliList;
         PrfRuoloTableBean ruoliDefaultTB = new PrfRuoloTableBean();
         try {
@@ -416,8 +411,7 @@ public class AmministrazioneUtentiEjb {
         return ruoliDefaultTB;
     }
 
-    public UsrVTreeOrganizIamTableBean getUsrVTreeOrganizIamNoLastLevelTableBean(long idUserIam, BigDecimal idApplic)
-            throws EMFError {
+    public UsrVTreeOrganizIamTableBean getUsrVTreeOrganizIamNoLastLevelTableBean(long idUserIam, BigDecimal idApplic) {
         List<UsrVTreeOrganizIam> dichAutorList = amministrazioneUtentiHelper
                 .getUsrVTreeOrganizIamNoLastLevelList(idUserIam, idApplic);
         UsrVTreeOrganizIamTableBean dichsTB = new UsrVTreeOrganizIamTableBean();
@@ -431,7 +425,7 @@ public class AmministrazioneUtentiEjb {
         return dichsTB;
     }
 
-    public UsrVTreeOrganizIamRowBean getUsrVTreeOrganizIamPerVersatore(BigDecimal idUserIam) throws EMFError {
+    public UsrVTreeOrganizIamRowBean getUsrVTreeOrganizIamPerVersatore(BigDecimal idUserIam) {
         UsrVTreeOrganizIam treeOrganizIam = amministrazioneUtentiHelper.getUsrVTreeOrganizIam(idUserIam);
         UsrVTreeOrganizIamRowBean treeOrganizIamRowBean = new UsrVTreeOrganizIamRowBean();
         try {
@@ -442,23 +436,8 @@ public class AmministrazioneUtentiEjb {
         return treeOrganizIamRowBean;
     }
 
-    // public UsrVTreeOrganizIamTableBean getUsrVTreeOrganizIamAllOrgChildTableBean(long idUserIamCor, BigDecimal
-    // idApplic, String tipoEnte, BigDecimal idEnte) throws EMFError {
-    // List<UsrVTreeOrganizIam> dichAutorList =
-    // amministrazioneUtentiHelper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, tipoEnte, idEnte);
-    // UsrVTreeOrganizIamTableBean dichsTB = new UsrVTreeOrganizIamTableBean();
-    // try {
-    // if (dichAutorList != null && !dichAutorList.isEmpty()) {
-    // dichsTB = (UsrVTreeOrganizIamTableBean) Transform.entities2TableBean(dichAutorList);
-    // }
-    // } catch (Exception e) {
-    // log.error(e.getMessage(), e);
-    // }
-    // return dichsTB;
-    // }
     public BaseTable getUsrVTreeOrganizIamAllOrgChildTableBean(long idUserIamCor, BigDecimal idApplic, String tipoEnte,
-            BigDecimal idEnte, String flAbilOrganizAutom, String flAbilOrganizEntiAutom, BigDecimal idRichGestUser)
-            throws EMFError {
+            BigDecimal idEnte, String flAbilOrganizAutom, String flAbilOrganizEntiAutom, BigDecimal idRichGestUser) {
         List<Object[]> dichAutorList = amministrazioneUtentiHelper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor,
                 idApplic, tipoEnte, idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichGestUser);
         BaseTable dichsTB = new BaseTable();
@@ -480,24 +459,8 @@ public class AmministrazioneUtentiEjb {
         return dichsTB;
     }
 
-    // public UsrVTreeOrganizIamTableBean getUsrVTreeOrganizIamUnaOrgTableBean(long idUserIamCor, BigDecimal idApplic,
-    // String tipoEnte, BigDecimal idEnte, String flAbilOrganizAutom) throws EMFError {
-    // List<UsrVTreeOrganizIam> dichAutorList =
-    // amministrazioneUtentiHelper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, tipoEnte, idEnte,
-    // flAbilOrganizAutom);
-    // UsrVTreeOrganizIamTableBean dichsTB = new UsrVTreeOrganizIamTableBean();
-    // try {
-    // if (dichAutorList != null && !dichAutorList.isEmpty()) {
-    // dichsTB = (UsrVTreeOrganizIamTableBean) Transform.entities2TableBean(dichAutorList);
-    // }
-    // } catch (Exception e) {
-    // log.error(e.getMessage(), e);
-    // }
-    // return dichsTB;
-    // }
     public BaseTable getUsrVTreeOrganizIamUnaOrgTableBean(long idUserIamCor, BigDecimal idApplic, String tipoEnte,
-            BigDecimal idEnte, String flAbilOrganizAutom, String flAbilOrganizEntiAutom, BigDecimal idRichGestUser)
-            throws EMFError {
+            BigDecimal idEnte, String flAbilOrganizAutom, String flAbilOrganizEntiAutom, BigDecimal idRichGestUser) {
         List<Object[]> dichAutorList = amministrazioneUtentiHelper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor,
                 idApplic, tipoEnte, idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichGestUser);
         BaseTable dichsTB = new BaseTable();
@@ -520,7 +483,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     public UsrVAbilOrganizNolastLivTableBean getUsrVAbilOrganizNolastLivTableBean(long idUserIam, BigDecimal idApplic,
-            String dlPathIdOrganizIam) throws EMFError {
+            String dlPathIdOrganizIam) {
         List<UsrVAbilOrganizNolastLiv> abilOrganizNoLastLiv = amministrazioneUtentiHelper
                 .getUsrVAbilOrganizNolastLivList(idUserIam, idApplic, dlPathIdOrganizIam);
         UsrVAbilOrganizNolastLivTableBean abilOrganizNolastLivTB = new UsrVAbilOrganizNolastLivTableBean();
@@ -535,8 +498,7 @@ public class AmministrazioneUtentiEjb {
         return abilOrganizNolastLivTB;
     }
 
-    public UsrVAbilOrganizTableBean getUsrVAbilOrganizLastLevelTableBean(long idUserIam, BigDecimal idApplic)
-            throws EMFError {
+    public UsrVAbilOrganizTableBean getUsrVAbilOrganizLastLevelTableBean(long idUserIam, BigDecimal idApplic) {
         List<UsrVAbilOrganiz> dichAutorList = amministrazioneUtentiHelper.getUsrVAbilOrganizLastLevelList(idUserIam,
                 idApplic);
         UsrVAbilOrganizTableBean dichsTB = new UsrVAbilOrganizTableBean();
@@ -551,7 +513,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     public UsrVAbilOrganizTableBean getOrganizPerRuoliSpecificiUnaOrg(long idUserIam, BigDecimal idApplic,
-            String dlPathIdOrganizIam) throws EMFError {
+            String dlPathIdOrganizIam) {
         List<UsrVAbilOrganiz> dichAutorList = amministrazioneUtentiHelper.getUsrVAbilOrganizLastLevelList(idUserIam,
                 idApplic, dlPathIdOrganizIam);
         UsrVAbilOrganizTableBean dichsTB = new UsrVAbilOrganizTableBean();
@@ -565,7 +527,7 @@ public class AmministrazioneUtentiEjb {
         return dichsTB;
     }
 
-    public UsrVTreeOrganizIamTableBean getOrganizIamChilds(BigDecimal idOrganizIam) throws EMFError {
+    public UsrVTreeOrganizIamTableBean getOrganizIamChilds(BigDecimal idOrganizIam) {
         List<UsrVTreeOrganizIam> dichAutorList = amministrazioneUtentiHelper.getOrganizIamChilds(idOrganizIam);
         UsrVTreeOrganizIamTableBean dichsTB = new UsrVTreeOrganizIamTableBean();
         try {
@@ -607,10 +569,8 @@ public class AmministrazioneUtentiEjb {
      *
      * @return table bean {@link AplEntryMenuTableBean}
      *
-     * @throws EMFError
-     *             errore generico
      */
-    public AplEntryMenuTableBean getEntryMenuParents(BigDecimal idEntryMenu) throws EMFError {
+    public AplEntryMenuTableBean getEntryMenuParents(BigDecimal idEntryMenu) {
         List<AplEntryMenu> entries = amministrazioneUtentiHelper.getEntryMenuParentsList(idEntryMenu);
         AplEntryMenuTableBean entriesTB = new AplEntryMenuTableBean();
         try {
@@ -631,10 +591,8 @@ public class AmministrazioneUtentiEjb {
      *
      * @return il table bean delle applicazioni
      *
-     * @throws EMFError
-     *             errore generico
      */
-    public PrfUsoRuoloApplicTableBean getPrfUsoRuoloApplicTableBean(Set<BigDecimal> idUsoRuoloApplic) throws EMFError {
+    public PrfUsoRuoloApplicTableBean getPrfUsoRuoloApplicTableBean(Set<BigDecimal> idUsoRuoloApplic) {
         PrfUsoRuoloApplicTableBean usoRuoloApplicTableBean = new PrfUsoRuoloApplicTableBean();
         List<PrfUsoRuoloApplic> usoRuoloApplicList = amministrazioneUtentiHelper
                 .getPrfUsoRuoloApplicList(idUsoRuoloApplic);
@@ -805,7 +763,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     public UsrVLisUserTableBean getUsrVLisUserTableBean(FiltriUtenti filtri, Date[] dateValidate, long idUserIamCorr,
-            List<BigDecimal> idEntiConvenzionatiAmministratori) throws EMFError {
+            List<BigDecimal> idEntiConvenzionatiAmministratori) {
         UsrVLisUserTableBean userTB = new UsrVLisUserTableBean();
         try {
             // MAC #20499
@@ -900,7 +858,7 @@ public class AmministrazioneUtentiEjb {
         return utenteRB;
     }
 
-    public UsrIndIpUserTableBean getUsrIndIpUserTableBean(BigDecimal idUserIam) throws EMFError {
+    public UsrIndIpUserTableBean getUsrIndIpUserTableBean(BigDecimal idUserIam) {
         UsrIndIpUserTableBean uiiaTableBean = new UsrIndIpUserTableBean();
         List<UsrIndIpUser> uiiaList = amministrazioneUtentiHelper.getUsrIndIpUserList(idUserIam);
         try {
@@ -915,7 +873,7 @@ public class AmministrazioneUtentiEjb {
         return uiiaTableBean;
     }
 
-    public UsrUsoUserApplicTableBean getUsoUsoUserApplicTableBean(BigDecimal idUserIam) throws EMFError {
+    public UsrUsoUserApplicTableBean getUsoUsoUserApplicTableBean(BigDecimal idUserIam) {
         UsrUsoUserApplicTableBean uuuaTableBean = new UsrUsoUserApplicTableBean();
         List<UsrUsoUserApplic> uuuaList = amministrazioneUtentiHelper.getUsrUsoUserApplicList(idUserIam);
         try {
@@ -933,7 +891,7 @@ public class AmministrazioneUtentiEjb {
         return uuuaTableBean;
     }
 
-    public UsrUsoRuoloUserDefaultTableBean getUsrUsoRuoloUserDefaultTableBean(Set<BigDecimal> uuuaSet) throws EMFError {
+    public UsrUsoRuoloUserDefaultTableBean getUsrUsoRuoloUserDefaultTableBean(Set<BigDecimal> uuuaSet) {
         UsrUsoRuoloUserDefaultTableBean uurudTableBean = new UsrUsoRuoloUserDefaultTableBean();
         List<UsrUsoRuoloUserDefault> uurudList = amministrazioneUtentiHelper.getUsrUsoRuoloUserDefaultList(uuuaSet);
         try {
@@ -954,7 +912,7 @@ public class AmministrazioneUtentiEjb {
         return uurudTableBean;
     }
 
-    public UsrDichAbilOrganizTableBean getUsrDichAbilOrganizTableBean(Set<BigDecimal> uuuaSet) throws EMFError {
+    public UsrDichAbilOrganizTableBean getUsrDichAbilOrganizTableBean(Set<BigDecimal> uuuaSet) {
         UsrDichAbilOrganizTableBean udaoTableBean = new UsrDichAbilOrganizTableBean();
         List<UsrDichAbilOrganiz> udaoList = amministrazioneUtentiHelper.getUsrDichAbilOrganizList(uuuaSet);
         try {
@@ -985,7 +943,7 @@ public class AmministrazioneUtentiEjb {
         return udaoTableBean;
     }
 
-    public UsrDichAbilDatiTableBean getUsrDichAbilDatiTableBean(Set<BigDecimal> uuuaSet) throws EMFError {
+    public UsrDichAbilDatiTableBean getUsrDichAbilDatiTableBean(Set<BigDecimal> uuuaSet) {
         UsrDichAbilDatiTableBean udadTableBean = new UsrDichAbilDatiTableBean();
         List<UsrDichAbilDati> udadList = amministrazioneUtentiHelper.getUsrDichAbilDatiList(uuuaSet);
         try {
@@ -1013,7 +971,7 @@ public class AmministrazioneUtentiEjb {
         return udadTableBean;
     }
 
-    public UsrDichAbilEnteConvenzTableBean getUsrDichAbilEnteConvenzTableBean(BigDecimal idUserIam) throws EMFError {
+    public UsrDichAbilEnteConvenzTableBean getUsrDichAbilEnteConvenzTableBean(BigDecimal idUserIam) {
         UsrDichAbilEnteConvenzTableBean daecTableBean = new UsrDichAbilEnteConvenzTableBean();
         List<UsrDichAbilEnteConvenz> daecList = amministrazioneUtentiHelper.getUsrDichAbilEnteConvenz(idUserIam);
         try {
@@ -1032,8 +990,7 @@ public class AmministrazioneUtentiEjb {
         return daecTableBean;
     }
 
-    public UsrDichAbilEnteConvenzTableBean getUsrDichAbilEnteConvenzUnEnteAttiviTableBean(BigDecimal idEnteConvenz)
-            throws EMFError {
+    public UsrDichAbilEnteConvenzTableBean getUsrDichAbilEnteConvenzUnEnteAttiviTableBean(BigDecimal idEnteConvenz) {
         UsrDichAbilEnteConvenzTableBean daecTableBean = new UsrDichAbilEnteConvenzTableBean();
         List<UsrDichAbilEnteConvenz> daecList = amministrazioneUtentiHelper
                 .getUsrDichAbilEnteConvenzUnEnteAttivi(idEnteConvenz);
@@ -1049,7 +1006,7 @@ public class AmministrazioneUtentiEjb {
         return daecTableBean;
     }
 
-    public UsrVLisStatoUserTableBean getUsrStatoUserTableBean(BigDecimal idUserIam) throws EMFError {
+    public UsrVLisStatoUserTableBean getUsrStatoUserTableBean(BigDecimal idUserIam) {
         UsrVLisStatoUserTableBean statoUserTableBean = new UsrVLisStatoUserTableBean();
         List<UsrVLisStatoUser> statoUserList = amministrazioneUtentiHelper.getUsrVLisStatoUserList(idUserIam);
         try {
@@ -1062,7 +1019,7 @@ public class AmministrazioneUtentiEjb {
         return statoUserTableBean;
     }
 
-    public AplClasseTipoDatoTableBean getAplClasseTipoDatoTableBean(BigDecimal idApplic) throws EMFError {
+    public AplClasseTipoDatoTableBean getAplClasseTipoDatoTableBean(BigDecimal idApplic) {
         AplClasseTipoDatoTableBean classeTipoDatoTableBean = new AplClasseTipoDatoTableBean();
         List<AplClasseTipoDato> listaClasse = amministrazioneUtentiHelper.getAplClasseTipoDatoList(idApplic);
         try {
@@ -1252,7 +1209,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     public UsrVLisSchedTableBean getUsrVLisSchedTableBean(ApplEnum.NmJob nmJob, Date[] dateValidate,
-            boolean soloSbloccoRepliche) throws EMFError {
+            boolean soloSbloccoRepliche) {
         UsrVLisSchedTableBean schedTableBean = new UsrVLisSchedTableBean();
         List<UsrVLisSched> listaSched = amministrazioneUtentiHelper.getUsrVLisSchedList(nmJob, dateValidate,
                 soloSbloccoRepliche);
@@ -1619,7 +1576,6 @@ public class AmministrazioneUtentiEjb {
     // }
     // return loginEventiTB;
     // }
-
     public LogVRicAccessiTableBean getLogVRicAccessiTableBean(Date dtEventoDa, Date dtEventoA, String nmUserid,
             String tipoEvento, String inclUtentiAutomi, String inclLoginOK, String nome, String cognome, String cf,
             String email, String idEsterno) throws ParerUserError {
@@ -1944,25 +1900,22 @@ public class AmministrazioneUtentiEjb {
 
     private void controlliInserimentoRichiestaUtente(UsrRichGestUserRowBean richGestUserRowBean,
             BigDecimal idRichGestUserExcluded) throws ParerUserError {
-        // Controllo che non esista giÃ  uno stesso identificativo UD, se presente, diverso da quello che sto
+        // Controllo che non esista già  uno stesso identificativo UD, se presente, diverso da quello che sto
         // modificando
-        if (richGestUserRowBean.getCdRegistroRichGestUser() != null) {
-            if (amministrazioneUtentiHelper
-                    .getUsrRichGestUserByOrganizzazioneAndUd(richGestUserRowBean.getBigDecimal("id_organiz_iam"),
-                            richGestUserRowBean.getCdRegistroRichGestUser(), richGestUserRowBean.getAaRichGestUser(),
-                            richGestUserRowBean.getCdKeyRichGestUser(), idRichGestUserExcluded)
-                    .size() > 0) {
-                throw new ParerUserError(
-                        "Il numero protocollo della richiesta Ã¨ giÃ  associato ad un'altra richiesta");
-            }
+        if (richGestUserRowBean.getCdRegistroRichGestUser() != null && !amministrazioneUtentiHelper
+                .getUsrRichGestUserByOrganizzazioneAndUd(richGestUserRowBean.getBigDecimal("id_organiz_iam"),
+                        richGestUserRowBean.getCdRegistroRichGestUser(), richGestUserRowBean.getAaRichGestUser(),
+                        richGestUserRowBean.getCdKeyRichGestUser(), idRichGestUserExcluded)
+                .isEmpty()) {
+            throw new ParerUserError("Il numero protocollo della richiesta è già associato ad un'altra richiesta");
         }
 
-        // Controllo che non esista giÃ  uno stesso identificativo richiesta, se esiste, per uno stesso ente
+        // Controllo che non esista già  uno stesso identificativo richiesta, se esiste, per uno stesso ente
         // convenzionato
         if (richGestUserRowBean.getCdRichGestUser() != null) {
-            if (amministrazioneUtentiHelper.getUsrRichGestUserByRichEnte(richGestUserRowBean.getCdRichGestUser(),
-                    richGestUserRowBean.getIdEnteRich(), idRichGestUserExcluded).size() > 0) {
-                throw new ParerUserError("L'identificativo della richiesta Ã¨ giÃ  associato ad un'altra richiesta");
+            if (!amministrazioneUtentiHelper.getUsrRichGestUserByRichEnte(richGestUserRowBean.getCdRichGestUser(),
+                    richGestUserRowBean.getIdEnteRich(), idRichGestUserExcluded).isEmpty()) {
+                throw new ParerUserError("L'identificativo della richiesta è già associato ad un'altra richiesta");
             }
         }
 
@@ -1971,20 +1924,19 @@ public class AmministrazioneUtentiEjb {
             UsrUser user = amministrazioneUtentiHelper.findById(UsrUser.class, richGestUserRowBean.getIdUserIamRich());
             // Controllo che l'utente riferito appartenga allo stesso ente convenzionato a cui appartiene la richiesta
             // oppure appartenga ad un ente convenzionato di tipo amministratore
-            if (richGestUserRowBean.getIdEnteRich() != null) {
-                if (user.getOrgEnteSiam() == null || (user.getOrgEnteSiam() != null
-                        && (user.getOrgEnteSiam().getIdEnteSiam() != richGestUserRowBean.getIdEnteRich().longValue()
-                                || !user.getOrgEnteSiam().getTiEnteConvenz().name().equals("AMMINISTRATORE")))) {
-                    throw new ParerUserError(
-                            "E' necessario scegliere un utente appartenente allo stesso ente convenzionato a cui appartiene la richiesta oppure un utente appartenente ad un ente convenzionato di tipo amministratore");
-                }
+            if (richGestUserRowBean.getIdEnteRich() != null && user.getOrgEnteSiam() == null
+                    || (user.getOrgEnteSiam() != null
+                            && (user.getOrgEnteSiam().getIdEnteSiam() != richGestUserRowBean.getIdEnteRich().longValue()
+                                    || !user.getOrgEnteSiam().getTiEnteConvenz().name().equals("AMMINISTRATORE")))) {
+                throw new ParerUserError(
+                        "E' necessario scegliere un utente appartenente allo stesso ente convenzionato a cui appartiene la richiesta oppure un utente appartenente ad un ente convenzionato di tipo amministratore");
             }
 
             // Controllo che l'utente sia di tipo PERSONA_FISICA o NON_DI_SISTEMA
             if (!user.getTipoUser().equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
                     && !user.getTipoUser().equals(ApplEnum.TipoUser.NON_DI_SISTEMA.name())) {
                 throw new ParerUserError(
-                        "Lâ€™utente richiedente deve avere tipologia pari a PERSONA_FISICA o NON_DI_SISTEMA");
+                        "L'utente richiedente deve avere tipologia pari a PERSONA_FISICA o NON_DI_SISTEMA");
             }
         }
     }
@@ -2187,7 +2139,6 @@ public class AmministrazioneUtentiEjb {
         // - Modifica abilitazioni
         // - Modifica ente
         // - Riattivazione utente
-
         switch (azioneEnum) {
         case RICHIESTA_MODIFICA_ABILITAZIONI:
             for (UsrAppartUserRich azioneUtente : azioniUtente) {
@@ -2230,6 +2181,8 @@ public class AmministrazioneUtentiEjb {
                 }
             }
             break;
+        default:
+            break;
         }
 
         // Controlli UTENTE_CODIFICATO
@@ -2260,7 +2213,6 @@ public class AmministrazioneUtentiEjb {
             // non sia di tipo NON_DI_SISTEMA");
             // }
             // }
-
             // Controllo stato RICHIESTA DI CESSAZIONE
             if (azioneEnum.equals(ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_CESSAZIONE)) {
                 if ((!statoUserCorrente.equals(ConstUsrStatoUser.TiStatotUser.ATTIVO.getDescrizione())
@@ -2400,7 +2352,7 @@ public class AmministrazioneUtentiEjb {
                 UsrVAbilOrganizRowBean abilOrganizRB = (UsrVAbilOrganizRowBean) Transform.entity2RowBean(abilOrganiz);
                 abilOrganizTB.add(abilOrganizRB);
             } else {
-                AplApplic applic = amministrazioneUtentiHelper.getAplApplicByName("SACER");
+                AplApplic applic = amministrazioneUtentiHelper.getAplApplicByName(APP_SACER);
                 List<UsrVAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVAbilOrganizList(
                         idUserIamCorrente, BigDecimal.valueOf(applic.getIdApplic()), "STRUTTURA", null, false);
                 if (!abilOrganizList.isEmpty()) {
@@ -2417,7 +2369,7 @@ public class AmministrazioneUtentiEjb {
         UsrVAbilOrganizTableBean abilOrganizTB = new UsrVAbilOrganizTableBean();
         try {
             // Ricavo le organizzazioni di SACER alle quali l'utente Ã¨ abilitato
-            AplApplic applic = amministrazioneUtentiHelper.getAplApplicByName("SACER");
+            AplApplic applic = amministrazioneUtentiHelper.getAplApplicByName(APP_SACER);
             List<UsrVAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVAbilOrganizList(
                     idUserIamCorrente, BigDecimal.valueOf(applic.getIdApplic()), "STRUTTURA", null, false);
             if (!abilOrganizList.isEmpty()) {
@@ -2466,15 +2418,11 @@ public class AmministrazioneUtentiEjb {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public KeycloakMessageSent resetPassword(LogParam param, BigDecimal idUserIam) throws ParerUserError {
-        // UsrAppartUserRich richiestaDaEvadere = amministrazioneUtentiHelper.getRichiestaDaEvadere(idUserIam,
-        // ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione());
         UsrAppartUserRich richiestaDaEvadere = amministrazioneUtentiHelper.getRichiestaDaEseguire(idUserIam,
                 ConstUsrAppartUserRich.TiAzioneRich.RICHIESTA_RESET_PWD.getDescrizione());
         if (richiestaDaEvadere == null) {
-            // throw new ParerUserError("Attenzione: richiesta di reset password non presente, non \u00E8 possibile
-            // procedere");
             throw new ParerUserError(
-                    "La richiesta di gestione utenti specificata non presenta una azione di reset password relativa allâ€™utente non evasa, oppure presenta una azione reset password relativa allâ€™utente giÃ  evasa ma la richiesta non eâ€™ lâ€™ultima in cui eâ€™ coinvolto lâ€™utente");
+                    "La richiesta di gestione utenti specificata non presenta una azione di reset password relativa all'utente non evasa, oppure presenta una azione reset password relativa all'utente già evasa ma la richiesta non è l'ultima in cui è coinvolto l'utente");
         }
         /*
          * Codice aggiuntivo per il logging...
@@ -2482,7 +2430,6 @@ public class AmministrazioneUtentiEjb {
         UsrUser user = amministrazioneUtentiHelper.findById(UsrUser.class, idUserIam);
         KeycloakMessageSent mex = inviaMailAttivazione(user.getNmUserid());
         if (mex.getTipoMessaggio().equals(KeycloakMessageSent.TIPO_INFO)) {
-            // String password = authEjb.resetPwd(param, idUserIam);
 
             /*
              * Codice aggiuntivo per il logging...
@@ -2578,17 +2525,9 @@ public class AmministrazioneUtentiEjb {
         AplApplic apl = amministrazioneUtentiHelper.getAplApplicByName("SACER_PREINGEST");
         boolean esistonoVersamentiPing = false;
         if (apl != null) {
-            try {
-                esistonoVersamentiPing = restTemplateEjb.chiamaExistsVersamentiPerUtente(idUserIam.longValueExact());
-            } catch (RestClientException ex) {
-                log.error("Errore durante l'invocazione del WS Rest 'versatoreCessato'", ex);
-                throw ex;
-            }
+            esistonoVersamentiPing = restTemplateEjb.chiamaExistsVersamentiPerUtente(idUserIam.longValueExact());
         }
-        // UsrVChkUserCancPing cancPing = amministrazioneUtentiHelper.findViewById(UsrVChkUserCancPing.class,
-        // idUserIam);
-        // boolean cancOkPing = (apl != null)
-        // ? (cancPing == null || cancPing.getFlCancOk().equals("1")) : true;
+
         /*
          * Se è configurato PING nel sistema e se non esistono versamenti il flag diventa Ok si può procedere altrimenti
          * e ci sono versamenti il flag è KO non si può procedere.
@@ -2640,21 +2579,13 @@ public class AmministrazioneUtentiEjb {
             // - su SACER se è AUTOMA
             // - su PING se è PERSONA_FISICA
             // allora annullo il riferimento al sistema versante
-
             // MEV#27457 - Rendere indipendente SIAM da PING
             boolean esistonoVersamentiPing = false;
             if (amministrazioneUtentiHelper
                     .getAplApplicByName(ConstAplApplic.NmApplic.SACER_PREINGEST.name()) != null) {
-                try {
-                    esistonoVersamentiPing = restTemplateEjb.chiamaExistsVersamentiPerUtente(idUserIam.longValue());
-                } catch (RestClientException ex) {
-                    log.error("Errore durante l'invocazione del WS Rest per l'Help Online.", ex);
-                    throw ex;
-                }
+                esistonoVersamentiPing = restTemplateEjb.chiamaExistsVersamentiPerUtente(idUserIam.longValue());
             }
-            if (user.getTipoUser().equals(ApplEnum.TipoUser.PERSONA_FISICA.name())
-                    // && !amministrazioneUtentiHelper.checkExistsVersamentiPing(idUserIam.longValue())) {
-                    && !esistonoVersamentiPing) {
+            if (user.getTipoUser().equals(ApplEnum.TipoUser.PERSONA_FISICA.name()) && !esistonoVersamentiPing) {
                 user.setAplSistemaVersante(null);
             }
             // -- Fine intervento MEV
@@ -2876,7 +2807,7 @@ public class AmministrazioneUtentiEjb {
     }
 
     public UsrVLisEntiSiamPerAzioTableBean getUsrVLisEntiSiamPerAzioTableBean(BigDecimal idRichGestUser,
-            long idUserIamCor) throws EMFError {
+            long idUserIamCor) {
         UsrVLisEntiSiamPerAzioTableBean entiSiamPerAzioTableBean = new UsrVLisEntiSiamPerAzioTableBean();
         List<UsrVLisEntiSiamPerAzio> entiSiamPerAzioList = amministrazioneUtentiHelper
                 .getUsrVLisEntiSiamPerAzioList(idRichGestUser, idUserIamCor);
@@ -2895,7 +2826,7 @@ public class AmministrazioneUtentiEjb {
         return entiSiamPerAzioTableBean;
     }
 
-    public UsrVLisEntiSiamAppEnteTableBean getUsrVLisEntiSiamAppEnteTableBean(long idUserIamCor) throws EMFError {
+    public UsrVLisEntiSiamAppEnteTableBean getUsrVLisEntiSiamAppEnteTableBean(long idUserIamCor) {
         UsrVLisEntiSiamAppEnteTableBean entiSiamAppEnteTableBean = new UsrVLisEntiSiamAppEnteTableBean();
         List<UsrVLisEntiSiamAppEnte> entiSiamAppEnteList = amministrazioneUtentiHelper
                 .getUsrVLisEntiSiamAppEnteList(idUserIamCor);
@@ -2917,10 +2848,10 @@ public class AmministrazioneUtentiEjb {
     public boolean isUtenteAppartEnteSpecificato(BigDecimal idUserIam, BigDecimal idEnteSiam) {
         UsrUser user = amministrazioneUtentiHelper.findById(UsrUser.class, idUserIam);
         OrgEnteSiam enteSiam = amministrazioneUtentiHelper.findById(OrgEnteSiam.class, idEnteSiam);
-        return user.getOrgEnteSiam().getIdEnteSiam() == enteSiam.getIdEnteSiam();
+        return user.getOrgEnteSiam().getIdEnteSiam().equals(enteSiam.getIdEnteSiam());
     }
 
-    public UsrVLisAbilOrganizTableBean getUsrVLisAbilOrganizTableBean(BigDecimal idUserIam) throws EMFError {
+    public UsrVLisAbilOrganizTableBean getUsrVLisAbilOrganizTableBean(BigDecimal idUserIam) {
         UsrVLisAbilOrganizTableBean abilOrganizTB = new UsrVLisAbilOrganizTableBean();
         List<UsrVLisAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVLisAbilOrganizList(idUserIam);
         try {
@@ -2933,7 +2864,7 @@ public class AmministrazioneUtentiEjb {
         return abilOrganizTB;
     }
 
-    public UsrVLisAbilEnteTableBean getUsrVLisAbilEnteTableBean(BigDecimal idUserIam) throws EMFError {
+    public UsrVLisAbilEnteTableBean getUsrVLisAbilEnteTableBean(BigDecimal idUserIam) {
         UsrVLisAbilEnteTableBean abilEnteTB = new UsrVLisAbilEnteTableBean();
         List<UsrVLisAbilEnte> abilEnteList = amministrazioneUtentiHelper.getUsrVLisAbilEnteList(idUserIam);
         try {
@@ -2946,25 +2877,25 @@ public class AmministrazioneUtentiEjb {
         return abilEnteTB;
     }
 
-    public boolean isEnteAmministratore(BigDecimal idEnteSiam) throws EMFError {
+    public boolean isEnteAmministratore(BigDecimal idEnteSiam) {
         OrgEnteSiam enteSiam = amministrazioneUtentiHelper.findById(OrgEnteSiam.class, idEnteSiam);
         return enteSiam.getTiEnteConvenz() != null
                 && enteSiam.getTiEnteConvenz().equals(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE);
     }
 
-    public boolean isEnteOrganoVigilanza(BigDecimal idEnteSiam) throws EMFError {
+    public boolean isEnteOrganoVigilanza(BigDecimal idEnteSiam) {
         OrgEnteSiam enteSiam = amministrazioneUtentiHelper.findById(OrgEnteSiam.class, idEnteSiam);
         return enteSiam.getTiEnteNonConvenz() != null
                 && enteSiam.getTiEnteNonConvenz().equals(ConstOrgEnteSiam.TiEnteNonConvenz.ORGANO_VIGILANZA);
     }
 
-    public boolean isEnteFornitoreEsterno(BigDecimal idEnteSiam) throws EMFError {
+    public boolean isEnteFornitoreEsterno(BigDecimal idEnteSiam) {
         OrgEnteSiam enteSiam = amministrazioneUtentiHelper.findById(OrgEnteSiam.class, idEnteSiam);
         return enteSiam.getTiEnteNonConvenz() != null
                 && enteSiam.getTiEnteNonConvenz().equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO);
     }
 
-    public boolean isEnteSoggettoAttuatore(BigDecimal idEnteSiam) throws EMFError {
+    public boolean isEnteSoggettoAttuatore(BigDecimal idEnteSiam) {
         OrgEnteSiam enteSiam = amministrazioneUtentiHelper.findById(OrgEnteSiam.class, idEnteSiam);
         return enteSiam.getTiEnteNonConvenz() != null
                 && enteSiam.getTiEnteNonConvenz().equals(ConstOrgEnteSiam.TiEnteNonConvenz.SOGGETTO_ATTUATORE);
@@ -3043,24 +2974,17 @@ public class AmministrazioneUtentiEjb {
         UsrUsoUserApplic usoUserApplic = amministrazioneUtentiHelper.findById(UsrUsoUserApplic.class, idUsoUserApplic);
         if (usoUserApplic != null) {
             // Controllo SACER
-            if (nmApplic.equals("SACER")) {
+            if (nmApplic.equals(APP_SACER)) {
                 return amministrazioneUtentiHelper
                         .checkExistsVersamentiSacer(usoUserApplic.getUsrUser().getIdUserIam());
                 // Controllo PING
             } else if (nmApplic.equals("SACER_PREINGEST")) {
                 // MEV#27457 - Rendere indipendente SIAM da PING
-                // return
-                // amministrazioneUtentiHelper.checkExistsVersamentiPing(usoUserApplic.getUsrUser().getIdUserIam());
                 boolean risposta = false;
                 if (amministrazioneUtentiHelper
                         .getAplApplicByName(ConstAplApplic.NmApplic.SACER_PREINGEST.name()) != null) {
-                    try {
-                        risposta = restTemplateEjb
-                                .chiamaExistsVersamentiPerUtente(usoUserApplic.getUsrUser().getIdUserIam());
-                    } catch (RestClientException ex) {
-                        log.error("Errore durante l'invocazione del WS Rest per l'Help Online.", ex);
-                        throw ex;
-                    }
+                    risposta = restTemplateEjb
+                            .chiamaExistsVersamentiPerUtente(usoUserApplic.getUsrUser().getIdUserIam());
                 }
                 return risposta;
             }

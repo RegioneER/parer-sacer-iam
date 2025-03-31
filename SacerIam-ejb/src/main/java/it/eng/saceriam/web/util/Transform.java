@@ -22,10 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import it.eng.spagoLite.db.base.BaseRowInterface;
 import it.eng.spagoLite.db.base.BaseTableInterface;
 import it.eng.spagoLite.db.base.JEEBaseRowInterface;
@@ -43,15 +39,17 @@ import it.eng.spagoLite.db.base.table.AbstractBaseTable;
  */
 public class Transform {
 
-    private static final Logger log = LoggerFactory.getLogger(Transform.class);
-
     static final String[] excludedProps = new String[] { "class", "tableDescriptor", "iteratorColumnContained",
             "numrecords", "rnum", "rownum" };
 
-    public static List tableBean2Entities(BaseTableInterface tableBean, Class c)
+    private Transform() {
+        //
+    }
+
+    public static List tableBean2Entities(BaseTableInterface tableBean)
             throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        List entities = new ArrayList();
+        List entities = new ArrayList<>();
         for (Object rowBean : tableBean) {
             entities.add(Transform.rowBean2Entity(rowBean));
         }

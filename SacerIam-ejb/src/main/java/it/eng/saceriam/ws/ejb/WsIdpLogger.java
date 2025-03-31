@@ -28,9 +28,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import it.eng.parer.idpjaas.logutils.IdpConfigLog;
 import it.eng.parer.idpjaas.logutils.IdpLogger;
 import it.eng.parer.idpjaas.logutils.LogDto;
@@ -54,8 +51,6 @@ public class WsIdpLogger {
 
     @EJB
     private AppServerInstance asi;
-
-    private static final Logger log = LoggerFactory.getLogger(WsIdpLogger.class);
 
     @PersistenceContext(unitName = "SacerIamPU")
     private EntityManager entityManager;

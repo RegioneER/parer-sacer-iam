@@ -170,7 +170,6 @@ public class RecuperoAutorizzazioniEjb {
     private List<UsrVAllAutor> retrievePagineAzioni(Integer idUserIam, String nmUserIAM, String nmApplic,
             Integer idOrganiz, String nmOrganiz) {
 
-        // String tipoOrganiz = getTipoOrganizApplic(nmApplic);
         // MEV #10608 - Ruoli specifici su organizzazioni in sostituzione di quelli standard
         String tipoOrganiz = getTipoOrganizzazione(nmApplic);
         StringBuilder queryStr = new StringBuilder();
@@ -230,7 +229,6 @@ public class RecuperoAutorizzazioniEjb {
 
     private List<AplEntryMenu> retrieveMenu(Integer idUserIam, String nmUserIAM, String nmApplic, Integer idOrganiz,
             String nmOrganiz) {
-        // String tipoOrganiz = getTipoOrganizApplic(nmApplic);
         // MEV #10608 - Ruoli specifici su organizzazioni in sostituzione di quelli standard
         String tipoOrganiz = getTipoOrganizzazione(nmApplic);
         StringBuilder queryStr = new StringBuilder();

@@ -52,6 +52,10 @@ public class ComboGetter {
     public static final String CAMPO_NOME = "nome";
     public static final String CAMPO_ANNO = "anno";
 
+    private ComboGetter() {
+        //
+    }
+
     /*
      * GESTIONE DECODEMAP GENERICHE
      */
@@ -227,14 +231,13 @@ public class ComboGetter {
         return mappaIndicatore;
     }
 
-    public static DecodeMapIF getMappaTipoUser(String tipoUserAdmin) {
+    public static DecodeMapIF getMappaTipoUser() {
         BaseTable bt = new BaseTable();
         DecodeMap mappaTipoUser = new DecodeMap();
         String key = "tipo_user";
         BaseRow br = new BaseRow();
         br.setString(key, ApplEnum.TipoUser.PERSONA_FISICA.name());
         bt.add(br);
-        // }
         mappaTipoUser.populatedMap(bt, key, key);
         return mappaTipoUser;
     }

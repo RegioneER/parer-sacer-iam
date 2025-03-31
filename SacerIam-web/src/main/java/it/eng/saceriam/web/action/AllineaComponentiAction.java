@@ -17,10 +17,10 @@
 
 package it.eng.saceriam.web.action;
 
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_CHARSET;
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_MAX_FILE_SIZE;
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_MAX_REQUEST_SIZE;
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.PROFILER_APP_UPLOAD_DIR;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.PROFILER_APP_CHARSET;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.PROFILER_APP_MAX_FILE_SIZE;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.PROFILER_APP_MAX_REQUEST_SIZE;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.PROFILER_APP_UPLOAD_DIR;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ import it.eng.saceriam.slite.gen.tablebean.AplApplicTableBean;
 import it.eng.saceriam.web.ejb.AuthEjb;
 import it.eng.saceriam.web.helper.AllineaComponentiHelper;
 import it.eng.saceriam.ws.dto.FileBinario;
-import it.eng.spagoCore.configuration.ConfigSingleton;
+import it.eng.spagoCore.ConfigSingleton;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoIFace.Values;
 import it.eng.spagoLite.db.oracle.decode.DecodeMap;

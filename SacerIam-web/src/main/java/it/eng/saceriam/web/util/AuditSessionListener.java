@@ -33,17 +33,17 @@ import org.slf4j.LoggerFactory;
 import it.eng.saceriam.web.helper.LoginLogHelper;
 import it.eng.spagoLite.SessionManager;
 import it.eng.spagoLite.security.User;
+import javax.servlet.annotation.WebListener;
 
 /**
  *
  * @author fioravanti_f
  */
+@WebListener
 public class AuditSessionListener implements HttpSessionListener {
 
     @EJB
     private LoginLogHelper loginLogHelper;
-
-    private static final Logger log = LoggerFactory.getLogger(AuditSessionListener.class);
 
     public static final String CLIENT_IP_ADDRESS = "###_LOG#_CLIENT_IP_ADDRESS";
 

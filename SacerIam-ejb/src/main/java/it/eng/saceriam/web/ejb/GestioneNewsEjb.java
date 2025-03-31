@@ -74,11 +74,11 @@ public class GestioneNewsEjb {
     public void insertAplNews(AplNewsRowBean newsRowBean, AplApplicTableBean applicTableBean)
             throws IncoherenceException {
         AplNews news = new AplNews();
-        List<AplNewsApplic> newsApplicList = new ArrayList();
-        List<AplApplic> applicList = new ArrayList();
+        List<AplNewsApplic> newsApplicList = new ArrayList<>();
+        List<AplApplic> applicList = new ArrayList<>();
         try {
             news = (AplNews) Transform.rowBean2Entity(newsRowBean);
-            applicList = (List<AplApplic>) Transform.tableBean2Entities(applicTableBean, AplApplic.class);
+            applicList = (List<AplApplic>) Transform.tableBean2Entities(applicTableBean);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -96,12 +96,12 @@ public class GestioneNewsEjb {
     public void updateAplNews(BigDecimal idNews, AplNewsRowBean newsRowBean, AplApplicTableBean applicTableBean)
             throws IncoherenceException, EMFError {
         AplNews news = new AplNews();
-        List<AplNewsApplic> newsApplicList = new ArrayList();
-        List<AplApplic> applicList = new ArrayList();
+        List<AplNewsApplic> newsApplicList = new ArrayList<>();
+        List<AplApplic> applicList = new ArrayList<>();
         try {
             news = (AplNews) Transform.rowBean2Entity(newsRowBean);
             news.setIdNews(idNews.longValue());
-            applicList = (List<AplApplic>) Transform.tableBean2Entities(applicTableBean, AplApplic.class);
+            applicList = (List<AplApplic>) Transform.tableBean2Entities(applicTableBean);
         } catch (Exception e) {
             throw new EMFError(EMFError.ERROR, e);
         }
