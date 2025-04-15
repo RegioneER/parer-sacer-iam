@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.ws;
@@ -40,23 +36,25 @@ public class RecuperoAutorizzazioni {
     private RecuperoAutorizzazioniEjb ejbRef;
 
     @WebMethod(operationName = "recuperoAutorizzazioniPerNome")
-    public RecuperoAutorizzazioniRisposta recuperoAutorizzazioniPerNome(@WebParam(name = "nmUserIam") String nmUserIam,
-            @WebParam(name = "nmApplic") String nmApplic, @WebParam(name = "idOrganiz") Integer idOrganiz)
-            throws AuthWSException {
-        log.debug(
-                "Chiamata all'operazione recuperoAutorizzazioniPerNome del WS RecuperoAutorizzazioni con i parametri nmUserIam "
-                        + nmUserIam + " nmApplic " + nmApplic + " idOrganiz" + idOrganiz);
-        return ejbRef.recuperoAutorizzazioniPerNome(nmUserIam, nmApplic, idOrganiz);
+    public RecuperoAutorizzazioniRisposta recuperoAutorizzazioniPerNome(
+	    @WebParam(name = "nmUserIam") String nmUserIam,
+	    @WebParam(name = "nmApplic") String nmApplic,
+	    @WebParam(name = "idOrganiz") Integer idOrganiz) throws AuthWSException {
+	log.debug(
+		"Chiamata all'operazione recuperoAutorizzazioniPerNome del WS RecuperoAutorizzazioni con i parametri nmUserIam "
+			+ nmUserIam + " nmApplic " + nmApplic + " idOrganiz" + idOrganiz);
+	return ejbRef.recuperoAutorizzazioniPerNome(nmUserIam, nmApplic, idOrganiz);
     }
 
     @WebMethod(operationName = "recuperoAutorizzazioniPerID")
-    public RecuperoAutorizzazioniRisposta recuperoAutorizzazioniPerID(@WebParam(name = "idUserIam") Integer idUserIam,
-            @WebParam(name = "nmApplic") String nmApplic, @WebParam(name = "idOrganiz") Integer idOrganiz)
-            throws AuthWSException {
-        log.debug(
-                "Chiamata all'operazione recuperoAutorizzazioniPerID del WS RecuperoAutorizzazioni con i parametri idUserIam "
-                        + idUserIam + " nmApplic " + nmApplic + " idOrganiz" + idOrganiz);
-        return ejbRef.recuperoAutorizzazioniPerId(idUserIam, nmApplic, idOrganiz);
+    public RecuperoAutorizzazioniRisposta recuperoAutorizzazioniPerID(
+	    @WebParam(name = "idUserIam") Integer idUserIam,
+	    @WebParam(name = "nmApplic") String nmApplic,
+	    @WebParam(name = "idOrganiz") Integer idOrganiz) throws AuthWSException {
+	log.debug(
+		"Chiamata all'operazione recuperoAutorizzazioniPerID del WS RecuperoAutorizzazioni con i parametri idUserIam "
+			+ idUserIam + " nmApplic " + nmApplic + " idOrganiz" + idOrganiz);
+	return ejbRef.recuperoAutorizzazioniPerId(idUserIam, nmApplic, idOrganiz);
     }
 
 }

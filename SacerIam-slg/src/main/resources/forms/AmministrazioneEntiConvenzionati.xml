@@ -321,7 +321,7 @@
     </List>
     
     <Fields Name="ReferenteEnteDetail" Description="Dettaglio referente dell'ente convenzionato">
-        <Input Name="id_ente_user_rif" Description="Id ente ark rif" Type="INTEGER" Readonly="true" Hidden="true" />
+        <Input Name="id_ente_user_rif" Description="Id ente referente" Type="INTEGER" Readonly="true" Hidden="true" />
         <Input Name="nm_userid" Description="Username" Type="STRING" />
         <Input Name="nm_userid_codificato" Description="Utente codificato" Type="STRING" Readonly="true" />
         <Input Name="id_user_iam" Description="Utente codificato" Type="INTEGER" Readonly="true" Hidden="true" />
@@ -689,11 +689,15 @@
     <List Name="ReportStorageExtraRerList" Description="Lista report storage extra RER" >
         <Input Name="ambiente_ente_convenzionato" Description="Ambiente / Ente convenzionato" Type="STRING" />
         <Input Name="storage_occupato" Description="Storage occupato (media annuale)" Type="INTEGER" GroupingDecimal="true"/>
+        <Input Name="dt_dec_accordo_info" Description="Data decorrenza accordo" Type="STRING" />
+        <Input Name="dt_scad_accordo" Description="Data scadenza accordo" Type="STRING" />
+        <Input Name="dt_dec_accordo" Description="Data inizio validità accordo" Type="STRING" />
+        <Input Name="dt_fine_valid_accordo" Description="Data fine validità accordo" Type="STRING" />
         <Input Name="dato_calcolato_dal" Description="Dato calcolato dal" Type="STRING" />
         <Input Name="dato_calcolato_al" Description="Dato calcolato al" Type="STRING" />
         <Input Name="fascia_da_accordo" Description="Fascia da accordo" Type="STRING" />
         <Input Name="fascia_da_occupazione" Description="Fascia da occupazione" Type="STRING" />
-        <Input Name="fl_sforo" Description="Oltre 20% superiore" Type="STRING" />
+        <Input Name="fl_sforo" Description="Oltre 20% superiore" Type="STRING" />        
     </List>   
        
     <!-- Dettaglio accordo -->
@@ -704,6 +708,7 @@
     <Section Name="infoRimborsoCostiSection" Description="" Legend="Informazioni sul rimborso costi" ShowButton="false" LoadOpened="true"/>
     <Section Name="infoRimborsoCostiTipoServizioSection" Description="" Legend="Tipi servizio" ShowButton="true" LoadOpened="true"/>
     <Section Name="mediaAnnualeOccupazioneStorageSection" Description="" Legend="Media annuale occupazione storage" ShowButton="false" LoadOpened="true"/>
+    <Section Name="mediaAnnualeOccupazioneStorageNoDispSection" Description="" Legend="Media annuale occupazione storage" ShowButton="false" LoadOpened="true"/>
     <Section Name="mediaAnnualeOccupazioneStorageGestoreSection" Description="" Legend="Media annuale occupazione storage quale Gestore" ShowButton="false" LoadOpened="true"/>
     <Section Name="campiDeprecatiSection" Description="" Legend="Campi deprecati" ShowButton="true" LoadOpened="false"/>
     <Section Name="datiFatturazioneSection" Description="" Legend="Dati di fatturazione" ShowButton="false" LoadOpened="true"/>
@@ -775,6 +780,7 @@
         <Input Name="fascia_da_accordo" Description="Fascia da accordo" Type="STRING" />
         <Input Name="fascia_da_occupazione" Description="Fascia da occupazione" Type="STRING" />
         <Input Name="colore_fascia" Description="Colore fascia" Type="STRING" Hidden="true"/>
+        <Input Name="occupazione_no_disp" Description="" Type="STRING" />
         <!-- MEDIA ANNUALE OCCUPAZIONE STORAGE AMBIENTE -->    
         <Input Name="storage_occupato_gestore" Description="Storage occupato (media annuale)" Type="INTEGER" GroupingDecimal="true"/>
         <Input Name="dato_calcolato_dal_gestore" Description="Dato calcolato dal" Type="DATE" />

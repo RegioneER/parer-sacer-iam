@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -68,80 +64,81 @@ public class AplNews implements Serializable {
     @Id
     @Column(name = "ID_NEWS")
     @GenericGenerator(name = "SAPL_NEWS_ID_NEWS_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_NEWS"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_NEWS"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_NEWS_ID_NEWS_GENERATOR")
     public Long getIdNews() {
-        return this.idNews;
+	return this.idNews;
     }
 
     public void setIdNews(Long idNews) {
-        this.idNews = idNews;
+	this.idNews = idNews;
     }
 
     @Column(name = "DL_TESTO")
     public String getDlTesto() {
-        return this.dlTesto;
+	return this.dlTesto;
     }
 
     public void setDlTesto(String dlTesto) {
-        this.dlTesto = dlTesto;
+	this.dlTesto = dlTesto;
     }
 
     @Column(name = "DS_OGGETTO")
     public String getDsOggetto() {
-        return this.dsOggetto;
+	return this.dsOggetto;
     }
 
     public void setDsOggetto(String dsOggetto) {
-        this.dsOggetto = dsOggetto;
+	this.dsOggetto = dsOggetto;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_FIN_PUBBLIC")
     public Date getDtFinPubblic() {
-        return this.dtFinPubblic;
+	return this.dtFinPubblic;
     }
 
     public void setDtFinPubblic(Date dtFinPubblic) {
-        this.dtFinPubblic = dtFinPubblic;
+	this.dtFinPubblic = dtFinPubblic;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_INI_PUBBLIC")
     public Date getDtIniPubblic() {
-        return this.dtIniPubblic;
+	return this.dtIniPubblic;
     }
 
     public void setDtIniPubblic(Date dtIniPubblic) {
-        this.dtIniPubblic = dtIniPubblic;
+	this.dtIniPubblic = dtIniPubblic;
     }
 
     @Column(name = "FL_PUBBLIC_HOMEPAGE", columnDefinition = "char(1)")
     public String getFlPubblicHomepage() {
-        return this.flPubblicHomepage;
+	return this.flPubblicHomepage;
     }
 
     public void setFlPubblicHomepage(String flPubblicHomepage) {
-        this.flPubblicHomepage = flPubblicHomepage;
+	this.flPubblicHomepage = flPubblicHomepage;
     }
 
     @Column(name = "FL_PUBBLIC_LOGIN", columnDefinition = "char(1)")
     public String getFlPubblicLogin() {
-        return this.flPubblicLogin;
+	return this.flPubblicLogin;
     }
 
     public void setFlPubblicLogin(String flPubblicLogin) {
-        this.flPubblicLogin = flPubblicLogin;
+	this.flPubblicLogin = flPubblicLogin;
     }
 
     // bi-directional many-to-one association to AplNewsApplic
-    @OneToMany(mappedBy = "aplNew", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(mappedBy = "aplNew", cascade = {
+	    CascadeType.PERSIST, CascadeType.MERGE })
     public List<AplNewsApplic> getAplNewsApplics() {
-        return this.aplNewsApplics;
+	return this.aplNewsApplics;
     }
 
     public void setAplNewsApplics(List<AplNewsApplic> aplNewsApplics) {
-        this.aplNewsApplics = aplNewsApplics;
+	this.aplNewsApplics = aplNewsApplics;
     }
 }

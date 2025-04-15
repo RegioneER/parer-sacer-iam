@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.ws.rest.helper;
@@ -47,235 +43,245 @@ public class RecuperoHelpHelper {
     @PersistenceContext(unitName = "SacerIamPU")
     private EntityManager em;
 
-    public AplVVisHelpOnLine recuperoHelp(String nmApplic, String tiHelpOnLine, String nmPaginaWeb, String nmEntryMenu,
-            Date dtRiferimento) {
-        /*
-         * Le ricerche possono avvenire per nome pagina oppure per nume pagina + nome entru menu, sia per dispenser che
-         * per tutte le altre applicazioni
-         */
-        Query q = null;
-        if (nmEntryMenu != null && (!nmEntryMenu.trim().equals(""))) {
-            q = em.createNamedQuery("selHelpByIdApplicTiHelpNmPaginaNmEntryMenu", AplVVisHelpOnLine.class);
-            q.setParameter("nmApplic", nmApplic);
-            q.setParameter("tiHelpOnLine", tiHelpOnLine);
-            q.setParameter("nmPaginaWeb", nmPaginaWeb);
-            q.setParameter("nmEntryMenu", nmEntryMenu);
-            q.setParameter("dtRiferimento", dtRiferimento);
-        } else {
-            q = em.createNamedQuery("selHelpByIdApplicTiHelpNmPagina", AplVVisHelpOnLine.class);
-            q.setParameter("nmApplic", nmApplic);
-            q.setParameter("tiHelpOnLine", tiHelpOnLine);
-            q.setParameter("nmPaginaWeb", nmPaginaWeb);
-            q.setParameter("dtRiferimento", dtRiferimento);
-        }
+    public AplVVisHelpOnLine recuperoHelp(String nmApplic, String tiHelpOnLine, String nmPaginaWeb,
+	    String nmEntryMenu, Date dtRiferimento) {
+	/*
+	 * Le ricerche possono avvenire per nome pagina oppure per nume pagina + nome entru menu,
+	 * sia per dispenser che per tutte le altre applicazioni
+	 */
+	Query q = null;
+	if (nmEntryMenu != null && (!nmEntryMenu.trim().equals(""))) {
+	    q = em.createNamedQuery("selHelpByIdApplicTiHelpNmPaginaNmEntryMenu",
+		    AplVVisHelpOnLine.class);
+	    q.setParameter("nmApplic", nmApplic);
+	    q.setParameter("tiHelpOnLine", tiHelpOnLine);
+	    q.setParameter("nmPaginaWeb", nmPaginaWeb);
+	    q.setParameter("nmEntryMenu", nmEntryMenu);
+	    q.setParameter("dtRiferimento", dtRiferimento);
+	} else {
+	    q = em.createNamedQuery("selHelpByIdApplicTiHelpNmPagina", AplVVisHelpOnLine.class);
+	    q.setParameter("nmApplic", nmApplic);
+	    q.setParameter("tiHelpOnLine", tiHelpOnLine);
+	    q.setParameter("nmPaginaWeb", nmPaginaWeb);
+	    q.setParameter("dtRiferimento", dtRiferimento);
+	}
 
-        // String tipoOrganiz = getTipoOrganizApplic(nmApplic);
-        List<AplVVisHelpOnLine> l = q.getResultList();
-        AplVVisHelpOnLine v = null;
-        if (l != null && l.size() > 0) {
-            v = l.get(0);
-        }
+	// String tipoOrganiz = getTipoOrganizApplic(nmApplic);
+	List<AplVVisHelpOnLine> l = q.getResultList();
+	AplVVisHelpOnLine v = null;
+	if (l != null && l.size() > 0) {
+	    v = l.get(0);
+	}
 
-        return v;
+	return v;
     }
 
     public AplVVisHelpOnLine findVistaById(BigDecimal idHelp) {
-        return em.find(AplVVisHelpOnLine.class, idHelp);
+	return em.find(AplVVisHelpOnLine.class, idHelp);
     }
 
     public AplHelpOnLine findById(BigDecimal idHelp) {
-        return em.find(AplHelpOnLine.class, idHelp.longValueExact());
+	return em.find(AplHelpOnLine.class, idHelp.longValueExact());
     }
 
-    public List<AplVVisHelpOnLine> getHelpBetweenDate(BigDecimal idApplic, String tiHelpOnLine, Date dtRiferimento,
-            BigDecimal idPaginaWeb, BigDecimal idEntryMenu) {
-        List<AplVVisHelpOnLine> l = null;
-        Query q = null;
+    public List<AplVVisHelpOnLine> getHelpBetweenDate(BigDecimal idApplic, String tiHelpOnLine,
+	    Date dtRiferimento, BigDecimal idPaginaWeb, BigDecimal idEntryMenu) {
+	List<AplVVisHelpOnLine> l = null;
+	Query q = null;
 
-        if (dtRiferimento == null) {
-            if (idPaginaWeb == null) {
-                // RICERCA SENZA DATA
-                q = em.createNamedQuery("selHelpByIdApplicTiHelp", AplVVisHelpOnLine.class);
-            } else if (idEntryMenu == null) {
-                // RICERCA SENZA DATA PER PAGINA
-                q = em.createNamedQuery("selHelpByIdApplicTiHelpAndPage", AplVVisHelpOnLine.class);
-                q.setParameter("idPaginaWeb", idPaginaWeb);
-            } else {
-                // RICERCA SENZA DATA PER PAGINA e PER MENU
-                q = em.createNamedQuery("selHelpByIdApplicTiHelpAndPageAndMenu", AplVVisHelpOnLine.class);
-                q.setParameter("idPaginaWeb", idPaginaWeb);
-                q.setParameter("idEntryMenu", idEntryMenu);
-            }
-        } else {
-            if (idPaginaWeb == null) {
-                if (idEntryMenu != null) {
-                    // RICERCA PER DATA E PAGINA E MENU
-                    q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDateAndPageAndMenu",
-                            AplVVisHelpOnLine.class);
-                    q.setParameter("idPaginaWeb", idPaginaWeb);
-                    q.setParameter("idEntryMenu", idEntryMenu);
-                } else {
-                    // RICERCA PER DATA
-                    q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDate", AplVVisHelpOnLine.class);
-                }
-            } else if (idEntryMenu == null) {
-                // RICERCA PER DATA E PAGINA
-                q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDateAndPage", AplVVisHelpOnLine.class);
-                q.setParameter("idPaginaWeb", idPaginaWeb);
-            } else {
-                // RICERCA PER DATA E PAGINA E MENU
-                q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDateAndPageAndMenu", AplVVisHelpOnLine.class);
-                q.setParameter("idPaginaWeb", idPaginaWeb);
-                q.setParameter("idEntryMenu", idEntryMenu);
-            }
+	if (dtRiferimento == null) {
+	    if (idPaginaWeb == null) {
+		// RICERCA SENZA DATA
+		q = em.createNamedQuery("selHelpByIdApplicTiHelp", AplVVisHelpOnLine.class);
+	    } else if (idEntryMenu == null) {
+		// RICERCA SENZA DATA PER PAGINA
+		q = em.createNamedQuery("selHelpByIdApplicTiHelpAndPage", AplVVisHelpOnLine.class);
+		q.setParameter("idPaginaWeb", idPaginaWeb);
+	    } else {
+		// RICERCA SENZA DATA PER PAGINA e PER MENU
+		q = em.createNamedQuery("selHelpByIdApplicTiHelpAndPageAndMenu",
+			AplVVisHelpOnLine.class);
+		q.setParameter("idPaginaWeb", idPaginaWeb);
+		q.setParameter("idEntryMenu", idEntryMenu);
+	    }
+	} else {
+	    if (idPaginaWeb == null) {
+		if (idEntryMenu != null) {
+		    // RICERCA PER DATA E PAGINA E MENU
+		    q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDateAndPageAndMenu",
+			    AplVVisHelpOnLine.class);
+		    q.setParameter("idPaginaWeb", idPaginaWeb);
+		    q.setParameter("idEntryMenu", idEntryMenu);
+		} else {
+		    // RICERCA PER DATA
+		    q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDate",
+			    AplVVisHelpOnLine.class);
+		}
+	    } else if (idEntryMenu == null) {
+		// RICERCA PER DATA E PAGINA
+		q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDateAndPage",
+			AplVVisHelpOnLine.class);
+		q.setParameter("idPaginaWeb", idPaginaWeb);
+	    } else {
+		// RICERCA PER DATA E PAGINA E MENU
+		q = em.createNamedQuery("selHelpByIdApplicTiHelpBetweenDateAndPageAndMenu",
+			AplVVisHelpOnLine.class);
+		q.setParameter("idPaginaWeb", idPaginaWeb);
+		q.setParameter("idEntryMenu", idEntryMenu);
+	    }
 
-            q.setParameter("dtRiferimento", dtRiferimento);
-        }
-        q.setParameter("idApplic", idApplic);
-        q.setParameter("tiHelpOnLine", tiHelpOnLine);
-        l = q.getResultList();
-        return l;
+	    q.setParameter("dtRiferimento", dtRiferimento);
+	}
+	q.setParameter("idApplic", idApplic);
+	q.setParameter("tiHelpOnLine", tiHelpOnLine);
+	l = q.getResultList();
+	return l;
     }
 
-    public boolean loginAndAuth(String utente, String password, String servizioWeb, boolean isOAuth2)
-            throws AuthWSException {
-        return WSLoginHandler.loginAndCheckAuthzIAM(utente, password, servizioWeb, null, em, isOAuth2);
+    public boolean loginAndAuth(String utente, String password, String servizioWeb,
+	    boolean isOAuth2) throws AuthWSException {
+	return WSLoginHandler.loginAndCheckAuthzIAM(utente, password, servizioWeb, null, em,
+		isOAuth2);
     }
 
     public boolean appExists(String nomeApplicazione) throws AuthWSException {
-        return WSLoginHandler.appExists(nomeApplicazione, em);
+	return WSLoginHandler.appExists(nomeApplicazione, em);
     }
 
     /*
      * Inserisce un help
      */
-    public AplHelpOnLine inserisciHelp(long idApplic, String idTipoHelp, String fileName, long idPaginaWeb,
-            long idEntryMenu, Date dataIni, Date datafine, String blHelpOnLine, byte[] blSorgenteHelpOnLine) {
-        AplHelpOnLine help = new AplHelpOnLine();
-        help.setAplApplic(em.find(AplApplic.class, idApplic));
-        help.setTiHelpOnLine(idTipoHelp);
-        help.setDsFileHelpOnLine(fileName);
-        help.setAplPaginaWeb(em.find(AplPaginaWeb.class, idPaginaWeb));
-        help.setAplEntryMenu(em.find(AplEntryMenu.class, idEntryMenu));
-        help.setDtIniVal(dataIni);
-        help.setDtFineVal(datafine);
-        help.setBlHelpOnLine(blHelpOnLine);
-        help.setBlSorgenteHelpOnLine(blSorgenteHelpOnLine);
-        em.persist(help);
-        em.flush();
-        return help;
+    public AplHelpOnLine inserisciHelp(long idApplic, String idTipoHelp, String fileName,
+	    long idPaginaWeb, long idEntryMenu, Date dataIni, Date datafine, String blHelpOnLine,
+	    byte[] blSorgenteHelpOnLine) {
+	AplHelpOnLine help = new AplHelpOnLine();
+	help.setAplApplic(em.find(AplApplic.class, idApplic));
+	help.setTiHelpOnLine(idTipoHelp);
+	help.setDsFileHelpOnLine(fileName);
+	help.setAplPaginaWeb(em.find(AplPaginaWeb.class, idPaginaWeb));
+	help.setAplEntryMenu(em.find(AplEntryMenu.class, idEntryMenu));
+	help.setDtIniVal(dataIni);
+	help.setDtFineVal(datafine);
+	help.setBlHelpOnLine(blHelpOnLine);
+	help.setBlSorgenteHelpOnLine(blSorgenteHelpOnLine);
+	em.persist(help);
+	em.flush();
+	return help;
     }
 
     /*
      * Modifica un help
      */
-    public AplHelpOnLine modificaHelp(BigDecimal idHelp, String fileName, Date dataIni, Date datafine,
-            String blHelpOnLine, byte[] blSorgenteHelpOnLine) {
+    public AplHelpOnLine modificaHelp(BigDecimal idHelp, String fileName, Date dataIni,
+	    Date datafine, String blHelpOnLine, byte[] blSorgenteHelpOnLine) {
 
-        AplHelpOnLine help = em.find(AplHelpOnLine.class, idHelp.longValueExact());
-        if (help != null) {
-            if (fileName != null) {
-                help.setDsFileHelpOnLine(fileName);
-            }
-            help.setDtIniVal(dataIni);
-            help.setDtFineVal(datafine);
-            if (blHelpOnLine != null) {
-                help.setBlHelpOnLine(blHelpOnLine);
-            }
-            if (blSorgenteHelpOnLine != null) {
-                help.setBlSorgenteHelpOnLine(blSorgenteHelpOnLine);
-            }
-            em.persist(help);
-            em.flush();
-        }
-        return help;
+	AplHelpOnLine help = em.find(AplHelpOnLine.class, idHelp.longValueExact());
+	if (help != null) {
+	    if (fileName != null) {
+		help.setDsFileHelpOnLine(fileName);
+	    }
+	    help.setDtIniVal(dataIni);
+	    help.setDtFineVal(datafine);
+	    if (blHelpOnLine != null) {
+		help.setBlHelpOnLine(blHelpOnLine);
+	    }
+	    if (blSorgenteHelpOnLine != null) {
+		help.setBlSorgenteHelpOnLine(blSorgenteHelpOnLine);
+	    }
+	    em.persist(help);
+	    em.flush();
+	}
+	return help;
     }
 
     public void cancellaHelp(BigDecimal idHelp) {
-        AplHelpOnLine help = em.find(AplHelpOnLine.class, idHelp.longValueExact());
-        if (help != null) {
-            em.remove(help);
-        }
+	AplHelpOnLine help = em.find(AplHelpOnLine.class, idHelp.longValueExact());
+	if (help != null) {
+	    em.remove(help);
+	}
     }
 
     /*
-     * Torna NULL se non esiste alcun help per i parametri indicati oppure se c'è un help attivo con data fine infinita.
+     * Torna NULL se non esiste alcun help per i parametri indicati oppure se c'è un help attivo con
+     * data fine infinita.
      */
-    public Date findMostRecentDtFin(long idApplic, String tiHelpOnLine, long idPaginaWeb, long idEntryMenu) {
-        Date data = null;
+    public Date findMostRecentDtFin(long idApplic, String tiHelpOnLine, long idPaginaWeb,
+	    long idEntryMenu) {
+	Date data = null;
 
-        Query q = null;
-        if (idEntryMenu != 0) {
-            q = em.createNamedQuery("AplHelpOnLine.findMaxDtFinWithMenu");
-            q.setParameter("idEntryMenu", idEntryMenu);
-        } else {
-            q = em.createNamedQuery("AplHelpOnLine.findMaxDtFinWithoutMenu");
-        }
-        q.setParameter("idApplic", idApplic);
-        q.setParameter("tiHelpOnLine", tiHelpOnLine);
-        q.setParameter("idPaginaWeb", idPaginaWeb);
+	Query q = null;
+	if (idEntryMenu != 0) {
+	    q = em.createNamedQuery("AplHelpOnLine.findMaxDtFinWithMenu");
+	    q.setParameter("idEntryMenu", idEntryMenu);
+	} else {
+	    q = em.createNamedQuery("AplHelpOnLine.findMaxDtFinWithoutMenu");
+	}
+	q.setParameter("idApplic", idApplic);
+	q.setParameter("tiHelpOnLine", tiHelpOnLine);
+	q.setParameter("idPaginaWeb", idPaginaWeb);
 
-        List<Timestamp> list = q.getResultList();
-        for (Timestamp timestamp : list) {
-            if (timestamp == null) {
-                break;
-            }
-            data = new Date(timestamp.getTime());
-            data = DateUtils.truncate(data, Calendar.DATE);
-            // Se c'è una data infinita annula la data ed esce...
-            if (data.equals(it.eng.saceriam.util.DateUtil.MAX_DATE)) {
-                data = null;
-                break;
-            }
-        }
+	List<Timestamp> list = q.getResultList();
+	for (Timestamp timestamp : list) {
+	    if (timestamp == null) {
+		break;
+	    }
+	    data = new Date(timestamp.getTime());
+	    data = DateUtils.truncate(data, Calendar.DATE);
+	    // Se c'è una data infinita annula la data ed esce...
+	    if (data.equals(it.eng.saceriam.util.DateUtil.MAX_DATE)) {
+		data = null;
+		break;
+	    }
+	}
 
-        return data;
+	return data;
     }
 
     /*
-     * Torna TRUE se l'Help passato come parametro (applicazione + tipo + pagina + menu+ range di date)
+     * Torna TRUE se l'Help passato come parametro (applicazione + tipo + pagina + menu+ range di
+     * date)
      */
-    public boolean intersectsExistingHelp(long idHelpOnLine, long idApplic, String tiHelpOnLine, long idPaginaWeb,
-            long idEntryMenu, Date dataInizio, Date dataFine) {
-        boolean recordExists = false;
+    public boolean intersectsExistingHelp(long idHelpOnLine, long idApplic, String tiHelpOnLine,
+	    long idPaginaWeb, long idEntryMenu, Date dataInizio, Date dataFine) {
+	boolean recordExists = false;
 
-        Query q = null;
-        if (idEntryMenu != 0) {
-            if (idHelpOnLine != 0) {
-                q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByMenuExcludingHelp");
-                q.setParameter("idHelpOnLine", idHelpOnLine);
-            } else {
-                q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByMenu");
-            }
-            q.setParameter("idEntryMenu", idEntryMenu);
-        } else {
-            if (idHelpOnLine != 0) {
-                q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByPageExcludingHelp");
-                q.setParameter("idHelpOnLine", idHelpOnLine);
-            } else {
-                q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByPage");
-            }
-        }
-        q.setParameter("idApplic", idApplic);
-        q.setParameter("tiHelpOnLine", tiHelpOnLine);
-        q.setParameter("idPaginaWeb", idPaginaWeb);
-        q.setParameter("dataInizio", dataInizio);
-        q.setParameter("dataFine", dataFine);
+	Query q = null;
+	if (idEntryMenu != 0) {
+	    if (idHelpOnLine != 0) {
+		q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByMenuExcludingHelp");
+		q.setParameter("idHelpOnLine", idHelpOnLine);
+	    } else {
+		q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByMenu");
+	    }
+	    q.setParameter("idEntryMenu", idEntryMenu);
+	} else {
+	    if (idHelpOnLine != 0) {
+		q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByPageExcludingHelp");
+		q.setParameter("idHelpOnLine", idHelpOnLine);
+	    } else {
+		q = em.createNamedQuery("AplHelpOnLine.existsIntersectionByPage");
+	    }
+	}
+	q.setParameter("idApplic", idApplic);
+	q.setParameter("tiHelpOnLine", tiHelpOnLine);
+	q.setParameter("idPaginaWeb", idPaginaWeb);
+	q.setParameter("dataInizio", dataInizio);
+	q.setParameter("dataFine", dataFine);
 
-        List list = q.getResultList();
-        if (list.size() > 0) {
-            recordExists = true;
-        }
-        return recordExists;
+	List list = q.getResultList();
+	if (list.size() > 0) {
+	    recordExists = true;
+	}
+	return recordExists;
     }
 
     public long getIdPaginaWebApplicativo(long idApplic) {
-        Query q = em.createQuery("SELECT paginaWeb.idPaginaWeb FROM AplPaginaWeb paginaWeb "
-                + "WHERE paginaWeb.aplApplic.idApplic = :idApplic "
-                // + "AND paginaWeb.nmPaginaWeb LIKE '%dettaglioInfoPrivacy%' ");
-                + "AND paginaWeb.nmPaginaWeb LIKE '%infoPrivacy%' ");
-        q.setParameter("idApplic", idApplic);
-        return (long) q.getSingleResult();
+	Query q = em.createQuery("SELECT paginaWeb.idPaginaWeb FROM AplPaginaWeb paginaWeb "
+		+ "WHERE paginaWeb.aplApplic.idApplic = :idApplic "
+		// + "AND paginaWeb.nmPaginaWeb LIKE '%dettaglioInfoPrivacy%' ");
+		+ "AND paginaWeb.nmPaginaWeb LIKE '%infoPrivacy%' ");
+	q.setParameter("idApplic", idApplic);
+	return (long) q.getSingleResult();
     }
 
 }

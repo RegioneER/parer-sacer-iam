@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -65,136 +61,136 @@ public class OrgAaAccordo implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_AA_ACCORDO_IDAAACCORDO_GENERATOR")
     @Column(name = "ID_AA_ACCORDO")
     public Long getIdAaAccordo() {
-        return this.idAaAccordo;
+	return this.idAaAccordo;
     }
 
     public void setIdAaAccordo(Long idAaAccordo) {
-        this.idAaAccordo = idAaAccordo;
+	this.idAaAccordo = idAaAccordo;
     }
 
     @Column(name = "AA_ANNO_ACCORDO")
     public BigDecimal getAaAnnoAccordo() {
-        return this.aaAnnoAccordo;
+	return this.aaAnnoAccordo;
     }
 
     public void setAaAnnoAccordo(BigDecimal aaAnnoAccordo) {
-        this.aaAnnoAccordo = aaAnnoAccordo;
+	this.aaAnnoAccordo = aaAnnoAccordo;
     }
 
     @Column(name = "CD_CAPITOLO_AA_ACCORDO")
     public String getCdCapitoloAaAccordo() {
-        return this.cdCapitoloAaAccordo;
+	return this.cdCapitoloAaAccordo;
     }
 
     public void setCdCapitoloAaAccordo(String cdCapitoloAaAccordo) {
-        this.cdCapitoloAaAccordo = cdCapitoloAaAccordo;
+	this.cdCapitoloAaAccordo = cdCapitoloAaAccordo;
     }
 
     @Column(name = "CD_CIG_AA_ACCORDO")
     public String getCdCigAaAccordo() {
-        return this.cdCigAaAccordo;
+	return this.cdCigAaAccordo;
     }
 
     public void setCdCigAaAccordo(String cdCigAaAccordo) {
-        this.cdCigAaAccordo = cdCigAaAccordo;
+	this.cdCigAaAccordo = cdCigAaAccordo;
     }
 
     @Column(name = "CD_CUP_AA_ACCORDO")
     public String getCdCupAaAccordo() {
-        return this.cdCupAaAccordo;
+	return this.cdCupAaAccordo;
     }
 
     public void setCdCupAaAccordo(String cdCupAaAccordo) {
-        this.cdCupAaAccordo = cdCupAaAccordo;
+	this.cdCupAaAccordo = cdCupAaAccordo;
     }
 
     @Column(name = "CD_ODA_AA_ACCORDO")
     public String getCdOdaAaAccordo() {
-        return this.cdOdaAaAccordo;
+	return this.cdOdaAaAccordo;
     }
 
     public void setCdOdaAaAccordo(String cdOdaAaAccordo) {
-        this.cdOdaAaAccordo = cdOdaAaAccordo;
+	this.cdOdaAaAccordo = cdOdaAaAccordo;
     }
 
     @Column(name = "DS_ATTO_AA_ACCORDO")
     public String getDsAttoAaAccordo() {
-        return this.dsAttoAaAccordo;
+	return this.dsAttoAaAccordo;
     }
 
     public void setDsAttoAaAccordo(String dsAttoAaAccordo) {
-        this.dsAttoAaAccordo = dsAttoAaAccordo;
+	this.dsAttoAaAccordo = dsAttoAaAccordo;
     }
 
     @Column(name = "DS_IMPEGNO_AA_ACCORDO")
     public String getDsImpegnoAaAccordo() {
-        return this.dsImpegnoAaAccordo;
+	return this.dsImpegnoAaAccordo;
     }
 
     public void setDsImpegnoAaAccordo(String dsImpegnoAaAccordo) {
-        this.dsImpegnoAaAccordo = dsImpegnoAaAccordo;
+	this.dsImpegnoAaAccordo = dsImpegnoAaAccordo;
     }
 
     @Column(name = "DS_NOTA_AA_ACCORDO")
     public String getDsNotaAaAccordo() {
-        return this.dsNotaAaAccordo;
+	return this.dsNotaAaAccordo;
     }
 
     public void setDsNotaAaAccordo(String dsNotaAaAccordo) {
-        this.dsNotaAaAccordo = dsNotaAaAccordo;
+	this.dsNotaAaAccordo = dsNotaAaAccordo;
     }
 
     @Column(name = "IM_CANONE_AA_ACCORDO")
     public BigDecimal getImCanoneAaAccordo() {
-        return this.imCanoneAaAccordo;
+	return this.imCanoneAaAccordo;
     }
 
     public void setImCanoneAaAccordo(BigDecimal imCanoneAaAccordo) {
-        this.imCanoneAaAccordo = imCanoneAaAccordo;
+	this.imCanoneAaAccordo = imCanoneAaAccordo;
     }
 
     @Column(name = "MM_AA_ACCORDO")
     public BigDecimal getMmAaAccordo() {
-        return this.mmAaAccordo;
+	return this.mmAaAccordo;
     }
 
     public void setMmAaAccordo(BigDecimal mmAaAccordo) {
-        this.mmAaAccordo = mmAaAccordo;
+	this.mmAaAccordo = mmAaAccordo;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ACCORDO_ENTE")
     public OrgAccordoEnte getOrgAccordoEnte() {
-        return this.orgAccordoEnte;
+	return this.orgAccordoEnte;
     }
 
     public void setOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-        this.orgAccordoEnte = orgAccordoEnte;
+	this.orgAccordoEnte = orgAccordoEnte;
     }
 
     // bi-directional many-to-one association to OrgTariffaAaAccordo
     @OneToMany(mappedBy = "orgAaAccordo", cascade = CascadeType.REMOVE)
     public List<OrgTariffaAaAccordo> getOrgTariffaAaAccordos() {
-        return this.orgTariffaAaAccordos;
+	return this.orgTariffaAaAccordos;
     }
 
     public void setOrgTariffaAaAccordos(List<OrgTariffaAaAccordo> orgTariffaAaAccordos) {
-        this.orgTariffaAaAccordos = orgTariffaAaAccordos;
+	this.orgTariffaAaAccordos = orgTariffaAaAccordos;
     }
 
     public OrgTariffaAaAccordo addOrgTariffaAaAccordo(OrgTariffaAaAccordo orgTariffaAaAccordo) {
-        getOrgTariffaAaAccordos().add(orgTariffaAaAccordo);
-        orgTariffaAaAccordo.setOrgAaAccordo(this);
+	getOrgTariffaAaAccordos().add(orgTariffaAaAccordo);
+	orgTariffaAaAccordo.setOrgAaAccordo(this);
 
-        return orgTariffaAaAccordo;
+	return orgTariffaAaAccordo;
     }
 
     public OrgTariffaAaAccordo removeOrgTariffaAaAccordo(OrgTariffaAaAccordo orgTariffaAaAccordo) {
-        getOrgTariffaAaAccordos().remove(orgTariffaAaAccordo);
-        orgTariffaAaAccordo.setOrgAaAccordo(null);
+	getOrgTariffaAaAccordos().remove(orgTariffaAaAccordo);
+	orgTariffaAaAccordo.setOrgAaAccordo(null);
 
-        return orgTariffaAaAccordo;
+	return orgTariffaAaAccordo;
     }
 
 }

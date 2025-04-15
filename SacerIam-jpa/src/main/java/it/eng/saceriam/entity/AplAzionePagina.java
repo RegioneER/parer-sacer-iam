@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -67,74 +63,74 @@ public class AplAzionePagina implements Serializable {
     @Id
     @Column(name = "ID_AZIONE_PAGINA")
     @GenericGenerator(name = "SAPL_AZIONE_PAGINA_ID_AZIONE_PAGINA_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_AZIONE_PAGINA"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_AZIONE_PAGINA"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_AZIONE_PAGINA_ID_AZIONE_PAGINA_GENERATOR")
     public Long getIdAzionePagina() {
-        return this.idAzionePagina;
+	return this.idAzionePagina;
     }
 
     public void setIdAzionePagina(Long idAzionePagina) {
-        this.idAzionePagina = idAzionePagina;
+	this.idAzionePagina = idAzionePagina;
     }
 
     @Column(name = "DS_AZIONE_PAGINA")
     public String getDsAzionePagina() {
-        return this.dsAzionePagina;
+	return this.dsAzionePagina;
     }
 
     public void setDsAzionePagina(String dsAzionePagina) {
-        this.dsAzionePagina = dsAzionePagina;
+	this.dsAzionePagina = dsAzionePagina;
     }
 
     @Column(name = "NM_AZIONE_PAGINA")
     public String getNmAzionePagina() {
-        return this.nmAzionePagina;
+	return this.nmAzionePagina;
     }
 
     public void setNmAzionePagina(String nmAzionePagina) {
-        this.nmAzionePagina = nmAzionePagina;
+	this.nmAzionePagina = nmAzionePagina;
     }
 
     // bi-directional many-to-one association to AplPaginaWeb
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PAGINA_WEB")
     public AplPaginaWeb getAplPaginaWeb() {
-        return this.aplPaginaWeb;
+	return this.aplPaginaWeb;
     }
 
     public void setAplPaginaWeb(AplPaginaWeb aplPaginaWeb) {
-        this.aplPaginaWeb = aplPaginaWeb;
+	this.aplPaginaWeb = aplPaginaWeb;
     }
 
     // bi-directional many-to-one association to AplTipoEvento
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_EVENTO")
     public AplTipoEvento getAplTipoEvento() {
-        return this.aplTipoEvento;
+	return this.aplTipoEvento;
     }
 
     public void setAplTipoEvento(AplTipoEvento aplTipoEvento) {
-        this.aplTipoEvento = aplTipoEvento;
+	this.aplTipoEvento = aplTipoEvento;
     }
 
     // bi-directional many-to-one association to PrfAutor
     @OneToMany(mappedBy = "aplAzionePagina")
     public List<PrfAutor> getPrfAutors() {
-        return this.prfAutors;
+	return this.prfAutors;
     }
 
     public void setPrfAutors(List<PrfAutor> prfAutors) {
-        this.prfAutors = prfAutors;
+	this.prfAutors = prfAutors;
     }
 
     // bi-directional many-to-one association to PrfDichAutor
     @OneToMany(mappedBy = "aplAzionePagina")
     public List<PrfDichAutor> getPrfDichAutors() {
-        return this.prfDichAutors;
+	return this.prfDichAutors;
     }
 
     public void setPrfDichAutors(List<PrfDichAutor> prfDichAutors) {
-        this.prfDichAutors = prfDichAutors;
+	this.prfDichAutors = prfDichAutors;
     }
 }

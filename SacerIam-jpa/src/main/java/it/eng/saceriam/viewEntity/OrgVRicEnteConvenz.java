@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -72,316 +68,317 @@ public class OrgVRicEnteConvenz implements Serializable {
     public OrgVRicEnteConvenz() {
     }
 
-    public OrgVRicEnteConvenz(BigDecimal idEnteConvenz, String nmEnteConvenz, BigDecimal idCategEnte,
-            BigDecimal idAmbitoTerrit, Date dtIniVal, Date dtCessazione, String flEsistonoModuli, Date dtRichModuloInfo,
-            String cdTipoAccordo, String archivista, BigDecimal enteAttivo, String flRecesso, String flChiuso,
-            Date dtFineValidAccordo, Date dtScadAccordo, String flEsistonoGestAcc, String cdEnteConvenz,
-            Date dtDecAccordo, Date dtDecAccordoInfo) {
-        this.idEnteConvenz = idEnteConvenz;
-        this.nmEnteConvenz = nmEnteConvenz;
-        this.idCategEnte = idCategEnte;
-        this.idAmbitoTerrit = idAmbitoTerrit;
-        this.dtIniVal = dtIniVal;
-        this.flEsistonoModuli = flEsistonoModuli;
-        this.dtRichModuloInfo = dtRichModuloInfo;
-        this.dtCessazione = dtCessazione;
-        this.cdTipoAccordo = cdTipoAccordo;
-        this.archivista = archivista;
-        this.enteAttivo = enteAttivo;
-        this.flRecesso = flRecesso;
-        this.flChiuso = flChiuso;
-        this.dtFineValidAccordo = dtFineValidAccordo;
-        this.dtScadAccordo = dtScadAccordo;
-        this.flEsistonoGestAcc = flEsistonoGestAcc;
-        this.cdEnteConvenz = cdEnteConvenz;
-        this.dtDecAccordo = dtDecAccordo;
-        this.dtDecAccordoInfo = dtDecAccordoInfo;
+    public OrgVRicEnteConvenz(BigDecimal idEnteConvenz, String nmEnteConvenz,
+	    BigDecimal idCategEnte, BigDecimal idAmbitoTerrit, Date dtIniVal, Date dtCessazione,
+	    String flEsistonoModuli, Date dtRichModuloInfo, String cdTipoAccordo, String archivista,
+	    BigDecimal enteAttivo, String flRecesso, String flChiuso, Date dtFineValidAccordo,
+	    Date dtScadAccordo, String flEsistonoGestAcc, String cdEnteConvenz, Date dtDecAccordo,
+	    Date dtDecAccordoInfo) {
+	this.idEnteConvenz = idEnteConvenz;
+	this.nmEnteConvenz = nmEnteConvenz;
+	this.idCategEnte = idCategEnte;
+	this.idAmbitoTerrit = idAmbitoTerrit;
+	this.dtIniVal = dtIniVal;
+	this.flEsistonoModuli = flEsistonoModuli;
+	this.dtRichModuloInfo = dtRichModuloInfo;
+	this.dtCessazione = dtCessazione;
+	this.cdTipoAccordo = cdTipoAccordo;
+	this.archivista = archivista;
+	this.enteAttivo = enteAttivo;
+	this.flRecesso = flRecesso;
+	this.flChiuso = flChiuso;
+	this.dtFineValidAccordo = dtFineValidAccordo;
+	this.dtScadAccordo = dtScadAccordo;
+	this.flEsistonoGestAcc = flEsistonoGestAcc;
+	this.cdEnteConvenz = cdEnteConvenz;
+	this.dtDecAccordo = dtDecAccordo;
+	this.dtDecAccordoInfo = dtDecAccordoInfo;
     }
 
     @Column(name = "ARCHIVISTA")
     public String getArchivista() {
-        return this.archivista;
+	return this.archivista;
     }
 
     public void setArchivista(String archivista) {
-        this.archivista = archivista;
+	this.archivista = archivista;
     }
 
     @Column(name = "CD_TIPO_ACCORDO")
     public String getCdTipoAccordo() {
-        return this.cdTipoAccordo;
+	return this.cdTipoAccordo;
     }
 
     public void setCdTipoAccordo(String cdTipoAccordo) {
-        this.cdTipoAccordo = cdTipoAccordo;
+	this.cdTipoAccordo = cdTipoAccordo;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_CESSAZIONE")
     public Date getDtCessazione() {
-        return this.dtCessazione;
+	return this.dtCessazione;
     }
 
     public void setDtCessazione(Date dtCessazione) {
-        this.dtCessazione = dtCessazione;
+	this.dtCessazione = dtCessazione;
     }
 
     @Column(name = "FL_ESISTONO_MODULI", columnDefinition = "char(1)")
     public String getFlEsistonoModuli() {
-        return this.flEsistonoModuli;
+	return this.flEsistonoModuli;
     }
 
     public void setFlEsistonoModuli(String flEsistonoModuli) {
-        this.flEsistonoModuli = flEsistonoModuli;
+	this.flEsistonoModuli = flEsistonoModuli;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_RICH_MODULO_INFO")
     public Date getDtRichModuloInfo() {
-        return this.dtRichModuloInfo;
+	return this.dtRichModuloInfo;
     }
 
     public void setDtRichModuloInfo(Date dtRichModuloInfo) {
-        this.dtRichModuloInfo = dtRichModuloInfo;
+	this.dtRichModuloInfo = dtRichModuloInfo;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_DEC_ACCORDO")
     public Date getDtDecAccordo() {
-        return this.dtDecAccordo;
+	return this.dtDecAccordo;
     }
 
     public void setDtDecAccordo(Date dtDecAccordo) {
-        this.dtDecAccordo = dtDecAccordo;
+	this.dtDecAccordo = dtDecAccordo;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_FINE_VALID_ACCORDO")
     public Date getDtFineValidAccordo() {
-        return this.dtFineValidAccordo;
+	return this.dtFineValidAccordo;
     }
 
     public void setDtFineValidAccordo(Date dtFineValidAccordo) {
-        this.dtFineValidAccordo = dtFineValidAccordo;
+	this.dtFineValidAccordo = dtFineValidAccordo;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_DEC_ACCORDO_INFO")
     public Date getDtDecAccordoInfo() {
-        return dtDecAccordoInfo;
+	return dtDecAccordoInfo;
     }
 
     public void setDtDecAccordoInfo(Date dtDecAccordoInfo) {
-        this.dtDecAccordoInfo = dtDecAccordoInfo;
+	this.dtDecAccordoInfo = dtDecAccordoInfo;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_SCAD_ACCORDO")
     public Date getDtScadAccordo() {
-        return this.dtScadAccordo;
+	return this.dtScadAccordo;
     }
 
     public void setDtScadAccordo(Date dtScadAccordo) {
-        this.dtScadAccordo = dtScadAccordo;
+	this.dtScadAccordo = dtScadAccordo;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_INI_VAL")
     public Date getDtIniVal() {
-        return this.dtIniVal;
+	return this.dtIniVal;
     }
 
     public void setDtIniVal(Date dtIniVal) {
-        this.dtIniVal = dtIniVal;
+	this.dtIniVal = dtIniVal;
     }
 
     @Column(name = "ENTE_ATTIVO", columnDefinition = "char")
     public BigDecimal getEnteAttivo() {
-        return this.enteAttivo;
+	return this.enteAttivo;
     }
 
     public void setEnteAttivo(BigDecimal enteAttivo) {
-        this.enteAttivo = enteAttivo;
+	this.enteAttivo = enteAttivo;
     }
 
     @Column(name = "FL_ESISTONO_GEST_ACC", columnDefinition = "char(1)")
     public String getFlEsistonoGestAcc() {
-        return this.flEsistonoGestAcc;
+	return this.flEsistonoGestAcc;
     }
 
     public void setFlEsistonoGestAcc(String flEsistonoGestAcc) {
-        this.flEsistonoGestAcc = flEsistonoGestAcc;
+	this.flEsistonoGestAcc = flEsistonoGestAcc;
     }
 
     @Column(name = "FL_GEST_ACC_NO_RISP", columnDefinition = "char(1)")
     public String getFlGestAccNoRisp() {
-        return this.flGestAccNoRisp;
+	return this.flGestAccNoRisp;
     }
 
     public void setFlGestAccNoRisp(String flGestAccNoRisp) {
-        this.flGestAccNoRisp = flGestAccNoRisp;
+	this.flGestAccNoRisp = flGestAccNoRisp;
     }
 
     @Column(name = "FL_NON_CONVENZ", columnDefinition = "char(1)")
     public String getFlNonConvenz() {
-        return this.flNonConvenz;
+	return this.flNonConvenz;
     }
 
     public void setFlNonConvenz(String flNonConvenz) {
-        this.flNonConvenz = flNonConvenz;
+	this.flNonConvenz = flNonConvenz;
     }
 
     @Column(name = "FL_RECESSO", columnDefinition = "char(1)")
     public String getFlRecesso() {
-        return this.flRecesso;
+	return this.flRecesso;
     }
 
     public void setFlRecesso(String flRecesso) {
-        this.flRecesso = flRecesso;
+	this.flRecesso = flRecesso;
     }
 
     @Column(name = "FL_CHIUSO", columnDefinition = "char(1)")
     public String getFlChiuso() {
-        return this.flChiuso;
+	return this.flChiuso;
     }
 
     public void setFlChiuso(String flChiuso) {
-        this.flChiuso = flChiuso;
+	this.flChiuso = flChiuso;
     }
 
     @Column(name = "ID_AMBIENTE_ENTE_CONVENZ")
     public BigDecimal getIdAmbienteEnteConvenz() {
-        return this.idAmbienteEnteConvenz;
+	return this.idAmbienteEnteConvenz;
     }
 
     public void setIdAmbienteEnteConvenz(BigDecimal idAmbienteEnteConvenz) {
-        this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
+	this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
     }
 
     @Column(name = "ID_AMBITO_TERRIT")
     public BigDecimal getIdAmbitoTerrit() {
-        return this.idAmbitoTerrit;
+	return this.idAmbitoTerrit;
     }
 
     public void setIdAmbitoTerrit(BigDecimal idAmbitoTerrit) {
-        this.idAmbitoTerrit = idAmbitoTerrit;
+	this.idAmbitoTerrit = idAmbitoTerrit;
     }
 
     @Column(name = "ID_CATEG_ENTE")
     public BigDecimal getIdCategEnte() {
-        return this.idCategEnte;
+	return this.idCategEnte;
     }
 
     public void setIdCategEnte(BigDecimal idCategEnte) {
-        this.idCategEnte = idCategEnte;
+	this.idCategEnte = idCategEnte;
     }
 
     @Column(name = "ID_ENTE_CONSERV")
     public BigDecimal getIdEnteConserv() {
-        return this.idEnteConserv;
+	return this.idEnteConserv;
     }
 
     public void setIdEnteConserv(BigDecimal idEnteConserv) {
-        this.idEnteConserv = idEnteConserv;
+	this.idEnteConserv = idEnteConserv;
     }
 
     @Id
     @Column(name = "ID_ENTE_CONVENZ")
     public BigDecimal getIdEnteConvenz() {
-        return this.idEnteConvenz;
+	return this.idEnteConvenz;
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-        this.idEnteConvenz = idEnteConvenz;
+	this.idEnteConvenz = idEnteConvenz;
     }
 
     @Column(name = "ID_ENTE_GESTORE")
     public BigDecimal getIdEnteGestore() {
-        return this.idEnteGestore;
+	return this.idEnteGestore;
     }
 
     public void setIdEnteGestore(BigDecimal idEnteGestore) {
-        this.idEnteGestore = idEnteGestore;
+	this.idEnteGestore = idEnteGestore;
     }
 
     @Column(name = "ID_TIPO_ACCORDO")
     public BigDecimal getIdTipoAccordo() {
-        return this.idTipoAccordo;
+	return this.idTipoAccordo;
     }
 
     public void setIdTipoAccordo(BigDecimal idTipoAccordo) {
-        this.idTipoAccordo = idTipoAccordo;
+	this.idTipoAccordo = idTipoAccordo;
     }
 
     @Column(name = "ID_USER_IAM_ARK")
     public BigDecimal getIdUserIamArk() {
-        return this.idUserIamArk;
+	return this.idUserIamArk;
     }
 
     public void setIdUserIamArk(BigDecimal idUserIamArk) {
-        this.idUserIamArk = idUserIamArk;
+	this.idUserIamArk = idUserIamArk;
     }
 
     @Column(name = "ID_USER_IAM_COR")
     public BigDecimal getIdUserIamCor() {
-        return idUserIamCor;
+	return idUserIamCor;
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-        this.idUserIamCor = idUserIamCor;
+	this.idUserIamCor = idUserIamCor;
     }
 
     @Column(name = "NM_ENTE_CONVENZ")
     public String getNmEnteConvenz() {
-        return this.nmEnteConvenz;
+	return this.nmEnteConvenz;
     }
 
     public void setNmEnteConvenz(String nmEnteConvenz) {
-        this.nmEnteConvenz = nmEnteConvenz;
+	this.nmEnteConvenz = nmEnteConvenz;
     }
 
     @Column(name = "TI_ENTE_CONVENZ")
     public String getTiEnteConvenz() {
-        return this.tiEnteConvenz;
+	return this.tiEnteConvenz;
     }
 
     public void setTiEnteConvenz(String tiEnteConvenz) {
-        this.tiEnteConvenz = tiEnteConvenz;
+	this.tiEnteConvenz = tiEnteConvenz;
     }
 
     @Column(name = "TIPO_GESTIONE_ACCORDO")
     public String getTipoGestioneAccordo() {
-        return this.tipoGestioneAccordo;
+	return this.tipoGestioneAccordo;
     }
 
     public void setTipoGestioneAccordo(String tipoGestioneAccordo) {
-        this.tipoGestioneAccordo = tipoGestioneAccordo;
+	this.tipoGestioneAccordo = tipoGestioneAccordo;
     }
 
     @Column(name = "TI_STATO_ACCORDO")
     public String getTiStatoAccordo() {
-        return this.tiStatoAccordo;
+	return this.tiStatoAccordo;
     }
 
     public void setTiStatoAccordo(String tiStatoAccordo) {
-        this.tiStatoAccordo = tiStatoAccordo;
+	this.tiStatoAccordo = tiStatoAccordo;
     }
 
     @Column(name = "CD_ENTE_CONVENZ")
     public String getCdEnteConvenz() {
-        return this.cdEnteConvenz;
+	return this.cdEnteConvenz;
     }
 
     public void setCdEnteConvenz(String cdEnteConvenz) {
-        this.cdEnteConvenz = cdEnteConvenz;
+	this.cdEnteConvenz = cdEnteConvenz;
     }
 
     @Column(name = "CD_FISC")
     public String getCdFisc() {
-        return this.cdFisc;
+	return this.cdFisc;
     }
 
     public void setCdFisc(String cdFisc) {
-        this.cdFisc = cdFisc;
+	this.cdFisc = cdFisc;
     }
 }

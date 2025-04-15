@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -46,107 +42,107 @@ public class UsrVAbilOrgVigilToDel implements Serializable {
     private BigDecimal idVigilEnteProdut;
 
     public UsrVAbilOrgVigilToDel() {
-        // document why this constructor is empty
+	// document why this constructor is empty
     }
 
     @Column(name = "DS_CAUSALE_ABIL")
     public String getDsCausaleAbil() {
-        return this.dsCausaleAbil;
+	return this.dsCausaleAbil;
     }
 
     public void setDsCausaleAbil(String dsCausaleAbil) {
-        this.dsCausaleAbil = dsCausaleAbil;
+	this.dsCausaleAbil = dsCausaleAbil;
     }
 
     @Column(name = "FL_ABIL_AUTOMATICA", columnDefinition = "char(1)")
     public String getFlAbilAutomatica() {
-        return this.flAbilAutomatica;
+	return this.flAbilAutomatica;
     }
 
     public void setFlAbilAutomatica(String flAbilAutomatica) {
-        this.flAbilAutomatica = flAbilAutomatica;
+	this.flAbilAutomatica = flAbilAutomatica;
     }
 
     @Id
     @Column(name = "ID_ABIL_ORGANIZ")
     public BigDecimal getIdAbilOrganiz() {
-        return this.idAbilOrganiz;
+	return this.idAbilOrganiz;
     }
 
     public void setIdAbilOrganiz(BigDecimal idAbilOrganiz) {
-        this.idAbilOrganiz = idAbilOrganiz;
+	this.idAbilOrganiz = idAbilOrganiz;
     }
 
     @Column(name = "ID_APPART_COLLEG_ENTI")
     public BigDecimal getIdAppartCollegEnti() {
-        return this.idAppartCollegEnti;
+	return this.idAppartCollegEnti;
     }
 
     public void setIdAppartCollegEnti(BigDecimal idAppartCollegEnti) {
-        this.idAppartCollegEnti = idAppartCollegEnti;
+	this.idAppartCollegEnti = idAppartCollegEnti;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-        return this.idApplic;
+	return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-        this.idApplic = idApplic;
+	this.idApplic = idApplic;
     }
 
     @Column(name = "ID_DICH_ABIL_ORGANIZ")
     public BigDecimal getIdDichAbilOrganiz() {
-        return this.idDichAbilOrganiz;
+	return this.idDichAbilOrganiz;
     }
 
     public void setIdDichAbilOrganiz(BigDecimal idDichAbilOrganiz) {
-        this.idDichAbilOrganiz = idDichAbilOrganiz;
+	this.idDichAbilOrganiz = idDichAbilOrganiz;
     }
 
     @Column(name = "ID_ORGANIZ_IAM")
     public BigDecimal getIdOrganizIam() {
-        return this.idOrganizIam;
+	return this.idOrganizIam;
     }
 
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-        this.idOrganizIam = idOrganizIam;
+	this.idOrganizIam = idOrganizIam;
     }
 
     @Column(name = "ID_SUPT_EST_ENTE_CONVENZ")
     public BigDecimal getIdSuptEstEnteConvenz() {
-        return this.idSuptEstEnteConvenz;
+	return this.idSuptEstEnteConvenz;
     }
 
     public void setIdSuptEstEnteConvenz(BigDecimal idSuptEstEnteConvenz) {
-        this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
+	this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
     }
 
     @Column(name = "ID_USER_IAM")
     public BigDecimal getIdUserIam() {
-        return this.idUserIam;
+	return this.idUserIam;
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-        this.idUserIam = idUserIam;
+	this.idUserIam = idUserIam;
     }
 
     @Column(name = "ID_USO_USER_APPLIC")
     public BigDecimal getIdUsoUserApplic() {
-        return this.idUsoUserApplic;
+	return this.idUsoUserApplic;
     }
 
     public void setIdUsoUserApplic(BigDecimal idUsoUserApplic) {
-        this.idUsoUserApplic = idUsoUserApplic;
+	this.idUsoUserApplic = idUsoUserApplic;
     }
 
     @Column(name = "ID_VIGIL_ENTE_PRODUT")
     public BigDecimal getIdVigilEnteProdut() {
-        return this.idVigilEnteProdut;
+	return this.idVigilEnteProdut;
     }
 
     public void setIdVigilEnteProdut(BigDecimal idVigilEnteProdut) {
-        this.idVigilEnteProdut = idVigilEnteProdut;
+	this.idVigilEnteProdut = idVigilEnteProdut;
     }
 
 }

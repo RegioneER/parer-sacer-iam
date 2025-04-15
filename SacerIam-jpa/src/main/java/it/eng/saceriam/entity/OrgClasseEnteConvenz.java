@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -63,94 +59,94 @@ public class OrgClasseEnteConvenz implements Serializable {
     @Id
     @Column(name = "ID_CLASSE_ENTE_CONVENZ")
     @GenericGenerator(name = "SORG_CLASSE_ENTE_CONVENZ_ID_CLASSE_ENTE_CONVENZ_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_CLASSE_ENTE_CONVENZ"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_CLASSE_ENTE_CONVENZ"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_CLASSE_ENTE_CONVENZ_ID_CLASSE_ENTE_CONVENZ_GENERATOR")
     public Long getIdClasseEnteConvenz() {
-        return this.idClasseEnteConvenz;
+	return this.idClasseEnteConvenz;
     }
 
     public void setIdClasseEnteConvenz(Long idClasseEnteConvenz) {
-        this.idClasseEnteConvenz = idClasseEnteConvenz;
+	this.idClasseEnteConvenz = idClasseEnteConvenz;
     }
 
     @Column(name = "CD_CLASSE_ENTE_CONVENZ")
     public String getCdClasseEnteConvenz() {
-        return this.cdClasseEnteConvenz;
+	return this.cdClasseEnteConvenz;
     }
 
     public void setCdClasseEnteConvenz(String cdClasseEnteConvenz) {
-        this.cdClasseEnteConvenz = cdClasseEnteConvenz;
+	this.cdClasseEnteConvenz = cdClasseEnteConvenz;
     }
 
     @Column(name = "DS_CLASSE_ENTE_CONVENZ")
     public String getDsClasseEnteConvenz() {
-        return this.dsClasseEnteConvenz;
+	return this.dsClasseEnteConvenz;
     }
 
     public void setDsClasseEnteConvenz(String dsClasseEnteConvenz) {
-        this.dsClasseEnteConvenz = dsClasseEnteConvenz;
+	this.dsClasseEnteConvenz = dsClasseEnteConvenz;
     }
 
     @Column(name = "NI_MAX_ABIT")
     public BigDecimal getNiMaxAbit() {
-        return this.niMaxAbit;
+	return this.niMaxAbit;
     }
 
     public void setNiMaxAbit(BigDecimal niMaxAbit) {
-        this.niMaxAbit = niMaxAbit;
+	this.niMaxAbit = niMaxAbit;
     }
 
     @Column(name = "NI_MIN_ABIT")
     public BigDecimal getNiMinAbit() {
-        return this.niMinAbit;
+	return this.niMinAbit;
     }
 
     public void setNiMinAbit(BigDecimal niMinAbit) {
-        this.niMinAbit = niMinAbit;
+	this.niMinAbit = niMinAbit;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @OneToMany(mappedBy = "orgClasseEnteConvenz")
     public List<OrgAccordoEnte> getOrgAccordoEntes() {
-        return this.orgAccordoEntes;
+	return this.orgAccordoEntes;
     }
 
     public void setOrgAccordoEntes(List<OrgAccordoEnte> orgAccordoEntes) {
-        this.orgAccordoEntes = orgAccordoEntes;
+	this.orgAccordoEntes = orgAccordoEntes;
     }
 
     public OrgAccordoEnte addOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-        getOrgAccordoEntes().add(orgAccordoEnte);
-        orgAccordoEnte.setOrgClasseEnteConvenz(this);
-        return orgAccordoEnte;
+	getOrgAccordoEntes().add(orgAccordoEnte);
+	orgAccordoEnte.setOrgClasseEnteConvenz(this);
+	return orgAccordoEnte;
     }
 
     public OrgAccordoEnte removeOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-        getOrgAccordoEntes().remove(orgAccordoEnte);
-        orgAccordoEnte.setOrgClasseEnteConvenz(null);
-        return orgAccordoEnte;
+	getOrgAccordoEntes().remove(orgAccordoEnte);
+	orgAccordoEnte.setOrgClasseEnteConvenz(null);
+	return orgAccordoEnte;
     }
 
     // bi-directional many-to-one association to OrgTariffa
     @OneToMany(mappedBy = "orgClasseEnteConvenz")
     public List<OrgTariffa> getOrgTariffas() {
-        return this.orgTariffas;
+	return this.orgTariffas;
     }
 
     public void setOrgTariffas(List<OrgTariffa> orgTariffas) {
-        this.orgTariffas = orgTariffas;
+	this.orgTariffas = orgTariffas;
     }
 
     public OrgTariffa addOrgTariffa(OrgTariffa orgTariffa) {
-        getOrgTariffas().add(orgTariffa);
-        orgTariffa.setOrgClasseEnteConvenz(this);
-        return orgTariffa;
+	getOrgTariffas().add(orgTariffa);
+	orgTariffa.setOrgClasseEnteConvenz(this);
+	return orgTariffa;
     }
 
     public OrgTariffa removeOrgTariffa(OrgTariffa orgTariffa) {
-        getOrgTariffas().remove(orgTariffa);
-        orgTariffa.setOrgClasseEnteConvenz(null);
-        return orgTariffa;
+	getOrgTariffas().remove(orgTariffa);
+	orgTariffa.setOrgClasseEnteConvenz(null);
+	return orgTariffa;
     }
 }

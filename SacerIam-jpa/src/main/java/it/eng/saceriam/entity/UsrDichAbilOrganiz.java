@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -72,131 +68,132 @@ public class UsrDichAbilOrganiz implements Serializable {
     @Id
     @Column(name = "ID_DICH_ABIL_ORGANIZ")
     @GenericGenerator(name = "SUSR_DICH_ABIL_ORGANIZ_ID_DICH_ABIL_ORGANIZ_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_DICH_ABIL_ORGANIZ"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_DICH_ABIL_ORGANIZ"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_DICH_ABIL_ORGANIZ_ID_DICH_ABIL_ORGANIZ_GENERATOR")
     public Long getIdDichAbilOrganiz() {
-        return this.idDichAbilOrganiz;
+	return this.idDichAbilOrganiz;
     }
 
     public void setIdDichAbilOrganiz(Long idDichAbilOrganiz) {
-        this.idDichAbilOrganiz = idDichAbilOrganiz;
+	this.idDichAbilOrganiz = idDichAbilOrganiz;
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-        return this.dsCausaleDich;
+	return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-        this.dsCausaleDich = dsCausaleDich;
+	this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "TI_SCOPO_DICH_ABIL_ORGANIZ")
     public String getTiScopoDichAbilOrganiz() {
-        return this.tiScopoDichAbilOrganiz;
+	return this.tiScopoDichAbilOrganiz;
     }
 
     public void setTiScopoDichAbilOrganiz(String tiScopoDichAbilOrganiz) {
-        this.tiScopoDichAbilOrganiz = tiScopoDichAbilOrganiz;
+	this.tiScopoDichAbilOrganiz = tiScopoDichAbilOrganiz;
     }
 
     // bi-directional many-to-one association to UsrAbilOrganiz
     @OneToMany(mappedBy = "usrDichAbilOrganiz")
     public List<UsrAbilOrganiz> getUsrAbilOrganizs() {
-        return this.usrAbilOrganizs;
+	return this.usrAbilOrganizs;
     }
 
     public void setUsrAbilOrganizs(List<UsrAbilOrganiz> usrAbilOrganizs) {
-        this.usrAbilOrganizs = usrAbilOrganizs;
+	this.usrAbilOrganizs = usrAbilOrganizs;
     }
 
     public UsrAbilOrganiz addUsrAbilOrganiz(UsrAbilOrganiz usrAbilOrganiz) {
-        getUsrAbilOrganizs().add(usrAbilOrganiz);
-        usrAbilOrganiz.setUsrDichAbilOrganiz(this);
-        return usrAbilOrganiz;
+	getUsrAbilOrganizs().add(usrAbilOrganiz);
+	usrAbilOrganiz.setUsrDichAbilOrganiz(this);
+	return usrAbilOrganiz;
     }
 
     public UsrAbilOrganiz removeUsrAbilOrganiz(UsrAbilOrganiz usrAbilOrganiz) {
-        getUsrAbilOrganizs().remove(usrAbilOrganiz);
-        usrAbilOrganiz.setUsrDichAbilOrganiz(null);
-        return usrAbilOrganiz;
+	getUsrAbilOrganizs().remove(usrAbilOrganiz);
+	usrAbilOrganiz.setUsrDichAbilOrganiz(null);
+	return usrAbilOrganiz;
     }
 
     // bi-directional many-to-one association to OrgAppartCollegEnti
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPART_COLLEG_ENTI")
     public OrgAppartCollegEnti getOrgAppartCollegEnti() {
-        return this.orgAppartCollegEnti;
+	return this.orgAppartCollegEnti;
     }
 
     public void setOrgAppartCollegEnti(OrgAppartCollegEnti orgAppartCollegEnti) {
-        this.orgAppartCollegEnti = orgAppartCollegEnti;
+	this.orgAppartCollegEnti = orgAppartCollegEnti;
     }
 
     // bi-directional many-to-one association to OrgSuptEsternoEnteConvenz
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SUPT_EST_ENTE_CONVENZ")
     public OrgSuptEsternoEnteConvenz getOrgSuptEsternoEnteConvenz() {
-        return this.orgSuptEsternoEnteConvenz;
+	return this.orgSuptEsternoEnteConvenz;
     }
 
     public void setOrgSuptEsternoEnteConvenz(OrgSuptEsternoEnteConvenz orgSuptEsternoEnteConvenz) {
-        this.orgSuptEsternoEnteConvenz = orgSuptEsternoEnteConvenz;
+	this.orgSuptEsternoEnteConvenz = orgSuptEsternoEnteConvenz;
     }
 
     // bi-directional many-to-one association to OrgVigilEnteProdut
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_VIGIL_ENTE_PRODUT")
     public OrgVigilEnteProdut getOrgVigilEnteProdut() {
-        return this.orgVigilEnteProdut;
+	return this.orgVigilEnteProdut;
     }
 
     public void setOrgVigilEnteProdut(OrgVigilEnteProdut orgVigilEnteProdut) {
-        this.orgVigilEnteProdut = orgVigilEnteProdut;
+	this.orgVigilEnteProdut = orgVigilEnteProdut;
     }
 
     // bi-directional many-to-one association to UsrOrganizIam
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ORGANIZ_IAM")
     public UsrOrganizIam getUsrOrganizIam() {
-        return this.usrOrganizIam;
+	return this.usrOrganizIam;
     }
 
     public void setUsrOrganizIam(UsrOrganizIam usrOrganizIam) {
-        this.usrOrganizIam = usrOrganizIam;
+	this.usrOrganizIam = usrOrganizIam;
     }
 
     // bi-directional many-to-one association to UsrUsoUserApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USO_USER_APPLIC")
     public UsrUsoUserApplic getUsrUsoUserApplic() {
-        return this.usrUsoUserApplic;
+	return this.usrUsoUserApplic;
     }
 
     public void setUsrUsoUserApplic(UsrUsoUserApplic usrUsoUserApplic) {
-        this.usrUsoUserApplic = usrUsoUserApplic;
+	this.usrUsoUserApplic = usrUsoUserApplic;
     }
 
     // bi-directional many-to-one association to UsrUsoRuoloDich
-    @OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "usrDichAbilOrganiz")
+    @OneToMany(cascade = {
+	    CascadeType.PERSIST }, mappedBy = "usrDichAbilOrganiz")
     public List<UsrUsoRuoloDich> getUsrUsoRuoloDiches() {
-        return this.usrUsoRuoloDiches;
+	return this.usrUsoRuoloDiches;
     }
 
     public void setUsrUsoRuoloDiches(List<UsrUsoRuoloDich> usrUsoRuoloDiches) {
-        this.usrUsoRuoloDiches = usrUsoRuoloDiches;
+	this.usrUsoRuoloDiches = usrUsoRuoloDiches;
     }
 
     public UsrUsoRuoloDich addUsrUsoRuoloDich(UsrUsoRuoloDich usrUsoRuoloDich) {
-        getUsrUsoRuoloDiches().add(usrUsoRuoloDich);
-        usrUsoRuoloDich.setUsrDichAbilOrganiz(this);
-        return usrUsoRuoloDich;
+	getUsrUsoRuoloDiches().add(usrUsoRuoloDich);
+	usrUsoRuoloDich.setUsrDichAbilOrganiz(this);
+	return usrUsoRuoloDich;
     }
 
     public UsrUsoRuoloDich removeUsrUsoRuoloDich(UsrUsoRuoloDich usrUsoRuoloDich) {
-        getUsrUsoRuoloDiches().remove(usrUsoRuoloDich);
-        usrUsoRuoloDich.setUsrDichAbilOrganiz(null);
-        return usrUsoRuoloDich;
+	getUsrUsoRuoloDiches().remove(usrUsoRuoloDich);
+	usrUsoRuoloDich.setUsrDichAbilOrganiz(null);
+	return usrUsoRuoloDich;
     }
 }

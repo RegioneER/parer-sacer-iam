@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -75,136 +71,137 @@ public class OrgTariffa implements Serializable {
     @Id
     @Column(name = "ID_TARIFFA")
     @GenericGenerator(name = "SORG_TARIFFA_ID_TARIFFA_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_TARIFFA"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_TARIFFA"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_TARIFFA_ID_TARIFFA_GENERATOR")
     public Long getIdTariffa() {
-        return this.idTariffa;
+	return this.idTariffa;
     }
 
     public void setIdTariffa(Long idTariffa) {
-        this.idTariffa = idTariffa;
+	this.idTariffa = idTariffa;
     }
 
     @Column(name = "DS_TARIFFA")
     public String getDsTariffa() {
-        return this.dsTariffa;
+	return this.dsTariffa;
     }
 
     public void setDsTariffa(String dsTariffa) {
-        this.dsTariffa = dsTariffa;
+	this.dsTariffa = dsTariffa;
     }
 
     @Column(name = "IM_VALORE_FISSO_TARIFFA")
     public BigDecimal getImValoreFissoTariffa() {
-        return this.imValoreFissoTariffa;
+	return this.imValoreFissoTariffa;
     }
 
     public void setImValoreFissoTariffa(BigDecimal imValoreFissoTariffa) {
-        this.imValoreFissoTariffa = imValoreFissoTariffa;
+	this.imValoreFissoTariffa = imValoreFissoTariffa;
     }
 
     @Column(name = "NI_QUANTITA_UNIT")
     public BigDecimal getNiQuantitaUnit() {
-        return this.niQuantitaUnit;
+	return this.niQuantitaUnit;
     }
 
     public void setNiQuantitaUnit(BigDecimal niQuantitaUnit) {
-        this.niQuantitaUnit = niQuantitaUnit;
+	this.niQuantitaUnit = niQuantitaUnit;
     }
 
     @Column(name = "NM_TARIFFA")
     public String getNmTariffa() {
-        return this.nmTariffa;
+	return this.nmTariffa;
     }
 
     public void setNmTariffa(String nmTariffa) {
-        this.nmTariffa = nmTariffa;
+	this.nmTariffa = nmTariffa;
     }
 
     @Column(name = "TIPO_TARIFFA")
     public String getTipoTariffa() {
-        return this.tipoTariffa;
+	return this.tipoTariffa;
     }
 
     public void setTipoTariffa(String tipoTariffa) {
-        this.tipoTariffa = tipoTariffa;
+	this.tipoTariffa = tipoTariffa;
     }
 
     // bi-directional many-to-one association to OrgScaglioneTariffa
-    @OneToMany(mappedBy = "orgTariffa", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+    @OneToMany(mappedBy = "orgTariffa", cascade = {
+	    CascadeType.PERSIST, CascadeType.REMOVE })
     public List<OrgScaglioneTariffa> getOrgScaglioneTariffas() {
-        return this.orgScaglioneTariffas;
+	return this.orgScaglioneTariffas;
     }
 
     public void setOrgScaglioneTariffas(List<OrgScaglioneTariffa> orgScaglioneTariffas) {
-        this.orgScaglioneTariffas = orgScaglioneTariffas;
+	this.orgScaglioneTariffas = orgScaglioneTariffas;
     }
 
     public OrgScaglioneTariffa addOrgScaglioneTariffa(OrgScaglioneTariffa orgScaglioneTariffa) {
-        getOrgScaglioneTariffas().add(orgScaglioneTariffa);
-        orgScaglioneTariffa.setOrgTariffa(this);
-        return orgScaglioneTariffa;
+	getOrgScaglioneTariffas().add(orgScaglioneTariffa);
+	orgScaglioneTariffa.setOrgTariffa(this);
+	return orgScaglioneTariffa;
     }
 
     public OrgScaglioneTariffa removeOrgScaglioneTariffa(OrgScaglioneTariffa orgScaglioneTariffa) {
-        getOrgScaglioneTariffas().remove(orgScaglioneTariffa);
-        orgScaglioneTariffa.setOrgTariffa(null);
-        return orgScaglioneTariffa;
+	getOrgScaglioneTariffas().remove(orgScaglioneTariffa);
+	orgScaglioneTariffa.setOrgTariffa(null);
+	return orgScaglioneTariffa;
     }
 
     // bi-directional many-to-one association to OrgServizioErog
     @OneToMany(mappedBy = "orgTariffa")
     public List<OrgServizioErog> getOrgServizioErogs() {
-        return this.orgServizioErogs;
+	return this.orgServizioErogs;
     }
 
     public void setOrgServizioErogs(List<OrgServizioErog> orgServizioErogs) {
-        this.orgServizioErogs = orgServizioErogs;
+	this.orgServizioErogs = orgServizioErogs;
     }
 
     public OrgServizioErog addOrgServizioErog(OrgServizioErog orgServizioErog) {
-        getOrgServizioErogs().add(orgServizioErog);
-        orgServizioErog.setOrgTariffa(this);
-        return orgServizioErog;
+	getOrgServizioErogs().add(orgServizioErog);
+	orgServizioErog.setOrgTariffa(this);
+	return orgServizioErog;
     }
 
     public OrgServizioErog removeOrgServizioErog(OrgServizioErog orgServizioErog) {
-        getOrgServizioErogs().remove(orgServizioErog);
-        orgServizioErog.setOrgTariffa(null);
-        return orgServizioErog;
+	getOrgServizioErogs().remove(orgServizioErog);
+	orgServizioErog.setOrgTariffa(null);
+	return orgServizioErog;
     }
 
     // bi-directional many-to-one association to OrgClasseEnteConvenz
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_CLASSE_ENTE_CONVENZ")
     public OrgClasseEnteConvenz getOrgClasseEnteConvenz() {
-        return this.orgClasseEnteConvenz;
+	return this.orgClasseEnteConvenz;
     }
 
     public void setOrgClasseEnteConvenz(OrgClasseEnteConvenz orgClasseEnteConvenz) {
-        this.orgClasseEnteConvenz = orgClasseEnteConvenz;
+	this.orgClasseEnteConvenz = orgClasseEnteConvenz;
     }
 
     // bi-directional many-to-one association to OrgTariffario
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TARIFFARIO")
     public OrgTariffario getOrgTariffario() {
-        return this.orgTariffario;
+	return this.orgTariffario;
     }
 
     public void setOrgTariffario(OrgTariffario orgTariffario) {
-        this.orgTariffario = orgTariffario;
+	this.orgTariffario = orgTariffario;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_SERVIZIO")
     public OrgTipoServizio getOrgTipoServizio() {
-        return this.orgTipoServizio;
+	return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(OrgTipoServizio orgTipoServizio) {
-        this.orgTipoServizio = orgTipoServizio;
+	this.orgTipoServizio = orgTipoServizio;
     }
 }

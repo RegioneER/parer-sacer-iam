@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -61,53 +57,53 @@ public class AplTipoOrganiz implements Serializable {
     @Id
     @Column(name = "ID_TIPO_ORGANIZ")
     @GenericGenerator(name = "SAPL_TIPO_ORGANIZ_ID_TIPO_ORGANIZ_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_TIPO_ORGANIZ"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_TIPO_ORGANIZ"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_TIPO_ORGANIZ_ID_TIPO_ORGANIZ_GENERATOR")
     public Long getIdTipoOrganiz() {
-        return this.idTipoOrganiz;
+	return this.idTipoOrganiz;
     }
 
     public void setIdTipoOrganiz(Long idTipoOrganiz) {
-        this.idTipoOrganiz = idTipoOrganiz;
+	this.idTipoOrganiz = idTipoOrganiz;
     }
 
     @Column(name = "FL_LAST_LIVELLO", columnDefinition = "char(1)")
     public String getFlLastLivello() {
-        return this.flLastLivello;
+	return this.flLastLivello;
     }
 
     public void setFlLastLivello(String flLastLivello) {
-        this.flLastLivello = flLastLivello;
+	this.flLastLivello = flLastLivello;
     }
 
     @Column(name = "NM_TIPO_ORGANIZ")
     public String getNmTipoOrganiz() {
-        return this.nmTipoOrganiz;
+	return this.nmTipoOrganiz;
     }
 
     public void setNmTipoOrganiz(String nmTipoOrganiz) {
-        this.nmTipoOrganiz = nmTipoOrganiz;
+	this.nmTipoOrganiz = nmTipoOrganiz;
     }
 
     // bi-directional many-to-one association to AplApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPLIC")
     public AplApplic getAplApplic() {
-        return this.aplApplic;
+	return this.aplApplic;
     }
 
     public void setAplApplic(AplApplic aplApplic) {
-        this.aplApplic = aplApplic;
+	this.aplApplic = aplApplic;
     }
 
     // bi-directional many-to-one association to UsrOrganizIam
     @OneToMany(mappedBy = "aplTipoOrganiz")
     public List<UsrOrganizIam> getUsrOrganizIams() {
-        return this.usrOrganizIams;
+	return this.usrOrganizIams;
     }
 
     public void setUsrOrganizIams(List<UsrOrganizIam> usrOrganizIams) {
-        this.usrOrganizIams = usrOrganizIams;
+	this.usrOrganizIams = usrOrganizIams;
     }
 }

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -58,54 +54,54 @@ public class OrgEnteArkRif implements Serializable {
     @Id
     @Column(name = "ID_ENTE_ARK_RIF")
     @GenericGenerator(name = "SORG_ENTE_ARK_RIF_ID_ENTE_ARK_RIF_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_ENTE_ARK_RIF"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_ENTE_ARK_RIF"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_ENTE_ARK_RIF_ID_ENTE_ARK_RIF_GENERATOR")
     public Long getIdEnteArkRif() {
-        return this.idEnteArkRif;
+	return this.idEnteArkRif;
     }
 
     public void setIdEnteArkRif(Long idEnteArkRif) {
-        this.idEnteArkRif = idEnteArkRif;
+	this.idEnteArkRif = idEnteArkRif;
     }
 
     // bi-directional many-to-one association to OrgEnteSiam
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ENTE_CONVENZ")
     public OrgEnteSiam getOrgEnteSiam() {
-        return this.orgEnteSiam;
+	return this.orgEnteSiam;
     }
 
     public void setOrgEnteSiam(OrgEnteSiam orgEnteSiam) {
-        this.orgEnteSiam = orgEnteSiam;
+	this.orgEnteSiam = orgEnteSiam;
     }
 
     // bi-directional many-to-one association to UsrUser
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER_IAM")
     public UsrUser getUsrUser() {
-        return this.usrUser;
+	return this.usrUser;
     }
 
     public void setUsrUser(UsrUser usrUser) {
-        this.usrUser = usrUser;
+	this.usrUser = usrUser;
     }
 
     @Column(name = "FL_REFERENTE", columnDefinition = "char(1)")
     public String getFlReferente() {
-        return flReferente;
+	return flReferente;
     }
 
     public void setFlReferente(String flReferente) {
-        this.flReferente = flReferente;
+	this.flReferente = flReferente;
     }
 
     @Column(name = "DL_NOTE")
     public String getDlNote() {
-        return dlNote;
+	return dlNote;
     }
 
     public void setDlNote(String dlNote) {
-        this.dlNote = dlNote;
+	this.dlNote = dlNote;
     }
 }

@@ -1,4 +1,4 @@
-<%@ page import="it.eng.saceriam.slite.gen.form.GestioneNoteRilascioForm" pageEncoding="UTF-8"%>
+<%@ page import="it.eng.saceriam.slite.gen.form.NoteRilascioForm" pageEncoding="UTF-8"%>
 <%@ include file="../include.jsp" %>
 
 <sl:html>

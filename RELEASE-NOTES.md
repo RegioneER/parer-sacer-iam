@@ -1,10 +1,9 @@
-## 6.4.0 (13-02-2025)
+## 7.2.0 (15-04-2025)
 
 ### Bugfix: 1
-- [#34750](https://parermine.regione.emilia-romagna.it/issues/34750) Correzione warning: Illegal reflective access
+- [#37386](https://parermine.regione.emilia-romagna.it/issues/37386) Correzione inserimento Referente ente in dettaglio ente NON convenzionato
 
-### Novità: 4
-- [#35399](https://parermine.regione.emilia-romagna.it/issues/35399) Configurazione modulo jaxp-jdk per JBoss 7 per JDK 11
-- [#34837](https://parermine.regione.emilia-romagna.it/issues/34837) Dettaglio referente dell'ente convenzionato: aggiungere possibilità di caricare file o indicare Registro-Chiave-Numero
-- [#34798](https://parermine.regione.emilia-romagna.it/issues/34798) Riattivazione esposizione del federationMetadata per RIUSO
-- [#34001](https://parermine.regione.emilia-romagna.it/issues/34001) Migrazione alle nuove dipendenze / pattern legate a xecers, xalan, jaxb, ecc
+### Novità: 3
+- [#37681](https://parermine.regione.emilia-romagna.it/issues/37681) Aggiornamento librerie obsolete primo quadrimestre 2025
+- [#37335](https://parermine.regione.emilia-romagna.it/issues/37335) Report storage extra RER integrazione date accordo
+- [#37034](https://parermine.regione.emilia-romagna.it/issues/37034) Dettaglio accordo in corso di validità inserimento avviso in "MEDIA ANNUALE OCCUPAZIONE STORAGE" in caso di assenza versamenti

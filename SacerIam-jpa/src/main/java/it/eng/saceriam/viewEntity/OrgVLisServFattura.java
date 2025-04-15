@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -66,221 +62,221 @@ public class OrgVLisServFattura implements Serializable {
 
     @Column(name = "AA_SERVIZIO_FATTURA")
     public BigDecimal getAaServizioFattura() {
-        return this.aaServizioFattura;
+	return this.aaServizioFattura;
     }
 
     public void setAaServizioFattura(BigDecimal aaServizioFattura) {
-        this.aaServizioFattura = aaServizioFattura;
+	this.aaServizioFattura = aaServizioFattura;
     }
 
     @Column(name = "CD_DDT")
     public String getCdDdt() {
-        return this.cdDdt;
+	return this.cdDdt;
     }
 
     public void setCdDdt(String cdDdt) {
-        this.cdDdt = cdDdt;
+	this.cdDdt = cdDdt;
     }
 
     @Column(name = "CD_IVA")
     public String getCdIva() {
-        return this.cdIva;
+	return this.cdIva;
     }
 
     public void setCdIva(String cdIva) {
-        this.cdIva = cdIva;
+	this.cdIva = cdIva;
     }
 
     @Column(name = "CD_ODA")
     public String getCdOda() {
-        return this.cdOda;
+	return this.cdOda;
     }
 
     public void setCdOda(String cdOda) {
-        this.cdOda = cdOda;
+	this.cdOda = cdOda;
     }
 
     @Column(name = "CD_TIPO_SERVIZIO")
     public String getCdTipoServizio() {
-        return this.cdTipoServizio;
+	return this.cdTipoServizio;
     }
 
     public void setCdTipoServizio(String cdTipoServizio) {
-        this.cdTipoServizio = cdTipoServizio;
+	this.cdTipoServizio = cdTipoServizio;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_EROG")
     public Date getDtErog() {
-        return this.dtErog;
+	return this.dtErog;
     }
 
     public void setDtErog(Date dtErog) {
-        this.dtErog = dtErog;
+	this.dtErog = dtErog;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_EROG_SERV_EROG")
     public Date getDtErogServErog() {
-        return this.dtErogServErog;
+	return this.dtErogServErog;
     }
 
     public void setDtErogServErog(Date dtErogServErog) {
-        this.dtErogServErog = dtErogServErog;
+	this.dtErogServErog = dtErogServErog;
     }
 
     @Column(name = "FL_PAGAMENTO", columnDefinition = "char(1)")
     public String getFlPagamento() {
-        return this.flPagamento;
+	return this.flPagamento;
     }
 
     public void setFlPagamento(String flPagamento) {
-        this.flPagamento = flPagamento;
+	this.flPagamento = flPagamento;
     }
 
     @Column(name = "FL_SUPERAMENTO_SCAGLIONE", columnDefinition = "char(1)")
     public String getFlSuperamentoScaglione() {
-        return this.flSuperamentoScaglione;
+	return this.flSuperamentoScaglione;
     }
 
     public void setFlSuperamentoScaglione(String flSuperamentoScaglione) {
-        this.flSuperamentoScaglione = flSuperamentoScaglione;
+	this.flSuperamentoScaglione = flSuperamentoScaglione;
     }
 
     @Column(name = "GG_FATTURAZIONE", columnDefinition = "char")
     public String getGgFatturazione() {
-        return this.ggFatturazione;
+	return this.ggFatturazione;
     }
 
     public void setGgFatturazione(String ggFatturazione) {
-        this.ggFatturazione = ggFatturazione;
+	this.ggFatturazione = ggFatturazione;
     }
 
     @Column(name = "ID_FATTURA_ENTE")
     public BigDecimal getIdFatturaEnte() {
-        return this.idFatturaEnte;
+	return this.idFatturaEnte;
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-        this.idFatturaEnte = idFatturaEnte;
+	this.idFatturaEnte = idFatturaEnte;
     }
 
     @Id
     @Column(name = "ID_SERVIZIO_FATTURA")
     public BigDecimal getIdServizioFattura() {
-        return this.idServizioFattura;
+	return this.idServizioFattura;
     }
 
     public void setIdServizioFattura(BigDecimal idServizioFattura) {
-        this.idServizioFattura = idServizioFattura;
+	this.idServizioFattura = idServizioFattura;
     }
 
     @Column(name = "IM_IVA")
     public BigDecimal getImIva() {
-        return this.imIva;
+	return this.imIva;
     }
 
     public void setImIva(BigDecimal imIva) {
-        this.imIva = imIva;
+	this.imIva = imIva;
     }
 
     @Column(name = "IM_NETTO")
     public BigDecimal getImNetto() {
-        return this.imNetto;
+	return this.imNetto;
     }
 
     public void setImNetto(BigDecimal imNetto) {
-        this.imNetto = imNetto;
+	this.imNetto = imNetto;
     }
 
     @Column(name = "IM_VALORE_TARIFFA")
     public BigDecimal getImValoreTariffa() {
-        return this.imValoreTariffa;
+	return this.imValoreTariffa;
     }
 
     public void setImValoreTariffa(BigDecimal imValoreTariffa) {
-        this.imValoreTariffa = imValoreTariffa;
+	this.imValoreTariffa = imValoreTariffa;
     }
 
     @Column(name = "MM_FATTURA")
     public BigDecimal getMmFattura() {
-        return this.mmFattura;
+	return this.mmFattura;
     }
 
     public void setMmFattura(BigDecimal mmFattura) {
-        this.mmFattura = mmFattura;
+	this.mmFattura = mmFattura;
     }
 
     @Column(name = "NI_ABITANTI")
     public BigDecimal getNiAbitanti() {
-        return this.niAbitanti;
+	return this.niAbitanti;
     }
 
     public void setNiAbitanti(BigDecimal niAbitanti) {
-        this.niAbitanti = niAbitanti;
+	this.niAbitanti = niAbitanti;
     }
 
     @Column(name = "NI_BYTE_VERS")
     public BigDecimal getNiByteVers() {
-        return this.niByteVers;
+	return this.niByteVers;
     }
 
     public void setNiByteVers(BigDecimal niByteVers) {
-        this.niByteVers = niByteVers;
+	this.niByteVers = niByteVers;
     }
 
     @Column(name = "NI_UNITÀ_DOC_VERS")
     public BigDecimal getNiUnitaDocVers() {
-        return this.niUnitaDocVers;
+	return this.niUnitaDocVers;
     }
 
     public void setNiUnitaDocVers(BigDecimal niUnitaDocVers) {
-        this.niUnitaDocVers = niUnitaDocVers;
+	this.niUnitaDocVers = niUnitaDocVers;
     }
 
     @Column(name = "NM_SERVIZIO_EROGATO")
     public String getNmServizioErogato() {
-        return this.nmServizioErogato;
+	return this.nmServizioErogato;
     }
 
     public void setNmServizioErogato(String nmServizioErogato) {
-        this.nmServizioErogato = nmServizioErogato;
+	this.nmServizioErogato = nmServizioErogato;
     }
 
     @Column(name = "NM_SERVIZIO_FATTURA")
     public String getNmServizioFattura() {
-        return this.nmServizioFattura;
+	return this.nmServizioFattura;
     }
 
     public void setNmServizioFattura(String nmServizioFattura) {
-        this.nmServizioFattura = nmServizioFattura;
+	this.nmServizioFattura = nmServizioFattura;
     }
 
     @Column(name = "NM_SISTEMA_VERSANTE")
     public String getNmSistemaVersante() {
-        return this.nmSistemaVersante;
+	return this.nmSistemaVersante;
     }
 
     public void setNmSistemaVersante(String nmSistemaVersante) {
-        this.nmSistemaVersante = nmSistemaVersante;
+	this.nmSistemaVersante = nmSistemaVersante;
     }
 
     @Column(name = "NM_TARIFFA")
     public String getNmTariffa() {
-        return this.nmTariffa;
+	return this.nmTariffa;
     }
 
     public void setNmTariffa(String nmTariffa) {
-        this.nmTariffa = nmTariffa;
+	this.nmTariffa = nmTariffa;
     }
 
     @Column(name = "TIPO_FATTURAZIONE")
     public String getTipoFatturazione() {
-        return this.tipoFatturazione;
+	return this.tipoFatturazione;
     }
 
     public void setTipoFatturazione(String tipoFatturazione) {
-        this.tipoFatturazione = tipoFatturazione;
+	this.tipoFatturazione = tipoFatturazione;
     }
 
 }

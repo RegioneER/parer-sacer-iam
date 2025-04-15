@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -76,120 +72,120 @@ public class LogUserDaReplic implements Serializable {
     @Id
     @Column(name = "ID_LOG_USER_DA_REPLIC")
     @GenericGenerator(name = "SLOG_USER_DA_REPLIC_ID_LOG_USER_DA_REPLIC_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SLOG_USER_DA_REPLIC"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SLOG_USER_DA_REPLIC"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SLOG_USER_DA_REPLIC_ID_LOG_USER_DA_REPLIC_GENERATOR")
     public Long getIdLogUserDaReplic() {
-        return this.idLogUserDaReplic;
+	return this.idLogUserDaReplic;
     }
 
     public void setIdLogUserDaReplic(Long idLogUserDaReplic) {
-        this.idLogUserDaReplic = idLogUserDaReplic;
+	this.idLogUserDaReplic = idLogUserDaReplic;
     }
 
     @Column(name = "CD_ERR")
     public String getCdErr() {
-        return this.cdErr;
+	return this.cdErr;
     }
 
     public void setCdErr(String cdErr) {
-        this.cdErr = cdErr;
+	this.cdErr = cdErr;
     }
 
     @Column(name = "DS_MSG_ERR")
     public String getDsMsgErr() {
-        return this.dsMsgErr;
+	return this.dsMsgErr;
     }
 
     public void setDsMsgErr(String dsMsgErr) {
-        this.dsMsgErr = dsMsgErr;
+	this.dsMsgErr = dsMsgErr;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_ERR")
     public Date getDtErr() {
-        return this.dtErr;
+	return this.dtErr;
     }
 
     public void setDtErr(Date dtErr) {
-        this.dtErr = dtErr;
+	this.dtErr = dtErr;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_LOG_USER_DA_REPLIC")
     public Date getDtLogUserDaReplic() {
-        return this.dtLogUserDaReplic;
+	return this.dtLogUserDaReplic;
     }
 
     public void setDtLogUserDaReplic(Date dtLogUserDaReplic) {
-        this.dtLogUserDaReplic = dtLogUserDaReplic;
+	this.dtLogUserDaReplic = dtLogUserDaReplic;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_CHIUSURA_REPLICA")
     public Date getDtChiusuraReplica() {
-        return this.dtChiusuraReplica;
+	return this.dtChiusuraReplica;
     }
 
     public void setDtChiusuraReplica(Date dtChiusuraReplica) {
-        this.dtChiusuraReplica = dtChiusuraReplica;
+	this.dtChiusuraReplica = dtChiusuraReplica;
     }
 
     @Column(name = "ID_USER_IAM")
     public BigDecimal getIdUserIam() {
-        return this.idUserIam;
+	return this.idUserIam;
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-        this.idUserIam = idUserIam;
+	this.idUserIam = idUserIam;
     }
 
     @Column(name = "NM_USERID")
     public String getNmUserid() {
-        return this.nmUserid;
+	return this.nmUserid;
     }
 
     public void setNmUserid(String nmUserid) {
-        this.nmUserid = nmUserid;
+	this.nmUserid = nmUserid;
     }
 
     @Column(name = "TI_OPER_REPLIC")
     public String getTiOperReplic() {
-        return this.tiOperReplic;
+	return this.tiOperReplic;
     }
 
     public void setTiOperReplic(String tiOperReplic) {
-        this.tiOperReplic = tiOperReplic;
+	this.tiOperReplic = tiOperReplic;
     }
 
     @Column(name = "TI_STATO_REPLIC")
     public String getTiStatoReplic() {
-        return this.tiStatoReplic;
+	return this.tiStatoReplic;
     }
 
     public void setTiStatoReplic(String tiStatoReplic) {
-        this.tiStatoReplic = tiStatoReplic;
+	this.tiStatoReplic = tiStatoReplic;
     }
 
     // bi-directional many-to-one association to AplApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPLIC")
     public AplApplic getAplApplic() {
-        return this.aplApplic;
+	return this.aplApplic;
     }
 
     public void setAplApplic(AplApplic aplApplic) {
-        this.aplApplic = aplApplic;
+	this.aplApplic = aplApplic;
     }
 
     // bi-directional many-to-one association to LogJob
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_LOG_JOB")
     public LogJob getLogJob() {
-        return this.logJob;
+	return this.logJob;
     }
 
     public void setLogJob(LogJob logJob) {
-        this.logJob = logJob;
+	this.logJob = logJob;
     }
 }

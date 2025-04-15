@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -56,130 +52,130 @@ public class DecTipoUnitaDoc implements Serializable {
     private OrgTipoServizio orgTipoServizio;
 
     public DecTipoUnitaDoc() {
-        // document why this constructor is empty
+	// document why this constructor is empty
     }
 
     @Id
     @Column(name = "ID_TIPO_UNITA_DOC")
     public Long getIdTipoUnitaDoc() {
-        return this.idTipoUnitaDoc;
+	return this.idTipoUnitaDoc;
     }
 
     public void setIdTipoUnitaDoc(Long idTipoUnitaDoc) {
-        this.idTipoUnitaDoc = idTipoUnitaDoc;
+	this.idTipoUnitaDoc = idTipoUnitaDoc;
     }
 
     @Column(name = "CD_SERIE")
     public String getCdSerie() {
-        return this.cdSerie;
+	return this.cdSerie;
     }
 
     public void setCdSerie(String cdSerie) {
-        this.cdSerie = cdSerie;
+	this.cdSerie = cdSerie;
     }
 
     @Column(name = "CD_SERIE_DA_CREARE")
     public String getCdSerieDaCreare() {
-        return this.cdSerieDaCreare;
+	return this.cdSerieDaCreare;
     }
 
     public void setCdSerieDaCreare(String cdSerieDaCreare) {
-        this.cdSerieDaCreare = cdSerieDaCreare;
+	this.cdSerieDaCreare = cdSerieDaCreare;
     }
 
     @Column(name = "DS_SERIE_DA_CREARE")
     public String getDsSerieDaCreare() {
-        return this.dsSerieDaCreare;
+	return this.dsSerieDaCreare;
     }
 
     public void setDsSerieDaCreare(String dsSerieDaCreare) {
-        this.dsSerieDaCreare = dsSerieDaCreare;
+	this.dsSerieDaCreare = dsSerieDaCreare;
     }
 
     @Column(name = "DS_TIPO_SERIE_DA_CREARE")
     public String getDsTipoSerieDaCreare() {
-        return this.dsTipoSerieDaCreare;
+	return this.dsTipoSerieDaCreare;
     }
 
     public void setDsTipoSerieDaCreare(String dsTipoSerieDaCreare) {
-        this.dsTipoSerieDaCreare = dsTipoSerieDaCreare;
+	this.dsTipoSerieDaCreare = dsTipoSerieDaCreare;
     }
 
     @Column(name = "DS_TIPO_UNITA_DOC")
     public String getDsTipoUnitaDoc() {
-        return this.dsTipoUnitaDoc;
+	return this.dsTipoUnitaDoc;
     }
 
     public void setDsTipoUnitaDoc(String dsTipoUnitaDoc) {
-        this.dsTipoUnitaDoc = dsTipoUnitaDoc;
+	this.dsTipoUnitaDoc = dsTipoUnitaDoc;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_ISTITUZ")
     public Date getDtIstituz() {
-        return this.dtIstituz;
+	return this.dtIstituz;
     }
 
     public void setDtIstituz(Date dtIstituz) {
-        this.dtIstituz = dtIstituz;
+	this.dtIstituz = dtIstituz;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_SOPPRES")
     public Date getDtSoppres() {
-        return this.dtSoppres;
+	return this.dtSoppres;
     }
 
     public void setDtSoppres(Date dtSoppres) {
-        this.dtSoppres = dtSoppres;
+	this.dtSoppres = dtSoppres;
     }
 
     @Column(name = "NM_TIPO_SERIE_DA_CREARE")
     public String getNmTipoSerieDaCreare() {
-        return this.nmTipoSerieDaCreare;
+	return this.nmTipoSerieDaCreare;
     }
 
     public void setNmTipoSerieDaCreare(String nmTipoSerieDaCreare) {
-        this.nmTipoSerieDaCreare = nmTipoSerieDaCreare;
+	this.nmTipoSerieDaCreare = nmTipoSerieDaCreare;
     }
 
     @Column(name = "NM_TIPO_UNITA_DOC")
     public String getNmTipoUnitaDoc() {
-        return this.nmTipoUnitaDoc;
+	return this.nmTipoUnitaDoc;
     }
 
     public void setNmTipoUnitaDoc(String nmTipoUnitaDoc) {
-        this.nmTipoUnitaDoc = nmTipoUnitaDoc;
+	this.nmTipoUnitaDoc = nmTipoUnitaDoc;
     }
 
     @Column(name = "TI_SAVE_FILE")
     public String getTiSaveFile() {
-        return this.tiSaveFile;
+	return this.tiSaveFile;
     }
 
     public void setTiSaveFile(String tiSaveFile) {
-        this.tiSaveFile = tiSaveFile;
+	this.tiSaveFile = tiSaveFile;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_STRUT")
     public OrgStrut getOrgStrut() {
-        return this.orgStrut;
+	return this.orgStrut;
     }
 
     public void setOrgStrut(OrgStrut orgStrut) {
-        this.orgStrut = orgStrut;
+	this.orgStrut = orgStrut;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_SERVIZIO")
     public OrgTipoServizio getOrgTipoServizio() {
-        return this.orgTipoServizio;
+	return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(OrgTipoServizio orgTipoServizio) {
-        this.orgTipoServizio = orgTipoServizio;
+	this.orgTipoServizio = orgTipoServizio;
     }
 
 }

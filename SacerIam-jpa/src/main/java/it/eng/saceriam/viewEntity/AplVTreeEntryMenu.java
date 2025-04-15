@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -46,97 +42,97 @@ public class AplVTreeEntryMenu implements Serializable {
     private String nmEntryMenu;
 
     public AplVTreeEntryMenu() {
-        // document why this constructor is empty
+	// document why this constructor is empty
     }
 
     @Column(name = "DL_COMPOSITO_ENTRY_MENU")
     public String getDlCompositoEntryMenu() {
-        return this.dlCompositoEntryMenu;
+	return this.dlCompositoEntryMenu;
     }
 
     public void setDlCompositoEntryMenu(String dlCompositoEntryMenu) {
-        this.dlCompositoEntryMenu = dlCompositoEntryMenu;
+	this.dlCompositoEntryMenu = dlCompositoEntryMenu;
     }
 
     @Column(name = "DL_LINK_ENTRY_MENU")
     public String getDlLinkEntryMenu() {
-        return this.dlLinkEntryMenu;
+	return this.dlLinkEntryMenu;
     }
 
     public void setDlLinkEntryMenu(String dlLinkEntryMenu) {
-        this.dlLinkEntryMenu = dlLinkEntryMenu;
+	this.dlLinkEntryMenu = dlLinkEntryMenu;
     }
 
     @Column(name = "DL_PATH_ID_ENTRY_MENU")
     public String getDlPathIdEntryMenu() {
-        return this.dlPathIdEntryMenu;
+	return this.dlPathIdEntryMenu;
     }
 
     public void setDlPathIdEntryMenu(String dlPathIdEntryMenu) {
-        this.dlPathIdEntryMenu = dlPathIdEntryMenu;
+	this.dlPathIdEntryMenu = dlPathIdEntryMenu;
     }
 
     @Column(name = "DS_ENTRY_MENU")
     public String getDsEntryMenu() {
-        return this.dsEntryMenu;
+	return this.dsEntryMenu;
     }
 
     public void setDsEntryMenu(String dsEntryMenu) {
-        this.dsEntryMenu = dsEntryMenu;
+	this.dsEntryMenu = dsEntryMenu;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-        return this.idApplic;
+	return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-        this.idApplic = idApplic;
+	this.idApplic = idApplic;
     }
 
     @Id
     @Column(name = "ID_ENTRY_MENU")
     public BigDecimal getIdEntryMenu() {
-        return this.idEntryMenu;
+	return this.idEntryMenu;
     }
 
     public void setIdEntryMenu(BigDecimal idEntryMenu) {
-        this.idEntryMenu = idEntryMenu;
+	this.idEntryMenu = idEntryMenu;
     }
 
     @Column(name = "ID_ENTRY_MENU_PADRE")
     public BigDecimal getIdEntryMenuPadre() {
-        return this.idEntryMenuPadre;
+	return this.idEntryMenuPadre;
     }
 
     public void setIdEntryMenuPadre(BigDecimal idEntryMenuPadre) {
-        this.idEntryMenuPadre = idEntryMenuPadre;
+	this.idEntryMenuPadre = idEntryMenuPadre;
     }
 
     @Column(name = "NI_LIVELLO_ENTRY_MENU")
     public BigDecimal getNiLivelloEntryMenu() {
-        return this.niLivelloEntryMenu;
+	return this.niLivelloEntryMenu;
     }
 
     public void setNiLivelloEntryMenu(BigDecimal niLivelloEntryMenu) {
-        this.niLivelloEntryMenu = niLivelloEntryMenu;
+	this.niLivelloEntryMenu = niLivelloEntryMenu;
     }
 
     @Column(name = "NI_ORD_ENTRY_MENU")
     public BigDecimal getNiOrdEntryMenu() {
-        return this.niOrdEntryMenu;
+	return this.niOrdEntryMenu;
     }
 
     public void setNiOrdEntryMenu(BigDecimal niOrdEntryMenu) {
-        this.niOrdEntryMenu = niOrdEntryMenu;
+	this.niOrdEntryMenu = niOrdEntryMenu;
     }
 
     @Column(name = "NM_ENTRY_MENU")
     public String getNmEntryMenu() {
-        return this.nmEntryMenu;
+	return this.nmEntryMenu;
     }
 
     public void setNmEntryMenu(String nmEntryMenu) {
-        this.nmEntryMenu = nmEntryMenu;
+	this.nmEntryMenu = nmEntryMenu;
     }
 }

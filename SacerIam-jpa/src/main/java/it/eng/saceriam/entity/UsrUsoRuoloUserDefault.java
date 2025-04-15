@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -54,36 +50,36 @@ public class UsrUsoRuoloUserDefault implements Serializable {
     @Id
     @Column(name = "ID_USO_RUOLO_USER_DEFAULT")
     @GenericGenerator(name = "SUSR_USO_RUOLO_USER_DEFAULT_ID_USO_RUOLO_USER_DEFAULT_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_USO_RUOLO_USER_DEFAULT"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_USO_RUOLO_USER_DEFAULT"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_USO_RUOLO_USER_DEFAULT_ID_USO_RUOLO_USER_DEFAULT_GENERATOR")
     public Long getIdUsoRuoloUserDefault() {
-        return this.idUsoRuoloUserDefault;
+	return this.idUsoRuoloUserDefault;
     }
 
     public void setIdUsoRuoloUserDefault(Long idUsoRuoloUserDefault) {
-        this.idUsoRuoloUserDefault = idUsoRuoloUserDefault;
+	this.idUsoRuoloUserDefault = idUsoRuoloUserDefault;
     }
 
     // bi-directional many-to-one association to PrfRuolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_RUOLO")
     public PrfRuolo getPrfRuolo() {
-        return this.prfRuolo;
+	return this.prfRuolo;
     }
 
     public void setPrfRuolo(PrfRuolo prfRuolo) {
-        this.prfRuolo = prfRuolo;
+	this.prfRuolo = prfRuolo;
     }
 
     // bi-directional many-to-one association to UsrUsoUserApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USO_USER_APPLIC")
     public UsrUsoUserApplic getUsrUsoUserApplic() {
-        return this.usrUsoUserApplic;
+	return this.usrUsoUserApplic;
     }
 
     public void setUsrUsoUserApplic(UsrUsoUserApplic usrUsoUserApplic) {
-        this.usrUsoUserApplic = usrUsoUserApplic;
+	this.usrUsoUserApplic = usrUsoUserApplic;
     }
 }

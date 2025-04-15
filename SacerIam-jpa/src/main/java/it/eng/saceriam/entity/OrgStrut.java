@@ -1,28 +1,24 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package it.eng.saceriam.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,76 +47,86 @@ public class OrgStrut implements Serializable {
     private String nmStrut;
     private List<DecTipoUnitaDoc> decTipoUnitaDocs = new ArrayList<>();
     private String flCessato;
+    private BigDecimal idEnteConvenz;
 
     public OrgStrut() {
-        /*
-         * empty
-         */
+	/*
+	 * empty
+	 */
     }
 
     @Id
     @Column(name = "ID_STRUT")
     public Long getIdStrut() {
-        return this.idStrut;
+	return this.idStrut;
     }
 
     public void setIdStrut(Long idStrut) {
-        this.idStrut = idStrut;
+	this.idStrut = idStrut;
     }
 
     @Column(name = "CD_IPA")
     public String getCdIpa() {
-        return cdIpa;
+	return cdIpa;
     }
 
     public void setCdIpa(String cdIpa) {
-        this.cdIpa = cdIpa;
+	this.cdIpa = cdIpa;
     }
 
     @Column(name = "DS_STRUT")
     public String getDsStrut() {
-        return this.dsStrut;
+	return this.dsStrut;
     }
 
     public void setDsStrut(String dsStrut) {
-        this.dsStrut = dsStrut;
+	this.dsStrut = dsStrut;
     }
 
     @Column(name = "FL_CESSATO", columnDefinition = "char")
     public String getFlCessato() {
-        return this.flCessato;
+	return this.flCessato;
     }
 
     public void setFlCessato(String flCessato) {
-        this.flCessato = flCessato;
+	this.flCessato = flCessato;
     }
 
     @Column(name = "FL_TEMPLATE", columnDefinition = "char")
     public String getFlTemplate() {
-        return this.flTemplate;
+	return this.flTemplate;
     }
 
     public void setFlTemplate(String flTemplate) {
-        this.flTemplate = flTemplate;
+	this.flTemplate = flTemplate;
     }
 
     @Column(name = "NM_STRUT")
     public String getNmStrut() {
-        return this.nmStrut;
+	return this.nmStrut;
     }
 
     public void setNmStrut(String nmStrut) {
-        this.nmStrut = nmStrut;
+	this.nmStrut = nmStrut;
     }
 
     // bi-directional many-to-one association to DecTipoUnitaDoc
     @OneToMany(mappedBy = "orgStrut", cascade = CascadeType.PERSIST)
     public List<DecTipoUnitaDoc> getDecTipoUnitaDocs() {
-        return this.decTipoUnitaDocs;
+	return this.decTipoUnitaDocs;
     }
 
     public void setDecTipoUnitaDocs(List<DecTipoUnitaDoc> decTipoUnitaDocs) {
-        this.decTipoUnitaDocs = decTipoUnitaDocs;
+	this.decTipoUnitaDocs = decTipoUnitaDocs;
+    }
+
+    @Column(name = "ID_ENTE_CONVENZ")
+    public BigDecimal getIdEnteConvenz() {
+	return idEnteConvenz;
+    }
+
+    public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
+	this.idEnteConvenz = idEnteConvenz;
     }
 
 }
