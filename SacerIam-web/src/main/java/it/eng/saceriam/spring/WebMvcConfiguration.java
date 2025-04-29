@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.spring;
@@ -64,60 +60,63 @@ import org.springframework.web.servlet.view.JstlView;
  * @author Marco Iacolucci
  */
 @EnableWebMvc
-@ComponentScan(basePackages = { "it.eng.saceriam.web.action", "it.eng.saceriam.spring",
-        "it.eng.saceriam.web.rest.controller", "it.eng.saceriam.slite.gen.action", "it.eng.spagoLite.actions",
-        "it.eng.spagoCore", "it.eng.parer.sacerlog.web.action" })
+@ComponentScan(basePackages = {
+	"it.eng.saceriam.web.action", "it.eng.saceriam.spring",
+	"it.eng.saceriam.web.rest.controller", "it.eng.saceriam.slite.gen.action",
+	"it.eng.spagoLite.actions", "it.eng.spagoCore", "it.eng.parer.sacerlog.web.action" })
 @Configuration
 public class WebMvcConfiguration extends SpagoliteWebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        /*
-         * qui si dichiarano le risorse statiche
-         */
-        registry.addResourceHandler("/css/**", "/images/**", "/img/**", "/js/**", "/webjars/**")
-                .addResourceLocations("/css/", "/images/", "/img/", "/js/", "/webjars/").setCachePeriod(0);
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	/*
+	 * qui si dichiarano le risorse statiche
+	 */
+	registry.addResourceHandler("/css/**", "/images/**", "/img/**", "/js/**", "/webjars/**")
+		.addResourceLocations("/css/", "/images/", "/img/", "/js/", "/webjars/")
+		.setCachePeriod(0);
+	registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
     @Bean
     public InternalResourceViewResolver resolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/jsp/");
-        resolver.setSuffix(".jsp");
-        return resolver;
+	InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+	resolver.setViewClass(JstlView.class);
+	resolver.setPrefix("/jsp/");
+	resolver.setSuffix(".jsp");
+	return resolver;
     }
 
     @Bean(name = "paginator")
     PaginatorImpl paginatorImpl() {
-        return new PaginatorImpl();
+	return new PaginatorImpl();
     }
 
     /*
-     * Template da inserire nelle applicazioni che usano SpagoLite e che utilizzano l' Help On line. Deve implementare
-     * l'interfaccia IApplicationBasePropertiesSevice
+     * Template da inserire nelle applicazioni che usano SpagoLite e che utilizzano l' Help On line.
+     * Deve implementare l'interfaccia IApplicationBasePropertiesSevice
      *
      */
     @Bean
     ApplicationBasePropertiesSeviceImpl applicationBasePropertiesSeviceImpl() {
-        return new ApplicationBasePropertiesSeviceImpl();
+	return new ApplicationBasePropertiesSeviceImpl();
     }
 
     /*
-     * MEV#27457 - Rendere indipendente SIAM da PING Template per chiamate rest con impostazione del timeout
+     * MEV#27457 - Rendere indipendente SIAM da PING Template per chiamate rest con impostazione del
+     * timeout
      */
     @Bean
     RestTemplate restTemplate() {
-        SimpleClientHttpRequestFactory c = new SimpleClientHttpRequestFactory();
-        c.setReadTimeout(10000);
-        c.setConnectTimeout(10000);
-        return new RestTemplate(c);
+	SimpleClientHttpRequestFactory c = new SimpleClientHttpRequestFactory();
+	c.setReadTimeout(10000);
+	c.setConnectTimeout(10000);
+	return new RestTemplate(c);
     }
 
     /*
@@ -125,151 +124,151 @@ public class WebMvcConfiguration extends SpagoliteWebMvcConfiguration implements
      */
     @Bean(name = "sacerIamAuthenticator")
     SacerIamAuthenticator sacerIamAuthenticator() {
-        return new SacerIamAuthenticator();
+	return new SacerIamAuthenticator();
     }
 
     /*
-     * Serve per parametrizzare l'applicazione specifica per esempio per caricare le variabili di sistema che hanno come
-     * suffisso ad esempio "saceriam".
+     * Serve per parametrizzare l'applicazione specifica per esempio per caricare le variabili di
+     * sistema che hanno come suffisso ad esempio "saceriam".
      */
     @Bean
     String nomeApplicazione() {
-        return "saceriam";
+	return "saceriam";
     }
 
     /*
-     * CONFIGURAZIONE DEI BEAN DELLE ACTION che prima erano nell'xml di springweb Configurazione delle action ereditate
-     * dal framework
+     * CONFIGURAZIONE DEI BEAN DELLE ACTION che prima erano nell'xml di springweb Configurazione
+     * delle action ereditate dal framework
      */
     @Bean(value = "/View.html")
     RedirectAction redirectAction() {
-        return new RedirectAction();
+	return new RedirectAction();
     }
 
     @Bean(value = "/Login.html")
     LoginAction loginAction() {
-        return new LoginAction();
+	return new LoginAction();
     }
 
     @Bean(value = "/Logout.html")
     LogoutAction logoutAction() {
-        return new LogoutAction();
+	return new LogoutAction();
     }
 
     /* Configurazione delle action specifiche del modulo web */
     @Bean(value = "/Home.html")
     HomeAction homeAction() {
-        return new HomeAction();
+	return new HomeAction();
     }
 
     @Bean(value = "/ModificaPsw.html")
     ModificaPswAction modificaPswAction() {
-        return new ModificaPswAction();
+	return new ModificaPswAction();
     }
 
     @Bean(value = "/SceltaOrganizzazione.html")
     SceltaOrganizzazioneAction sceltaOrganizzazioneAction() {
-        return new SceltaOrganizzazioneAction();
+	return new SceltaOrganizzazioneAction();
     }
 
     @Bean(value = "/AssociazioneUtente.html")
     AssociazioneUtenteAction associazioneUtenteAction() {
-        return new AssociazioneUtenteAction();
+	return new AssociazioneUtenteAction();
     }
 
     @Bean(value = "/AllineaComponenti.html")
     AllineaComponentiAction allineaComponentiAction() {
-        return new AllineaComponentiAction();
+	return new AllineaComponentiAction();
     }
 
     @Bean(value = "/GestioneNoteRilascio.html")
     GestioneNoteRilascioAction gestioneNoteRilascioAction() {
-        return new GestioneNoteRilascioAction();
+	return new GestioneNoteRilascioAction();
     }
 
     @Bean(value = "/GestioneNews.html")
     GestioneNewsAction gestioneNewsAction() {
-        return new GestioneNewsAction();
+	return new GestioneNewsAction();
     }
 
     @Bean(value = "/GestioneJob.html")
     GestioneJobAction gestioneJobAction() {
-        return new GestioneJobAction();
+	return new GestioneJobAction();
     }
 
     @Bean(value = "/GestioneHelpOnLine.html")
     GestioneHelpOnLineAction gestioneHelpOnLineAction() {
-        return new GestioneHelpOnLineAction();
+	return new GestioneHelpOnLineAction();
     }
 
     @Bean(value = "/DettaglioHelpOnLine.html")
     GestioneHelpOnLineAction gestioneHelpOnLineActionDettaglio() {
-        return new GestioneHelpOnLineAction();
+	return new GestioneHelpOnLineAction();
     }
 
     @Bean(value = "/AmministrazioneUtenti.html")
     AmministrazioneUtentiAction amministrazioneUtentiAction() {
-        return new AmministrazioneUtentiAction();
+	return new AmministrazioneUtentiAction();
     }
 
     @Bean(value = "/AmministrazioneRuoli.html")
     AmministrazioneRuoliAction amministrazioneRuoliAction() {
-        return new AmministrazioneRuoliAction();
+	return new AmministrazioneRuoliAction();
     }
 
     @Bean(value = "/AmministrazioneSistemiVersanti.html")
     AmministrazioneSistemiVersantiAction amministrazioneSistemiVersantiAction() {
-        return new AmministrazioneSistemiVersantiAction();
+	return new AmministrazioneSistemiVersantiAction();
     }
 
     @Bean(value = "/AmministrazioneEntiConvenzionati.html")
     AmministrazioneEntiConvenzionatiAction amministrazioneEntiConvenzionatiAction() {
-        return new AmministrazioneEntiConvenzionatiAction();
+	return new AmministrazioneEntiConvenzionatiAction();
     }
 
     @Bean(value = "/AmministrazioneEntiNonConvenzionati.html")
     AmministrazioneEntiNonConvenzionatiAction amministrazioneEntiNonConvenzionatiAction() {
-        return new AmministrazioneEntiNonConvenzionatiAction();
+	return new AmministrazioneEntiNonConvenzionatiAction();
     }
 
     @Bean(value = "/AmministrazioneTipiAccordo.html")
     AmministrazioneTipiAccordoAction amministrazioneTipiAccordoAction() {
-        return new AmministrazioneTipiAccordoAction();
+	return new AmministrazioneTipiAccordoAction();
     }
 
     @Bean(value = "/AmministrazioneTariffari.html")
     AmministrazioneTariffariAction amministrazioneTariffariAction() {
-        return new AmministrazioneTariffariAction();
+	return new AmministrazioneTariffariAction();
     }
 
     @Bean(value = "/AmministrazioneClasseEnte.html")
     AmministrazioneClasseEnteAction amministrazioneClasseEnteAction() {
-        return new AmministrazioneClasseEnteAction();
+	return new AmministrazioneClasseEnteAction();
     }
 
     @Bean(value = "/AmministrazioneTipiServizio.html")
     AmministrazioneTipiServizioAction amministrazioneTipiServizioAction() {
-        return new AmministrazioneTipiServizioAction();
+	return new AmministrazioneTipiServizioAction();
     }
 
     @Bean(value = "/GestioneAmbitoTerritoriale.html")
     GestioneAmbitoTerritorialeAction gestioneAmbitoTerritorialeAction() {
-        return new GestioneAmbitoTerritorialeAction();
+	return new GestioneAmbitoTerritorialeAction();
     }
 
     @Bean(value = "/GestioneFatturazioneServizi.html")
     GestioneFatturazioneServiziAction gestioneFatturazioneServiziAction() {
-        return new GestioneFatturazioneServiziAction();
+	return new GestioneFatturazioneServiziAction();
     }
 
     @Bean(value = "/GestioneAccessiFalliti.html")
     GestioneAccessiFallitiAction gestioneAccessiFallitiAction() {
-        return new GestioneAccessiFallitiAction();
+	return new GestioneAccessiFallitiAction();
     }
 
     @Bean(value = "/NoteRilascio.html")
     NoteRilascioAction noteRilascioAction() {
-        return new NoteRilascioAction();
+	return new NoteRilascioAction();
     }
 
 }

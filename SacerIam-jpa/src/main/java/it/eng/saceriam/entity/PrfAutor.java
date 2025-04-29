@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -62,81 +58,82 @@ public class PrfAutor implements Serializable {
     @Id
     // "PRF_AUTOR_IDAUTOR_GENERATOR", sequenceName =
     // "SPRF_AUTOR", allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRF_AUTOR_IDAUTOR_GENERATOR")
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
+    // "PRF_AUTOR_IDAUTOR_GENERATOR")
     @Column(name = "ID_AUTOR")
     @GenericGenerator(name = "SPRF_AUTOR_ID_AUTOR_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SPRF_AUTOR"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SPRF_AUTOR"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPRF_AUTOR_ID_AUTOR_GENERATOR")
     public Long getIdAutor() {
-        return this.idAutor;
+	return this.idAutor;
     }
 
     public void setIdAutor(Long idAutor) {
-        this.idAutor = idAutor;
+	this.idAutor = idAutor;
     }
 
     @Column(name = "TI_DICH_AUTOR")
     public String getTiDichAutor() {
-        return this.tiDichAutor;
+	return this.tiDichAutor;
     }
 
     public void setTiDichAutor(String tiDichAutor) {
-        this.tiDichAutor = tiDichAutor;
+	this.tiDichAutor = tiDichAutor;
     }
 
     // bi-directional many-to-one association to AplAzionePagina
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AZIONE_PAGINA")
     public AplAzionePagina getAplAzionePagina() {
-        return this.aplAzionePagina;
+	return this.aplAzionePagina;
     }
 
     public void setAplAzionePagina(AplAzionePagina aplAzionePagina) {
-        this.aplAzionePagina = aplAzionePagina;
+	this.aplAzionePagina = aplAzionePagina;
     }
 
     // bi-directional many-to-one association to AplEntryMenu
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ENTRY_MENU")
     public AplEntryMenu getAplEntryMenu() {
-        return this.aplEntryMenu;
+	return this.aplEntryMenu;
     }
 
     public void setAplEntryMenu(AplEntryMenu aplEntryMenu) {
-        this.aplEntryMenu = aplEntryMenu;
+	this.aplEntryMenu = aplEntryMenu;
     }
 
     // bi-directional many-to-one association to AplPaginaWeb
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PAGINA_WEB")
     public AplPaginaWeb getAplPaginaWeb() {
-        return this.aplPaginaWeb;
+	return this.aplPaginaWeb;
     }
 
     public void setAplPaginaWeb(AplPaginaWeb aplPaginaWeb) {
-        this.aplPaginaWeb = aplPaginaWeb;
+	this.aplPaginaWeb = aplPaginaWeb;
     }
 
     // bi-directional many-to-one association to AplServizioWeb
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SERVIZIO_WEB")
     public AplServizioWeb getAplServizioWeb() {
-        return this.aplServizioWeb;
+	return this.aplServizioWeb;
     }
 
     public void setAplServizioWeb(AplServizioWeb aplServizioWeb) {
-        this.aplServizioWeb = aplServizioWeb;
+	this.aplServizioWeb = aplServizioWeb;
     }
 
     // bi-directional many-to-one association to PrfUsoRuoloApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USO_RUOLO_APPLIC")
     public PrfUsoRuoloApplic getPrfUsoRuoloApplic() {
-        return this.prfUsoRuoloApplic;
+	return this.prfUsoRuoloApplic;
     }
 
     public void setPrfUsoRuoloApplic(PrfUsoRuoloApplic prfUsoRuoloApplic) {
-        this.prfUsoRuoloApplic = prfUsoRuoloApplic;
+	this.prfUsoRuoloApplic = prfUsoRuoloApplic;
     }
 }

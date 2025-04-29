@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -43,70 +39,70 @@ public class UsrVVisDichAbil implements Serializable {
     private String tiScopoDichAbilOrganiz;
 
     public UsrVVisDichAbil() {
-        // document why this constructor is empty
+	// document why this constructor is empty
     }
 
     @Column(name = "DL_COMPOSITO_ORGANIZ")
     public String getDlCompositoOrganiz() {
-        return this.dlCompositoOrganiz;
+	return this.dlCompositoOrganiz;
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-        this.dlCompositoOrganiz = dlCompositoOrganiz;
+	this.dlCompositoOrganiz = dlCompositoOrganiz;
     }
 
     @Id
     @Column(name = "ID_DICH_ABIL_ORGANIZ")
     public BigDecimal getIdDichAbilOrganiz() {
-        return this.idDichAbilOrganiz;
+	return this.idDichAbilOrganiz;
     }
 
     public void setIdDichAbilOrganiz(BigDecimal idDichAbilOrganiz) {
-        this.idDichAbilOrganiz = idDichAbilOrganiz;
+	this.idDichAbilOrganiz = idDichAbilOrganiz;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-        return this.nmApplic;
+	return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-        this.nmApplic = nmApplic;
+	this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_COGNOME_USER")
     public String getNmCognomeUser() {
-        return this.nmCognomeUser;
+	return this.nmCognomeUser;
     }
 
     public void setNmCognomeUser(String nmCognomeUser) {
-        this.nmCognomeUser = nmCognomeUser;
+	this.nmCognomeUser = nmCognomeUser;
     }
 
     @Column(name = "NM_NOME_USER")
     public String getNmNomeUser() {
-        return this.nmNomeUser;
+	return this.nmNomeUser;
     }
 
     public void setNmNomeUser(String nmNomeUser) {
-        this.nmNomeUser = nmNomeUser;
+	this.nmNomeUser = nmNomeUser;
     }
 
     @Column(name = "NM_USERID")
     public String getNmUserid() {
-        return this.nmUserid;
+	return this.nmUserid;
     }
 
     public void setNmUserid(String nmUserid) {
-        this.nmUserid = nmUserid;
+	this.nmUserid = nmUserid;
     }
 
     @Column(name = "TI_SCOPO_DICH_ABIL_ORGANIZ")
     public String getTiScopoDichAbilOrganiz() {
-        return this.tiScopoDichAbilOrganiz;
+	return this.tiScopoDichAbilOrganiz;
     }
 
     public void setTiScopoDichAbilOrganiz(String tiScopoDichAbilOrganiz) {
-        this.tiScopoDichAbilOrganiz = tiScopoDichAbilOrganiz;
+	this.tiScopoDichAbilOrganiz = tiScopoDichAbilOrganiz;
     }
 }

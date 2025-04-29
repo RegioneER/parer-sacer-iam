@@ -1,26 +1,44 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package it.eng.orm.hibernate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static it.eng.ArquillianUtils.throwExpectedIfMessageIs;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.container.annotation.ArquillianTest;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import it.eng.ArquillianUtils;
 import it.eng.ExpectedException;
@@ -29,28 +47,11 @@ import it.eng.orm.cascade.remove.LogAgenteForTest;
 import it.eng.orm.cascade.remove.UsrUserForTest;
 import it.eng.parer.sacerlog.ejb.util.PremisEnums;
 import it.eng.spagoLite.security.auth.PwdUtil;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import javax.ejb.EJB;
-import java.util.ArrayList;
-import java.util.Date;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Manuel Bertuzzi <manuel.bertuzzi@eng.it>
  */
-@RunWith(Arquillian.class)
+@ArquillianTest
 public class MappingCascadeRemoveHibernateTest {
 
     @EJB
@@ -58,206 +59,218 @@ public class MappingCascadeRemoveHibernateTest {
     private Long idUser;
     private Long idLogAgente;
 
-    @Before
-    public void init() {
-        idUser = null;
-        idLogAgente = null;
+    @BeforeAll
+    void init() {
+	idUser = null;
+	idLogAgente = null;
     }
 
-    @After
-    public void cleanRecords() {
-        if (idUser != null)
-            ejb.removeById(UsrUserForTest.class, idUser);
-        if (idLogAgente != null)
-            ejb.removeById(LogAgenteForTest.class, idLogAgente);
+    @AfterAll
+    void cleanRecords() {
+	if (idUser != null)
+	    ejb.removeById(UsrUserForTest.class, idUser);
+	if (idLogAgente != null)
+	    ejb.removeById(LogAgenteForTest.class, idLogAgente);
     }
 
     /** PARENT **/
     @Test
-    public void persistParent_ignoreChild() {
-        LogAgenteForTest logAgente = buildLogAgenteForTest();
-        UsrUserForTest user = buildUsrUserForTest();
-        logAgente.getUsers().add(user);
-        ejb.persist(logAgente);
-        idLogAgente = logAgente.getIdAgente();
-        idUser = logAgente.getUsers().get(0).getIdUserIam();
-        Assert.assertNotNull(idLogAgente);
-        Assert.assertNull(idUser);
+    void persistParent_ignoreChild() {
+	LogAgenteForTest logAgente = buildLogAgenteForTest();
+	UsrUserForTest user = buildUsrUserForTest();
+	logAgente.getUsers().add(user);
+	ejb.persist(logAgente);
+	idLogAgente = logAgente.getIdAgente();
+	idUser = logAgente.getUsers().get(0).getIdUserIam();
+	assertNotNull(idLogAgente);
+	assertNull(idUser);
     }
 
     @Test
-    public void mergeInsertParent_ignoreChild() {
-        LogAgenteForTest logAgente = buildLogAgenteForTest();
-        UsrUserForTest user = buildUsrUserForTest();
-        logAgente.getUsers().add(user);
-        logAgente = ejb.merge(logAgente);
-        idLogAgente = logAgente.getIdAgente();
-        idUser = logAgente.getUsers().get(0).getIdUserIam();
-        Assert.assertNotNull(idLogAgente);
-        Assert.assertNull(idUser);
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    void mergeInsertParent_ignoreChild() {
+	LogAgenteForTest logAgente = buildLogAgenteForTest();
+	UsrUserForTest user = buildUsrUserForTest();
+	logAgente.getUsers().add(user);
+	logAgente = ejb.merge(logAgente);
+	idLogAgente = logAgente.getIdAgente();
+	idUser = logAgente.getUsers().get(0).getIdUserIam();
+	assertNotNull(idLogAgente);
+	assertNull(idUser);
     }
 
     @Test
-    public void mergeUpdateParent_ignoreChild() {
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    void mergeUpdateParent_ignoreChild() {
 
-        LogAgenteForTest logAgente = buildLogAgenteForTest();
-        ejb.persist(logAgente);
-        idLogAgente = logAgente.getIdAgente();
+	LogAgenteForTest logAgente = buildLogAgenteForTest();
+	ejb.persist(logAgente);
+	idLogAgente = logAgente.getIdAgente();
 
-        UsrUserForTest user = buildUsrUserForTest();
-        user.setLogAgente(logAgente);
-        ejb.persist(user);
-        idUser = user.getIdUserIam();
+	UsrUserForTest user = buildUsrUserForTest();
+	user.setLogAgente(logAgente);
+	ejb.persist(user);
+	idUser = user.getIdUserIam();
 
-        logAgente = ejb.findById(idLogAgente, LogAgenteForTest.class,
-                l -> l.getUsers().stream().forEach(u -> u.getNmNomeUser()));
-        final String nmAgente = "MERGED";
-        logAgente.setNmAgente(nmAgente);
-        final String nmNomeUser = logAgente.getUsers().get(0).getNmNomeUser();
-        logAgente.getUsers().get(0).setNmNomeUser("AFTER MERGE");
-        ejb.merge(logAgente);
-        assertEquals(nmAgente, ejb.findById(idLogAgente, LogAgenteForTest.class).getNmAgente());
-        assertEquals(nmNomeUser, ejb.findById(idUser, UsrUserForTest.class).getNmNomeUser());
+	logAgente = ejb.findById(idLogAgente, LogAgenteForTest.class,
+		l -> l.getUsers().stream().forEach(u -> u.getNmNomeUser()));
+	final String nmAgente = "MERGED";
+	logAgente.setNmAgente(nmAgente);
+	final String nmNomeUser = logAgente.getUsers().get(0).getNmNomeUser();
+	logAgente.getUsers().get(0).setNmNomeUser("AFTER MERGE");
+	ejb.merge(logAgente);
+	assertEquals(nmAgente, ejb.findById(idLogAgente, LogAgenteForTest.class).getNmAgente());
+	assertEquals(nmNomeUser, ejb.findById(idUser, UsrUserForTest.class).getNmNomeUser());
     }
 
     @Test
-    public void removeParent_removeChild() {
-        LogAgenteForTest logAgente = buildLogAgenteForTest();
-        ejb.persist(logAgente);
-        idLogAgente = logAgente.getIdAgente();
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    void removeParent_removeChild() {
+	LogAgenteForTest logAgente = buildLogAgenteForTest();
+	ejb.persist(logAgente);
+	idLogAgente = logAgente.getIdAgente();
 
-        UsrUserForTest user = buildUsrUserForTest();
-        user.setLogAgente(logAgente);
-        ejb.persist(user);
-        idUser = user.getIdUserIam();
+	UsrUserForTest user = buildUsrUserForTest();
+	user.setLogAgente(logAgente);
+	ejb.persist(user);
+	idUser = user.getIdUserIam();
 
-        ejb.removeById(LogAgenteForTest.class, idLogAgente);
+	ejb.removeById(LogAgenteForTest.class, idLogAgente);
 
-        Assert.assertNull(ejb.findById(idLogAgente, LogAgenteForTest.class));
-        Assert.assertNull(ejb.findById(idUser, UsrUserForTest.class));
+	assertNull(ejb.findById(idLogAgente, LogAgenteForTest.class));
+	assertNull(ejb.findById(idUser, UsrUserForTest.class));
     }
 
     /** CHILD **/
-    @Test(expected = ExpectedException.class)
-    public void persistChild_failReferenceToParent() {
-        UsrUserForTest user = buildUsrUserForTest();
-        LogAgenteForTest logAgenteForTest = buildLogAgenteForTest();
-        user.setLogAgente(logAgenteForTest);
-        try {
-            ejb.persist(user);
-            idUser = user.getIdUserIam();
-            idLogAgente = user.getLogAgente().getIdAgente();
-        } catch (Exception e) {
-            ArquillianUtils.throwExpectedIfMessageIs(e, "java.lang.IllegalStateException");
-        }
-    }
-
-    @Test(expected = ExpectedException.class)
-    public void mergeInsertChild_failReferenceToParent() {
-        UsrUserForTest user = buildUsrUserForTest();
-        LogAgenteForTest logAgenteForTest = buildLogAgenteForTest();
-        user.setLogAgente(logAgenteForTest);
-        try {
-            user = ejb.merge(user);
-            idUser = user.getIdUserIam();
-            idLogAgente = user.getLogAgente().getIdAgente();
-        } catch (Exception e) {
-            ArquillianUtils.throwExpectedIfMessageIs(e, "java.lang.IllegalStateException");
-        }
+    @Test
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    void persistChild_failReferenceToParent_old() {
+	Exception exception = assertThrows(Exception.class, () -> {
+	    UsrUserForTest user = buildUsrUserForTest();
+	    LogAgenteForTest logAgenteForTest = buildLogAgenteForTest();
+	    user.setLogAgente(logAgenteForTest);
+	    try {
+		ejb.persist(user);
+		idUser = user.getIdUserIam();
+		idLogAgente = user.getLogAgente().getIdAgente();
+	    } catch (Exception e) {
+		ArquillianUtils.throwExpectedIfMessageIs(e, "java.lang.IllegalStateException");
+	    }
+	});
+	throwExpectedIfMessageIs(exception, "java.lang.IllegalStateException");
     }
 
     @Test
-    public void mergeUpdateChild_ignoreParent() {
-        LogAgenteForTest logAgente = buildLogAgenteForTest();
-        ejb.persist(logAgente);
-        idLogAgente = logAgente.getIdAgente();
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    void mergeInsertChild_failReferenceToParent() {
+	Exception exception = assertThrows(Exception.class, () -> {
+	    UsrUserForTest user = buildUsrUserForTest();
+	    LogAgenteForTest logAgenteForTest = buildLogAgenteForTest();
+	    user.setLogAgente(logAgenteForTest);
 
-        UsrUserForTest user = buildUsrUserForTest();
-        user.setLogAgente(logAgente);
-        ejb.persist(user);
-        idUser = user.getIdUserIam();
+	    user = ejb.merge(user);
+	    idUser = user.getIdUserIam();
+	    idLogAgente = user.getLogAgente().getIdAgente();
 
-        user = ejb.findById(idUser, UsrUserForTest.class, u -> u.getLogAgente().getNmAgente());
-        final String nmNomeUser = "AFTER MERGE";
-        user.setNmNomeUser(nmNomeUser);
-        final String nmAgente = user.getLogAgente().getNmAgente();
-        user.getLogAgente().setNmAgente("AFTER MERGE");
-        ejb.merge(user);
-        assertEquals(nmNomeUser, ejb.findById(idUser, UsrUserForTest.class).getNmNomeUser());
-        assertEquals(nmAgente, ejb.findById(idLogAgente, LogAgenteForTest.class).getNmAgente());
+	});
+	throwExpectedIfMessageIs(exception, "java.lang.IllegalStateException");
     }
 
     @Test
-    public void removeChild_removeParent() {
-        LogAgenteForTest logAgente = buildLogAgenteForTest();
-        ejb.persist(logAgente);
-        idLogAgente = logAgente.getIdAgente();
+    void mergeUpdateChild_ignoreParent() {
+	LogAgenteForTest logAgente = buildLogAgenteForTest();
+	ejb.persist(logAgente);
+	idLogAgente = logAgente.getIdAgente();
 
-        UsrUserForTest user = buildUsrUserForTest();
-        user.setLogAgente(logAgente);
-        ejb.persist(user);
-        idUser = user.getIdUserIam();
-        ejb.removeById(UsrUserForTest.class, idUser);
+	UsrUserForTest user = buildUsrUserForTest();
+	user.setLogAgente(logAgente);
+	ejb.persist(user);
+	idUser = user.getIdUserIam();
 
-        Assert.assertNull(ejb.findById(idLogAgente, LogAgenteForTest.class));
-        Assert.assertNull(ejb.findById(idUser, UsrUserForTest.class));
+	user = ejb.findById(idUser, UsrUserForTest.class, u -> u.getLogAgente().getNmAgente());
+	final String nmNomeUser = "AFTER MERGE";
+	user.setNmNomeUser(nmNomeUser);
+	final String nmAgente = user.getLogAgente().getNmAgente();
+	user.getLogAgente().setNmAgente("AFTER MERGE");
+	ejb.merge(user);
+	assertEquals(nmNomeUser, ejb.findById(idUser, UsrUserForTest.class).getNmNomeUser());
+	assertEquals(nmAgente, ejb.findById(idLogAgente, LogAgenteForTest.class).getNmAgente());
+    }
+
+    @Test
+    void removeChild_removeParent() {
+	LogAgenteForTest logAgente = buildLogAgenteForTest();
+	ejb.persist(logAgente);
+	idLogAgente = logAgente.getIdAgente();
+
+	UsrUserForTest user = buildUsrUserForTest();
+	user.setLogAgente(logAgente);
+	ejb.persist(user);
+	idUser = user.getIdUserIam();
+	ejb.removeById(UsrUserForTest.class, idUser);
+
+	assertNull(ejb.findById(idLogAgente, LogAgenteForTest.class));
+	assertNull(ejb.findById(idUser, UsrUserForTest.class));
     }
 
     @Deployment
     public static Archive<?> createTestArchive() {
-        String warName = MappingCascadeRemoveHibernateTest.class.getSimpleName() + "Tests.war";
-        WebArchive webArchive = ShrinkWrap.create(WebArchive.class, warName);
-        webArchive
-                .addAsResource(ArquillianUtils.class.getClassLoader().getResource("persistence-no-log.xml"),
-                        "META-INF/persistence.xml")
-                .addAsResource(
-                        ArquillianUtils.class.getClassLoader().getResource("org.hibernate.integrator.spi.Integrator"),
-                        "META-INF/services/org.hibernate.integrator.spi.Integrator")
-                .addPackage("it.eng.sequences.hibernate").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+	String warName = MappingCascadeRemoveHibernateTest.class.getSimpleName() + "Tests.war";
+	WebArchive webArchive = ShrinkWrap.create(WebArchive.class, warName);
+	webArchive
+		.addAsResource(ArquillianUtils.class.getClassLoader()
+			.getResource("persistence-no-log.xml"), "META-INF/persistence.xml")
+		.addAsResource(
+			ArquillianUtils.class.getClassLoader()
+				.getResource("org.hibernate.integrator.spi.Integrator"),
+			"META-INF/services/org.hibernate.integrator.spi.Integrator")
+		.addPackage("it.eng.sequences.hibernate")
+		.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
-        webArchive.addClasses(it.eng.paginator.hibernate.OracleSqlInterceptor.class, ArquillianUtils.class,
-                it.eng.RollbackException.class, ExpectedException.class, UsrUserForTest.class, LogAgenteForTest.class,
-                CascadeTestEjb.class, PwdUtil.class);
+	webArchive.addClasses(it.eng.paginator.hibernate.OracleSqlInterceptor.class,
+		ArquillianUtils.class, it.eng.RollbackException.class, ExpectedException.class,
+		UsrUserForTest.class, LogAgenteForTest.class, CascadeTestEjb.class, PwdUtil.class);
 
-        webArchive.addPackage("it.eng.saceriam.entity.constraint").addPackages(true, "it.eng.paginator.util",
-                "org.apache.commons.codec", "it.eng.parer.sacerlog.ejb.util");
-        return webArchive;
+	webArchive.addPackage("it.eng.saceriam.entity.constraint").addPackages(true,
+		"it.eng.paginator.util", "org.apache.commons.codec",
+		"it.eng.parer.sacerlog.ejb.util");
+	return webArchive;
     }
 
     private LogAgenteForTest buildLogAgenteForTest() {
-        LogAgenteForTest logAgente = new LogAgenteForTest();
-        logAgente.setNmAgente("JUNIT AGENTE TEST");
-        logAgente.setTipoAgentePremis(PremisEnums.TipoAgente.PERSON);
-        // Determina il tipo origine utente
-        logAgente.setTipoOrigineAgente(PremisEnums.TipoOrigineAgente.UTENTE.name());
-        logAgente.setUsers(new ArrayList<>());
-        return logAgente;
+	LogAgenteForTest logAgente = new LogAgenteForTest();
+	logAgente.setNmAgente("JUNIT AGENTE TEST");
+	logAgente.setTipoAgentePremis(PremisEnums.TipoAgente.PERSON);
+	// Determina il tipo origine utente
+	logAgente.setTipoOrigineAgente(PremisEnums.TipoOrigineAgente.UTENTE.name());
+	logAgente.setUsers(new ArrayList<>());
+	return logAgente;
     }
 
     private UsrUserForTest buildUsrUserForTest() {
-        UsrUserForTest userEntity = new UsrUserForTest();
-        byte[] binarySalt = PwdUtil.generateSalt();
-        userEntity.setDtRegPsw(new Date());
-        userEntity.setCdSalt(PwdUtil.encodeUFT8Base64String(binarySalt));
-        userEntity.setCdPsw(PwdUtil.encodePBKDF2Password(binarySalt, "PWD"));
-        userEntity.setNmCognomeUser("JUNIT");
-        userEntity.setNmNomeUser("TEST");
-        userEntity.setNmUserid("JUNIT-TEST");
-        userEntity.setFlAttivo("1");
-        userEntity.setCdFisc("JNTTST85E11A944M");
-        userEntity.setDsEmail("test@junit.org");
-        userEntity.setDsEmailSecondaria(null);
-        userEntity.setFlContrIp("0");
-        userEntity.setTipoUser("PERSONA_FISICA");
-        userEntity.setDtScadPsw(new Date());
-        userEntity.setFlRespEnteConvenz("0");
-        userEntity.setFlAbilEntiCollegAutom("0");
-        userEntity.setFlAbilOrganizAutom("0");
-        userEntity.setFlAbilFornitAutom("0");
-        userEntity.setFlUserAdmin("0");
-        userEntity.setFlUtenteDitta("0");
-        userEntity.setIdEnteSiam(432L);
-        return userEntity;
+	UsrUserForTest userEntity = new UsrUserForTest();
+	byte[] binarySalt = PwdUtil.generateSalt();
+	userEntity.setDtRegPsw(new Date());
+	userEntity.setCdSalt(PwdUtil.encodeUFT8Base64String(binarySalt));
+	userEntity.setCdPsw(PwdUtil.encodePBKDF2Password(binarySalt, "PWD"));
+	userEntity.setNmCognomeUser("JUNIT");
+	userEntity.setNmNomeUser("TEST");
+	userEntity.setNmUserid("JUNIT-TEST");
+	userEntity.setFlAttivo("1");
+	userEntity.setCdFisc("JNTTST85E11A944M");
+	userEntity.setDsEmail("test@junit.org");
+	userEntity.setDsEmailSecondaria(null);
+	userEntity.setFlContrIp("0");
+	userEntity.setTipoUser("PERSONA_FISICA");
+	userEntity.setDtScadPsw(new Date());
+	userEntity.setFlRespEnteConvenz("0");
+	userEntity.setFlAbilEntiCollegAutom("0");
+	userEntity.setFlAbilOrganizAutom("0");
+	userEntity.setFlAbilFornitAutom("0");
+	userEntity.setFlUserAdmin("0");
+	userEntity.setFlUtenteDitta("0");
+	userEntity.setIdEnteSiam(432L);
+	return userEntity;
     }
 
 }

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -36,26 +32,26 @@ public class UsrVCheckDichAbilEnte implements Serializable {
     private String nmEnteConvenz;
 
     public UsrVCheckDichAbilEnte() {
-        // document why this constructor is empty
+	// document why this constructor is empty
     }
 
     @Column(name = "NM_ENTE_CONVENZ")
     public String getNmEnteConvenz() {
-        return this.nmEnteConvenz;
+	return this.nmEnteConvenz;
     }
 
     public void setNmEnteConvenz(String nmEnteConvenz) {
-        this.nmEnteConvenz = nmEnteConvenz;
+	this.nmEnteConvenz = nmEnteConvenz;
     }
 
     private UsrVCheckDichAbilEnteId usrVCheckDichAbilEnteId;
 
     @EmbeddedId()
     public UsrVCheckDichAbilEnteId getUsrVCheckDichAbilEnteId() {
-        return usrVCheckDichAbilEnteId;
+	return usrVCheckDichAbilEnteId;
     }
 
     public void setUsrVCheckDichAbilEnteId(UsrVCheckDichAbilEnteId usrVCheckDichAbilEnteId) {
-        this.usrVCheckDichAbilEnteId = usrVCheckDichAbilEnteId;
+	this.usrVCheckDichAbilEnteId = usrVCheckDichAbilEnteId;
     }
 }

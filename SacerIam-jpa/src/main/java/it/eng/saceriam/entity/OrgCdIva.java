@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -58,52 +54,52 @@ public class OrgCdIva implements Serializable {
     @Id
     @Column(name = "ID_CD_IVA")
     @GenericGenerator(name = "SORG_CD_IVA_ID_CD_IVA_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_CD_IVA"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_CD_IVA"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_CD_IVA_ID_CD_IVA_GENERATOR")
     public Long getIdCdIva() {
-        return this.idCdIva;
+	return this.idCdIva;
     }
 
     public void setIdCdIva(Long idCdIva) {
-        this.idCdIva = idCdIva;
+	this.idCdIva = idCdIva;
     }
 
     @Column(name = "CD_IVA")
     public String getCdIva() {
-        return this.cdIva;
+	return this.cdIva;
     }
 
     public void setCdIva(String cdIva) {
-        this.cdIva = cdIva;
+	this.cdIva = cdIva;
     }
 
     @Column(name = "DS_IVA")
     public String getDsIva() {
-        return this.dsIva;
+	return this.dsIva;
     }
 
     public void setDsIva(String dsIva) {
-        this.dsIva = dsIva;
+	this.dsIva = dsIva;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @OneToMany(mappedBy = "orgCdIva")
     public List<OrgAccordoEnte> getOrgAccordoEntes() {
-        return this.orgAccordoEntes;
+	return this.orgAccordoEntes;
     }
 
     public void setOrgAccordoEntes(List<OrgAccordoEnte> orgAccordoEntes) {
-        this.orgAccordoEntes = orgAccordoEntes;
+	this.orgAccordoEntes = orgAccordoEntes;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @OneToMany(mappedBy = "orgCdIva")
     public List<OrgServizioFattura> getOrgServizioFatturas() {
-        return orgServizioFatturas;
+	return orgServizioFatturas;
     }
 
     public void setOrgServizioFatturas(List<OrgServizioFattura> orgServizioFatturas) {
-        this.orgServizioFatturas = orgServizioFatturas;
+	this.orgServizioFatturas = orgServizioFatturas;
     }
 }

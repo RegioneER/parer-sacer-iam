@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -57,52 +53,52 @@ public class OrgTariffaAaAccordo implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_TARIFFA_AA_ACCORDO_IDTARIFFAAAACCORDO_GENERATOR")
     @Column(name = "ID_TARIFFA_AA_ACCORDO")
     public Long getIdTariffaAaAccordo() {
-        return this.idTariffaAaAccordo;
+	return this.idTariffaAaAccordo;
     }
 
     public void setIdTariffaAaAccordo(Long idTariffaAaAccordo) {
-        this.idTariffaAaAccordo = idTariffaAaAccordo;
+	this.idTariffaAaAccordo = idTariffaAaAccordo;
     }
 
     @Column(name = "IM_TARIFFA_AA_ACCORDO")
     public BigDecimal getImTariffaAaAccordo() {
-        return this.imTariffaAaAccordo;
+	return this.imTariffaAaAccordo;
     }
 
     public void setImTariffaAaAccordo(BigDecimal imTariffaAaAccordo) {
-        this.imTariffaAaAccordo = imTariffaAaAccordo;
+	this.imTariffaAaAccordo = imTariffaAaAccordo;
     }
 
     // bi-directional many-to-one association to OrgServizioErog
     @OneToMany(mappedBy = "orgTariffaAaAccordo", cascade = CascadeType.REMOVE)
     public List<OrgServizioErog> getOrgServizioErogs() {
-        return this.orgServizioErogs;
+	return this.orgServizioErogs;
     }
 
     public void setOrgServizioErogs(List<OrgServizioErog> orgServizioErogs) {
-        this.orgServizioErogs = orgServizioErogs;
+	this.orgServizioErogs = orgServizioErogs;
     }
 
     // bi-directional many-to-one association to OrgAaAccordo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AA_ACCORDO")
     public OrgAaAccordo getOrgAaAccordo() {
-        return this.orgAaAccordo;
+	return this.orgAaAccordo;
     }
 
     public void setOrgAaAccordo(OrgAaAccordo orgAaAccordo) {
-        this.orgAaAccordo = orgAaAccordo;
+	this.orgAaAccordo = orgAaAccordo;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_SERVIZIO")
     public OrgTipoServizio getOrgTipoServizio() {
-        return this.orgTipoServizio;
+	return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(OrgTipoServizio orgTipoServizio) {
-        this.orgTipoServizio = orgTipoServizio;
+	this.orgTipoServizio = orgTipoServizio;
     }
 
 }

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.ws.replicaOrganizzazione.dto;
@@ -39,123 +35,124 @@ public class ModificaOrganizzazioneInput {
     private Date dtFineVal;
     private ListaTipiDato listaTipiDato;
 
-    public ModificaOrganizzazioneInput(String nmApplic, Integer idOrganizApplic, String nmTipoOrganiz,
-            Integer idEnteConserv, Integer idEnteGestore, String nmOrganiz, String dsOrganiz,
-            Integer idOrganizApplicPadre, String nmTipoOrganizPadre, ListaTipiDato listaTipiDato) {
+    public ModificaOrganizzazioneInput(String nmApplic, Integer idOrganizApplic,
+	    String nmTipoOrganiz, Integer idEnteConserv, Integer idEnteGestore, String nmOrganiz,
+	    String dsOrganiz, Integer idOrganizApplicPadre, String nmTipoOrganizPadre,
+	    ListaTipiDato listaTipiDato) {
 
-        this.nmApplic = nmApplic;
-        this.idOrganizApplic = idOrganizApplic;
-        this.nmTipoOrganiz = nmTipoOrganiz;
-        this.idEnteConserv = idEnteConserv;
-        this.idEnteGestore = idEnteGestore;
-        this.idOrganizApplicPadre = idOrganizApplicPadre;
-        this.nmTipoOrganizPadre = nmTipoOrganizPadre;
-        this.nmOrganiz = nmOrganiz;
-        this.dsOrganiz = dsOrganiz;
-        this.listaTipiDato = listaTipiDato;
+	this.nmApplic = nmApplic;
+	this.idOrganizApplic = idOrganizApplic;
+	this.nmTipoOrganiz = nmTipoOrganiz;
+	this.idEnteConserv = idEnteConserv;
+	this.idEnteGestore = idEnteGestore;
+	this.idOrganizApplicPadre = idOrganizApplicPadre;
+	this.nmTipoOrganizPadre = nmTipoOrganizPadre;
+	this.nmOrganiz = nmOrganiz;
+	this.dsOrganiz = dsOrganiz;
+	this.listaTipiDato = listaTipiDato;
     }
 
     public String getNmApplic() {
-        return nmApplic;
+	return nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-        this.nmApplic = nmApplic;
+	this.nmApplic = nmApplic;
     }
 
     public Integer getIdOrganizApplic() {
-        return idOrganizApplic;
+	return idOrganizApplic;
     }
 
     public void setIdOrganizApplic(Integer idOrganizApplic) {
-        this.idOrganizApplic = idOrganizApplic;
+	this.idOrganizApplic = idOrganizApplic;
     }
 
     public Integer getIdOrganizApplicPadre() {
-        return idOrganizApplicPadre;
+	return idOrganizApplicPadre;
     }
 
     public void setIdOrganizApplicPadre(Integer idOrganizApplicPadre) {
-        this.idOrganizApplicPadre = idOrganizApplicPadre;
+	this.idOrganizApplicPadre = idOrganizApplicPadre;
     }
 
     public String getNmOrganiz() {
-        return nmOrganiz;
+	return nmOrganiz;
     }
 
     public void setNmOrganiz(String nmOrganiz) {
-        this.nmOrganiz = nmOrganiz;
+	this.nmOrganiz = nmOrganiz;
     }
 
     public String getDsOrganiz() {
-        return dsOrganiz;
+	return dsOrganiz;
     }
 
     public void setDsOrganiz(String dsOrganiz) {
-        this.dsOrganiz = dsOrganiz;
+	this.dsOrganiz = dsOrganiz;
     }
 
     public ListaTipiDato getListaTipiDato() {
-        return listaTipiDato;
+	return listaTipiDato;
     }
 
     public void setListaTipiDato(ListaTipiDato listaTipiDato) {
-        this.listaTipiDato = listaTipiDato;
+	this.listaTipiDato = listaTipiDato;
     }
 
     public String getNmTipoOrganizPadre() {
-        return nmTipoOrganizPadre;
+	return nmTipoOrganizPadre;
     }
 
     public void setNmTipoOrganizPadre(String nmTipoOrganizPadre) {
-        this.nmTipoOrganizPadre = nmTipoOrganizPadre;
+	this.nmTipoOrganizPadre = nmTipoOrganizPadre;
     }
 
     public String getNmTipoOrganiz() {
-        return nmTipoOrganiz;
+	return nmTipoOrganiz;
     }
 
     public void setNmTipoOrganiz(String nmTipoOrganiz) {
-        this.nmTipoOrganiz = nmTipoOrganiz;
+	this.nmTipoOrganiz = nmTipoOrganiz;
     }
 
     public Integer getIdEnteConvenz() {
-        return idEnteConvenz;
+	return idEnteConvenz;
     }
 
     public void setIdEnteConvenz(Integer idEnteConvenz) {
-        this.idEnteConvenz = idEnteConvenz;
+	this.idEnteConvenz = idEnteConvenz;
     }
 
     public Date getDtIniVal() {
-        return dtIniVal;
+	return dtIniVal;
     }
 
     public void setDtIniVal(Date dtIniVal) {
-        this.dtIniVal = dtIniVal;
+	this.dtIniVal = dtIniVal;
     }
 
     public Date getDtFineVal() {
-        return dtFineVal;
+	return dtFineVal;
     }
 
     public void setDtFineVal(Date dtFineVal) {
-        this.dtFineVal = dtFineVal;
+	this.dtFineVal = dtFineVal;
     }
 
     public Integer getIdEnteConserv() {
-        return idEnteConserv;
+	return idEnteConserv;
     }
 
     public void setIdEnteConserv(Integer idEnteConserv) {
-        this.idEnteConserv = idEnteConserv;
+	this.idEnteConserv = idEnteConserv;
     }
 
     public Integer getIdEnteGestore() {
-        return idEnteGestore;
+	return idEnteGestore;
     }
 
     public void setIdEnteGestore(Integer idEnteGestore) {
-        this.idEnteGestore = idEnteGestore;
+	this.idEnteGestore = idEnteGestore;
     }
 }

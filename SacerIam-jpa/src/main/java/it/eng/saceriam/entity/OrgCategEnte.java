@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -44,29 +40,29 @@ public class OrgCategEnte implements Serializable {
     @Id
     @Column(name = "ID_CATEG_ENTE")
     public Long getIdCategEnte() {
-        return this.idCategEnte;
+	return this.idCategEnte;
     }
 
     public void setIdCategEnte(Long idCategEnte) {
-        this.idCategEnte = idCategEnte;
+	this.idCategEnte = idCategEnte;
     }
 
     @Column(name = "CD_CATEG_ENTE")
     public String getCdCategEnte() {
-        return this.cdCategEnte;
+	return this.cdCategEnte;
     }
 
     public void setCdCategEnte(String cdCategEnte) {
-        this.cdCategEnte = cdCategEnte;
+	this.cdCategEnte = cdCategEnte;
     }
 
     @Column(name = "DS_CATEG_ENTE")
     public String getDsCategEnte() {
-        return this.dsCategEnte;
+	return this.dsCategEnte;
     }
 
     public void setDsCategEnte(String dsCategEnte) {
-        this.dsCategEnte = dsCategEnte;
+	this.dsCategEnte = dsCategEnte;
     }
 
     // //bi-directional many-to-one association to OrgEnte

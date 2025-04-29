@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -68,83 +64,83 @@ public class UsrTipoDatoIam implements Serializable {
     @Id
     @Column(name = "ID_TIPO_DATO_IAM")
     @GenericGenerator(name = "SUSR_TIPO_DATO_IAM_ID_TIPO_DATO_IAM_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_TIPO_DATO_IAM"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_TIPO_DATO_IAM"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_TIPO_DATO_IAM_ID_TIPO_DATO_IAM_GENERATOR")
     public Long getIdTipoDatoIam() {
-        return this.idTipoDatoIam;
+	return this.idTipoDatoIam;
     }
 
     public void setIdTipoDatoIam(Long idTipoDatoIam) {
-        this.idTipoDatoIam = idTipoDatoIam;
+	this.idTipoDatoIam = idTipoDatoIam;
     }
 
     @Column(name = "DS_TIPO_DATO")
     public String getDsTipoDato() {
-        return this.dsTipoDato;
+	return this.dsTipoDato;
     }
 
     public void setDsTipoDato(String dsTipoDato) {
-        this.dsTipoDato = dsTipoDato;
+	this.dsTipoDato = dsTipoDato;
     }
 
     @Column(name = "ID_TIPO_DATO_APPLIC")
     public BigDecimal getIdTipoDatoApplic() {
-        return this.idTipoDatoApplic;
+	return this.idTipoDatoApplic;
     }
 
     public void setIdTipoDatoApplic(BigDecimal idTipoDatoApplic) {
-        this.idTipoDatoApplic = idTipoDatoApplic;
+	this.idTipoDatoApplic = idTipoDatoApplic;
     }
 
     @Column(name = "NM_TIPO_DATO")
     public String getNmTipoDato() {
-        return this.nmTipoDato;
+	return this.nmTipoDato;
     }
 
     public void setNmTipoDato(String nmTipoDato) {
-        this.nmTipoDato = nmTipoDato;
+	this.nmTipoDato = nmTipoDato;
     }
 
     // bi-directional many-to-one association to UsrDichAbilDati
     @OneToMany(mappedBy = "usrTipoDatoIam")
     public List<UsrDichAbilDati> getUsrDichAbilDatis() {
-        return this.usrDichAbilDatis;
+	return this.usrDichAbilDatis;
     }
 
     public void setUsrDichAbilDatis(List<UsrDichAbilDati> usrDichAbilDatis) {
-        this.usrDichAbilDatis = usrDichAbilDatis;
+	this.usrDichAbilDatis = usrDichAbilDatis;
     }
 
     // bi-directional many-to-one association to AplClasseTipoDato
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_CLASSE_TIPO_DATO")
     public AplClasseTipoDato getAplClasseTipoDato() {
-        return this.aplClasseTipoDato;
+	return this.aplClasseTipoDato;
     }
 
     public void setAplClasseTipoDato(AplClasseTipoDato aplClasseTipoDato) {
-        this.aplClasseTipoDato = aplClasseTipoDato;
+	this.aplClasseTipoDato = aplClasseTipoDato;
     }
 
     // bi-directional many-to-one association to UsrAbilDati
     @OneToMany(mappedBy = "usrTipoDatoIam")
     public List<UsrAbilDati> getUsrAbilDatis() {
-        return this.usrAbilDatis;
+	return this.usrAbilDatis;
     }
 
     public void setUsrAbilDatis(List<UsrAbilDati> usrAbilDatis) {
-        this.usrAbilDatis = usrAbilDatis;
+	this.usrAbilDatis = usrAbilDatis;
     }
 
     // bi-directional many-to-one association to UsrOrganizIam
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ORGANIZ_IAM")
     public UsrOrganizIam getUsrOrganizIam() {
-        return this.usrOrganizIam;
+	return this.usrOrganizIam;
     }
 
     public void setUsrOrganizIam(UsrOrganizIam usrOrganizIam) {
-        this.usrOrganizIam = usrOrganizIam;
+	this.usrOrganizIam = usrOrganizIam;
     }
 }

@@ -2,39 +2,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>saceriam-jboss</artifactId>
-    <version>7.1.1-SNAPSHOT</version>
+    <version>7.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>parer-pom</artifactId>
-        <version>7.0.0</version>
+        <version>7.1.0</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Skiptests by default : esecuzione su CI 
         <skipTests>true</skipTests>-->
         <!-- spagofat bom -->
-        <spagofat.version>7.0.0</spagofat.version>
+        <spagofat.version>7.1.0</spagofat.version>
         <idp-jaas-rdbms.version>0.0.9</idp-jaas-rdbms.version>
         <!-- third party libraries -->
         <naming-java.version>0.8</naming-java.version>
         <xml-resolver.version>1.2.0.redhat-12</xml-resolver.version>
         <javacsv.version>2.0</javacsv.version>
         <!-- tika -->
-        <tika.version>2.9.2</tika.version>        
+        <tika.version>3.1.0</tika.version>        
         <!-- jaxp-jdk11 -->
-        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>
+        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>     
     </properties>
 <distributionManagement>
         <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
-        </repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
+        </repository>      
     </distributionManagement>
 
-    <repositories>
+<repositories>
         <repository>
             <id>github</id>
             <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
@@ -105,14 +105,13 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
-            </dependency>
+            </dependency>			             
             <dependency>
                 <groupId>net.sourceforge.javacsv</groupId>
                 <artifactId>javacsv</artifactId>
                 <version>${javacsv.version}</version>
             </dependency>
-            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di
-            logging -->
+            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
             <dependency>
                 <groupId>it.eng.parer</groupId>
                 <artifactId>idp-jaas-rdbms</artifactId>
@@ -129,14 +128,7 @@
             <dependency>
                 <groupId>org.apache.tika</groupId>
                 <artifactId>tika-core</artifactId>
-                <version>${tika.version}</version>
-            </dependency>
-            <!-- TEST -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
+                <version>${tika.version}</version> 
             </dependency>
             <dependency>
                 <groupId>directory-naming</groupId>
@@ -172,8 +164,7 @@
                 <version>${jaxb.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <!--JDK
-            11 -->
+            <!--JDK 11 -->
             <dependency>
                 <groupId>javax.xml.ws</groupId>
                 <artifactId>jaxws-api</artifactId>
@@ -206,6 +197,7 @@
                 <artifactId>opensaml-saml-impl</artifactId>
                 <version>${opensaml.version}</version>
             </dependency>                                   
+                                                                                                                  
             <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
             <dependency>
                 <groupId>joda-time</groupId>
@@ -252,10 +244,9 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
-                    <excludePackageNames>
-                        it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
+                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
                 </configuration>
-            </plugin>
+            </plugin>            
         </plugins>
     </build>
     <reporting>
@@ -265,8 +256,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
-                    <excludePackageNames>
-                        it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
+                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>

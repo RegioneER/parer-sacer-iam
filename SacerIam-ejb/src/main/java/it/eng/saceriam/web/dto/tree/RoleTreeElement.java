@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.web.dto.tree;
@@ -61,104 +57,105 @@ public class RoleTreeElement implements Serializable {
      */
     private int selectedChildren;
     /**
-     * Flag che indica se la voce è stata selezionata. In questo caso la struttura identifica una dichiarazione di tipo
-     * ALL_ABILITAZIONI_CHILD se {@link RoleTreeElement#isLeaf()} = false, oppure una dichiarazione di tipo
-     * UNA_ABILITAZIONE se {@link RoleTreeElement#isLeaf()} = true
+     * Flag che indica se la voce è stata selezionata. In questo caso la struttura identifica una
+     * dichiarazione di tipo ALL_ABILITAZIONI_CHILD se {@link RoleTreeElement#isLeaf()} = false,
+     * oppure una dichiarazione di tipo UNA_ABILITAZIONE se {@link RoleTreeElement#isLeaf()} = true
      */
     private boolean selected = false;
 
     public RoleTreeElement(String type, String idElement, int numOrdine) {
-        this.type = type;
-        this.idElement = idElement;
-        this.numOrdine = numOrdine;
-        this.children = new HashMap<>();
-        this.selectedChildren = 0;
+	this.type = type;
+	this.idElement = idElement;
+	this.numOrdine = numOrdine;
+	this.children = new HashMap<>();
+	this.selectedChildren = 0;
     }
 
     public RoleTreeElement(String type, BigDecimal idDichAuthor, String idElement, int numOrdine) {
-        this.idDichAuthor = idDichAuthor;
-        this.type = type;
-        this.idElement = idElement;
-        this.numOrdine = numOrdine;
-        this.children = new HashMap<>();
-        this.selectedChildren = 0;
-        if (idDichAuthor != null) {
-            this.selected = true;
-        }
+	this.idDichAuthor = idDichAuthor;
+	this.type = type;
+	this.idElement = idElement;
+	this.numOrdine = numOrdine;
+	this.children = new HashMap<>();
+	this.selectedChildren = 0;
+	if (idDichAuthor != null) {
+	    this.selected = true;
+	}
     }
 
     public BigDecimal getIdDichAuthor() {
-        return idDichAuthor;
+	return idDichAuthor;
     }
 
     public void setIdDichAuthor(BigDecimal idDichAuthor) {
-        this.idDichAuthor = idDichAuthor;
+	this.idDichAuthor = idDichAuthor;
     }
 
     public String getType() {
-        return type;
+	return type;
     }
 
     public String getIdElement() {
-        return idElement;
+	return idElement;
     }
 
     public BigDecimal getRealIdElement() {
-        ConstPrfDichAutor.TiDichAutor type = ConstPrfDichAutor.TiDichAutor.valueOf(getType());
-        BigDecimal realId = new BigDecimal(StringUtils.removeStart(getIdElement(), type.getValue()));
-        return realId;
+	ConstPrfDichAutor.TiDichAutor type = ConstPrfDichAutor.TiDichAutor.valueOf(getType());
+	BigDecimal realId = new BigDecimal(
+		StringUtils.removeStart(getIdElement(), type.getValue()));
+	return realId;
     }
 
     public RoleTreeElement getChild(String idElement) {
-        return children.get(idElement);
+	return children.get(idElement);
     }
 
     public RoleTreeElement addChild(String idElement, RoleTreeElement element) {
-        return children.put(idElement, element);
+	return children.put(idElement, element);
     }
 
     public Set<Entry<String, RoleTreeElement>> getChildrenEntrySet() {
-        return children.entrySet();
+	return children.entrySet();
     }
 
     public int getChildrenNumber() {
-        return children.size();
+	return children.size();
     }
 
     public boolean isSelected() {
-        return selected;
+	return selected;
     }
 
     public void setSelected(boolean selected) {
-        this.selected = selected;
+	this.selected = selected;
     }
 
     public int getNumOrdine() {
-        return numOrdine;
+	return numOrdine;
     }
 
     public void setNumOrdine(int numOrdine) {
-        this.numOrdine = numOrdine;
+	this.numOrdine = numOrdine;
     }
 
     public void increaseSelectedChildren() {
-        if (this.selectedChildren < getChildrenNumber()) {
-            this.selectedChildren++;
-        }
+	if (this.selectedChildren < getChildrenNumber()) {
+	    this.selectedChildren++;
+	}
     }
 
     public void decreaseSelectedChildren() {
-        if (this.selectedChildren > 0) {
-            this.selectedChildren--;
-        }
+	if (this.selectedChildren > 0) {
+	    this.selectedChildren--;
+	}
     }
 
     public int getSelectedChildren() {
-        return selectedChildren;
+	return selectedChildren;
     }
 
     public void setSelectedChildren(int selectedChildren) {
-        this.selectedChildren = selectedChildren;
+	this.selectedChildren = selectedChildren;
     }
 
     /**
@@ -167,11 +164,11 @@ public class RoleTreeElement implements Serializable {
      * @return True se il nodo non ha figli
      */
     public boolean isLeaf() {
-        return children.isEmpty();
+	return children.isEmpty();
     }
 
     public boolean isAllAbilitazioniChild() {
-        return (children.size() == selectedChildren) && !isLeaf();
+	return (children.size() == selectedChildren) && !isLeaf();
     }
 
     /**
@@ -180,34 +177,35 @@ public class RoleTreeElement implements Serializable {
      * @return la lista di idDichAutor da eliminare
      */
     public List<BigDecimal> deselectAllChilds() {
-        List<BigDecimal> idDichAutorsToDelete = new ArrayList<>();
-        for (Map.Entry<String, RoleTreeElement> roleTreeElementEntry : children.entrySet()) {
-            RoleTreeElement roleTreeElement = roleTreeElementEntry.getValue();
-            roleTreeElement.setSelected(false);
-            decreaseSelectedChildren();
-            if (roleTreeElement.getIdDichAuthor() != null) {
-                idDichAutorsToDelete.add(roleTreeElement.getIdDichAuthor());
-            }
-        }
-        return idDichAutorsToDelete;
+	List<BigDecimal> idDichAutorsToDelete = new ArrayList<>();
+	for (Map.Entry<String, RoleTreeElement> roleTreeElementEntry : children.entrySet()) {
+	    RoleTreeElement roleTreeElement = roleTreeElementEntry.getValue();
+	    roleTreeElement.setSelected(false);
+	    decreaseSelectedChildren();
+	    if (roleTreeElement.getIdDichAuthor() != null) {
+		idDichAutorsToDelete.add(roleTreeElement.getIdDichAuthor());
+	    }
+	}
+	return idDichAutorsToDelete;
     }
 
-    public void selectChild(String idNode, List<String> nodesPath, BigDecimal idDichAutor) throws ParerUserError {
-        List<String> tmpList = new ArrayList<>(nodesPath);
-        if (getIdElement().equals(idNode) && tmpList.size() == 1) {
-            setIdDichAuthor(idDichAutor);
-        } else if (getIdElement().equals(tmpList.get(0))) {
-            // Rimuovo me stesso
-            tmpList.remove(0);
-            // Prendo il nodo figlio
-            RoleTreeElement child = getChild(tmpList.get(0));
-            if (child != null) {
-                child.selectChild(idNode, tmpList, idDichAutor);
-            } else {
-                throw new ParerUserError("Errore inatteso nella navigazione dell'albero");
-            }
-        } else {
-            throw new ParerUserError("Errore inatteso nella navigazione dell'albero");
-        }
+    public void selectChild(String idNode, List<String> nodesPath, BigDecimal idDichAutor)
+	    throws ParerUserError {
+	List<String> tmpList = new ArrayList<>(nodesPath);
+	if (getIdElement().equals(idNode) && tmpList.size() == 1) {
+	    setIdDichAuthor(idDichAutor);
+	} else if (getIdElement().equals(tmpList.get(0))) {
+	    // Rimuovo me stesso
+	    tmpList.remove(0);
+	    // Prendo il nodo figlio
+	    RoleTreeElement child = getChild(tmpList.get(0));
+	    if (child != null) {
+		child.selectChild(idNode, tmpList, idDichAutor);
+	    } else {
+		throw new ParerUserError("Errore inatteso nella navigazione dell'albero");
+	    }
+	} else {
+	    throw new ParerUserError("Errore inatteso nella navigazione dell'albero");
+	}
     }
 }

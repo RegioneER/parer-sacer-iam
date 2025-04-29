@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.job.scadenzaFatture.ejb;
@@ -48,7 +44,8 @@ import it.eng.saceriam.util.SacerLogConstants;
  */
 @Stateless(mappedName = "ScadenzaFattureEjb")
 @LocalBean
-@Interceptors({ it.eng.saceriam.aop.TransactionInterceptor.class })
+@Interceptors({
+	it.eng.saceriam.aop.TransactionInterceptor.class })
 public class ScadenzaFattureEjb {
 
     private static final Logger log = LoggerFactory.getLogger(ScadenzaFattureEjb.class);
@@ -67,39 +64,44 @@ public class ScadenzaFattureEjb {
     private SessionContext context;
 
     public void scadenzaFatture() {
-        log.info("Scadenza fatture - Recupero le fatture in stato EMESSA e in stato PAGATA_PARZIALMENTE");
-        String[] statiFattura = { ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.EMESSA.getDescrizione(),
-                ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.PAGATA_PARZIALMENTE.getDescrizione() };
-        List<String> statiFatturaList = Arrays.asList(statiFattura);
-        List<OrgFatturaEnte> fatturaEnteList = ecHelper.getOrgFatturaEnteByStatoList(statiFatturaList);
-        log.info("Scadenza fatture - Ottenute " + fatturaEnteList.size()
-                + " fatture in stato EMESSA o PAGATA_PARZIALMENTE da elaborare");
-        /*
-         * Codice aggiuntivo per il logging...
-         */
-        LogParam param = new LogParam();
-        param.setNomeApplicazione(paramHelper.getParamApplicApplicationName());
-        param.setNomeUtente("Job scadenza fatture");
-        param.setNomeTipoOggetto(SacerLogConstants.TIPO_OGGETTO_FATTURA);
-        param.setNomeComponenteSoftware("SCADENZA_FATTURE");
-        param.setNomeAzione("Controllo scadenza fatture");
+	log.info(
+		"Scadenza fatture - Recupero le fatture in stato EMESSA e in stato PAGATA_PARZIALMENTE");
+	String[] statiFattura = {
+		ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.EMESSA.getDescrizione(),
+		ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.PAGATA_PARZIALMENTE.getDescrizione() };
+	List<String> statiFatturaList = Arrays.asList(statiFattura);
+	List<OrgFatturaEnte> fatturaEnteList = ecHelper
+		.getOrgFatturaEnteByStatoList(statiFatturaList);
+	log.info("Scadenza fatture - Ottenute " + fatturaEnteList.size()
+		+ " fatture in stato EMESSA o PAGATA_PARZIALMENTE da elaborare");
+	/*
+	 * Codice aggiuntivo per il logging...
+	 */
+	LogParam param = new LogParam();
+	param.setNomeApplicazione(paramHelper.getParamApplicApplicationName());
+	param.setNomeUtente("Job scadenza fatture");
+	param.setNomeTipoOggetto(SacerLogConstants.TIPO_OGGETTO_FATTURA);
+	param.setNomeComponenteSoftware("SCADENZA_FATTURE");
+	param.setNomeAzione("Controllo scadenza fatture");
 
-        /* Per ogni fattura */
-        for (OrgFatturaEnte fatturaEnte : fatturaEnteList) {
-            if (fatturaEnte.getDtScadFattura() != null && fatturaEnte.getDtScadFattura().before(new Date())) {
-                // Pongo la fattura in stato INSOLUTA inserendo un nuovo record di stato
-                ecEjb.insertStatoFatturaEnte(fatturaEnte,
-                        ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.INSOLUTA.getDescrizione());
-                // Registro il log del cambio di stato della fattura
-                // sacerLogEjb.log(param.getTransactionLogContext(), paramHelper.getParamApplicApplicationName(),
-                // param.getNomeUtente(), param.getNomeAzione(), param.getNomeTipoOggetto(),
-                // BigDecimal.valueOf(fatturaEnte.getIdFatturaEnte()), param.getNomePagina());
-            }
-        }
+	/* Per ogni fattura */
+	for (OrgFatturaEnte fatturaEnte : fatturaEnteList) {
+	    if (fatturaEnte.getDtScadFattura() != null
+		    && fatturaEnte.getDtScadFattura().before(new Date())) {
+		// Pongo la fattura in stato INSOLUTA inserendo un nuovo record di stato
+		ecEjb.insertStatoFatturaEnte(fatturaEnte,
+			ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.INSOLUTA.getDescrizione());
+		// Registro il log del cambio di stato della fattura
+		// sacerLogEjb.log(param.getTransactionLogContext(),
+		// paramHelper.getParamApplicApplicationName(),
+		// param.getNomeUtente(), param.getNomeAzione(), param.getNomeTipoOggetto(),
+		// BigDecimal.valueOf(fatturaEnte.getIdFatturaEnte()), param.getNomePagina());
+	    }
+	}
 
-        /* Scrivo nel log del job l'esito finale */
-        jobLoggerEjb.writeAtomicLog(Constants.NomiJob.SCADENZA_FATTURE, Constants.TipiRegLogJob.FINE_SCHEDULAZIONE,
-                null);
+	/* Scrivo nel log del job l'esito finale */
+	jobLoggerEjb.writeAtomicLog(Constants.NomiJob.SCADENZA_FATTURE,
+		Constants.TipiRegLogJob.FINE_SCHEDULAZIONE, null);
     }
 
 }

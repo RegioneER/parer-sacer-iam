@@ -2,8 +2,12 @@
 <%@ include file="../../include.jsp"%>
 
 <sl:html>
-    <sl:head title="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DESCRIPTION%>" >
-    </sl:head>
+    <c:if test="${nascondiCodiceEnte == null}">
+        <sl:head title="Dettaglio referente dell'ente convenzionato" ></sl:head>
+    </c:if>
+    <c:if test="${nascondiCodiceEnte != null}">
+        <sl:head title="Dettaglio referente dell'ente non convenzionato" ></sl:head>
+    </c:if>
 
     <sl:body>
         <sl:header showChangeOrganizationBtn="false" />
@@ -11,7 +15,12 @@
         <sl:content multipartForm="true" >
             <slf:messageBox />
             <sl:newLine skipLine="true"/>
-            <sl:contentTitle title="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DESCRIPTION%>" />
+            <c:if test="${nascondiCodiceEnte == null}">
+                <sl:contentTitle title="Dettaglio referente dell'ente convenzionato" />
+            </c:if>
+            <c:if test="${nascondiCodiceEnte != null}">
+                <sl:contentTitle title="Dettaglio referente dell'ente non convenzionato" />
+            </c:if>
             <c:if test="${sessionScope['###_FORM_CONTAINER']['referentiEnteList'].table['empty']}">
                 <slf:fieldBarDetailTag name="<%= AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.NAME%>" hideBackButton="${sessionScope['###_FORM_CONTAINER']['referentiEnteList'].status eq 'insert'}"/>
             </c:if>   
@@ -23,10 +32,12 @@
             <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoSection.NAME%>" styleClass="importantContainer noborder w100">                
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.ID_ENTE_SIAM%>" colSpan="2" />
                 <sl:newLine />
+                <c:if test="${nascondiCodiceEnte == null}">
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.CD_ENTE_CONVENZ%>" colSpan="2" />
                 <sl:newLine />
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.TI_CD_ENTE_CONVENZ%>" colSpan="2"/>
                 <sl:newLine />
+                </c:if>
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.EnteConvenzionatoDetail.NM_ENTE_SIAM%>" colSpan="2"/>                
             </slf:section>
             <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteSection.NAME%>" styleClass="importantContainer noborder w100">

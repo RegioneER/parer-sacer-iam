@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -37,26 +33,26 @@ public class UsrVAbilEnteToAdd implements Serializable {
     private BigDecimal idDichAbilEnteConvenz;
 
     public UsrVAbilEnteToAdd() {
-        // document why this constructor is empty
+	// document why this constructor is empty
     }
 
     @Column(name = "ID_DICH_ABIL_ENTE_CONVENZ")
     public BigDecimal getIdDichAbilEnteConvenz() {
-        return this.idDichAbilEnteConvenz;
+	return this.idDichAbilEnteConvenz;
     }
 
     public void setIdDichAbilEnteConvenz(BigDecimal idDichAbilEnteConvenz) {
-        this.idDichAbilEnteConvenz = idDichAbilEnteConvenz;
+	this.idDichAbilEnteConvenz = idDichAbilEnteConvenz;
     }
 
     private UsrVAbilEnteToAddId usrVAbilEnteToAddId;
 
     @EmbeddedId()
     public UsrVAbilEnteToAddId getUsrVAbilEnteToAddId() {
-        return usrVAbilEnteToAddId;
+	return usrVAbilEnteToAddId;
     }
 
     public void setUsrVAbilEnteToAddId(UsrVAbilEnteToAddId usrVAbilEnteToAddId) {
-        this.usrVAbilEnteToAddId = usrVAbilEnteToAddId;
+	this.usrVAbilEnteToAddId = usrVAbilEnteToAddId;
     }
 }

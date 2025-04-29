@@ -370,6 +370,9 @@
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.FASCIA_DA_OCCUPAZIONE%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />                    
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.COLORE_FASCIA%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />                    
                 </slf:section>
+                <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.MediaAnnualeOccupazioneStorageNoDispSection.NAME%>" styleClass="importantContainer w100">
+                    <slf:field name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.OCCUPAZIONE_NO_DISP%>" colSpan="4" controlWidth="w100"/><sl:newLine />
+                </slf:section>
                 <slf:section name="<%=AmministrazioneEntiConvenzionatiForm.MediaAnnualeOccupazioneStorageGestoreSection.NAME%>" styleClass="importantContainer w100">
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.STORAGE_OCCUPATO_GESTORE%>" width="w70" labelWidth="w30" controlWidth="w40"/><sl:newLine />
                     <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.AccordoDetail.DATO_CALCOLATO_DAL_GESTORE%>" width="w70" labelWidth="w30" controlWidth="w40" />

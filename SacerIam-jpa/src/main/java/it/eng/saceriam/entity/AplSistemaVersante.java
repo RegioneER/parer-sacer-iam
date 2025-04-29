@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -86,181 +82,182 @@ public class AplSistemaVersante implements Serializable {
     @Id
     @Column(name = "ID_SISTEMA_VERSANTE")
     @GenericGenerator(name = "SAPL_SISTEMA_VERSANTE_ID_SISTEMA_VERSANTE_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SISTEMA_VERSANTE"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SISTEMA_VERSANTE"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_SISTEMA_VERSANTE_ID_SISTEMA_VERSANTE_GENERATOR")
     public Long getIdSistemaVersante() {
-        return this.idSistemaVersante;
+	return this.idSistemaVersante;
     }
 
     public void setIdSistemaVersante(Long idSistemaVersante) {
-        this.idSistemaVersante = idSistemaVersante;
+	this.idSistemaVersante = idSistemaVersante;
     }
 
     @Column(name = "CD_VERSIONE")
     public String getCdVersione() {
-        return this.cdVersione;
+	return this.cdVersione;
     }
 
     public void setCdVersione(String cdVersione) {
-        this.cdVersione = cdVersione;
+	this.cdVersione = cdVersione;
     }
 
     @Column(name = "DS_SISTEMA_VERSANTE")
     public String getDsSistemaVersante() {
-        return this.dsSistemaVersante;
+	return this.dsSistemaVersante;
     }
 
     public void setDsSistemaVersante(String dsSistemaVersante) {
-        this.dsSistemaVersante = dsSistemaVersante;
+	this.dsSistemaVersante = dsSistemaVersante;
     }
 
     @Column(name = "DS_EMAIL")
     public String getDsEmail() {
-        return this.dsEmail;
+	return this.dsEmail;
     }
 
     public void setDsEmail(String dsEmail) {
-        this.dsEmail = dsEmail;
+	this.dsEmail = dsEmail;
     }
 
     @Column(name = "FL_ASSOCIA_PERSONA_FISICA", columnDefinition = "char(1)")
     public String getFlAssociaPersonaFisica() {
-        return this.flAssociaPersonaFisica;
+	return this.flAssociaPersonaFisica;
     }
 
     public void setFlAssociaPersonaFisica(String flAssociaPersonaFisica) {
-        this.flAssociaPersonaFisica = flAssociaPersonaFisica;
+	this.flAssociaPersonaFisica = flAssociaPersonaFisica;
     }
 
     @Column(name = "FL_INTEGRAZIONE", columnDefinition = "char(1)")
     public String getFlIntegrazione() {
-        return this.flIntegrazione;
+	return this.flIntegrazione;
     }
 
     public void setFlIntegrazione(String flIntegrazione) {
-        this.flIntegrazione = flIntegrazione;
+	this.flIntegrazione = flIntegrazione;
     }
 
     @Column(name = "FL_PEC", columnDefinition = "char(1)")
     public String getFlPec() {
-        return this.flPec;
+	return this.flPec;
     }
 
     public void setFlPec(String flPec) {
-        this.flPec = flPec;
+	this.flPec = flPec;
     }
 
     @Column(name = "NM_SISTEMA_VERSANTE")
     public String getNmSistemaVersante() {
-        return this.nmSistemaVersante;
+	return this.nmSistemaVersante;
     }
 
     public void setNmSistemaVersante(String nmSistemaVersante) {
-        this.nmSistemaVersante = nmSistemaVersante;
+	this.nmSistemaVersante = nmSistemaVersante;
     }
 
     // bi-directional many-to-one association to OrgEnteSiam
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ENTE_SIAM")
     public OrgEnteSiam getOrgEnteSiam() {
-        return this.orgEnteSiam;
+	return this.orgEnteSiam;
     }
 
     public void setOrgEnteSiam(OrgEnteSiam orgEnteSiam) {
-        this.orgEnteSiam = orgEnteSiam;
+	this.orgEnteSiam = orgEnteSiam;
     }
 
     // bi-directional many-to-one association to AplSistemaVersArkRif
     @OneToMany(mappedBy = "aplSistemaVersante")
     public List<AplSistemaVersArkRif> getAplSistemaVersArkRifs() {
-        return this.aplSistemaVersArkRifs;
+	return this.aplSistemaVersArkRifs;
     }
 
     public void setAplSistemaVersArkRifs(List<AplSistemaVersArkRif> aplSistemaVersArkRifs) {
-        this.aplSistemaVersArkRifs = aplSistemaVersArkRifs;
+	this.aplSistemaVersArkRifs = aplSistemaVersArkRifs;
     }
 
     // bi-directional many-to-one association to OrgServizioErog
     @OneToMany(mappedBy = "aplSistemaVersante")
     public List<OrgServizioErog> getOrgServizioErogs() {
-        return this.orgServizioErogs;
+	return this.orgServizioErogs;
     }
 
     public void setOrgServizioErogs(List<OrgServizioErog> orgServizioErogs) {
-        this.orgServizioErogs = orgServizioErogs;
+	this.orgServizioErogs = orgServizioErogs;
     }
 
     public OrgServizioErog addOrgServizioErog(OrgServizioErog orgServizioErog) {
-        getOrgServizioErogs().add(orgServizioErog);
-        orgServizioErog.setAplSistemaVersante(this);
-        return orgServizioErog;
+	getOrgServizioErogs().add(orgServizioErog);
+	orgServizioErog.setAplSistemaVersante(this);
+	return orgServizioErog;
     }
 
     public OrgServizioErog removeOrgServizioErog(OrgServizioErog orgServizioErog) {
-        getOrgServizioErogs().remove(orgServizioErog);
-        orgServizioErog.setAplSistemaVersante(null);
-        return orgServizioErog;
+	getOrgServizioErogs().remove(orgServizioErog);
+	orgServizioErog.setAplSistemaVersante(null);
+	return orgServizioErog;
     }
 
     // bi-directional many-to-one association to AplSistemaVersanteUserRef
     @OneToMany(mappedBy = "aplSistemaVersante")
     public List<AplSistemaVersanteUserRef> getAplSistemaVersanteUserRefs() {
-        return this.aplSistemaVersanteUserRefs;
+	return this.aplSistemaVersanteUserRefs;
     }
 
-    public void setAplSistemaVersanteUserRefs(List<AplSistemaVersanteUserRef> aplSistemaVersanteUserRefs) {
-        this.aplSistemaVersanteUserRefs = aplSistemaVersanteUserRefs;
+    public void setAplSistemaVersanteUserRefs(
+	    List<AplSistemaVersanteUserRef> aplSistemaVersanteUserRefs) {
+	this.aplSistemaVersanteUserRefs = aplSistemaVersanteUserRefs;
     }
 
     // bi-directional many-to-one association to UsrUser
     @OneToMany(mappedBy = "aplSistemaVersante")
     public List<UsrUser> getUsrUsers() {
-        return this.usrUsers;
+	return this.usrUsers;
     }
 
     public void setUsrUsers(List<UsrUser> usrUsers) {
-        this.usrUsers = usrUsers;
+	this.usrUsers = usrUsers;
     }
 
     public UsrUser addUsrUser(UsrUser usrUser) {
-        getUsrUsers().add(usrUser);
-        usrUser.setAplSistemaVersante(this);
-        return usrUser;
+	getUsrUsers().add(usrUser);
+	usrUser.setAplSistemaVersante(this);
+	return usrUser;
     }
 
     public UsrUser removeUsrUser(UsrUser usrUser) {
-        getUsrUsers().remove(usrUser);
-        usrUser.setAplSistemaVersante(null);
-        return usrUser;
+	getUsrUsers().remove(usrUser);
+	usrUser.setAplSistemaVersante(null);
+	return usrUser;
     }
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_FINE_VAL")
     public Date getDtFineVal() {
-        return this.dtFineVal;
+	return this.dtFineVal;
     }
 
     public void setDtFineVal(Date dtFineVal) {
-        this.dtFineVal = dtFineVal;
+	this.dtFineVal = dtFineVal;
     }
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_INI_VAL")
     public Date getDtIniVal() {
-        return this.dtIniVal;
+	return this.dtIniVal;
     }
 
     public void setDtIniVal(Date dtIniVal) {
-        this.dtIniVal = dtIniVal;
+	this.dtIniVal = dtIniVal;
     }
 
     @Column(name = "DS_NOTE")
     public String getDsNote() {
-        return this.dsNote;
+	return this.dsNote;
     }
 
     public void setDsNote(String dsNote) {
-        this.dsNote = dsNote;
+	this.dsNote = dsNote;
     }
 }

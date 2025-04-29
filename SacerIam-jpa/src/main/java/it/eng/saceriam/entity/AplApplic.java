@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -94,239 +90,239 @@ public class AplApplic implements Serializable {
     @Id
     @Column(name = "ID_APPLIC")
     @GenericGenerator(name = "SAPL_APPLIC_ID_APPLIC_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_APPLIC"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_APPLIC"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_APPLIC_ID_APPLIC_GENERATOR")
     public Long getIdApplic() {
-        return this.idApplic;
+	return this.idApplic;
     }
 
     public void setIdApplic(Long idApplic) {
-        this.idApplic = idApplic;
+	this.idApplic = idApplic;
     }
 
     @Column(name = "CD_PSW_REPLICA_USER")
     public String getCdPswReplicaUser() {
-        return this.cdPswReplicaUser;
+	return this.cdPswReplicaUser;
     }
 
     public void setCdPswReplicaUser(String cdPswReplicaUser) {
-        this.cdPswReplicaUser = cdPswReplicaUser;
+	this.cdPswReplicaUser = cdPswReplicaUser;
     }
 
     @Column(name = "CD_VERSIONE_COMP")
     public String getCdVersioneComp() {
-        return cdVersioneComp;
+	return cdVersioneComp;
     }
 
     public void setCdVersioneComp(String cdVersioneComp) {
-        this.cdVersioneComp = cdVersioneComp;
+	this.cdVersioneComp = cdVersioneComp;
     }
 
     @Column(name = "DS_APPLIC")
     public String getDsApplic() {
-        return this.dsApplic;
+	return this.dsApplic;
     }
 
     public void setDsApplic(String dsApplic) {
-        this.dsApplic = dsApplic;
+	this.dsApplic = dsApplic;
     }
 
     @Column(name = "DS_URL_REPLICA_USER")
     public String getDsUrlReplicaUser() {
-        return this.dsUrlReplicaUser;
+	return this.dsUrlReplicaUser;
     }
 
     public void setDsUrlReplicaUser(String dsUrlReplicaUser) {
-        this.dsUrlReplicaUser = dsUrlReplicaUser;
+	this.dsUrlReplicaUser = dsUrlReplicaUser;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-        return this.nmApplic;
+	return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-        this.nmApplic = nmApplic;
+	this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_USER_REPLICA_USER")
     public String getNmUserReplicaUser() {
-        return this.nmUserReplicaUser;
+	return this.nmUserReplicaUser;
     }
 
     public void setNmUserReplicaUser(String nmUserReplicaUser) {
-        this.nmUserReplicaUser = nmUserReplicaUser;
+	this.nmUserReplicaUser = nmUserReplicaUser;
     }
 
     // bi-directional many-to-one association to AplClasseTipoDato
     @OneToMany(mappedBy = "aplApplic")
     public List<AplClasseTipoDato> getAplClasseTipoDatos() {
-        return this.aplClasseTipoDatos;
+	return this.aplClasseTipoDatos;
     }
 
     public void setAplClasseTipoDatos(List<AplClasseTipoDato> aplClasseTipoDatos) {
-        this.aplClasseTipoDatos = aplClasseTipoDatos;
+	this.aplClasseTipoDatos = aplClasseTipoDatos;
     }
 
     // bi-directional many-to-one association to AplCompSw
     @OneToMany(mappedBy = "aplApplic")
     public List<AplCompSw> getAplCompSws() {
-        return this.aplCompSws;
+	return this.aplCompSws;
     }
 
     public void setAplCompSws(List<AplCompSw> aplCompSws) {
-        this.aplCompSws = aplCompSws;
+	this.aplCompSws = aplCompSws;
     }
 
     // bi-directional many-to-one association to AplEntryMenu
     @OneToMany(mappedBy = "aplApplic")
     public List<AplEntryMenu> getAplEntryMenus() {
-        return this.aplEntryMenus;
+	return this.aplEntryMenus;
     }
 
     public void setAplEntryMenus(List<AplEntryMenu> aplEntryMenus) {
-        this.aplEntryMenus = aplEntryMenus;
+	this.aplEntryMenus = aplEntryMenus;
     }
 
     // bi-directional many-to-one association to AplHelpOnLine
     @OneToMany(mappedBy = "aplApplic")
     public List<AplHelpOnLine> getAplHelpOnLines() {
-        return this.aplHelpOnLines;
+	return this.aplHelpOnLines;
     }
 
     public void setAplHelpOnLines(List<AplHelpOnLine> aplHelpOnLines) {
-        this.aplHelpOnLines = aplHelpOnLines;
+	this.aplHelpOnLines = aplHelpOnLines;
     }
 
     // bi-directional many-to-one association to AplNewsApplic
     @OneToMany(mappedBy = "aplApplic")
     public List<AplNewsApplic> getAplNewsApplics() {
-        return this.aplNewsApplics;
+	return this.aplNewsApplics;
     }
 
     public void setAplNewsApplics(List<AplNewsApplic> aplNewsApplics) {
-        this.aplNewsApplics = aplNewsApplics;
+	this.aplNewsApplics = aplNewsApplics;
     }
 
     // bi-directional many-to-one association to AplPaginaWeb
     @OneToMany(mappedBy = "aplApplic")
     public List<AplPaginaWeb> getAplPaginaWebs() {
-        return this.aplPaginaWebs;
+	return this.aplPaginaWebs;
     }
 
     public void setAplPaginaWebs(List<AplPaginaWeb> aplPaginaWebs) {
-        this.aplPaginaWebs = aplPaginaWebs;
+	this.aplPaginaWebs = aplPaginaWebs;
     }
 
     // bi-directional many-to-one association to AplServizioWeb
     @OneToMany(mappedBy = "aplApplic")
     public List<AplServizioWeb> getAplServizioWebs() {
-        return this.aplServizioWebs;
+	return this.aplServizioWebs;
     }
 
     public void setAplServizioWebs(List<AplServizioWeb> aplServizioWebs) {
-        this.aplServizioWebs = aplServizioWebs;
+	this.aplServizioWebs = aplServizioWebs;
     }
 
     // bi-directional many-to-one association to AplTipoEvento
     @OneToMany(mappedBy = "aplApplic")
     public List<AplTipoEvento> getAplTipoEventos() {
-        return this.aplTipoEventos;
+	return this.aplTipoEventos;
     }
 
     public void setAplTipoEventos(List<AplTipoEvento> aplTipoEventos) {
-        this.aplTipoEventos = aplTipoEventos;
+	this.aplTipoEventos = aplTipoEventos;
     }
 
     // bi-directional many-to-one association to AplTipoOggetto
     @OneToMany(mappedBy = "aplApplic")
     public List<AplTipoOggetto> getAplTipoOggettos() {
-        return this.aplTipoOggettos;
+	return this.aplTipoOggettos;
     }
 
     public void setAplTipoOggettos(List<AplTipoOggetto> aplTipoOggettos) {
-        this.aplTipoOggettos = aplTipoOggettos;
+	this.aplTipoOggettos = aplTipoOggettos;
     }
 
     public AplTipoOggetto addAplTipoOggetto(AplTipoOggetto aplTipoOggetto) {
-        getAplTipoOggettos().add(aplTipoOggetto);
-        aplTipoOggetto.setAplApplic(this);
-        return aplTipoOggetto;
+	getAplTipoOggettos().add(aplTipoOggetto);
+	aplTipoOggetto.setAplApplic(this);
+	return aplTipoOggetto;
     }
 
     public AplTipoOggetto removeAplTipoOggetto(AplTipoOggetto aplTipoOggetto) {
-        getAplTipoOggettos().remove(aplTipoOggetto);
-        aplTipoOggetto.setAplApplic(null);
-        return aplTipoOggetto;
+	getAplTipoOggettos().remove(aplTipoOggetto);
+	aplTipoOggetto.setAplApplic(null);
+	return aplTipoOggetto;
     }
 
     // bi-directional many-to-one association to AplTipoOrganiz
     @OneToMany(mappedBy = "aplApplic")
     public List<AplTipoOrganiz> getAplTipoOrganizs() {
-        return this.aplTipoOrganizs;
+	return this.aplTipoOrganizs;
     }
 
     public void setAplTipoOrganizs(List<AplTipoOrganiz> aplTipoOrganizs) {
-        this.aplTipoOrganizs = aplTipoOrganizs;
+	this.aplTipoOrganizs = aplTipoOrganizs;
     }
 
     // bi-directional many-to-one association to LogUserDaReplic
     @OneToMany(mappedBy = "aplApplic")
     public List<LogUserDaReplic> getLogUserDaReplics() {
-        return this.logUserDaReplics;
+	return this.logUserDaReplics;
     }
 
     public void setLogUserDaReplics(List<LogUserDaReplic> logUserDaReplics) {
-        this.logUserDaReplics = logUserDaReplics;
+	this.logUserDaReplics = logUserDaReplics;
     }
 
     // bi-directional many-to-one association to PrfUsoRuoloApplic
     @OneToMany(mappedBy = "aplApplic")
     public List<PrfUsoRuoloApplic> getPrfUsoRuoloApplics() {
-        return this.prfUsoRuoloApplics;
+	return this.prfUsoRuoloApplics;
     }
 
     public void setPrfUsoRuoloApplics(List<PrfUsoRuoloApplic> prfUsoRuoloApplics) {
-        this.prfUsoRuoloApplics = prfUsoRuoloApplics;
+	this.prfUsoRuoloApplics = prfUsoRuoloApplics;
     }
 
     // bi-directional many-to-one association to UsrOrganizIam
     @OneToMany(mappedBy = "aplApplic")
     public List<UsrOrganizIam> getUsrOrganizIams() {
-        return this.usrOrganizIams;
+	return this.usrOrganizIams;
     }
 
     public void setUsrOrganizIams(List<UsrOrganizIam> usrOrganizIams) {
-        this.usrOrganizIams = usrOrganizIams;
+	this.usrOrganizIams = usrOrganizIams;
     }
 
     // bi-directional many-to-one association to UsrUsoUserApplic
     @OneToMany(mappedBy = "aplApplic")
     public List<UsrUsoUserApplic> getUsrUsoUserApplics() {
-        return this.usrUsoUserApplics;
+	return this.usrUsoUserApplics;
     }
 
     public void setUsrUsoUserApplics(List<UsrUsoUserApplic> usrUsoUserApplics) {
-        this.usrUsoUserApplics = usrUsoUserApplics;
+	this.usrUsoUserApplics = usrUsoUserApplics;
     }
 
     @OneToMany(mappedBy = "aplApplic")
     public List<SLLogLoginUser> getsLLogLoginUsers() {
-        return sLLogLoginUsers;
+	return sLLogLoginUsers;
     }
 
     public void setsLLogLoginUsers(List<SLLogLoginUser> sLLogLoginUsers) {
-        this.sLLogLoginUsers = sLLogLoginUsers;
+	this.sLLogLoginUsers = sLLogLoginUsers;
     }
 
     // bi-directional many-to-one association to AplNotaRilascio
     @OneToMany(mappedBy = "aplApplic")
     public List<AplNotaRilascio> getAplNotaRilascios() {
-        return this.aplNotaRilascios;
+	return this.aplNotaRilascios;
     }
 
     public void setAplNotaRilascios(List<AplNotaRilascio> aplNotaRilascios) {
-        this.aplNotaRilascios = aplNotaRilascios;
+	this.aplNotaRilascios = aplNotaRilascios;
     }
 }

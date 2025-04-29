@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.ws.restituzioneNewsApplicazione.ejb;
@@ -44,47 +40,51 @@ import org.slf4j.LoggerFactory;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class RestituzioneNewsApplicazioneEjb {
 
-    private static final Logger log = LoggerFactory.getLogger(RestituzioneNewsApplicazioneEjb.class);
+    private static final Logger log = LoggerFactory
+	    .getLogger(RestituzioneNewsApplicazioneEjb.class);
 
     @EJB
     private RestituzioneNewsApplicazioneHelper rnaHelper;
 
     public RestituzioneNewsApplicazioneRisposta restituzioneNewsApplicazione(String nmApplic) {
 
-        // Istanzio la risposta
-        RispostaWSRestituzioneNewsApplicazione rispostaWs = new RispostaWSRestituzioneNewsApplicazione();
-        rispostaWs.setRestituzioneNewsApplicazioneRisposta(new RestituzioneNewsApplicazioneRisposta());
-        // Imposto l'esito della risposta di default OK
-        rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdEsito(Constants.EsitoServizio.OK);
+	// Istanzio la risposta
+	RispostaWSRestituzioneNewsApplicazione rispostaWs = new RispostaWSRestituzioneNewsApplicazione();
+	rispostaWs.setRestituzioneNewsApplicazioneRisposta(
+		new RestituzioneNewsApplicazioneRisposta());
+	// Imposto l'esito della risposta di default OK
+	rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdEsito(Constants.EsitoServizio.OK);
 
-        // Istanzio l'Ext con l'oggetto creato e setto i parametri descrizione e quelli in input
-        RestituzioneNewsApplicazioneExt rnaExt = new RestituzioneNewsApplicazioneExt();
-        rnaExt.setDescrizione(new WSDescRestituzioneNewsApplicazione());
-        rnaExt.setNmApplic(nmApplic);
+	// Istanzio l'Ext con l'oggetto creato e setto i parametri descrizione e quelli in input
+	RestituzioneNewsApplicazioneExt rnaExt = new RestituzioneNewsApplicazioneExt();
+	rnaExt.setDescrizione(new WSDescRestituzioneNewsApplicazione());
+	rnaExt.setNmApplic(nmApplic);
 
-        // Chiamo la classe InserimentoOrganizzazioneCheck che gestisce i controlli di oggetto
-        RestituzioneNewsApplicazioneCheck checker = new RestituzioneNewsApplicazioneCheck(rnaExt, rispostaWs);
-        checker.check(nmApplic);
+	// Chiamo la classe InserimentoOrganizzazioneCheck che gestisce i controlli di oggetto
+	RestituzioneNewsApplicazioneCheck checker = new RestituzioneNewsApplicazioneCheck(rnaExt,
+		rispostaWs);
+	checker.check(nmApplic);
 
-        if (rispostaWs.getSeverity() != IRispostaWS.SeverityEnum.ERROR) {
-            ListaNews listaNews = null;
-            /* try { */
-            // Se i controlli sono andati a buon fine ricavo e restituisco le news
-            listaNews = rnaHelper.getListaNews(rnaExt.getIdApplic());
+	if (rispostaWs.getSeverity() != IRispostaWS.SeverityEnum.ERROR) {
+	    ListaNews listaNews = null;
+	    /* try { */
+	    // Se i controlli sono andati a buon fine ricavo e restituisco le news
+	    listaNews = rnaHelper.getListaNews(rnaExt.getIdApplic());
 
-            // Popola la risposta
-            rispostaWs.getRestituzioneNewsApplicazioneRisposta().setNmApplic(nmApplic);
-            rispostaWs.getRestituzioneNewsApplicazioneRisposta().setListaNews(listaNews);
-            /*
-             * } catch (EMFError e) {
-             * rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdEsito(Constants.EsitoServizio.KO);
-             * rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdErr(MessaggiWSBundle.ERR_666);
-             * rispostaWs.getRestituzioneNewsApplicazioneRisposta()
-             * .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666)); }
-             */
-        }
+	    // Popola la risposta
+	    rispostaWs.getRestituzioneNewsApplicazioneRisposta().setNmApplic(nmApplic);
+	    rispostaWs.getRestituzioneNewsApplicazioneRisposta().setListaNews(listaNews);
+	    /*
+	     * } catch (EMFError e) {
+	     * rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdEsito(Constants.
+	     * EsitoServizio.KO);
+	     * rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdErr(MessaggiWSBundle.
+	     * ERR_666); rispostaWs.getRestituzioneNewsApplicazioneRisposta()
+	     * .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666)); }
+	     */
+	}
 
-        // Ritorno la risposta
-        return rispostaWs.getRestituzioneNewsApplicazioneRisposta();
+	// Ritorno la risposta
+	return rispostaWs.getRestituzioneNewsApplicazioneRisposta();
     }
 }

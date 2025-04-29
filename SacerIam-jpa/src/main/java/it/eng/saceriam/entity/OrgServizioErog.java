@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -81,148 +77,148 @@ public class OrgServizioErog implements Serializable {
     @Id
     @Column(name = "ID_SERVIZIO_EROGATO")
     @GenericGenerator(name = "SORG_SERVIZIO_EROG_ID_SERVIZIO_EROGATO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_SERVIZIO_EROG"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_SERVIZIO_EROG"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_SERVIZIO_EROG_ID_SERVIZIO_EROGATO_GENERATOR")
     public Long getIdServizioErogato() {
-        return this.idServizioErogato;
+	return this.idServizioErogato;
     }
 
     public void setIdServizioErogato(Long idServizioErogato) {
-        this.idServizioErogato = idServizioErogato;
+	this.idServizioErogato = idServizioErogato;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_EROG")
     public Date getDtErog() {
-        return this.dtErog;
+	return this.dtErog;
     }
 
     public void setDtErog(Date dtErog) {
-        this.dtErog = dtErog;
+	this.dtErog = dtErog;
     }
 
     @Column(name = "FL_PAGAMENTO", columnDefinition = "char(1)")
     public String getFlPagamento() {
-        return this.flPagamento;
+	return this.flPagamento;
     }
 
     public void setFlPagamento(String flPagamento) {
-        this.flPagamento = flPagamento;
+	this.flPagamento = flPagamento;
     }
 
     @Column(name = "IM_VALORE_TARIFFA")
     public BigDecimal getImValoreTariffa() {
-        return this.imValoreTariffa;
+	return this.imValoreTariffa;
     }
 
     public void setImValoreTariffa(BigDecimal imValoreTariffa) {
-        this.imValoreTariffa = imValoreTariffa;
+	this.imValoreTariffa = imValoreTariffa;
     }
 
     @Column(name = "NM_SERVIZIO_EROGATO")
     public String getNmServizioErogato() {
-        return this.nmServizioErogato;
+	return this.nmServizioErogato;
     }
 
     public void setNmServizioErogato(String nmServizioErogato) {
-        this.nmServizioErogato = nmServizioErogato;
+	this.nmServizioErogato = nmServizioErogato;
     }
 
     @Column(name = "NT_SERVIZIO_EROG")
     public String getNtServizioErog() {
-        return this.ntServizioErog;
+	return this.ntServizioErog;
     }
 
     public void setNtServizioErog(String ntServizioErog) {
-        this.ntServizioErog = ntServizioErog;
+	this.ntServizioErog = ntServizioErog;
     }
 
     // bi-directional many-to-one association to AplSistemaVersante
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SISTEMA_VERSANTE")
     public AplSistemaVersante getAplSistemaVersante() {
-        return this.aplSistemaVersante;
+	return this.aplSistemaVersante;
     }
 
     public void setAplSistemaVersante(AplSistemaVersante aplSistemaVersante) {
-        this.aplSistemaVersante = aplSistemaVersante;
+	this.aplSistemaVersante = aplSistemaVersante;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ACCORDO_ENTE")
     public OrgAccordoEnte getOrgAccordoEnte() {
-        return this.orgAccordoEnte;
+	return this.orgAccordoEnte;
     }
 
     public void setOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-        this.orgAccordoEnte = orgAccordoEnte;
+	this.orgAccordoEnte = orgAccordoEnte;
     }
 
     // bi-directional many-to-one association to OrgTariffa
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TARIFFA")
     public OrgTariffa getOrgTariffa() {
-        return this.orgTariffa;
+	return this.orgTariffa;
     }
 
     public void setOrgTariffa(OrgTariffa orgTariffa) {
-        this.orgTariffa = orgTariffa;
+	this.orgTariffa = orgTariffa;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_SERVIZIO")
     public OrgTipoServizio getOrgTipoServizio() {
-        return this.orgTipoServizio;
+	return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(OrgTipoServizio orgTipoServizio) {
-        this.orgTipoServizio = orgTipoServizio;
+	this.orgTipoServizio = orgTipoServizio;
     }
 
     // bi-directional many-to-one association to OrgServizioFattura
     @OneToMany(mappedBy = "orgServizioErog")
     public List<OrgServizioFattura> getOrgServizioFatturas() {
-        return this.orgServizioFatturas;
+	return this.orgServizioFatturas;
     }
 
     public void setOrgServizioFatturas(List<OrgServizioFattura> orgServizioFatturas) {
-        this.orgServizioFatturas = orgServizioFatturas;
+	this.orgServizioFatturas = orgServizioFatturas;
     }
 
     public OrgServizioFattura addOrgServizioFattura(OrgServizioFattura orgServizioFattura) {
-        getOrgServizioFatturas().add(orgServizioFattura);
-        orgServizioFattura.setOrgServizioErog(this);
-        return orgServizioFattura;
+	getOrgServizioFatturas().add(orgServizioFattura);
+	orgServizioFattura.setOrgServizioErog(this);
+	return orgServizioFattura;
     }
 
     public OrgServizioFattura removeOrgServizioFattura(OrgServizioFattura orgServizioFattura) {
-        getOrgServizioFatturas().remove(orgServizioFattura);
-        orgServizioFattura.setOrgServizioErog(null);
-        return orgServizioFattura;
+	getOrgServizioFatturas().remove(orgServizioFattura);
+	orgServizioFattura.setOrgServizioErog(null);
+	return orgServizioFattura;
     }
 
     // bi-directional many-to-one association to OrgTariffaAccordo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TARIFFA_ACCORDO")
     public OrgTariffaAccordo getOrgTariffaAccordo() {
-        return this.orgTariffaAccordo;
+	return this.orgTariffaAccordo;
     }
 
     public void setOrgTariffaAccordo(OrgTariffaAccordo orgTariffaAccordo) {
-        this.orgTariffaAccordo = orgTariffaAccordo;
+	this.orgTariffaAccordo = orgTariffaAccordo;
     }
 
     // bi-directional many-to-one association to OrgTariffaAaAccordo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TARIFFA_AA_ACCORDO")
     public OrgTariffaAaAccordo getOrgTariffaAaAccordo() {
-        return this.orgTariffaAaAccordo;
+	return this.orgTariffaAaAccordo;
     }
 
     public void setOrgTariffaAaAccordo(OrgTariffaAaAccordo orgTariffaAaAccordo) {
-        this.orgTariffaAaAccordo = orgTariffaAaAccordo;
+	this.orgTariffaAaAccordo = orgTariffaAaAccordo;
     }
 }

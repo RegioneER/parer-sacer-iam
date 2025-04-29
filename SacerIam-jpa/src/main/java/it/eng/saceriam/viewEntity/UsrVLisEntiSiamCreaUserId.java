@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -32,50 +28,50 @@ public class UsrVLisEntiSiamCreaUserId implements Serializable {
 
     @Column(name = "ID_ENTE_SIAM")
     public BigDecimal getIdEnteSiam() {
-        return idEnteSiam;
+	return idEnteSiam;
     }
 
     public void setIdEnteSiam(BigDecimal idEnteSiam) {
-        this.idEnteSiam = idEnteSiam;
+	this.idEnteSiam = idEnteSiam;
     }
 
     private BigDecimal idUserIamCor;
 
     @Column(name = "ID_USER_IAM_COR")
     public BigDecimal getIdUserIamCor() {
-        return idUserIamCor;
+	return idUserIamCor;
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-        this.idUserIamCor = idUserIamCor;
+	this.idUserIamCor = idUserIamCor;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.idEnteSiam);
-        hash = 71 * hash + Objects.hashCode(this.idUserIamCor);
-        return hash;
+	int hash = 3;
+	hash = 71 * hash + Objects.hashCode(this.idEnteSiam);
+	hash = 71 * hash + Objects.hashCode(this.idUserIamCor);
+	return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final UsrVLisEntiSiamCreaUserId other = (UsrVLisEntiSiamCreaUserId) obj;
-        if (!Objects.equals(this.idEnteSiam, other.idEnteSiam)) {
-            return false;
-        }
-        if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
-            return false;
-        }
-        return true;
+	if (this == obj) {
+	    return true;
+	}
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	final UsrVLisEntiSiamCreaUserId other = (UsrVLisEntiSiamCreaUserId) obj;
+	if (!Objects.equals(this.idEnteSiam, other.idEnteSiam)) {
+	    return false;
+	}
+	if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
+	    return false;
+	}
+	return true;
     }
 }

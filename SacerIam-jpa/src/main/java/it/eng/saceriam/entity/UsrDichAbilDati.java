@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -73,131 +69,131 @@ public class UsrDichAbilDati implements Serializable {
     @Id
     @Column(name = "ID_DICH_ABIL_DATI")
     @GenericGenerator(name = "SUSR_DICH_ABIL_DATI_ID_DICH_ABIL_DATI_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_DICH_ABIL_DATI"),
-            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_DICH_ABIL_DATI"),
+	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_DICH_ABIL_DATI_ID_DICH_ABIL_DATI_GENERATOR")
     public Long getIdDichAbilDati() {
-        return this.idDichAbilDati;
+	return this.idDichAbilDati;
     }
 
     public void setIdDichAbilDati(Long idDichAbilDati) {
-        this.idDichAbilDati = idDichAbilDati;
+	this.idDichAbilDati = idDichAbilDati;
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-        return this.dsCausaleDich;
+	return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-        this.dsCausaleDich = dsCausaleDich;
+	this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "TI_SCOPO_DICH_ABIL_DATI")
     public String getTiScopoDichAbilDati() {
-        return this.tiScopoDichAbilDati;
+	return this.tiScopoDichAbilDati;
     }
 
     public void setTiScopoDichAbilDati(String tiScopoDichAbilDati) {
-        this.tiScopoDichAbilDati = tiScopoDichAbilDati;
+	this.tiScopoDichAbilDati = tiScopoDichAbilDati;
     }
 
     // bi-directional many-to-one association to UsrAbilDati
     @OneToMany(mappedBy = "usrDichAbilDati")
     public List<UsrAbilDati> getUsrAbilDatis() {
-        return this.usrAbilDatis;
+	return this.usrAbilDatis;
     }
 
     public void setUsrAbilDatis(List<UsrAbilDati> usrAbilDatis) {
-        this.usrAbilDatis = usrAbilDatis;
+	this.usrAbilDatis = usrAbilDatis;
     }
 
     public UsrAbilDati addUsrAbilDati(UsrAbilDati usrAbilDati) {
-        getUsrAbilDatis().add(usrAbilDati);
-        usrAbilDati.setUsrDichAbilDati(this);
-        return usrAbilDati;
+	getUsrAbilDatis().add(usrAbilDati);
+	usrAbilDati.setUsrDichAbilDati(this);
+	return usrAbilDati;
     }
 
     public UsrAbilDati removeUsrAbilDati(UsrAbilDati usrAbilDati) {
-        getUsrAbilDatis().remove(usrAbilDati);
-        usrAbilDati.setUsrDichAbilDati(null);
-        return usrAbilDati;
+	getUsrAbilDatis().remove(usrAbilDati);
+	usrAbilDati.setUsrDichAbilDati(null);
+	return usrAbilDati;
     }
 
     // bi-directional many-to-one association to AplClasseTipoDato
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_CLASSE_TIPO_DATO")
     public AplClasseTipoDato getAplClasseTipoDato() {
-        return this.aplClasseTipoDato;
+	return this.aplClasseTipoDato;
     }
 
     public void setAplClasseTipoDato(AplClasseTipoDato aplClasseTipoDato) {
-        this.aplClasseTipoDato = aplClasseTipoDato;
+	this.aplClasseTipoDato = aplClasseTipoDato;
     }
 
     // bi-directional many-to-one association to OrgAppartCollegEnti
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPART_COLLEG_ENTI")
     public OrgAppartCollegEnti getOrgAppartCollegEnti() {
-        return this.orgAppartCollegEnti;
+	return this.orgAppartCollegEnti;
     }
 
     public void setOrgAppartCollegEnti(OrgAppartCollegEnti orgAppartCollegEnti) {
-        this.orgAppartCollegEnti = orgAppartCollegEnti;
+	this.orgAppartCollegEnti = orgAppartCollegEnti;
     }
 
     // bi-directional many-to-one association to OrgSuptEsternoEnteConvenz
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SUPT_EST_ENTE_CONVENZ")
     public OrgSuptEsternoEnteConvenz getOrgSuptEsternoEnteConvenz() {
-        return this.orgSuptEsternoEnteConvenz;
+	return this.orgSuptEsternoEnteConvenz;
     }
 
     public void setOrgSuptEsternoEnteConvenz(OrgSuptEsternoEnteConvenz orgSuptEsternoEnteConvenz) {
-        this.orgSuptEsternoEnteConvenz = orgSuptEsternoEnteConvenz;
+	this.orgSuptEsternoEnteConvenz = orgSuptEsternoEnteConvenz;
     }
 
     // bi-directional many-to-one association to OrgVigilEnteProdut
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_VIGIL_ENTE_PRODUT")
     public OrgVigilEnteProdut getOrgVigilEnteProdut() {
-        return this.orgVigilEnteProdut;
+	return this.orgVigilEnteProdut;
     }
 
     public void setOrgVigilEnteProdut(OrgVigilEnteProdut orgVigilEnteProdut) {
-        this.orgVigilEnteProdut = orgVigilEnteProdut;
+	this.orgVigilEnteProdut = orgVigilEnteProdut;
     }
 
     // bi-directional many-to-one association to UsrOrganizIam
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ORGANIZ_IAM")
     public UsrOrganizIam getUsrOrganizIam() {
-        return this.usrOrganizIam;
+	return this.usrOrganizIam;
     }
 
     public void setUsrOrganizIam(UsrOrganizIam usrOrganizIam) {
-        this.usrOrganizIam = usrOrganizIam;
+	this.usrOrganizIam = usrOrganizIam;
     }
 
     // bi-directional many-to-one association to UsrTipoDatoIam
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_DATO_IAM")
     public UsrTipoDatoIam getUsrTipoDatoIam() {
-        return this.usrTipoDatoIam;
+	return this.usrTipoDatoIam;
     }
 
     public void setUsrTipoDatoIam(UsrTipoDatoIam usrTipoDatoIam) {
-        this.usrTipoDatoIam = usrTipoDatoIam;
+	this.usrTipoDatoIam = usrTipoDatoIam;
     }
 
     // bi-directional many-to-one association to UsrUsoUserApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USO_USER_APPLIC")
     public UsrUsoUserApplic getUsrUsoUserApplic() {
-        return this.usrUsoUserApplic;
+	return this.usrUsoUserApplic;
     }
 
     public void setUsrUsoUserApplic(UsrUsoUserApplic usrUsoUserApplic) {
-        this.usrUsoUserApplic = usrUsoUserApplic;
+	this.usrUsoUserApplic = usrUsoUserApplic;
     }
 }

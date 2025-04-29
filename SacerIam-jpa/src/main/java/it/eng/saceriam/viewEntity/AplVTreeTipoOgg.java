@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.viewEntity;
@@ -43,71 +39,71 @@ public class AplVTreeTipoOgg implements Serializable {
     private String nmTipoOggetto;
 
     public AplVTreeTipoOgg() {
-        // document why this constructor is empty
+	// document why this constructor is empty
     }
 
     @Column(name = "DL_COMPOSITO_TIPO_OGGETTO")
     public String getDlCompositoTipoOggetto() {
-        return this.dlCompositoTipoOggetto;
+	return this.dlCompositoTipoOggetto;
     }
 
     public void setDlCompositoTipoOggetto(String dlCompositoTipoOggetto) {
-        this.dlCompositoTipoOggetto = dlCompositoTipoOggetto;
+	this.dlCompositoTipoOggetto = dlCompositoTipoOggetto;
     }
 
     @Column(name = "DL_PATH_ID_TIPO_OGGETTO")
     public String getDlPathIdTipoOggetto() {
-        return this.dlPathIdTipoOggetto;
+	return this.dlPathIdTipoOggetto;
     }
 
     public void setDlPathIdTipoOggetto(String dlPathIdTipoOggetto) {
-        this.dlPathIdTipoOggetto = dlPathIdTipoOggetto;
+	this.dlPathIdTipoOggetto = dlPathIdTipoOggetto;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-        return this.idApplic;
+	return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-        this.idApplic = idApplic;
+	this.idApplic = idApplic;
     }
 
     @Id
     @Column(name = "ID_TIPO_OGGETTO")
     public BigDecimal getIdTipoOggetto() {
-        return this.idTipoOggetto;
+	return this.idTipoOggetto;
     }
 
     public void setIdTipoOggetto(BigDecimal idTipoOggetto) {
-        this.idTipoOggetto = idTipoOggetto;
+	this.idTipoOggetto = idTipoOggetto;
     }
 
     @Column(name = "ID_TIPO_OGGETTO_PADRE")
     public BigDecimal getIdTipoOggettoPadre() {
-        return this.idTipoOggettoPadre;
+	return this.idTipoOggettoPadre;
     }
 
     public void setIdTipoOggettoPadre(BigDecimal idTipoOggettoPadre) {
-        this.idTipoOggettoPadre = idTipoOggettoPadre;
+	this.idTipoOggettoPadre = idTipoOggettoPadre;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-        return this.nmApplic;
+	return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-        this.nmApplic = nmApplic;
+	this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_TIPO_OGGETTO")
     public String getNmTipoOggetto() {
-        return this.nmTipoOggetto;
+	return this.nmTipoOggetto;
     }
 
     public void setNmTipoOggetto(String nmTipoOggetto) {
-        this.nmTipoOggetto = nmTipoOggetto;
+	this.nmTipoOggetto = nmTipoOggetto;
     }
 
 }

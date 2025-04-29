@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.saceriam.entity;
@@ -56,66 +52,66 @@ public class OrgTariffaAccordo implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_TARIFFA_ACCORDO_IDTARIFFAACCORDO_GENERATOR")
     @Column(name = "ID_TARIFFA_ACCORDO")
     public long getIdTariffaAccordo() {
-        return this.idTariffaAccordo;
+	return this.idTariffaAccordo;
     }
 
     public void setIdTariffaAccordo(long idTariffaAccordo) {
-        this.idTariffaAccordo = idTariffaAccordo;
+	this.idTariffaAccordo = idTariffaAccordo;
     }
 
     @Column(name = "IM_TARIFFA_ACCORDO")
     public BigDecimal getImTariffaAccordo() {
-        return this.imTariffaAccordo;
+	return this.imTariffaAccordo;
     }
 
     public void setImTariffaAccordo(BigDecimal imTariffaAccordo) {
-        this.imTariffaAccordo = imTariffaAccordo;
+	this.imTariffaAccordo = imTariffaAccordo;
     }
 
     // bi-directional many-to-one association to OrgServizioErog
     @OneToMany(mappedBy = "orgTariffaAccordo")
     public List<OrgServizioErog> getOrgServizioErogs() {
-        return this.orgServizioErogs;
+	return this.orgServizioErogs;
     }
 
     public void setOrgServizioErogs(List<OrgServizioErog> orgServizioErogs) {
-        this.orgServizioErogs = orgServizioErogs;
+	this.orgServizioErogs = orgServizioErogs;
     }
 
     public OrgServizioErog addOrgServizioErog(OrgServizioErog orgServizioErog) {
-        getOrgServizioErogs().add(orgServizioErog);
-        orgServizioErog.setOrgTariffaAccordo(this);
+	getOrgServizioErogs().add(orgServizioErog);
+	orgServizioErog.setOrgTariffaAccordo(this);
 
-        return orgServizioErog;
+	return orgServizioErog;
     }
 
     public OrgServizioErog removeOrgServizioErog(OrgServizioErog orgServizioErog) {
-        getOrgServizioErogs().remove(orgServizioErog);
-        orgServizioErog.setOrgTariffaAccordo(null);
+	getOrgServizioErogs().remove(orgServizioErog);
+	orgServizioErog.setOrgTariffaAccordo(null);
 
-        return orgServizioErog;
+	return orgServizioErog;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ACCORDO_ENTE")
     public OrgAccordoEnte getOrgAccordoEnte() {
-        return this.orgAccordoEnte;
+	return this.orgAccordoEnte;
     }
 
     public void setOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-        this.orgAccordoEnte = orgAccordoEnte;
+	this.orgAccordoEnte = orgAccordoEnte;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_SERVIZIO")
     public OrgTipoServizio getOrgTipoServizio() {
-        return this.orgTipoServizio;
+	return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(OrgTipoServizio orgTipoServizio) {
-        this.orgTipoServizio = orgTipoServizio;
+	this.orgTipoServizio = orgTipoServizio;
     }
 
 }
