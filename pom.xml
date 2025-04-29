@@ -25,16 +25,16 @@
         <!-- tika -->
         <tika.version>2.9.2</tika.version>        
         <!-- jaxp-jdk11 -->
-        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>     
+        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>
     </properties>
 <distributionManagement>
         <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
-        </repository>      
+            <id>github</id>
+            <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
+        </repository>
     </distributionManagement>
 
-<repositories>
+    <repositories>
         <repository>
             <id>github</id>
             <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
@@ -105,13 +105,14 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
-            </dependency>			             
+            </dependency>
             <dependency>
                 <groupId>net.sourceforge.javacsv</groupId>
                 <artifactId>javacsv</artifactId>
                 <version>${javacsv.version}</version>
             </dependency>
-            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
+            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di
+            logging -->
             <dependency>
                 <groupId>it.eng.parer</groupId>
                 <artifactId>idp-jaas-rdbms</artifactId>
@@ -128,7 +129,7 @@
             <dependency>
                 <groupId>org.apache.tika</groupId>
                 <artifactId>tika-core</artifactId>
-                <version>${tika.version}</version> 
+                <version>${tika.version}</version>
             </dependency>
             <!-- TEST -->
             <dependency>
@@ -136,7 +137,7 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
-            </dependency>           
+            </dependency>
             <dependency>
                 <groupId>directory-naming</groupId>
                 <artifactId>naming-java</artifactId>
@@ -171,7 +172,8 @@
                 <version>${jaxb.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <!--JDK 11 -->
+            <!--JDK
+            11 -->
             <dependency>
                 <groupId>javax.xml.ws</groupId>
                 <artifactId>jaxws-api</artifactId>
@@ -204,7 +206,6 @@
                 <artifactId>opensaml-saml-impl</artifactId>
                 <version>${opensaml.version}</version>
             </dependency>                                   
-                                                                                                                  
             <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
             <dependency>
                 <groupId>joda-time</groupId>
@@ -251,9 +252,10 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
-                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
+                    <excludePackageNames>
+                        it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
     </build>
     <reporting>
@@ -263,7 +265,8 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
-                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
+                    <excludePackageNames>
+                        it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>

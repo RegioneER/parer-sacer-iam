@@ -5,7 +5,6 @@
         <groupId>it.eng.parer</groupId>
         <artifactId>saceriam-jboss</artifactId>
         <version>7.1.1-SNAPSHOT</version>
-
     </parent>
     <artifactId>saceriam-jboss-slg</artifactId>
     <name>SacerIam-slg</name>
