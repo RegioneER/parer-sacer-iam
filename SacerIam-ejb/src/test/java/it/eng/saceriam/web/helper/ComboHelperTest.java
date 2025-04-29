@@ -65,9 +65,6 @@ public class ComboHelperTest {
         assertTrue(true);
     }
 
-    /*
-     * @Test public void getFederationMetadata_queryIsOk() { helper.getFederationMetadata(); assertTrue(true); }
-     */
     @Test
     public void getAplApplicAbilitateUtenteList_3args_queryIsOk() {
         long idUserIamCorrente = aLong();

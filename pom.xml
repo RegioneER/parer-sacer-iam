@@ -2,21 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>saceriam-jboss</artifactId>
-    <version>6.4.1-SNAPSHOT</version>
+    <version>7.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>parer-pom</artifactId>
-        <version>6.5.0</version>
+        <version>7.0.0</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Skiptests by default : esecuzione su CI 
         <skipTests>true</skipTests>-->
         <!-- spagofat bom -->
-        <spagofat.version>6.16.0</spagofat.version>
+        <spagofat.version>7.0.0</spagofat.version>
         <idp-jaas-rdbms.version>0.0.9</idp-jaas-rdbms.version>
         <!-- third party libraries -->
         <naming-java.version>0.8</naming-java.version>
@@ -25,23 +25,21 @@
         <!-- tika -->
         <tika.version>2.9.2</tika.version>
         <!-- jaxp-jdk11 -->
-        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>     
+        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>
     </properties>
-    
-<distributionManagement>
-        <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
-        </repository>      
-    </distributionManagement>
-
-<repositories>
+    <distributionManagement>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
-        </repository>          
-     </repositories>
-    
+            <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>
+        </repository>
+    </repositories>
     <modules>
         <module>SacerIam-ear</module>
         <module>SacerIam-slg</module>
@@ -93,33 +91,34 @@
                 <artifactId>commons-logging</artifactId>
                 <version>${commons-logging.version}</version>
             </dependency>
- 			<dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
                 <version>${commons-text.version}</version>
-            </dependency>              
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>${commons-lang3.version}</version>
-			</dependency>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
-            </dependency>			             
+            </dependency>
             <dependency>
                 <groupId>net.sourceforge.javacsv</groupId>
                 <artifactId>javacsv</artifactId>
                 <version>${javacsv.version}</version>
             </dependency>
-            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di logging -->
+            <!-- Questo è il modulo di login dell'IDP, usato come libreria per le funzioni di
+            logging -->
             <dependency>
                 <groupId>it.eng.parer</groupId>
                 <artifactId>idp-jaas-rdbms</artifactId>
                 <version>${idp-jaas-rdbms.version}</version>
             </dependency>
-			<!-- Framework -->
+            <!-- Framework -->
             <dependency>
                 <groupId>it.eng.parer</groupId>
                 <artifactId>spagofat</artifactId>
@@ -130,62 +129,90 @@
             <dependency>
                 <groupId>org.apache.tika</groupId>
                 <artifactId>tika-core</artifactId>
-                <version>${tika.version}</version> 
+                <version>${tika.version}</version>
             </dependency>
-			<!-- TEST -->
+            <!-- TEST -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
-            </dependency>           
+            </dependency>
             <dependency>
                 <groupId>directory-naming</groupId>
                 <artifactId>naming-java</artifactId>
                 <version>${naming-java.version}</version>
             </dependency>
             <!-- XML -->
-			<dependency>
-				<groupId>org.apache.santuario</groupId>
-				<artifactId>xmlsec</artifactId>
-				<version>${xmlsec.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.jettison</groupId>
-				<artifactId>jettison</artifactId>
-				<version>${jettison.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>stax</groupId>
-						<artifactId>stax-api</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
+            <dependency>
+                <groupId>org.apache.santuario</groupId>
+                <artifactId>xmlsec</artifactId>
+                <version>${xmlsec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jettison</groupId>
+                <artifactId>jettison</artifactId>
+                <version>${jettison.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>stax</groupId>
+                        <artifactId>stax-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
             </dependency>
-             <!-- Provided by runtime (JB7) -->            
-			<dependency>
+            <!-- Provided by runtime (JB7) -->
+            <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
                 <version>${jaxb.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <!--JDK 11 -->
+            <!--JDK
+            11 -->
             <dependency>
                 <groupId>javax.xml.ws</groupId>
                 <artifactId>jaxws-api</artifactId>
                 <version>${jaxws-api.version}</version>
                 <scope>provided</scope>
             </dependency>
-             <dependency>
+            <dependency>
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
                 <version>${xml-apis.version}</version>
-                <scope>provided</scope>               
-            </dependency>	   		           
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.opensaml</groupId>
+                <artifactId>opensaml-core</artifactId>
+                <version>${opensaml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.opensaml</groupId>
+                <artifactId>opensaml-saml-api</artifactId>
+                <version>${opensaml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.opensaml</groupId>
+                <artifactId>opensaml-saml-impl</artifactId>
+                <version>${opensaml.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -211,13 +238,13 @@
                     </configuration>
                 </plugin>
                 <!-- OWASP -->
-				<plugin>
-					<groupId>org.owasp</groupId>
-					<artifactId>dependency-check-maven</artifactId>
-					<configuration>
-					    <suppressionFile>src/site/owasp/suppress.xml</suppressionFile>							   
-					</configuration>
-				</plugin> 
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <configuration>
+                        <suppressionFile>src/site/owasp/suppress.xml</suppressionFile>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -226,12 +253,12 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
-                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
+                    <excludePackageNames>
+                        it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
     </build>
-   
     <reporting>
         <plugins>
             <plugin>
@@ -239,14 +266,13 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- Esclusione dai javadoc delle classi generate da xmlbeans -->
-                    <excludePackageNames>it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
+                    <excludePackageNames>
+                        it.eng.saceriam.slite.gen.*:it.eng.saceriam.ws.client.allineaRuolo:it.eng.saceriam.ws</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>
     </reporting>
-    
-	
-<scm>
+    <scm>
         <developerConnection>scm:git:https://github.com/RegioneER/parer.sacer.iam.git</developerConnection>
         <tag>HEAD</tag>
     </scm>

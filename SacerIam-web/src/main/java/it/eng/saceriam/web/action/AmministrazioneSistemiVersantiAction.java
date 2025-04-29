@@ -305,8 +305,8 @@ public class AmministrazioneSistemiVersantiAction extends AmministrazioneSistemi
                         BigDecimal idSistemaVersante = getForm().getSistemaVersanteDetail().getId_sistema_versante()
                                 .parse();
                         sistemiVersantiEjb.updateSistemaVersante(idSistemaVersante, denominazione, descrizione,
-                                versione, idEnteSiam, dsEmail, flPec, flIntegrazione, flAssociaPersonaFisica, idUserIam,
-                                dtIniVal, dtFineVal, dsNote);
+                                versione, idEnteSiam, dsEmail, flPec, flIntegrazione, flAssociaPersonaFisica, dtIniVal,
+                                dtFineVal, dsNote);
                         getMessageBox().addInfo("Sistema versante modificato con successo!");
                     }
 

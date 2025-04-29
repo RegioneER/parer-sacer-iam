@@ -91,7 +91,7 @@ public class AllineaRuoloEjb {
     public AllineaRuoloRisposta allineaRuolo(LogParam param, AllineaRuoloInput input) {
         AllineaRuoloRisposta resp = new AllineaRuoloRisposta(input);
         try {
-            logger.debug("Aggiornamento del ruolo " + input.getNmRuolo());
+            logger.debug("Aggiornamento del ruolo {}", input.getNmRuolo());
             Long idRuolo = context.getBusinessObject(AllineaRuoloEjb.class).updateRuolo(param, input.getNmRuolo(),
                     input.getDsRuolo(), input.getTiRuolo(), input.getListaCategRuolo());
             logger.debug("Inizio allineamento delle applicazioni");

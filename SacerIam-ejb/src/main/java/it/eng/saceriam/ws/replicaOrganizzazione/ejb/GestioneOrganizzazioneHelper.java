@@ -154,7 +154,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
                 + "AND statoUser.tiStatoUser != 'CESSATO' ");
         Query query = entityManager.createQuery(queryStr.toString());
         query.setParameter("idOrganizIam", bigDecimalFrom(idOrganizIam));
-        Set<BigDecimal> set = new HashSet(query.getResultList());
+        Set<BigDecimal> set = new HashSet<>(query.getResultList());
         return set;
     }
 
@@ -175,7 +175,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
                 + "AND user.idStatoUserCor = statoUser.idStatoUser " + "AND statoUser.tiStatoUser != 'CESSATO' ";
         Query query = entityManager.createQuery(queryStr);
         query.setParameter("idOrganizIam", "%" + idOrganizIam);
-        Set<BigDecimal> set = new HashSet(query.getResultList());
+        Set<BigDecimal> set = new HashSet<>(query.getResultList());
         return set;
     }
 
@@ -221,7 +221,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
 
             // Inserisco i vari tipi dato gestiti dall'organizzazione
             ListaTipiDato listaTipiDato = parametriInput.getListaTipiDato();
-            List<UsrTipoDatoIam> usrTipoDatoIamList = new ArrayList();
+            List<UsrTipoDatoIam> usrTipoDatoIamList = new ArrayList<>();
             if (listaTipiDato.getTipoDato() != null) {
                 for (TipoDato tipoDato : listaTipiDato.getTipoDato()) {
                     UsrTipoDatoIam td = new UsrTipoDatoIam();
@@ -424,15 +424,14 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
                 for (UsrTipoDatoIam tipoDatoIam : listaTipiDatoIam) {
                     if (tipoDato.getIdTipoDatoApplic() == tipoDatoIam.getIdTipoDatoApplic().intValue() && tipoDato
                             .getNmClasseTipoDato().equals(tipoDatoIam.getAplClasseTipoDato().getNmClasseTipoDato())) {
-                        // && organiz.getIdOrganizIam()==tipoDatoIam.getUsrOrganizIam().getIdOrganizIam().longValue()) {
-                        // b. Aggiorno i tipi di dato presenti nella lista in input e presenti in IAM
+                        // b) Aggiorno i tipi di dato presenti nella lista in input e presenti in IAM
                         tipoDatoIam.setNmTipoDato(tipoDato.getNmTipoDato());
                         tipoDatoIam.setDsTipoDato(tipoDato.getDsTipoDato());
                         presente = true;
                         break;
                     }
                 }
-                // a. Inserisco i tipi di dato presenti nella lista in input e non presenti in IAM;
+                // a) Inserisco i tipi di dato presenti nella lista in input e non presenti in IAM;
                 if (!presente) {
                     UsrTipoDatoIam td = new UsrTipoDatoIam();
                     td.setUsrOrganizIam(organiz);
@@ -447,8 +446,8 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
                 }
             }
 
-            // c. eliminare i tipi di dato presenti in IAM e non presenti nella lista in input
-            Set<Long> tipiDatoDaEliminare = new HashSet();
+            // c) eliminare i tipi di dato presenti in IAM e non presenti nella lista in input
+            Set<Long> tipiDatoDaEliminare = new HashSet<>();
             for (UsrTipoDatoIam tipoDatoIam : listaTipiDatoIam) {
                 boolean trovato = false;
                 for (TipoDato tipoDato : listaTipiDatoInput) {
@@ -537,7 +536,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
         query.setParameter("idOrganizIam", bigDecimalFrom(idOrganizIam));
         List<BigDecimal> bl = query.getResultList();
         if (bl != null && !bl.isEmpty()) {
-            set = new HashSet(bl);
+            set = new HashSet<>(bl);
         } else {
             set = new HashSet<>();
         }

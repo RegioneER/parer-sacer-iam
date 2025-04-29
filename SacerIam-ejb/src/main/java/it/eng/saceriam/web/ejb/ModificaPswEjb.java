@@ -40,14 +40,11 @@ import it.eng.spagoCore.error.EMFError;
 @LocalBean
 public class ModificaPswEjb {
 
-    public ModificaPswEjb() {
-    }
-
     @EJB
     private UserHelper userHelper;
 
     public Set<BigDecimal> getIdApplicSet(Long idUserIam) throws EMFError {
-        Set<BigDecimal> idApplicSet = new HashSet();
+        Set<BigDecimal> idApplicSet = new HashSet<>();
         List<UsrUsoUserApplic> applicList = userHelper.getUsrUsoUserApplic(new BigDecimal(idUserIam));
         for (UsrUsoUserApplic applic : applicList) {
             idApplicSet.add(new BigDecimal(applic.getAplApplic().getIdApplic()));

@@ -15,40 +15,17 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package it.eng.saceriam.ws.dto;
+package it.eng.saceriam.web.servlet;
 
-import java.io.Serializable;
+import it.eng.spagoCore.ConfigServlet;
+import javax.servlet.annotation.WebServlet;
 
 /**
+ * Servlet di configurazione di SpagoLite che eredita dalla superclasse nel framework.
  *
- * @author Fioravanti_F
+ * Supporta i parametri di configurazione definiti dalle costanti sottostanti.
  */
-public interface IRispostaWS extends Serializable {
-
-    public enum SeverityEnum {
-
-        OK, WARNING, ERROR
-    }
-
-    public enum ErrorTypeEnum {
-
-        NOERROR, WS_DATA, WS_SIGNATURE, DB_FATAL
-    }
-
-    String getErrorCode();
-
-    String getErrorMessage();
-
-    ErrorTypeEnum getErrorType();
-
-    SeverityEnum getSeverity();
-
-    void setErrorCode(String errorCode);
-
-    void setErrorMessage(String errorMessage);
-
-    void setErrorType(ErrorTypeEnum errorType);
-
-    void setSeverity(SeverityEnum severity);
+@WebServlet(name = "ConfigServlet", loadOnStartup = 2)
+public class SaceriamConfigServlet extends ConfigServlet {
 
 }

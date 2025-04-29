@@ -100,7 +100,6 @@ public class SceltaOrganizzazioneAction extends ActionBase {
                 }
             }
             authenticator.recuperoAutorizzazioni(getSession());
-            // User utente = (User) super.getUser();
             // loggo, se necessario, l'avvenuto login nell'applicativo
             this.loginLogger(utente);
             // carico la "home" applicativa, senza selezione di alcuna struttura
@@ -134,8 +133,7 @@ public class SceltaOrganizzazioneAction extends ActionBase {
             // non è riferita da alcun link nell'interfaccia.
 
             String ipVers = getIpClient();
-            // logger.debug("Indirizzo da cui l'utente si connette: " + ipVers);
-            logger.info("Indirizzo IP del chiamante - access: web - IP: " + ipVers);
+            logger.info("Indirizzo IP del chiamante - access: web - IP: {}", ipVers);
             loginLogHelper.writeLogEvento(utente, ipVers, LoginLogHelper.TipiEvento.LOGIN);
             getSession().setAttribute(AuditSessionListener.CLIENT_IP_ADDRESS, ipVers);
         }

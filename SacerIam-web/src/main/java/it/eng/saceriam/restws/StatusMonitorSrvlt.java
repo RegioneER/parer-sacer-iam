@@ -100,7 +100,6 @@ public class StatusMonitorSrvlt extends HttpServlet {
                 null);
         //
         sessioneFinta.setIpChiamante(myReqPrsr.leggiIpVersante(request));
-        // log.info("Request, indirizzo IP di provenienza: " + sessioneFinta.getIpChiamante());
 
         try {
             if (request.getContentType() != null

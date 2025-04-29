@@ -94,13 +94,14 @@ public class ModificaOrganizzazioneEjb {
         wtm = new WsTransactionManager(utx);
 
         // 1° LOG DEBUG
-        log.debug("Modifica Organizzazione - Ricezione dei seguenti parametri da " + nmApplic
-                + " per modificare l'organizzazione " + nmOrganiz + ": " + "nmApplic = " + nmApplic + ", "
-                + "idOrganizApplic = " + idOrganizApplic + ", " + "nmTipoOrganiz = " + nmTipoOrganiz + ", "
-                + "idEnteConserv = " + idEnteConserv + ", " + "idEnteGestore = " + idEnteGestore + ", "
-                + "idOrganizApplicPadre =" + idOrganizApplicPadre + ", " + "nmTipoOrganizPadre = " + nmTipoOrganizPadre
-                + ", " + "nmOrganiz = " + nmOrganiz + ", " + "dsOrganiz = " + dsOrganiz + ", " + "idEnteConvenz = "
-                + idEnteConvenz + ", " + "dtIniVal = " + dtIniVal + ", " + "dtFineVal = " + dtFineVal);
+        log.debug(
+                "Modifica Organizzazione - Ricezione dei seguenti parametri da {} per "
+                        + "modificare l'organizzazione {} idOrganizApplic = {}, nmTipoOrganiz = {},"
+                        + " idEnteConserv = {}, idEnteGestore = {}, idOrganizApplicPadre = {}, "
+                        + "nmTipoOrganizPadre = {}, nmOrganiz = {}, dsOrganiz = {}, idEnteConvenz = {}"
+                        + ", dtIniVal = {}, dtFineVal = {}",
+                nmApplic, nmOrganiz, idOrganizApplic, nmTipoOrganiz, idEnteConserv, idEnteGestore, idOrganizApplicPadre,
+                nmTipoOrganizPadre, nmOrganiz, dsOrganiz, idEnteConvenz, dtIniVal, dtFineVal);
 
         formattaListaTipiDato(listaTipiDato);
 
@@ -113,7 +114,7 @@ public class ModificaOrganizzazioneEjb {
         // Istanzio l'oggetto che contiene i parametri ricevuti in input
         ModificaOrganizzazioneInput moInput = new ModificaOrganizzazioneInput(nmApplic, idOrganizApplic, nmTipoOrganiz,
                 idEnteConserv, idEnteGestore, nmOrganiz, dsOrganiz, idOrganizApplicPadre, nmTipoOrganizPadre,
-                idEnteConvenz, dtIniVal, dtFineVal, listaTipiDato);
+                listaTipiDato);
 
         // Istanzio l'Ext con l'oggetto creato e setto i parametri descrizione e quelli in input
         ModificaOrganizzazioneExt moExt = new ModificaOrganizzazioneExt();
@@ -146,7 +147,7 @@ public class ModificaOrganizzazioneEjb {
                 // 2° LOG DEBUG
                 log.debug("Modifica Organizzazione - Se ho modificato il padre dell'organizzazione (es. la struttura"
                         + "è ora associata ad un altro ente) ricavo la lista degli utenti da replicare. In questo "
-                        + "caso ho ricavato i seguenti utenti: " + usersToReply.toString());
+                        + "caso ho ricavato i seguenti utenti: {}", usersToReply.toString());
 
                 // Modifico l'organizzazione
                 int[] numTipiDatoInsEli = goh.updateOrganizIam(moExt, rispostaWs);
@@ -154,8 +155,9 @@ public class ModificaOrganizzazioneEjb {
                 int numTipiDatoEliminati = numTipiDatoInsEli[1];
 
                 // 3° LOG DEBUG
-                log.debug("Modifica Organizzazione - A seguito della chiamata al WS ho inserito " + numTipiDatoInseriti
-                        + " ed eliminato " + numTipiDatoEliminati + " tipi di dato");
+                log.debug(
+                        "Modifica Organizzazione - A seguito della chiamata al WS ho inserito {} ed eliminato {} tipi di dato",
+                        numTipiDatoInseriti, numTipiDatoEliminati);
 
                 // Se ho inserito/eliminato dei tipi dato
                 // aggiungo gli altri eventuali utenti da replicare
@@ -166,8 +168,8 @@ public class ModificaOrganizzazioneEjb {
                 // 4° LOG DEBUG
                 if (!usersToReply.isEmpty()) {
                     log.debug(
-                            "Modifica Organizzazione - Se ho inserito/eliminato tipi dato il totale degli utenti da replicare aggiornato è il seguente: "
-                                    + usersToReply.toString());
+                            "Modifica Organizzazione - Se ho inserito/eliminato tipi dato il totale degli utenti da replicare aggiornato è il seguente: {}",
+                            usersToReply.toString());
                 }
 
                 // Scrivo gli utenti da replicare nel log
@@ -175,15 +177,17 @@ public class ModificaOrganizzazioneEjb {
                     // 5° LOG DEBUG
                     log.debug("Modifica Organizzazione - Procedo ad elaborare l'utente " + idUserIam);
                     goh.registraUtenteDaReplicare(idUserIam, moExt.getIdApplic(), rispostaWs);
-                    log.debug("Modifica Organizzazione - Utente " + idUserIam
-                            + " inserito tra gli utenti da replicare in LOG_USER_DA_REPLIC");
-                    log.debug("Modifica Organizzazione - Utente " + idUserIam
-                            + " procedo con l'inserimento delle abilitazioni alle organizzazioni. Per l'utente sono state ricavate le seguenti abilitazioni da inserire: ");
+                    log.debug("Modifica Organizzazione - Utente {}",
+                            idUserIam + " inserito tra gli utenti da replicare in LOG_USER_DA_REPLIC");
+                    log.debug(
+                            "Modifica Organizzazione - Utente {} procedo con l'inserimento delle abilitazioni alle organizzazioni. Per l'utente sono state ricavate le seguenti abilitazioni da inserire: ",
+                            idUserIam);
                     // 6° LOG DEBUG
                     formattaOutputOrganiz(idUserIam.longValue(), moExt.getIdApplic());
                     uh.aggiungiAbilOrganizToAdd(idUserIam.longValue(), moExt.getIdApplic());
-                    log.debug("Modifica Organizzazione - Utente " + idUserIam
-                            + " procedo con l'inserimento delle abilitazioni ai dati. Per l'utente sono state ricavate le seguenti abilitazioni da inserire: ");
+                    log.debug(
+                            "Modifica Organizzazione - Utente {} procedo con l'inserimento delle abilitazioni ai dati. Per l'utente sono state ricavate le seguenti abilitazioni da inserire: ",
+                            idUserIam);
                     // 7° LOG DEBUG
                     formattaOutputDati(idUserIam.longValue(), moExt.getIdApplic());
                     uh.aggiungiAbilDatiToAdd(idUserIam.longValue(), moExt.getIdApplic(), null);
@@ -232,15 +236,16 @@ public class ModificaOrganizzazioneEjb {
                     if (!usersSacer.isEmpty()) {
                         // 8° LOG DEBUG
                         log.debug(
-                                "Modifica Organizzazione - Ho ricavato i seguenti utenti per abilitazioni agli organi di vigilanza in quanto ho inserito dei tipi dato: "
-                                        + usersSacer.toString());
+                                "Modifica Organizzazione - Ho ricavato i seguenti utenti per abilitazioni agli organi di vigilanza in quanto ho inserito dei tipi dato: {}",
+                                usersSacer);
                     }
                     for (BigDecimal idUserIam : usersSacer) {
                         // 9° LOG DEBUG
-                        log.debug("Modifica Organizzazione - Procedo ad elaborare l'utente " + idUserIam);
+                        log.debug("Modifica Organizzazione - Procedo ad elaborare l'utente {}", idUserIam);
                         goh.registraUtenteDaReplicare(idUserIam, moExt.getIdApplic(), rispostaWs);
-                        log.debug("Modifica Organizzazione - Utente " + idUserIam
-                                + " inserito tra gli utenti da replicare in LOG_USER_DA_REPLIC");
+                        log.debug(
+                                "Modifica Organizzazione - Utente {} inserito tra gli utenti da replicare in LOG_USER_DA_REPLIC",
+                                idUserIam);
                         List<UsrUser> user = uh.getUsrUserByNmUserid("admin_generale");
                         log.debug(
                                 "Modifica Organizzazione - Ho ricavato le seguenti abilitazioni agli organi di vigilanza da inserire: ");
@@ -270,8 +275,8 @@ public class ModificaOrganizzazioneEjb {
                     if (!usersSacer.isEmpty()) {
                         // 12° LOG DEBUG
                         log.debug(
-                                "Modifica Organizzazione - Ho ricavato i seguenti utenti DA_REPLICARE in quanto ho eliminato dei tipi dato: "
-                                        + usersSacer.toString());
+                                "Modifica Organizzazione - Ho ricavato i seguenti utenti DA_REPLICARE in quanto ho eliminato dei tipi dato: {}",
+                                usersSacer);
                     }
                     for (BigDecimal idUserIam : usersSacer) {
                         goh.registraUtenteDaReplicare(idUserIam, moExt.getIdApplic(), rispostaWs);
@@ -328,10 +333,9 @@ public class ModificaOrganizzazioneEjb {
         List<UsrVAbilOrganizToAdd> orgToAddList = uh.getAbilOrganizToAdd(idUserIam, idApplic);
         if (!orgToAddList.isEmpty()) {
             for (UsrVAbilOrganizToAdd orgToAdd : orgToAddList) {
-                log.debug("idDichAbilOrganiz = " + orgToAdd.getIdDichAbilOrganiz() + ", " + "idUsoUserApplic = "
-                        + orgToAdd.getIdUsoUserApplic() + ", " + "idOrganizIam = "
-                        + orgToAdd.getUsrVAbilOrganizToAddId().getIdOrganizIam() + ", " + "nmApplic = "
-                        + orgToAdd.getNmApplic() + " ");
+                log.debug("idDichAbilOrganiz = {}, idUsoUserApplic = {}, idOrganizIam = {}, nmApplic = {} ",
+                        orgToAdd.getIdDichAbilOrganiz(), orgToAdd.getIdUsoUserApplic(),
+                        orgToAdd.getUsrVAbilOrganizToAddId().getIdOrganizIam(), orgToAdd.getNmApplic());
             }
         } else {
             log.debug("Nessuna abilitazione alle organizzazioni da inserire");
@@ -342,11 +346,12 @@ public class ModificaOrganizzazioneEjb {
         List<UsrVAbilDatiToAdd> datiToAddList = uh.getAbilDatiToAdd(idUserIam, idApplic);
         if (!datiToAddList.isEmpty()) {
             for (UsrVAbilDatiToAdd datiToAdd : datiToAddList) {
-                log.debug("idDichAbilOrganiz = " + datiToAdd.getIdDichAbilDati() + ", " + "idUsoUserApplic = "
-                        + datiToAdd.getIdUsoUserApplic() + ", " + "idTipoDatoIam = "
-                        + datiToAdd.getUsrVAbilDatiToAddId().getIdTipoDatoIam() + ", " + "idSuptEstEnteConvenz = "
-                        + datiToAdd.getIdSuptEstEnteConvenz() + ", " + "idVigilEnteProdut = "
-                        + datiToAdd.getIdVigilEnteProdut() + ", " + "nmApplic = " + datiToAdd.getNmApplic() + " ");
+                log.debug(
+                        "idDichAbilOrganiz = {}, idUsoUserApplic = {}, idTipoDatoIam = {}, idSuptEstEnteConvenz = {}"
+                                + ", idVigilEnteProdut = {}, nmApplic = {} ",
+                        datiToAdd.getIdDichAbilDati(), datiToAdd.getIdUsoUserApplic(),
+                        datiToAdd.getUsrVAbilDatiToAddId().getIdTipoDatoIam(), datiToAdd.getIdSuptEstEnteConvenz(),
+                        datiToAdd.getIdVigilEnteProdut(), datiToAdd.getNmApplic());
             }
         } else {
             log.debug("Nessuna abilitazione ai dati da inserire");
@@ -357,8 +362,8 @@ public class ModificaOrganizzazioneEjb {
         log.debug("La lista dei tipi dato è invece la seguente: ");
         if (listaTipiDato != null && listaTipiDato.getTipoDato() != null && !listaTipiDato.getTipoDato().isEmpty()) {
             for (TipoDato tipoDato : listaTipiDato) {
-                log.debug("idTipoDatoApplic = " + tipoDato.getIdTipoDatoApplic() + ", " + "nmClasseTipoDato = "
-                        + tipoDato.getNmClasseTipoDato() + ", " + "nmTipoDato = " + tipoDato.getNmTipoDato());
+                log.debug("idTipoDatoApplic = {}, nmClasseTipoDato = {}, nmTipoDato = {}",
+                        tipoDato.getIdTipoDatoApplic(), tipoDato.getNmClasseTipoDato(), tipoDato.getNmTipoDato());
             }
         }
     }
@@ -367,11 +372,11 @@ public class ModificaOrganizzazioneEjb {
         List<UsrVAbilOrgVigilToAdd> orgVigilToAddList = uh.getAbilOrganizToVigil(idUserIamCor, idUserIamGestito);
         if (!orgVigilToAddList.isEmpty()) {
             for (UsrVAbilOrgVigilToAdd orgVigilToAdd : orgVigilToAddList) {
-                log.debug("idUsoUserApplicGestito = " + orgVigilToAdd.getIdUsoUserApplicGestito() + ", "
-                        + "idOrganizIamStrut = " + orgVigilToAdd.getUsrVAbilOrgVigilToAddId().getIdOrganizIamStrut()
-                        + ", " + "idSuptEstEnteConvenz = " + "flAbilAutomatica = 1, " + "idVigilEnteProdut = "
-                        + orgVigilToAdd.getIdVigilEnteProdut() + ", " + "dsCausaleDich = "
-                        + orgVigilToAdd.getDsCausaleDich() + " ");
+                log.debug("idUsoUserApplicGestito = {}, idOrganizIamStrut = {}"
+                        + ", idSuptEstEnteConvenz = flAbilAutomatica = 1, idVigilEnteProdut = {}, dsCausaleDich = {}",
+                        orgVigilToAdd.getIdUsoUserApplicGestito(),
+                        orgVigilToAdd.getUsrVAbilOrgVigilToAddId().getIdOrganizIamStrut(),
+                        orgVigilToAdd.getIdVigilEnteProdut(), orgVigilToAdd.getDsCausaleDich());
             }
         } else {
             log.debug("Nessuna abilitazione agli organi di vigilanza da inserire");
@@ -382,10 +387,11 @@ public class ModificaOrganizzazioneEjb {
         List<UsrVAbilDatiVigilToAdd> datiVigilToAddList = uh.getAbilDatiVigil(idUserIamCor, idUserIamGestito);
         if (!datiVigilToAddList.isEmpty()) {
             for (UsrVAbilDatiVigilToAdd datiVigilToAdd : datiVigilToAddList) {
-                log.debug("idUsoUserApplicGestito = " + datiVigilToAdd.getIdUsoUserApplicGestito() + ", "
-                        + "idTipoDatoIam = " + datiVigilToAdd.getUsrVAbilDatiVigilToAddId().getIdTipoDatoIam() + ", "
-                        + "flAbilAutomatica = 1, " + "idVigilEnteProdut = " + datiVigilToAdd.getIdVigilEnteProdut()
-                        + ", " + "dsCausaleDich = " + datiVigilToAdd.getDsCausaleDich() + " ");
+                log.debug(
+                        "idUsoUserApplicGestito = {}, idTipoDatoIam = {}, flAbilAutomatica = 1, idVigilEnteProdut = {}, dsCausaleDich = {}",
+                        datiVigilToAdd.getIdUsoUserApplicGestito(),
+                        datiVigilToAdd.getUsrVAbilDatiVigilToAddId().getIdTipoDatoIam(),
+                        datiVigilToAdd.getIdVigilEnteProdut(), datiVigilToAdd.getDsCausaleDich());
             }
         } else {
             log.debug("Nessuna abilitazione ai dati di vigilanza da inserire");

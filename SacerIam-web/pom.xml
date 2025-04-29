@@ -4,7 +4,7 @@
     <parent>
         <artifactId>saceriam-jboss</artifactId>
         <groupId>it.eng.parer</groupId>
-        <version>6.4.1-SNAPSHOT</version>
+        <version>7.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>saceriam-jboss-web</artifactId>
@@ -21,32 +21,21 @@
     </properties>
 
     <dependencies>
-       <!-- BOM per JBoss EAP 7.4 (jboss-eap-jakartaee8) dependencies -->
-        <!-- jboss-ejb-api_3.2_spec -->
+        
         <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-            <scope>provided</scope>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-jakartaee-8.0</artifactId>
+            <version>${jboss-jakartaee-8.0.version}</version>
+            <type>pom</type>
         </dependency>
-        <!-- jboss-servlet-api_4.0_spec -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_4.0_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- jboss-jaxws-api_2.3_spec -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.xml.ws</groupId>
-            <artifactId>jboss-jaxws-api_2.3_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
         <!-- org.dom4j/dom4j -->
         <dependency>
             <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <scope>provided</scope>
         </dependency>
-
+      
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-core</artifactId>
@@ -55,12 +44,12 @@
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-middle</artifactId>
-            <scope>provided</scope>
+            <scope>provided</scope> 
             <exclusions>
-            	<exclusion>
-            		<groupId>org.apache.logging.log4j</groupId>
-            		<artifactId>log4j-api</artifactId>
-            	</exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -72,7 +61,7 @@
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>saceriam-jboss-slg</artifactId>            
-            <scope>provided</scope>
+            <scope>provided</scope> 
         </dependency>
         <dependency>
             <groupId>it.eng.parer</groupId>
@@ -97,20 +86,19 @@
             <artifactId>spagofat-sl-web</artifactId>
             <classifier>classes</classifier>
         </dependency>
+        <!-- Inserito perché altrimenti non compilava la superclasse SpagoliteWebMvcConfiguration -->
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-sl-web</artifactId>
             <type>war</type>
-            <scope>runtime</scope>
-        </dependency>            
+        </dependency>
+   
         <dependency>
             <groupId>it.eng.parer</groupId>
             <artifactId>spagofat-timer-wrapper-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
-        
-          
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>            
@@ -122,12 +110,66 @@
             <scope>provided</scope> 
         </dependency>
               
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml-saml-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml-saml-impl</artifactId>
+            <scope>provided</scope>
+        </dependency>   
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+      
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <scope>provided</scope>
+        </dependency>
+                
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-saml2-service-provider</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>
             <resource>
-				<!-- il filtraggio riguarda solo questo file: verranno sostituite  -->
-				<!-- le proprietà del repo GIT fornite dal plugin git-commit-id-plugin  -->
+                <!-- il filtraggio riguarda solo questo file: verranno sostituite  -->
+                <!-- le proprietà del repo GIT fornite dal plugin git-commit-id-plugin  -->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
@@ -155,9 +197,9 @@
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-							<!-- il riferimento alla directory, posizionata sul progetto padre -->
+                            <!-- il riferimento alla directory, posizionata sul progetto padre -->
                             <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
-							<!-- -->
+                            <!-- -->
                             <failOnNoGitDirectory>false</failOnNoGitDirectory>
                             <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
                             <gitDescribe>
@@ -188,7 +230,7 @@
                             <groupId>it.eng.parer</groupId>
                             <artifactId>spagofat-sl-web</artifactId>
 
-							<!-- 
+                            <!-- 
                                 Escludo i .class perché sono già contenuti nell'artifact it.eng.parer/sacerlog-web con 
                                 il classifier "classes"
                             -->
@@ -203,8 +245,7 @@
             </plugin>     
         </plugins>
     </build>
-     
-              
+               
     <profiles>
         <profile>
             <id>dev</id>

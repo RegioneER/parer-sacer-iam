@@ -37,12 +37,8 @@ public class KeycloakRestUtil {
 
     private String urlKeycloak = null;
     private String accessToken = null;
-    private String refreshToken = null;
-    private String tokenType = null;
-    private String scope = null;
     private String clientId = null;
     private String clientSecret = null;
-    private int expiresIn;
     private int timeout;
 
     private static final Logger log = LoggerFactory.getLogger(KeycloakRestUtil.class);
@@ -75,10 +71,6 @@ public class KeycloakRestUtil {
             LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) response.getBody();
             if (map != null) {
                 accessToken = (String) map.get("access_token");
-                tokenType = (String) map.get("token_type");
-                refreshToken = (String) map.get("refresh_token");
-                expiresIn = (int) map.get("expires_in");
-                scope = (String) map.get("scope");
                 log.debug("Ottenuto token dall'URL {}", urlLocale);
                 ret = true;
             } else {

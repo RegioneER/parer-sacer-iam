@@ -22,7 +22,7 @@
  */
 package it.eng.saceriam.web.action;
 
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.HELP_ONLINE_MAX_FILE_SIZE;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.HELP_ONLINE_MAX_FILE_SIZE;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,7 +68,7 @@ import it.eng.saceriam.web.util.ComboGetter;
 import it.eng.saceriam.web.util.HelpZipProcessor;
 import it.eng.saceriam.web.util.WebConstants;
 import it.eng.saceriam.ws.rest.ejb.RecuperoHelpEjb;
-import it.eng.spagoCore.configuration.ConfigSingleton;
+import it.eng.spagoCore.ConfigSingleton;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.actions.form.ListAction;
 import it.eng.spagoLite.db.decodemap.DecodeMapIF;

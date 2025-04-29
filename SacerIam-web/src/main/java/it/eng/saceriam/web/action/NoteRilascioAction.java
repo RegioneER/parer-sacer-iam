@@ -222,9 +222,10 @@ public class NoteRilascioAction extends NoteRilascioAbstractAction {
         getForm().getListaNoteRilascio().setHideDeleteButton(false);
         setTableName(getForm().getListaNoteRilascio().getName());
         loadDettaglio();
+        forwardToPublisher(Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE);
     }
 
-    private void redirectToNoteRilascioPage() throws EMFError {
+    private void redirectToNoteRilascioPage() {
         NoteRilascioForm form = new NoteRilascioForm();
         form.getListaNoteRilascio()
                 .setFilterValidRecords(getForm().getNoteRilascioPrecedentiList().isFilterValidRecords());
@@ -235,14 +236,14 @@ public class NoteRilascioAction extends NoteRilascioAbstractAction {
     }
 
     private void redirectToPage(final String action, BaseForm form, String listToPopulate, BaseTableInterface<?> table,
-            String event) throws EMFError {
+            String event) {
         ((it.eng.spagoLite.form.list.List<SingleValueField<?>>) form.getComponent(listToPopulate)).setTable(table);
         redirectToAction(action, "?operation=listNavigationOnClick&navigationEvent=" + event + "&table="
                 + listToPopulate + "&riga=" + table.getCurrentRowIndex(), form);
     }
 
     @Secure(action = "Menu.Informazioni.InfoPrivacy")
-    public void infoPrivacyPage() throws EMFError {
+    public void infoPrivacyPage() {
         getUser().getMenu().reset();
         getUser().getMenu().select("Menu.Informazioni.InfoPrivacy");
 

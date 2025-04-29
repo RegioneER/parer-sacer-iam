@@ -173,6 +173,7 @@ public class AuthEjb {
     }
 
     public static final String DS_EVENTO_BAD_USER_ASSOCIATION = "Comunicazione di utente Parer non associato al codice fiscale dell'utente attualmente loggato.";
+    private static final String I_CAMPI_OBBLIGATORI_PER_LE_AZIONI_NON_SON = "I campi obbligatori per le azioni non sono stati definiti nel csv fornito";
 
     @EJB
     private UserHelper userHelper;
@@ -230,7 +231,7 @@ public class AuthEjb {
                                 "Il codice fiscale dell'utente PARER non coincide con quello dell'utente attualmente loggato");
                     }
                     // MEV#27568 - Inserimento controllo nella associazione utente SPID con anagrafica utenti
-                    if (!(cognome.trim().toUpperCase().equals(user.getNmCognomeUser().trim().toUpperCase())
+                    if (!(cognome.trim().equalsIgnoreCase(user.getNmCognomeUser().trim())
                             && nome.trim().toUpperCase().equals(user.getNmNomeUser().trim().toUpperCase()))) {
                         throw new ParerWarningException(
                                 "Il cognome e il nome dell'utente con cui è avvenuta l'autenticazione SPID non corrispondono a quelli associati all'utenza Parer.");
@@ -531,7 +532,8 @@ public class AuthEjb {
                     /////////////////
                     /* FILE PAGINE */
                     /////////////////
-                    List<PairAuth> csvPages = new ArrayList<>();
+                    List<PairAuth> csvPages;
+                    csvPages = new ArrayList<>();
                     while (csvReader.readRecord()) {
                         /* Ottengo i campi del record */
                         String nomeApplicazioneDaFile = csvReader.get(ActionEnums.WebPagesFields.APPLIC.name());
@@ -619,9 +621,8 @@ public class AuthEjb {
                                 }
                             } else {
                                 csvReader.close();
-                                log.error("I campi obbligatori per le azioni non sono stati definiti nel csv fornito");
-                                throw new EMFError(EMFError.ERROR,
-                                        "I campi obbligatori per le azioni non sono stati definiti nel csv fornito");
+                                log.error(I_CAMPI_OBBLIGATORI_PER_LE_AZIONI_NON_SON);
+                                throw new EMFError(EMFError.ERROR, I_CAMPI_OBBLIGATORI_PER_LE_AZIONI_NON_SON);
                             }
                         } else {
                             csvReader.close();
@@ -828,9 +829,8 @@ public class AuthEjb {
                                 }
                             } else {
                                 csvReader.close();
-                                log.error("I campi obbligatori per le azioni non sono stati definiti nel csv fornito");
-                                throw new EMFError(EMFError.ERROR,
-                                        "I campi obbligatori per le azioni non sono stati definiti nel csv fornito");
+                                log.error(I_CAMPI_OBBLIGATORI_PER_LE_AZIONI_NON_SON);
+                                throw new EMFError(EMFError.ERROR, I_CAMPI_OBBLIGATORI_PER_LE_AZIONI_NON_SON);
                             }
                         } else {
                             csvReader.close();
@@ -1291,17 +1291,17 @@ public class AuthEjb {
             List<AplEntryMenu> listAplEntryMenu = userHelper.getListAplEntryMenu(ruolo.getAplApplic().getNmApplic());
             counter = userHelper.insertAuthAllAbilitazioni(ruolo, listAplEntryMenu, null, null, null, counter, null);
         }
-        List<PrfDichAutor> padri;
+        List<PrfDichAutor> padri = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.ENTRY_MENU.name(),
+                ConstPrfDichAutor.TiScopoDichAutor.ALL_ABILITAZIONI_CHILD.name());
         /* Inserisco le autorizzazioni di tipo All_Abilitazioni_Child */
-        if (!(padri = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.ENTRY_MENU.name(),
-                ConstPrfDichAutor.TiScopoDichAutor.ALL_ABILITAZIONI_CHILD.name())).isEmpty()) {
+        if (!padri.isEmpty()) {
             counter = userHelper.insertAuthAllAbilitazioniChild(ruolo, padri,
                     ConstPrfDichAutor.TiDichAutor.ENTRY_MENU.name(), counter, null);
         }
-        List<PrfDichAutor> foglie;
+        List<PrfDichAutor> foglie = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.ENTRY_MENU.name(),
+                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name());
         /* Inserisco le autorizzazioni di tipo Una_Abilitazione */
-        if (!(foglie = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.ENTRY_MENU.name(),
-                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name())).isEmpty()) {
+        if (!foglie.isEmpty()) {
             userHelper.insertAuthUnaAbilitazione(ruolo, foglie, ConstPrfDichAutor.TiDichAutor.ENTRY_MENU.name(),
                     counter, null);
         }
@@ -1324,9 +1324,9 @@ public class AuthEjb {
             counter = userHelper.insertAuthAllAbilitazioni(ruolo, null, listAplPaginaWeb, null, null, counter, null);
         }
         /* Inserisco le autorizzazioni di tipo Una_Abilitazione */
-        List<PrfDichAutor> dichiarazioni;
-        if (!(dichiarazioni = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.PAGINA.name(),
-                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name())).isEmpty()) {
+        List<PrfDichAutor> dichiarazioni = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.PAGINA.name(),
+                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name());
+        if (!dichiarazioni.isEmpty()) {
             counter = userHelper.insertAuthUnaAbilitazione(ruolo, dichiarazioni,
                     ConstPrfDichAutor.TiDichAutor.PAGINA.name(), counter, null);
         }
@@ -1357,14 +1357,16 @@ public class AuthEjb {
                     counter, pages);
         }
         /* Inserisco le autorizzazioni di tipo All_Abilitazioni_Child */
-        if (!(dichiarazioni = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.AZIONE.name(),
-                ConstPrfDichAutor.TiScopoDichAutor.ALL_ABILITAZIONI_CHILD.name())).isEmpty()) {
+        dichiarazioni = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.AZIONE.name(),
+                ConstPrfDichAutor.TiScopoDichAutor.ALL_ABILITAZIONI_CHILD.name());
+        if (!dichiarazioni.isEmpty()) {
             counter = userHelper.insertAuthAllAbilitazioniChild(ruolo, dichiarazioni,
                     ConstPrfDichAutor.TiDichAutor.AZIONE.name(), counter, pages);
         }
+        dichiarazioni = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.AZIONE.name(),
+                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name());
         /* Inserisco le autorizzazioni di tipo Una_Abilitazione */
-        if (!(dichiarazioni = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.AZIONE.name(),
-                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name())).isEmpty()) {
+        if (!dichiarazioni.isEmpty()) {
             userHelper.insertAuthUnaAbilitazione(ruolo, dichiarazioni, ConstPrfDichAutor.TiDichAutor.AZIONE.name(),
                     counter, pages);
         }
@@ -1387,10 +1389,11 @@ public class AuthEjb {
                     .getListAplServizioWeb(ruolo.getAplApplic().getNmApplic());
             counter = userHelper.insertAuthAllAbilitazioni(ruolo, null, null, null, listAplServizioWeb, counter, null);
         }
-        List<PrfDichAutor> dichiarazioni;
+        List<PrfDichAutor> dichiarazioni = userHelper.getDichAutor(ruolo,
+                ConstPrfDichAutor.TiDichAutor.SERVIZIO_WEB.name(),
+                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name());
         /* Inserisco le autorizzazioni di tipo Una_Abilitazione */
-        if (!(dichiarazioni = userHelper.getDichAutor(ruolo, ConstPrfDichAutor.TiDichAutor.SERVIZIO_WEB.name(),
-                ConstPrfDichAutor.TiScopoDichAutor.UNA_ABILITAZIONE.name())).isEmpty()) {
+        if (!dichiarazioni.isEmpty()) {
             userHelper.insertAuthUnaAbilitazione(ruolo, dichiarazioni,
                     ConstPrfDichAutor.TiDichAutor.SERVIZIO_WEB.name(), counter, null);
         }
@@ -1762,10 +1765,10 @@ public class AuthEjb {
                     /*
                      * Registro in LOG_USER_DA_REPLIC per ogni applicazione che autorizza servizi web
                      */
-                    Iterator itera = idApplicSet.iterator();
+                    Iterator<BigDecimal> itera = idApplicSet.iterator();
                     while (itera.hasNext()) {
                         /* Recupero l'entity AplApplic interessata */
-                        BigDecimal idApplic = (BigDecimal) itera.next();
+                        BigDecimal idApplic = itera.next();
                         AplApplic applic = userHelper.getAplApplic(idApplic);
                         try {
                             userHelper.registraLogUserDaReplic(idRuolo, applic);
@@ -1824,10 +1827,10 @@ public class AuthEjb {
                     /*
                      * Registro in LOG_USER_DA_REPLIC per ogni applicazione che autorizza servizi web
                      */
-                    Iterator itera = idApplicSet.iterator();
+                    Iterator<BigDecimal> itera = idApplicSet.iterator();
                     while (itera.hasNext()) {
                         /* Recupero l'entity AplApplic interessata */
-                        BigDecimal idApplic = (BigDecimal) itera.next();
+                        BigDecimal idApplic = itera.next();
                         AplApplic applic = userHelper.getAplApplic(idApplic);
                         try {
                             userHelper.registraLogUserDaReplic(idRuolo, applic);
