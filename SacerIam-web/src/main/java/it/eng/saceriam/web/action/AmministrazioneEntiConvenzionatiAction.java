@@ -8668,14 +8668,18 @@ public class AmministrazioneEntiConvenzionatiAction extends AmministrazioneEntiC
                 // Creo il file temporaneo
                 temp = File.createTempFile("prefisso", "suffisso");
                 // Leggo dall'inputStream e "riepio" il file temporaneo tramite outputstream
-                OutputStream outStream = new FileOutputStream(temp);
-                byte[] buffer = new byte[8 * 1024];
-                int bytesRead;
-                while ((bytesRead = is.read(buffer)) != -1) {
-                    outStream.write(buffer, 0, bytesRead);
+                try (OutputStream outStream = new FileOutputStream(temp); InputStream inputStream = is) {
+                    byte[] buffer = new byte[8 * 1024];
+                    int bytesRead;
+                    while ((bytesRead = is.read(buffer)) != -1) {
+                        outStream.write(buffer, 0, bytesRead);
+                    }
+                } catch (IOException e) {
+                    logger.error("Errore durante la scrittura del file temporaneo", e);
+                    getMessageBox().addError("Errore durante il tentativo di download del file");
+                    forwardToPublisher(getLastPublisher());
+                    return;
                 }
-                IOUtils.closeQuietly(is);
-                IOUtils.closeQuietly(outStream);
 
                 if (response == null) {
                     // caso KO

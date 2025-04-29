@@ -7188,14 +7188,13 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 // Creo il file temporaneo
                 temp = File.createTempFile("prefisso", "suffisso");
                 // Leggo dall'inputStream e "riepio" il file temporaneo tramite outputstream
-                OutputStream outStream = new FileOutputStream(temp);
-                byte[] buffer = new byte[8 * 1024];
-                int bytesRead;
-                while ((bytesRead = is.read(buffer)) != -1) {
-                    outStream.write(buffer, 0, bytesRead);
+                try (OutputStream outStream = new FileOutputStream(temp)) {
+                    byte[] buffer = new byte[8 * 1024];
+                    int bytesRead;
+                    while ((bytesRead = is.read(buffer)) != -1) {
+                        outStream.write(buffer, 0, bytesRead);
+                    }
                 }
-                IOUtils.closeQuietly(is);
-                IOUtils.closeQuietly(outStream);
 
                 if (response == null) {
                     // caso KO
