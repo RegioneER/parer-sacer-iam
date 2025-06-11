@@ -180,7 +180,7 @@ import it.eng.spagoLite.security.Secure;
 public class AmministrazioneEntiConvenzionatiAction
 	extends AmministrazioneEntiConvenzionatiAbstractAction {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger actionLogger = LoggerFactory
 	    .getLogger(AmministrazioneEntiConvenzionatiAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
@@ -1382,7 +1382,7 @@ public class AmministrazioneEntiConvenzionatiAction
 	    getMessageBox().addError(e.getDescription());
 	    forwardToPublisher(getLastPublisher());
 	} catch (EMFError e) {
-	    logger.error("Errore nel ricaricamento della pagina " + publisherName, e);
+	    actionLogger.error("Errore nel ricaricamento della pagina " + publisherName, e);
 	    getMessageBox().addError("Errore nel ricaricamento della pagina " + publisherName);
 	    forwardToPublisher(getLastPublisher());
 	}
@@ -2430,7 +2430,7 @@ public class AmministrazioneEntiConvenzionatiAction
 	    getMessageBox().addError(ex.getDescription());
 	    forwardToPublisher(getLastPublisher());
 	} catch (Exception ex) {
-	    logger.error(
+	    actionLogger.error(
 		    "Errore imprevisto durante il salvataggio dell'ente convenzionato e dell'accordo : "
 			    + ExceptionUtils.getRootCauseMessage(ex),
 		    ex);
@@ -3077,7 +3077,7 @@ public class AmministrazioneEntiConvenzionatiAction
 
     private void loadCurrentDettaglioEnteConvenzFromList(String listName)
 	    throws EMFError, ParerUserError {
-	logger.info("Caricamento dettaglio ente convenz da ricerca enti");
+	actionLogger.info("Caricamento dettaglio ente convenz da ricerca enti");
 	// Salvo in sessione il "tipo" di lista dalla quale "proviene" l'ente, sarÃƒÆ’Ã‚Â 
 	// ListaEntiConvenzionati o
 	// EntiCessatiList
@@ -6752,7 +6752,7 @@ public class AmministrazioneEntiConvenzionatiAction
 	    result = true;
 
 	    try {
-		logger.info(getClass().getName() + " Inizio storicizzazione");
+		actionLogger.info(getClass().getName() + " Inizio storicizzazione");
 		BigDecimal idEnteConvez = getForm().getEnteConvenzionatoDetail().getId_ente_siam()
 			.parse();
 		StoEnteConvenzionatoBean stoCaBean = new StoEnteConvenzionatoBean(
@@ -6775,7 +6775,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		getMessageBox().addInfo("Ente storicizzato con successo!");
 		getMessageBox().setViewMode(ViewMode.plain);
 		loadDettaglioEnteConvenzionato(idEnteConvez);
-		logger.info(getClass().getName() + " Fine storicizzazione");
+		actionLogger.info(getClass().getName() + " Fine storicizzazione");
 		goBackTo(Application.Publisher.DETTAGLIO_ENTE_CONVENZIONATO);
 	    } catch (ParerUserError ex) {
 		result = false;
@@ -7336,7 +7336,7 @@ public class AmministrazioneEntiConvenzionatiAction
 
     @Override
     public void process() throws EMFError {
-	logger.debug(">>>PROCESS");
+	actionLogger.debug(">>>PROCESS");
 	boolean isMultipart = ServletFileUpload.isMultipartContent(getRequest());
 	if (isMultipart) {
 	    if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_REFERENTE_ENTE)) {
@@ -7365,7 +7365,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		} catch (FileUploadException | SecurityException | IllegalArgumentException
 			| NoSuchMethodException | IllegalAccessException
 			| InvocationTargetException ex) {
-		    logger.error("Errore nell'invocazione del metodo di navigazione  :"
+		    actionLogger.error("Errore nell'invocazione del metodo di navigazione  :"
 			    + ExceptionUtils.getRootCauseMessage(ex), ex);
 		    getMessageBox().addError("Errore nella navigazione ");
 		    goBack();
@@ -7397,7 +7397,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		} catch (FileUploadException | SecurityException | IllegalArgumentException
 			| NoSuchMethodException | IllegalAccessException
 			| InvocationTargetException ex) {
-		    logger.error("Errore nell'invocazione del metodo di navigazione  :"
+		    actionLogger.error("Errore nell'invocazione del metodo di navigazione  :"
 			    + ExceptionUtils.getRootCauseMessage(ex), ex);
 		    getMessageBox().addError("Errore nella navigazione ");
 		    goBack();
@@ -7429,7 +7429,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		} catch (FileUploadException | SecurityException | IllegalArgumentException
 			| NoSuchMethodException | IllegalAccessException
 			| InvocationTargetException ex) {
-		    logger.error("Errore nell'invocazione del metodo di navigazione :"
+		    actionLogger.error("Errore nell'invocazione del metodo di navigazione :"
 			    + ExceptionUtils.getRootCauseMessage(ex), ex);
 		    getMessageBox().addError("Errore nella navigazione ");
 		    goBack();
@@ -7461,7 +7461,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		} catch (FileUploadException | SecurityException | IllegalArgumentException
 			| NoSuchMethodException | IllegalAccessException
 			| InvocationTargetException ex) {
-		    logger.error("Errore nell'invocazione del metodo di navigazione  :"
+		    actionLogger.error("Errore nell'invocazione del metodo di navigazione  :"
 			    + ExceptionUtils.getRootCauseMessage(ex), ex);
 		    getMessageBox().addError("Errore nella navigazione ");
 		    goBack();
@@ -7567,7 +7567,7 @@ public class AmministrazioneEntiConvenzionatiAction
 			WebConstants.MIME_TYPE_GENERIC);
 	    }
 	} catch (Exception ex) {
-	    logger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
+	    actionLogger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
 	    getMessageBox().addError("Errore inatteso nella preparazione del download<br/>");
 	} finally {
 	    IOUtils.closeQuietly(out);
@@ -7608,7 +7608,7 @@ public class AmministrazioneEntiConvenzionatiAction
 			WebConstants.MIME_TYPE_GENERIC);
 	    }
 	} catch (Exception ex) {
-	    logger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
+	    actionLogger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
 	    getMessageBox().addError("Errore inatteso nella preparazione del download<br/>");
 	} finally {
 	    IOUtils.closeQuietly(out);
@@ -7650,7 +7650,7 @@ public class AmministrazioneEntiConvenzionatiAction
 			WebConstants.MIME_TYPE_GENERIC);
 	    }
 	} catch (Exception ex) {
-	    logger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
+	    actionLogger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
 	    getMessageBox().addError("Errore inatteso nella preparazione del download<br/>");
 	} finally {
 	    IOUtils.closeQuietly(out);
@@ -7665,7 +7665,7 @@ public class AmministrazioneEntiConvenzionatiAction
     }
 
     public void download() throws EMFError {
-	logger.debug(">>>DOWNLOAD");
+	actionLogger.debug(">>>DOWNLOAD");
 	String filename = (String) getSession()
 		.getAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_FILENAME.name());
 	String path = (String) getSession()
@@ -7701,7 +7701,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		    }
 		    outUD.flush();
 		} catch (IOException e) {
-		    logger.error("Eccezione nel recupero del documento ", e);
+		    actionLogger.error("Eccezione nel recupero del documento ", e);
 		    getMessageBox().addError("Eccezione nel recupero del documento");
 		} finally {
 		    IOUtils.closeQuietly(inputStream);
@@ -7730,7 +7730,7 @@ public class AmministrazioneEntiConvenzionatiAction
     }
 
     public void downloadFileModuloDaLista() throws EMFError {
-	logger.debug(">>>DOWNLOAD da Lista");
+	actionLogger.debug(">>>DOWNLOAD da Lista");
 	setTableName(getForm().getModuliInformazioniList().getName());
 	setRiga(getRequest().getParameter("riga"));
 	getForm().getModuliInformazioniList().getTable()
@@ -7742,7 +7742,7 @@ public class AmministrazioneEntiConvenzionatiAction
     }
 
     public void downloadFileReferenteDaLista() throws EMFError, Throwable {
-	logger.debug(">>>DOWNLOAD da Lista");
+	actionLogger.debug(">>>DOWNLOAD da Lista");
 	setTableName(getForm().getReferentiEnteList().getName());
 	setRiga(getRequest().getParameter("riga"));
 	getForm().getReferentiEnteList().getTable().setCurrentRowIndex(Integer.parseInt(getRiga()));
@@ -7760,7 +7760,7 @@ public class AmministrazioneEntiConvenzionatiAction
     }
 
     public void downloadFileGestAccDaLista() throws EMFError {
-	logger.debug(">>>DOWNLOAD da Lista");
+	actionLogger.debug(">>>DOWNLOAD da Lista");
 	setTableName(getForm().getGestioniAccordoList().getName());
 	setRiga(getRequest().getParameter("riga"));
 	getForm().getGestioniAccordoList().getTable()
@@ -8067,12 +8067,12 @@ public class AmministrazioneEntiConvenzionatiAction
 		eseguiSalvataggioModificaAmbiente(param, ambienteEnteConvenzRowBean,
 			parametriAmministrazione, parametriConservazione, parametriGestione);
 	    } catch (ParerUserError ex) {
-		logger.error("Errore nel salvataggio della modifica ambiente ente convenzionato",
-			ex);
+		actionLogger.error(
+			"Errore nel salvataggio della modifica ambiente ente convenzionato", ex);
 		getMessageBox().addError(
 			"Errore nel salvataggio della modifica ambiente ente convenzionato");
 	    } catch (EMFError ex) {
-		logger.error(ex.getMessage());
+		actionLogger.error(ex.getMessage());
 		getMessageBox().addError(ex.getDescription());
 	    }
 	}
@@ -8128,7 +8128,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		    getMessageBox().addInfo("Ente storicizzato modificato con successo!");
 		    getMessageBox().setViewMode(ViewMode.plain);
 		    loadDettaglioAnagrafica(idStoEnteConvenz);
-		    logger.info(getClass().getName() + " Fine storicizzazione");
+		    actionLogger.info(getClass().getName() + " Fine storicizzazione");
 		} catch (ParerUserError ex) {
 		    getMessageBox().addError(ex.getDescription());
 		}
@@ -9211,7 +9211,7 @@ public class AmministrazioneEntiConvenzionatiAction
 	// // Usa postMultipart invece di post per la gestione dei file
 	// getForm().getReferenteEnteDetail().postMultipart(getRequest(), 0);
 	// } catch (FileUploadException ex) {
-	// logger.error(
+	// actionLogger.error(
 	// "Errore nell'invocazione del metodo di navigazione :" +
 	// ExceptionUtils.getRootCauseMessage(ex),
 	// ex);
@@ -9794,7 +9794,7 @@ public class AmministrazioneEntiConvenzionatiAction
 			outStream.write(buffer, 0, bytesRead);
 		    }
 		} catch (IOException e) {
-		    logger.error("Errore durante la scrittura del file temporaneo", e);
+		    actionLogger.error("Errore durante la scrittura del file temporaneo", e);
 		    getMessageBox().addError("Errore durante il tentativo di download del file");
 		    forwardToPublisher(getLastPublisher());
 		    return;
@@ -10246,7 +10246,7 @@ public class AmministrazioneEntiConvenzionatiAction
 			WebConstants.MIME_TYPE_GENERIC);
 	    }
 	} catch (Exception ex) {
-	    logger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
+	    actionLogger.error("Errore in download " + ExceptionUtils.getRootCauseMessage(ex), ex);
 	    getMessageBox().addError("Errore inatteso nella preparazione del download<br/>");
 	} finally {
 	    IOUtils.closeQuietly(out);

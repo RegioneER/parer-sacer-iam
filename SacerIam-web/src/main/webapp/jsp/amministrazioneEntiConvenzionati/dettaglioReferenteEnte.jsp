@@ -54,8 +54,7 @@
                 <slf:lblField name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.DL_NOTE%>" colSpan="2"/>
             </slf:section>
 
-		<slf:section
-			name="<%=AmministrazioneEntiConvenzionatiForm.RiferimentiSection.NAME%>"
+		<slf:section name="<%=AmministrazioneEntiConvenzionatiForm.RiferimentiSection.NAME%>"
 			styleClass="importantContainer noborder w100">
 			<slf:lblField
 				name="<%=AmministrazioneEntiConvenzionatiForm.ReferenteEnteDetail.ID_ENTE_USER_RIF%>"

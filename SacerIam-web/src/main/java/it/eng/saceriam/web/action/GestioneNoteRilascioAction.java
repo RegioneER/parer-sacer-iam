@@ -57,7 +57,8 @@ import it.eng.spagoLite.security.Secure;
 	"unchecked" })
 public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractAction {
 
-    private static final Logger logger = LoggerFactory.getLogger(GestioneNoteRilascioAction.class);
+    private static final Logger actionLogger = LoggerFactory
+	    .getLogger(GestioneNoteRilascioAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/GestioneNoteRilascioEjb")
     private GestioneNoteRilascioEjb gestioneNoteRilascioEjb;
@@ -267,7 +268,7 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
 		getSession().removeAttribute("isFromNotaRilascioPrec");
 	    }
 	} catch (Exception e) {
-	    logger.error(e.getMessage(), e);
+	    actionLogger.error(e.getMessage(), e);
 	}
     }
 
@@ -429,7 +430,8 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
 		loadDettaglio();
 		getMessageBox().setViewMode(ViewMode.plain);
 	    } catch (IncoherenceException e) {
-		logger.error("Errore nel salvataggio della nota di rilascio: " + e.getMessage(), e);
+		actionLogger.error(
+			"Errore nel salvataggio della nota di rilascio: " + e.getMessage(), e);
 		getMessageBox().addError(e.getMessage());
 	    }
 	}
@@ -484,8 +486,8 @@ public class GestioneNoteRilascioAction extends GestioneNoteRilascioAbstractActi
 		    "Cancellazione nota di rilascio effettuata con successo"));
 	    getMessageBox().setViewMode(ViewMode.plain);
 	} catch (IncoherenceException ex) {
-	    logger.error("Errore nella cancellazione della nota di rilascio: " + ex.getMessage(),
-		    ex);
+	    actionLogger.error(
+		    "Errore nella cancellazione della nota di rilascio: " + ex.getMessage(), ex);
 	    getMessageBox().addError(ex.getMessage());
 	}
     }

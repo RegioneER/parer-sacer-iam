@@ -104,7 +104,7 @@ import it.eng.spagoLite.security.Secure;
 	"unchecked", "rawtypes" })
 public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServiziAbstractAction {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger actionLogger = LoggerFactory
 	    .getLogger(GestioneFatturazioneServiziAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
@@ -150,7 +150,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 		    else if (getTableName().equals(getForm().getListaFattureRiemesse().getName())
 			    || getTableName()
 				    .equals(getForm().getListaDetailFattureRiemesse().getName())) {
-			logger.info(
+			actionLogger.info(
 				"Caricamento dettaglio di una fattura PRECEDENTE, presa da una lista di fatture riemesse");
 
 			// Setto l'informazione in sessione che sto trattando la lista delle fatture
@@ -449,7 +449,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 	    getMessageBox().addError(e.getDescription());
 	    forwardToPublisher(getLastPublisher());
 	} catch (EMFError e) {
-	    logger.error("Errore nel ricaricamento della pagina " + publisherName, e);
+	    actionLogger.error("Errore nel ricaricamento della pagina " + publisherName, e);
 	    getMessageBox().addError("Errore nel ricaricamento della pagina " + publisherName);
 	    forwardToPublisher(getLastPublisher());
 	}
@@ -657,7 +657,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 
     private void loadCurrentDettaglioFatturaFromList(String listName)
 	    throws EMFError, ParerUserError {
-	logger.info("Caricamento dettaglio della fattura da ricerca fatture");
+	actionLogger.info("Caricamento dettaglio della fattura da ricerca fatture");
 	// Salvo in sessione il "tipo" di lista dalla quale "proviene" la fattura, sarà ListaFatture
 	// o
 	// ListaFattureRiemesse
@@ -2185,7 +2185,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
     }
 
     public void download() throws EMFError {
-	logger.debug(">>>DOWNLOAD");
+	actionLogger.debug(">>>DOWNLOAD");
 	String filename = (String) getSession()
 		.getAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_FILENAME.name());
 	String path = (String) getSession()
@@ -2220,7 +2220,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 		    }
 		    outUD.flush();
 		} catch (IOException e) {
-		    logger.error("Eccezione nel recupero del documento ", e);
+		    actionLogger.error("Eccezione nel recupero del documento ", e);
 		    getMessageBox().addError("Eccezione nel recupero del documento");
 		} finally {
 		    IOUtils.closeQuietly(inputStream);

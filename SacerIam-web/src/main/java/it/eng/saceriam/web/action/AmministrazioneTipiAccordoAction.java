@@ -58,7 +58,7 @@ import it.eng.spagoLite.security.Secure;
 	"unchecked" })
 public class AmministrazioneTipiAccordoAction extends AmministrazioneTipiAccordoAbstractAction {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger actionLogger = LoggerFactory
 	    .getLogger(AmministrazioneTipiAccordoAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
@@ -229,7 +229,7 @@ public class AmministrazioneTipiAccordoAction extends AmministrazioneTipiAccordo
 	    getMessageBox().addError(e.getDescription());
 	    forwardToPublisher(getLastPublisher());
 	} catch (EMFError e) {
-	    logger.error("Errore nel ricaricamento della pagina " + publisherName, e);
+	    actionLogger.error("Errore nel ricaricamento della pagina " + publisherName, e);
 	    getMessageBox().addError("Errore nel ricaricamento della pagina " + publisherName);
 	    forwardToPublisher(getLastPublisher());
 	}
