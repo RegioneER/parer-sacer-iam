@@ -68,7 +68,7 @@ import it.eng.spagoLite.security.Secure;
 	"unchecked", "rawtypes" })
 public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbstractAction {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger actionLogger = LoggerFactory
 	    .getLogger(AmministrazioneTariffariAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
@@ -273,7 +273,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
 	    getMessageBox().addError(e.getDescription());
 	    forwardToPublisher(getLastPublisher());
 	} catch (EMFError e) {
-	    logger.error("Errore nel ricaricamento della pagina " + publisherName, e);
+	    actionLogger.error("Errore nel ricaricamento della pagina " + publisherName, e);
 	    getMessageBox().addError("Errore nel ricaricamento della pagina " + publisherName);
 	    forwardToPublisher(getLastPublisher());
 	}
@@ -549,7 +549,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
 	    getForm().getListaTariffe().getTable().setPageSize(10);
 	    getForm().getListaTariffe().setUserOperations(true, true, true, true);
 	} catch (Exception e) {
-	    logger.error(e.getMessage(), e);
+	    actionLogger.error(e.getMessage(), e);
 	}
     }
 
@@ -601,7 +601,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
 	// Eseguo il salvataggio della tariffa
 	boolean result = true;
 	if (getForm().getTariffaDetail().postAndValidate(getRequest(), getMessageBox())) {
-	    logger.info(getClass().getName() + " Inizio salvataggio tariffa");
+	    actionLogger.info(getClass().getName() + " Inizio salvataggio tariffa");
 	    BigDecimal idTariffa = null;
 	    try {
 		OrgTariffaRowBean tariffaRowBean = new OrgTariffaRowBean();
@@ -641,7 +641,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
 		    getForm().getListaScaglioni().setStatus(Status.view);
 		    getForm().getTariffaDetail().setStatus(Status.view);
 		    getForm().getTariffaDetail().setViewMode();
-		    logger.info(getClass().getName() + " Fine salvataggio tariffa");
+		    actionLogger.info(getClass().getName() + " Fine salvataggio tariffa");
 		    forwardToPublisher(Application.Publisher.DETTAGLIO_TARIFFA);
 		    // No go back to perchè dopo aver inserito non ho ancora un dettaglio tariffa,
 		    // provenivo da
@@ -674,7 +674,7 @@ public class AmministrazioneTariffariAction extends AmministrazioneTariffariAbst
 		getForm().getListaScaglioni().getTable().first();
 	    } catch (ParerUserError ex) {
 		getMessageBox().addError("Errore durante il recupero degli scaglioni");
-		logger.error("Errore durante il recupero degli scaglioni");
+		actionLogger.error("Errore durante il recupero degli scaglioni");
 	    }
 	    setDettaglioTariffaToViewMode();
 	    forwardToPublisher(Application.Publisher.DETTAGLIO_TARIFFA);

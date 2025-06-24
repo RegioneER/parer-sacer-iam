@@ -416,7 +416,7 @@ public class GestioneOrganizzazioneHelper extends GenericHelper {
 		boolean presente = false;
 		for (UsrTipoDatoIam tipoDatoIam : listaTipiDatoIam) {
 		    if (tipoDato.getIdTipoDatoApplic() == tipoDatoIam.getIdTipoDatoApplic()
-			    .intValue()
+			    .longValue()
 			    && tipoDato.getNmClasseTipoDato().equals(
 				    tipoDatoIam.getAplClasseTipoDato().getNmClasseTipoDato())) {
 			// b) Aggiorno i tipi di dato presenti nella lista in input e presenti in

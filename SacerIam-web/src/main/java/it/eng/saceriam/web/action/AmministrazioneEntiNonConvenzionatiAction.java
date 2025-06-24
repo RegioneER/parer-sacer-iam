@@ -116,7 +116,7 @@ import it.eng.spagoLite.security.Secure;
 public class AmministrazioneEntiNonConvenzionatiAction
 	extends AmministrazioneEntiNonConvenzionatiAbstractAction {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger actionLogger = LoggerFactory
 	    .getLogger(AmministrazioneEntiNonConvenzionatiAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiNonConvenzionatiEjb")
@@ -514,7 +514,7 @@ public class AmministrazioneEntiNonConvenzionatiAction
 	    getMessageBox().addError(e.getDescription());
 	    forwardToPublisher(getLastPublisher());
 	} catch (EMFError e) {
-	    logger.error("Errore nel ricaricamento della pagina " + publisherName, e);
+	    actionLogger.error("Errore nel ricaricamento della pagina " + publisherName, e);
 	    getMessageBox().addError("Errore nel ricaricamento della pagina " + publisherName);
 	    forwardToPublisher(getLastPublisher());
 	}
@@ -869,7 +869,7 @@ public class AmministrazioneEntiNonConvenzionatiAction
 
     private void loadCurrentDettaglioEnteNonConvenzFromList(String listName)
 	    throws EMFError, ParerUserError {
-	logger.info("Caricamento dettaglio ente non convenz da ricerca enti");
+	actionLogger.info("Caricamento dettaglio ente non convenz da ricerca enti");
 	// Salvo in sessione il "tipo" di lista dalla quale "proviene" l'ente, sarà
 	// ListaEntiNonConvenzionati
 	getSession().setAttribute("navTableEntiNonConvenz", listName);
@@ -1790,7 +1790,7 @@ public class AmministrazioneEntiNonConvenzionatiAction
 			outStream.write(buffer, 0, bytesRead);
 		    }
 		} catch (IOException e) {
-		    logger.error("Errore durante il salvataggio del file temporaneo", e);
+		    actionLogger.error("Errore durante il salvataggio del file temporaneo", e);
 		    getMessageBox().addError("Errore durante il tentativo di download del file");
 		}
 
@@ -1893,7 +1893,7 @@ public class AmministrazioneEntiNonConvenzionatiAction
     }
 
     public void download() throws EMFError {
-	logger.debug(">>>DOWNLOAD");
+	actionLogger.debug(">>>DOWNLOAD");
 	String filename = (String) getSession()
 		.getAttribute(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_FILENAME.name());
 	String path = (String) getSession()
@@ -1929,7 +1929,7 @@ public class AmministrazioneEntiNonConvenzionatiAction
 		    }
 		    outUD.flush();
 		} catch (IOException e) {
-		    logger.error("Eccezione nel recupero del documento ", e);
+		    actionLogger.error("Eccezione nel recupero del documento ", e);
 		    getMessageBox().addError("Eccezione nel recupero del documento");
 		} finally {
 		    IOUtils.closeQuietly(inputStream);
@@ -2455,7 +2455,7 @@ public class AmministrazioneEntiNonConvenzionatiAction
 		getForm().getAccordoVigilDetail().getNm_strut().setValue(null);
 	    }
 	} catch (ParerUserError ex) {
-	    logger.error(
+	    actionLogger.error(
 		    "Errore durante il recupero dei parametri NM_ENTE_UNITA_DOC_ACCORDO ed NM_STRUT_UNITA_DOC_ACCORDO "
 			    + ExceptionUtils.getRootCauseMessage(ex),
 		    ex);
