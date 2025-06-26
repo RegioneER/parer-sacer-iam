@@ -49,7 +49,7 @@ import it.eng.spagoLite.security.Secure;
 	"unchecked" })
 public class NoteRilascioAction extends NoteRilascioAbstractAction {
 
-    private static final Logger logger = LoggerFactory.getLogger(NoteRilascioAction.class);
+    private static final Logger actionLogger = LoggerFactory.getLogger(NoteRilascioAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/NoteRilascioEjb")
     private NoteRilascioEjb noteRilascioEjb;
@@ -188,7 +188,7 @@ public class NoteRilascioAction extends NoteRilascioAbstractAction {
 		getSession().removeAttribute("isFromNotaRilascioPrec");
 	    }
 	} catch (Exception e) {
-	    logger.error(e.getMessage(), e);
+	    actionLogger.error(e.getMessage(), e);
 	}
     }
 

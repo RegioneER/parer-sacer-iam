@@ -57,7 +57,7 @@ import it.eng.spagoLite.security.Secure;
 	"unchecked", "rawtypes" })
 public class GestioneNewsAction extends GestioneNewsAbstractAction {
 
-    private static final Logger logger = LoggerFactory.getLogger(GestioneNewsAction.class);
+    private static final Logger actionLogger = LoggerFactory.getLogger(GestioneNewsAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/GestioneNewsEjb")
     private GestioneNewsEjb gestioneNewsEjb;
@@ -233,7 +233,7 @@ public class GestioneNewsAction extends GestioneNewsAbstractAction {
 	    // ritorno alla pagina
 	    getForm().getListaNews().getTable().setCurrentRowIndex(inizio);
 	} catch (Exception e) {
-	    logger.error(e.getMessage(), e);
+	    actionLogger.error(e.getMessage(), e);
 	}
     }
 
@@ -408,7 +408,7 @@ public class GestioneNewsAction extends GestioneNewsAbstractAction {
 		getMessageBox().setViewMode(ViewMode.plain);
 		forwardToPublisher(Application.Publisher.DETTAGLIO_NEWS);
 	    } catch (IncoherenceException e) {
-		logger.error("Errore nel salvataggio della news: " + e.getMessage(), e);
+		actionLogger.error("Errore nel salvataggio della news: " + e.getMessage(), e);
 		getMessageBox().addError(e.getMessage());
 	    }
 	}
@@ -443,7 +443,7 @@ public class GestioneNewsAction extends GestioneNewsAbstractAction {
 		    new Message(MessageLevel.INF, "Cancellazione news effettuata con successo"));
 	    getMessageBox().setViewMode(ViewMode.plain);
 	} catch (IncoherenceException ex) {
-	    logger.error("Errore nella cancellazione della news: " + ex.getMessage(), ex);
+	    actionLogger.error("Errore nella cancellazione della news: " + ex.getMessage(), ex);
 	    getMessageBox().addError(ex.getMessage());
 	}
     }
