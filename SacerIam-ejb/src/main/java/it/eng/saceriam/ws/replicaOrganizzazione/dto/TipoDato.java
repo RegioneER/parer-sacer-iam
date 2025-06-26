@@ -19,7 +19,7 @@ package it.eng.saceriam.ws.replicaOrganizzazione.dto;
  */
 public class TipoDato {
     private String nmClasseTipoDato;
-    private Integer idTipoDatoApplic;
+    private Long idTipoDatoApplic;
     private String nmTipoDato;
     private String dsTipoDato;
 
@@ -31,11 +31,11 @@ public class TipoDato {
 	this.nmClasseTipoDato = nmClasseTipoDato;
     }
 
-    public Integer getIdTipoDatoApplic() {
+    public Long getIdTipoDatoApplic() {
 	return idTipoDatoApplic;
     }
 
-    public void setIdTipoDatoApplic(Integer idTipoDatoApplic) {
+    public void setIdTipoDatoApplic(Long idTipoDatoApplic) {
 	this.idTipoDatoApplic = idTipoDatoApplic;
     }
 
