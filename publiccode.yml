@@ -2,7 +2,7 @@
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/italia/publiccode.yml
 
-publiccodeYmlVersion: '0.3'
+publiccodeYmlVersion: '0.4'
 categories:
   - data-collection
   - data-visualization
@@ -17,7 +17,6 @@ description:
   it:
     features:
       - archiviazione documentale
-    genericName: SIAM
     longDescription: |
       SIAM (SACER Identity and Access Management) è il modulo del Sistema di Conservazione SACER che si occupa della gestione degli utenti e degli enti che operano sul sistema.
       Consente di definire specifici ruoli con cui profilare gli utenti abilitandoli alle singole attività previste dal Sistema (p.e. pressione di uno specifico bottone di 
@@ -60,7 +59,7 @@ maintenance:
       name: Cristiano Casagni
   contractors:
     - name: ' Engineering Ingegneria Informatica S.p.A.'
-      until: '2026-23-12'
+      until: '2026-12-23'
   type: contract
 name: Parer - SIAM
 platforms:
