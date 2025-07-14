@@ -4,8 +4,9 @@
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>saceriam-jboss</artifactId>
-        <version>7.3.1</version>
+        <version>7.4.0</version>
     </parent>
+
     <artifactId>saceriam-jboss-jpa</artifactId>
     <name>SacerIam-jpa</name>   
     <description>JPA</description> 
