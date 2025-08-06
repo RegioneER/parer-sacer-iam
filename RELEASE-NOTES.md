@@ -1,13 +1,7 @@
-## 7.3.1 (24-06-2025)
+## 7.4.0 (14-07-2025)
 
 ### Bugfix: 1
-- [#38337](https://parermine.regione.emilia-romagna.it/issues/38337) Correzione join di allineamento organizzazioni
-
-## 7.3.0 (11-06-2025)
-
-### Bugfix: 1
-- [#38076](https://parermine.regione.emilia-romagna.it/issues/38076) Inserire i default corretti per le security policy
+- [#38430](https://parermine.regione.emilia-romagna.it/issues/38430) Correzione replica utente non abilitato ad accedere al dettaglio dell'unità documentaria selazionata
 
 ### Novità: 1
-- [#37766](https://parermine.regione.emilia-romagna.it/issues/37766) Ottimizzazioni e refactor codice per recupero debito tecnico (SonarQube)
-
+- [#38421](https://parermine.regione.emilia-romagna.it/issues/38421) Adattamento applicazione per inclusione nuovo framework modificato per DPI

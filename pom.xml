@@ -2,21 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>saceriam-jboss</artifactId>
-    <version>7.3.1</version>
+    <version>7.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>parer-pom</artifactId>
-        <version>7.1.0</version>
+        <version>7.1.1</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Skiptests by default : esecuzione su CI 
         <skipTests>true</skipTests>-->
         <!-- spagofat bom -->
-        <spagofat.version>7.1.1</spagofat.version>
+        <spagofat.version>7.1.2</spagofat.version>
         <idp-jaas-rdbms.version>0.0.9</idp-jaas-rdbms.version>
         <!-- third party libraries -->
         <naming-java.version>0.8</naming-java.version>

@@ -611,7 +611,7 @@ public class ReplicaUtentiEjb {
 		abilDatiMap.put(dato.getIdOrganizIam(), abil);
 	    }
 	    TipoDatoAbil tipoDatoAbil = new TipoDatoAbil();
-	    tipoDatoAbil.setIdTipoDatoApplic(dato.getIdTipoDatoApplic().intValue());
+	    tipoDatoAbil.setIdTipoDatoApplic(dato.getIdTipoDatoApplic().longValue());
 	    tipoDatoAbil.setNmClasseTipoDato(dato.getNmClasseTipoDato());
 
 	    abil.add(tipoDatoAbil);

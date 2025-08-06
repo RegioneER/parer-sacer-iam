@@ -15,6 +15,7 @@ package it.eng.saceriam.spring;
 
 import it.eng.spagoLite.spring.CustomSaml2AuthenticationSuccessHandler;
 import it.eng.spagoLite.spring.ParerSecurityConfiguration;
+import static it.eng.spagoLite.spring.ParerSecurityConfiguration.nomeApplicazione;
 import it.eng.spagoLite.spring.RefreshableRelyingPartyRegistrationRepository;
 import java.util.List;
 import javax.servlet.Filter;
@@ -43,12 +44,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration extends ParerSecurityConfiguration {
 
     @Autowired
-    public RefreshableRelyingPartyRegistrationRepository refreshableRelyingPartyRegistrationRepository;
-
-    @Autowired
     private CustomSaml2AuthenticationSuccessHandler successHandler;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfiguration.class);
+
+    public SecurityConfiguration() {
+	nomeApplicazione = "saceriam";
+    }
 
     /*
      * Impostazione del filtro di sicurezza Spring ed esposizione del metadata di Saceriam
