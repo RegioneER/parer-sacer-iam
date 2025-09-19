@@ -109,7 +109,8 @@ import it.eng.spagoLite.message.MessageBox;
 import it.eng.spagoLite.security.Secure;
 import it.eng.spagoLite.security.SuppressLogging;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({
+	"unchecked", "rawtypes" })
 public class AmministrazioneRuoliAction extends AmministrazioneRuoliAbstractAction {
 
     private static final Logger log = LoggerFactory.getLogger(AmministrazioneRuoliAction.class);

@@ -1768,7 +1768,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 							    ApplEnum.TipoUser.PERSONA_FISICA)));
 				    getForm().getDettaglioUtente().getTipo_user()
 					    .setValue(ApplEnum.TipoUser.PERSONA_FISICA.name());
-				} else if (oldTipoUser.equals(ApplEnum.TipoUser.AUTOMA)
+				} else if (oldTipoUser.equals(ApplEnum.TipoUser.AUTOMA.name())
 					|| (oldTipoUser
 						.equals(ApplEnum.TipoUser.PERSONA_FISICA.name()))) {
 				    getForm().getDettaglioUtente().getTipo_user()
@@ -2740,13 +2740,11 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 	    }
 	    getSession().setAttribute("scopoTipiDatoSet_" + applicazione, scopoSet);
 	}
-	String a = "";
     }
 
-    private void populateRuoliPerOrganizzazioniSet(UsrVLisUsoRuoloDichTableBean tableBean)
-	    throws EMFError {
+    private void populateRuoliPerOrganizzazioniSet(UsrVLisUsoRuoloDichTableBean tableBean) {
 	getSession().setAttribute("orgRolesSet", new HashSet<PairAuth>());
-	Set<BigDecimal> orgRolesSet = new HashSet<BigDecimal>();
+	Set<BigDecimal> orgRolesSet = new HashSet<>();
 	for (UsrVLisUsoRuoloDichRowBean ruolo : tableBean) {
 	    orgRolesSet = getOrgRolesSet();
 	    orgRolesSet.add(ruolo.getIdRuolo());
@@ -2968,7 +2966,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 	forwardToPublisher(Application.Publisher.RICERCA_UTENTI);
     }
 
-    public void resetRicercaUtentiPageFiltriGenerici() throws EMFError {
+    public void resetRicercaUtentiPageFiltriGenerici() {
 	/* "Svuoto" le combo dipendenti dalla combo applicazioni */
 	getForm().getFiltriUtenti().setEditMode();
 	getForm().getFiltriUtenti().clear();
@@ -3029,7 +3027,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 	getForm().getListaUtenti().setStatus(Status.view);
     }
 
-    public void resetRicercaUtentiPageFiltriGenericiArchivisti() throws EMFError {
+    public void resetRicercaUtentiPageFiltriGenericiArchivisti() {
 	/* "Svuoto" le combo dipendenti dalla combo applicazioni */
 	getForm().getFiltriUtenti().getNm_ruolo_default().setDecodeMap(new DecodeMap());
 	getForm().getFiltriUtenti().getDl_composito_organiz().setDecodeMap(new DecodeMap());
@@ -5164,8 +5162,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 	} else if (publisherName.equals(Application.Publisher.DETTAGLIO_RICHIESTA)
 		&& getForm().getRichiesteList().getStatus().equals(Status.view)) {
 	    try {
-		BigDecimal idRichGestUser = ((BaseRowInterface) getForm().getRichiesteList()
-			.getTable().getCurrentRow()).getBigDecimal("id_rich_gest_user");
+		BigDecimal idRichGestUser = getForm().getRichiesteList().getTable().getCurrentRow()
+			.getBigDecimal("id_rich_gest_user");
 		loadDettaglioRichiesta(idRichGestUser);
 	    } catch (Exception e) {
 		log.error(e.getMessage(), e);
@@ -8493,7 +8491,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 	}
     }
 
-    public void startGestioneJobOperation(String nmJob, String dsJob) throws EMFError {
+    public void startGestioneJobOperation(String nmJob, String dsJob) {
 	// Se il JOB è di tipo NO_TIMER in ogni caso il tasto di START va inibito
 	if (gestioneJobEjb.isNoTimerJob(nmJob)) {
 	    getMessageBox().addWarning(
@@ -8505,7 +8503,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
 	}
     }
 
-    public void stopGestioneJobOperation(String nmJob, String dsJob) throws EMFError {
+    public void stopGestioneJobOperation(String nmJob, String dsJob) {
 	// Se il JOB è di tipo NO_TIMER in ogni caso il tasto di STOP va inibito
 	if (gestioneJobEjb.isNoTimerJob(nmJob)) {
 	    getMessageBox().addWarning(

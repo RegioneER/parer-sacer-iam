@@ -13,8 +13,6 @@
 
 package it.eng.saceriam.exception;
 
-import java.io.Serializable;
-
 /**
  * La classe astratta <code>EMFAbstractError</code> dev'essere estesa da tutte quelle classi che
  * rappresentano un errore gestito da <code>EMFErrorHandler</code>.
@@ -23,7 +21,10 @@ import java.io.Serializable;
  *
  * @author Luigi Bellio Vedi EMFErrorHandler
  */
-public abstract class ParerAbstractError extends Exception implements Serializable {
+public abstract class ParerAbstractError extends Exception {
+
+    private static final long serialVersionUID = 5893858655050740911L;
+
     public static final String ABSTRACT_ERROR_ELEMENT = "ABSTRACT_ERROR";
     public static final String ERROR_SEVERITY = "SEVERITY";
     public static final String ERROR_DESCRIPTION = "DESCRIPTION";

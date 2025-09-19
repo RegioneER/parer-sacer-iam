@@ -1,7 +1,9 @@
-## 7.4.0 (14-07-2025)
+## 7.5.0 (19-09-2025)
 
 ### Bugfix: 1
-- [#38430](https://parermine.regione.emilia-romagna.it/issues/38430) Correzione replica utente non abilitato ad accedere al dettaglio dell'unità documentaria selazionata
+- [#38890](https://parermine.regione.emilia-romagna.it/issues/38890) Apportare modifiche per far funzionare correttamente la gestione Log Eventi 
 
-### Novità: 1
-- [#38421](https://parermine.regione.emilia-romagna.it/issues/38421) Adattamento applicazione per inclusione nuovo framework modificato per DPI
+### Novità: 3
+- [#38655](https://parermine.regione.emilia-romagna.it/issues/38655) Software improvements
+- [#38654](https://parermine.regione.emilia-romagna.it/issues/38654) Software improvements
+- [#38416](https://parermine.regione.emilia-romagna.it/issues/38416) Rimozione funzionalità Gestione job legacy

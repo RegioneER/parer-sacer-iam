@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -150,7 +151,6 @@ import it.eng.saceriam.web.util.ApplEnum;
 import it.eng.saceriam.web.util.Constants;
 import it.eng.saceriam.ws.dto.FileBinario;
 import it.eng.saceriam.ws.ejb.WsIdpLogger;
-import it.eng.saceriam.ws.utils.FileUtility;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.security.auth.PwdUtil;
 
@@ -476,7 +476,7 @@ public class AuthEjb {
 		if (file.isInMemoria()) {
 		    fileBytes = file.getDati();
 		} else {
-		    fileBytes = FileUtility.getByteDaFile(file.getFileSuDisco());
+		    fileBytes = Files.readAllBytes(file.getFileSuDisco().toPath());
 		}
 		/* Recupero il CSVReader relativo al file che sto trattando */
 		CsvReader csvReader = new CsvReader(new ByteArrayInputStream(fileBytes), ';',
@@ -785,7 +785,7 @@ public class AuthEjb {
 		if (file.isInMemoria()) {
 		    fileBytes = file.getDati();
 		} else {
-		    fileBytes = FileUtility.getByteDaFile(file.getFileSuDisco());
+		    fileBytes = Files.readAllBytes(file.getFileSuDisco().toPath());
 		}
 		/* Recupero il CSVReader relativo al file che sto trattando */
 		CsvReader csvReader = new CsvReader(new ByteArrayInputStream(fileBytes), ';',

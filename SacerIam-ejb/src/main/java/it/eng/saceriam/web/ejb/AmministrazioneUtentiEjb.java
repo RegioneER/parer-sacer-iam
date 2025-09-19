@@ -182,6 +182,7 @@ import it.eng.spagoLite.db.base.table.BaseTable;
  *
  * @author Gilioli_P
  */
+@SuppressWarnings("rawtypes")
 @Stateless
 @LocalBean
 public class AmministrazioneUtentiEjb {
@@ -791,11 +792,12 @@ public class AmministrazioneUtentiEjb {
 		    // Ricavo tutti gli enti abilitati per l'ambiente considerato
 		    OrgVRicEnteConvenzTableBean table = entiConvenzionatiEjb
 			    .getOrgVRicEnteConvenzTableBean(null, BigDecimal.valueOf(idUserIamCorr),
-				    idAmbienteEnteConvenzAppart, null, null, null, new ArrayList(),
-				    new ArrayList(), new ArrayList(), new ArrayList(), null, null,
-				    null, null, new ArrayList(), "0", null, null, null, null, null,
-				    null, new ArrayList(), null, null, null, null, null, null, null,
-				    null, null, null, null);
+				    idAmbienteEnteConvenzAppart, null, null, null,
+				    new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+				    new ArrayList<>(), null, null, null, null, new ArrayList<>(),
+				    "0", null, null, null, null, null, null, new ArrayList<>(),
+				    null, null, null, null, null, null, null, null, null, null,
+				    null);
 		    Set<BigDecimal> idEnteAppartAbilitati = new HashSet<>();
 		    for (OrgVRicEnteConvenzRowBean row : table) {
 			idEnteAppartAbilitati.add(row.getIdEnteConvenz());
@@ -1504,7 +1506,7 @@ public class AmministrazioneUtentiEjb {
 	if (!figli.isEmpty()) {
 	    for (UsrOrganizIamRowBean row : figli) {
 		if (applicazione.contains(
-			new PairAuth(ActionEnums.ScopoDichAbilOrganiz.ALL_ORG_CHILD.name(),
+			new PairAuth<>(ActionEnums.ScopoDichAbilOrganiz.ALL_ORG_CHILD.name(),
 				row.getIdOrganizIam()))) {
 		    result = true;
 		    break;
@@ -1520,11 +1522,10 @@ public class AmministrazioneUtentiEjb {
 	UsrOrganizIamTableBean figli = getUsrOrganizIamChilds(idOrganizIam);
 	if (!figli.isEmpty()) {
 	    for (UsrOrganizIamRowBean row : figli) {
-		if (applicazione
-			.contains(new PairAuth(ActionEnums.ScopoDichAbilOrganiz.ORG_DEFAULT.name(),
-				row.getIdOrganizIam()))
+		if (applicazione.contains(new PairAuth<>(
+			ActionEnums.ScopoDichAbilOrganiz.ORG_DEFAULT.name(), row.getIdOrganizIam()))
 			|| applicazione.contains(
-				new PairAuth(ActionEnums.ScopoDichAbilOrganiz.UNA_ORG.name(),
+				new PairAuth<>(ActionEnums.ScopoDichAbilOrganiz.UNA_ORG.name(),
 					row.getIdOrganizIam()))) {
 		    result = true;
 		    break;
@@ -1551,8 +1552,8 @@ public class AmministrazioneUtentiEjb {
 	UsrOrganizIamTableBean figli = getUsrOrganizIamChilds(idOrganizIam);
 	if (!figli.isEmpty()) {
 	    for (UsrOrganizIamRowBean row : figli) {
-		if (applicazione.contains(new PairAuth(idClasseTipoDato,
-			new PairAuth(ActionEnums.ScopoDichAbilOrganiz.ALL_ORG_CHILD.name(),
+		if (applicazione.contains(new PairAuth<>(idClasseTipoDato,
+			new PairAuth<>(ActionEnums.ScopoDichAbilOrganiz.ALL_ORG_CHILD.name(),
 				row.getIdOrganizIam())))) {
 		    result = true;
 		    break;
@@ -1568,7 +1569,7 @@ public class AmministrazioneUtentiEjb {
 	UsrOrganizIamTableBean figli = getUsrOrganizIamChilds(idOrganizIam);
 	if (!figli.isEmpty()) {
 	    for (UsrOrganizIamRowBean row : figli) {
-		if (applicazione.contains(new PairAuth(idClasseTipoDato, new PairAuth(
+		if (applicazione.contains(new PairAuth<>(idClasseTipoDato, new PairAuth<>(
 			ActionEnums.ScopoDichAbilOrganiz.UNA_ORG.name(), row.getIdOrganizIam())))) {
 		    result = true;
 		    break;
@@ -1659,10 +1660,10 @@ public class AmministrazioneUtentiEjb {
 	  // escludendo il
 	  // LOGIN_OK
 	else {
-	    tipiEventoSet = new HashSet(Arrays.stream(ConstLogEventoLoginUser.TipoEvento.values())
-		    .map(t -> t.name()).collect(Collectors.toList()));
+	    tipiEventoSet = Arrays.stream(ConstLogEventoLoginUser.TipoEvento.values())
+		    .map(Enum::name).collect(Collectors.toCollection(HashSet::new));
 	    if (inclLoginOK.equals("0")) {
-		tipiEventoSet.remove(ConstLogEventoLoginUser.TipoEvento.LOGIN_OK);
+		tipiEventoSet.remove(ConstLogEventoLoginUser.TipoEvento.LOGIN_OK.name());
 	    }
 	}
 

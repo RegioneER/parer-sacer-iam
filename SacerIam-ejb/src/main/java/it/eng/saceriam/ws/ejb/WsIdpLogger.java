@@ -53,7 +53,6 @@ public class WsIdpLogger {
 
     @TransactionAttribute(value = TransactionAttributeType.REQUIRES_NEW)
     public IdpLogger.EsitiLog scriviLog(LogDto logDto) {
-	java.sql.Connection connection = null;
 	IdpLogger.EsitiLog risposta = IdpLogger.EsitiLog.UTENTE_OK;
 	String idpMaxTentativiFalliti = paramHelper.getValoreParamApplic(
 		ConstIamParamApplic.IDP_MAX_TENTATIVI_FALLITI, null, null,
@@ -86,8 +85,10 @@ public class WsIdpLogger {
 
 		logDto.setServername(asi.getName());
 
-		connection = JpaUtils.provideConnectionFrom(entityManager);
-		risposta = (new IdpLogger(icl).scriviLog(logDto, connection));
+		try (java.sql.Connection connection = JpaUtils
+			.provideConnectionFrom(entityManager)) {
+		    risposta = new IdpLogger(icl).scriviLog(logDto, connection);
+		}
 
 	    } catch (UnknownHostException ex) {
 		throw new RuntimeException(
@@ -98,14 +99,6 @@ public class WsIdpLogger {
 			"WsIdpLogger: Errore nell'accesso ai dati di log: " + ex.getMessage());
 	    } catch (Exception ex) {
 		throw new RuntimeException("WsIdpLogger: Errore: " + ex.getMessage());
-	    } finally {
-		if (connection != null) {
-		    try {
-			connection.close();
-		    } catch (SQLException ex) {
-			throw new RuntimeException("WsIdpLogger: Errore: " + ex.getMessage());
-		    }
-		}
 	    }
 	}
 	return risposta;

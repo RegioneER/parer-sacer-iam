@@ -77,7 +77,7 @@ public class CalcoloServiziErogatiEjb {
 		    "Calcolo servizi erogati - Esecuzione del servizio per l'ente convenzionato {}",
 		    idEnteConvenz + " terminato con successo");
 
-	} catch (ParerUserError e) {
+	} catch (Exception e) {
 	    log.error(
 		    "Errore durante l'esecuzione del servizio di calcolo servizi erogati per l'ente {}",
 		    idEnteConvenz, e);

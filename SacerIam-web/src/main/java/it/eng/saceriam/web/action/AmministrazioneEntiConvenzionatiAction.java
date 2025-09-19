@@ -99,6 +99,7 @@ import it.eng.saceriam.slite.gen.Application;
 import it.eng.saceriam.slite.gen.action.AmministrazioneEntiConvenzionatiAbstractAction;
 import it.eng.saceriam.slite.gen.form.AmministrazioneEntiConvenzionatiForm;
 import it.eng.saceriam.slite.gen.form.AmministrazioneEntiConvenzionatiForm.AccordoWizardDetail;
+import it.eng.saceriam.slite.gen.form.AmministrazioneEntiConvenzionatiForm.ListaEstraiRigheFatture;
 import it.eng.saceriam.slite.gen.form.AmministrazioneEntiConvenzionatiForm.TipoServizioAccordoList;
 import it.eng.saceriam.slite.gen.form.AmministrazioneEntiNonConvenzionatiForm;
 import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm;
@@ -176,7 +177,7 @@ import it.eng.spagoLite.security.Secure;
  * @author Bonora_L feat. Gilioli_P feat DiLorenzo_F
  */
 @SuppressWarnings({
-	"unchecked", "rawtypes" })
+	"unchecked", "rawtypes", "unused" })
 public class AmministrazioneEntiConvenzionatiAction
 	extends AmministrazioneEntiConvenzionatiAbstractAction {
 
@@ -3231,9 +3232,9 @@ public class AmministrazioneEntiConvenzionatiAction
 	if (!accordoTableBean.isEmpty()) {
 	    // Recupero la lista degli utenti da escludere dalla lista in base al tipo ente
 	    // convenzionato
-	    if (tiEnteConvenz.equals(TiEnteConvenz.CONSERVATORE)
-		    || tiEnteConvenz.equals(TiEnteConvenz.GESTORE)
-		    || tiEnteConvenz.equals(TiEnteConvenz.PRODUTTORE)) {
+	    if (TiEnteConvenz.CONSERVATORE.name().equals(tiEnteConvenz)
+		    || TiEnteConvenz.GESTORE.name().equals(tiEnteConvenz)
+		    || TiEnteConvenz.PRODUTTORE.name().equals(tiEnteConvenz)) {
 		usrUserTableBean = entiConvenzionatiEjb.getUsrUserEnteConvenzTableBean(
 			accordoTableBean.getRow(0).getIdEnteConvenzAmministratore(),
 			Arrays.asList(ConstUsrStatoUser.TiStatotUser.ATTIVO.name(),
@@ -3251,8 +3252,8 @@ public class AmministrazioneEntiConvenzionatiAction
 		    idUserIamAuDaEscludere.add(usrUserRowBean.getIdUserIam());
 		}
 	    }
-	    if (tiEnteConvenz.equals(TiEnteConvenz.GESTORE)
-		    || tiEnteConvenz.equals(TiEnteConvenz.PRODUTTORE)) {
+	    if (TiEnteConvenz.GESTORE.name().equals(tiEnteConvenz)
+		    || TiEnteConvenz.PRODUTTORE.name().equals(tiEnteConvenz)) {
 		usrUserTableBean = entiConvenzionatiEjb.getUsrUserEnteConvenzTableBean(
 			accordoTableBean.getRow(0).getIdEnteConvenzConserv(),
 			Arrays.asList(ConstUsrStatoUser.TiStatotUser.ATTIVO.name(),
@@ -3270,7 +3271,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		    idUserIamAuDaEscludere.add(usrUserRowBean.getIdUserIam());
 		}
 	    }
-	    if (tiEnteConvenz.equals(TiEnteConvenz.PRODUTTORE)) {
+	    if (TiEnteConvenz.PRODUTTORE.name().equals(tiEnteConvenz)) {
 		usrUserTableBean = entiConvenzionatiEjb.getUsrUserEnteConvenzTableBean(
 			accordoTableBean.getRow(0).getIdEnteConvenzGestore(),
 			Arrays.asList(ConstUsrStatoUser.TiStatotUser.ATTIVO.name(),
@@ -5074,7 +5075,10 @@ public class AmministrazioneEntiConvenzionatiAction
 	    ambEnteStrut = entiConvenzionatiEjb
 		    .getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz, idEnteConvenz);
 	} catch (ParerUserError ex) {
-	    getMessageBox().addError(ex.getMessage());
+	    final String msg = "Errore durante il caricamento dei dati di ambiente, ente e struttura";
+	    actionLogger.error(msg, ex);
+	    getMessageBox().addError(msg);
+	    return;
 	}
 
 	String nmEnte = getForm().getAccordoDetail().getNm_ente().parse();
@@ -5109,7 +5113,10 @@ public class AmministrazioneEntiConvenzionatiAction
 	    ambEnteStrut = entiConvenzionatiEjb
 		    .getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz, idEnteConvenz);
 	} catch (ParerUserError ex) {
-	    getMessageBox().addError(ex.getMessage());
+	    final String msg = "Errore durante il caricamento dei dati di ambiente, ente e struttura";
+	    actionLogger.error(msg, ex);
+	    getMessageBox().addError(msg);
+	    return;
 	}
 
 	String nmEnte = getForm().getDisciplinareTecnicoDetail().getEnte_discip_strut().parse();
@@ -5149,7 +5156,10 @@ public class AmministrazioneEntiConvenzionatiAction
 	    ambEnteStrut = entiConvenzionatiEjb
 		    .getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz, idEnteConvenz);
 	} catch (ParerUserError ex) {
-	    getMessageBox().addError(ex.getMessage());
+	    final String msg = "Errore durante il caricamento dei dati di ambiente, ente e struttura";
+	    actionLogger.error(msg, ex);
+	    getMessageBox().addError(msg);
+	    return;
 	}
 
 	String nmEnte = getForm().getModuloInformazioniDetail().getNm_ente().parse();
@@ -5187,7 +5197,10 @@ public class AmministrazioneEntiConvenzionatiAction
 	    ambEnteStrut = entiConvenzionatiEjb
 		    .getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz, idEnteConvenz);
 	} catch (ParerUserError ex) {
-	    getMessageBox().addError(ex.getMessage());
+	    final String msg = "Errore durante il caricamento dei dati di ambiente, ente e struttura";
+	    actionLogger.error(msg, ex);
+	    getMessageBox().addError(msg);
+	    return;
 	}
 
 	String nmEnte = getForm().getGestioneAccordoDetail().getEnte_gest_accordo().parse();
@@ -6165,9 +6178,8 @@ public class AmministrazioneEntiConvenzionatiAction
 				appartCollegEntiSet, riga);
 		    }
 		}
-	    } catch (ParerUserError ex) {
-		getMessageBox().addError("Il collegamento dell'ente non pu\u00F2 essere eliminato: "
-			+ ex.getDescription());
+	    } catch (Exception ex) {
+		getMessageBox().addError("Il collegamento dell'ente non pu\u00F2 essere eliminato");
 	    }
 	} else {
 	    getMessageBox().addError("Il collegamento dell'ente non pu\u00F2 essere eliminato");
@@ -7681,7 +7693,7 @@ public class AmministrazioneEntiConvenzionatiAction
 		 * Definiamo l'output previsto che sarà un file in formato zip di cui si occuperà la
 		 * servlet per fare il download
 		 */
-		OutputStream outUD = getServletOutputStream();
+
 		getResponse().setContentType(
 			StringUtils.isBlank(WebConstants.DOWNLOAD_ATTRS.DOWNLOAD_CONTENTTYPE.name())
 				? WebConstants.MIME_TYPE_GENERIC
@@ -7689,11 +7701,10 @@ public class AmministrazioneEntiConvenzionatiAction
 		getResponse().setHeader("Content-Disposition",
 			"attachment; filename=\"" + filename);
 
-		FileInputStream inputStream = null;
-		try {
+		try (FileInputStream inputStream = new FileInputStream(fileToDownload);
+			OutputStream outUD = getServletOutputStream();) {
 		    getResponse().setHeader("Content-Length",
 			    String.valueOf(fileToDownload.length()));
-		    inputStream = new FileInputStream(fileToDownload);
 		    byte[] bytes = new byte[8000];
 		    int bytesRead;
 		    while ((bytesRead = inputStream.read(bytes)) != -1) {
@@ -7704,10 +7715,6 @@ public class AmministrazioneEntiConvenzionatiAction
 		    actionLogger.error("Eccezione nel recupero del documento ", e);
 		    getMessageBox().addError("Eccezione nel recupero del documento");
 		} finally {
-		    IOUtils.closeQuietly(inputStream);
-		    IOUtils.closeQuietly(outUD);
-		    inputStream = null;
-		    outUD = null;
 		    freeze();
 		}
 		// Nel caso sia stato richiesto, elimina il file
@@ -8808,8 +8815,8 @@ public class AmministrazioneEntiConvenzionatiAction
 
     @Override
     public void confermaCreazioneFattureProvvisorie() throws EMFError {
-	String annoTestataString = (String) getRequest().getParameter("annoTestata");
-	String annoFattServiziString = (String) getRequest().getParameter("annoFattServizi");
+	String annoTestataString = getRequest().getParameter("annoTestata");
+	String annoFattServiziString = getRequest().getParameter("annoFattServizi");
 	BigDecimal annoCorrente = BigDecimal.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 	BigDecimal annoTestata = null;
 	BigDecimal annoFattServizi = null;
@@ -8989,43 +8996,41 @@ public class AmministrazioneEntiConvenzionatiAction
 	} catch (NumberFormatException e) {
 	    getMessageBox().addError("Anno testata mancante o non formalmente non corretto <br>");
 	    getRequest().setAttribute("customRiemissioneFattureStornateMessageBox", true);
+	    return;
 	}
-
+	// Controlli vincoli sui campi
+	// anno non successivo all'anno corrente
+	if (annoTestata.longValue() > annoCorrente.longValue()) {
+	    getMessageBox().addError(
+		    "L’anno della testata fattura non può essere successivo all’anno corrente");
+	    getRequest().setAttribute("customRiemissioneFattureStornateMessageBox", true);
+	    return;
+	}
 	if (!getMessageBox().hasError()) {
+	    LogParam param = SpagoliteLogUtil.getLogParam(
+		    paramHelper.getParamApplicApplicationName(), getUser().getUsername(),
+		    SpagoliteLogUtil.getPageName(this));
+	    param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
+	    param.setNomeAzione(SpagoliteLogUtil.getButtonActionName(this.getForm(),
+		    this.getForm().getRiemissioneFattureFields(), this.getForm()
+			    .getRiemissioneFattureFields().getRiemettiFattureStornate().getName()));
 
-	    // Controlli vincoli sui campi
-	    if (annoTestata.longValue() > annoCorrente.longValue()) {
-		getMessageBox().addError(
-			"L\u0027anno della testata fattura non pu\u00F2 essere successivo all\u0027anno corrente");
-		getRequest().setAttribute("customRiemissioneFattureStornateMessageBox", true);
-	    }
+	    int numFattureCalcolate = 0;
+	    if (getLastPublisher().equals(Application.Publisher.RICERCA_ENTI_CONVENZIONATI)) {
+		// Provenendo dalla pagina di ricerca, prelevo la lista di enti convenzionati
+		// risultati dalla
+		// ricerca
+		OrgVRicEnteConvenzTableBean entiConvenzionati = (OrgVRicEnteConvenzTableBean) getForm()
+			.getListaEntiConvenzionati().getTable();
 
-	    if (!getMessageBox().hasError()) {
-		LogParam param = SpagoliteLogUtil.getLogParam(
-			paramHelper.getParamApplicApplicationName(), getUser().getUsername(),
-			SpagoliteLogUtil.getPageName(this));
-		param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-		param.setNomeAzione(SpagoliteLogUtil.getButtonActionName(this.getForm(),
-			this.getForm().getRiemissioneFattureFields(),
-			this.getForm().getRiemissioneFattureFields().getRiemettiFattureStornate()
-				.getName()));
-
-		int numFattureCalcolate = 0;
-		if (getLastPublisher().equals(Application.Publisher.RICERCA_ENTI_CONVENZIONATI)) {
-		    // Provenendo dalla pagina di ricerca, prelevo la lista di enti convenzionati
-		    // risultati dalla
-		    // ricerca
-		    OrgVRicEnteConvenzTableBean entiConvenzionati = (OrgVRicEnteConvenzTableBean) getForm()
-			    .getListaEntiConvenzionati().getTable();
-
-		    for (OrgVRicEnteConvenzRowBean enteConvenzionato : entiConvenzionati) {
-			numFattureCalcolate += entiConvenzionatiEjb.riemettiFattureStornate(param,
-				enteConvenzionato.getIdEnteConvenz(), annoTestata);
-		    }
-
+		for (OrgVRicEnteConvenzRowBean enteConvenzionato : entiConvenzionati) {
+		    numFattureCalcolate += entiConvenzionatiEjb.riemettiFattureStornate(param,
+			    enteConvenzionato.getIdEnteConvenz(), annoTestata);
 		}
-		getMessageBox().addInfo("Totale fatture calcolate: " + numFattureCalcolate);
+
 	    }
+	    getMessageBox().addInfo("Totale fatture calcolate: " + numFattureCalcolate);
+
 	}
     }
 
@@ -11598,8 +11603,8 @@ public class AmministrazioneEntiConvenzionatiAction
 	getForm().getListaEstraiRigheFatture().setExcelFileName(
 		"FattureCalcolate_Ente_" + nmEnteConvenz + "_" + df.format(new Date()));
 
-	listNavigationOnClick(getForm().getListaEstraiRigheFatture().NAME, ListAction.NE_EXPORT_XLS,
-		"-1", "false");
+	listNavigationOnClick(ListaEstraiRigheFatture.NAME, ListAction.NE_EXPORT_XLS, "-1",
+		"false");
     }
 
     @Override
@@ -11808,8 +11813,8 @@ public class AmministrazioneEntiConvenzionatiAction
 
     @Override
     public void filterInactiveRecordsParametriConservazioneList() throws EMFError {
-	BigDecimal idEnteConvenz = ((BaseRowInterface) getForm().getListaEntiConvenzionati()
-		.getTable().getCurrentRow()).getBigDecimal("id_ente_convenz");
+	BigDecimal idEnteConvenz = getForm().getListaEntiConvenzionati().getTable().getCurrentRow()
+		.getBigDecimal("id_ente_convenz");
 	OrgAmbienteEnteConvenzRowBean orgAmbienteEnteConvenzByEnteConvenz = entiConvenzionatiEjb
 		.getOrgAmbienteEnteConvenzByEnteConvenz(idEnteConvenz);
 	boolean filterValid = getForm().getParametriConservazioneList().isFilterValidRecords();
@@ -11828,8 +11833,8 @@ public class AmministrazioneEntiConvenzionatiAction
 
     @Override
     public void filterInactiveRecordsParametriGestioneList() throws EMFError {
-	BigDecimal idEnteConvenz = ((BaseRowInterface) getForm().getListaEntiConvenzionati()
-		.getTable().getCurrentRow()).getBigDecimal("id_ente_convenz");
+	BigDecimal idEnteConvenz = getForm().getListaEntiConvenzionati().getTable().getCurrentRow()
+		.getBigDecimal("id_ente_convenz");
 	OrgAmbienteEnteConvenzRowBean orgAmbienteEnteConvenzByEnteConvenz = entiConvenzionatiEjb
 		.getOrgAmbienteEnteConvenzByEnteConvenz(idEnteConvenz);
 	boolean filterValid = getForm().getParametriGestioneList().isFilterValidRecords();

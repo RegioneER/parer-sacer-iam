@@ -13,7 +13,12 @@
 
 package it.eng.saceriam.web.dto;
 
-public class PairAuth<Appl, Auth> {
+import java.io.Serializable;
+
+public class PairAuth<Appl extends Serializable, Auth extends Serializable>
+	implements Serializable {
+
+    private static final long serialVersionUID = -6289003468403568200L;
 
     private final Appl appl;
     private final Auth auth;

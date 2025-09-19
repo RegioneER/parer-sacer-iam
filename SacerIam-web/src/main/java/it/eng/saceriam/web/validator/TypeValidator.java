@@ -198,27 +198,26 @@ public class TypeValidator {
 	if (data != null || ora != null || minuti != null) {
 	    // Verifico che i campi data, ora e minuti siano validi
 	    isDateValid(data, ora, minuti, nm_campo);
+
 	    // Controllo che i campi degli orari e minuti siano validi (23 ore 59 minuti)
 	    isTimeValid(ora, minuti, "Orario");
 
 	    Calendar dataCal = Calendar.getInstance();
-
-	    if (data == null) {
-		dataCal.setTime(data);
-	    } else {
-		dataCal.setTime(data);
+	    if (data != null) {
+		dataCal.setTime(data); // usa la data passata, altrimenti resta "ora"
 	    }
 
 	    if (ora == null || minuti == null) {
 		dataCal.set(Calendar.HOUR_OF_DAY, 0);
 		dataCal.set(Calendar.MINUTE, 0);
 		dataCal.set(Calendar.SECOND, 0);
+		dataCal.set(Calendar.MILLISECOND, 0); // consigliato: azzera anche i millis
 	    } else {
 		dataCal.set(Calendar.HOUR_OF_DAY, ora.intValue());
 		dataCal.set(Calendar.MINUTE, minuti.intValue());
 		dataCal.set(Calendar.SECOND, 0);
+		dataCal.set(Calendar.MILLISECOND, 0);
 	    }
-
 	    dataValidata = dataCal.getTime();
 	}
 	return dataValidata;

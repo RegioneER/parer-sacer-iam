@@ -547,7 +547,8 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 			    long longApplic = idApplic == null ? 0 : idApplic.longValue();
 			    long longPagina = idPagina == null ? 0 : idPagina.longValue();
 
-			    if (idTipoHelp.equals(Constants.TiHelpOnLine.INFO_PRIVACY.name())) {
+			    if (idApplic != null && idTipoHelp
+				    .equals(Constants.TiHelpOnLine.INFO_PRIVACY.name())) {
 				longPagina = recuperoHelpEjb
 					.getIdPaginaWebInfoPrivacy(idApplic.longValue());
 			    }
@@ -867,7 +868,8 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 
 		if (getForm().getDettaglioHelpOnLine().getStatus().equals(Status.insert)) {
 		    risultatoIntersect = recuperoHelpEjb.intersectsExistingHelp(
-			    idApplic.longValueExact(), idTipoHelp, idPagina.longValueExact(),
+			    idApplic.longValueExact(), idTipoHelp,
+			    idPagina == null ? 0 : idPagina.longValueExact(),
 			    idMenu == null ? 0 : idMenu.longValueExact(), dataIni, dataFine);
 		} else {
 		    AplVVisHelpOnLineRowBean bean = (AplVVisHelpOnLineRowBean) getForm()
@@ -948,18 +950,18 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 		 * Definiamo l'output previsto che sarÃƒÂ  un file in formato zip di cui si
 		 * occuperÃƒÂ  la servlet per fare il download
 		 */
-		OutputStream outUD = getServletOutputStream();
 		getResponse().setContentType(
 			StringUtils.isBlank(contentType) ? WebConstants.MIME_TYPE_MICROSOFT_WORD
 				: contentType);
 		getResponse().setHeader("Content-Disposition",
 			"attachment; filename=\"" + filename);
 
-		FileInputStream inputStream = null;
-		try {
+		try (FileInputStream inputStream = new FileInputStream(fileToDownload);
+			OutputStream outUD = getServletOutputStream();) {
+
 		    getResponse().setHeader("Content-Length",
 			    String.valueOf(fileToDownload.length()));
-		    inputStream = new FileInputStream(fileToDownload);
+
 		    byte[] bytes = new byte[8000];
 		    int bytesRead;
 		    while ((bytesRead = inputStream.read(bytes)) != -1) {
@@ -970,10 +972,6 @@ public class GestioneHelpOnLineAction extends GestioneHelpOnLineAbstractAction {
 		    log.error("Eccezione nel recupero del documento ", e);
 		    getMessageBox().addError("Eccezione nel recupero del documento");
 		} finally {
-		    IOUtils.closeQuietly(inputStream);
-		    IOUtils.closeQuietly(outUD);
-		    inputStream = null;
-		    outUD = null;
 		    freeze();
 		}
 		// Nel caso sia stato richiesto, elimina il file
