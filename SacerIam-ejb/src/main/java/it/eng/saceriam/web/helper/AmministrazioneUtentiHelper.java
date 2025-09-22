@@ -99,6 +99,7 @@ import it.eng.spagoCore.error.EMFError;
  * persistenza su DB per le operazioni CRUD
  *
  */
+@SuppressWarnings("unchecked")
 @Stateless
 @LocalBean
 public class AmministrazioneUtentiHelper extends GenericHelper {
@@ -1173,19 +1174,22 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 	if (idEnteSiam != null) {
 	    queryStr.append("AND enteSiam.idEnteSiam = :idEnteSiam  ");
 	}
-	if (tiEnteConvenz != null) {
-	    String keyClause = tiEnteConvenz.keySet().stream().findFirst().get();
-	    queryStr.append("AND enteSiam.tiEnteConvenz ").append(keyClause)
-		    .append(" :tiEnteConvenz ");
+
+	if (tiEnteConvenz != null && !tiEnteConvenz.isEmpty()) {
+	    tiEnteConvenz.keySet().stream().findFirst().ifPresent(keyClause -> {
+		queryStr.append("AND enteSiam.tiEnteConvenz ").append(keyClause)
+			.append(" :tiEnteConvenz ");
+	    });
 	}
-	if (tiStatoUser != null) {
-	    String keyClause = tiStatoUser.keySet().stream().findFirst().get();
-	    queryStr.append("AND statoUser.tiStatoUser ").append(keyClause)
-		    .append(" :tiStatoUser ");
+
+	if (tiStatoUser != null && !tiStatoUser.isEmpty()) {
+	    tiStatoUser.keySet().stream().findFirst()
+		    .ifPresent(keyClause -> queryStr.append("AND statoUser.tiStatoUser ")
+			    .append(keyClause).append(" :tiStatoUser "));
 	}
-	if (tipoUser != null) {
-	    String keyClause = tipoUser.keySet().stream().findFirst().get();
-	    queryStr.append("AND user.tipoUser ").append(keyClause).append(" :tipoUser ");
+	if (tipoUser != null && !tipoUser.isEmpty()) {
+	    tipoUser.keySet().stream().findFirst().ifPresent(keyClause -> queryStr
+		    .append("AND user.tipoUser ").append(keyClause).append(" :tipoUser "));
 	}
 	queryStr.append("ORDER BY user.nmCognomeUser, user.nmNomeUser ");
 	Query query = getEntityManager().createQuery(queryStr.toString());
@@ -1193,15 +1197,15 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 	    query.setParameter("idEnteSiam", longFrom(idEnteSiam));
 	}
 	if (tiEnteConvenz != null) {
-	    List<TiEnteConvenz> values = tiEnteConvenz.values().stream().findFirst().get();
+	    List<TiEnteConvenz> values = tiEnteConvenz.values().stream().findFirst().orElseThrow();
 	    query.setParameter("tiEnteConvenz", values);
 	}
 	if (tiStatoUser != null) {
-	    List<String> values = tiStatoUser.values().stream().findFirst().get();
+	    List<String> values = tiStatoUser.values().stream().findFirst().orElseThrow();
 	    query.setParameter("tiStatoUser", values);
 	}
 	if (tipoUser != null) {
-	    List<String> values = tipoUser.values().stream().findFirst().get();
+	    List<String> values = tipoUser.values().stream().findFirst().orElseThrow();
 	    query.setParameter("tipoUser", values);
 	}
 	List<UsrUser> utenti = query.getResultList();
@@ -1865,7 +1869,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
     }
 
     public List<UsrVLisStatoUser> getUsrVLisStatoUserList(BigDecimal idUserIam) {
-	List<UsrVLisStatoUser> list = new ArrayList();
+	List<UsrVLisStatoUser> list = new ArrayList<>();
 	if (idUserIam != null) {
 	    String queryStr = "SELECT statoUser FROM UsrVLisStatoUser statoUser "
 		    + "WHERE statoUser.idUserIam = :idUserIam "
@@ -2686,17 +2690,17 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 	    queryStr.append("AND enteSiam.idEnteSiam = :idEnteSiam  ");
 	}
 	if (tiEnteNonConvenz != null) {
-	    String keyClause = tiEnteNonConvenz.keySet().stream().findFirst().get();
+	    String keyClause = tiEnteNonConvenz.keySet().stream().findFirst().orElseThrow();
 	    queryStr.append("AND enteSiam.tiEnteNonConvenz ").append(keyClause)
 		    .append(" :tiEnteNonConvenz ");
 	}
 	if (tiStatoUser != null) {
-	    String keyClause = tiStatoUser.keySet().stream().findFirst().get();
+	    String keyClause = tiStatoUser.keySet().stream().findFirst().orElseThrow();
 	    queryStr.append("AND statoUser.tiStatoUser ").append(keyClause)
 		    .append(" :tiStatoUser ");
 	}
 	if (tipoUser != null) {
-	    String keyClause = tipoUser.keySet().stream().findFirst().get();
+	    String keyClause = tipoUser.keySet().stream().findFirst().orElseThrow();
 	    queryStr.append("AND user.tipoUser ").append(keyClause).append(" :tipoUser ");
 	}
 	queryStr.append("ORDER BY user.nmCognomeUser, user.nmNomeUser ");
@@ -2705,15 +2709,16 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 	    query.setParameter("idEnteSiam", longFrom(idEnteSiam));
 	}
 	if (tiEnteNonConvenz != null) {
-	    List<TiEnteNonConvenz> values = tiEnteNonConvenz.values().stream().findFirst().get();
+	    List<TiEnteNonConvenz> values = tiEnteNonConvenz.values().stream().findFirst()
+		    .orElseThrow();
 	    query.setParameter("tiEnteNonConvenz", values);
 	}
 	if (tiStatoUser != null) {
-	    List<String> values = tiStatoUser.values().stream().findFirst().get();
+	    List<String> values = tiStatoUser.values().stream().findFirst().orElseThrow();
 	    query.setParameter("tiStatoUser", values);
 	}
 	if (tipoUser != null) {
-	    List<String> values = tipoUser.values().stream().findFirst().get();
+	    List<String> values = tipoUser.values().stream().findFirst().orElseThrow();
 	    query.setParameter("tipoUser", values);
 	}
 	List<UsrUser> utenti = query.getResultList();
@@ -2731,17 +2736,17 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 	    queryStr.append("AND enteSiam.idEnteSiam = :idEnteSiam  ");
 	}
 	if (tiEnteNonConvenz != null) {
-	    String keyClause = tiEnteNonConvenz.keySet().stream().findFirst().get();
+	    String keyClause = tiEnteNonConvenz.keySet().stream().findFirst().orElseThrow();
 	    queryStr.append("AND enteSiam.tiEnteNonConvenz ").append(keyClause)
 		    .append(" :tiEnteNonConvenz ");
 	}
 	if (tiStatoUser != null) {
-	    String keyClause = tiStatoUser.keySet().stream().findFirst().get();
+	    String keyClause = tiStatoUser.keySet().stream().findFirst().orElseThrow();
 	    queryStr.append("AND statoUser.tiStatoUser ").append(keyClause)
 		    .append(" :tiStatoUser ");
 	}
 	if (tipoUser != null) {
-	    String keyClause = tipoUser.keySet().stream().findFirst().get();
+	    String keyClause = tipoUser.keySet().stream().findFirst().orElseThrow();
 	    queryStr.append("AND user.tipoUser ").append(keyClause).append(" :tipoUser ");
 	}
 	queryStr.append("ORDER BY user.nmCognomeUser, user.nmNomeUser ");
@@ -2750,15 +2755,16 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
 	    query.setParameter("idEnteSiam", longFrom(idEnteSiam));
 	}
 	if (tiEnteNonConvenz != null) {
-	    List<TiEnteNonConvenz> values = tiEnteNonConvenz.values().stream().findFirst().get();
+	    List<TiEnteNonConvenz> values = tiEnteNonConvenz.values().stream().findFirst()
+		    .orElseThrow();
 	    query.setParameter("tiEnteNonConvenz", values);
 	}
 	if (tiStatoUser != null) {
-	    List<String> values = tiStatoUser.values().stream().findFirst().get();
+	    List<String> values = tiStatoUser.values().stream().findFirst().orElseThrow();
 	    query.setParameter("tiStatoUser", values);
 	}
 	if (tipoUser != null) {
-	    List<String> values = tipoUser.values().stream().findFirst().get();
+	    List<String> values = tipoUser.values().stream().findFirst().orElseThrow();
 	    query.setParameter("tipoUser", values);
 	}
 	List<UsrUser> utenti = query.getResultList();

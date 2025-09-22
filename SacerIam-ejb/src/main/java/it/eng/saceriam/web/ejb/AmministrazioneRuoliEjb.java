@@ -556,22 +556,29 @@ public class AmministrazioneRuoliEjb {
 	return pagesTb;
     }
 
-    public Set<PairAuth<Map<BigDecimal, String>, String>> getAllPagesListPairAuth(
+    public Set<PairAuth<HashMap<BigDecimal, String>, String>> getAllPagesListPairAuth(
 	    BigDecimal idApplicazione,
-	    Set<PairAuth<Map<BigDecimal, String>, String>> paginaAzioneGiaInserite) {
+	    Set<PairAuth<HashMap<BigDecimal, String>, String>> paginaAzioneGiaInserite) {
 
-	Set<PairAuth<Map<BigDecimal, String>, String>> paginaAzioneDaDB = new HashSet<PairAuth<Map<BigDecimal, String>, String>>();
+	Set<PairAuth<HashMap<BigDecimal, String>, String>> paginaAzioneDaDB = new HashSet<>();
+
 	List<AplPaginaWeb> pages = amministrazioneRuoliHelper.getPagesList(idApplicazione, null);
 	for (AplPaginaWeb page : pages) {
 	    for (AplAzionePagina azione : page.getAplAzionePaginas()) {
-		Map<BigDecimal, String> pagina = new HashMap<BigDecimal, String>();
+		HashMap<BigDecimal, String> pagina = new HashMap<>();
 		pagina.put(new BigDecimal(page.getIdPaginaWeb()), page.getDsPaginaWeb());
-		PairAuth pair = new PairAuth(pagina, azione.getDsAzionePagina());
+
+		PairAuth<HashMap<BigDecimal, String>, String> pair = new PairAuth<>(pagina,
+			azione.getDsAzionePagina());
+
 		paginaAzioneDaDB.add(pair);
 	    }
 	}
 
-	paginaAzioneDaDB.removeAll(paginaAzioneGiaInserite);
+	if (paginaAzioneGiaInserite != null) {
+	    paginaAzioneDaDB.removeAll(paginaAzioneGiaInserite);
+	}
+
 	return paginaAzioneDaDB;
     }
 

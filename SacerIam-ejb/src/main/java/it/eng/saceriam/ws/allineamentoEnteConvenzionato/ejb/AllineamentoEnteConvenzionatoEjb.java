@@ -79,7 +79,7 @@ public class AllineamentoEnteConvenzionatoEjb {
 		    "Allineamento Ente Convenzionato - Esecuzione del servizio per l'ente convenzionato {} terminato con successo",
 		    idEnteConvenz);
 
-	} catch (ParerUserError e) {
+	} catch (Exception e) {
 	    log.error(
 		    "Errore durante l'esecuzione del servizio di allineamento ente convenzionato per l'ente {}",
 		    idEnteConvenz, e);

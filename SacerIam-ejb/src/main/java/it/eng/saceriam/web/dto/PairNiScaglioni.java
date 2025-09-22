@@ -13,7 +13,12 @@
 
 package it.eng.saceriam.web.dto;
 
-public class PairNiScaglioni<Ini, Fine> {
+import java.io.Serializable;
+
+public class PairNiScaglioni<Ini extends Serializable, Fine extends Serializable>
+	implements Serializable {
+
+    private static final long serialVersionUID = -1795905389171503472L;
 
     private final Ini ini;
     private final Fine fine;
@@ -41,7 +46,7 @@ public class PairNiScaglioni<Ini, Fine> {
 	if (!(o instanceof PairNiScaglioni)) {
 	    return false;
 	}
-	PairNiScaglioni pairo = (PairNiScaglioni) o;
+	PairNiScaglioni<?, ?> pairo = (PairNiScaglioni<?, ?>) o;
 	return this.ini.equals(pairo.getIni()) && this.fine.equals(pairo.getFine());
     }
 

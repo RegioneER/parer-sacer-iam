@@ -631,7 +631,10 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 	    ambEnteStrut = entiConvenzionatiEjb
 		    .getAmbEnteStrutByIamParamApplic(idAmbienteEnteConvenz, idEnteConvenz);
 	} catch (ParerUserError ex) {
-	    getMessageBox().addError(ex.getMessage());
+	    final String msg = "Errore durante il caricamento dell'ambiente e struttura";
+	    actionLogger.error(msg, ex);
+	    getMessageBox().addError(msg);
+	    return;
 	}
 
 	String nmEnte = getForm().getFatturaDetail().getNm_ente().parse();
@@ -1031,7 +1034,7 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 		    customMessage = "La valorizzazione della chiave della nota di storno e della data della nota di credito comporterà il passaggio della fattura allo stato STORNATA. Si intende procedere?";
 		    attrFattura[1] = attrFattura[1] = ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.STORNATA
 			    .getDescrizione();
-		    ;
+
 		    getRequest().setAttribute("customMessageSalvataggioFattura", customMessage);
 		    getRequest().setAttribute("customBoxSalvataggioFatturaControllo1", true);
 		} else {
@@ -2044,47 +2047,50 @@ public class GestioneFatturazioneServiziAction extends GestioneFatturazioneServi
 	    getForm().getRiemissioneFattureFields().getAnno_testata_storn()
 		    .setValue("" + annoTestata);
 	} catch (NumberFormatException e) {
+	    actionLogger.error(
+		    "Errore durante il calcolo delle fatture provvisorie: Anno testata non corretto",
+		    e);
 	    getMessageBox().addError("Anno testata mancante o non formalmente non corretto <br>");
 	    getRequest().setAttribute("customRiemissioneFattureStornateMessageBox", true);
+	    return;
+	}
+
+	// anno non successivo all'anno corrente
+	if (annoTestata.longValue() > annoCorrente.longValue()) {
+	    getMessageBox().addError(
+		    "L’anno della testata fattura non può essere successivo all’anno corrente");
+	    getRequest().setAttribute("customRiemissioneFattureStornateMessageBox", true);
+	    return;
 	}
 
 	if (!getMessageBox().hasError()) {
 
-	    // Controlli vincoli sui campi
-	    if (annoTestata.longValue() > annoCorrente.longValue()) {
-		getMessageBox().addError(
-			"L’anno della testata fattura non può essere successivo all’anno corrente");
-		getRequest().setAttribute("customRiemissioneFattureStornateMessageBox", true);
-	    }
+	    LogParam param = SpagoliteLogUtil.getLogParam(
+		    paramHelper.getParamApplicApplicationName(), getUser().getUsername(),
+		    SpagoliteLogUtil.getPageName(this));
+	    param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
+	    param.setNomeAzione(SpagoliteLogUtil.getButtonActionName(this.getForm(),
+		    this.getForm().getRiemissioneFattureFields(), this.getForm()
+			    .getRiemissioneFattureFields().getRiemettiFattureStornate().getName()));
 
-	    if (!getMessageBox().hasError()) {
-		LogParam param = SpagoliteLogUtil.getLogParam(
-			paramHelper.getParamApplicApplicationName(), getUser().getUsername(),
-			SpagoliteLogUtil.getPageName(this));
-		param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-		param.setNomeAzione(SpagoliteLogUtil.getButtonActionName(this.getForm(),
-			this.getForm().getRiemissioneFattureFields(),
-			this.getForm().getRiemissioneFattureFields().getRiemettiFattureStornate()
-				.getName()));
-
-		Long idFatturaProvvisoria = null;
-		int numFattureCalcolate = 0;
-		if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_FATTURA)
-			&& statoFattura.equals(ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.STORNATA
-				.getDescrizione())) {
-		    BigDecimal idEnteConvenz = getForm().getFatturaDetail().getId_ente_convenz()
-			    .parse();
-		    BigDecimal idFatturaEnte = getForm().getFatturaDetail().getId_fattura_ente()
-			    .parse();
-		    idFatturaProvvisoria = entiConvenzionatiEjb.riemettiFatturaStornata(param,
-			    idEnteConvenz, idFatturaEnte.longValue(), annoTestata);
-		    if (idFatturaProvvisoria != null) {
-			numFattureCalcolate++;
-		    }
+	    Long idFatturaProvvisoria = null;
+	    int numFattureCalcolate = 0;
+	    if (getLastPublisher().equals(Application.Publisher.DETTAGLIO_FATTURA)
+		    && statoFattura.equals(ConstOrgStatoFatturaEnte.TiStatoFatturaEnte.STORNATA
+			    .getDescrizione())) {
+		BigDecimal idEnteConvenz = getForm().getFatturaDetail().getId_ente_convenz()
+			.parse();
+		BigDecimal idFatturaEnte = getForm().getFatturaDetail().getId_fattura_ente()
+			.parse();
+		idFatturaProvvisoria = entiConvenzionatiEjb.riemettiFatturaStornata(param,
+			idEnteConvenz, idFatturaEnte.longValue(), annoTestata);
+		if (idFatturaProvvisoria != null) {
+		    numFattureCalcolate++;
 		}
-
-		getMessageBox().addInfo("Totale fatture calcolate: " + numFattureCalcolate);
 	    }
+
+	    getMessageBox().addInfo("Totale fatture calcolate: " + numFattureCalcolate);
+
 	}
     }
 

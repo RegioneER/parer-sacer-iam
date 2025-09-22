@@ -15,7 +15,6 @@ package it.eng.saceriam.spring;
 
 import it.eng.spagoLite.spring.CustomSaml2AuthenticationSuccessHandler;
 import it.eng.spagoLite.spring.ParerSecurityConfiguration;
-import static it.eng.spagoLite.spring.ParerSecurityConfiguration.nomeApplicazione;
 import it.eng.spagoLite.spring.RefreshableRelyingPartyRegistrationRepository;
 import java.util.List;
 import javax.servlet.Filter;

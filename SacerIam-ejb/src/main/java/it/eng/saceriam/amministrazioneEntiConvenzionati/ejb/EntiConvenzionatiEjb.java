@@ -263,6 +263,8 @@ import java.math.RoundingMode;
  *
  * @author Bonora_L feat. Gilioli_P feat. DiLorenzo_F
  */
+@SuppressWarnings({
+	"rawtypes", "unchecked" })
 @Stateless
 @LocalBean
 @Interceptors({
@@ -312,10 +314,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli ambiti territoriali "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista di ambiti territoriali");
+		final String msg = "Errore durante il recupero degli ambiti territoriali";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 
@@ -344,10 +345,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli ambiti territoriali "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista di ambiti territoriali");
+		final String msg = "Errore durante il recupero degli ambiti territoriali";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 
@@ -375,10 +375,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dell'ambito territoriale padre "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero dell'ambito territoriale padre");
+		final String msg = "Errore durante il recupero dell'ambito territoriale padre";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return ambitoTerritRowBean;
@@ -394,10 +393,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero delle categorie ente "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista di categorie ente");
+		final String msg = "Errore durante il recupero delle categorie ente";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 
@@ -432,10 +430,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista di enti convenzionati");
+		final String msg = "Errore durante il recupero degli enti convenzionati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 
@@ -538,12 +535,9 @@ public class EntiConvenzionatiEjb {
 	} catch (ParerUserError ex) {
 	    throw new ParerUserError(ex.getDescription());
 	} catch (Exception ex) {
-	    LOGGER.error(
-		    "Errore imprevisto durante il salvataggio dell'ente convenzionato e dell'accordo : "
-			    + ExceptionUtils.getRootCauseMessage(ex),
-		    ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio dell'ente convenzionato e dell'accordo");
+	    final String msg = "Errore durante il salvataggio dell'ente convenzionato e dell'accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idEnteConvenz;
     }
@@ -639,10 +633,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO,
 		    new BigDecimal(idEnteConvenz), param.getNomePagina());
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'ente convenzionato : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio dell'ente convenzionato");
+	    final String msg = "Errore durante il salvataggio dell'ente convenzionato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idEnteConvenz;
     }
@@ -954,10 +947,9 @@ public class EntiConvenzionatiEjb {
 	} catch (ParerUserError ex) {
 	    throw new ParerUserError(ex.getDescription());
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'ente convenzionato : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio dell'ente convenzionato");
+	    final String msg = "Errore durante il salvataggio dell'ente convenzionato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -1573,10 +1565,10 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista degli enti convenzionati");
+		final String msg = "Errore durante il recupero degli enti convenzionati "
+			+ ExceptionUtils.getRootCauseMessage(e);
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return enteConvenzTableBean;
@@ -1604,10 +1596,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli ambienti enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista degli ambienti enti convenzionati");
+		final String msg = "Errore durante il recupero degli ambienti enti convenzionati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return ambienteEnteConvenzTableBean;
@@ -1632,7 +1623,7 @@ public class EntiConvenzionatiEjb {
 	List<OrgEnteSiam> enteConvenzList = helper.getOrgEnteConvenzUserAbilList(idUserIamCor,
 		tiEnteConvenz);
 	if (enteConvenzList != null && !enteConvenzList.isEmpty()) {
-	    List<OrgEnteSiam> entiConvenzCollegList = new ArrayList();
+	    List<OrgEnteSiam> entiConvenzCollegList = new ArrayList<>();
 	    // Recupero per ogni ente convenzionato gli enti ad esso collegati (escluso se stesso)
 	    for (OrgEnteSiam enteConvenz : enteConvenzList) {
 		entiConvenzCollegList.addAll(helper.getOrgEnteConvenzCollegUserAbilList(
@@ -1648,10 +1639,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista degli enti convenzionati");
+		final String msg = "Errore durante il recupero degli enti convenzionati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return enteConvenzTableBean;
@@ -1680,7 +1670,7 @@ public class EntiConvenzionatiEjb {
 	    List<OrgEnteSiam> enteConvenzList = helper.getOrgEnteConvenzUserAbilList(idUserIamCor,
 		    tiEnteConvenz);
 	    if (enteConvenzList != null && !enteConvenzList.isEmpty()) {
-		List<OrgEnteSiam> entiConvenzCollegList = new ArrayList();
+		List<OrgEnteSiam> entiConvenzCollegList = new ArrayList<>();
 		// Recupero per ogni ente convenzionato gli enti ad esso collegati (escluso se
 		// stesso)
 		for (OrgEnteSiam enteConvenz : enteConvenzList) {
@@ -1699,10 +1689,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli ambienti enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista degli ambienti enti convenzionati");
+		final String msg = "Errore durante il recupero degli ambienti enti convenzionati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return ambienteEnteConvenzTableBean;
@@ -1737,10 +1726,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli enti convenzionati cessati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista degli enti convenzionati cessati");
+		final String msg = "Errore durante il recupero degli enti convenzionati cessati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return enteConvenzTableBean;
@@ -1770,10 +1758,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli enti convenzionati non cessati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista degli enti convenzionati non cessati");
+		final String msg = "Errore durante il recupero degli enti convenzionati non cessati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return enteConvenzTableBean;
@@ -1807,8 +1794,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista delel precedenti appartenenze all'ambiente dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista delle precedenti appartenenze all'ambiente dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -1836,8 +1822,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista di anagrafiche dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di anagrafiche dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -1903,8 +1888,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista di accordi dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di accordi dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -1983,8 +1967,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero dell'accordo più recente dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero dell'accordo più recente dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2024,8 +2007,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista di accordi dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di accordi dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2121,8 +2103,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista di organizzazioni versanti dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di organizzazioni versanti dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2170,8 +2151,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista di organizzazioni versanti dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di organizzazioni versanti dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2225,8 +2205,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista di utenti dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di utenti dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2260,8 +2239,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero della lista di utenti appartenenti all'ente convenzionato "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero della lista di utenti appartenenti all'ente convenzionato";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -2299,8 +2277,7 @@ public class EntiConvenzionatiEjb {
 		    table.add(row);
 		}
 	    } catch (IllegalArgumentException ex) {
-		String msg = "Errore durante il recupero della lista di utenti archivisti dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di utenti archivisti dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2327,8 +2304,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero dell'archivista di riferimento "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero dell'archivista di riferimento";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -2354,8 +2330,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero del referente ente "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero del referente ente";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -2411,8 +2386,7 @@ public class EntiConvenzionatiEjb {
 		    table.add(row);
 		}
 	    } catch (IllegalArgumentException ex) {
-		String msg = "Errore durante il recupero della lista di utenti referenti dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista di utenti referenti dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2493,8 +2467,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista delle appartenenze ai collegamenti dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista delle appartenenze ai collegamenti dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2545,8 +2518,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero del collegamento dell'ente "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero del collegamento dell'ente";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -2598,8 +2570,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista dei collegamenti dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista dei collegamenti dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -2661,9 +2632,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero della lista dei collegamenti "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero della lista dei collegamenti");
+		final String msg = "Errore durante il recupero della lista dei collegamenti";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 
@@ -2692,10 +2663,9 @@ public class EntiConvenzionatiEjb {
 		    orgCollegEntiConvenzTableBean.add(collegEntiConvenzRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero della lista dei collegamenti validi "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista dei collegamenti validi");
+		final String msg = "Errore durante il recupero della lista dei collegamenti validi";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return orgCollegEntiConvenzTableBean;
@@ -2842,12 +2812,9 @@ public class EntiConvenzionatiEjb {
 		    "Salvataggio dell'associazione ente convenzionato / struttura versante effettuato con successo");
 	    idEnteConvenzOrg = ente.getIdEnteConvenzOrg();
 	} catch (Exception ex) {
-	    LOGGER.error(
-		    "Errore imprevisto durante il salvataggio dell'associazione ente convenzionato / struttura versante: "
-			    + ExceptionUtils.getRootCauseMessage(ex),
-		    ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio dell'associazione ente convenzionato / struttura versante");
+	    final String msg = "Errore durante il salvataggio dell'associazione ente convenzionato / struttura versante";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idEnteConvenzOrg;
     }
@@ -2869,9 +2836,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei tipi accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero della lista di tipi accordo");
+		final String msg = "Errore durante il recupero dei tipi accordo";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoAccordoTableBean;
@@ -2887,9 +2854,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei tipi accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero della lista di tipi accordo");
+		final String msg = "Errore durante il recupero dei tipi accordo senza classe ente";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoAccordoTableBean;
@@ -2914,10 +2881,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei tipi gestione accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista di tipi gestione accordo");
+		final String msg = "Errore durante il recupero dei tipi gestione accordo";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipiGestioneAccordoTableBean;
@@ -2940,10 +2906,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero delle classi enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero delle classi enti convenzionati");
+		final String msg = "Errore durante il recupero delle classi enti convenzionati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return classeEnteConvenzTableBean;
@@ -2971,9 +2936,9 @@ public class EntiConvenzionatiEjb {
 		    tariffarioTableBean.add(tariffarioRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero dei tariffari "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero dei tariffari");
+		final String msg = "Errore durante il recupero dei tariffari";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffarioTableBean;
@@ -3004,8 +2969,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero dell'accordo ente "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero dell'accordo ente";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -3031,8 +2995,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero della gestione accordo "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero della gestione accordo";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -3057,8 +3020,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero del modulo info accordo "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero del modulo info accordo";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -3094,13 +3056,10 @@ public class EntiConvenzionatiEjb {
 		    servizioErogTableBean.add(servizioErogRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(
-			"Errore durante il recupero dei servizi erogati sull'accordo avente id "
-				+ idAccordoEnte + " " + ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei servizi erogati sull'accordo avente id "
-				+ idAccordoEnte);
+		final String msg = "Errore durante il recupero dei servizi erogati sull'accordo avente id "
+			+ idAccordoEnte;
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return servizioErogTableBean;
@@ -3151,11 +3110,10 @@ public class EntiConvenzionatiEjb {
 		    }
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero delle gestioni sull'accordo avente id "
-			+ idAccordoEnte + " " + ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero delle gestioni sull'accordo avente id "
-				+ idAccordoEnte);
+		final String msg = "Errore durante il recupero delle gestioni sull'accordo avente id "
+			+ idAccordoEnte;
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return gestioneAccordoTableBean;
@@ -3196,11 +3154,10 @@ public class EntiConvenzionatiEjb {
 		    orgModuloInfoAccordoTableBean.add(servizioErogRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero dei moduli info sull'accordo avente id "
-			+ idAccordoEnte + " " + ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei moduli info sull'accordo avente id "
-				+ idAccordoEnte);
+		final String msg = "Errore durante il recupero dei moduli info sull'accordo avente id "
+			+ idAccordoEnte;
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return orgModuloInfoAccordoTableBean;
@@ -3242,14 +3199,10 @@ public class EntiConvenzionatiEjb {
 		    orgModuloInfoAccordoTableBean.add(servizioErogRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(
-			"Errore durante il recupero dei moduli info sull'ente convenzionato avente id "
-				+ enteConvenz.getIdEnteSiam() + " "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei moduli info sull'ente convenzionato avente id "
-				+ enteConvenz.getIdEnteSiam());
+		final String msg = "Errore durante il recupero dei moduli info sull'ente convenzionato avente id "
+			+ enteConvenz.getIdEnteSiam();
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return orgModuloInfoAccordoTableBean;
@@ -3271,8 +3224,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero del servizio erogato "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero del servizio erogato";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -3309,8 +3261,9 @@ public class EntiConvenzionatiEjb {
 	    idOrganizApplic = utentiHelper.getIdOrganizIamByParam(nmEnteUnitaDocAccordo,
 		    nmStrutUnitaDocAccordo);
 	} catch (Exception e) {
-	    throw new ParerUserError(
-		    "Attenzione: in base ai parametri ente e struttura definiti sull'ambiente ente convenzionato, non è possibile ricavare un ambiente di SACER e quindi accedere al dettaglio. Assicurarsi che i valori dei parametri siano esatti");
+	    final String msg = "Attenzione: in base ai parametri ente e struttura definiti sull'ambiente ente convenzionato, non è possibile ricavare un ambiente di SACER e quindi accedere al dettaglio. Assicurarsi che i valori dei parametri siano esatti";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	UsrOrganizIam organizIam = helper.getUsrOrganizIam("SACER", "STRUTTURA", idOrganizApplic);
 	String[][] ambienteEnteStruttura = new String[3][3];
@@ -3402,9 +3355,9 @@ public class EntiConvenzionatiEjb {
 	    // Numero abitanti
 	    niAbitanti = accordoDetail.getNi_abitanti().parse();
 	} catch (EMFError ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio dell'accordo");
+	    final String msg = "Errore durante il parsing dei campi dell'accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 
 	if (idEnteConvenzGestore == null) {
@@ -3550,9 +3503,9 @@ public class EntiConvenzionatiEjb {
 	} catch (ParerUserError ex) {
 	    throw new ParerUserError(ex.getDescription());
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Errore imprevisto durante il salvataggio dell'accordo");
+	    final String msg = "Errore durante il salvataggio dell'accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idAccordoEnte;
     }
@@ -3670,9 +3623,9 @@ public class EntiConvenzionatiEjb {
 		    idEnteConvenz, param.getNomePagina());
 	    LOGGER.debug("Salvataggio dell'accordo completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio dell'accordo");
+	    final String msg = "Errore durante il salvataggio dell'accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -3718,9 +3671,9 @@ public class EntiConvenzionatiEjb {
 		    idEnteConvenz, param.getNomePagina());
 	    LOGGER.debug("Chiusura dell'accordo completata");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante la chiusura dell'accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante la chiusura dell'accordo");
+	    final String msg = "Errore imprevisto durante la chiusura dell'accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -3814,10 +3767,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio dell'annualit\u00E0 accordo completato");
 	    idAaAccordo = annualita.getIdAaAccordo();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'annualit\u00E0  accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio dell'annualit\u00E0  accordo");
+	    final String msg = "Errore durante il salvataggio dell'annualit\u00E0  accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idAaAccordo;
     }
@@ -3879,10 +3831,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    LOGGER.debug("Salvataggio dell'annualit\u00E0 accordo completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'annualit\u00E0  accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio dell'annualit\u00E0  accordo");
+	    final String msg = "Errore durante il salvataggio dell'annualit\u00E0  accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -3911,10 +3862,9 @@ public class EntiConvenzionatiEjb {
 	    idSistemaVersante = servizioErogatoDetail.getId_sistema_versante().parse();
 	    dtErog = servizioErogatoDetail.getDt_erog().parse();
 	} catch (EMFError ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del servizio erogato : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del servizio erogato");
+	    final String msg = "Errore durante il parsing dei campi del servizio erogato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 
 	// Controlli
@@ -3979,10 +3929,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio del servizio erogato completato");
 	    idServizioErogato = servizioErogato.getIdServizioErogato();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del servizio erogato : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del servizio erogato");
+	    final String msg = "Errore durante il salvataggio del servizio erogato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idServizioErogato;
     }
@@ -4062,10 +4011,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    LOGGER.debug("Salvataggio del servizio erogato completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del servizio erogato : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del servizio erogato");
+	    final String msg = "Errore durante il salvataggio del servizio erogato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4182,10 +4130,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio della gestione accordo completata");
 	    return gestioneAccordo.getIdGestAccordo();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio della gestione accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio della gestione accordo");
+	    final String msg = "Errore durante il salvataggio della gestione accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4278,10 +4225,9 @@ public class EntiConvenzionatiEjb {
 	    return moduloInfoAccordo.getIdModuloInfoAccordo();
 
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del modulo informazioni : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del modulo informazioni");
+	    final String msg = "Errore durante il salvataggio del modulo informazioni";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4424,9 +4370,9 @@ public class EntiConvenzionatiEjb {
 		    tipoDatoTable.add(tipoDatoRow);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero dei registri "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero dei registri ");
+		final String msg = "Errore durante il recupero dei registri";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoDatoTable;
@@ -4452,10 +4398,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(accordo.getOrgEnteSiam().getIdEnteSiam()),
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione dell'accordo ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione dell'accordo";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4479,10 +4424,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(aaAccordo.getOrgAccordoEnte().getOrgEnteSiam().getIdEnteSiam()),
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione dell'annualit\u00E0  ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione dell'annualit\u00E0 ";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4509,10 +4453,9 @@ public class EntiConvenzionatiEjb {
 			    servizioErog.getOrgAccordoEnte().getOrgEnteSiam().getIdEnteSiam()),
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del servizio erogato ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del servizio erogato";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4539,10 +4482,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    helper.removeEntity(gestioneAccordo, true);
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione della gestione accordo ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione della gestione accordo";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4568,10 +4510,9 @@ public class EntiConvenzionatiEjb {
 		    SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO, idEnteConvenz,
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del modulo informazioni ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del modulo informazioni";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4645,9 +4586,9 @@ public class EntiConvenzionatiEjb {
 		    servizioFatturaTableBean.add(servizioFatturaRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero dei servizi fatturati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero dei servizi fatturati");
+		final String msg = "Errore durante il recupero dei servizi fatturati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return servizioFatturaTableBean;
@@ -4678,10 +4619,9 @@ public class EntiConvenzionatiEjb {
 		} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 			| IllegalAccessException | IllegalArgumentException
 			| InvocationTargetException e) {
-		    LOGGER.error("Errore durante il recupero dei tipi servizio "
-			    + ExceptionUtils.getRootCauseMessage(e), e);
-		    throw new ParerUserError(
-			    "Errore durante il recupero della lista di tipi servizio");
+		    final String msg = "Errore durante il recupero dei tipi servizio";
+		    LOGGER.error(msg, e);
+		    throw new ParerUserError(msg);
 		}
 	    }
 	}
@@ -4699,8 +4639,7 @@ public class EntiConvenzionatiEjb {
 		} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 			| IllegalAccessException | IllegalArgumentException
 			| InvocationTargetException e) {
-		    LOGGER.error("Errore durante il recupero del tipo servizio "
-			    + ExceptionUtils.getRootCauseMessage(e), e);
+		    LOGGER.error("Errore durante il recupero del tipo servizio", e);
 		}
 	    }
 	}
@@ -4730,10 +4669,9 @@ public class EntiConvenzionatiEjb {
 			}
 		    }
 		} catch (IllegalArgumentException e) {
-		    LOGGER.error("Errore durante il recupero delle Entità rimborso costi "
-			    + ExceptionUtils.getRootCauseMessage(e), e);
-		    throw new ParerUserError(
-			    "Errore durante il recupero delle Entità rimborso costi");
+		    final String msg = "Errore durante il recupero delle Entità rimborso costi";
+		    LOGGER.error(msg, e);
+		    throw new ParerUserError(msg);
 		}
 	    }
 	}
@@ -4766,9 +4704,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei tipi servizio "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero della lista di tipi servizio");
+		final String msg = "Errore durante il recupero della lista dei tipi servizio";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoServizioTableBean;
@@ -4799,7 +4737,7 @@ public class EntiConvenzionatiEjb {
 		    param.getNomeUtente(), param.getNomeAzione(),
 		    SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO, idEnteConvenzionato,
 		    param.getNomePagina());
-	} catch (ParerUserError e) {
+	} catch (Exception e) {
 	    String messaggio = "Eccezione imprevista nell'eliminazione dell'associazione struttura versante - ente convenzionato ";
 	    messaggio += ExceptionUtils.getRootCauseMessage(e);
 	    LOGGER.error(messaggio, e);
@@ -4819,9 +4757,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero della lista dei tipi accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero della lista dei tipi accordo");
+		final String msg = "Errore durante il recupero della lista dei tipi accordo";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoAccordoTableBean;
@@ -4837,9 +4775,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero del tipo accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero del tipo accordo");
+		final String msg = "Errore durante il recupero del tipo accordo";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoAccordoRowBean;
@@ -4865,10 +4803,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(tipoAccordo.getIdTipoAccordo()), param.getNomePagina());
 	    helper.removeEntity(tipoAccordo, true);
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del tipo accordo ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del tipo accordo";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -4914,10 +4851,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio del tipo accordo completato");
 	    idTipoAccordo = tipoAccordo.getIdTipoAccordo();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del tipo accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del tipo accordo ");
+	    final String msg = "Eccezione imprevista durante il salvataggio del tipo accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idTipoAccordo;
     }
@@ -4963,10 +4899,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(tipoAccordo.getIdTipoAccordo()), param.getNomePagina());
 	    LOGGER.debug("Salvataggio del tipo accordo completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del tipo accordo : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del tipo accordo ");
+	    final String msg = "Eccezione imprevista durante il salvataggio del tipo accordo";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -5004,9 +4939,9 @@ public class EntiConvenzionatiEjb {
 		    tariffarioTableBean.add(tariffarioRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero dei tariffari "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero dei tariffari");
+		final String msg = "Errore durante il recupero dei tariffari";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffarioTableBean;
@@ -5029,9 +4964,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei tipi accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero della lista di tipi accordo");
+		final String msg = "Errore durante il recupero della lista dei tipi accordo";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoAccordoTableBean;
@@ -5047,9 +4982,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero del tariffario "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero del tariffario ");
+		final String msg = "Errore durante il recupero del tariffario";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffarioRowBean;
@@ -5079,9 +5014,9 @@ public class EntiConvenzionatiEjb {
 		    tariffaTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero delle Entità rimborso costi "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero delle Entità rimborso costi");
+		final String msg = "Errore durante il recupero delle Entità rimborso costi";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffaTableBean;
@@ -5107,10 +5042,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    helper.removeEntity(tariffario, true);
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del tariffario ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del tariffario";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -5152,9 +5086,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio del tariffario completato");
 	    idTariffario = tariffario.getIdTariffario();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del tariffario : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio del tariffario");
+	    final String msg = "Eccezione imprevista durante il salvataggio del tariffario";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idTariffario;
     }
@@ -5194,9 +5128,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    LOGGER.debug("Salvataggio del tariffario completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del tariffario : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio del tariffario");
+	    final String msg = "Eccezione imprevista durante il salvataggio del tariffario";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -5223,10 +5157,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero delle classi enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero delle classi enti convenzionati");
+		final String msg = "Errore durante il recupero delle classi enti convenzionati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return classeEnteConvenzTableBean;
@@ -5253,9 +5186,9 @@ public class EntiConvenzionatiEjb {
 		    tariffaTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero delle Entità rimborso costi "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero delle Entità rimborso costi");
+		final String msg = "Errore durante il recupero delle Entità rimborso costi";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffaTableBean;
@@ -5281,10 +5214,9 @@ public class EntiConvenzionatiEjb {
 		    tariffaTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero delle Entità rimborso costi accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero delle Entità rimborso costi accordo");
+		final String msg = "Errore durante il recupero delle Entità rimborso costi accordo";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffaTableBean;
@@ -5312,12 +5244,9 @@ public class EntiConvenzionatiEjb {
 		    tariffaTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(
-			"Errore durante il recupero delle Entità rimborso costi annualit\u00E0  "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero delle Entità rimborso costi annualit\u00E0 ");
+		final String msg = "Errore durante il recupero delle Entità rimborso costi annualità";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffaTableBean;
@@ -5343,10 +5272,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(tipoServizio.getIdTipoServizio()), param.getNomePagina());
 	    helper.removeEntity(tipoServizio, true);
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del tipo servizio ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del tipo servizio";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -5391,10 +5319,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio del tipo servizio completato");
 	    idTipoServizio = tipoServizio.getIdTipoServizio();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del tipo servizio : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del tipo servizio ");
+	    final String msg = "Eccezione imprevista durante il salvataggio del tipo servizio";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idTipoServizio;
     }
@@ -5456,10 +5383,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(tipoServizio.getIdTipoServizio()), param.getNomePagina());
 	    LOGGER.debug("Salvataggio del tipo servizio completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del tipo servizio : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del tipo servizio ");
+	    final String msg = "Eccezione imprevista durante il salvataggio del tipo servizio";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -5475,10 +5401,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero della lista dei tipi servizio "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista dei tipi servizio");
+		final String msg = "Errore durante il recupero della lista dei tipi servizio";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tipoServizioTableBean;
@@ -5493,9 +5418,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero del tariffario "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero del tariffario ");
+		final String msg = "Errore durante il recupero del tariffario";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return tariffaRowBean;
@@ -5520,9 +5445,9 @@ public class EntiConvenzionatiEjb {
 		scaglioneTariffaTableBean = (OrgScaglioneTariffaTableBean) Transform
 			.entities2TableBean(scaglioneTariffaList);
 	    } catch (Exception e) {
-		LOGGER.error("Errore durante il recupero degli scaglioni "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero degli scaglioni");
+		final String msg = "Errore durante il recupero degli scaglioni";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return scaglioneTariffaTableBean;
@@ -5805,12 +5730,9 @@ public class EntiConvenzionatiEjb {
 		    idEnteConvenz, param.getNomePagina());
 	    LOGGER.debug("Salvataggio del collegamento ente convenzionato completato");
 	} catch (Exception ex) {
-	    LOGGER.error(
-		    "Errore imprevisto durante il salvataggio del collegamento ente convenzionato : "
-			    + ExceptionUtils.getRootCauseMessage(ex),
-		    ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del collegamento ente convenzionato");
+	    final String msg = "Eccezione imprevista durante il salvataggio del collegamento ente convenzionato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -5899,12 +5821,9 @@ public class EntiConvenzionatiEjb {
 
 	    LOGGER.debug("Salvataggio del collegamento ente convenzionato completato");
 	} catch (Exception ex) {
-	    LOGGER.error(
-		    "Errore imprevisto durante il salvataggio del collegamento ente convenzionato : "
-			    + ExceptionUtils.getRootCauseMessage(ex),
-		    ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del collegamento ente convenzionato");
+	    final String msg = "Eccezione imprevista durante il salvataggio del collegamento ente convenzionato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -5928,10 +5847,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(enteArkRif.getOrgEnteSiam().getIdEnteSiam()),
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione dell'utente archivista dall'ente convenzionato ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione dell'utente archivista dall'ente convenzionato";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -6007,9 +5925,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio della tariffa completata");
 	    idTariffa = tariffa.getIdTariffa();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio della tariffa : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio della tariffa");
+	    final String msg = "Eccezione imprevista durante il salvataggio della tariffa";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idTariffa;
     }
@@ -6077,9 +5995,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    LOGGER.debug("Salvataggio della tariffa completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio della tariffa : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio della tariffa");
+	    final String msg = "Eccezione imprevista durante il salvataggio della tariffa";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -6154,10 +6072,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    helper.removeEntity(tariffa, true);
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione della tariffa ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione della tariffa";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -6177,9 +6094,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei codici IVA "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero dei codici IVA");
+		final String msg = "Errore durante il recupero dei codici IVA";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return cdIvaTableBean;
@@ -6234,9 +6151,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero delle fatture "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero delle fatture");
+		final String msg = "Errore durante il recupero delle fatture";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return ricFattureTableBean;
@@ -6260,9 +6177,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero delle fatture "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero delle fatture");
+		final String msg = "Errore durante il recupero delle fatture";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return ricFattureTableBean;
@@ -6296,9 +6213,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero della fattura "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero della fattura ");
+		final String msg = "Errore durante il recupero della fattura";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return fatturaEnteRowBean;
@@ -6344,9 +6261,9 @@ public class EntiConvenzionatiEjb {
 		serviziFatturatiBaseTable.add(servizioFatturatoBaseRow);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero dei servizi fatturati "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero dei servizi fatturati ");
+	    final String msg = "Errore durante il recupero dei servizi fatturati";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return serviziFatturatiBaseTable;
     }
@@ -6372,9 +6289,9 @@ public class EntiConvenzionatiEjb {
 		serviziFatturatiTableBean.add(servizioFatturatoRowBean);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero dei servizi fatturati "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero dei servizi fatturati ");
+	    final String msg = "Errore durante il recupero dei servizi fatturati";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return serviziFatturatiTableBean;
     }
@@ -6404,9 +6321,9 @@ public class EntiConvenzionatiEjb {
 		serviziFatturatiTableBean.add(servizioFatturatoRowBean);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero dei servizi fatturati "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero dei servizi fatturati ");
+	    final String msg = "Errore durante il recupero dei servizi fatturati";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return serviziFatturatiTableBean;
     }
@@ -6422,9 +6339,9 @@ public class EntiConvenzionatiEjb {
 			.entities2TableBean(pagamFatturaEnteList);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero dei pagamenti fattura ente "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero dei pagamenti fattura ente ");
+	    final String msg = "Errore durante il recupero dei pagamenti fattura ente";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return pagamFatturaEnteTableBean;
     }
@@ -6440,9 +6357,9 @@ public class EntiConvenzionatiEjb {
 			.entity2RowBean(pagamFatturaEnte);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero del pagamento fattura ente "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero del pagamento fattura ente ");
+	    final String msg = "Errore durante il recupero del pagamento fattura ente";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return serviziFatturatiRowBean;
     }
@@ -6478,9 +6395,9 @@ public class EntiConvenzionatiEjb {
 		fattureRiemesseBaseTable.add(fatturaRiemessaBaseRow);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero delle fatture riemesse "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero delle fatture riemesse ");
+	    final String msg = "Errore durante il recupero delle fatture riemesse";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return fattureRiemesseBaseTable;
     }
@@ -6503,9 +6420,9 @@ public class EntiConvenzionatiEjb {
 		sollecitiTableBean.add(rafSollecito);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero dei solleciti "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero dei solleciti ");
+	    final String msg = "Errore durante il recupero dei solleciti";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return sollecitiTableBean;
     }
@@ -6521,9 +6438,9 @@ public class EntiConvenzionatiEjb {
 			.entities2TableBean(modifFatturaEnteList);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero delle modifiche fattura ente "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero delle modifiche fattura ente ");
+	    final String msg = "Errore durante il recupero delle modifiche fattura ente";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return modifFatturaEnteTableBean;
     }
@@ -6551,9 +6468,9 @@ public class EntiConvenzionatiEjb {
 	    }
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-	    LOGGER.error("Errore durante il recupero dei servizi fatturati "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero dei servizi fatturati ");
+	    final String msg = "Errore durante il recupero dei servizi fatturati";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return servFatturaRowBean;
     }
@@ -6596,8 +6513,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero dell'ente convenzionato gestore"
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero dell'ente convenzionato gestore";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -6619,8 +6535,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero dell'ente convenzionato gestore"
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero dell'ente convenzionato gestore";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -6642,8 +6557,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero dell'ente convenzionato conservatore"
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero dell'ente convenzionato conservatore";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -6661,9 +6575,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli utenti archivisti "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero degli utenti archivisti");
+		final String msg = "Errore durante il recupero degli utenti archivisti";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return usrUserTableBean;
@@ -6710,8 +6624,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero dell'anagrafica dell'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero dell'anagrafica dell'ente convenzionato";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -6763,10 +6676,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Storicizzazione dell'ente completata");
 	    idStoEnteConvenz = stoEnte.getIdStoEnteConvenz();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante la storicizzazione dell'ente convenzionato : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante la storicizzazione dell'ente convenzionato");
+	    final String msg = "Errore imprevisto durante la storicizzazione dell'ente convenzionato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idStoEnteConvenz;
     }
@@ -6799,12 +6711,9 @@ public class EntiConvenzionatiEjb {
 		    idEnteConvenz, param.getNomePagina());
 	    LOGGER.debug("Modifica storicizzazione dell'ente completata");
 	} catch (Exception ex) {
-	    LOGGER.error(
-		    "Errore imprevisto durante la modifica della storicizzazione dell'ente convenzionato : "
-			    + ExceptionUtils.getRootCauseMessage(ex),
-		    ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante la modifica della storicizzazione dell'ente convenzionato");
+	    final String msg = "Errore imprevisto durante la modifica della storicizzazione dell'ente convenzionato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -6858,10 +6767,9 @@ public class EntiConvenzionatiEjb {
 		    BigDecimal.valueOf(accordoEnte.getOrgEnteSiam().getIdEnteSiam()),
 		    param.getNomePagina());
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il ricalcolo dei servizi erogati "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il ricalcolo dei servizi erogati");
+	    final String msg = "Errore imprevisto durante il ricalcolo dei servizi erogati";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -7168,7 +7076,7 @@ public class EntiConvenzionatiEjb {
 		ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE,
 		ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE);
 	if (!enteConvenzList.isEmpty()) {
-	    List<OrgEnteSiam> collegEntiConvenzList = new ArrayList();
+	    List<OrgEnteSiam> collegEntiConvenzList = new ArrayList<>();
 	    // Recupero per ogni ente convenzionato gli enti ad esso collegati (escluso se stesso)
 	    for (OrgEnteSiam enteConvenz : enteConvenzList) {
 		collegEntiConvenzList.addAll(helper.getOrgEnteConvenzCollegUserAbilList(
@@ -7439,8 +7347,7 @@ public class EntiConvenzionatiEjb {
 	}
     }
 
-    public void calcolaServiziErogatiSuUltimoAccordo(BigDecimal idEnteConvenz)
-	    throws ParerUserError {
+    public void calcolaServiziErogatiSuUltimoAccordo(BigDecimal idEnteConvenz) {
 	OrgAccordoEnte accordoEnte = userHelper.getLastAccordoEnte(idEnteConvenz, new Date());
 	calcolaServiziErogatiSuAccordo(accordoEnte);
     }
@@ -7473,8 +7380,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
+		LOGGER.error("Errore durante il recupero degli enti convenzionati", e);
 	    }
 	}
 	return ricEnteConvenzTableBean;
@@ -7828,8 +7734,7 @@ public class EntiConvenzionatiEjb {
 	    }
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-	    LOGGER.error("Errore durante il recupero dell'ambiente di un ente convenzionato "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
+	    LOGGER.error("Errore durante il recupero dell'ambiente di un ente convenzionato", e);
 	}
 	return ambienteEnteConvenzRowBean;
     }
@@ -7929,10 +7834,8 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    idAmbienteEnteConvenz = ambienteEnteConvenz.getIdAmbienteEnteConvenz();
 	} catch (Exception ex) {
-	    LOGGER.error(
-		    "Errore imprevisto durante il salvataggio dell'ambiente ente convenzionato : "
-			    + ExceptionUtils.getRootCauseMessage(ex),
-		    ex);
+	    final String msg = "Errore durante il salvataggio dell'ambiente ente convenzionato";
+	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(
 		    "Eccezione imprevista durante il salvataggio dell'ambiente ente convenzionato");
 	}
@@ -8015,12 +7918,9 @@ public class EntiConvenzionatiEjb {
 		    idAmbienteEnteConvenzionato, param.getNomePagina());
 	    LOGGER.debug("Salvataggio dell'ambiente ente convenzionato completato");
 	} catch (Exception ex) {
-	    LOGGER.error(
-		    "Errore imprevisto durante il salvataggio dell'ambiente ente convenzionato : "
-			    + ExceptionUtils.getRootCauseMessage(ex),
-		    ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio dell'ambiente ente convenzionato");
+	    final String msg = "Errore durante il salvataggio dell'ambiente ente convenzionato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8135,9 +8035,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio dell'incasso completato");
 	    idPagamFatturaEnte = pagamFatturaEnte.getIdPagamFatturaEnte();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'incasso : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio dell'incasso");
+	    final String msg = "Errore durante il salvataggio dell'incasso";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idPagamFatturaEnte;
     }
@@ -8192,9 +8092,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    LOGGER.debug("Salvataggio dell'incasso completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio dell'incasso : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio dell'incasso");
+	    final String msg = "Errore durante il salvataggio dell'incasso";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8310,10 +8210,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_FATTURA, idFatturaEnte,
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione dell'incasso "
-		    + ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError("Eccezione imprevista nell'eliminazione dell'incasso");
+	    final String msg = "Eccezione imprevista nell'eliminazione dell'incasso";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8369,9 +8268,9 @@ public class EntiConvenzionatiEjb {
 		    fatturaBean.getIdFatturaEnte(), param.getNomePagina());
 	    LOGGER.debug("Salvataggio della fattura completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio della fattura : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError("Eccezione imprevista durante il salvataggio della fattura");
+	    final String msg = "Errore durante il salvataggio della fattura";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8429,9 +8328,9 @@ public class EntiConvenzionatiEjb {
 		registriConnessiTableBean.add(registroConnessoRowBean);
 	    }
 	} catch (IllegalArgumentException e) {
-	    LOGGER.error("Errore durante il recupero dei registri connessi al tipo ud "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero dei registri connessi al tipo ud");
+	    final String msg = "Errore durante il recupero dei registri connessi al tipo ud";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return registriConnessiTableBean;
     }
@@ -8457,10 +8356,9 @@ public class EntiConvenzionatiEjb {
 		    new BigDecimal(enteUserRif.getOrgEnteSiam().getIdEnteSiam()),
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione dell'utente referente dall'ente convenzionato ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione dell'utente referente dall'ente convenzionato";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8500,10 +8398,9 @@ public class EntiConvenzionatiEjb {
 	    // param.getNomeAzione(), listaOggettiDaLoggare, param.getNomePagina());
 
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del collegamento dall'ente convenzionato ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del collegamento dall'ente convenzionato";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8537,10 +8434,9 @@ public class EntiConvenzionatiEjb {
 	    // param.getNomeUtente(), param.getNomeAzione(), listaOggettiDaLoggare,
 	    // param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del collegamento ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del collegamento";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8587,10 +8483,9 @@ public class EntiConvenzionatiEjb {
 		    idEnteConvenz, param.getNomePagina());
 
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione dell'associazione tra ente e collegamento ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione dell'associazione tra ente e collegamento";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8798,10 +8693,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomePagina());
 	    LOGGER.debug("Modifica del servizio fatturato completata con successo");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del servizio fatturato : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del servizio fatturato");
+	    final String msg = "Errore durante il salvataggio del servizio fatturato";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -8850,10 +8744,9 @@ public class EntiConvenzionatiEjb {
 	    fatturaEnte.setImTotIva(calcTotFatt.getImTotIva() != null ? calcTotFatt.getImTotIva()
 		    : BigDecimal.ZERO);
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del servizio fatturato ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del servizio fatturato";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -9215,9 +9108,9 @@ public class EntiConvenzionatiEjb {
 			.entity2RowBean(sollecitoFatturaEnte);
 	    }
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero del sollecito fattura ente "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
-	    throw new ParerUserError("Errore durante il recupero del sollecito fattura ente ");
+	    final String msg = "Errore durante il recupero del sollecito fattura ente";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
 	return sollecitoFatturaEnteRowBean;
     }
@@ -9279,10 +9172,9 @@ public class EntiConvenzionatiEjb {
 	    LOGGER.debug("Salvataggio del sollecito completato");
 	    idSollecitoFatturaEnte = sollecito.getIdSollecitoFatturaEnte();
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del sollecito fattura ente : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del sollecito fattura ente");
+	    final String msg = "Errore imprevisto durante il salvataggio del sollecito fattura ente";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idSollecitoFatturaEnte;
     }
@@ -9309,8 +9201,14 @@ public class EntiConvenzionatiEjb {
 	/* Ricavo da DB il sollecito per controllo su esistenza per stessa fattura */
 	OrgSollecitoFatturaEnte sollecitoDB = helper.getOrgSollecitoFatturaEnte(idFatturaEnte,
 		cdRegistroSollecito, aaVarSollecito, cdKeyVarSollecito);
-	if (sollecitoDB != null
-		&& sollecitoDB.getIdSollecitoFatturaEnte() != idSollecitoFatturaEnte.longValue()) {
+
+	// Se il sollecito non esiste, lancio un errore
+	if (sollecitoDB == null) {
+	    throw new ParerUserError(
+		    "Registro, anno e numero sollecito non presenti per questa fattura");
+	}
+
+	if (sollecitoDB.getIdSollecitoFatturaEnte() != idSollecitoFatturaEnte.longValue()) {
 	    throw new ParerUserError(
 		    "Registro, anno e numero sollecito gi\u00E0  presenti per questa fattura");
 	}
@@ -9328,10 +9226,9 @@ public class EntiConvenzionatiEjb {
 		    SacerLogConstants.TIPO_OGGETTO_FATTURA, idFatturaEnte, param.getNomePagina());
 	    LOGGER.debug("Salvataggio del sollecito fattura ente completato");
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del sollecito fattura ente : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del sollecito fattura ente");
+	    final String msg = "Errore imprevisto durante il salvataggio del sollecito fattura ente";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -9504,10 +9401,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_FATTURA, idFatturaEnte,
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del sollecito "
-		    + ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError("Eccezione imprevista nell'eliminazione del sollecito");
+	    final String msg = "Eccezione imprevista nell'eliminazione del sollecito";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -9558,9 +9454,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei totali fattura "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError("Errore durante il recupero dei totali fattura");
+		final String msg = "Errore durante il recupero dei totali fattura";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return calcTotFattRowBean;
@@ -9581,9 +9477,9 @@ public class EntiConvenzionatiEjb {
     public Map<String, String> getUsrOrganizIamMapByDlPath(String dlPath) {
 	Map<String, String> org = new HashMap<>();
 	String[] ids = StringUtils.split(dlPath, "/");
-	UsrOrganizIam ambiente = helper.findById(UsrOrganizIam.class, new Long(ids[0]));
-	UsrOrganizIam ente = helper.findById(UsrOrganizIam.class, new Long(ids[1]));
-	UsrOrganizIam struttura = helper.findById(UsrOrganizIam.class, new Long(ids[2]));
+	UsrOrganizIam ambiente = helper.findById(UsrOrganizIam.class, Long.valueOf(ids[0]));
+	UsrOrganizIam ente = helper.findById(UsrOrganizIam.class, Long.valueOf(ids[1]));
+	UsrOrganizIam struttura = helper.findById(UsrOrganizIam.class, Long.valueOf(ids[2]));
 	org.put("AMBIENTE", ambiente.getNmOrganiz());
 	org.put("ENTE", ente.getNmOrganiz());
 	org.put("STRUTTURA", struttura.getNmOrganiz());
@@ -9608,8 +9504,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero del disciplinare tecnico "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero del disciplinare tecnico";
 	    LOGGER.error(msg, ex);
 	    throw new ParerUserError(msg);
 	}
@@ -9686,10 +9581,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO,
 		    idEnteConvenz, param.getNomePagina());
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del disciplinare tecnico : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del disciplinare tecnico");
+	    final String msg = "Errore imprevisto durante il salvataggio del disciplinare tecnico";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
 	return idDiscipStrut;
     }
@@ -9760,10 +9654,9 @@ public class EntiConvenzionatiEjb {
 		    param.getNomeAzione(), SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO,
 		    idEnteConvenz, param.getNomePagina());
 	} catch (Exception ex) {
-	    LOGGER.error("Errore imprevisto durante il salvataggio del disciplinare tecnico : "
-		    + ExceptionUtils.getRootCauseMessage(ex), ex);
-	    throw new ParerUserError(
-		    "Eccezione imprevista durante il salvataggio del disciplinare tecnico");
+	    final String msg = "Errore imprevisto durante il salvataggio del disciplinare tecnico";
+	    LOGGER.error(msg, ex);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -9796,13 +9689,10 @@ public class EntiConvenzionatiEjb {
 		    discipStrutTableBean.add(discipStrutRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(
-			"Errore durante il recupero dei disciplinari tecnici sull'accordo avente id "
-				+ idAccordoEnte + " " + ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei disciplinari tecnici sull'accordo avente id "
-				+ idAccordoEnte);
+		final String msg = "Errore durante il recupero dei disciplinari tecnici sull'accordo avente id "
+			+ idAccordoEnte;
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return discipStrutTableBean;
@@ -9841,14 +9731,10 @@ public class EntiConvenzionatiEjb {
 		    discipStrutTableBean.add(discipStrutRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(
-			"Errore durante il recupero dei disciplinari tecnici sull'ente convenzionato avente id "
-				+ enteConvenz.getIdEnteSiam() + " "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei disciplinari tecnici sull'ente convenzionato avente id "
-				+ enteConvenz.getIdEnteSiam());
+		final String msg = "Errore durante il recupero dei disciplinari tecnici sull'ente convenzionato avente id "
+			+ enteConvenz.getIdEnteSiam();
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return discipStrutTableBean;
@@ -9896,13 +9782,10 @@ public class EntiConvenzionatiEjb {
 		    appartCollegEntiTableBean.add(appartCollegEntiRowBean);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(
-			"Errore durante il recupero degli enti associati al collegamento avente id "
-				+ idCollegEntiConvenz + " " + ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero degli enti associati al collegamento avente id "
-				+ idCollegEntiConvenz);
+		final String msg = "Errore durante il recupero degli enti associati al collegamento avente id "
+			+ idCollegEntiConvenz;
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return appartCollegEntiTableBean;
@@ -9935,8 +9818,7 @@ public class EntiConvenzionatiEjb {
 	return row;
     }
 
-    public List<OrgAppartCollegEnti> getOrgAppartCollegEntiList(BigDecimal idCollegEntiConvenz)
-	    throws ParerUserError {
+    public List<OrgAppartCollegEnti> getOrgAppartCollegEntiList(BigDecimal idCollegEntiConvenz) {
 	List<OrgAppartCollegEnti> appartCollegEntiList = helper
 		.getOrgAppartCollegEntiList(idCollegEntiConvenz);
 	return appartCollegEntiList;
@@ -9964,10 +9846,9 @@ public class EntiConvenzionatiEjb {
 		    SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO, idEnteConvenz,
 		    param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del disciplinare tecnico ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del disciplinare tecnico";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -9982,10 +9863,9 @@ public class EntiConvenzionatiEjb {
 	    // BigDecimal(servizioErog.getOrgAccordoEnte().getOrgEnteConvenz().getIdEnteConvenz()),
 	    // param.getNomePagina());
 	} catch (Exception e) {
-	    String messaggio = "Eccezione imprevista nell'eliminazione del file del disciplinare tecnico ";
-	    messaggio += ExceptionUtils.getRootCauseMessage(e);
-	    LOGGER.error(messaggio, e);
-	    throw new ParerUserError(messaggio);
+	    final String msg = "Eccezione imprevista nell'eliminazione del file del disciplinare tecnico ";
+	    LOGGER.error(msg, e);
+	    throw new ParerUserError(msg);
 	}
     }
 
@@ -10059,10 +9939,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei parametri sull'ente convenzionato "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri sull'ente convenzionato");
+		final String msg = "Errore durante il recupero dei parametri sull'ente convenzionato";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	parametriObj[0] = paramApplicAmministrazioneTableBean;
@@ -10115,12 +9994,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error(
-			"Errore durante il recupero dei parametri sull'ambiente ente convenzionato "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri sull'ambiente ente convenzionato");
+		final String msg = "Errore durante il recupero dei parametri sull'ambiente ente convenzionato";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	parametriObj[0] = paramApplicAmministrazioneTableBean;
@@ -10220,7 +10096,7 @@ public class EntiConvenzionatiEjb {
 		    table.add(r);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(e.getMessage(), e);
+		LOGGER.error("Errore durante il recupero dei tipi di gestione dei parametri", e);
 	    }
 	}
 	return table;
@@ -10250,7 +10126,7 @@ public class EntiConvenzionatiEjb {
 		}
 	    }
 	} catch (Exception e) {
-	    LOGGER.error(e.getMessage(), e);
+	    LOGGER.error("Errore durante il recupero dei parametri applicativi", e);
 	}
 	return paramApplicTableBean;
     }
@@ -10280,7 +10156,7 @@ public class EntiConvenzionatiEjb {
 		}
 	    }
 	} catch (Exception e) {
-	    LOGGER.error(e.getMessage(), e);
+	    LOGGER.error("Errore durante il recupero dei parametri applicativi", e);
 	}
 	return paramApplicTableBean;
     }
@@ -10317,12 +10193,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error(
-			"Errore durante il recupero dei parametri di amministrazione sull'ambiente "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri di amministrazione sull'ambiente ");
+		final String msg = "Errore durante il recupero dei parametri di amministrazione sull'ambiente ";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return paramApplicAmministrazioneTableBean;
@@ -10360,10 +10233,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dei parametri di gestione sull'ambiente "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri di gestione sull'ambiente ");
+		final String msg = "Errore durante il recupero dei parametri di gestione sull'ambiente";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return paramApplicGestioneTableBean;
@@ -10401,12 +10273,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error(
-			"Errore durante il recupero dei parametri di conservazione sull'ambiente "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri di conservazione sull'ambiente ");
+		final String msg = "Errore durante il recupero dei parametri di conservazione sull'ambiente";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return paramApplicConservazioneTableBean;
@@ -10447,12 +10316,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error(
-			"Errore durante il recupero dei parametri di amministrazione sull'ente convenzionato "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri di amministrazione sull'ente convenzionato ");
+		final String msg = "Errore durante il recupero dei parametri di amministrazione sull'ente convenzionato";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return paramApplicAmministrazioneTableBean;
@@ -10492,12 +10358,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error(
-			"Errore durante il recupero dei parametri di gestione sull'ente convenzionato "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri di gestione sull'ente convenzionato ");
+		final String msg = "Errore durante il recupero dei parametri di gestione sull'ente convenzionato";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return paramApplicGestioneTableBean;
@@ -10538,12 +10401,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
 		    | InstantiationException | NoSuchMethodException
 		    | InvocationTargetException e) {
-		LOGGER.error(
-			"Errore durante il recupero dei parametri di conservazione sull'ente convenzionato "
-				+ ExceptionUtils.getRootCauseMessage(e),
-			e);
-		throw new ParerUserError(
-			"Errore durante il recupero dei parametri di conservazione sull'ente convenzionato ");
+		final String msg = "Errore durante il recupero dei parametri di conservazione sull'ente convenzionato";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return paramApplicConservazioneTableBean;
@@ -10635,7 +10495,7 @@ public class EntiConvenzionatiEjb {
 	    }
 
 	} catch (Exception ex) {
-	    LOGGER.error(ex.getMessage());
+	    LOGGER.error("Errore durante il salvataggio del parametro applicativo", ex);
 	    result = false;
 	}
 	return result;
@@ -10658,7 +10518,7 @@ public class EntiConvenzionatiEjb {
 	    helper.getEntityManager().flush();
 	    result = true;
 	} catch (Exception ex) {
-	    LOGGER.error(ex.getMessage());
+	    LOGGER.error("Errore durante l'eliminazione del parametro applicativo", ex);
 	}
 	return result;
     }
@@ -10695,7 +10555,7 @@ public class EntiConvenzionatiEjb {
 	    }
 	    result = true;
 	} catch (Exception ex) {
-	    LOGGER.error(ex.getMessage());
+	    LOGGER.error("Errore durante l'eliminazione del parametro applicativo", ex);
 	}
 	return result;
     }
@@ -10729,7 +10589,7 @@ public class EntiConvenzionatiEjb {
 	    }
 	    result = true;
 	} catch (Exception ex) {
-	    LOGGER.error(ex.getMessage());
+	    LOGGER.error("Errore durante l'eliminazione del parametro applicativo", ex);
 	}
 	return result;
     }
@@ -10777,8 +10637,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista dei fornitori esterni"
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista dei fornitori esterni";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -10815,8 +10674,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException ex) {
-		String msg = "Errore durante il recupero della lista degli organi di vigilanza"
-			+ ExceptionUtils.getRootCauseMessage(ex);
+		final String msg = "Errore durante il recupero della lista degli organi di vigilanza";
 		LOGGER.error(msg, ex);
 		throw new ParerUserError(msg);
 	    }
@@ -10857,7 +10715,8 @@ public class EntiConvenzionatiEjb {
 		    ambientiAppartenenzaUtenteTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(e.getMessage());
+		LOGGER.error(
+			"Errore durante il recupero degli ambienti di appartenenza dell'utente", e);
 	    }
 	}
 	return ambientiAppartenenzaUtenteTableBean;
@@ -10877,7 +10736,8 @@ public class EntiConvenzionatiEjb {
 		    ambientiAppartenenzaUtenteTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(e.getMessage());
+		LOGGER.error(
+			"Errore durante il recupero degli ambienti di appartenenza dell'utente", e);
 	    }
 	}
 	return ambientiAppartenenzaUtenteTableBean;
@@ -10897,7 +10757,8 @@ public class EntiConvenzionatiEjb {
 		    entiAppartenenzaUtenteTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(e.getMessage());
+		LOGGER.error("Errore durante il recupero degli enti di appartenenza dell'utente",
+			e);
 	    }
 	}
 	return entiAppartenenzaUtenteTableBean;
@@ -10917,7 +10778,8 @@ public class EntiConvenzionatiEjb {
 		    entiAppartenenzaUtenteTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(e.getMessage());
+		LOGGER.error("Errore durante il recupero degli enti di appartenenza dell'utente",
+			e);
 	    }
 	}
 	return entiAppartenenzaUtenteTableBean;
@@ -10937,7 +10799,8 @@ public class EntiConvenzionatiEjb {
 		    entiAppartenenzaUtenteTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(e.getMessage());
+		LOGGER.error("Errore durante il recupero degli enti di appartenenza dell'utente",
+			e);
 	    }
 	}
 	return entiAppartenenzaUtenteTableBean;
@@ -10980,7 +10843,8 @@ public class EntiConvenzionatiEjb {
 		    entiAppartenenzaUtenteTableBean.add(row);
 		}
 	    } catch (Exception e) {
-		LOGGER.error(e.getMessage());
+		LOGGER.error("Errore durante il recupero degli enti di appartenenza dell'utente",
+			e);
 	    }
 	}
 	return entiAppartenenzaUtenteTableBean;
@@ -11167,8 +11031,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero delle annualitÃ  sull'accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
+		LOGGER.error("Errore durante il recupero delle annualit\u00E0 sull'accordo", e);
 	    }
 	}
 	return table;
@@ -11201,8 +11064,7 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero dell'annualit\u00E0  accordo "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
+		LOGGER.error("Errore durante il recupero dell'annualit\u00E0  accordo", e);
 	    }
 	}
 	return aaAccordoRowBean;
@@ -11284,7 +11146,7 @@ public class EntiConvenzionatiEjb {
 
     private void insertTipoServizioCompilato(OrgAccordoEnte accordoEnte,
 	    BigDecimal imTariffaAccordo, BigDecimal idTipoServizio) {
-	if (imTariffaAccordo != null && !imTariffaAccordo.equals("")) {
+	if (imTariffaAccordo != null) {
 	    OrgTariffaAccordo tariffaAccordo = new OrgTariffaAccordo();
 	    tariffaAccordo.setImTariffaAccordo(imTariffaAccordo);
 	    tariffaAccordo.setOrgAccordoEnte(accordoEnte);
@@ -11680,10 +11542,9 @@ public class EntiConvenzionatiEjb {
 	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		    | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException e) {
-		LOGGER.error("Errore durante il recupero degli accordi degli enti convenzionati "
-			+ ExceptionUtils.getRootCauseMessage(e), e);
-		throw new ParerUserError(
-			"Errore durante il recupero della lista degli accordi degli enti convenzionati");
+		final String msg = "Errore durante il recupero della lista degli accordi degli enti convenzionati";
+		LOGGER.error(msg, e);
+		throw new ParerUserError(msg);
 	    }
 	}
 	return ricAccordiEnteTableBean;
@@ -11709,8 +11570,7 @@ public class EntiConvenzionatiEjb {
 	} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
 		| IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException ex) {
-	    String msg = "Errore durante il recupero dell'ente convenzionato da accordo "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero dell'ente convenzionato da accordo";
 	    LOGGER.error(msg, ex);
 	    throw new ParerInternalError(msg);
 	}
@@ -11894,8 +11754,7 @@ public class EntiConvenzionatiEjb {
 	    fileType = tika.detect(istream);
 	} catch (IOException e) {
 	    LOGGER.error(
-		    "getFileTypeByTika - Errore durante la determinazione del mime type da InputStream "
-			    + e.getMessage(),
+		    "getFileTypeByTika - Errore durante la determinazione del mime type da InputStream ",
 		    e);
 	}
 	return fileType;
@@ -11921,8 +11780,7 @@ public class EntiConvenzionatiEjb {
 		table.add(row);
 	    });
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero dei cluster sull'accordo "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
+	    LOGGER.error("Errore durante il recupero dei cluster sull'accordo", e);
 	}
 
 	return table;
@@ -11954,12 +11812,9 @@ public class EntiConvenzionatiEjb {
 		row.setString("ds_fascia_storage_accordo", (String) fasciaStorageAccordo[1]
 			+ " - da " + fasciaDaFormattata + " a " + fasciaAFormattata);
 		return row;
-	    }).forEachOrdered(row -> {
-		table.add(row);
-	    });
+	    }).forEachOrdered(table::add);
 	} catch (Exception e) {
-	    LOGGER.error("Errore durante il recupero delle fasce storage sull'accordo "
-		    + ExceptionUtils.getRootCauseMessage(e), e);
+	    LOGGER.error("Errore durante il recupero delle fasce storage sull'accordo", e);
 	}
 
 	return table;
@@ -12012,10 +11867,9 @@ public class EntiConvenzionatiEjb {
 
 	    }
 	} catch (Exception ex) {
-	    String msg = "Errore durante il recupero dei valori degli storage occupati "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero dei valori degli storage occupati";
 	    LOGGER.error(msg, ex);
-	    throw new ParerUserError(ex.getMessage());
+	    throw new ParerUserError(msg);
 	}
 	return row;
     }
@@ -12042,10 +11896,9 @@ public class EntiConvenzionatiEjb {
 		result[1] = dimBytesMediaAnno;
 	    }
 	} catch (Exception ex) {
-	    String msg = "Errore durante il recupero dei valori degli storage occupati "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero dei valori degli storage occupati";
 	    LOGGER.error(msg, ex);
-	    throw new ParerUserError(ex.getMessage());
+	    throw new ParerUserError(msg);
 	}
 	return result;
     }
@@ -12089,10 +11942,9 @@ public class EntiConvenzionatiEjb {
 		}
 	    }
 	} catch (Exception ex) {
-	    String msg = "Errore durante il recupero dei valori degli storage occupati "
-		    + ExceptionUtils.getRootCauseMessage(ex);
+	    final String msg = "Errore durante il recupero dei valori degli storage occupati";
 	    LOGGER.error(msg, ex);
-	    throw new ParerUserError(ex.getMessage());
+	    throw new ParerUserError(msg);
 	}
 	return tabella;
     }

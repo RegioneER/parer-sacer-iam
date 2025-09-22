@@ -982,9 +982,6 @@ L'accordo/convenzione contiene le informazioni relative a decorrenze, scadenze, 
 |org.springframework|spring-webmvc|5.3.39|
 |org.w3c.css|sac|1.3|
 |org.webbitserver|webbit|0.4.14|
-|xalan|serializer|2.7.3|
-|xalan|xalan|2.7.3|
-|xerces|xercesImpl|2.12.2|
 |xml-apis|xml-apis|1.4.01|
 |xml-resolver|xml-resolver|1.2.0.redhat-12|
 
