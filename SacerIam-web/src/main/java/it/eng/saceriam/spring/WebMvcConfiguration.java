@@ -45,6 +45,7 @@ import it.eng.spagoLite.actions.security.LogoutAction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.Ordered;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -141,132 +142,158 @@ public class WebMvcConfiguration extends SpagoliteWebMvcConfiguration implements
      * delle action ereditate dal framework
      */
     @Bean(value = "/View.html")
+    @Scope("prototype")
     RedirectAction redirectAction() {
 	return new RedirectAction();
     }
 
     @Bean(value = "/Login.html")
+    @Scope("prototype")
     LoginAction loginAction() {
 	return new LoginAction();
     }
 
     @Bean(value = "/Logout.html")
+    @Scope("prototype")
     LogoutAction logoutAction() {
 	return new LogoutAction();
     }
 
     /* Configurazione delle action specifiche del modulo web */
     @Bean(value = "/Home.html")
+    @Scope("prototype")
     HomeAction homeAction() {
 	return new HomeAction();
     }
 
     @Bean(value = "/ModificaPsw.html")
+    @Scope("prototype")
     ModificaPswAction modificaPswAction() {
 	return new ModificaPswAction();
     }
 
     @Bean(value = "/SceltaOrganizzazione.html")
+    @Scope("prototype")
     SceltaOrganizzazioneAction sceltaOrganizzazioneAction() {
 	return new SceltaOrganizzazioneAction();
     }
 
     @Bean(value = "/AssociazioneUtente.html")
+    @Scope("prototype")
     AssociazioneUtenteAction associazioneUtenteAction() {
 	return new AssociazioneUtenteAction();
     }
 
     @Bean(value = "/AllineaComponenti.html")
+    @Scope("prototype")
     AllineaComponentiAction allineaComponentiAction() {
 	return new AllineaComponentiAction();
     }
 
     @Bean(value = "/GestioneNoteRilascio.html")
+    @Scope("prototype")
     GestioneNoteRilascioAction gestioneNoteRilascioAction() {
 	return new GestioneNoteRilascioAction();
     }
 
     @Bean(value = "/GestioneNews.html")
+    @Scope("prototype")
     GestioneNewsAction gestioneNewsAction() {
 	return new GestioneNewsAction();
     }
 
     @Bean(value = "/GestioneJob.html")
+    @Scope("prototype")
     GestioneJobAction gestioneJobAction() {
 	return new GestioneJobAction();
     }
 
     @Bean(value = "/GestioneHelpOnLine.html")
+    @Scope("prototype")
     GestioneHelpOnLineAction gestioneHelpOnLineAction() {
 	return new GestioneHelpOnLineAction();
     }
 
     @Bean(value = "/DettaglioHelpOnLine.html")
+    @Scope("prototype")
     GestioneHelpOnLineAction gestioneHelpOnLineActionDettaglio() {
 	return new GestioneHelpOnLineAction();
     }
 
     @Bean(value = "/AmministrazioneUtenti.html")
+    @Scope("prototype")
     AmministrazioneUtentiAction amministrazioneUtentiAction() {
 	return new AmministrazioneUtentiAction();
     }
 
     @Bean(value = "/AmministrazioneRuoli.html")
+    @Scope("prototype")
     AmministrazioneRuoliAction amministrazioneRuoliAction() {
 	return new AmministrazioneRuoliAction();
     }
 
     @Bean(value = "/AmministrazioneSistemiVersanti.html")
+    @Scope("prototype")
     AmministrazioneSistemiVersantiAction amministrazioneSistemiVersantiAction() {
 	return new AmministrazioneSistemiVersantiAction();
     }
 
     @Bean(value = "/AmministrazioneEntiConvenzionati.html")
+    @Scope("prototype")
     AmministrazioneEntiConvenzionatiAction amministrazioneEntiConvenzionatiAction() {
 	return new AmministrazioneEntiConvenzionatiAction();
     }
 
     @Bean(value = "/AmministrazioneEntiNonConvenzionati.html")
+    @Scope("prototype")
     AmministrazioneEntiNonConvenzionatiAction amministrazioneEntiNonConvenzionatiAction() {
 	return new AmministrazioneEntiNonConvenzionatiAction();
     }
 
     @Bean(value = "/AmministrazioneTipiAccordo.html")
+    @Scope("prototype")
     AmministrazioneTipiAccordoAction amministrazioneTipiAccordoAction() {
 	return new AmministrazioneTipiAccordoAction();
     }
 
     @Bean(value = "/AmministrazioneTariffari.html")
+    @Scope("prototype")
     AmministrazioneTariffariAction amministrazioneTariffariAction() {
 	return new AmministrazioneTariffariAction();
     }
 
     @Bean(value = "/AmministrazioneClasseEnte.html")
+    @Scope("prototype")
     AmministrazioneClasseEnteAction amministrazioneClasseEnteAction() {
 	return new AmministrazioneClasseEnteAction();
     }
 
     @Bean(value = "/AmministrazioneTipiServizio.html")
+    @Scope("prototype")
     AmministrazioneTipiServizioAction amministrazioneTipiServizioAction() {
 	return new AmministrazioneTipiServizioAction();
     }
 
     @Bean(value = "/GestioneAmbitoTerritoriale.html")
+    @Scope("prototype")
     GestioneAmbitoTerritorialeAction gestioneAmbitoTerritorialeAction() {
 	return new GestioneAmbitoTerritorialeAction();
     }
 
     @Bean(value = "/GestioneFatturazioneServizi.html")
+    @Scope("prototype")
     GestioneFatturazioneServiziAction gestioneFatturazioneServiziAction() {
 	return new GestioneFatturazioneServiziAction();
     }
 
     @Bean(value = "/GestioneAccessiFalliti.html")
+    @Scope("prototype")
     GestioneAccessiFallitiAction gestioneAccessiFallitiAction() {
 	return new GestioneAccessiFallitiAction();
     }
 
     @Bean(value = "/NoteRilascio.html")
+    @Scope("prototype")
     NoteRilascioAction noteRilascioAction() {
 	return new NoteRilascioAction();
     }
