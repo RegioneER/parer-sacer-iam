@@ -28,66 +28,66 @@ public class UsrVAbilDatiVigilToAddId implements Serializable {
 
     @Column(name = "ID_TIPO_DATO_IAM")
     public BigDecimal getIdTipoDatoIam() {
-	return idTipoDatoIam;
+        return idTipoDatoIam;
     }
 
     public void setIdTipoDatoIam(BigDecimal idTipoDatoIam) {
-	this.idTipoDatoIam = idTipoDatoIam;
+        this.idTipoDatoIam = idTipoDatoIam;
     }
 
     private BigDecimal idUserIamCor;
 
     @Column(name = "ID_USER_IAM_COR")
     public BigDecimal getIdUserIamCor() {
-	return idUserIamCor;
+        return idUserIamCor;
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	this.idUserIamCor = idUserIamCor;
+        this.idUserIamCor = idUserIamCor;
     }
 
     private BigDecimal idUserIamGestito;
 
     @Column(name = "ID_USER_IAM_GESTITO")
     public BigDecimal getIdUserIamGestito() {
-	return idUserIamGestito;
+        return idUserIamGestito;
     }
 
     public void setIdUserIamGestito(BigDecimal idUserIamGestito) {
-	this.idUserIamGestito = idUserIamGestito;
+        this.idUserIamGestito = idUserIamGestito;
     }
 
     @Override
     public int hashCode() {
-	int hash = 3;
-	hash = 37 * hash + Objects.hashCode(this.idTipoDatoIam);
-	hash = 37 * hash + Objects.hashCode(this.idUserIamCor);
-	hash = 37 * hash + Objects.hashCode(this.idUserIamGestito);
-	return hash;
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.idTipoDatoIam);
+        hash = 37 * hash + Objects.hashCode(this.idUserIamCor);
+        hash = 37 * hash + Objects.hashCode(this.idUserIamGestito);
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final UsrVAbilDatiVigilToAddId other = (UsrVAbilDatiVigilToAddId) obj;
-	if (!Objects.equals(this.idTipoDatoIam, other.idTipoDatoIam)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idUserIamGestito, other.idUserIamGestito)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UsrVAbilDatiVigilToAddId other = (UsrVAbilDatiVigilToAddId) obj;
+        if (!Objects.equals(this.idTipoDatoIam, other.idTipoDatoIam)) {
+            return false;
+        }
+        if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
+            return false;
+        }
+        if (!Objects.equals(this.idUserIamGestito, other.idUserIamGestito)) {
+            return false;
+        }
+        return true;
     }
 
 }

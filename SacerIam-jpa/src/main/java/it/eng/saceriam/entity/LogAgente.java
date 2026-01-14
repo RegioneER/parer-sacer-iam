@@ -51,41 +51,41 @@ public class LogAgente implements Serializable {
     @Id
     @Column(name = "ID_AGENTE")
     @GenericGenerator(name = "SLOG_AGENTE_ID_AGENTE_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SLOG_AGENTE"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SLOG_AGENTE"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SLOG_AGENTE_ID_AGENTE_GENERATOR")
     public Long getIdAgente() {
-	return this.idAgente;
+        return this.idAgente;
     }
 
     public void setIdAgente(Long idAgente) {
-	this.idAgente = idAgente;
+        this.idAgente = idAgente;
     }
 
     @Column(name = "NM_AGENTE")
     public String getNmAgente() {
-	return this.nmAgente;
+        return this.nmAgente;
     }
 
     public void setNmAgente(String nmAgente) {
-	this.nmAgente = nmAgente;
+        this.nmAgente = nmAgente;
     }
 
     @Column(name = "TIPO_AGENTE_PREMIS")
     public String getTipoAgentePremis() {
-	return this.tipoAgentePremis;
+        return this.tipoAgentePremis;
     }
 
     public void setTipoAgentePremis(String tipoAgentePremis) {
-	this.tipoAgentePremis = tipoAgentePremis;
+        this.tipoAgentePremis = tipoAgentePremis;
     }
 
     @Column(name = "TIPO_ORIGINE_AGENTE")
     public String getTipoOrigineAgente() {
-	return this.tipoOrigineAgente;
+        return this.tipoOrigineAgente;
     }
 
     public void setTipoOrigineAgente(String tipoOrigineAgente) {
-	this.tipoOrigineAgente = tipoOrigineAgente;
+        this.tipoOrigineAgente = tipoOrigineAgente;
     }
 }

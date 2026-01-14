@@ -35,35 +35,35 @@ public class PrfVChkAllineaRuolo implements Serializable {
     private String nmApplic;
 
     public PrfVChkAllineaRuolo() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "FL_ALLINEAMENTO_PARZIALE", columnDefinition = "char(1)")
     public String getFlAllineamentoParziale() {
-	return this.flAllineamentoParziale;
+        return this.flAllineamentoParziale;
     }
 
     public void setFlAllineamentoParziale(String flAllineamentoParziale) {
-	this.flAllineamentoParziale = flAllineamentoParziale;
+        this.flAllineamentoParziale = flAllineamentoParziale;
     }
 
     @Id
     @Column(name = "ID_RUOLO")
     public BigDecimal getIdRuolo() {
-	return this.idRuolo;
+        return this.idRuolo;
     }
 
     public void setIdRuolo(BigDecimal idRuolo) {
-	this.idRuolo = idRuolo;
+        this.idRuolo = idRuolo;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
 }

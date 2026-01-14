@@ -43,71 +43,71 @@ public class UsrVUnaorgByProdut implements Serializable {
     private String nmApplic;
 
     public UsrVUnaorgByProdut() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "ID_APPART_COLLEG_ENTI")
     public BigDecimal getIdAppartCollegEnti() {
-	return this.idAppartCollegEnti;
+        return this.idAppartCollegEnti;
     }
 
     public void setIdAppartCollegEnti(BigDecimal idAppartCollegEnti) {
-	this.idAppartCollegEnti = idAppartCollegEnti;
+        this.idAppartCollegEnti = idAppartCollegEnti;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Column(name = "ID_ENTE_PRODUT")
     public BigDecimal getIdEnteProdut() {
-	return this.idEnteProdut;
+        return this.idEnteProdut;
     }
 
     public void setIdEnteProdut(BigDecimal idEnteProdut) {
-	this.idEnteProdut = idEnteProdut;
+        this.idEnteProdut = idEnteProdut;
     }
 
     @Column(name = "ID_ENTE_PRODUT_COLLEG")
     public BigDecimal getIdEnteProdutColleg() {
-	return this.idEnteProdutColleg;
+        return this.idEnteProdutColleg;
     }
 
     public void setIdEnteProdutColleg(BigDecimal idEnteProdutColleg) {
-	this.idEnteProdutColleg = idEnteProdutColleg;
+        this.idEnteProdutColleg = idEnteProdutColleg;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     private UsrVUnaorgByProdutId usrVUnaorgByProdutId;
 
     @EmbeddedId()
     public UsrVUnaorgByProdutId getUsrVUnaorgByProdutId() {
-	return usrVUnaorgByProdutId;
+        return usrVUnaorgByProdutId;
     }
 
     public void setUsrVUnaorgByProdutId(UsrVUnaorgByProdutId usrVUnaorgByProdutId) {
-	this.usrVUnaorgByProdutId = usrVUnaorgByProdutId;
+        this.usrVUnaorgByProdutId = usrVUnaorgByProdutId;
     }
 }

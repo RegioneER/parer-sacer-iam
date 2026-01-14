@@ -28,51 +28,51 @@ public class PrfVLisUserDaReplicId implements Serializable {
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return idApplic;
+        return idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     private BigDecimal idUserIam;
 
     @Column(name = "ID_USER_IAM")
     public BigDecimal getIdUserIam() {
-	return idUserIam;
+        return idUserIam;
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	this.idUserIam = idUserIam;
+        this.idUserIam = idUserIam;
     }
 
     @Override
     public int hashCode() {
-	int hash = 5;
-	hash = 59 * hash + Objects.hashCode(this.idApplic);
-	hash = 59 * hash + Objects.hashCode(this.idUserIam);
-	return hash;
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.idApplic);
+        hash = 59 * hash + Objects.hashCode(this.idUserIam);
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final PrfVLisUserDaReplicId other = (PrfVLisUserDaReplicId) obj;
-	if (!Objects.equals(this.idApplic, other.idApplic)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idUserIam, other.idUserIam)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PrfVLisUserDaReplicId other = (PrfVLisUserDaReplicId) obj;
+        if (!Objects.equals(this.idApplic, other.idApplic)) {
+            return false;
+        }
+        if (!Objects.equals(this.idUserIam, other.idUserIam)) {
+            return false;
+        }
+        return true;
     }
 
 }

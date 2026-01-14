@@ -34,35 +34,35 @@ public class UsrVAbilAmbEnteXente implements Serializable {
     private String nmAmbienteEnteConvenz;
 
     public UsrVAbilAmbEnteXente() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_AMBIENTE_ENTE_CONVENZ")
     public String getDsAmbienteEnteConvenz() {
-	return this.dsAmbienteEnteConvenz;
+        return this.dsAmbienteEnteConvenz;
     }
 
     public void setDsAmbienteEnteConvenz(String dsAmbienteEnteConvenz) {
-	this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
+        this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
     }
 
     @Column(name = "NM_AMBIENTE_ENTE_CONVENZ")
     public String getNmAmbienteEnteConvenz() {
-	return this.nmAmbienteEnteConvenz;
+        return this.nmAmbienteEnteConvenz;
     }
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
-	this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+        this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
     }
 
     private UsrVAbilAmbEnteXenteId usrVAbilAmbEnteXenteId;
 
     @EmbeddedId()
     public UsrVAbilAmbEnteXenteId getUsrVAbilAmbEnteXenteId() {
-	return usrVAbilAmbEnteXenteId;
+        return usrVAbilAmbEnteXenteId;
     }
 
     public void setUsrVAbilAmbEnteXenteId(UsrVAbilAmbEnteXenteId usrVAbilAmbEnteXenteId) {
-	this.usrVAbilAmbEnteXenteId = usrVAbilAmbEnteXenteId;
+        this.usrVAbilAmbEnteXenteId = usrVAbilAmbEnteXenteId;
     }
 }

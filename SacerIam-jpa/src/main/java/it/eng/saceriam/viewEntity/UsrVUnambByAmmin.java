@@ -36,44 +36,44 @@ public class UsrVUnambByAmmin implements Serializable {
     private String nmAmbienteEnteConvenz;
 
     public UsrVUnambByAmmin() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_AMBIENTE_ENTE_CONVENZ")
     public String getDsAmbienteEnteConvenz() {
-	return this.dsAmbienteEnteConvenz;
+        return this.dsAmbienteEnteConvenz;
     }
 
     public void setDsAmbienteEnteConvenz(String dsAmbienteEnteConvenz) {
-	this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
+        this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "NM_AMBIENTE_ENTE_CONVENZ")
     public String getNmAmbienteEnteConvenz() {
-	return this.nmAmbienteEnteConvenz;
+        return this.nmAmbienteEnteConvenz;
     }
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
-	this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+        this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
     }
 
     private UsrVUnambByAmminId usrVUnambByAmminId;
 
     @EmbeddedId()
     public UsrVUnambByAmminId getUsrVUnambByAmminId() {
-	return usrVUnambByAmminId;
+        return usrVUnambByAmminId;
     }
 
     public void setUsrVUnambByAmminId(UsrVUnambByAmminId usrVUnambByAmminId) {
-	this.usrVUnambByAmminId = usrVUnambByAmminId;
+        this.usrVUnambByAmminId = usrVUnambByAmminId;
     }
 }

@@ -39,53 +39,53 @@ public class UsrVCheckRuoloDich implements Serializable {
     private String nmAutorAggiunta;
 
     public UsrVCheckRuoloDich() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_AUTOR_AGGIUNTA")
     public String getDsAutorAggiunta() {
-	return this.dsAutorAggiunta;
+        return this.dsAutorAggiunta;
     }
 
     public void setDsAutorAggiunta(String dsAutorAggiunta) {
-	this.dsAutorAggiunta = dsAutorAggiunta;
+        this.dsAutorAggiunta = dsAutorAggiunta;
     }
 
     @Column(name = "ID_APPLIC_DICH")
     public BigDecimal getIdApplicDich() {
-	return this.idApplicDich;
+        return this.idApplicDich;
     }
 
     public void setIdApplicDich(BigDecimal idApplicDich) {
-	this.idApplicDich = idApplicDich;
+        this.idApplicDich = idApplicDich;
     }
 
     @Column(name = "ID_ORGANIZ_IAM_RUOLO")
     public BigDecimal getIdOrganizIamRuolo() {
-	return this.idOrganizIamRuolo;
+        return this.idOrganizIamRuolo;
     }
 
     public void setIdOrganizIamRuolo(BigDecimal idOrganizIamRuolo) {
-	this.idOrganizIamRuolo = idOrganizIamRuolo;
+        this.idOrganizIamRuolo = idOrganizIamRuolo;
     }
 
     @Column(name = "NM_AUTOR_AGGIUNTA")
     public String getNmAutorAggiunta() {
-	return this.nmAutorAggiunta;
+        return this.nmAutorAggiunta;
     }
 
     public void setNmAutorAggiunta(String nmAutorAggiunta) {
-	this.nmAutorAggiunta = nmAutorAggiunta;
+        this.nmAutorAggiunta = nmAutorAggiunta;
     }
 
     private UsrVCheckRuoloDichId usrVCheckRuoloDichId;
 
     @EmbeddedId()
     public UsrVCheckRuoloDichId getUsrVCheckRuoloDichId() {
-	return usrVCheckRuoloDichId;
+        return usrVCheckRuoloDichId;
     }
 
     public void setUsrVCheckRuoloDichId(UsrVCheckRuoloDichId usrVCheckRuoloDichId) {
-	this.usrVCheckRuoloDichId = usrVCheckRuoloDichId;
+        this.usrVCheckRuoloDichId = usrVCheckRuoloDichId;
     }
 }

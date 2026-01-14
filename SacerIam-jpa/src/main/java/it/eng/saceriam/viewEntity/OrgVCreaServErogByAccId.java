@@ -28,37 +28,37 @@ public class OrgVCreaServErogByAccId implements Serializable {
 
     @Column(name = "ID_ACCORDO_ENTE")
     public BigDecimal getIdAccordoEnte() {
-	return idAccordoEnte;
+        return idAccordoEnte;
     }
 
     public void setIdAccordoEnte(BigDecimal idAccordoEnte) {
-	this.idAccordoEnte = idAccordoEnte;
+        this.idAccordoEnte = idAccordoEnte;
     }
 
     private String nmServizioErogato;
 
     @Column(name = "NM_SERVIZIO_EROGATO")
     public String getNmServizioErogato() {
-	return nmServizioErogato;
+        return nmServizioErogato;
     }
 
     public void setNmServizioErogato(String nmServizioErogato) {
-	this.nmServizioErogato = nmServizioErogato;
+        this.nmServizioErogato = nmServizioErogato;
     }
 
     @Override
     public boolean equals(Object o) {
-	if (this == o)
-	    return true;
-	if (o == null || getClass() != o.getClass())
-	    return false;
-	OrgVCreaServErogByAccId that = (OrgVCreaServErogByAccId) o;
-	return idAccordoEnte.equals(that.idAccordoEnte)
-		&& nmServizioErogato.equals(that.nmServizioErogato);
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        OrgVCreaServErogByAccId that = (OrgVCreaServErogByAccId) o;
+        return idAccordoEnte.equals(that.idAccordoEnte)
+                && nmServizioErogato.equals(that.nmServizioErogato);
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(idAccordoEnte, nmServizioErogato);
+        return Objects.hash(idAccordoEnte, nmServizioErogato);
     }
 }

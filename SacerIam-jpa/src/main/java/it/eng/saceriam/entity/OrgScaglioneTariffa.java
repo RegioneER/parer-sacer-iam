@@ -55,52 +55,52 @@ public class OrgScaglioneTariffa implements Serializable {
     @Id
     @Column(name = "ID_SCAGLIONE_TARIFFA")
     @GenericGenerator(name = "SORG_SCAGLIONE_TARIFFA_ID_SCAGLIONE_TARIFFA_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_SCAGLIONE_TARIFFA"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_SCAGLIONE_TARIFFA"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_SCAGLIONE_TARIFFA_ID_SCAGLIONE_TARIFFA_GENERATOR")
     public Long getIdScaglioneTariffa() {
-	return this.idScaglioneTariffa;
+        return this.idScaglioneTariffa;
     }
 
     public void setIdScaglioneTariffa(Long idScaglioneTariffa) {
-	this.idScaglioneTariffa = idScaglioneTariffa;
+        this.idScaglioneTariffa = idScaglioneTariffa;
     }
 
     @Column(name = "IM_SCAGLIONE")
     public BigDecimal getImScaglione() {
-	return this.imScaglione;
+        return this.imScaglione;
     }
 
     public void setImScaglione(BigDecimal imScaglione) {
-	this.imScaglione = imScaglione;
+        this.imScaglione = imScaglione;
     }
 
     @Column(name = "NI_FINE_SCAGLIONE")
     public BigDecimal getNiFineScaglione() {
-	return this.niFineScaglione;
+        return this.niFineScaglione;
     }
 
     public void setNiFineScaglione(BigDecimal niFineScaglione) {
-	this.niFineScaglione = niFineScaglione;
+        this.niFineScaglione = niFineScaglione;
     }
 
     @Column(name = "NI_INI_SCAGLIONE")
     public BigDecimal getNiIniScaglione() {
-	return this.niIniScaglione;
+        return this.niIniScaglione;
     }
 
     public void setNiIniScaglione(BigDecimal niIniScaglione) {
-	this.niIniScaglione = niIniScaglione;
+        this.niIniScaglione = niIniScaglione;
     }
 
     // bi-directional many-to-one association to OrgTariffa
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TARIFFA")
     public OrgTariffa getOrgTariffa() {
-	return this.orgTariffa;
+        return this.orgTariffa;
     }
 
     public void setOrgTariffa(OrgTariffa orgTariffa) {
-	this.orgTariffa = orgTariffa;
+        this.orgTariffa = orgTariffa;
     }
 }

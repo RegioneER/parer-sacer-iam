@@ -53,52 +53,52 @@ public class OrgTariffaAaAccordo implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_TARIFFA_AA_ACCORDO_IDTARIFFAAAACCORDO_GENERATOR")
     @Column(name = "ID_TARIFFA_AA_ACCORDO")
     public Long getIdTariffaAaAccordo() {
-	return this.idTariffaAaAccordo;
+        return this.idTariffaAaAccordo;
     }
 
     public void setIdTariffaAaAccordo(Long idTariffaAaAccordo) {
-	this.idTariffaAaAccordo = idTariffaAaAccordo;
+        this.idTariffaAaAccordo = idTariffaAaAccordo;
     }
 
     @Column(name = "IM_TARIFFA_AA_ACCORDO")
     public BigDecimal getImTariffaAaAccordo() {
-	return this.imTariffaAaAccordo;
+        return this.imTariffaAaAccordo;
     }
 
     public void setImTariffaAaAccordo(BigDecimal imTariffaAaAccordo) {
-	this.imTariffaAaAccordo = imTariffaAaAccordo;
+        this.imTariffaAaAccordo = imTariffaAaAccordo;
     }
 
     // bi-directional many-to-one association to OrgServizioErog
     @OneToMany(mappedBy = "orgTariffaAaAccordo", cascade = CascadeType.REMOVE)
     public List<OrgServizioErog> getOrgServizioErogs() {
-	return this.orgServizioErogs;
+        return this.orgServizioErogs;
     }
 
     public void setOrgServizioErogs(List<OrgServizioErog> orgServizioErogs) {
-	this.orgServizioErogs = orgServizioErogs;
+        this.orgServizioErogs = orgServizioErogs;
     }
 
     // bi-directional many-to-one association to OrgAaAccordo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AA_ACCORDO")
     public OrgAaAccordo getOrgAaAccordo() {
-	return this.orgAaAccordo;
+        return this.orgAaAccordo;
     }
 
     public void setOrgAaAccordo(OrgAaAccordo orgAaAccordo) {
-	this.orgAaAccordo = orgAaAccordo;
+        this.orgAaAccordo = orgAaAccordo;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_SERVIZIO")
     public OrgTipoServizio getOrgTipoServizio() {
-	return this.orgTipoServizio;
+        return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(OrgTipoServizio orgTipoServizio) {
-	this.orgTipoServizio = orgTipoServizio;
+        this.orgTipoServizio = orgTipoServizio;
     }
 
 }

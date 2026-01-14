@@ -24,7 +24,7 @@ package it.eng.saceriam.entity.constraint;
 public class ConstUtente {
 
     public enum UsrUser {
-	PERSONA_FISICA, AUTOMA, NON_DI_SISTEMA
+        PERSONA_FISICA, AUTOMA, NON_DI_SISTEMA
     }
 
 }

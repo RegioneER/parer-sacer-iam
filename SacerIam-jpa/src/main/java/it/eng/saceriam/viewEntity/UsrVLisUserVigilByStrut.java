@@ -37,44 +37,44 @@ public class UsrVLisUserVigilByStrut implements Serializable {
     private BigDecimal idEnteProdut;
 
     public UsrVLisUserVigilByStrut() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "ID_ACCORDO_VIGIL")
     public BigDecimal getIdAccordoVigil() {
-	return this.idAccordoVigil;
+        return this.idAccordoVigil;
     }
 
     public void setIdAccordoVigil(BigDecimal idAccordoVigil) {
-	this.idAccordoVigil = idAccordoVigil;
+        this.idAccordoVigil = idAccordoVigil;
     }
 
     @Column(name = "ID_ENTE_ORGANO_VIGIL")
     public BigDecimal getIdEnteOrganoVigil() {
-	return this.idEnteOrganoVigil;
+        return this.idEnteOrganoVigil;
     }
 
     public void setIdEnteOrganoVigil(BigDecimal idEnteOrganoVigil) {
-	this.idEnteOrganoVigil = idEnteOrganoVigil;
+        this.idEnteOrganoVigil = idEnteOrganoVigil;
     }
 
     @Column(name = "ID_ENTE_PRODUT")
     public BigDecimal getIdEnteProdut() {
-	return this.idEnteProdut;
+        return this.idEnteProdut;
     }
 
     public void setIdEnteProdut(BigDecimal idEnteProdut) {
-	this.idEnteProdut = idEnteProdut;
+        this.idEnteProdut = idEnteProdut;
     }
 
     private UsrVLisUserVigilByStrutId usrVLisUserVigilByStrutId;
 
     @EmbeddedId()
     public UsrVLisUserVigilByStrutId getUsrVLisUserVigilByStrutId() {
-	return usrVLisUserVigilByStrutId;
+        return usrVLisUserVigilByStrutId;
     }
 
     public void setUsrVLisUserVigilByStrutId(UsrVLisUserVigilByStrutId usrVLisUserVigilByStrutId) {
-	this.usrVLisUserVigilByStrutId = usrVLisUserVigilByStrutId;
+        this.usrVLisUserVigilByStrutId = usrVLisUserVigilByStrutId;
     }
 }

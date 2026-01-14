@@ -52,66 +52,66 @@ public class OrgTariffaAccordo implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_TARIFFA_ACCORDO_IDTARIFFAACCORDO_GENERATOR")
     @Column(name = "ID_TARIFFA_ACCORDO")
     public long getIdTariffaAccordo() {
-	return this.idTariffaAccordo;
+        return this.idTariffaAccordo;
     }
 
     public void setIdTariffaAccordo(long idTariffaAccordo) {
-	this.idTariffaAccordo = idTariffaAccordo;
+        this.idTariffaAccordo = idTariffaAccordo;
     }
 
     @Column(name = "IM_TARIFFA_ACCORDO")
     public BigDecimal getImTariffaAccordo() {
-	return this.imTariffaAccordo;
+        return this.imTariffaAccordo;
     }
 
     public void setImTariffaAccordo(BigDecimal imTariffaAccordo) {
-	this.imTariffaAccordo = imTariffaAccordo;
+        this.imTariffaAccordo = imTariffaAccordo;
     }
 
     // bi-directional many-to-one association to OrgServizioErog
     @OneToMany(mappedBy = "orgTariffaAccordo")
     public List<OrgServizioErog> getOrgServizioErogs() {
-	return this.orgServizioErogs;
+        return this.orgServizioErogs;
     }
 
     public void setOrgServizioErogs(List<OrgServizioErog> orgServizioErogs) {
-	this.orgServizioErogs = orgServizioErogs;
+        this.orgServizioErogs = orgServizioErogs;
     }
 
     public OrgServizioErog addOrgServizioErog(OrgServizioErog orgServizioErog) {
-	getOrgServizioErogs().add(orgServizioErog);
-	orgServizioErog.setOrgTariffaAccordo(this);
+        getOrgServizioErogs().add(orgServizioErog);
+        orgServizioErog.setOrgTariffaAccordo(this);
 
-	return orgServizioErog;
+        return orgServizioErog;
     }
 
     public OrgServizioErog removeOrgServizioErog(OrgServizioErog orgServizioErog) {
-	getOrgServizioErogs().remove(orgServizioErog);
-	orgServizioErog.setOrgTariffaAccordo(null);
+        getOrgServizioErogs().remove(orgServizioErog);
+        orgServizioErog.setOrgTariffaAccordo(null);
 
-	return orgServizioErog;
+        return orgServizioErog;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ACCORDO_ENTE")
     public OrgAccordoEnte getOrgAccordoEnte() {
-	return this.orgAccordoEnte;
+        return this.orgAccordoEnte;
     }
 
     public void setOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-	this.orgAccordoEnte = orgAccordoEnte;
+        this.orgAccordoEnte = orgAccordoEnte;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_SERVIZIO")
     public OrgTipoServizio getOrgTipoServizio() {
-	return this.orgTipoServizio;
+        return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(OrgTipoServizio orgTipoServizio) {
-	this.orgTipoServizio = orgTipoServizio;
+        this.orgTipoServizio = orgTipoServizio;
     }
 
 }

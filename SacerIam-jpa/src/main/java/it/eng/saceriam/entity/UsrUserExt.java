@@ -34,27 +34,27 @@ public class UsrUserExt implements Serializable {
     private String dlCertClient;
 
     public UsrUserExt() {
-	// Costruttore vuoto
+        // Costruttore vuoto
     }
 
     @Id
     @Column(name = "ID_USER_IAM")
     public Long getIdUserIam() {
-	return this.idUserIam;
+        return this.idUserIam;
     }
 
     public void setIdUserIam(Long idUserIam) {
-	this.idUserIam = idUserIam;
+        this.idUserIam = idUserIam;
     }
 
     @Lob
     @Column(name = "DL_CERT_CLIENT")
     public String getDlCertClient() {
-	return dlCertClient;
+        return dlCertClient;
     }
 
     public void setDlCertClient(String dlCertClient) {
-	this.dlCertClient = dlCertClient;
+        this.dlCertClient = dlCertClient;
     }
 
 }

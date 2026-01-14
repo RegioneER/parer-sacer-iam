@@ -24,16 +24,16 @@ package it.eng.saceriam.entity.constraint;
 public class ConstOrgTariffa {
 
     public enum TipoTariffa {
-	VALORE_FISSO, VALORE_SCAGLIONI_STORAGE, VALORE_SCAGLIONI_UD_VERSATE,
-	VALORE_UNITARIO_SCAGLIONI_STORAGE;
+        VALORE_FISSO, VALORE_SCAGLIONI_STORAGE, VALORE_SCAGLIONI_UD_VERSATE,
+        VALORE_UNITARIO_SCAGLIONI_STORAGE;
 
-	public static TipoTariffa[] getEnums(TipoTariffa... vals) {
-	    return vals;
-	}
+        public static TipoTariffa[] getEnums(TipoTariffa... vals) {
+            return vals;
+        }
 
-	public static TipoTariffa[] getTipoTariffaSoloValoreFisso() {
-	    return getEnums(VALORE_FISSO);
-	}
+        public static TipoTariffa[] getTipoTariffaSoloValoreFisso() {
+            return getEnums(VALORE_FISSO);
+        }
 
     }
 

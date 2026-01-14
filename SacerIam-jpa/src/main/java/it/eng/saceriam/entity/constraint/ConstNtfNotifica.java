@@ -24,7 +24,7 @@ package it.eng.saceriam.entity.constraint;
 public class ConstNtfNotifica {
 
     public enum TiStatoNotif {
-	CREATA, INVIATA, IN_ERRORE
+        CREATA, INVIATA, IN_ERRORE
     }
 
 }

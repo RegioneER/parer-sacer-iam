@@ -40,29 +40,29 @@ public class OrgCategEnte implements Serializable {
     @Id
     @Column(name = "ID_CATEG_ENTE")
     public Long getIdCategEnte() {
-	return this.idCategEnte;
+        return this.idCategEnte;
     }
 
     public void setIdCategEnte(Long idCategEnte) {
-	this.idCategEnte = idCategEnte;
+        this.idCategEnte = idCategEnte;
     }
 
     @Column(name = "CD_CATEG_ENTE")
     public String getCdCategEnte() {
-	return this.cdCategEnte;
+        return this.cdCategEnte;
     }
 
     public void setCdCategEnte(String cdCategEnte) {
-	this.cdCategEnte = cdCategEnte;
+        this.cdCategEnte = cdCategEnte;
     }
 
     @Column(name = "DS_CATEG_ENTE")
     public String getDsCategEnte() {
-	return this.dsCategEnte;
+        return this.dsCategEnte;
     }
 
     public void setDsCategEnte(String dsCategEnte) {
-	this.dsCategEnte = dsCategEnte;
+        this.dsCategEnte = dsCategEnte;
     }
 
     // //bi-directional many-to-one association to OrgEnte

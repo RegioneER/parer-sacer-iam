@@ -32,26 +32,26 @@ public class UsrVCheckDichAbilEnte implements Serializable {
     private String nmEnteConvenz;
 
     public UsrVCheckDichAbilEnte() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "NM_ENTE_CONVENZ")
     public String getNmEnteConvenz() {
-	return this.nmEnteConvenz;
+        return this.nmEnteConvenz;
     }
 
     public void setNmEnteConvenz(String nmEnteConvenz) {
-	this.nmEnteConvenz = nmEnteConvenz;
+        this.nmEnteConvenz = nmEnteConvenz;
     }
 
     private UsrVCheckDichAbilEnteId usrVCheckDichAbilEnteId;
 
     @EmbeddedId()
     public UsrVCheckDichAbilEnteId getUsrVCheckDichAbilEnteId() {
-	return usrVCheckDichAbilEnteId;
+        return usrVCheckDichAbilEnteId;
     }
 
     public void setUsrVCheckDichAbilEnteId(UsrVCheckDichAbilEnteId usrVCheckDichAbilEnteId) {
-	this.usrVCheckDichAbilEnteId = usrVCheckDichAbilEnteId;
+        this.usrVCheckDichAbilEnteId = usrVCheckDichAbilEnteId;
     }
 }

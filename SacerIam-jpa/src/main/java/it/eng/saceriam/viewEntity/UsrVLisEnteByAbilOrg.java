@@ -29,17 +29,17 @@ public class UsrVLisEnteByAbilOrg implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public UsrVLisEnteByAbilOrg() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     private UsrVLisEnteByAbilOrgId usrVLisEnteByAbilOrgId;
 
     @EmbeddedId()
     public UsrVLisEnteByAbilOrgId getUsrVLisEnteByAbilOrgId() {
-	return usrVLisEnteByAbilOrgId;
+        return usrVLisEnteByAbilOrgId;
     }
 
     public void setUsrVLisEnteByAbilOrgId(UsrVLisEnteByAbilOrgId usrVLisEnteByAbilOrgId) {
-	this.usrVLisEnteByAbilOrgId = usrVLisEnteByAbilOrgId;
+        this.usrVLisEnteByAbilOrgId = usrVLisEnteByAbilOrgId;
     }
 }

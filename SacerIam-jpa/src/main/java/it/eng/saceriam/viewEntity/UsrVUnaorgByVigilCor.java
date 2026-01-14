@@ -41,62 +41,62 @@ public class UsrVUnaorgByVigilCor implements Serializable {
     private String nmApplic;
 
     public UsrVUnaorgByVigilCor() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Column(name = "ID_ENTE_ORGANO_VIGIL")
     public BigDecimal getIdEnteOrganoVigil() {
-	return this.idEnteOrganoVigil;
+        return this.idEnteOrganoVigil;
     }
 
     public void setIdEnteOrganoVigil(BigDecimal idEnteOrganoVigil) {
-	this.idEnteOrganoVigil = idEnteOrganoVigil;
+        this.idEnteOrganoVigil = idEnteOrganoVigil;
     }
 
     @Column(name = "ID_ENTE_PRODUT_CORRISP")
     public BigDecimal getIdEnteProdutCorrisp() {
-	return this.idEnteProdutCorrisp;
+        return this.idEnteProdutCorrisp;
     }
 
     public void setIdEnteProdutCorrisp(BigDecimal idEnteProdutCorrisp) {
-	this.idEnteProdutCorrisp = idEnteProdutCorrisp;
+        this.idEnteProdutCorrisp = idEnteProdutCorrisp;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     private UsrVUnaorgByVigilCorId usrVUnaorgByVigilCorId;
 
     @EmbeddedId()
     public UsrVUnaorgByVigilCorId getUsrVUnaorgByVigilCorId() {
-	return usrVUnaorgByVigilCorId;
+        return usrVUnaorgByVigilCorId;
     }
 
     public void setUsrVUnaorgByVigilCorId(UsrVUnaorgByVigilCorId usrVUnaorgByVigilCorId) {
-	this.usrVUnaorgByVigilCorId = usrVUnaorgByVigilCorId;
+        this.usrVUnaorgByVigilCorId = usrVUnaorgByVigilCorId;
     }
 }

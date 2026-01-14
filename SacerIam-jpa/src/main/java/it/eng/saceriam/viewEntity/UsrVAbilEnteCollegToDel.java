@@ -40,89 +40,89 @@ public class UsrVAbilEnteCollegToDel implements Serializable {
     private BigDecimal idUserIam;
 
     public UsrVAbilEnteCollegToDel() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_CAUSALE_ABIL")
     public String getDsCausaleAbil() {
-	return this.dsCausaleAbil;
+        return this.dsCausaleAbil;
     }
 
     public void setDsCausaleAbil(String dsCausaleAbil) {
-	this.dsCausaleAbil = dsCausaleAbil;
+        this.dsCausaleAbil = dsCausaleAbil;
     }
 
     @Column(name = "FL_ABIL_AUTOMATICA", columnDefinition = "char(1)")
     public String getFlAbilAutomatica() {
-	return this.flAbilAutomatica;
+        return this.flAbilAutomatica;
     }
 
     public void setFlAbilAutomatica(String flAbilAutomatica) {
-	this.flAbilAutomatica = flAbilAutomatica;
+        this.flAbilAutomatica = flAbilAutomatica;
     }
 
     @Id
     @Column(name = "ID_ABIL_ENTE_SIAM")
     public BigDecimal getIdAbilEnteSiam() {
-	return this.idAbilEnteSiam;
+        return this.idAbilEnteSiam;
     }
 
     public void setIdAbilEnteSiam(BigDecimal idAbilEnteSiam) {
-	this.idAbilEnteSiam = idAbilEnteSiam;
+        this.idAbilEnteSiam = idAbilEnteSiam;
     }
 
     @Column(name = "ID_ACCORDO_VIGIL")
     public BigDecimal getIdAccordoVigil() {
-	return this.idAccordoVigil;
+        return this.idAccordoVigil;
     }
 
     public void setIdAccordoVigil(BigDecimal idAccordoVigil) {
-	this.idAccordoVigil = idAccordoVigil;
+        this.idAccordoVigil = idAccordoVigil;
     }
 
     @Column(name = "ID_APPART_COLLEG_ENTI")
     public BigDecimal getIdAppartCollegEnti() {
-	return this.idAppartCollegEnti;
+        return this.idAppartCollegEnti;
     }
 
     public void setIdAppartCollegEnti(BigDecimal idAppartCollegEnti) {
-	this.idAppartCollegEnti = idAppartCollegEnti;
+        this.idAppartCollegEnti = idAppartCollegEnti;
     }
 
     @Column(name = "ID_DICH_ABIL_ENTE_CONVENZ")
     public BigDecimal getIdDichAbilEnteConvenz() {
-	return this.idDichAbilEnteConvenz;
+        return this.idDichAbilEnteConvenz;
     }
 
     public void setIdDichAbilEnteConvenz(BigDecimal idDichAbilEnteConvenz) {
-	this.idDichAbilEnteConvenz = idDichAbilEnteConvenz;
+        this.idDichAbilEnteConvenz = idDichAbilEnteConvenz;
     }
 
     @Column(name = "ID_ENTE_SIAM")
     public BigDecimal getIdEnteSiam() {
-	return this.idEnteSiam;
+        return this.idEnteSiam;
     }
 
     public void setIdEnteSiam(BigDecimal idEnteSiam) {
-	this.idEnteSiam = idEnteSiam;
+        this.idEnteSiam = idEnteSiam;
     }
 
     @Column(name = "ID_SUPT_EST_ENTE_CONVENZ")
     public BigDecimal getIdSuptEstEnteConvenz() {
-	return this.idSuptEstEnteConvenz;
+        return this.idSuptEstEnteConvenz;
     }
 
     public void setIdSuptEstEnteConvenz(BigDecimal idSuptEstEnteConvenz) {
-	this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
+        this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
     }
 
     @Column(name = "ID_USER_IAM")
     public BigDecimal getIdUserIam() {
-	return this.idUserIam;
+        return this.idUserIam;
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	this.idUserIam = idUserIam;
+        this.idUserIam = idUserIam;
     }
 
 }

@@ -36,53 +36,53 @@ public class AplVLisSistVersPerAutoma implements Serializable {
     private String nmSistemaVersante;
 
     public AplVLisSistVersPerAutoma() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "CD_VERSIONE")
     public String getCdVersione() {
-	return this.cdVersione;
+        return this.cdVersione;
     }
 
     public void setCdVersione(String cdVersione) {
-	this.cdVersione = cdVersione;
+        this.cdVersione = cdVersione;
     }
 
     @Column(name = "DS_SISTEMA_VERSANTE")
     public String getDsSistemaVersante() {
-	return this.dsSistemaVersante;
+        return this.dsSistemaVersante;
     }
 
     public void setDsSistemaVersante(String dsSistemaVersante) {
-	this.dsSistemaVersante = dsSistemaVersante;
+        this.dsSistemaVersante = dsSistemaVersante;
     }
 
     @Column(name = "ID_ENTE_UTENTE")
     public BigDecimal getIdEnteUtente() {
-	return this.idEnteUtente;
+        return this.idEnteUtente;
     }
 
     public void setIdEnteUtente(BigDecimal idEnteUtente) {
-	this.idEnteUtente = idEnteUtente;
+        this.idEnteUtente = idEnteUtente;
     }
 
     @Id
     @Column(name = "ID_SISTEMA_VERSANTE")
     public BigDecimal getIdSistemaVersante() {
-	return this.idSistemaVersante;
+        return this.idSistemaVersante;
     }
 
     public void setIdSistemaVersante(BigDecimal idSistemaVersante) {
-	this.idSistemaVersante = idSistemaVersante;
+        this.idSistemaVersante = idSistemaVersante;
     }
 
     @Column(name = "NM_SISTEMA_VERSANTE")
     public String getNmSistemaVersante() {
-	return this.nmSistemaVersante;
+        return this.nmSistemaVersante;
     }
 
     public void setNmSistemaVersante(String nmSistemaVersante) {
-	this.nmSistemaVersante = nmSistemaVersante;
+        this.nmSistemaVersante = nmSistemaVersante;
     }
 
 }

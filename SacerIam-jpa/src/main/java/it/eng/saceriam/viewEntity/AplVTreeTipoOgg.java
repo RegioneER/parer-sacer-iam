@@ -39,71 +39,71 @@ public class AplVTreeTipoOgg implements Serializable {
     private String nmTipoOggetto;
 
     public AplVTreeTipoOgg() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DL_COMPOSITO_TIPO_OGGETTO")
     public String getDlCompositoTipoOggetto() {
-	return this.dlCompositoTipoOggetto;
+        return this.dlCompositoTipoOggetto;
     }
 
     public void setDlCompositoTipoOggetto(String dlCompositoTipoOggetto) {
-	this.dlCompositoTipoOggetto = dlCompositoTipoOggetto;
+        this.dlCompositoTipoOggetto = dlCompositoTipoOggetto;
     }
 
     @Column(name = "DL_PATH_ID_TIPO_OGGETTO")
     public String getDlPathIdTipoOggetto() {
-	return this.dlPathIdTipoOggetto;
+        return this.dlPathIdTipoOggetto;
     }
 
     public void setDlPathIdTipoOggetto(String dlPathIdTipoOggetto) {
-	this.dlPathIdTipoOggetto = dlPathIdTipoOggetto;
+        this.dlPathIdTipoOggetto = dlPathIdTipoOggetto;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Id
     @Column(name = "ID_TIPO_OGGETTO")
     public BigDecimal getIdTipoOggetto() {
-	return this.idTipoOggetto;
+        return this.idTipoOggetto;
     }
 
     public void setIdTipoOggetto(BigDecimal idTipoOggetto) {
-	this.idTipoOggetto = idTipoOggetto;
+        this.idTipoOggetto = idTipoOggetto;
     }
 
     @Column(name = "ID_TIPO_OGGETTO_PADRE")
     public BigDecimal getIdTipoOggettoPadre() {
-	return this.idTipoOggettoPadre;
+        return this.idTipoOggettoPadre;
     }
 
     public void setIdTipoOggettoPadre(BigDecimal idTipoOggettoPadre) {
-	this.idTipoOggettoPadre = idTipoOggettoPadre;
+        this.idTipoOggettoPadre = idTipoOggettoPadre;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_TIPO_OGGETTO")
     public String getNmTipoOggetto() {
-	return this.nmTipoOggetto;
+        return this.nmTipoOggetto;
     }
 
     public void setNmTipoOggetto(String nmTipoOggetto) {
-	this.nmTipoOggetto = nmTipoOggetto;
+        this.nmTipoOggetto = nmTipoOggetto;
     }
 
 }

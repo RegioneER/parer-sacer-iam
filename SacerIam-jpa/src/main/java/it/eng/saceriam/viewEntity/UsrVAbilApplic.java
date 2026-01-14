@@ -34,35 +34,35 @@ public class UsrVAbilApplic implements Serializable {
     private String nmUserid;
 
     public UsrVAbilApplic() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_USERID")
     public String getNmUserid() {
-	return this.nmUserid;
+        return this.nmUserid;
     }
 
     public void setNmUserid(String nmUserid) {
-	this.nmUserid = nmUserid;
+        this.nmUserid = nmUserid;
     }
 
     private UsrVAbilApplicId usrVAbilApplicId;
 
     @EmbeddedId()
     public UsrVAbilApplicId getUsrVAbilApplicId() {
-	return usrVAbilApplicId;
+        return usrVAbilApplicId;
     }
 
     public void setUsrVAbilApplicId(UsrVAbilApplicId usrVAbilApplicId) {
-	this.usrVAbilApplicId = usrVAbilApplicId;
+        this.usrVAbilApplicId = usrVAbilApplicId;
     }
 }

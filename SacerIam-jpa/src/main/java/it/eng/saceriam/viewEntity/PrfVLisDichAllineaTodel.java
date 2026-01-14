@@ -34,26 +34,26 @@ public class PrfVLisDichAllineaTodel implements Serializable {
     private BigDecimal idRuolo;
 
     public PrfVLisDichAllineaTodel() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Id
     @Column(name = "ID_DICH_AUTOR")
     public BigDecimal getIdDichAutor() {
-	return this.idDichAutor;
+        return this.idDichAutor;
     }
 
     public void setIdDichAutor(BigDecimal idDichAutor) {
-	this.idDichAutor = idDichAutor;
+        this.idDichAutor = idDichAutor;
     }
 
     @Column(name = "ID_RUOLO")
     public BigDecimal getIdRuolo() {
-	return this.idRuolo;
+        return this.idRuolo;
     }
 
     public void setIdRuolo(BigDecimal idRuolo) {
-	this.idRuolo = idRuolo;
+        this.idRuolo = idRuolo;
     }
 
 }

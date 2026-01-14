@@ -20,7 +20,7 @@ package it.eng.saceriam.entity.constraint;
 public class ConstAplValoreParamApplic {
 
     public enum TiAppart {
-	AMBIENTE, ENTE, APPLIC
+        AMBIENTE, ENTE, APPLIC
     }
 
 }

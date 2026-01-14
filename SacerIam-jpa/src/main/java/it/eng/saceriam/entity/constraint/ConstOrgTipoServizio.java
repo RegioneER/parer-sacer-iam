@@ -23,11 +23,11 @@ package it.eng.saceriam.entity.constraint;
  */
 public class ConstOrgTipoServizio {
     public enum TiClasseTipoServizio {
-	ALTRO, ATTIVAZIONE_SISTEMA_VERSANTE, CONSERVAZIONE, ATTIVAZIONE_TIPO_UD, ALTRO_ANNUALITA
+        ALTRO, ATTIVAZIONE_SISTEMA_VERSANTE, CONSERVAZIONE, ATTIVAZIONE_TIPO_UD, ALTRO_ANNUALITA
     }
 
     public enum TipoFatturazione {
-	UNA_TANTUM, ANNUALE
+        UNA_TANTUM, ANNUALE
     }
 
 }

@@ -28,50 +28,50 @@ public class UsrVRicRichiesteId implements Serializable {
 
     @Column(name = "ID_RICH_GEST_USER")
     public BigDecimal getIdRichGestUser() {
-	return idRichGestUser;
+        return idRichGestUser;
     }
 
     public void setIdRichGestUser(BigDecimal idRichGestUser) {
-	this.idRichGestUser = idRichGestUser;
+        this.idRichGestUser = idRichGestUser;
     }
 
     private BigDecimal idUserIamCor;
 
     @Column(name = "ID_USER_IAM_COR")
     public BigDecimal getIdUserIamCor() {
-	return idUserIamCor;
+        return idUserIamCor;
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	this.idUserIamCor = idUserIamCor;
+        this.idUserIamCor = idUserIamCor;
     }
 
     @Override
     public int hashCode() {
-	int hash = 7;
-	hash = 89 * hash + Objects.hashCode(this.idRichGestUser);
-	hash = 89 * hash + Objects.hashCode(this.idUserIamCor);
-	return hash;
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.idRichGestUser);
+        hash = 89 * hash + Objects.hashCode(this.idUserIamCor);
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final UsrVRicRichiesteId other = (UsrVRicRichiesteId) obj;
-	if (!Objects.equals(this.idRichGestUser, other.idRichGestUser)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UsrVRicRichiesteId other = (UsrVRicRichiesteId) obj;
+        if (!Objects.equals(this.idRichGestUser, other.idRichGestUser)) {
+            return false;
+        }
+        if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
+            return false;
+        }
+        return true;
     }
 }

@@ -23,7 +23,7 @@ package it.eng.saceriam.entity.constraint;
  */
 public class ConstAplApplic {
     public enum NmApplic {
-	SACER_RIC, SACER, SACER_PREINGEST
+        SACER_RIC, SACER, SACER_PREINGEST
     }
 
 }

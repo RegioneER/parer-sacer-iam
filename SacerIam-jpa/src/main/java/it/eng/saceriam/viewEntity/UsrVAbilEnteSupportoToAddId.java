@@ -29,48 +29,48 @@ public class UsrVAbilEnteSupportoToAddId implements Serializable {
 
     @Column(name = "ID_ENTE_CONVENZ")
     public BigDecimal getIdEnteConvenz() {
-	return idEnteConvenz;
+        return idEnteConvenz;
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	this.idEnteConvenz = idEnteConvenz;
+        this.idEnteConvenz = idEnteConvenz;
     }
 
     private BigDecimal idUserIamCor;
 
     @Column(name = "ID_USER_IAM_COR")
     public BigDecimal getIdUserIamCor() {
-	return idUserIamCor;
+        return idUserIamCor;
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	this.idUserIamCor = idUserIamCor;
+        this.idUserIamCor = idUserIamCor;
     }
 
     private BigDecimal idUserIamGestito;
 
     @Column(name = "ID_USER_IAM_GESTITO")
     public BigDecimal getIdUserIamGestito() {
-	return idUserIamGestito;
+        return idUserIamGestito;
     }
 
     public void setIdUserIamGestito(BigDecimal idUserIamGestito) {
-	this.idUserIamGestito = idUserIamGestito;
+        this.idUserIamGestito = idUserIamGestito;
     }
 
     @Override
     public boolean equals(Object o) {
-	if (this == o)
-	    return true;
-	if (o == null || getClass() != o.getClass())
-	    return false;
-	UsrVAbilEnteSupportoToAddId that = (UsrVAbilEnteSupportoToAddId) o;
-	return idEnteConvenz.equals(that.idEnteConvenz) && idUserIamCor.equals(that.idUserIamCor)
-		&& idUserIamGestito.equals(that.idUserIamGestito);
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        UsrVAbilEnteSupportoToAddId that = (UsrVAbilEnteSupportoToAddId) o;
+        return idEnteConvenz.equals(that.idEnteConvenz) && idUserIamCor.equals(that.idUserIamCor)
+                && idUserIamGestito.equals(that.idUserIamGestito);
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(idEnteConvenz, idUserIamCor, idUserIamGestito);
+        return Objects.hash(idEnteConvenz, idUserIamCor, idUserIamGestito);
     }
 }

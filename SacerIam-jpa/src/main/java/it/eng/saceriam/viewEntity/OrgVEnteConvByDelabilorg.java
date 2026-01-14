@@ -35,11 +35,11 @@ public class OrgVEnteConvByDelabilorg implements Serializable {
 
     @EmbeddedId()
     public OrgVEnteConvByDelabilorgId getOrgVEnteConvByDelabilorgId() {
-	return orgVEnteConvByDelabilorgId;
+        return orgVEnteConvByDelabilorgId;
     }
 
     public void setOrgVEnteConvByDelabilorgId(
-	    OrgVEnteConvByDelabilorgId orgVEnteConvByDelabilorgId) {
-	this.orgVEnteConvByDelabilorgId = orgVEnteConvByDelabilorgId;
+            OrgVEnteConvByDelabilorgId orgVEnteConvByDelabilorgId) {
+        this.orgVEnteConvByDelabilorgId = orgVEnteConvByDelabilorgId;
     }
 }

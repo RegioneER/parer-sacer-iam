@@ -43,71 +43,71 @@ public class OrgVCreaFatturaByFatt implements Serializable {
     private BigDecimal pgFattura;
 
     public OrgVCreaFatturaByFatt() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "CD_FATTURA")
     public String getCdFattura() {
-	return this.cdFattura;
+        return this.cdFattura;
     }
 
     public void setCdFattura(String cdFattura) {
-	this.cdFattura = cdFattura;
+        this.cdFattura = cdFattura;
     }
 
     @Column(name = "ID_ENTE_CONVENZ")
     public BigDecimal getIdEnteConvenz() {
-	return this.idEnteConvenz;
+        return this.idEnteConvenz;
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	this.idEnteConvenz = idEnteConvenz;
+        this.idEnteConvenz = idEnteConvenz;
     }
 
     @Column(name = "IM_TOT_DA_PAGARE")
     public BigDecimal getImTotDaPagare() {
-	return this.imTotDaPagare;
+        return this.imTotDaPagare;
     }
 
     public void setImTotDaPagare(BigDecimal imTotDaPagare) {
-	this.imTotDaPagare = imTotDaPagare;
+        this.imTotDaPagare = imTotDaPagare;
     }
 
     @Column(name = "IM_TOT_FATTURA")
     public BigDecimal getImTotFattura() {
-	return this.imTotFattura;
+        return this.imTotFattura;
     }
 
     public void setImTotFattura(BigDecimal imTotFattura) {
-	this.imTotFattura = imTotFattura;
+        this.imTotFattura = imTotFattura;
     }
 
     @Column(name = "IM_TOT_IVA")
     public BigDecimal getImTotIva() {
-	return this.imTotIva;
+        return this.imTotIva;
     }
 
     public void setImTotIva(BigDecimal imTotIva) {
-	this.imTotIva = imTotIva;
+        this.imTotIva = imTotIva;
     }
 
     @Column(name = "PG_FATTURA")
     public BigDecimal getPgFattura() {
-	return this.pgFattura;
+        return this.pgFattura;
     }
 
     public void setPgFattura(BigDecimal pgFattura) {
-	this.pgFattura = pgFattura;
+        this.pgFattura = pgFattura;
     }
 
     private OrgVCreaFatturaByFattId orgVCreaFatturaByFattId;
 
     @EmbeddedId()
     public OrgVCreaFatturaByFattId getOrgVCreaFatturaByFattId() {
-	return orgVCreaFatturaByFattId;
+        return orgVCreaFatturaByFattId;
     }
 
     public void setOrgVCreaFatturaByFattId(OrgVCreaFatturaByFattId orgVCreaFatturaByFattId) {
-	this.orgVCreaFatturaByFattId = orgVCreaFatturaByFattId;
+        this.orgVCreaFatturaByFattId = orgVCreaFatturaByFattId;
     }
 }

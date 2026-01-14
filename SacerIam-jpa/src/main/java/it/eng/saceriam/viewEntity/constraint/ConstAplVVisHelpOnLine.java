@@ -23,6 +23,6 @@ package it.eng.saceriam.viewEntity.constraint;
  */
 public class ConstAplVVisHelpOnLine {
     public enum TiHelpOnLine {
-	HELP_PAGINA, HELP_RICERCA_DIPS, INFO_PRIVACY
+        HELP_PAGINA, HELP_RICERCA_DIPS, INFO_PRIVACY
     }
 }

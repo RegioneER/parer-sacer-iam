@@ -39,54 +39,54 @@ public class AplVLisOrganizUsoSisVers implements Serializable {
     private String nmSistemaVersante;
 
     public AplVLisOrganizUsoSisVers() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DL_COMPOSITO_ORGANIZ")
     public String getDlCompositoOrganiz() {
-	return this.dlCompositoOrganiz;
+        return this.dlCompositoOrganiz;
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-	this.dlCompositoOrganiz = dlCompositoOrganiz;
+        this.dlCompositoOrganiz = dlCompositoOrganiz;
     }
 
     @Column(name = "ID_ORGANIZ_APPLIC")
     public BigDecimal getIdOrganizApplic() {
-	return this.idOrganizApplic;
+        return this.idOrganizApplic;
     }
 
     public void setIdOrganizApplic(BigDecimal idOrganizApplic) {
-	this.idOrganizApplic = idOrganizApplic;
+        this.idOrganizApplic = idOrganizApplic;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_SISTEMA_VERSANTE")
     public String getNmSistemaVersante() {
-	return this.nmSistemaVersante;
+        return this.nmSistemaVersante;
     }
 
     public void setNmSistemaVersante(String nmSistemaVersante) {
-	this.nmSistemaVersante = nmSistemaVersante;
+        this.nmSistemaVersante = nmSistemaVersante;
     }
 
     private AplVLisOrganizUsoSisVersId aplVLisOrganizUsoSisVersId;
 
     @EmbeddedId()
     public AplVLisOrganizUsoSisVersId getAplVLisOrganizUsoSisVersId() {
-	return aplVLisOrganizUsoSisVersId;
+        return aplVLisOrganizUsoSisVersId;
     }
 
     public void setAplVLisOrganizUsoSisVersId(
-	    AplVLisOrganizUsoSisVersId aplVLisOrganizUsoSisVersId) {
-	this.aplVLisOrganizUsoSisVersId = aplVLisOrganizUsoSisVersId;
+            AplVLisOrganizUsoSisVersId aplVLisOrganizUsoSisVersId) {
+        this.aplVLisOrganizUsoSisVersId = aplVLisOrganizUsoSisVersId;
     }
 }

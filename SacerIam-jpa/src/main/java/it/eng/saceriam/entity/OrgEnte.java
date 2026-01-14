@@ -52,67 +52,67 @@ public class OrgEnte implements Serializable {
     @Id
     @Column(name = "ID_ENTE")
     public Long getIdEnte() {
-	return this.idEnte;
+        return this.idEnte;
     }
 
     public void setIdEnte(Long idEnte) {
-	this.idEnte = idEnte;
+        this.idEnte = idEnte;
     }
 
     @Column(name = "DS_ENTE")
     public String getDsEnte() {
-	return this.dsEnte;
+        return this.dsEnte;
     }
 
     public void setDsEnte(String dsEnte) {
-	this.dsEnte = dsEnte;
+        this.dsEnte = dsEnte;
     }
 
     @Column(name = "NM_ENTE")
     public String getNmEnte() {
-	return this.nmEnte;
+        return this.nmEnte;
     }
 
     public void setNmEnte(String nmEnte) {
-	this.nmEnte = nmEnte;
+        this.nmEnte = nmEnte;
     }
 
     @Column(name = "CD_ENTE_NORMALIZ")
     public String getCdEnteNormaliz() {
-	return this.cdEnteNormaliz;
+        return this.cdEnteNormaliz;
     }
 
     public void setCdEnteNormaliz(String cdEnteNormaliz) {
-	this.cdEnteNormaliz = cdEnteNormaliz;
+        this.cdEnteNormaliz = cdEnteNormaliz;
     }
 
     @Column(name = "TIPO_DEF_TEMPLATE_ENTE")
     public String getTipoDefTemplateEnte() {
-	return this.tipoDefTemplateEnte;
+        return this.tipoDefTemplateEnte;
     }
 
     public void setTipoDefTemplateEnte(String tipoDefTemplateEnte) {
-	this.tipoDefTemplateEnte = tipoDefTemplateEnte;
+        this.tipoDefTemplateEnte = tipoDefTemplateEnte;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_FIN_VAL_APPART_AMBIENTE")
     public Date getDtFinValAppartAmbiente() {
-	return this.dtFinValAppartAmbiente;
+        return this.dtFinValAppartAmbiente;
     }
 
     public void setDtFinValAppartAmbiente(Date dtFinValAppartAmbiente) {
-	this.dtFinValAppartAmbiente = dtFinValAppartAmbiente;
+        this.dtFinValAppartAmbiente = dtFinValAppartAmbiente;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_INI_VAL_APPART_AMBIENTE")
     public Date getDtIniValAppartAmbiente() {
-	return this.dtIniValAppartAmbiente;
+        return this.dtIniValAppartAmbiente;
     }
 
     public void setDtIniValAppartAmbiente(Date dtIniValAppartAmbiente) {
-	this.dtIniValAppartAmbiente = dtIniValAppartAmbiente;
+        this.dtIniValAppartAmbiente = dtIniValAppartAmbiente;
     }
 
     // // bi-directional many-to-one association to OrgStoricoEnteAmbiente
@@ -145,36 +145,36 @@ public class OrgEnte implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_FINE_VAL")
     public Date getDtFineVal() {
-	return this.dtFineVal;
+        return this.dtFineVal;
     }
 
     public void setDtFineVal(Date dtFineVal) {
-	this.dtFineVal = dtFineVal;
+        this.dtFineVal = dtFineVal;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_INI_VAL")
     public Date getDtIniVal() {
-	return this.dtIniVal;
+        return this.dtIniVal;
     }
 
     public void setDtIniVal(Date dtIniVal) {
-	this.dtIniVal = dtIniVal;
+        this.dtIniVal = dtIniVal;
     }
 
     @Column(name = "FL_CESSATO", columnDefinition = "char")
     public String getFlCessato() {
-	return this.flCessato;
+        return this.flCessato;
     }
 
     public void setFlCessato(String flCessato) {
-	this.flCessato = flCessato;
+        this.flCessato = flCessato;
     }
 
     @PrePersist
     void preInsert() {
-	if (this.flCessato == null) {
-	    this.flCessato = "0";
-	}
+        if (this.flCessato == null) {
+            this.flCessato = "0";
+        }
     }
 }

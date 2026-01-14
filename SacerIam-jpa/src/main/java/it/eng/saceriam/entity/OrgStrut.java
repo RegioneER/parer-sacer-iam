@@ -46,87 +46,113 @@ public class OrgStrut implements Serializable {
     private String flTemplate;
     private String nmStrut;
     private List<DecTipoUnitaDoc> decTipoUnitaDocs = new ArrayList<>();
+    private List<DecTipoDocProcessoConserv> decTipoDocProcessoConservs = new ArrayList<>();
     private String flCessato;
     private BigDecimal idEnteConvenz;
 
     public OrgStrut() {
-	/*
-	 * empty
-	 */
+        /*
+         * empty
+         */
     }
 
     @Id
     @Column(name = "ID_STRUT")
     public Long getIdStrut() {
-	return this.idStrut;
+        return this.idStrut;
     }
 
     public void setIdStrut(Long idStrut) {
-	this.idStrut = idStrut;
+        this.idStrut = idStrut;
     }
 
     @Column(name = "CD_IPA")
     public String getCdIpa() {
-	return cdIpa;
+        return cdIpa;
     }
 
     public void setCdIpa(String cdIpa) {
-	this.cdIpa = cdIpa;
+        this.cdIpa = cdIpa;
     }
 
     @Column(name = "DS_STRUT")
     public String getDsStrut() {
-	return this.dsStrut;
+        return this.dsStrut;
     }
 
     public void setDsStrut(String dsStrut) {
-	this.dsStrut = dsStrut;
+        this.dsStrut = dsStrut;
     }
 
     @Column(name = "FL_CESSATO", columnDefinition = "char")
     public String getFlCessato() {
-	return this.flCessato;
+        return this.flCessato;
     }
 
     public void setFlCessato(String flCessato) {
-	this.flCessato = flCessato;
+        this.flCessato = flCessato;
     }
 
     @Column(name = "FL_TEMPLATE", columnDefinition = "char")
     public String getFlTemplate() {
-	return this.flTemplate;
+        return this.flTemplate;
     }
 
     public void setFlTemplate(String flTemplate) {
-	this.flTemplate = flTemplate;
+        this.flTemplate = flTemplate;
     }
 
     @Column(name = "NM_STRUT")
     public String getNmStrut() {
-	return this.nmStrut;
+        return this.nmStrut;
     }
 
     public void setNmStrut(String nmStrut) {
-	this.nmStrut = nmStrut;
+        this.nmStrut = nmStrut;
     }
 
     // bi-directional many-to-one association to DecTipoUnitaDoc
     @OneToMany(mappedBy = "orgStrut", cascade = CascadeType.PERSIST)
     public List<DecTipoUnitaDoc> getDecTipoUnitaDocs() {
-	return this.decTipoUnitaDocs;
+        return this.decTipoUnitaDocs;
     }
 
     public void setDecTipoUnitaDocs(List<DecTipoUnitaDoc> decTipoUnitaDocs) {
-	this.decTipoUnitaDocs = decTipoUnitaDocs;
+        this.decTipoUnitaDocs = decTipoUnitaDocs;
+    }
+
+    // bi-directional many-to-one association to DecTipoDocProcessoConserv
+    @OneToMany(mappedBy = "orgStrut", cascade = CascadeType.PERSIST)
+    public List<DecTipoDocProcessoConserv> getDecTipoDocProcessoConservs() {
+        return this.decTipoDocProcessoConservs;
+    }
+
+    public void setDecTipoDocProcessoConservs(
+            List<DecTipoDocProcessoConserv> decTipoDocProcessoConservs) {
+        this.decTipoDocProcessoConservs = decTipoDocProcessoConservs;
+    }
+
+    public DecTipoDocProcessoConserv addDecTipoDocProcessoConserv(
+            DecTipoDocProcessoConserv decTipoDocProcessoConserv) {
+        getDecTipoDocProcessoConservs().add(decTipoDocProcessoConserv);
+        decTipoDocProcessoConserv.setOrgStrut(this);
+        return decTipoDocProcessoConserv;
+    }
+
+    public DecTipoDocProcessoConserv removeDecTipoDocProcessoConserv(
+            DecTipoDocProcessoConserv decTipoDocProcessoConserv) {
+        getDecTipoDocProcessoConservs().remove(decTipoDocProcessoConserv);
+        decTipoDocProcessoConserv.setOrgStrut(null);
+        return decTipoDocProcessoConserv;
     }
 
     @Column(name = "ID_ENTE_CONVENZ")
     public BigDecimal getIdEnteConvenz() {
-	return idEnteConvenz;
+        return idEnteConvenz;
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	this.idEnteConvenz = idEnteConvenz;
+        this.idEnteConvenz = idEnteConvenz;
     }
 
 }

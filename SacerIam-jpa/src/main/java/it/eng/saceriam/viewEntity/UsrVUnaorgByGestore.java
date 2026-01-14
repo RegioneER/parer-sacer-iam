@@ -39,53 +39,53 @@ public class UsrVUnaorgByGestore implements Serializable {
     private String nmApplic;
 
     public UsrVUnaorgByGestore() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Column(name = "ID_ENTE_GESTORE")
     public BigDecimal getIdEnteGestore() {
-	return this.idEnteGestore;
+        return this.idEnteGestore;
     }
 
     public void setIdEnteGestore(BigDecimal idEnteGestore) {
-	this.idEnteGestore = idEnteGestore;
+        this.idEnteGestore = idEnteGestore;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     private UsrVUnaorgByGestoreId usrVUnaorgByGestoreId;
 
     @EmbeddedId()
     public UsrVUnaorgByGestoreId getUsrVUnaorgByGestoreId() {
-	return usrVUnaorgByGestoreId;
+        return usrVUnaorgByGestoreId;
     }
 
     public void setUsrVUnaorgByGestoreId(UsrVUnaorgByGestoreId usrVUnaorgByGestoreId) {
-	this.usrVUnaorgByGestoreId = usrVUnaorgByGestoreId;
+        this.usrVUnaorgByGestoreId = usrVUnaorgByGestoreId;
     }
 }

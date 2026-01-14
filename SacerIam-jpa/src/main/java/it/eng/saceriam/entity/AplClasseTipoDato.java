@@ -57,54 +57,54 @@ public class AplClasseTipoDato implements Serializable {
     @Id
     @Column(name = "ID_CLASSE_TIPO_DATO")
     @GenericGenerator(name = "SAPL_CLASSE_TIPO_DATO_ID_CLASSE_TIPO_DATO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_CLASSE_TIPO_DATO"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_CLASSE_TIPO_DATO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_CLASSE_TIPO_DATO_ID_CLASSE_TIPO_DATO_GENERATOR")
     public Long getIdClasseTipoDato() {
-	return this.idClasseTipoDato;
+        return this.idClasseTipoDato;
     }
 
     public void setIdClasseTipoDato(Long idClasseTipoDato) {
-	this.idClasseTipoDato = idClasseTipoDato;
+        this.idClasseTipoDato = idClasseTipoDato;
     }
 
     @Column(name = "NM_CLASSE_TIPO_DATO")
     public String getNmClasseTipoDato() {
-	return this.nmClasseTipoDato;
+        return this.nmClasseTipoDato;
     }
 
     public void setNmClasseTipoDato(String nmClasseTipoDato) {
-	this.nmClasseTipoDato = nmClasseTipoDato;
+        this.nmClasseTipoDato = nmClasseTipoDato;
     }
 
     // bi-directional many-to-one association to AplApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPLIC")
     public AplApplic getAplApplic() {
-	return this.aplApplic;
+        return this.aplApplic;
     }
 
     public void setAplApplic(AplApplic aplApplic) {
-	this.aplApplic = aplApplic;
+        this.aplApplic = aplApplic;
     }
 
     // bi-directional many-to-one association to UsrDichAbilDati
     @OneToMany(mappedBy = "aplClasseTipoDato")
     public List<UsrDichAbilDati> getUsrDichAbilDatis() {
-	return this.usrDichAbilDatis;
+        return this.usrDichAbilDatis;
     }
 
     public void setUsrDichAbilDatis(List<UsrDichAbilDati> usrDichAbilDatis) {
-	this.usrDichAbilDatis = usrDichAbilDatis;
+        this.usrDichAbilDatis = usrDichAbilDatis;
     }
 
     // bi-directional many-to-one association to UsrTipoDatoIam
     @OneToMany(mappedBy = "aplClasseTipoDato")
     public List<UsrTipoDatoIam> getUsrTipoDatoIams() {
-	return this.usrTipoDatoIams;
+        return this.usrTipoDatoIams;
     }
 
     public void setUsrTipoDatoIams(List<UsrTipoDatoIam> usrTipoDatoIams) {
-	this.usrTipoDatoIams = usrTipoDatoIams;
+        this.usrTipoDatoIams = usrTipoDatoIams;
     }
 }

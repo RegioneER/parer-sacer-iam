@@ -56,45 +56,45 @@ public class OrgStatoFatturaEnte implements Serializable {
     @Id
     @Column(name = "ID_STATO_FATTURA_ENTE")
     @GenericGenerator(name = "SORG_STATO_FATTURA_ENTE_ID_STATO_FATTURA_ENTE_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_STATO_FATTURA_ENTE"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_STATO_FATTURA_ENTE"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_STATO_FATTURA_ENTE_ID_STATO_FATTURA_ENTE_GENERATOR")
     public Long getIdStatoFatturaEnte() {
-	return this.idStatoFatturaEnte;
+        return this.idStatoFatturaEnte;
     }
 
     public void setIdStatoFatturaEnte(Long idStatoFatturaEnte) {
-	this.idStatoFatturaEnte = idStatoFatturaEnte;
+        this.idStatoFatturaEnte = idStatoFatturaEnte;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_REG_STATO_FATTURA_ENTE")
     public Date getDtRegStatoFatturaEnte() {
-	return this.dtRegStatoFatturaEnte;
+        return this.dtRegStatoFatturaEnte;
     }
 
     public void setDtRegStatoFatturaEnte(Date dtRegStatoFatturaEnte) {
-	this.dtRegStatoFatturaEnte = dtRegStatoFatturaEnte;
+        this.dtRegStatoFatturaEnte = dtRegStatoFatturaEnte;
     }
 
     @Column(name = "TI_STATO_FATTURA_ENTE")
     public String getTiStatoFatturaEnte() {
-	return this.tiStatoFatturaEnte;
+        return this.tiStatoFatturaEnte;
     }
 
     public void setTiStatoFatturaEnte(String tiStatoFatturaEnte) {
-	this.tiStatoFatturaEnte = tiStatoFatturaEnte;
+        this.tiStatoFatturaEnte = tiStatoFatturaEnte;
     }
 
     // bi-directional many-to-one association to OrgFatturaEnte
     @ManyToOne(fetch = FetchType.LAZY, cascade = {
-	    CascadeType.PERSIST })
+            CascadeType.PERSIST })
     @JoinColumn(name = "ID_FATTURA_ENTE", nullable = false)
     public OrgFatturaEnte getOrgFatturaEnte() {
-	return this.orgFatturaEnte;
+        return this.orgFatturaEnte;
     }
 
     public void setOrgFatturaEnte(OrgFatturaEnte orgFatturaEnte) {
-	this.orgFatturaEnte = orgFatturaEnte;
+        this.orgFatturaEnte = orgFatturaEnte;
     }
 }

@@ -50,90 +50,90 @@ public class UsrVUnenteByGestore implements Serializable {
     }
 
     public UsrVUnenteByGestore(BigDecimal idAmbienteEnteConvenz, String nmAmbienteEnteConvenz) {
-	this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
-	this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+        this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
+        this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
     }
 
     @Column(name = "DS_AMBIENTE_ENTE_CONVENZ")
     public String getDsAmbienteEnteConvenz() {
-	return this.dsAmbienteEnteConvenz;
+        return this.dsAmbienteEnteConvenz;
     }
 
     public void setDsAmbienteEnteConvenz(String dsAmbienteEnteConvenz) {
-	this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
+        this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "ID_AMBIENTE_ENTE_CONVENZ")
     public BigDecimal getIdAmbienteEnteConvenz() {
-	return this.idAmbienteEnteConvenz;
+        return this.idAmbienteEnteConvenz;
     }
 
     public void setIdAmbienteEnteConvenz(BigDecimal idAmbienteEnteConvenz) {
-	this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
+        this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
     }
 
     @Column(name = "ID_APPART_COLLEG_ENTI")
     public BigDecimal getIdAppartCollegEnti() {
-	return this.idAppartCollegEnti;
+        return this.idAppartCollegEnti;
     }
 
     public void setIdAppartCollegEnti(BigDecimal idAppartCollegEnti) {
-	this.idAppartCollegEnti = idAppartCollegEnti;
+        this.idAppartCollegEnti = idAppartCollegEnti;
     }
 
     @Column(name = "ID_ENTE_GESTORE")
     public BigDecimal getIdEnteGestore() {
-	return this.idEnteGestore;
+        return this.idEnteGestore;
     }
 
     public void setIdEnteGestore(BigDecimal idEnteGestore) {
-	this.idEnteGestore = idEnteGestore;
+        this.idEnteGestore = idEnteGestore;
     }
 
     @Column(name = "ID_ENTE_PRODUT_COLLEG")
     public BigDecimal getIdEnteProdutColleg() {
-	return this.idEnteProdutColleg;
+        return this.idEnteProdutColleg;
     }
 
     public void setIdEnteProdutColleg(BigDecimal idEnteProdutColleg) {
-	this.idEnteProdutColleg = idEnteProdutColleg;
+        this.idEnteProdutColleg = idEnteProdutColleg;
     }
 
     @Column(name = "NM_AMBIENTE_ENTE_CONVENZ")
     public String getNmAmbienteEnteConvenz() {
-	return this.nmAmbienteEnteConvenz;
+        return this.nmAmbienteEnteConvenz;
     }
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
-	this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+        this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
     }
 
     @Column(name = "NM_ENTE_CONVENZ")
     public String getNmEnteConvenz() {
-	return this.nmEnteConvenz;
+        return this.nmEnteConvenz;
     }
 
     public void setNmEnteConvenz(String nmEnteConvenz) {
-	this.nmEnteConvenz = nmEnteConvenz;
+        this.nmEnteConvenz = nmEnteConvenz;
     }
 
     private UsrVUnenteByGestoreId usrVUnenteByGestoreId;
 
     @EmbeddedId()
     public UsrVUnenteByGestoreId getUsrVUnenteByGestoreId() {
-	return usrVUnenteByGestoreId;
+        return usrVUnenteByGestoreId;
     }
 
     public void setUsrVUnenteByGestoreId(UsrVUnenteByGestoreId usrVUnenteByGestoreId) {
-	this.usrVUnenteByGestoreId = usrVUnenteByGestoreId;
+        this.usrVUnenteByGestoreId = usrVUnenteByGestoreId;
     }
 }

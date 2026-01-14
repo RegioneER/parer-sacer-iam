@@ -35,44 +35,44 @@ public class OrgVVisStatoAccordo implements Serializable {
     private String tiStatoAccordo;
 
     public OrgVVisStatoAccordo() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "ID_ENTE_CONVENZ")
     public BigDecimal getIdEnteConvenz() {
-	return this.idEnteConvenz;
+        return this.idEnteConvenz;
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	this.idEnteConvenz = idEnteConvenz;
+        this.idEnteConvenz = idEnteConvenz;
     }
 
     @Id
     @Column(name = "ID_ACCORDO_ENTE")
     public BigDecimal getIdAccordoEnte() {
-	return this.idAccordoEnte;
+        return this.idAccordoEnte;
     }
 
     public void setIdAccordoEnte(BigDecimal idAccordoEnte) {
-	this.idAccordoEnte = idAccordoEnte;
+        this.idAccordoEnte = idAccordoEnte;
     }
 
     @Column(name = "NM_ENTE_CONVENZ")
     public String getNmEnteConvenz() {
-	return this.nmEnteConvenz;
+        return this.nmEnteConvenz;
     }
 
     public void setNmEnteConvenz(String nmEnteConvenz) {
-	this.nmEnteConvenz = nmEnteConvenz;
+        this.nmEnteConvenz = nmEnteConvenz;
     }
 
     @Column(name = "TI_STATO_ACCORDO")
     public String getTiStatoAccordo() {
-	return this.tiStatoAccordo;
+        return this.tiStatoAccordo;
     }
 
     public void setTiStatoAccordo(String tiStatoAccordo) {
-	this.tiStatoAccordo = tiStatoAccordo;
+        this.tiStatoAccordo = tiStatoAccordo;
     }
 
 }

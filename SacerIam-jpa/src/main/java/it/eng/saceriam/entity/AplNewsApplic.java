@@ -51,36 +51,36 @@ public class AplNewsApplic implements Serializable {
     @Id
     @Column(name = "ID_NEWS_APPLIC")
     @GenericGenerator(name = "SAPL_NEWS_APPLIC_ID_NEWS_APPLIC_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_NEWS_APPLIC"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_NEWS_APPLIC"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_NEWS_APPLIC_ID_NEWS_APPLIC_GENERATOR")
     public Long getIdNewsApplic() {
-	return this.idNewsApplic;
+        return this.idNewsApplic;
     }
 
     public void setIdNewsApplic(Long idNewsApplic) {
-	this.idNewsApplic = idNewsApplic;
+        this.idNewsApplic = idNewsApplic;
     }
 
     // bi-directional many-to-one association to AplApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPLIC")
     public AplApplic getAplApplic() {
-	return this.aplApplic;
+        return this.aplApplic;
     }
 
     public void setAplApplic(AplApplic aplApplic) {
-	this.aplApplic = aplApplic;
+        this.aplApplic = aplApplic;
     }
 
     // bi-directional many-to-one association to AplNews
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_NEWS", nullable = false)
     public AplNews getAplNew() {
-	return this.aplNew;
+        return this.aplNew;
     }
 
     public void setAplNew(AplNews aplNew) {
-	this.aplNew = aplNew;
+        this.aplNew = aplNew;
     }
 }

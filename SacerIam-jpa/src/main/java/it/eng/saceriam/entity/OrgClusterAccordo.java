@@ -42,55 +42,55 @@ public class OrgClusterAccordo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CLUSTER_ACCORDO")
     public Long getIdClusterAccordo() {
-	return this.idClusterAccordo;
+        return this.idClusterAccordo;
     }
 
     public void setIdClusterAccordo(Long idClusterAccordo) {
-	this.idClusterAccordo = idClusterAccordo;
+        this.idClusterAccordo = idClusterAccordo;
     }
 
     @Column(name = "CD_CLUSTER")
     public String getCdCluster() {
-	return this.cdCluster;
+        return this.cdCluster;
     }
 
     public void setCdCluster(String cdCluster) {
-	this.cdCluster = cdCluster;
+        this.cdCluster = cdCluster;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @OneToMany(mappedBy = "orgClusterAccordo")
     public List<OrgAccordoEnte> getOrgAccordoEntes() {
-	return this.orgAccordoEntes;
+        return this.orgAccordoEntes;
     }
 
     public void setOrgAccordoEntes(List<OrgAccordoEnte> orgAccordoEntes) {
-	this.orgAccordoEntes = orgAccordoEntes;
+        this.orgAccordoEntes = orgAccordoEntes;
     }
 
     public OrgAccordoEnte addOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-	getOrgAccordoEntes().add(orgAccordoEnte);
-	orgAccordoEnte.setOrgClusterAccordo(this);
+        getOrgAccordoEntes().add(orgAccordoEnte);
+        orgAccordoEnte.setOrgClusterAccordo(this);
 
-	return orgAccordoEnte;
+        return orgAccordoEnte;
     }
 
     public OrgAccordoEnte removeOrgAccordoEnte(OrgAccordoEnte orgAccordoEnte) {
-	getOrgAccordoEntes().remove(orgAccordoEnte);
-	orgAccordoEnte.setOrgClusterAccordo(null);
+        getOrgAccordoEntes().remove(orgAccordoEnte);
+        orgAccordoEnte.setOrgClusterAccordo(null);
 
-	return orgAccordoEnte;
+        return orgAccordoEnte;
     }
 
     // bi-directional many-to-one association to OrgFasciaStorageAccordo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCIA_STORAGE_ACCORDO")
     public OrgFasciaStorageAccordo getOrgFasciaStorageAccordo() {
-	return this.orgFasciaStorageAccordo;
+        return this.orgFasciaStorageAccordo;
     }
 
     public void setOrgFasciaStorageAccordo(OrgFasciaStorageAccordo orgFasciaStorageAccordo) {
-	this.orgFasciaStorageAccordo = orgFasciaStorageAccordo;
+        this.orgFasciaStorageAccordo = orgFasciaStorageAccordo;
     }
 
 }

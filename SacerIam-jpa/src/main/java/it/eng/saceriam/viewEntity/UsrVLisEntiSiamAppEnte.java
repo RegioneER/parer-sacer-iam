@@ -37,62 +37,62 @@ public class UsrVLisEntiSiamAppEnte implements Serializable {
     private String nmEnteSiam;
 
     public UsrVLisEntiSiamAppEnte() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_AMBIENTE_ENTE_CONVENZ")
     public String getDsAmbienteEnteConvenz() {
-	return this.dsAmbienteEnteConvenz;
+        return this.dsAmbienteEnteConvenz;
     }
 
     public void setDsAmbienteEnteConvenz(String dsAmbienteEnteConvenz) {
-	this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
+        this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
     }
 
     @Column(name = "ID_AMBIENTE_ENTE_CONVENZ")
     public BigDecimal getIdAmbienteEnteConvenz() {
-	return this.idAmbienteEnteConvenz;
+        return this.idAmbienteEnteConvenz;
     }
 
     public void setIdAmbienteEnteConvenz(BigDecimal idAmbienteEnteConvenz) {
-	this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
+        this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
     }
 
     @Id
     @Column(name = "ID_ENTE_SIAM")
     public BigDecimal getIdEnteSiam() {
-	return this.idEnteSiam;
+        return this.idEnteSiam;
     }
 
     public void setIdEnteSiam(BigDecimal idEnteSiam) {
-	this.idEnteSiam = idEnteSiam;
+        this.idEnteSiam = idEnteSiam;
     }
 
     @Column(name = "ID_USER_IAM_COR")
     public BigDecimal getIdUserIamCor() {
-	return this.idUserIamCor;
+        return this.idUserIamCor;
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	this.idUserIamCor = idUserIamCor;
+        this.idUserIamCor = idUserIamCor;
     }
 
     @Column(name = "NM_AMBIENTE_ENTE_CONVENZ")
     public String getNmAmbienteEnteConvenz() {
-	return this.nmAmbienteEnteConvenz;
+        return this.nmAmbienteEnteConvenz;
     }
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
-	this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+        this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
     }
 
     @Column(name = "NM_ENTE_SIAM")
     public String getNmEnteSiam() {
-	return this.nmEnteSiam;
+        return this.nmEnteSiam;
     }
 
     public void setNmEnteSiam(String nmEnteSiam) {
-	this.nmEnteSiam = nmEnteSiam;
+        this.nmEnteSiam = nmEnteSiam;
     }
 
 }

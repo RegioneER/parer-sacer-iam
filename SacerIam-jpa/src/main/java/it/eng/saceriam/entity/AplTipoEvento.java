@@ -65,130 +65,130 @@ public class AplTipoEvento implements Serializable {
     @Id
     @Column(name = "ID_TIPO_EVENTO")
     @GenericGenerator(name = "SAPL_TIPO_EVENTO_ID_TIPO_EVENTO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_TIPO_EVENTO"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_TIPO_EVENTO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_TIPO_EVENTO_ID_TIPO_EVENTO_GENERATOR")
     public Long getIdTipoEvento() {
-	return this.idTipoEvento;
+        return this.idTipoEvento;
     }
 
     public void setIdTipoEvento(Long idTipoEvento) {
-	this.idTipoEvento = idTipoEvento;
+        this.idTipoEvento = idTipoEvento;
     }
 
     @Column(name = "NM_TIPO_EVENTO")
     public String getNmTipoEvento() {
-	return this.nmTipoEvento;
+        return this.nmTipoEvento;
     }
 
     public void setNmTipoEvento(String nmTipoEvento) {
-	this.nmTipoEvento = nmTipoEvento;
+        this.nmTipoEvento = nmTipoEvento;
     }
 
     @Column(name = "TIPO_CLASSE_EVENTO")
     public String getTipoClasseEvento() {
-	return this.tipoClasseEvento;
+        return this.tipoClasseEvento;
     }
 
     public void setTipoClasseEvento(String tipoClasseEvento) {
-	this.tipoClasseEvento = tipoClasseEvento;
+        this.tipoClasseEvento = tipoClasseEvento;
     }
 
     @Column(name = "TIPO_CLASSE_PREMIS_EVENTO")
     public String getTipoClassePremisEvento() {
-	return this.tipoClassePremisEvento;
+        return this.tipoClassePremisEvento;
     }
 
     public void setTipoClassePremisEvento(String tipoClassePremisEvento) {
-	this.tipoClassePremisEvento = tipoClassePremisEvento;
+        this.tipoClassePremisEvento = tipoClassePremisEvento;
     }
 
     @Column(name = "TIPO_ORIGINE_EVENTO")
     public String getTipoOrigineEvento() {
-	return this.tipoOrigineEvento;
+        return this.tipoOrigineEvento;
     }
 
     public void setTipoOrigineEvento(String tipoOrigineEvento) {
-	this.tipoOrigineEvento = tipoOrigineEvento;
+        this.tipoOrigineEvento = tipoOrigineEvento;
     }
 
     // bi-directional many-to-one association to AplAzioneCompSw
     @OneToMany(mappedBy = "aplTipoEvento")
     public List<AplAzioneCompSw> getAplAzioneCompSws() {
-	return this.aplAzioneCompSws;
+        return this.aplAzioneCompSws;
     }
 
     public void setAplAzioneCompSws(List<AplAzioneCompSw> aplAzioneCompSws) {
-	this.aplAzioneCompSws = aplAzioneCompSws;
+        this.aplAzioneCompSws = aplAzioneCompSws;
     }
 
     public AplAzioneCompSw addAplAzioneCompSw(AplAzioneCompSw aplAzioneCompSw) {
-	getAplAzioneCompSws().add(aplAzioneCompSw);
-	aplAzioneCompSw.setAplTipoEvento(this);
-	return aplAzioneCompSw;
+        getAplAzioneCompSws().add(aplAzioneCompSw);
+        aplAzioneCompSw.setAplTipoEvento(this);
+        return aplAzioneCompSw;
     }
 
     public AplAzioneCompSw removeAplAzioneCompSw(AplAzioneCompSw aplAzioneCompSw) {
-	getAplAzioneCompSws().remove(aplAzioneCompSw);
-	aplAzioneCompSw.setAplTipoEvento(null);
-	return aplAzioneCompSw;
+        getAplAzioneCompSws().remove(aplAzioneCompSw);
+        aplAzioneCompSw.setAplTipoEvento(null);
+        return aplAzioneCompSw;
     }
 
     // bi-directional many-to-one association to AplAzionePagina
     @OneToMany(mappedBy = "aplTipoEvento")
     public List<AplAzionePagina> getAplAzionePaginas() {
-	return this.aplAzionePaginas;
+        return this.aplAzionePaginas;
     }
 
     public void setAplAzionePaginas(List<AplAzionePagina> aplAzionePaginas) {
-	this.aplAzionePaginas = aplAzionePaginas;
+        this.aplAzionePaginas = aplAzionePaginas;
     }
 
     public AplAzionePagina addAplAzionePagina(AplAzionePagina aplAzionePagina) {
-	getAplAzionePaginas().add(aplAzionePagina);
-	aplAzionePagina.setAplTipoEvento(this);
-	return aplAzionePagina;
+        getAplAzionePaginas().add(aplAzionePagina);
+        aplAzionePagina.setAplTipoEvento(this);
+        return aplAzionePagina;
     }
 
     public AplAzionePagina removeAplAzionePagina(AplAzionePagina aplAzionePagina) {
-	getAplAzionePaginas().remove(aplAzionePagina);
-	aplAzionePagina.setAplTipoEvento(null);
-	return aplAzionePagina;
+        getAplAzionePaginas().remove(aplAzionePagina);
+        aplAzionePagina.setAplTipoEvento(null);
+        return aplAzionePagina;
     }
 
     // bi-directional many-to-one association to AplApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPLIC")
     public AplApplic getAplApplic() {
-	return this.aplApplic;
+        return this.aplApplic;
     }
 
     public void setAplApplic(AplApplic aplApplic) {
-	this.aplApplic = aplApplic;
+        this.aplApplic = aplApplic;
     }
 
     // bi-directional many-to-one association to AplTipoEventoOggettoTrig
     @OneToMany(mappedBy = "aplTipoEvento")
     public List<AplTipoEventoOggettoTrig> getAplTipoEventoOggettoTrigs() {
-	return this.aplTipoEventoOggettoTrigs;
+        return this.aplTipoEventoOggettoTrigs;
     }
 
     public void setAplTipoEventoOggettoTrigs(
-	    List<AplTipoEventoOggettoTrig> aplTipoEventoOggettoTrigs) {
-	this.aplTipoEventoOggettoTrigs = aplTipoEventoOggettoTrigs;
+            List<AplTipoEventoOggettoTrig> aplTipoEventoOggettoTrigs) {
+        this.aplTipoEventoOggettoTrigs = aplTipoEventoOggettoTrigs;
     }
 
     public AplTipoEventoOggettoTrig addAplTipoEventoOggettoTrig(
-	    AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
-	getAplTipoEventoOggettoTrigs().add(aplTipoEventoOggettoTrig);
-	aplTipoEventoOggettoTrig.setAplTipoEvento(this);
-	return aplTipoEventoOggettoTrig;
+            AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
+        getAplTipoEventoOggettoTrigs().add(aplTipoEventoOggettoTrig);
+        aplTipoEventoOggettoTrig.setAplTipoEvento(this);
+        return aplTipoEventoOggettoTrig;
     }
 
     public AplTipoEventoOggettoTrig removeAplTipoEventoOggettoTrig(
-	    AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
-	getAplTipoEventoOggettoTrigs().remove(aplTipoEventoOggettoTrig);
-	aplTipoEventoOggettoTrig.setAplTipoEvento(null);
-	return aplTipoEventoOggettoTrig;
+            AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
+        getAplTipoEventoOggettoTrigs().remove(aplTipoEventoOggettoTrig);
+        aplTipoEventoOggettoTrig.setAplTipoEvento(null);
+        return aplTipoEventoOggettoTrig;
     }
 }
