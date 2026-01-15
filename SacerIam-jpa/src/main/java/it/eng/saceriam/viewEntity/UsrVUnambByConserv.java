@@ -39,53 +39,53 @@ public class UsrVUnambByConserv implements Serializable {
     private String nmAmbienteEnteConvenz;
 
     public UsrVUnambByConserv() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_AMBIENTE_ENTE_CONVENZ")
     public String getDsAmbienteEnteConvenz() {
-	return this.dsAmbienteEnteConvenz;
+        return this.dsAmbienteEnteConvenz;
     }
 
     public void setDsAmbienteEnteConvenz(String dsAmbienteEnteConvenz) {
-	this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
+        this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "ID_ENTE_CONSERV")
     public BigDecimal getIdEnteConserv() {
-	return this.idEnteConserv;
+        return this.idEnteConserv;
     }
 
     public void setIdEnteConserv(BigDecimal idEnteConserv) {
-	this.idEnteConserv = idEnteConserv;
+        this.idEnteConserv = idEnteConserv;
     }
 
     @Column(name = "NM_AMBIENTE_ENTE_CONVENZ")
     public String getNmAmbienteEnteConvenz() {
-	return this.nmAmbienteEnteConvenz;
+        return this.nmAmbienteEnteConvenz;
     }
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
-	this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+        this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
     }
 
     private UsrVUnambByConservId usrVUnambByConservId;
 
     @EmbeddedId()
     public UsrVUnambByConservId getUsrVUnambByConservId() {
-	return usrVUnambByConservId;
+        return usrVUnambByConservId;
     }
 
     public void setUsrVUnambByConservId(UsrVUnambByConservId usrVUnambByConservId) {
-	this.usrVUnambByConservId = usrVUnambByConservId;
+        this.usrVUnambByConservId = usrVUnambByConservId;
     }
 }

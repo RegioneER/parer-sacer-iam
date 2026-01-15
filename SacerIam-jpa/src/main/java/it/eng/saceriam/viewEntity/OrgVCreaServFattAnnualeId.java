@@ -28,65 +28,65 @@ public class OrgVCreaServFattAnnualeId implements Serializable {
 
     @Column(name = "AA_SERVIZIO_FATTURA")
     public BigDecimal getAaServizioFattura() {
-	return aaServizioFattura;
+        return aaServizioFattura;
     }
 
     public void setAaServizioFattura(BigDecimal aaServizioFattura) {
-	this.aaServizioFattura = aaServizioFattura;
+        this.aaServizioFattura = aaServizioFattura;
     }
 
     private BigDecimal idFatturaEnte;
 
     @Column(name = "ID_FATTURA_ENTE")
     public BigDecimal getIdFatturaEnte() {
-	return idFatturaEnte;
+        return idFatturaEnte;
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-	this.idFatturaEnte = idFatturaEnte;
+        this.idFatturaEnte = idFatturaEnte;
     }
 
     private BigDecimal idServizioErogato;
 
     @Column(name = "ID_SERVIZIO_EROGATO")
     public BigDecimal getIdServizioErogato() {
-	return idServizioErogato;
+        return idServizioErogato;
     }
 
     public void setIdServizioErogato(BigDecimal idServizioErogato) {
-	this.idServizioErogato = idServizioErogato;
+        this.idServizioErogato = idServizioErogato;
     }
 
     @Override
     public int hashCode() {
-	int hash = 5;
-	hash = 41 * hash + Objects.hashCode(this.aaServizioFattura);
-	hash = 41 * hash + Objects.hashCode(this.idFatturaEnte);
-	hash = 41 * hash + Objects.hashCode(this.idServizioErogato);
-	return hash;
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.aaServizioFattura);
+        hash = 41 * hash + Objects.hashCode(this.idFatturaEnte);
+        hash = 41 * hash + Objects.hashCode(this.idServizioErogato);
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final OrgVCreaServFattAnnualeId other = (OrgVCreaServFattAnnualeId) obj;
-	if (!Objects.equals(this.aaServizioFattura, other.aaServizioFattura)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idFatturaEnte, other.idFatturaEnte)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idServizioErogato, other.idServizioErogato)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrgVCreaServFattAnnualeId other = (OrgVCreaServFattAnnualeId) obj;
+        if (!Objects.equals(this.aaServizioFattura, other.aaServizioFattura)) {
+            return false;
+        }
+        if (!Objects.equals(this.idFatturaEnte, other.idFatturaEnte)) {
+            return false;
+        }
+        if (!Objects.equals(this.idServizioErogato, other.idServizioErogato)) {
+            return false;
+        }
+        return true;
     }
 }

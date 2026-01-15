@@ -46,24 +46,24 @@ public class AplSamlMetadati implements Serializable {
     @Id
     @Column(name = "ID_SAML_METADATI")
     @GenericGenerator(name = "SAPL_SAML_METADATI_ID_SAML_METADATI_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SAML_METADATI"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SAML_METADATI"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_SAML_METADATI_ID_SAML_METADATI_GENERATOR")
     public Long getIdSamlMetadati() {
-	return this.idSamlMetadati;
+        return this.idSamlMetadati;
     }
 
     public void setIdSamlMetadati(Long idSamlMetadati) {
-	this.idSamlMetadati = idSamlMetadati;
+        this.idSamlMetadati = idSamlMetadati;
     }
 
     @Lob()
     @Column(name = "BL_SAML_METADATI")
     public String getBlSamlMetadati() {
-	return this.blSamlMetadati;
+        return this.blSamlMetadati;
     }
 
     public void setBlSamlMetadati(String blSamlMetadati) {
-	this.blSamlMetadati = blSamlMetadati;
+        this.blSamlMetadati = blSamlMetadati;
     }
 }

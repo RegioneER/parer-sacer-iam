@@ -32,26 +32,26 @@ public class OrgVChkRefEnte implements Serializable {
     private String flRefOk;
 
     public OrgVChkRefEnte() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "FL_REF_OK", columnDefinition = "char(1)")
     public String getFlRefOk() {
-	return this.flRefOk;
+        return this.flRefOk;
     }
 
     public void setFlRefOk(String flRefOk) {
-	this.flRefOk = flRefOk;
+        this.flRefOk = flRefOk;
     }
 
     private OrgVChkRefEnteId orgVChkRefEnteId;
 
     @EmbeddedId()
     public OrgVChkRefEnteId getOrgVChkRefEnteId() {
-	return orgVChkRefEnteId;
+        return orgVChkRefEnteId;
     }
 
     public void setOrgVChkRefEnteId(OrgVChkRefEnteId orgVChkRefEnteId) {
-	this.orgVChkRefEnteId = orgVChkRefEnteId;
+        this.orgVChkRefEnteId = orgVChkRefEnteId;
     }
 }

@@ -45,81 +45,81 @@ public class UsrVAbilEnteSupportoToAdd implements Serializable {
     private String nmEnteConvenz;
 
     public UsrVAbilEnteSupportoToAdd() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_AMBIENTE_ENTE_CONVENZ")
     public String getDsAmbienteEnteConvenz() {
-	return this.dsAmbienteEnteConvenz;
+        return this.dsAmbienteEnteConvenz;
     }
 
     public void setDsAmbienteEnteConvenz(String dsAmbienteEnteConvenz) {
-	this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
+        this.dsAmbienteEnteConvenz = dsAmbienteEnteConvenz;
     }
 
     @Column(name = "DS_CAUSALE_ABIL", columnDefinition = "CHAR")
     public String getDsCausaleAbil() {
-	return this.dsCausaleAbil;
+        return this.dsCausaleAbil;
     }
 
     public void setDsCausaleAbil(String dsCausaleAbil) {
-	this.dsCausaleAbil = dsCausaleAbil;
+        this.dsCausaleAbil = dsCausaleAbil;
     }
 
     @Column(name = "ID_AMBIENTE_ENTE_CONVENZ")
     public BigDecimal getIdAmbienteEnteConvenz() {
-	return this.idAmbienteEnteConvenz;
+        return this.idAmbienteEnteConvenz;
     }
 
     public void setIdAmbienteEnteConvenz(BigDecimal idAmbienteEnteConvenz) {
-	this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
+        this.idAmbienteEnteConvenz = idAmbienteEnteConvenz;
     }
 
     @Column(name = "ID_ENTE_FORNIT_EST")
     public BigDecimal getIdEnteFornitEst() {
-	return this.idEnteFornitEst;
+        return this.idEnteFornitEst;
     }
 
     public void setIdEnteFornitEst(BigDecimal idEnteFornitEst) {
-	this.idEnteFornitEst = idEnteFornitEst;
+        this.idEnteFornitEst = idEnteFornitEst;
     }
 
     @Column(name = "ID_SUPT_EST_ENTE_CONVENZ")
     public BigDecimal getIdSuptEstEnteConvenz() {
-	return this.idSuptEstEnteConvenz;
+        return this.idSuptEstEnteConvenz;
     }
 
     public void setIdSuptEstEnteConvenz(BigDecimal idSuptEstEnteConvenz) {
-	this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
+        this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
     }
 
     @Column(name = "NM_AMBIENTE_ENTE_CONVENZ")
     public String getNmAmbienteEnteConvenz() {
-	return this.nmAmbienteEnteConvenz;
+        return this.nmAmbienteEnteConvenz;
     }
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
-	this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
+        this.nmAmbienteEnteConvenz = nmAmbienteEnteConvenz;
     }
 
     @Column(name = "NM_ENTE_CONVENZ")
     public String getNmEnteConvenz() {
-	return this.nmEnteConvenz;
+        return this.nmEnteConvenz;
     }
 
     public void setNmEnteConvenz(String nmEnteConvenz) {
-	this.nmEnteConvenz = nmEnteConvenz;
+        this.nmEnteConvenz = nmEnteConvenz;
     }
 
     private UsrVAbilEnteSupportoToAddId usrVAbilEnteSupportoToAddId;
 
     @EmbeddedId()
     public UsrVAbilEnteSupportoToAddId getUsrVAbilEnteSupportoToAddId() {
-	return usrVAbilEnteSupportoToAddId;
+        return usrVAbilEnteSupportoToAddId;
     }
 
     public void setUsrVAbilEnteSupportoToAddId(
-	    UsrVAbilEnteSupportoToAddId usrVAbilEnteSupportoToAddId) {
-	this.usrVAbilEnteSupportoToAddId = usrVAbilEnteSupportoToAddId;
+            UsrVAbilEnteSupportoToAddId usrVAbilEnteSupportoToAddId) {
+        this.usrVAbilEnteSupportoToAddId = usrVAbilEnteSupportoToAddId;
     }
 }

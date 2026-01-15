@@ -55,66 +55,66 @@ public class AplTipoEventoOggetto implements Serializable {
     @Id
     @Column(name = "ID_TIPO_EVENTO_OGGETTO")
     @GenericGenerator(name = "SAPL_TIPO_EVENTO_OGGETTO_ID_TIPO_EVENTO_OGGETTO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_TIPO_EVENTO_OGGETTO"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_TIPO_EVENTO_OGGETTO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_TIPO_EVENTO_OGGETTO_ID_TIPO_EVENTO_OGGETTO_GENERATOR")
     public Long getIdTipoEventoOggetto() {
-	return this.idTipoEventoOggetto;
+        return this.idTipoEventoOggetto;
     }
 
     public void setIdTipoEventoOggetto(Long idTipoEventoOggetto) {
-	this.idTipoEventoOggetto = idTipoEventoOggetto;
+        this.idTipoEventoOggetto = idTipoEventoOggetto;
     }
 
     @Column(name = "ID_QUERY_TIPO_OGGETTO_FOTO")
     public BigDecimal getIdQueryTipoOggettoFoto() {
-	return this.idQueryTipoOggettoFoto;
+        return this.idQueryTipoOggettoFoto;
     }
 
     public void setIdQueryTipoOggettoFoto(BigDecimal idQueryTipoOggettoFoto) {
-	this.idQueryTipoOggettoFoto = idQueryTipoOggettoFoto;
+        this.idQueryTipoOggettoFoto = idQueryTipoOggettoFoto;
     }
 
     @Column(name = "ID_TIPO_EVENTO")
     public BigDecimal getIdTipoEvento() {
-	return this.idTipoEvento;
+        return this.idTipoEvento;
     }
 
     public void setIdTipoEvento(BigDecimal idTipoEvento) {
-	this.idTipoEvento = idTipoEvento;
+        this.idTipoEvento = idTipoEvento;
     }
 
     @Column(name = "ID_TIPO_OGGETTO")
     public BigDecimal getIdTipoOggetto() {
-	return this.idTipoOggetto;
+        return this.idTipoOggetto;
     }
 
     public void setIdTipoOggetto(BigDecimal idTipoOggetto) {
-	this.idTipoOggetto = idTipoOggetto;
+        this.idTipoOggetto = idTipoOggetto;
     }
 
     // bi-directional many-to-one association to AplTipoEventoOggettoTrig
     @OneToMany(mappedBy = "aplTipoEventoOggetto")
     public List<AplTipoEventoOggettoTrig> getAplTipoEventoOggettoTrigs() {
-	return this.aplTipoEventoOggettoTrigs;
+        return this.aplTipoEventoOggettoTrigs;
     }
 
     public void setAplTipoEventoOggettoTrigs(
-	    List<AplTipoEventoOggettoTrig> aplTipoEventoOggettoTrigs) {
-	this.aplTipoEventoOggettoTrigs = aplTipoEventoOggettoTrigs;
+            List<AplTipoEventoOggettoTrig> aplTipoEventoOggettoTrigs) {
+        this.aplTipoEventoOggettoTrigs = aplTipoEventoOggettoTrigs;
     }
 
     public AplTipoEventoOggettoTrig addAplTipoEventoOggettoTrig(
-	    AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
-	getAplTipoEventoOggettoTrigs().add(aplTipoEventoOggettoTrig);
-	aplTipoEventoOggettoTrig.setAplTipoEventoOggetto(this);
-	return aplTipoEventoOggettoTrig;
+            AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
+        getAplTipoEventoOggettoTrigs().add(aplTipoEventoOggettoTrig);
+        aplTipoEventoOggettoTrig.setAplTipoEventoOggetto(this);
+        return aplTipoEventoOggettoTrig;
     }
 
     public AplTipoEventoOggettoTrig removeAplTipoEventoOggettoTrig(
-	    AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
-	getAplTipoEventoOggettoTrigs().remove(aplTipoEventoOggettoTrig);
-	aplTipoEventoOggettoTrig.setAplTipoEventoOggetto(null);
-	return aplTipoEventoOggettoTrig;
+            AplTipoEventoOggettoTrig aplTipoEventoOggettoTrig) {
+        getAplTipoEventoOggettoTrigs().remove(aplTipoEventoOggettoTrig);
+        aplTipoEventoOggettoTrig.setAplTipoEventoOggetto(null);
+        return aplTipoEventoOggettoTrig;
     }
 }

@@ -54,56 +54,56 @@ public class UsrUsoRuoloDich implements Serializable {
     @Id
     @Column(name = "ID_USO_RUOLO_DICH")
     @GenericGenerator(name = "SUSR_USO_RUOLO_DICH_ID_USO_RUOLO_DICH_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_USO_RUOLO_DICH"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SUSR_USO_RUOLO_DICH"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUSR_USO_RUOLO_DICH_ID_USO_RUOLO_DICH_GENERATOR")
     public Long getIdUsoRuoloDich() {
-	return this.idUsoRuoloDich;
+        return this.idUsoRuoloDich;
     }
 
     public void setIdUsoRuoloDich(Long idUsoRuoloDich) {
-	this.idUsoRuoloDich = idUsoRuoloDich;
+        this.idUsoRuoloDich = idUsoRuoloDich;
     }
 
     // bi-directional many-to-one association to PrfRuolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_RUOLO")
     public PrfRuolo getPrfRuolo() {
-	return this.prfRuolo;
+        return this.prfRuolo;
     }
 
     public void setPrfRuolo(PrfRuolo prfRuolo) {
-	this.prfRuolo = prfRuolo;
+        this.prfRuolo = prfRuolo;
     }
 
     // bi-directional many-to-one association to UsrDichAbilOrganiz
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_DICH_ABIL_ORGANIZ")
     public UsrDichAbilOrganiz getUsrDichAbilOrganiz() {
-	return this.usrDichAbilOrganiz;
+        return this.usrDichAbilOrganiz;
     }
 
     public void setUsrDichAbilOrganiz(UsrDichAbilOrganiz usrDichAbilOrganiz) {
-	this.usrDichAbilOrganiz = usrDichAbilOrganiz;
+        this.usrDichAbilOrganiz = usrDichAbilOrganiz;
     }
 
     // bi-directional many-to-one association to PrfRuolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ORGANIZ_IAM_RUOLO")
     public UsrOrganizIam getUsrOrganizIam() {
-	return this.usrOrganizIam;
+        return this.usrOrganizIam;
     }
 
     public void setUsrOrganizIam(UsrOrganizIam usrOrganizIam) {
-	this.usrOrganizIam = usrOrganizIam;
+        this.usrOrganizIam = usrOrganizIam;
     }
 
     @Column(name = "TI_SCOPO_RUOLO")
     public String getTiScopoRuolo() {
-	return this.tiScopoRuolo;
+        return this.tiScopoRuolo;
     }
 
     public void setTiScopoRuolo(String tiScopoRuolo) {
-	this.tiScopoRuolo = tiScopoRuolo;
+        this.tiScopoRuolo = tiScopoRuolo;
     }
 }

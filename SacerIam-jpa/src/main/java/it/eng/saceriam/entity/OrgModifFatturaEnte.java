@@ -55,44 +55,44 @@ public class OrgModifFatturaEnte implements Serializable {
     @Id
     @Column(name = "ID_MODIF_FATTURA_ENTE")
     @GenericGenerator(name = "SORG_MODIF_FATTURA_ENTE_ID_MODIF_FATTURA_ENTE_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_MODIF_FATTURA_ENTE"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_MODIF_FATTURA_ENTE"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_MODIF_FATTURA_ENTE_ID_MODIF_FATTURA_ENTE_GENERATOR")
     public Long getIdModifFatturaEnte() {
-	return this.idModifFatturaEnte;
+        return this.idModifFatturaEnte;
     }
 
     public void setIdModifFatturaEnte(Long idModifFatturaEnte) {
-	this.idModifFatturaEnte = idModifFatturaEnte;
+        this.idModifFatturaEnte = idModifFatturaEnte;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_MODIF_FATTURA_ENTE")
     public Date getDtModifFatturaEnte() {
-	return this.dtModifFatturaEnte;
+        return this.dtModifFatturaEnte;
     }
 
     public void setDtModifFatturaEnte(Date dtModifFatturaEnte) {
-	this.dtModifFatturaEnte = dtModifFatturaEnte;
+        this.dtModifFatturaEnte = dtModifFatturaEnte;
     }
 
     @Column(name = "NT_MODIF_FATTURA_ENTE")
     public String getNtModifFatturaEnte() {
-	return this.ntModifFatturaEnte;
+        return this.ntModifFatturaEnte;
     }
 
     public void setNtModifFatturaEnte(String ntModifFatturaEnte) {
-	this.ntModifFatturaEnte = ntModifFatturaEnte;
+        this.ntModifFatturaEnte = ntModifFatturaEnte;
     }
 
     // bi-directional many-to-one association to OrgFatturaEnte
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FATTURA_ENTE")
     public OrgFatturaEnte getOrgFatturaEnte() {
-	return this.orgFatturaEnte;
+        return this.orgFatturaEnte;
     }
 
     public void setOrgFatturaEnte(OrgFatturaEnte orgFatturaEnte) {
-	this.orgFatturaEnte = orgFatturaEnte;
+        this.orgFatturaEnte = orgFatturaEnte;
     }
 }

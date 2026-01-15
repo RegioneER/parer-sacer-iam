@@ -56,65 +56,65 @@ public class IamValoreParamApplic implements Serializable {
     @Id
     @Column(name = "ID_VALORE_PARAM_APPLIC")
     @GenericGenerator(name = "SIAM_VALORE_PARAM_APPLIC_ID_VALORE_PARAM_APPLIC_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SIAM_VALORE_PARAM_APPLIC"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SIAM_VALORE_PARAM_APPLIC"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SIAM_VALORE_PARAM_APPLIC_ID_VALORE_PARAM_APPLIC_GENERATOR")
     public Long getIdValoreParamApplic() {
-	return this.idValoreParamApplic;
+        return this.idValoreParamApplic;
     }
 
     public void setIdValoreParamApplic(Long idValoreParamApplic) {
-	this.idValoreParamApplic = idValoreParamApplic;
+        this.idValoreParamApplic = idValoreParamApplic;
     }
 
     @Column(name = "DS_VALORE_PARAM_APPLIC")
     public String getDsValoreParamApplic() {
-	return this.dsValoreParamApplic;
+        return this.dsValoreParamApplic;
     }
 
     public void setDsValoreParamApplic(String dsValoreParamApplic) {
-	this.dsValoreParamApplic = dsValoreParamApplic;
+        this.dsValoreParamApplic = dsValoreParamApplic;
     }
 
     @Column(name = "TI_APPART")
     public String getTiAppart() {
-	return this.tiAppart;
+        return this.tiAppart;
     }
 
     public void setTiAppart(String tiAppart) {
-	this.tiAppart = tiAppart;
+        this.tiAppart = tiAppart;
     }
 
     // bi-directional many-to-one association to IamParamApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PARAM_APPLIC")
     public IamParamApplic getIamParamApplic() {
-	return this.iamParamApplic;
+        return this.iamParamApplic;
     }
 
     public void setIamParamApplic(IamParamApplic iamParamApplic) {
-	this.iamParamApplic = iamParamApplic;
+        this.iamParamApplic = iamParamApplic;
     }
 
     // bi-directional many-to-one association to OrgAmbienteEnteConvenz
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AMBIENTE_ENTE_CONVENZ")
     public OrgAmbienteEnteConvenz getOrgAmbienteEnteConvenz() {
-	return this.orgAmbienteEnteConvenz;
+        return this.orgAmbienteEnteConvenz;
     }
 
     public void setOrgAmbienteEnteConvenz(OrgAmbienteEnteConvenz orgAmbienteEnteConvenz) {
-	this.orgAmbienteEnteConvenz = orgAmbienteEnteConvenz;
+        this.orgAmbienteEnteConvenz = orgAmbienteEnteConvenz;
     }
 
     // bi-directional many-to-one association to OrgEnteSiam
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ENTE_CONVENZ")
     public OrgEnteSiam getOrgEnteSiam() {
-	return this.orgEnteSiam;
+        return this.orgEnteSiam;
     }
 
     public void setOrgEnteSiam(OrgEnteSiam orgEnteSiam) {
-	this.orgEnteSiam = orgEnteSiam;
+        this.orgEnteSiam = orgEnteSiam;
     }
 }

@@ -28,50 +28,50 @@ public class UsrVLisEntiSiamPerAzioId implements Serializable {
 
     @Column(name = "ID_ENTE_SIAM")
     public BigDecimal getIdEnteSiam() {
-	return idEnteSiam;
+        return idEnteSiam;
     }
 
     public void setIdEnteSiam(BigDecimal idEnteSiam) {
-	this.idEnteSiam = idEnteSiam;
+        this.idEnteSiam = idEnteSiam;
     }
 
     private BigDecimal idUserIamCor;
 
     @Column(name = "ID_USER_IAM_COR")
     public BigDecimal getIdUserIamCor() {
-	return idUserIamCor;
+        return idUserIamCor;
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	this.idUserIamCor = idUserIamCor;
+        this.idUserIamCor = idUserIamCor;
     }
 
     @Override
     public int hashCode() {
-	int hash = 5;
-	hash = 67 * hash + Objects.hashCode(this.idEnteSiam);
-	hash = 67 * hash + Objects.hashCode(this.idUserIamCor);
-	return hash;
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.idEnteSiam);
+        hash = 67 * hash + Objects.hashCode(this.idUserIamCor);
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final UsrVLisEntiSiamPerAzioId other = (UsrVLisEntiSiamPerAzioId) obj;
-	if (!Objects.equals(this.idEnteSiam, other.idEnteSiam)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UsrVLisEntiSiamPerAzioId other = (UsrVLisEntiSiamPerAzioId) obj;
+        if (!Objects.equals(this.idEnteSiam, other.idEnteSiam)) {
+            return false;
+        }
+        if (!Objects.equals(this.idUserIamCor, other.idUserIamCor)) {
+            return false;
+        }
+        return true;
     }
 }

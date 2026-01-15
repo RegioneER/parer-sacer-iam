@@ -24,15 +24,15 @@ package it.eng.saceriam.entity.constraint;
 public class ConstPrfRuolo {
 
     public enum TiRuolo {
-	AUTOMA, PERSONA_FISICA
+        AUTOMA, PERSONA_FISICA
     }
 
     public enum TiCategRuolo {
-	amministrazione, conservazione, gestione, produzione, vigilanza
+        amministrazione, conservazione, gestione, produzione, vigilanza
     }
 
     public enum TiStatoRichAllineaRuoli {
-	DA_ALLINEARE, ALLINEAMENTO_COMPLETO, ALLINEAMENTO_IN_CORSO, ALLINEAMENTO_IN_ERRORE,
-	ALLINEAMENTO_PARZIALE
+        DA_ALLINEARE, ALLINEAMENTO_COMPLETO, ALLINEAMENTO_IN_CORSO, ALLINEAMENTO_IN_ERRORE,
+        ALLINEAMENTO_PARZIALE
     }
 }

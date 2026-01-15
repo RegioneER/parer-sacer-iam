@@ -67,171 +67,171 @@ public class UsrVLisUserEnteConvenz implements Serializable {
     }
 
     public UsrVLisUserEnteConvenz(BigDecimal idEnteConvenz, BigDecimal idUserIam,
-	    String nmCognomeUser, String nmNomeUser, String nmUserid, String nmApplic,
-	    String nmRuoloDefault, String dlCompositoOrganiz, String tiStatoUser, String tipoUser,
-	    String keyRichGestUser, String dsListaAzioni, Date dtRichGestUser,
-	    String flAzioniEvase) {
-	this.usrVLisUserEnteConvenzId = new UsrVLisUserEnteConvenzId();
-	this.usrVLisUserEnteConvenzId.setIdEnteConvenz(idEnteConvenz);
-	this.usrVLisUserEnteConvenzId.setIdUserIam(idUserIam);
-	this.nmCognomeUser = nmCognomeUser;
-	this.nmNomeUser = nmNomeUser;
-	this.nmUserid = nmUserid;
-	this.nmApplic = nmApplic;
-	this.nmRuoloDefault = nmRuoloDefault;
-	this.dlCompositoOrganiz = dlCompositoOrganiz;
-	this.tiStatoUser = tiStatoUser;
-	this.tipoUser = tipoUser;
-	this.keyRichGestUser = keyRichGestUser;
-	this.dsListaAzioni = dsListaAzioni;
-	this.dtRichGestUser = dtRichGestUser;
-	this.flAzioniEvase = flAzioniEvase;
+            String nmCognomeUser, String nmNomeUser, String nmUserid, String nmApplic,
+            String nmRuoloDefault, String dlCompositoOrganiz, String tiStatoUser, String tipoUser,
+            String keyRichGestUser, String dsListaAzioni, Date dtRichGestUser,
+            String flAzioniEvase) {
+        this.usrVLisUserEnteConvenzId = new UsrVLisUserEnteConvenzId();
+        this.usrVLisUserEnteConvenzId.setIdEnteConvenz(idEnteConvenz);
+        this.usrVLisUserEnteConvenzId.setIdUserIam(idUserIam);
+        this.nmCognomeUser = nmCognomeUser;
+        this.nmNomeUser = nmNomeUser;
+        this.nmUserid = nmUserid;
+        this.nmApplic = nmApplic;
+        this.nmRuoloDefault = nmRuoloDefault;
+        this.dlCompositoOrganiz = dlCompositoOrganiz;
+        this.tiStatoUser = tiStatoUser;
+        this.tipoUser = tipoUser;
+        this.keyRichGestUser = keyRichGestUser;
+        this.dsListaAzioni = dsListaAzioni;
+        this.dtRichGestUser = dtRichGestUser;
+        this.flAzioniEvase = flAzioniEvase;
     }
 
     @Column(name = "DL_COMPOSITO_ORGANIZ")
     public String getDlCompositoOrganiz() {
-	return this.dlCompositoOrganiz;
+        return this.dlCompositoOrganiz;
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-	this.dlCompositoOrganiz = dlCompositoOrganiz;
+        this.dlCompositoOrganiz = dlCompositoOrganiz;
     }
 
     @Column(name = "DS_LISTA_AZIONI")
     public String getDsListaAzioni() {
-	return this.dsListaAzioni;
+        return this.dsListaAzioni;
     }
 
     public void setDsListaAzioni(String dsListaAzioni) {
-	this.dsListaAzioni = dsListaAzioni;
+        this.dsListaAzioni = dsListaAzioni;
     }
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_RICH_GEST_USER")
     public Date getDtRichGestUser() {
-	return this.dtRichGestUser;
+        return this.dtRichGestUser;
     }
 
     public void setDtRichGestUser(Date dtRichGestUser) {
-	this.dtRichGestUser = dtRichGestUser;
+        this.dtRichGestUser = dtRichGestUser;
     }
 
     @Column(name = "FL_AZIONI_EVASE", columnDefinition = "char(1)")
     public String getFlAzioniEvase() {
-	return this.flAzioniEvase;
+        return this.flAzioniEvase;
     }
 
     public void setFlAzioniEvase(String flAzioniEvase) {
-	this.flAzioniEvase = flAzioniEvase;
+        this.flAzioniEvase = flAzioniEvase;
     }
 
     @Column(name = "ID_RICH_GEST_USER")
     public BigDecimal getIdRichGestUser() {
-	return this.idRichGestUser;
+        return this.idRichGestUser;
     }
 
     public void setIdRichGestUser(BigDecimal idRichGestUser) {
-	this.idRichGestUser = idRichGestUser;
+        this.idRichGestUser = idRichGestUser;
     }
 
     @Column(name = "ID_SISTEMA_VERSANTE")
     public BigDecimal getIdSistemaVersante() {
-	return this.idSistemaVersante;
+        return this.idSistemaVersante;
     }
 
     public void setIdSistemaVersante(BigDecimal idSistemaVersante) {
-	this.idSistemaVersante = idSistemaVersante;
+        this.idSistemaVersante = idSistemaVersante;
     }
 
     @Column(name = "KEY_RICH_GEST_USER")
     public String getKeyRichGestUser() {
-	return this.keyRichGestUser;
+        return this.keyRichGestUser;
     }
 
     public void setKeyRichGestUser(String keyRichGestUser) {
-	this.keyRichGestUser = keyRichGestUser;
+        this.keyRichGestUser = keyRichGestUser;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_COGNOME_USER")
     public String getNmCognomeUser() {
-	return this.nmCognomeUser;
+        return this.nmCognomeUser;
     }
 
     public void setNmCognomeUser(String nmCognomeUser) {
-	this.nmCognomeUser = nmCognomeUser;
+        this.nmCognomeUser = nmCognomeUser;
     }
 
     @Column(name = "NM_NOME_USER")
     public String getNmNomeUser() {
-	return this.nmNomeUser;
+        return this.nmNomeUser;
     }
 
     public void setNmNomeUser(String nmNomeUser) {
-	this.nmNomeUser = nmNomeUser;
+        this.nmNomeUser = nmNomeUser;
     }
 
     @Column(name = "NM_RUOLO_DEFAULT")
     public String getNmRuoloDefault() {
-	return this.nmRuoloDefault;
+        return this.nmRuoloDefault;
     }
 
     public void setNmRuoloDefault(String nmRuoloDefault) {
-	this.nmRuoloDefault = nmRuoloDefault;
+        this.nmRuoloDefault = nmRuoloDefault;
     }
 
     @Column(name = "NM_USERID")
     public String getNmUserid() {
-	return this.nmUserid;
+        return this.nmUserid;
     }
 
     public void setNmUserid(String nmUserid) {
-	this.nmUserid = nmUserid;
+        this.nmUserid = nmUserid;
     }
 
     @Column(name = "TI_ENTE_CONVENZ_USER")
     public String getTiEnteConvenzUser() {
-	return this.tiEnteConvenzUser;
+        return this.tiEnteConvenzUser;
     }
 
     public void setTiEnteConvenzUser(String tiEnteConvenzUser) {
-	this.tiEnteConvenzUser = tiEnteConvenzUser;
+        this.tiEnteConvenzUser = tiEnteConvenzUser;
     }
 
     @Column(name = "TI_STATO_USER")
     public String getTiStatoUser() {
-	return this.tiStatoUser;
+        return this.tiStatoUser;
     }
 
     public void setTiStatoUser(String tiStatoUser) {
-	this.tiStatoUser = tiStatoUser;
+        this.tiStatoUser = tiStatoUser;
     }
 
     @Column(name = "TIPO_USER")
     public String getTipoUser() {
-	return this.tipoUser;
+        return this.tipoUser;
     }
 
     public void setTipoUser(String tipoUser) {
-	this.tipoUser = tipoUser;
+        this.tipoUser = tipoUser;
     }
 
     private UsrVLisUserEnteConvenzId usrVLisUserEnteConvenzId;
 
     @EmbeddedId()
     public UsrVLisUserEnteConvenzId getUsrVLisUserEnteConvenzId() {
-	return usrVLisUserEnteConvenzId;
+        return usrVLisUserEnteConvenzId;
     }
 
     public void setUsrVLisUserEnteConvenzId(UsrVLisUserEnteConvenzId usrVLisUserEnteConvenzId) {
-	this.usrVLisUserEnteConvenzId = usrVLisUserEnteConvenzId;
+        this.usrVLisUserEnteConvenzId = usrVLisUserEnteConvenzId;
     }
 }

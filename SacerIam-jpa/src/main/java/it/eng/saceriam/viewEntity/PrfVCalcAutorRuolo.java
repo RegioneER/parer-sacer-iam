@@ -43,48 +43,48 @@ public class PrfVCalcAutorRuolo implements Serializable {
 
     @Column(name = "DS_AUTOR")
     public String getDsAutor() {
-	return this.dsAutor;
+        return this.dsAutor;
     }
 
     public void setDsAutor(String dsAutor) {
-	this.dsAutor = dsAutor;
+        this.dsAutor = dsAutor;
     }
 
     @Column(name = "ID_USO_RUOLO_APPLIC")
     public BigDecimal getIdUsoRuoloApplic() {
-	return this.idUsoRuoloApplic;
+        return this.idUsoRuoloApplic;
     }
 
     public void setIdUsoRuoloApplic(BigDecimal idUsoRuoloApplic) {
-	this.idUsoRuoloApplic = idUsoRuoloApplic;
+        this.idUsoRuoloApplic = idUsoRuoloApplic;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_RUOLO")
     public String getNmRuolo() {
-	return this.nmRuolo;
+        return this.nmRuolo;
     }
 
     public void setNmRuolo(String nmRuolo) {
-	this.nmRuolo = nmRuolo;
+        this.nmRuolo = nmRuolo;
     }
 
     private PrfVCalcAutorRuoloId prfVCalcAutorRuoloId;
 
     @EmbeddedId()
     public PrfVCalcAutorRuoloId getPrfVCalcAutorRuoloId() {
-	return prfVCalcAutorRuoloId;
+        return prfVCalcAutorRuoloId;
     }
 
     public void setPrfVCalcAutorRuoloId(PrfVCalcAutorRuoloId prfVCalcAutorRuoloId) {
-	this.prfVCalcAutorRuoloId = prfVCalcAutorRuoloId;
+        this.prfVCalcAutorRuoloId = prfVCalcAutorRuoloId;
     }
 }

@@ -52,108 +52,108 @@ public class OrgVCreaServFattUnaPrec implements Serializable {
     private String qtUnitServizioFattura;
 
     public OrgVCreaServFattUnaPrec() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "AA_SERVIZIO_FATTURA")
     public BigDecimal getAaServizioFattura() {
-	return this.aaServizioFattura;
+        return this.aaServizioFattura;
     }
 
     public void setAaServizioFattura(BigDecimal aaServizioFattura) {
-	this.aaServizioFattura = aaServizioFattura;
+        this.aaServizioFattura = aaServizioFattura;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_EROG")
     public Date getDtErog() {
-	return this.dtErog;
+        return this.dtErog;
     }
 
     public void setDtErog(Date dtErog) {
-	this.dtErog = dtErog;
+        this.dtErog = dtErog;
     }
 
     @Column(name = "ID_ACCORDO_ENTE")
     public BigDecimal getIdAccordoEnte() {
-	return this.idAccordoEnte;
+        return this.idAccordoEnte;
     }
 
     public void setIdAccordoEnte(BigDecimal idAccordoEnte) {
-	this.idAccordoEnte = idAccordoEnte;
+        this.idAccordoEnte = idAccordoEnte;
     }
 
     @Column(name = "ID_CD_IVA")
     public BigDecimal getIdCdIva() {
-	return this.idCdIva;
+        return this.idCdIva;
     }
 
     public void setIdCdIva(BigDecimal idCdIva) {
-	this.idCdIva = idCdIva;
+        this.idCdIva = idCdIva;
     }
 
     @Column(name = "IM_IVA")
     public BigDecimal getImIva() {
-	return this.imIva;
+        return this.imIva;
     }
 
     public void setImIva(BigDecimal imIva) {
-	this.imIva = imIva;
+        this.imIva = imIva;
     }
 
     @Column(name = "IM_SERVIZIO_FATTURA")
     public BigDecimal getImServizioFattura() {
-	return this.imServizioFattura;
+        return this.imServizioFattura;
     }
 
     public void setImServizioFattura(BigDecimal imServizioFattura) {
-	this.imServizioFattura = imServizioFattura;
+        this.imServizioFattura = imServizioFattura;
     }
 
     @Column(name = "NM_SERVIZIO_FATTURA")
     public String getNmServizioFattura() {
-	return this.nmServizioFattura;
+        return this.nmServizioFattura;
     }
 
     public void setNmServizioFattura(String nmServizioFattura) {
-	this.nmServizioFattura = nmServizioFattura;
+        this.nmServizioFattura = nmServizioFattura;
     }
 
     @Column(name = "NT_SERVIZIO_FATTURA")
     public String getNtServizioFattura() {
-	return this.ntServizioFattura;
+        return this.ntServizioFattura;
     }
 
     public void setNtServizioFattura(String ntServizioFattura) {
-	this.ntServizioFattura = ntServizioFattura;
+        this.ntServizioFattura = ntServizioFattura;
     }
 
     @Column(name = "QT_SCAGLIONE_SERVIZIO_FATTURA")
     public BigDecimal getQtScaglioneServizioFattura() {
-	return this.qtScaglioneServizioFattura;
+        return this.qtScaglioneServizioFattura;
     }
 
     public void setQtScaglioneServizioFattura(BigDecimal qtScaglioneServizioFattura) {
-	this.qtScaglioneServizioFattura = qtScaglioneServizioFattura;
+        this.qtScaglioneServizioFattura = qtScaglioneServizioFattura;
     }
 
     @Column(name = "QT_UNIT_SERVIZIO_FATTURA")
     public String getQtUnitServizioFattura() {
-	return this.qtUnitServizioFattura;
+        return this.qtUnitServizioFattura;
     }
 
     public void setQtUnitServizioFattura(String qtUnitServizioFattura) {
-	this.qtUnitServizioFattura = qtUnitServizioFattura;
+        this.qtUnitServizioFattura = qtUnitServizioFattura;
     }
 
     private OrgVCreaServFattUnaPrecId orgVCreaServFattUnaPrecId;
 
     @EmbeddedId()
     public OrgVCreaServFattUnaPrecId getOrgVCreaServFattUnaPrecId() {
-	return orgVCreaServFattUnaPrecId;
+        return orgVCreaServFattUnaPrecId;
     }
 
     public void setOrgVCreaServFattUnaPrecId(OrgVCreaServFattUnaPrecId orgVCreaServFattUnaPrecId) {
-	this.orgVCreaServFattUnaPrecId = orgVCreaServFattUnaPrecId;
+        this.orgVCreaServFattUnaPrecId = orgVCreaServFattUnaPrecId;
     }
 }

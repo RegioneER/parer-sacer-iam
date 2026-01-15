@@ -45,58 +45,58 @@ public class UsrVVisLastRichGestUser implements Serializable {
 
     @Column(name = "DS_LISTA_AZIONI")
     public String getDsListaAzioni() {
-	return this.dsListaAzioni;
+        return this.dsListaAzioni;
     }
 
     public void setDsListaAzioni(String dsListaAzioni) {
-	this.dsListaAzioni = dsListaAzioni;
+        this.dsListaAzioni = dsListaAzioni;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_RICH_GEST_USER")
     public Date getDtRichGestUser() {
-	return this.dtRichGestUser;
+        return this.dtRichGestUser;
     }
 
     public void setDtRichGestUser(Date dtRichGestUser) {
-	this.dtRichGestUser = dtRichGestUser;
+        this.dtRichGestUser = dtRichGestUser;
     }
 
     @Column(name = "FL_AZIONI_EVASE", columnDefinition = "char(1)")
     public String getFlAzioniEvase() {
-	return this.flAzioniEvase;
+        return this.flAzioniEvase;
     }
 
     public void setFlAzioniEvase(String flAzioniEvase) {
-	this.flAzioniEvase = flAzioniEvase;
+        this.flAzioniEvase = flAzioniEvase;
     }
 
     @Id
     @Column(name = "ID_RICH_GEST_USER")
     public BigDecimal getIdRichGestUser() {
-	return this.idRichGestUser;
+        return this.idRichGestUser;
     }
 
     public void setIdRichGestUser(BigDecimal idRichGestUser) {
-	this.idRichGestUser = idRichGestUser;
+        this.idRichGestUser = idRichGestUser;
     }
 
     @Column(name = "ID_USER_IAM")
     public BigDecimal getIdUserIam() {
-	return this.idUserIam;
+        return this.idUserIam;
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	this.idUserIam = idUserIam;
+        this.idUserIam = idUserIam;
     }
 
     @Column(name = "KEY_RICH_GEST_USER")
     public String getKeyRichGestUser() {
-	return this.keyRichGestUser;
+        return this.keyRichGestUser;
     }
 
     public void setKeyRichGestUser(String keyRichGestUser) {
-	this.keyRichGestUser = keyRichGestUser;
+        this.keyRichGestUser = keyRichGestUser;
     }
 
 }

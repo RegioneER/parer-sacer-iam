@@ -50,36 +50,36 @@ public class AplSistemaVersanteUserRef implements Serializable {
     @Id
     @Column(name = "ID_SISTEMA_VERSANTE_USER_REF")
     @GenericGenerator(name = "SAPL_SISTEMA_VERSANTE_USER_REF_ID_SISTEMA_VERSANTE_USER_REF_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SISTEMA_VERSANTE_USER_REF"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SISTEMA_VERSANTE_USER_REF"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_SISTEMA_VERSANTE_USER_REF_ID_SISTEMA_VERSANTE_USER_REF_GENERATOR")
     public Long getIdSistemaVersanteUserRef() {
-	return this.idSistemaVersanteUserRef;
+        return this.idSistemaVersanteUserRef;
     }
 
     public void setIdSistemaVersanteUserRef(Long idSistemaVersanteUserRef) {
-	this.idSistemaVersanteUserRef = idSistemaVersanteUserRef;
+        this.idSistemaVersanteUserRef = idSistemaVersanteUserRef;
     }
 
     // bi-directional many-to-one association to AplSistemaVersante
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SISTEMA_VERSANTE")
     public AplSistemaVersante getAplSistemaVersante() {
-	return this.aplSistemaVersante;
+        return this.aplSistemaVersante;
     }
 
     public void setAplSistemaVersante(AplSistemaVersante aplSistemaVersante) {
-	this.aplSistemaVersante = aplSistemaVersante;
+        this.aplSistemaVersante = aplSistemaVersante;
     }
 
     // bi-directional many-to-one association to UsrUser
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER_IAM_REF")
     public UsrUser getUsrUser() {
-	return this.usrUser;
+        return this.usrUser;
     }
 
     public void setUsrUser(UsrUser usrUser) {
-	this.usrUser = usrUser;
+        this.usrUser = usrUser;
     }
 }

@@ -33,26 +33,26 @@ public class UsrVAbilEnteToAdd implements Serializable {
     private BigDecimal idDichAbilEnteConvenz;
 
     public UsrVAbilEnteToAdd() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "ID_DICH_ABIL_ENTE_CONVENZ")
     public BigDecimal getIdDichAbilEnteConvenz() {
-	return this.idDichAbilEnteConvenz;
+        return this.idDichAbilEnteConvenz;
     }
 
     public void setIdDichAbilEnteConvenz(BigDecimal idDichAbilEnteConvenz) {
-	this.idDichAbilEnteConvenz = idDichAbilEnteConvenz;
+        this.idDichAbilEnteConvenz = idDichAbilEnteConvenz;
     }
 
     private UsrVAbilEnteToAddId usrVAbilEnteToAddId;
 
     @EmbeddedId()
     public UsrVAbilEnteToAddId getUsrVAbilEnteToAddId() {
-	return usrVAbilEnteToAddId;
+        return usrVAbilEnteToAddId;
     }
 
     public void setUsrVAbilEnteToAddId(UsrVAbilEnteToAddId usrVAbilEnteToAddId) {
-	this.usrVAbilEnteToAddId = usrVAbilEnteToAddId;
+        this.usrVAbilEnteToAddId = usrVAbilEnteToAddId;
     }
 }

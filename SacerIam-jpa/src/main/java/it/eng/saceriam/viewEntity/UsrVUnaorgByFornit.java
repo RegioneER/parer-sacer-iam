@@ -47,89 +47,89 @@ public class UsrVUnaorgByFornit implements Serializable {
     private String nmApplic;
 
     public UsrVUnaorgByFornit() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Column(name = "ID_ENTE_FORNIT_EST")
     public BigDecimal getIdEnteFornitEst() {
-	return this.idEnteFornitEst;
+        return this.idEnteFornitEst;
     }
 
     public void setIdEnteFornitEst(BigDecimal idEnteFornitEst) {
-	this.idEnteFornitEst = idEnteFornitEst;
+        this.idEnteFornitEst = idEnteFornitEst;
     }
 
     @Column(name = "ID_ENTE_PRODUT_CORRISP")
     public BigDecimal getIdEnteProdutCorrisp() {
-	return this.idEnteProdutCorrisp;
+        return this.idEnteProdutCorrisp;
     }
 
     public void setIdEnteProdutCorrisp(BigDecimal idEnteProdutCorrisp) {
-	this.idEnteProdutCorrisp = idEnteProdutCorrisp;
+        this.idEnteProdutCorrisp = idEnteProdutCorrisp;
     }
 
     @Column(name = "ID_ENTE_PRODUT_SUPT")
     public BigDecimal getIdEnteProdutSupt() {
-	return this.idEnteProdutSupt;
+        return this.idEnteProdutSupt;
     }
 
     public void setIdEnteProdutSupt(BigDecimal idEnteProdutSupt) {
-	this.idEnteProdutSupt = idEnteProdutSupt;
+        this.idEnteProdutSupt = idEnteProdutSupt;
     }
 
     @Column(name = "ID_RICH_GEST_USER")
     public BigDecimal getIdRichGestUser() {
-	return this.idRichGestUser;
+        return this.idRichGestUser;
     }
 
     public void setIdRichGestUser(BigDecimal idRichGestUser) {
-	this.idRichGestUser = idRichGestUser;
+        this.idRichGestUser = idRichGestUser;
     }
 
     @Column(name = "ID_SUPT_EST_ENTE_CONVENZ")
     public BigDecimal getIdSuptEstEnteConvenz() {
-	return this.idSuptEstEnteConvenz;
+        return this.idSuptEstEnteConvenz;
     }
 
     public void setIdSuptEstEnteConvenz(BigDecimal idSuptEstEnteConvenz) {
-	this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
+        this.idSuptEstEnteConvenz = idSuptEstEnteConvenz;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     private UsrVUnaorgByFornitId usrVUnaorgByFornitId;
 
     @EmbeddedId()
     public UsrVUnaorgByFornitId getUsrVUnaorgByFornitId() {
-	return usrVUnaorgByFornitId;
+        return usrVUnaorgByFornitId;
     }
 
     public void setUsrVUnaorgByFornitId(UsrVUnaorgByFornitId usrVUnaorgByFornitId) {
-	this.usrVUnaorgByFornitId = usrVUnaorgByFornitId;
+        this.usrVUnaorgByFornitId = usrVUnaorgByFornitId;
     }
 }

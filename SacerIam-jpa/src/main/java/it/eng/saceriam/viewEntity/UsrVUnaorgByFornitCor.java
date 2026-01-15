@@ -41,62 +41,62 @@ public class UsrVUnaorgByFornitCor implements Serializable {
     private String nmApplic;
 
     public UsrVUnaorgByFornitCor() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_CAUSALE_DICH", columnDefinition = "char")
     public String getDsCausaleDich() {
-	return this.dsCausaleDich;
+        return this.dsCausaleDich;
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	this.dsCausaleDich = dsCausaleDich;
+        this.dsCausaleDich = dsCausaleDich;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Column(name = "ID_ENTE_FORNITORE_EST")
     public BigDecimal getIdEnteFornitoreEst() {
-	return this.idEnteFornitoreEst;
+        return this.idEnteFornitoreEst;
     }
 
     public void setIdEnteFornitoreEst(BigDecimal idEnteFornitoreEst) {
-	this.idEnteFornitoreEst = idEnteFornitoreEst;
+        this.idEnteFornitoreEst = idEnteFornitoreEst;
     }
 
     @Column(name = "ID_ENTE_PRODUT_CORRISP")
     public BigDecimal getIdEnteProdutCorrisp() {
-	return this.idEnteProdutCorrisp;
+        return this.idEnteProdutCorrisp;
     }
 
     public void setIdEnteProdutCorrisp(BigDecimal idEnteProdutCorrisp) {
-	this.idEnteProdutCorrisp = idEnteProdutCorrisp;
+        this.idEnteProdutCorrisp = idEnteProdutCorrisp;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     private UsrVUnaorgByFornitCorId usrVUnaorgByFornitCorId;
 
     @EmbeddedId()
     public UsrVUnaorgByFornitCorId getUsrVUnaorgByFornitCorId() {
-	return usrVUnaorgByFornitCorId;
+        return usrVUnaorgByFornitCorId;
     }
 
     public void setUsrVUnaorgByFornitCorId(UsrVUnaorgByFornitCorId usrVUnaorgByFornitCorId) {
-	this.usrVUnaorgByFornitCorId = usrVUnaorgByFornitCorId;
+        this.usrVUnaorgByFornitCorId = usrVUnaorgByFornitCorId;
     }
 }

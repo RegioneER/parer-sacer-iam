@@ -23,13 +23,13 @@ public class ConstOrgEnteSiam {
     }
 
     public static String[] tiCdEnteConvenz = {
-	    "Altro", "IPA Ente/AOO", "IPA Ente", "ISTAT" };
+            "Altro", "IPA Ente/AOO", "IPA Ente", "ISTAT" };
 
     /**
      * Tipo ente siam ti_ente_siam IN ('CONVENZIONATO', 'NON_CONVENZIONATO')
      */
     public enum TiEnteSiam {
-	CONVENZIONATO, NON_CONVENZIONATO
+        CONVENZIONATO, NON_CONVENZIONATO
     }
 
     /**
@@ -37,7 +37,7 @@ public class ConstOrgEnteSiam {
      * 'PRODUTTORE')
      */
     public enum TiEnteConvenz {
-	AMMINISTRATORE, CONSERVATORE, GESTORE, PRODUTTORE
+        AMMINISTRATORE, CONSERVATORE, GESTORE, PRODUTTORE
     }
 
     /**
@@ -45,6 +45,6 @@ public class ConstOrgEnteSiam {
      * 'SOGGETTO_ATTUATORE', 'ORGANO_VIGILANZA', 'VERSATORE_ESTERNO')
      */
     public enum TiEnteNonConvenz {
-	FORNITORE_ESTERNO, SOGGETTO_ATTUATORE, ORGANO_VIGILANZA, VERSATORE_ESTERNO
+        FORNITORE_ESTERNO, SOGGETTO_ATTUATORE, ORGANO_VIGILANZA, VERSATORE_ESTERNO
     }
 }

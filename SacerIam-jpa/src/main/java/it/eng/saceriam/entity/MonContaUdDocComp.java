@@ -92,232 +92,232 @@ public class MonContaUdDocComp implements Serializable {
     @Id
     @Column(name = "ID_CONTA_UD_DOC_COMP")
     public Long getIdContaUdDocComp() {
-	return this.idContaUdDocComp;
+        return this.idContaUdDocComp;
     }
 
     public void setIdContaUdDocComp(Long idContaUdDocComp) {
-	this.idContaUdDocComp = idContaUdDocComp;
+        this.idContaUdDocComp = idContaUdDocComp;
     }
 
     @Column(name = "AA_KEY_UNITA_DOC")
     public BigDecimal getAaKeyUnitaDoc() {
-	return this.aaKeyUnitaDoc;
+        return this.aaKeyUnitaDoc;
     }
 
     public void setAaKeyUnitaDoc(BigDecimal aaKeyUnitaDoc) {
-	this.aaKeyUnitaDoc = aaKeyUnitaDoc;
+        this.aaKeyUnitaDoc = aaKeyUnitaDoc;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_RIF_CONTA")
     public Date getDtRifConta() {
-	return this.dtRifConta;
+        return this.dtRifConta;
     }
 
     public void setDtRifConta(Date dtRifConta) {
-	this.dtRifConta = dtRifConta;
+        this.dtRifConta = dtRifConta;
     }
 
     @Column(name = "ID_STRUT")
     public BigDecimal getIdStrut() {
-	return this.idStrut;
+        return this.idStrut;
     }
 
     public void setIdStrut(BigDecimal idStrut) {
-	this.idStrut = idStrut;
+        this.idStrut = idStrut;
     }
 
     @Column(name = "NI_COMP_AGG")
     public BigDecimal getNiCompAgg() {
-	return this.niCompAgg;
+        return this.niCompAgg;
     }
 
     public void setNiCompAgg(BigDecimal niCompAgg) {
-	this.niCompAgg = niCompAgg;
+        this.niCompAgg = niCompAgg;
     }
 
     @Column(name = "NI_COMP_ANNUL_UD")
     public BigDecimal getNiCompAnnulUd() {
-	return this.niCompAnnulUd;
+        return this.niCompAnnulUd;
     }
 
     public void setNiCompAnnulUd(BigDecimal niCompAnnulUd) {
-	this.niCompAnnulUd = niCompAnnulUd;
+        this.niCompAnnulUd = niCompAnnulUd;
     }
 
     @Column(name = "NI_COMP_VERS")
     public BigDecimal getNiCompVers() {
-	return this.niCompVers;
+        return this.niCompVers;
     }
 
     public void setNiCompVers(BigDecimal niCompVers) {
-	this.niCompVers = niCompVers;
+        this.niCompVers = niCompVers;
     }
 
     @Column(name = "NI_DOC_AGG")
     public BigDecimal getNiDocAgg() {
-	return this.niDocAgg;
+        return this.niDocAgg;
     }
 
     public void setNiDocAgg(BigDecimal niDocAgg) {
-	this.niDocAgg = niDocAgg;
+        this.niDocAgg = niDocAgg;
     }
 
     @Column(name = "NI_DOC_ANNUL_UD")
     public BigDecimal getNiDocAnnulUd() {
-	return this.niDocAnnulUd;
+        return this.niDocAnnulUd;
     }
 
     public void setNiDocAnnulUd(BigDecimal niDocAnnulUd) {
-	this.niDocAnnulUd = niDocAnnulUd;
+        this.niDocAnnulUd = niDocAnnulUd;
     }
 
     @Column(name = "NI_DOC_VERS")
     public BigDecimal getNiDocVers() {
-	return this.niDocVers;
+        return this.niDocVers;
     }
 
     public void setNiDocVers(BigDecimal niDocVers) {
-	this.niDocVers = niDocVers;
+        this.niDocVers = niDocVers;
     }
 
     @Column(name = "NI_SIZE_AGG")
     public BigDecimal getNiSizeAgg() {
-	return this.niSizeAgg;
+        return this.niSizeAgg;
     }
 
     public void setNiSizeAgg(BigDecimal niSizeAgg) {
-	this.niSizeAgg = niSizeAgg;
+        this.niSizeAgg = niSizeAgg;
     }
 
     @Column(name = "NI_SIZE_ANNUL_UD")
     public BigDecimal getNiSizeAnnulUd() {
-	return this.niSizeAnnulUd;
+        return this.niSizeAnnulUd;
     }
 
     public void setNiSizeAnnulUd(BigDecimal niSizeAnnulUd) {
-	this.niSizeAnnulUd = niSizeAnnulUd;
+        this.niSizeAnnulUd = niSizeAnnulUd;
     }
 
     @Column(name = "NI_SIZE_VERS")
     public BigDecimal getNiSizeVers() {
-	return this.niSizeVers;
+        return this.niSizeVers;
     }
 
     public void setNiSizeVers(BigDecimal niSizeVers) {
-	this.niSizeVers = niSizeVers;
+        this.niSizeVers = niSizeVers;
     }
 
     @Column(name = "NI_UNITA_DOC_ANNUL")
     public BigDecimal getNiUnitaDocAnnul() {
-	return this.niUnitaDocAnnul;
+        return this.niUnitaDocAnnul;
     }
 
     public void setNiUnitaDocAnnul(BigDecimal niUnitaDocAnnul) {
-	this.niUnitaDocAnnul = niUnitaDocAnnul;
+        this.niUnitaDocAnnul = niUnitaDocAnnul;
     }
 
     @Column(name = "NI_UNITA_DOC_VERS")
     public BigDecimal getNiUnitaDocVers() {
-	return this.niUnitaDocVers;
+        return this.niUnitaDocVers;
     }
 
     public void setNiUnitaDocVers(BigDecimal niUnitaDocVers) {
-	this.niUnitaDocVers = niUnitaDocVers;
+        this.niUnitaDocVers = niUnitaDocVers;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_UNITA_DOC", insertable = false, updatable = false)
     public DecTipoUnitaDoc getDecTipoUnitaDoc() {
-	return this.decTipoUnitaDoc;
+        return this.decTipoUnitaDoc;
     }
 
     public void setDecTipoUnitaDoc(DecTipoUnitaDoc decTipoUnitaDoc) {
-	this.decTipoUnitaDoc = decTipoUnitaDoc;
+        this.decTipoUnitaDoc = decTipoUnitaDoc;
     }
 
     @Column(name = "ID_REGISTRO_UNITA_DOC")
     public Long getIdDecRegistroUnitaDoc() {
-	return idDecRegistroUnitaDoc;
+        return idDecRegistroUnitaDoc;
     }
 
     public void setIdDecRegistroUnitaDoc(Long idDecRegistroUnitaDoc) {
-	this.idDecRegistroUnitaDoc = idDecRegistroUnitaDoc;
+        this.idDecRegistroUnitaDoc = idDecRegistroUnitaDoc;
     }
 
     @Column(name = "ID_TIPO_DOC_PRINC")
     public Long getIdDecTipoDoc() {
-	return idDecTipoDoc;
+        return idDecTipoDoc;
     }
 
     public void setIdDecTipoDoc(Long idDecTipoDoc) {
-	this.idDecTipoDoc = idDecTipoDoc;
+        this.idDecTipoDoc = idDecTipoDoc;
     }
 
     @Column(name = "ID_TIPO_UNITA_DOC")
     public Long getIdDecTipoUnitaDoc() {
-	return idDecTipoUnitaDoc;
+        return idDecTipoUnitaDoc;
     }
 
     public void setIdDecTipoUnitaDoc(Long idDecTipoUnitaDoc) {
-	this.idDecTipoUnitaDoc = idDecTipoUnitaDoc;
+        this.idDecTipoUnitaDoc = idDecTipoUnitaDoc;
     }
 
     @Column(name = "ID_SUB_STRUT")
     public Long getIdOrgSubStrut() {
-	return idOrgSubStrut;
+        return idOrgSubStrut;
     }
 
     public void setIdOrgSubStrut(Long idOrgSubStrut) {
-	this.idOrgSubStrut = idOrgSubStrut;
+        this.idOrgSubStrut = idOrgSubStrut;
     }
 
     @Override
     public int hashCode() {
-	int hash = 7;
-	hash = 89 * hash + Objects.hashCode(this.aaKeyUnitaDoc);
-	hash = 89 * hash + Objects.hashCode(this.dtRifConta);
-	hash = 89 * hash + Objects.hashCode(this.idStrut);
-	hash = 89 * hash + (int) (this.idDecRegistroUnitaDoc ^ (this.idDecRegistroUnitaDoc >>> 32));
-	hash = 89 * hash + (int) (this.idDecTipoDoc ^ (this.idDecTipoDoc >>> 32));
-	hash = 89 * hash + (int) (this.idDecTipoUnitaDoc ^ (this.idDecTipoUnitaDoc >>> 32));
-	hash = 89 * hash + (int) (this.idOrgSubStrut ^ (this.idOrgSubStrut >>> 32));
-	return hash;
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.aaKeyUnitaDoc);
+        hash = 89 * hash + Objects.hashCode(this.dtRifConta);
+        hash = 89 * hash + Objects.hashCode(this.idStrut);
+        hash = 89 * hash + (int) (this.idDecRegistroUnitaDoc ^ (this.idDecRegistroUnitaDoc >>> 32));
+        hash = 89 * hash + (int) (this.idDecTipoDoc ^ (this.idDecTipoDoc >>> 32));
+        hash = 89 * hash + (int) (this.idDecTipoUnitaDoc ^ (this.idDecTipoUnitaDoc >>> 32));
+        hash = 89 * hash + (int) (this.idOrgSubStrut ^ (this.idOrgSubStrut >>> 32));
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final MonContaUdDocComp other = (MonContaUdDocComp) obj;
-	if (!Objects.equals(this.aaKeyUnitaDoc, other.aaKeyUnitaDoc)) {
-	    return false;
-	}
-	if (!Objects.equals(this.dtRifConta, other.dtRifConta)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idStrut, other.idStrut)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idDecRegistroUnitaDoc, other.idDecRegistroUnitaDoc)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idDecTipoDoc, other.idDecTipoDoc)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idDecTipoUnitaDoc, other.idDecTipoUnitaDoc)) {
-	    return false;
-	}
-	return Objects.equals(this.idOrgSubStrut, other.idOrgSubStrut);
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MonContaUdDocComp other = (MonContaUdDocComp) obj;
+        if (!Objects.equals(this.aaKeyUnitaDoc, other.aaKeyUnitaDoc)) {
+            return false;
+        }
+        if (!Objects.equals(this.dtRifConta, other.dtRifConta)) {
+            return false;
+        }
+        if (!Objects.equals(this.idStrut, other.idStrut)) {
+            return false;
+        }
+        if (!Objects.equals(this.idDecRegistroUnitaDoc, other.idDecRegistroUnitaDoc)) {
+            return false;
+        }
+        if (!Objects.equals(this.idDecTipoDoc, other.idDecTipoDoc)) {
+            return false;
+        }
+        if (!Objects.equals(this.idDecTipoUnitaDoc, other.idDecTipoUnitaDoc)) {
+            return false;
+        }
+        return Objects.equals(this.idOrgSubStrut, other.idOrgSubStrut);
     }
 
     public enum TipoConteggio {
 
-	UD_VERS, DOC_VERS, COMP_VERS, BYTE_VERS, DOC_AGG, COMP_AGG, BYTE_AGG, UD_ANNULL, DOC_ANNULL,
-	COMP_ANNULL, BYTE_ANNULL
+        UD_VERS, DOC_VERS, COMP_VERS, BYTE_VERS, DOC_AGG, COMP_AGG, BYTE_AGG, UD_ANNULL, DOC_ANNULL,
+        COMP_ANNULL, BYTE_ANNULL
     }
 }

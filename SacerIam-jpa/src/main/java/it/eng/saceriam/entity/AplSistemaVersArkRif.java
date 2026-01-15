@@ -50,36 +50,36 @@ public class AplSistemaVersArkRif implements Serializable {
     @Id
     @Column(name = "ID_SISTEMA_VERS_ARK_RIF")
     @GenericGenerator(name = "SAPL_SISTEMA_VERS_ARK_RIF_ID_SISTEMA_VERS_ARK_RIF_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SISTEMA_VERS_ARK_RIF"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_SISTEMA_VERS_ARK_RIF"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_SISTEMA_VERS_ARK_RIF_ID_SISTEMA_VERS_ARK_RIF_GENERATOR")
     public Long getIdSistemaVersArkRif() {
-	return this.idSistemaVersArkRif;
+        return this.idSistemaVersArkRif;
     }
 
     public void setIdSistemaVersArkRif(Long idSistemaVersArkRif) {
-	this.idSistemaVersArkRif = idSistemaVersArkRif;
+        this.idSistemaVersArkRif = idSistemaVersArkRif;
     }
 
     // bi-directional many-to-one association to AplSistemaVersante
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SISTEMA_VERSANTE")
     public AplSistemaVersante getAplSistemaVersante() {
-	return this.aplSistemaVersante;
+        return this.aplSistemaVersante;
     }
 
     public void setAplSistemaVersante(AplSistemaVersante aplSistemaVersante) {
-	this.aplSistemaVersante = aplSistemaVersante;
+        this.aplSistemaVersante = aplSistemaVersante;
     }
 
     // bi-directional many-to-one association to UsrUser
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER_IAM")
     public UsrUser getUsrUser() {
-	return this.usrUser;
+        return this.usrUser;
     }
 
     public void setUsrUser(UsrUser usrUser) {
-	this.usrUser = usrUser;
+        this.usrUser = usrUser;
     }
 }

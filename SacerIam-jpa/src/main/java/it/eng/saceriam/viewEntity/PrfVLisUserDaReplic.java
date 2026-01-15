@@ -39,53 +39,53 @@ public class PrfVLisUserDaReplic implements Serializable {
     private String nmUserid;
 
     public PrfVLisUserDaReplic() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "ID_RUOLO")
     public BigDecimal getIdRuolo() {
-	return this.idRuolo;
+        return this.idRuolo;
     }
 
     public void setIdRuolo(BigDecimal idRuolo) {
-	this.idRuolo = idRuolo;
+        this.idRuolo = idRuolo;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_RUOLO")
     public String getNmRuolo() {
-	return this.nmRuolo;
+        return this.nmRuolo;
     }
 
     public void setNmRuolo(String nmRuolo) {
-	this.nmRuolo = nmRuolo;
+        this.nmRuolo = nmRuolo;
     }
 
     @Column(name = "NM_USERID")
     public String getNmUserid() {
-	return this.nmUserid;
+        return this.nmUserid;
     }
 
     public void setNmUserid(String nmUserid) {
-	this.nmUserid = nmUserid;
+        this.nmUserid = nmUserid;
     }
 
     private PrfVLisUserDaReplicId prfVLisUserDaReplicId;
 
     @EmbeddedId()
     public PrfVLisUserDaReplicId getPrfVLisUserDaReplicId() {
-	return prfVLisUserDaReplicId;
+        return prfVLisUserDaReplicId;
     }
 
     public void setPrfVLisUserDaReplicId(PrfVLisUserDaReplicId prfVLisUserDaReplicId) {
-	this.prfVLisUserDaReplicId = prfVLisUserDaReplicId;
+        this.prfVLisUserDaReplicId = prfVLisUserDaReplicId;
     }
 }

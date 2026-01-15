@@ -39,6 +39,8 @@ import it.eng.saceriam.entity.OrgCdIva;
 import it.eng.saceriam.entity.OrgClasseEnteConvenz;
 import it.eng.saceriam.entity.OrgCollegEntiConvenz;
 import it.eng.saceriam.entity.OrgDiscipStrut;
+import it.eng.saceriam.entity.DecDocProcessoConserv;
+import it.eng.saceriam.entity.DecTipoDocProcessoConserv;
 import it.eng.saceriam.entity.OrgEnteArkRif;
 import it.eng.saceriam.entity.OrgEnteConvenzOrg;
 import it.eng.saceriam.entity.OrgEnteSiam;
@@ -5629,6 +5631,144 @@ public class EntiConvenzionatiHelper extends GenericHelper {
 	}
 
 	return utenti;
+    }
+
+    /**
+     * Ritorna la lista dei documenti del processo di conservazione per un ente
+     *
+     * @param idEnteSiam id ente
+     *
+     * @return lista documenti processo conservazione
+     */
+    public List<DecDocProcessoConserv> getDecDocProcessoConservListByEnte(BigDecimal idEnteSiam) {
+	String queryStr = "SELECT doc FROM DecDocProcessoConserv doc "
+		+ "LEFT JOIN FETCH doc.decTipoDocProcessoConserv tipo "
+		+ "WHERE doc.orgEnteSiam.idEnteSiam = :idEnteSiam "
+		+ "ORDER BY doc.dtDocProcessoConserv DESC, tipo.nmTipoDoc ASC";
+
+	Query query = getEntityManager().createQuery(queryStr);
+	query.setParameter("idEnteSiam", longFrom(idEnteSiam));
+
+	return query.getResultList();
+    }
+
+    /**
+     * Ritorna un documento del processo di conservazione per ID
+     *
+     * @param idDocProcessoConserv id documento
+     *
+     * @return entity documento processo conservazione
+     */
+    public DecDocProcessoConserv getDecDocProcessoConservById(BigDecimal idDocProcessoConserv) {
+	return getEntityManager().find(DecDocProcessoConserv.class, longFrom(idDocProcessoConserv));
+    }
+
+    /**
+     * Verifica se esiste già un documento con gli stessi parametri identificativi
+     *
+     * @param idEnteSiam                      id ente
+     * @param idTipoDocProcessoConserv        id tipo documento processo conservazione
+     * @param cdRegistro                      codice registro
+     * @param aaDoc                           anno documento
+     * @param cdKeyDoc                        chiave documento
+     * @param pgDoc                           progressivo documento
+     * @param idDocProcessoConservDaEscludere id documento da escludere (per update)
+     *
+     * @return true se esiste già un documento con questi parametri
+     */
+    public boolean existsDecDocProcessoConservWithSameKey(BigDecimal idEnteSiam,
+	    BigDecimal idTipoDocProcessoConserv, String cdRegistro, BigDecimal aaDoc,
+	    String cdKeyDoc, BigDecimal pgDoc, BigDecimal idDocProcessoConservDaEscludere) {
+
+	StringBuilder queryStr = new StringBuilder();
+	queryStr.append("SELECT COUNT(doc) FROM DecDocProcessoConserv doc ");
+	queryStr.append("WHERE doc.orgEnteSiam.idEnteSiam = :idEnteSiam ");
+	queryStr.append(
+		"AND doc.decTipoDocProcessoConserv.idTipoDocProcessoConserv = :idTipoDocProcessoConserv ");
+
+	if (cdRegistro != null) {
+	    queryStr.append("AND doc.cdRegistroDocProcessoConserv = :cdRegistro ");
+	}
+	if (aaDoc != null) {
+	    queryStr.append("AND doc.aaDocProcessoConserv = :aaDoc ");
+	}
+	if (cdKeyDoc != null) {
+	    queryStr.append("AND doc.cdKeyDocProcessoConserv = :cdKeyDoc ");
+	}
+	if (pgDoc != null) {
+	    queryStr.append("AND doc.pgDocProcessoConserv = :pgDoc ");
+	}
+
+	if (idDocProcessoConservDaEscludere != null) {
+	    queryStr.append("AND doc.idDocProcessoConserv != :idDocProcessoConservDaEscludere ");
+	}
+
+	Query query = getEntityManager().createQuery(queryStr.toString());
+	query.setParameter("idEnteSiam", longFrom(idEnteSiam));
+	query.setParameter("idTipoDocProcessoConserv", longFrom(idTipoDocProcessoConserv));
+
+	if (cdRegistro != null) {
+	    query.setParameter("cdRegistro", cdRegistro);
+	}
+	if (aaDoc != null) {
+	    query.setParameter("aaDoc", aaDoc);
+	}
+	if (cdKeyDoc != null) {
+	    query.setParameter("cdKeyDoc", cdKeyDoc);
+	}
+	if (pgDoc != null) {
+	    query.setParameter("pgDoc", pgDoc);
+	}
+
+	if (idDocProcessoConservDaEscludere != null) {
+	    query.setParameter("idDocProcessoConservDaEscludere",
+		    longFrom(idDocProcessoConservDaEscludere));
+	}
+
+	Long count = (Long) query.getSingleResult();
+	return count > 0;
+    }
+
+    /**
+     * Recupera la lista dei tipi documento processo conservazione attivi per una struttura
+     *
+     * @param idStrut id struttura
+     *
+     * @return lista tipi documento processo conservazione
+     */
+    public List<DecTipoDocProcessoConserv> getDecTipoDocProcessoConservList(BigDecimal idStrut) {
+	StringBuilder queryStr = new StringBuilder();
+	queryStr.append("SELECT tipo FROM DecTipoDocProcessoConserv tipo ");
+	queryStr.append("WHERE tipo.orgStrut.idStrut = :idStrut ");
+	queryStr.append("AND tipo.dtSoppres > :now ");
+	queryStr.append("ORDER BY tipo.nmTipoDoc");
+
+	Query query = getEntityManager().createQuery(queryStr.toString());
+	query.setParameter("idStrut", longFrom(idStrut));
+	query.setParameter("now", new Date());
+
+	return query.getResultList();
+    }
+
+    /**
+     * Recupera la lista dei tipi documento processo conservazione per una struttura
+     *
+     * @param idStrut id della struttura
+     *
+     * @return lista tipi documento processo conservazione
+     */
+    public List<DecTipoDocProcessoConserv> getDecTipoDocProcessoConservByIdStrut(
+	    BigDecimal idStrut) {
+	String queryStr = "SELECT tipo FROM DecTipoDocProcessoConserv tipo "
+		+ "WHERE tipo.orgStrut.idStrut = :idStrut "
+		+ "AND (tipo.dtSoppres IS NULL OR tipo.dtSoppres > :dataCorrente) "
+		+ "ORDER BY tipo.nmTipoDoc";
+
+	Query query = getEntityManager().createQuery(queryStr);
+	query.setParameter("idStrut", longFrom(idStrut));
+	query.setParameter("dataCorrente", new Date());
+
+	return query.getResultList();
     }
 
 }

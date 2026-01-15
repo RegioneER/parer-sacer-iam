@@ -64,83 +64,83 @@ public class AplNotaRilascio implements Serializable {
     @Id
     @Column(name = "ID_NOTA_RILASCIO")
     @GenericGenerator(name = "SAPL_NOTA_RILASCIO_ID_NOTA_RILASCIO_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_NOTA_RILASCIO"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_NOTA_RILASCIO"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_NOTA_RILASCIO_ID_NOTA_RILASCIO_GENERATOR")
     public Long getIdNotaRilascio() {
-	return this.idNotaRilascio;
+        return this.idNotaRilascio;
     }
 
     public void setIdNotaRilascio(Long idNotaRilascio) {
-	this.idNotaRilascio = idNotaRilascio;
+        this.idNotaRilascio = idNotaRilascio;
     }
 
     @Column(name = "CD_VERSIONE")
     public String getCdVersione() {
-	return this.cdVersione;
+        return this.cdVersione;
     }
 
     public void setCdVersione(String cdVersione) {
-	this.cdVersione = cdVersione;
+        this.cdVersione = cdVersione;
     }
 
     @Column(name = "DS_EVIDENZA")
     public String getDsEvidenza() {
-	return this.dsEvidenza;
+        return this.dsEvidenza;
     }
 
     public void setDsEvidenza(String dsEvidenza) {
-	this.dsEvidenza = dsEvidenza;
+        this.dsEvidenza = dsEvidenza;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_VERSIONE")
     public Date getDtVersione() {
-	return this.dtVersione;
+        return this.dtVersione;
     }
 
     public void setDtVersione(Date dtVersione) {
-	this.dtVersione = dtVersione;
+        this.dtVersione = dtVersione;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_INI_VAL")
     public Date getDtIniVal() {
-	return this.dtIniVal;
+        return this.dtIniVal;
     }
 
     public void setDtIniVal(Date dtIniVal) {
-	this.dtIniVal = dtIniVal;
+        this.dtIniVal = dtIniVal;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_FINE_VAL")
     public Date getDtFineVal() {
-	return this.dtFineVal;
+        return this.dtFineVal;
     }
 
     public void setDtFineVal(Date dtFineVal) {
-	this.dtFineVal = dtFineVal;
+        this.dtFineVal = dtFineVal;
     }
 
     @Lob
     @Column(name = "BL_NOTA")
     public String getBlNota() {
-	return this.blNota;
+        return this.blNota;
     }
 
     public void setBlNota(String blNota) {
-	this.blNota = blNota;
+        this.blNota = blNota;
     }
 
     // bi-directional many-to-one association to AplApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_APPLIC")
     public AplApplic getAplApplic() {
-	return this.aplApplic;
+        return this.aplApplic;
     }
 
     public void setAplApplic(AplApplic aplApplic) {
-	this.aplApplic = aplApplic;
+        this.aplApplic = aplApplic;
     }
 }

@@ -50,34 +50,34 @@ public class PrfRuoloCategoria implements Serializable {
     @Id
     @Column(name = "ID_RUOLO_CATEGORIA")
     @GenericGenerator(name = "SPRF_RUOLO_CATEGORIA_ID_RUOLO_CATEGORIA_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SPRF_RUOLO_CATEGORIA"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SPRF_RUOLO_CATEGORIA"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPRF_RUOLO_CATEGORIA_ID_RUOLO_CATEGORIA_GENERATOR")
     public Long getIdRuoloCategoria() {
-	return this.idRuoloCategoria;
+        return this.idRuoloCategoria;
     }
 
     public void setIdRuoloCategoria(Long idRuoloCatgoria) {
-	this.idRuoloCategoria = idRuoloCatgoria;
+        this.idRuoloCategoria = idRuoloCatgoria;
     }
 
     // bi-directional many-to-one association to PrfRuolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_RUOLO")
     public PrfRuolo getPrfRuolo() {
-	return this.prfRuolo;
+        return this.prfRuolo;
     }
 
     public void setPrfRuolo(PrfRuolo prfRuolo) {
-	this.prfRuolo = prfRuolo;
+        this.prfRuolo = prfRuolo;
     }
 
     @Column(name = "TI_CATEG_RUOLO")
     public String getTiCategRuolo() {
-	return this.tiCategRuolo;
+        return this.tiCategRuolo;
     }
 
     public void setTiCategRuolo(String tiCategRuolo) {
-	this.tiCategRuolo = tiCategRuolo;
+        this.tiCategRuolo = tiCategRuolo;
     }
 }

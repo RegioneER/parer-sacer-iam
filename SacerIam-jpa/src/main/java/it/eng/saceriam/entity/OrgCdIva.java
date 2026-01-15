@@ -54,52 +54,52 @@ public class OrgCdIva implements Serializable {
     @Id
     @Column(name = "ID_CD_IVA")
     @GenericGenerator(name = "SORG_CD_IVA_ID_CD_IVA_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_CD_IVA"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_CD_IVA"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SORG_CD_IVA_ID_CD_IVA_GENERATOR")
     public Long getIdCdIva() {
-	return this.idCdIva;
+        return this.idCdIva;
     }
 
     public void setIdCdIva(Long idCdIva) {
-	this.idCdIva = idCdIva;
+        this.idCdIva = idCdIva;
     }
 
     @Column(name = "CD_IVA")
     public String getCdIva() {
-	return this.cdIva;
+        return this.cdIva;
     }
 
     public void setCdIva(String cdIva) {
-	this.cdIva = cdIva;
+        this.cdIva = cdIva;
     }
 
     @Column(name = "DS_IVA")
     public String getDsIva() {
-	return this.dsIva;
+        return this.dsIva;
     }
 
     public void setDsIva(String dsIva) {
-	this.dsIva = dsIva;
+        this.dsIva = dsIva;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @OneToMany(mappedBy = "orgCdIva")
     public List<OrgAccordoEnte> getOrgAccordoEntes() {
-	return this.orgAccordoEntes;
+        return this.orgAccordoEntes;
     }
 
     public void setOrgAccordoEntes(List<OrgAccordoEnte> orgAccordoEntes) {
-	this.orgAccordoEntes = orgAccordoEntes;
+        this.orgAccordoEntes = orgAccordoEntes;
     }
 
     // bi-directional many-to-one association to OrgAccordoEnte
     @OneToMany(mappedBy = "orgCdIva")
     public List<OrgServizioFattura> getOrgServizioFatturas() {
-	return orgServizioFatturas;
+        return orgServizioFatturas;
     }
 
     public void setOrgServizioFatturas(List<OrgServizioFattura> orgServizioFatturas) {
-	this.orgServizioFatturas = orgServizioFatturas;
+        this.orgServizioFatturas = orgServizioFatturas;
     }
 }

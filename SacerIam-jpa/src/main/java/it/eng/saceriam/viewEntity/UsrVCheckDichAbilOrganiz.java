@@ -32,27 +32,27 @@ public class UsrVCheckDichAbilOrganiz implements Serializable {
     private String dlCompositoOrganiz;
 
     public UsrVCheckDichAbilOrganiz() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DL_COMPOSITO_ORGANIZ")
     public String getDlCompositoOrganiz() {
-	return this.dlCompositoOrganiz;
+        return this.dlCompositoOrganiz;
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-	this.dlCompositoOrganiz = dlCompositoOrganiz;
+        this.dlCompositoOrganiz = dlCompositoOrganiz;
     }
 
     private UsrVCheckDichAbilOrganizId usrVCheckDichAbilOrganizId;
 
     @EmbeddedId()
     public UsrVCheckDichAbilOrganizId getUsrVCheckDichAbilOrganizId() {
-	return usrVCheckDichAbilOrganizId;
+        return usrVCheckDichAbilOrganizId;
     }
 
     public void setUsrVCheckDichAbilOrganizId(
-	    UsrVCheckDichAbilOrganizId usrVCheckDichAbilOrganizId) {
-	this.usrVCheckDichAbilOrganizId = usrVCheckDichAbilOrganizId;
+            UsrVCheckDichAbilOrganizId usrVCheckDichAbilOrganizId) {
+        this.usrVCheckDichAbilOrganizId = usrVCheckDichAbilOrganizId;
     }
 }

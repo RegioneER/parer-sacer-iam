@@ -40,80 +40,80 @@ public class AplVTreeMenuPagAzio implements Serializable {
     private String tipoNodo;
 
     public AplVTreeMenuPagAzio() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DS_NODO")
     public String getDsNodo() {
-	return this.dsNodo;
+        return this.dsNodo;
     }
 
     public void setDsNodo(String dsNodo) {
-	this.dsNodo = dsNodo;
+        this.dsNodo = dsNodo;
     }
 
     @Column(name = "DS_ORD_NODI")
     public String getDsOrdNodi() {
-	return this.dsOrdNodi;
+        return this.dsOrdNodi;
     }
 
     public void setDsOrdNodi(String dsOrdNodi) {
-	this.dsOrdNodi = dsOrdNodi;
+        this.dsOrdNodi = dsOrdNodi;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Id
     @Column(name = "ID_NODO")
     public String getIdNodo() {
-	return this.idNodo;
+        return this.idNodo;
     }
 
     public void setIdNodo(String idNodo) {
-	this.idNodo = idNodo;
+        this.idNodo = idNodo;
     }
 
     @Column(name = "ID_NODO_PADRE")
     public String getIdNodoPadre() {
-	return this.idNodoPadre;
+        return this.idNodoPadre;
     }
 
     public void setIdNodoPadre(String idNodoPadre) {
-	this.idNodoPadre = idNodoPadre;
+        this.idNodoPadre = idNodoPadre;
     }
 
     @Column(name = "NI_LIVELLO")
     public BigDecimal getNiLivello() {
-	return this.niLivello;
+        return this.niLivello;
     }
 
     public void setNiLivello(BigDecimal niLivello) {
-	this.niLivello = niLivello;
+        this.niLivello = niLivello;
     }
 
     @Column(name = "NI_ORD_NODI")
     public BigDecimal getNiOrdNodi() {
-	return this.niOrdNodi;
+        return this.niOrdNodi;
     }
 
     public void setNiOrdNodi(BigDecimal niOrdNodi) {
-	this.niOrdNodi = niOrdNodi;
+        this.niOrdNodi = niOrdNodi;
     }
 
     @Column(name = "TIPO_NODO", columnDefinition = "char(1)")
     public String getTipoNodo() {
-	return this.tipoNodo;
+        return this.tipoNodo;
     }
 
     public void setTipoNodo(String tipoNodo) {
-	this.tipoNodo = tipoNodo;
+        this.tipoNodo = tipoNodo;
     }
 
 }

@@ -35,44 +35,44 @@ public class OrgVCalcTotFatt implements Serializable {
     private BigDecimal imTotIva;
 
     public OrgVCalcTotFatt() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Id
     @Column(name = "ID_FATTURA_ENTE")
     public BigDecimal getIdFatturaEnte() {
-	return this.idFatturaEnte;
+        return this.idFatturaEnte;
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-	this.idFatturaEnte = idFatturaEnte;
+        this.idFatturaEnte = idFatturaEnte;
     }
 
     @Column(name = "IM_TOT_DA_PAGARE")
     public BigDecimal getImTotDaPagare() {
-	return this.imTotDaPagare;
+        return this.imTotDaPagare;
     }
 
     public void setImTotDaPagare(BigDecimal imTotDaPagare) {
-	this.imTotDaPagare = imTotDaPagare;
+        this.imTotDaPagare = imTotDaPagare;
     }
 
     @Column(name = "IM_TOT_FATTURA")
     public BigDecimal getImTotFattura() {
-	return this.imTotFattura;
+        return this.imTotFattura;
     }
 
     public void setImTotFattura(BigDecimal imTotFattura) {
-	this.imTotFattura = imTotFattura;
+        this.imTotFattura = imTotFattura;
     }
 
     @Column(name = "IM_TOT_IVA")
     public BigDecimal getImTotIva() {
-	return this.imTotIva;
+        return this.imTotIva;
     }
 
     public void setImTotIva(BigDecimal imTotIva) {
-	this.imTotIva = imTotIva;
+        this.imTotIva = imTotIva;
     }
 
 }

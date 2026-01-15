@@ -55,83 +55,83 @@ public class DecJob extends JobDefinition implements JobTable {
     private BigDecimal niOrdExec;
 
     public DecJob() {
-	// hibernate
+        // hibernate
     }
 
     @Id
     @Column(name = "ID_JOB")
     @Override
     @GenericGenerator(name = "SDEC_JOB_ID_JOB_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_JOB"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_JOB"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SDEC_JOB_ID_JOB_GENERATOR")
     public Long getIdJob() {
-	return idJob;
+        return idJob;
     }
 
     @Override
     public void setIdJob(Long idJob) {
-	this.idJob = idJob;
+        this.idJob = idJob;
     }
 
     @Column(name = "NM_JOB")
     @Override
     public String getNmJob() {
-	return nmJob;
+        return nmJob;
     }
 
     @Override
     public void setNmJob(String nmJob) {
-	this.nmJob = nmJob;
+        this.nmJob = nmJob;
     }
 
     @Column(name = "DS_JOB")
     public String getDsJob() {
-	return this.dsJob;
+        return this.dsJob;
     }
 
     public void setDsJob(String dsJob) {
-	this.dsJob = dsJob;
+        this.dsJob = dsJob;
     }
 
     @Column(name = "NM_AMBITO")
     public String getNmAmbito() {
-	return this.nmAmbito;
+        return this.nmAmbito;
     }
 
     public void setNmAmbito(String nmAmbito) {
-	this.nmAmbito = nmAmbito;
+        this.nmAmbito = nmAmbito;
     }
 
     @Column(name = "NI_ORD_EXEC")
     public BigDecimal getNiOrdExec() {
-	return this.niOrdExec;
+        return this.niOrdExec;
     }
 
     public void setNiOrdExec(BigDecimal niOrdExec) {
-	this.niOrdExec = niOrdExec;
+        this.niOrdExec = niOrdExec;
     }
 
     @Column(name = "TI_SCHED_JOB")
     @Override
     public String getTiSchedJob() {
-	return tiSchedJob;
+        return tiSchedJob;
     }
 
     @Override
     public void setTiSchedJob(String tiSchedJob) {
-	this.tiSchedJob = tiSchedJob;
+        this.tiSchedJob = tiSchedJob;
     }
 
     @Column(name = "TI_SCOPO_JOB")
     @Override
     public String getTiScopoJob() {
-	return tiScopoJob;
+        return tiScopoJob;
     }
 
     @Override
     public void setTiScopoJob(String tiScopoJob) {
-	this.tiScopoJob = tiScopoJob;
+        this.tiScopoJob = tiScopoJob;
     }
 
 }

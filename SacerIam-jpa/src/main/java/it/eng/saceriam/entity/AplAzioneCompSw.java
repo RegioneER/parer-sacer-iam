@@ -54,54 +54,54 @@ public class AplAzioneCompSw implements Serializable {
     @Id
     @Column(name = "ID_AZIONE_COMP_SW")
     @GenericGenerator(name = "SAPL_AZIONE_COMP_SW_ID_AZIONE_COMP_SW_GENERATOR", strategy = "it.eng.sequences.hibernate.NonMonotonicSequenceGenerator", parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_AZIONE_COMP_SW"),
-	    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_AZIONE_COMP_SW"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAPL_AZIONE_COMP_SW_ID_AZIONE_COMP_SW_GENERATOR")
     public Long getIdAzioneCompSw() {
-	return this.idAzioneCompSw;
+        return this.idAzioneCompSw;
     }
 
     public void setIdAzioneCompSw(Long idAzioneCompSw) {
-	this.idAzioneCompSw = idAzioneCompSw;
+        this.idAzioneCompSw = idAzioneCompSw;
     }
 
     @Column(name = "DS_AZIONE_COMP_SW")
     public String getDsAzioneCompSw() {
-	return this.dsAzioneCompSw;
+        return this.dsAzioneCompSw;
     }
 
     public void setDsAzioneCompSw(String dsAzioneCompSw) {
-	this.dsAzioneCompSw = dsAzioneCompSw;
+        this.dsAzioneCompSw = dsAzioneCompSw;
     }
 
     @Column(name = "NM_AZIONE_COMP_SW")
     public String getNmAzioneCompSw() {
-	return this.nmAzioneCompSw;
+        return this.nmAzioneCompSw;
     }
 
     public void setNmAzioneCompSw(String nmAzioneCompSw) {
-	this.nmAzioneCompSw = nmAzioneCompSw;
+        this.nmAzioneCompSw = nmAzioneCompSw;
     }
 
     // bi-directional many-to-one association to AplCompSw
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_COMP_SW")
     public AplCompSw getAplCompSw() {
-	return this.aplCompSw;
+        return this.aplCompSw;
     }
 
     public void setAplCompSw(AplCompSw aplCompSw) {
-	this.aplCompSw = aplCompSw;
+        this.aplCompSw = aplCompSw;
     }
 
     // bi-directional many-to-one association to AplTipoEvento
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_EVENTO")
     public AplTipoEvento getAplTipoEvento() {
-	return this.aplTipoEvento;
+        return this.aplTipoEvento;
     }
 
     public void setAplTipoEvento(AplTipoEvento aplTipoEvento) {
-	this.aplTipoEvento = aplTipoEvento;
+        this.aplTipoEvento = aplTipoEvento;
     }
 }

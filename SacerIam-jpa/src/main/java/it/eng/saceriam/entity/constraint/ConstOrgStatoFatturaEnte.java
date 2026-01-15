@@ -21,18 +21,18 @@ public class ConstOrgStatoFatturaEnte {
 
     public enum TiStatoFatturaEnte {
 
-	CALCOLATA("CALCOLATA"), EMESSA("EMESSA"), INSOLUTA("INSOLUTA"), PAGATA("PAGATA"),
-	PAGATA_PARZIALMENTE("PAGATA PARZIALMENTE"), SOLLECITATA("SOLLECITATA"),
-	STORNATA("STORNATA");
+        CALCOLATA("CALCOLATA"), EMESSA("EMESSA"), INSOLUTA("INSOLUTA"), PAGATA("PAGATA"),
+        PAGATA_PARZIALMENTE("PAGATA PARZIALMENTE"), SOLLECITATA("SOLLECITATA"),
+        STORNATA("STORNATA");
 
-	private String descrizione;
+        private String descrizione;
 
-	private TiStatoFatturaEnte(String descrizione) {
-	    this.descrizione = descrizione;
-	}
+        private TiStatoFatturaEnte(String descrizione) {
+            this.descrizione = descrizione;
+        }
 
-	public String getDescrizione() {
-	    return descrizione;
-	}
+        public String getDescrizione() {
+            return descrizione;
+        }
     }
 }

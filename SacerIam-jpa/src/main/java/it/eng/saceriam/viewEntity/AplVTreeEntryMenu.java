@@ -42,97 +42,97 @@ public class AplVTreeEntryMenu implements Serializable {
     private String nmEntryMenu;
 
     public AplVTreeEntryMenu() {
-	// document why this constructor is empty
+        // document why this constructor is empty
     }
 
     @Column(name = "DL_COMPOSITO_ENTRY_MENU")
     public String getDlCompositoEntryMenu() {
-	return this.dlCompositoEntryMenu;
+        return this.dlCompositoEntryMenu;
     }
 
     public void setDlCompositoEntryMenu(String dlCompositoEntryMenu) {
-	this.dlCompositoEntryMenu = dlCompositoEntryMenu;
+        this.dlCompositoEntryMenu = dlCompositoEntryMenu;
     }
 
     @Column(name = "DL_LINK_ENTRY_MENU")
     public String getDlLinkEntryMenu() {
-	return this.dlLinkEntryMenu;
+        return this.dlLinkEntryMenu;
     }
 
     public void setDlLinkEntryMenu(String dlLinkEntryMenu) {
-	this.dlLinkEntryMenu = dlLinkEntryMenu;
+        this.dlLinkEntryMenu = dlLinkEntryMenu;
     }
 
     @Column(name = "DL_PATH_ID_ENTRY_MENU")
     public String getDlPathIdEntryMenu() {
-	return this.dlPathIdEntryMenu;
+        return this.dlPathIdEntryMenu;
     }
 
     public void setDlPathIdEntryMenu(String dlPathIdEntryMenu) {
-	this.dlPathIdEntryMenu = dlPathIdEntryMenu;
+        this.dlPathIdEntryMenu = dlPathIdEntryMenu;
     }
 
     @Column(name = "DS_ENTRY_MENU")
     public String getDsEntryMenu() {
-	return this.dsEntryMenu;
+        return this.dsEntryMenu;
     }
 
     public void setDsEntryMenu(String dsEntryMenu) {
-	this.dsEntryMenu = dsEntryMenu;
+        this.dsEntryMenu = dsEntryMenu;
     }
 
     @Column(name = "ID_APPLIC")
     public BigDecimal getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Id
     @Column(name = "ID_ENTRY_MENU")
     public BigDecimal getIdEntryMenu() {
-	return this.idEntryMenu;
+        return this.idEntryMenu;
     }
 
     public void setIdEntryMenu(BigDecimal idEntryMenu) {
-	this.idEntryMenu = idEntryMenu;
+        this.idEntryMenu = idEntryMenu;
     }
 
     @Column(name = "ID_ENTRY_MENU_PADRE")
     public BigDecimal getIdEntryMenuPadre() {
-	return this.idEntryMenuPadre;
+        return this.idEntryMenuPadre;
     }
 
     public void setIdEntryMenuPadre(BigDecimal idEntryMenuPadre) {
-	this.idEntryMenuPadre = idEntryMenuPadre;
+        this.idEntryMenuPadre = idEntryMenuPadre;
     }
 
     @Column(name = "NI_LIVELLO_ENTRY_MENU")
     public BigDecimal getNiLivelloEntryMenu() {
-	return this.niLivelloEntryMenu;
+        return this.niLivelloEntryMenu;
     }
 
     public void setNiLivelloEntryMenu(BigDecimal niLivelloEntryMenu) {
-	this.niLivelloEntryMenu = niLivelloEntryMenu;
+        this.niLivelloEntryMenu = niLivelloEntryMenu;
     }
 
     @Column(name = "NI_ORD_ENTRY_MENU")
     public BigDecimal getNiOrdEntryMenu() {
-	return this.niOrdEntryMenu;
+        return this.niOrdEntryMenu;
     }
 
     public void setNiOrdEntryMenu(BigDecimal niOrdEntryMenu) {
-	this.niOrdEntryMenu = niOrdEntryMenu;
+        this.niOrdEntryMenu = niOrdEntryMenu;
     }
 
     @Column(name = "NM_ENTRY_MENU")
     public String getNmEntryMenu() {
-	return this.nmEntryMenu;
+        return this.nmEntryMenu;
     }
 
     public void setNmEntryMenu(String nmEntryMenu) {
-	this.nmEntryMenu = nmEntryMenu;
+        this.nmEntryMenu = nmEntryMenu;
     }
 }

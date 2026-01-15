@@ -26,6 +26,6 @@ public class ConstOrgAccordoEnte {
      * Tipo scopo accordo ti_scopo_accordo IN ('AMMINISTRAZIONE', 'CONSERVAZIONE', 'GESTIONE')
      */
     public enum TiScopoAccordo {
-	AMMINISTRAZIONE, CONSERVAZIONE, GESTIONE
+        AMMINISTRAZIONE, CONSERVAZIONE, GESTIONE
     }
 }

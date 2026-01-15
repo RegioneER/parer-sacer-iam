@@ -20,18 +20,18 @@ package it.eng.saceriam.entity.constraint;
 public class ConstOrgAmbitoTerrit {
 
     public enum TiAmbitoTerrit {
-	FORMA_ASSOCIATA("FORMA_ASSOCIATA"), PROVINCIA("PROVINCIA"), REGIONE_STATO("REGIONE/STATO");
+        FORMA_ASSOCIATA("FORMA_ASSOCIATA"), PROVINCIA("PROVINCIA"), REGIONE_STATO("REGIONE/STATO");
 
-	String tiAmbitoString;
+        String tiAmbitoString;
 
-	private TiAmbitoTerrit(String tiAmbitoString) {
-	    this.tiAmbitoString = tiAmbitoString;
-	}
+        private TiAmbitoTerrit(String tiAmbitoString) {
+            this.tiAmbitoString = tiAmbitoString;
+        }
 
-	@Override
-	public String toString() {
-	    return tiAmbitoString;
-	}
+        @Override
+        public String toString() {
+            return tiAmbitoString;
+        }
     }
 
 }

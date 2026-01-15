@@ -38,21 +38,21 @@ public class UsrVChkUserCancSacer implements Serializable {
 
     @Column(name = "FL_CANC_OK", columnDefinition = "char(1)")
     public String getFlCancOk() {
-	return this.flCancOk;
+        return this.flCancOk;
     }
 
     public void setFlCancOk(String flCancOk) {
-	this.flCancOk = flCancOk;
+        this.flCancOk = flCancOk;
     }
 
     @Id
     @Column(name = "ID_USER_IAM")
     public BigDecimal getIdUserIam() {
-	return this.idUserIam;
+        return this.idUserIam;
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	this.idUserIam = idUserIam;
+        this.idUserIam = idUserIam;
     }
 
 }

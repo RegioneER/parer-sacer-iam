@@ -26,6 +26,6 @@ public class ConstOrgGestioneAccordo {
      * Tipo trasmissione tipo_trasmissione IN ('COMUNICAZIONE_PROTOCOLLATA', 'EMAIL')
      */
     public enum TipoTrasmissione {
-	COMUNICAZIONE_PROTOCOLLATA, EMAIL
+        COMUNICAZIONE_PROTOCOLLATA, EMAIL
     }
 }

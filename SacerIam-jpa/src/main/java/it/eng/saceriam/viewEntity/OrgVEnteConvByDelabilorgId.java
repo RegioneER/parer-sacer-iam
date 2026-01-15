@@ -28,50 +28,50 @@ public class OrgVEnteConvByDelabilorgId implements Serializable {
 
     @Column(name = "ID_DICH_ABIL_ORGANIZ")
     public BigDecimal getIdDichAbilOrganiz() {
-	return idDichAbilOrganiz;
+        return idDichAbilOrganiz;
     }
 
     public void setIdDichAbilOrganiz(BigDecimal idDichAbilOrganiz) {
-	this.idDichAbilOrganiz = idDichAbilOrganiz;
+        this.idDichAbilOrganiz = idDichAbilOrganiz;
     }
 
     private BigDecimal idEnteConvenz;
 
     @Column(name = "ID_ENTE_CONVENZ")
     public BigDecimal getIdEnteConvenz() {
-	return idEnteConvenz;
+        return idEnteConvenz;
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	this.idEnteConvenz = idEnteConvenz;
+        this.idEnteConvenz = idEnteConvenz;
     }
 
     @Override
     public int hashCode() {
-	int hash = 5;
-	hash = 17 * hash + Objects.hashCode(this.idDichAbilOrganiz);
-	hash = 17 * hash + Objects.hashCode(this.idEnteConvenz);
-	return hash;
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.idDichAbilOrganiz);
+        hash = 17 * hash + Objects.hashCode(this.idEnteConvenz);
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final OrgVEnteConvByDelabilorgId other = (OrgVEnteConvByDelabilorgId) obj;
-	if (!Objects.equals(this.idDichAbilOrganiz, other.idDichAbilOrganiz)) {
-	    return false;
-	}
-	if (!Objects.equals(this.idEnteConvenz, other.idEnteConvenz)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrgVEnteConvByDelabilorgId other = (OrgVEnteConvByDelabilorgId) obj;
+        if (!Objects.equals(this.idDichAbilOrganiz, other.idDichAbilOrganiz)) {
+            return false;
+        }
+        if (!Objects.equals(this.idEnteConvenz, other.idEnteConvenz)) {
+            return false;
+        }
+        return true;
     }
 }
