@@ -27,32 +27,32 @@ public class RichiestaSacer {
 
     public enum TipoRichiesta {
 
-	STATO_ARK_CARTELLA, ELIMINA_CARTELLA_ARK, RETRIEVE_FILE_UNITA_DOC, REGISTRA_CARTELLA_RI_ARK;
+        STATO_ARK_CARTELLA, ELIMINA_CARTELLA_ARK, RETRIEVE_FILE_UNITA_DOC, REGISTRA_CARTELLA_RI_ARK;
     }
 
     public enum TipoRiArk {
 
-	LOCALE, SECONDARIO, ENTRAMBI;
+        LOCALE, SECONDARIO, ENTRAMBI;
 
-	public static TipoRiArk getTipoRiArk(String tipoRiArk) {
-	    for (TipoRiArk tipo : TipoRiArk.values()) {
-		if (tipo.toString().equals(tipoRiArk)) {
-		    return tipo;
-		}
-	    }
-	    return null;
-	}
+        public static TipoRiArk getTipoRiArk(String tipoRiArk) {
+            for (TipoRiArk tipo : TipoRiArk.values()) {
+                if (tipo.toString().equals(tipoRiArk)) {
+                    return tipo;
+                }
+            }
+            return null;
+        }
     }
 
     public RichiestaSacer(TipoRichiesta tipoRichiesta) {
-	this.tipoRichiesta = tipoRichiesta;
+        this.tipoRichiesta = tipoRichiesta;
     }
 
     public TipoRichiesta getTipoRichiesta() {
-	return tipoRichiesta;
+        return tipoRichiesta;
     }
 
     public void setTipoRichiesta(TipoRichiesta tipoRichiesta) {
-	this.tipoRichiesta = tipoRichiesta;
+        this.tipoRichiesta = tipoRichiesta;
     }
 }

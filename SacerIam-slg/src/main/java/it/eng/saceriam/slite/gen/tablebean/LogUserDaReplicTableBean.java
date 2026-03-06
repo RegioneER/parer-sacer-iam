@@ -32,19 +32,19 @@ public class LogUserDaReplicTableBean extends AbstractBaseTable<LogUserDaReplicR
     public static LogUserDaReplicTableDescriptor TABLE_DESCRIPTOR = new LogUserDaReplicTableDescriptor();
 
     public LogUserDaReplicTableBean() {
-	super();
+        super();
     }
 
     protected LogUserDaReplicRowBean createRow() {
-	return new LogUserDaReplicRowBean();
+        return new LogUserDaReplicRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<LogUserDaReplicRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

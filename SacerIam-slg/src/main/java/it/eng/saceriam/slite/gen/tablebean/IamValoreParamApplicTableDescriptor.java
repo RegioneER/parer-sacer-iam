@@ -45,29 +45,29 @@ public class IamValoreParamApplicTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_VALORE_PARAM_APPLIC,
-		new ColumnDescriptor(COL_ID_VALORE_PARAM_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_PARAM_APPLIC,
-		new ColumnDescriptor(COL_ID_PARAM_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_TI_APPART, new ColumnDescriptor(COL_TI_APPART, Types.VARCHAR, 20, false));
-	map.put(COL_DS_VALORE_PARAM_APPLIC,
-		new ColumnDescriptor(COL_DS_VALORE_PARAM_APPLIC, Types.VARCHAR, 254, false));
-	map.put(COL_ID_AMBIENTE_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_AMBIENTE_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_VALORE_PARAM_APPLIC,
+                new ColumnDescriptor(COL_ID_VALORE_PARAM_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_PARAM_APPLIC,
+                new ColumnDescriptor(COL_ID_PARAM_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_TI_APPART, new ColumnDescriptor(COL_TI_APPART, Types.VARCHAR, 20, false));
+        map.put(COL_DS_VALORE_PARAM_APPLIC,
+                new ColumnDescriptor(COL_DS_VALORE_PARAM_APPLIC, Types.VARCHAR, 254, false));
+        map.put(COL_ID_AMBIENTE_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_AMBIENTE_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

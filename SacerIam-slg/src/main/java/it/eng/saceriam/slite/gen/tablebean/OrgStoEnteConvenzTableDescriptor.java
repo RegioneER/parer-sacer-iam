@@ -55,46 +55,46 @@ public class OrgStoEnteConvenzTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_STO_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_STO_ENTE_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
-	map.put(COL_DT_FINE_VAL, new ColumnDescriptor(COL_DT_FINE_VAL, Types.TIMESTAMP, 7, false));
-	map.put(COL_NM_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_NM_ENTE_CONVENZ, Types.VARCHAR, 100, false));
-	map.put(COL_CD_FISC, new ColumnDescriptor(COL_CD_FISC, Types.VARCHAR, 16, false));
-	map.put(COL_CD_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_CD_ENTE_CONVENZ, Types.VARCHAR, 100, false));
-	map.put(COL_DS_VIA_SEDE_LEGALE,
-		new ColumnDescriptor(COL_DS_VIA_SEDE_LEGALE, Types.VARCHAR, 254, false));
-	map.put(COL_DS_CITTA_SEDE_LEGALE,
-		new ColumnDescriptor(COL_DS_CITTA_SEDE_LEGALE, Types.VARCHAR, 254, false));
-	map.put(COL_ID_AMBITO_TERRIT,
-		new ColumnDescriptor(COL_ID_AMBITO_TERRIT, Types.DECIMAL, 22, false));
-	map.put(COL_ID_CATEG_ENTE,
-		new ColumnDescriptor(COL_ID_CATEG_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_DL_NOTE, new ColumnDescriptor(COL_DL_NOTE, Types.VARCHAR, 254, false));
-	map.put(COL_ID_PROV_SEDE_LEGALE,
-		new ColumnDescriptor(COL_ID_PROV_SEDE_LEGALE, Types.DECIMAL, 22, false));
-	map.put(COL_CD_NAZIONE_SEDE_LEGALE,
-		new ColumnDescriptor(COL_CD_NAZIONE_SEDE_LEGALE, Types.VARCHAR, 254, false));
-	map.put(COL_TI_CD_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_TI_CD_ENTE_CONVENZ, Types.VARCHAR, 20, false));
-	map.put(COL_CD_CAP_SEDE_LEGALE,
-		new ColumnDescriptor(COL_CD_CAP_SEDE_LEGALE, Types.VARCHAR, 5, false));
+        map.put(COL_ID_STO_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_STO_ENTE_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_DT_FINE_VAL, new ColumnDescriptor(COL_DT_FINE_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_NM_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_NM_ENTE_CONVENZ, Types.VARCHAR, 100, false));
+        map.put(COL_CD_FISC, new ColumnDescriptor(COL_CD_FISC, Types.VARCHAR, 16, false));
+        map.put(COL_CD_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_CD_ENTE_CONVENZ, Types.VARCHAR, 100, false));
+        map.put(COL_DS_VIA_SEDE_LEGALE,
+                new ColumnDescriptor(COL_DS_VIA_SEDE_LEGALE, Types.VARCHAR, 254, false));
+        map.put(COL_DS_CITTA_SEDE_LEGALE,
+                new ColumnDescriptor(COL_DS_CITTA_SEDE_LEGALE, Types.VARCHAR, 254, false));
+        map.put(COL_ID_AMBITO_TERRIT,
+                new ColumnDescriptor(COL_ID_AMBITO_TERRIT, Types.DECIMAL, 22, false));
+        map.put(COL_ID_CATEG_ENTE,
+                new ColumnDescriptor(COL_ID_CATEG_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_DL_NOTE, new ColumnDescriptor(COL_DL_NOTE, Types.VARCHAR, 254, false));
+        map.put(COL_ID_PROV_SEDE_LEGALE,
+                new ColumnDescriptor(COL_ID_PROV_SEDE_LEGALE, Types.DECIMAL, 22, false));
+        map.put(COL_CD_NAZIONE_SEDE_LEGALE,
+                new ColumnDescriptor(COL_CD_NAZIONE_SEDE_LEGALE, Types.VARCHAR, 254, false));
+        map.put(COL_TI_CD_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_TI_CD_ENTE_CONVENZ, Types.VARCHAR, 20, false));
+        map.put(COL_CD_CAP_SEDE_LEGALE,
+                new ColumnDescriptor(COL_CD_CAP_SEDE_LEGALE, Types.VARCHAR, 5, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

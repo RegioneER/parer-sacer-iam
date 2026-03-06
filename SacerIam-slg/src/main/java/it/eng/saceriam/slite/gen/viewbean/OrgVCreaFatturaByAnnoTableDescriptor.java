@@ -49,34 +49,34 @@ public class OrgVCreaFatturaByAnnoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_AA_FATTURA, new ColumnDescriptor(COL_AA_FATTURA, Types.DECIMAL, 22, true));
-	map.put(COL_AA_SERVIZIO_FATTURA,
-		new ColumnDescriptor(COL_AA_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
-	map.put(COL_IM_TOT_FATTURA,
-		new ColumnDescriptor(COL_IM_TOT_FATTURA, Types.DECIMAL, 22, true));
-	map.put(COL_IM_TOT_DA_PAGARE,
-		new ColumnDescriptor(COL_IM_TOT_DA_PAGARE, Types.DECIMAL, 22, true));
-	map.put(COL_IM_TOT_IVA, new ColumnDescriptor(COL_IM_TOT_IVA, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, true));
-	map.put(COL_DT_DEC_ACCORDO,
-		new ColumnDescriptor(COL_DT_DEC_ACCORDO, Types.TIMESTAMP, 7, true));
-	// map.put(COL_PG_FATTURA, new ColumnDescriptor(COL_PG_FATTURA, Types.DECIMAL, 22, true));
-	// map.put(COL_CD_FATTURA, new ColumnDescriptor(COL_CD_FATTURA, Types.VARCHAR, 182, true));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_AA_FATTURA, new ColumnDescriptor(COL_AA_FATTURA, Types.DECIMAL, 22, true));
+        map.put(COL_AA_SERVIZIO_FATTURA,
+                new ColumnDescriptor(COL_AA_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
+        map.put(COL_IM_TOT_FATTURA,
+                new ColumnDescriptor(COL_IM_TOT_FATTURA, Types.DECIMAL, 22, true));
+        map.put(COL_IM_TOT_DA_PAGARE,
+                new ColumnDescriptor(COL_IM_TOT_DA_PAGARE, Types.DECIMAL, 22, true));
+        map.put(COL_IM_TOT_IVA, new ColumnDescriptor(COL_IM_TOT_IVA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, true));
+        map.put(COL_DT_DEC_ACCORDO,
+                new ColumnDescriptor(COL_DT_DEC_ACCORDO, Types.TIMESTAMP, 7, true));
+        // map.put(COL_PG_FATTURA, new ColumnDescriptor(COL_PG_FATTURA, Types.DECIMAL, 22, true));
+        // map.put(COL_CD_FATTURA, new ColumnDescriptor(COL_CD_FATTURA, Types.VARCHAR, 182, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVLisUserReplicRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,173 +37,173 @@ public class UsrVLisUserReplicRowBean extends BaseRow
     public static UsrVLisUserReplicTableDescriptor TABLE_DESCRIPTOR = new UsrVLisUserReplicTableDescriptor();
 
     public UsrVLisUserReplicRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdLogUserDaReplic() {
-	return getBigDecimal("id_log_user_da_replic");
+        return getBigDecimal("id_log_user_da_replic");
     }
 
     public void setIdLogUserDaReplic(BigDecimal idLogUserDaReplic) {
-	setObject("id_log_user_da_replic", idLogUserDaReplic);
+        setObject("id_log_user_da_replic", idLogUserDaReplic);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public String getNmUserid() {
-	return getString("nm_userid");
+        return getString("nm_userid");
     }
 
     public void setNmUserid(String nmUserid) {
-	setObject("nm_userid", nmUserid);
+        setObject("nm_userid", nmUserid);
     }
 
     public String getTiOperReplic() {
-	return getString("ti_oper_replic");
+        return getString("ti_oper_replic");
     }
 
     public void setTiOperReplic(String tiOperReplic) {
-	setObject("ti_oper_replic", tiOperReplic);
+        setObject("ti_oper_replic", tiOperReplic);
     }
 
     public String getTiStatoReplic() {
-	return getString("ti_stato_replic");
+        return getString("ti_stato_replic");
     }
 
     public void setTiStatoReplic(String tiStatoReplic) {
-	setObject("ti_stato_replic", tiStatoReplic);
+        setObject("ti_stato_replic", tiStatoReplic);
     }
 
     public Timestamp getDtLogUserDaReplic() {
-	return getTimestamp("dt_log_user_da_replic");
+        return getTimestamp("dt_log_user_da_replic");
     }
 
     public void setDtLogUserDaReplic(Timestamp dtLogUserDaReplic) {
-	setObject("dt_log_user_da_replic", dtLogUserDaReplic);
+        setObject("dt_log_user_da_replic", dtLogUserDaReplic);
     }
 
     public String getCdErr() {
-	return getString("cd_err");
+        return getString("cd_err");
     }
 
     public void setCdErr(String cdErr) {
-	setObject("cd_err", cdErr);
+        setObject("cd_err", cdErr);
     }
 
     public String getDsMsgErr() {
-	return getString("ds_msg_err");
+        return getString("ds_msg_err");
     }
 
     public void setDsMsgErr(String dsMsgErr) {
-	setObject("ds_msg_err", dsMsgErr);
+        setObject("ds_msg_err", dsMsgErr);
     }
 
     public Timestamp getDtErr() {
-	return getTimestamp("dt_err");
+        return getTimestamp("dt_err");
     }
 
     public void setDtErr(Timestamp dtErr) {
-	setObject("dt_err", dtErr);
+        setObject("dt_err", dtErr);
     }
 
     public Timestamp getDtChiusuraReplica() {
-	return getTimestamp("dt_chiusura_replica");
+        return getTimestamp("dt_chiusura_replica");
     }
 
     public void setDtChiusuraReplica(Timestamp dtChiusuraReplica) {
-	setObject("dt_chiusura_replica", dtChiusuraReplica);
+        setObject("dt_chiusura_replica", dtChiusuraReplica);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVLisUserReplic entity = (UsrVLisUserReplic) obj;
-	this.setIdLogUserDaReplic(entity.getIdLogUserDaReplic());
-	this.setIdApplic(entity.getIdApplic());
-	this.setNmApplic(entity.getNmApplic());
-	this.setIdUserIam(entity.getIdUserIam());
-	this.setNmUserid(entity.getNmUserid());
-	this.setTiOperReplic(entity.getTiOperReplic());
-	this.setTiStatoReplic(entity.getTiStatoReplic());
-	if (entity.getDtLogUserDaReplic() != null) {
-	    this.setDtLogUserDaReplic(new Timestamp(entity.getDtLogUserDaReplic().getTime()));
-	}
-	this.setCdErr(entity.getCdErr());
-	this.setDsMsgErr(entity.getDsMsgErr());
-	if (entity.getDtErr() != null) {
-	    this.setDtErr(new Timestamp(entity.getDtErr().getTime()));
-	}
-	if (entity.getDtChiusuraReplica() != null) {
-	    this.setDtChiusuraReplica(new Timestamp(entity.getDtChiusuraReplica().getTime()));
-	}
+        UsrVLisUserReplic entity = (UsrVLisUserReplic) obj;
+        this.setIdLogUserDaReplic(entity.getIdLogUserDaReplic());
+        this.setIdApplic(entity.getIdApplic());
+        this.setNmApplic(entity.getNmApplic());
+        this.setIdUserIam(entity.getIdUserIam());
+        this.setNmUserid(entity.getNmUserid());
+        this.setTiOperReplic(entity.getTiOperReplic());
+        this.setTiStatoReplic(entity.getTiStatoReplic());
+        if (entity.getDtLogUserDaReplic() != null) {
+            this.setDtLogUserDaReplic(new Timestamp(entity.getDtLogUserDaReplic().getTime()));
+        }
+        this.setCdErr(entity.getCdErr());
+        this.setDsMsgErr(entity.getDsMsgErr());
+        if (entity.getDtErr() != null) {
+            this.setDtErr(new Timestamp(entity.getDtErr().getTime()));
+        }
+        if (entity.getDtChiusuraReplica() != null) {
+            this.setDtChiusuraReplica(new Timestamp(entity.getDtChiusuraReplica().getTime()));
+        }
     }
 
     @Override
     public UsrVLisUserReplic rowBeanToEntity() {
-	UsrVLisUserReplic entity = new UsrVLisUserReplic();
-	entity.setIdLogUserDaReplic(this.getIdLogUserDaReplic());
-	entity.setIdApplic(this.getIdApplic());
-	entity.setNmApplic(this.getNmApplic());
-	entity.setIdUserIam(this.getIdUserIam());
-	entity.setNmUserid(this.getNmUserid());
-	entity.setTiOperReplic(this.getTiOperReplic());
-	entity.setTiStatoReplic(this.getTiStatoReplic());
-	entity.setDtLogUserDaReplic(this.getDtLogUserDaReplic());
-	entity.setCdErr(this.getCdErr());
-	entity.setDsMsgErr(this.getDsMsgErr());
-	entity.setDtErr(this.getDtErr());
-	entity.setDtChiusuraReplica(this.getDtChiusuraReplica());
-	return entity;
+        UsrVLisUserReplic entity = new UsrVLisUserReplic();
+        entity.setIdLogUserDaReplic(this.getIdLogUserDaReplic());
+        entity.setIdApplic(this.getIdApplic());
+        entity.setNmApplic(this.getNmApplic());
+        entity.setIdUserIam(this.getIdUserIam());
+        entity.setNmUserid(this.getNmUserid());
+        entity.setTiOperReplic(this.getTiOperReplic());
+        entity.setTiStatoReplic(this.getTiStatoReplic());
+        entity.setDtLogUserDaReplic(this.getDtLogUserDaReplic());
+        entity.setCdErr(this.getCdErr());
+        entity.setDsMsgErr(this.getDsMsgErr());
+        entity.setDtErr(this.getDtErr());
+        entity.setDtChiusuraReplica(this.getDtChiusuraReplica());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -45,29 +45,29 @@ public class AplPaginaWebTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_PAGINA_WEB,
-		new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_NM_PAGINA_WEB,
-		new ColumnDescriptor(COL_NM_PAGINA_WEB, Types.VARCHAR, 100, false));
-	map.put(COL_DS_PAGINA_WEB,
-		new ColumnDescriptor(COL_DS_PAGINA_WEB, Types.VARCHAR, 254, false));
-	map.put(COL_TI_HELP_ON_LINE,
-		new ColumnDescriptor(COL_TI_HELP_ON_LINE, Types.VARCHAR, 20, false));
-	map.put(COL_ID_ENTRY_MENU,
-		new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, false));
+        map.put(COL_ID_PAGINA_WEB,
+                new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_NM_PAGINA_WEB,
+                new ColumnDescriptor(COL_NM_PAGINA_WEB, Types.VARCHAR, 100, false));
+        map.put(COL_DS_PAGINA_WEB,
+                new ColumnDescriptor(COL_DS_PAGINA_WEB, Types.VARCHAR, 254, false));
+        map.put(COL_TI_HELP_ON_LINE,
+                new ColumnDescriptor(COL_TI_HELP_ON_LINE, Types.VARCHAR, 20, false));
+        map.put(COL_ID_ENTRY_MENU,
+                new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -10305,10 +10305,12 @@ public class EntiConvenzionatiEjb {
     // MEV #32361
     public IamParamApplicTableBean getIamParamApplicTableBean(String tiParamApplic,
             String tiGestioneParam, String flAppartApplic, String flAppartAmbiente,
-            String flApparteEnte, boolean filterValid) {
+            String flApparteEnte, boolean filterValid, String cdVersioneAppIni,
+            String cdVersioneAppFine) {
         IamParamApplicTableBean paramApplicTableBean = new IamParamApplicTableBean();
         List<IamParamApplic> paramApplicList = helper.getIamParamApplicList(tiParamApplic,
-                tiGestioneParam, flAppartApplic, flAppartAmbiente, flApparteEnte, filterValid);
+                tiGestioneParam, flAppartApplic, flAppartAmbiente, flApparteEnte, filterValid,
+                cdVersioneAppIni, cdVersioneAppFine);
 
         try {
             if (paramApplicList != null && !paramApplicList.isEmpty()) {

@@ -23,7 +23,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplSistemaVersanteUserRefTableBean
-	extends AbstractBaseTable<AplSistemaVersanteUserRefRowBean> {
+        extends AbstractBaseTable<AplSistemaVersanteUserRefRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -33,19 +33,19 @@ public class AplSistemaVersanteUserRefTableBean
     public static AplSistemaVersanteUserRefTableDescriptor TABLE_DESCRIPTOR = new AplSistemaVersanteUserRefTableDescriptor();
 
     public AplSistemaVersanteUserRefTableBean() {
-	super();
+        super();
     }
 
     protected AplSistemaVersanteUserRefRowBean createRow() {
-	return new AplSistemaVersanteUserRefRowBean();
+        return new AplSistemaVersanteUserRefRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplSistemaVersanteUserRefRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

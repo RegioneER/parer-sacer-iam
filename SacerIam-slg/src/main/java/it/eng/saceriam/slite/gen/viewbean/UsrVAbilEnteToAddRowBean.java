@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVAbilEnteToAddRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,80 +37,80 @@ public class UsrVAbilEnteToAddRowBean extends BaseRow
     public static UsrVAbilEnteToAddTableDescriptor TABLE_DESCRIPTOR = new UsrVAbilEnteToAddTableDescriptor();
 
     public UsrVAbilEnteToAddRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public BigDecimal getIdEnteConvenz() {
-	return getBigDecimal("id_ente_convenz");
+        return getBigDecimal("id_ente_convenz");
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	setObject("id_ente_convenz", idEnteConvenz);
+        setObject("id_ente_convenz", idEnteConvenz);
     }
 
     public BigDecimal getIdDichAbilEnteConvenz() {
-	return getBigDecimal("id_dich_abil_ente_convenz");
+        return getBigDecimal("id_dich_abil_ente_convenz");
     }
 
     public void setIdDichAbilEnteConvenz(BigDecimal idDichAbilEnteConvenz) {
-	setObject("id_dich_abil_ente_convenz", idDichAbilEnteConvenz);
+        setObject("id_dich_abil_ente_convenz", idDichAbilEnteConvenz);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVAbilEnteToAdd entity = (UsrVAbilEnteToAdd) obj;
-	this.setIdUserIam(entity.getUsrVAbilEnteToAddId() == null ? null
-		: entity.getUsrVAbilEnteToAddId().getIdUserIam());
-	this.setIdEnteConvenz(entity.getUsrVAbilEnteToAddId() == null ? null
-		: entity.getUsrVAbilEnteToAddId().getIdEnteConvenz());
-	this.setIdDichAbilEnteConvenz(entity.getIdDichAbilEnteConvenz());
+        UsrVAbilEnteToAdd entity = (UsrVAbilEnteToAdd) obj;
+        this.setIdUserIam(entity.getUsrVAbilEnteToAddId() == null ? null
+                : entity.getUsrVAbilEnteToAddId().getIdUserIam());
+        this.setIdEnteConvenz(entity.getUsrVAbilEnteToAddId() == null ? null
+                : entity.getUsrVAbilEnteToAddId().getIdEnteConvenz());
+        this.setIdDichAbilEnteConvenz(entity.getIdDichAbilEnteConvenz());
     }
 
     @Override
     public UsrVAbilEnteToAdd rowBeanToEntity() {
-	UsrVAbilEnteToAdd entity = new UsrVAbilEnteToAdd();
-	entity.setUsrVAbilEnteToAddId(new UsrVAbilEnteToAddId());
-	entity.getUsrVAbilEnteToAddId().setIdUserIam(this.getIdUserIam());
-	entity.getUsrVAbilEnteToAddId().setIdEnteConvenz(this.getIdEnteConvenz());
-	entity.setIdDichAbilEnteConvenz(this.getIdDichAbilEnteConvenz());
-	return entity;
+        UsrVAbilEnteToAdd entity = new UsrVAbilEnteToAdd();
+        entity.setUsrVAbilEnteToAddId(new UsrVAbilEnteToAddId());
+        entity.getUsrVAbilEnteToAddId().setIdUserIam(this.getIdUserIam());
+        entity.getUsrVAbilEnteToAddId().setIdEnteConvenz(this.getIdEnteConvenz());
+        entity.setIdDichAbilEnteConvenz(this.getIdDichAbilEnteConvenz());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

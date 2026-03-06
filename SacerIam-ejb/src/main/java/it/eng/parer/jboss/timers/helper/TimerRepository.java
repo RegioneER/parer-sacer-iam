@@ -55,14 +55,14 @@ public class TimerRepository {
 
     @PostConstruct
     public void initialize() {
-	map = new HashMap<>();
-	map.put(Constants.NomiJob.REPLICA_UTENTI.name(), replicaUtentiTimer);
-	map.put(Constants.NomiJob.SCADENZA_FATTURE.name(), scadenzaFattureTimer);
-	map.put(it.eng.parer.sacerlog.job.Constants.NomiJob.INIZIALIZZAZIONE_LOG.name(),
-		sacerLogTimer);
-	map.put(it.eng.parer.sacerlog.job.Constants.NomiJob.ALLINEAMENTO_LOG.name(),
-		sacerLogAllineamentoTimer);
-	map.put(Constants.NomiJob.ELIMINA_REPLICHE_UTENTI.name(), eliminaReplicheTimer);
+        map = new HashMap<>();
+        map.put(Constants.NomiJob.REPLICA_UTENTI.name(), replicaUtentiTimer);
+        map.put(Constants.NomiJob.SCADENZA_FATTURE.name(), scadenzaFattureTimer);
+        map.put(it.eng.parer.sacerlog.job.Constants.NomiJob.INIZIALIZZAZIONE_LOG.name(),
+                sacerLogTimer);
+        map.put(it.eng.parer.sacerlog.job.Constants.NomiJob.ALLINEAMENTO_LOG.name(),
+                sacerLogAllineamentoTimer);
+        map.put(Constants.NomiJob.ELIMINA_REPLICHE_UTENTI.name(), eliminaReplicheTimer);
     }
 
     /**
@@ -72,7 +72,7 @@ public class TimerRepository {
      */
     @Lock(LockType.READ)
     public Set<String> getConfiguredTimersName() {
-	return map.keySet();
+        return map.keySet();
     }
 
     /**
@@ -84,6 +84,6 @@ public class TimerRepository {
      */
     @Lock(LockType.READ)
     public JbossJobTimer getConfiguredTimer(String jobName) {
-	return map.get(jobName);
+        return map.get(jobName);
     }
 }

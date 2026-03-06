@@ -39,15 +39,15 @@ public class GestioneJobHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	return getSacerIamArchive(GestioneJobHelper.class).addPackages(true,
-		"it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
+        return getSacerIamArchive(GestioneJobHelper.class).addPackages(true,
+                "it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
     }
 
     @Test
     void getLogVVisLastSched_queryIsOk() {
-	String nmJob = aString();
-	helper.getLogVVisLastSched(nmJob);
-	assertTrue(true);
+        String nmJob = aString();
+        helper.getLogVVisLastSched(nmJob);
+        assertTrue(true);
     }
 
 }

@@ -32,19 +32,19 @@ public class OrgPagamFatturaEnteTableBean extends AbstractBaseTable<OrgPagamFatt
     public static OrgPagamFatturaEnteTableDescriptor TABLE_DESCRIPTOR = new OrgPagamFatturaEnteTableDescriptor();
 
     public OrgPagamFatturaEnteTableBean() {
-	super();
+        super();
     }
 
     protected OrgPagamFatturaEnteRowBean createRow() {
-	return new OrgPagamFatturaEnteRowBean();
+        return new OrgPagamFatturaEnteRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgPagamFatturaEnteRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

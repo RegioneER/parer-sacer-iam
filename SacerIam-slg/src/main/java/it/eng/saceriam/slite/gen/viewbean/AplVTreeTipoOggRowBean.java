@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplVTreeTipoOggRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -36,117 +36,117 @@ public class AplVTreeTipoOggRowBean extends BaseRow
     public static AplVTreeTipoOggTableDescriptor TABLE_DESCRIPTOR = new AplVTreeTipoOggTableDescriptor();
 
     public AplVTreeTipoOggRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public BigDecimal getIdTipoOggetto() {
-	return getBigDecimal("id_tipo_oggetto");
+        return getBigDecimal("id_tipo_oggetto");
     }
 
     public void setIdTipoOggetto(BigDecimal idTipoOggetto) {
-	setObject("id_tipo_oggetto", idTipoOggetto);
+        setObject("id_tipo_oggetto", idTipoOggetto);
     }
 
     public String getNmTipoOggetto() {
-	return getString("nm_tipo_oggetto");
+        return getString("nm_tipo_oggetto");
     }
 
     public void setNmTipoOggetto(String nmTipoOggetto) {
-	setObject("nm_tipo_oggetto", nmTipoOggetto);
+        setObject("nm_tipo_oggetto", nmTipoOggetto);
     }
 
     public BigDecimal getIdTipoOggettoPadre() {
-	return getBigDecimal("id_tipo_oggetto_padre");
+        return getBigDecimal("id_tipo_oggetto_padre");
     }
 
     public void setIdTipoOggettoPadre(BigDecimal idTipoOggettoPadre) {
-	setObject("id_tipo_oggetto_padre", idTipoOggettoPadre);
+        setObject("id_tipo_oggetto_padre", idTipoOggettoPadre);
     }
 
     public String getDlCompositoTipoOggetto() {
-	return getString("dl_composito_tipo_oggetto");
+        return getString("dl_composito_tipo_oggetto");
     }
 
     public void setDlCompositoTipoOggetto(String dlCompositoTipoOggetto) {
-	setObject("dl_composito_tipo_oggetto", dlCompositoTipoOggetto);
+        setObject("dl_composito_tipo_oggetto", dlCompositoTipoOggetto);
     }
 
     public String getDlPathIdTipoOggetto() {
-	return getString("dl_path_id_tipo_oggetto");
+        return getString("dl_path_id_tipo_oggetto");
     }
 
     public void setDlPathIdTipoOggetto(String dlPathIdTipoOggetto) {
-	setObject("dl_path_id_tipo_oggetto", dlPathIdTipoOggetto);
+        setObject("dl_path_id_tipo_oggetto", dlPathIdTipoOggetto);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplVTreeTipoOgg entity = (AplVTreeTipoOgg) obj;
-	this.setIdApplic(entity.getIdApplic());
-	this.setNmApplic(entity.getNmApplic());
-	this.setIdTipoOggetto(entity.getIdTipoOggetto());
-	this.setNmTipoOggetto(entity.getNmTipoOggetto());
-	this.setIdTipoOggettoPadre(entity.getIdTipoOggettoPadre());
-	this.setDlCompositoTipoOggetto(entity.getDlCompositoTipoOggetto());
-	this.setDlPathIdTipoOggetto(entity.getDlPathIdTipoOggetto());
+        AplVTreeTipoOgg entity = (AplVTreeTipoOgg) obj;
+        this.setIdApplic(entity.getIdApplic());
+        this.setNmApplic(entity.getNmApplic());
+        this.setIdTipoOggetto(entity.getIdTipoOggetto());
+        this.setNmTipoOggetto(entity.getNmTipoOggetto());
+        this.setIdTipoOggettoPadre(entity.getIdTipoOggettoPadre());
+        this.setDlCompositoTipoOggetto(entity.getDlCompositoTipoOggetto());
+        this.setDlPathIdTipoOggetto(entity.getDlPathIdTipoOggetto());
     }
 
     @Override
     public AplVTreeTipoOgg rowBeanToEntity() {
-	AplVTreeTipoOgg entity = new AplVTreeTipoOgg();
-	entity.setIdApplic(this.getIdApplic());
-	entity.setNmApplic(this.getNmApplic());
-	entity.setIdTipoOggetto(this.getIdTipoOggetto());
-	entity.setNmTipoOggetto(this.getNmTipoOggetto());
-	entity.setIdTipoOggettoPadre(this.getIdTipoOggettoPadre());
-	entity.setDlCompositoTipoOggetto(this.getDlCompositoTipoOggetto());
-	entity.setDlPathIdTipoOggetto(this.getDlPathIdTipoOggetto());
-	return entity;
+        AplVTreeTipoOgg entity = new AplVTreeTipoOgg();
+        entity.setIdApplic(this.getIdApplic());
+        entity.setNmApplic(this.getNmApplic());
+        entity.setIdTipoOggetto(this.getIdTipoOggetto());
+        entity.setNmTipoOggetto(this.getNmTipoOggetto());
+        entity.setIdTipoOggettoPadre(this.getIdTipoOggettoPadre());
+        entity.setDlCompositoTipoOggetto(this.getDlCompositoTipoOggetto());
+        entity.setDlPathIdTipoOggetto(this.getDlPathIdTipoOggetto());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -40,162 +40,162 @@ public class PrfAutorRowBean extends BaseRow implements BaseRowInterface, JEEBas
     public static PrfAutorTableDescriptor TABLE_DESCRIPTOR = new PrfAutorTableDescriptor();
 
     public PrfAutorRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdAutor() {
-	return getBigDecimal("id_autor");
+        return getBigDecimal("id_autor");
     }
 
     public void setIdAutor(BigDecimal idAutor) {
-	setObject("id_autor", idAutor);
+        setObject("id_autor", idAutor);
     }
 
     public BigDecimal getIdUsoRuoloApplic() {
-	return getBigDecimal("id_uso_ruolo_applic");
+        return getBigDecimal("id_uso_ruolo_applic");
     }
 
     public void setIdUsoRuoloApplic(BigDecimal idUsoRuoloApplic) {
-	setObject("id_uso_ruolo_applic", idUsoRuoloApplic);
+        setObject("id_uso_ruolo_applic", idUsoRuoloApplic);
     }
 
     public String getTiDichAutor() {
-	return getString("ti_dich_autor");
+        return getString("ti_dich_autor");
     }
 
     public void setTiDichAutor(String tiDichAutor) {
-	setObject("ti_dich_autor", tiDichAutor);
+        setObject("ti_dich_autor", tiDichAutor);
     }
 
     public BigDecimal getIdEntryMenu() {
-	return getBigDecimal("id_entry_menu");
+        return getBigDecimal("id_entry_menu");
     }
 
     public void setIdEntryMenu(BigDecimal idEntryMenu) {
-	setObject("id_entry_menu", idEntryMenu);
+        setObject("id_entry_menu", idEntryMenu);
     }
 
     public BigDecimal getIdPaginaWeb() {
-	return getBigDecimal("id_pagina_web");
+        return getBigDecimal("id_pagina_web");
     }
 
     public void setIdPaginaWeb(BigDecimal idPaginaWeb) {
-	setObject("id_pagina_web", idPaginaWeb);
+        setObject("id_pagina_web", idPaginaWeb);
     }
 
     public BigDecimal getIdAzionePagina() {
-	return getBigDecimal("id_azione_pagina");
+        return getBigDecimal("id_azione_pagina");
     }
 
     public void setIdAzionePagina(BigDecimal idAzionePagina) {
-	setObject("id_azione_pagina", idAzionePagina);
+        setObject("id_azione_pagina", idAzionePagina);
     }
 
     public BigDecimal getIdServizioWeb() {
-	return getBigDecimal("id_servizio_web");
+        return getBigDecimal("id_servizio_web");
     }
 
     public void setIdServizioWeb(BigDecimal idServizioWeb) {
-	setObject("id_servizio_web", idServizioWeb);
+        setObject("id_servizio_web", idServizioWeb);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	PrfAutor entity = (PrfAutor) obj;
-	this.setIdAutor(new BigDecimal(entity.getIdAutor()));
-	if (entity.getPrfUsoRuoloApplic() != null) {
-	    this.setIdUsoRuoloApplic(
-		    new BigDecimal(entity.getPrfUsoRuoloApplic().getIdUsoRuoloApplic()));
+        PrfAutor entity = (PrfAutor) obj;
+        this.setIdAutor(new BigDecimal(entity.getIdAutor()));
+        if (entity.getPrfUsoRuoloApplic() != null) {
+            this.setIdUsoRuoloApplic(
+                    new BigDecimal(entity.getPrfUsoRuoloApplic().getIdUsoRuoloApplic()));
 
-	}
-	this.setTiDichAutor(entity.getTiDichAutor());
-	if (entity.getAplEntryMenu() != null) {
-	    this.setIdEntryMenu(new BigDecimal(entity.getAplEntryMenu().getIdEntryMenu()));
+        }
+        this.setTiDichAutor(entity.getTiDichAutor());
+        if (entity.getAplEntryMenu() != null) {
+            this.setIdEntryMenu(new BigDecimal(entity.getAplEntryMenu().getIdEntryMenu()));
 
-	}
-	if (entity.getAplPaginaWeb() != null) {
-	    this.setIdPaginaWeb(new BigDecimal(entity.getAplPaginaWeb().getIdPaginaWeb()));
+        }
+        if (entity.getAplPaginaWeb() != null) {
+            this.setIdPaginaWeb(new BigDecimal(entity.getAplPaginaWeb().getIdPaginaWeb()));
 
-	}
-	if (entity.getAplAzionePagina() != null) {
-	    this.setIdAzionePagina(new BigDecimal(entity.getAplAzionePagina().getIdAzionePagina()));
+        }
+        if (entity.getAplAzionePagina() != null) {
+            this.setIdAzionePagina(new BigDecimal(entity.getAplAzionePagina().getIdAzionePagina()));
 
-	}
-	if (entity.getAplServizioWeb() != null) {
-	    this.setIdServizioWeb(new BigDecimal(entity.getAplServizioWeb().getIdServizioWeb()));
+        }
+        if (entity.getAplServizioWeb() != null) {
+            this.setIdServizioWeb(new BigDecimal(entity.getAplServizioWeb().getIdServizioWeb()));
 
-	}
+        }
     }
 
     @Override
     public PrfAutor rowBeanToEntity() {
-	PrfAutor entity = new PrfAutor();
-	if (this.getIdAutor() != null) {
-	    entity.setIdAutor(this.getIdAutor().longValue());
-	}
-	if (this.getIdUsoRuoloApplic() != null) {
-	    if (entity.getPrfUsoRuoloApplic() == null) {
-		entity.setPrfUsoRuoloApplic(new PrfUsoRuoloApplic());
-	    }
-	    entity.getPrfUsoRuoloApplic()
-		    .setIdUsoRuoloApplic(this.getIdUsoRuoloApplic().longValue());
-	}
-	entity.setTiDichAutor(this.getTiDichAutor());
-	if (this.getIdEntryMenu() != null) {
-	    if (entity.getAplEntryMenu() == null) {
-		entity.setAplEntryMenu(new AplEntryMenu());
-	    }
-	    entity.getAplEntryMenu().setIdEntryMenu(this.getIdEntryMenu().longValue());
-	}
-	if (this.getIdPaginaWeb() != null) {
-	    if (entity.getAplPaginaWeb() == null) {
-		entity.setAplPaginaWeb(new AplPaginaWeb());
-	    }
-	    entity.getAplPaginaWeb().setIdPaginaWeb(this.getIdPaginaWeb().longValue());
-	}
-	if (this.getIdAzionePagina() != null) {
-	    if (entity.getAplAzionePagina() == null) {
-		entity.setAplAzionePagina(new AplAzionePagina());
-	    }
-	    entity.getAplAzionePagina().setIdAzionePagina(this.getIdAzionePagina().longValue());
-	}
-	if (this.getIdServizioWeb() != null) {
-	    if (entity.getAplServizioWeb() == null) {
-		entity.setAplServizioWeb(new AplServizioWeb());
-	    }
-	    entity.getAplServizioWeb().setIdServizioWeb(this.getIdServizioWeb().longValue());
-	}
-	return entity;
+        PrfAutor entity = new PrfAutor();
+        if (this.getIdAutor() != null) {
+            entity.setIdAutor(this.getIdAutor().longValue());
+        }
+        if (this.getIdUsoRuoloApplic() != null) {
+            if (entity.getPrfUsoRuoloApplic() == null) {
+                entity.setPrfUsoRuoloApplic(new PrfUsoRuoloApplic());
+            }
+            entity.getPrfUsoRuoloApplic()
+                    .setIdUsoRuoloApplic(this.getIdUsoRuoloApplic().longValue());
+        }
+        entity.setTiDichAutor(this.getTiDichAutor());
+        if (this.getIdEntryMenu() != null) {
+            if (entity.getAplEntryMenu() == null) {
+                entity.setAplEntryMenu(new AplEntryMenu());
+            }
+            entity.getAplEntryMenu().setIdEntryMenu(this.getIdEntryMenu().longValue());
+        }
+        if (this.getIdPaginaWeb() != null) {
+            if (entity.getAplPaginaWeb() == null) {
+                entity.setAplPaginaWeb(new AplPaginaWeb());
+            }
+            entity.getAplPaginaWeb().setIdPaginaWeb(this.getIdPaginaWeb().longValue());
+        }
+        if (this.getIdAzionePagina() != null) {
+            if (entity.getAplAzionePagina() == null) {
+                entity.setAplAzionePagina(new AplAzionePagina());
+            }
+            entity.getAplAzionePagina().setIdAzionePagina(this.getIdAzionePagina().longValue());
+        }
+        if (this.getIdServizioWeb() != null) {
+            if (entity.getAplServizioWeb() == null) {
+                entity.setAplServizioWeb(new AplServizioWeb());
+            }
+            entity.getAplServizioWeb().setIdServizioWeb(this.getIdServizioWeb().longValue());
+        }
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

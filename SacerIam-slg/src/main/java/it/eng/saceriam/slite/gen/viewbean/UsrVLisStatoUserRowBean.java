@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVLisStatoUserRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,127 +37,127 @@ public class UsrVLisStatoUserRowBean extends BaseRow
     public static UsrVLisStatoUserTableDescriptor TABLE_DESCRIPTOR = new UsrVLisStatoUserTableDescriptor();
 
     public UsrVLisStatoUserRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdStatoUser() {
-	return getBigDecimal("id_stato_user");
+        return getBigDecimal("id_stato_user");
     }
 
     public void setIdStatoUser(BigDecimal idStatoUser) {
-	setObject("id_stato_user", idStatoUser);
+        setObject("id_stato_user", idStatoUser);
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public Timestamp getTsStato() {
-	return getTimestamp("ts_stato");
+        return getTimestamp("ts_stato");
     }
 
     public void setTsStato(Timestamp tsStato) {
-	setObject("ts_stato", tsStato);
+        setObject("ts_stato", tsStato);
     }
 
     public String getTiStatoUser() {
-	return getString("ti_stato_user");
+        return getString("ti_stato_user");
     }
 
     public void setTiStatoUser(String tiStatoUser) {
-	setObject("ti_stato_user", tiStatoUser);
+        setObject("ti_stato_user", tiStatoUser);
     }
 
     public String getIdUnitaDocRich() {
-	return getString("id_unita_doc_rich");
+        return getString("id_unita_doc_rich");
     }
 
     public void setIdUnitaDocRich(String idUnitaDocRich) {
-	setObject("id_unita_doc_rich", idUnitaDocRich);
+        setObject("id_unita_doc_rich", idUnitaDocRich);
     }
 
     public String getIdRich() {
-	return getString("id_rich");
+        return getString("id_rich");
     }
 
     public void setIdRich(String idRich) {
-	setObject("id_rich", idRich);
+        setObject("id_rich", idRich);
     }
 
     public String getKeyRichGestUser() {
-	return getString("key_rich_gest_user");
+        return getString("key_rich_gest_user");
     }
 
     public void setKeyRichGestUser(String keyRichGestUser) {
-	setObject("key_rich_gest_user", keyRichGestUser);
+        setObject("key_rich_gest_user", keyRichGestUser);
     }
 
     public String getListaTipiAzione() {
-	return getString("lista_tipi_azione");
+        return getString("lista_tipi_azione");
     }
 
     public void setListaTipiAzione(String listaTipiAzione) {
-	setObject("lista_tipi_azione", listaTipiAzione);
+        setObject("lista_tipi_azione", listaTipiAzione);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVLisStatoUser entity = (UsrVLisStatoUser) obj;
-	this.setIdStatoUser(entity.getIdStatoUser());
-	this.setIdUserIam(entity.getIdUserIam());
-	this.setTsStato(entity.getTsStato());
-	this.setTiStatoUser(entity.getTiStatoUser());
-	this.setIdUnitaDocRich(entity.getIdUnitaDocRich());
-	this.setIdRich(entity.getIdRich());
-	this.setKeyRichGestUser(entity.getKeyRichGestUser());
-	this.setListaTipiAzione(entity.getListaTipiAzione());
+        UsrVLisStatoUser entity = (UsrVLisStatoUser) obj;
+        this.setIdStatoUser(entity.getIdStatoUser());
+        this.setIdUserIam(entity.getIdUserIam());
+        this.setTsStato(entity.getTsStato());
+        this.setTiStatoUser(entity.getTiStatoUser());
+        this.setIdUnitaDocRich(entity.getIdUnitaDocRich());
+        this.setIdRich(entity.getIdRich());
+        this.setKeyRichGestUser(entity.getKeyRichGestUser());
+        this.setListaTipiAzione(entity.getListaTipiAzione());
     }
 
     @Override
     public UsrVLisStatoUser rowBeanToEntity() {
-	UsrVLisStatoUser entity = new UsrVLisStatoUser();
-	entity.setIdStatoUser(this.getIdStatoUser());
-	entity.setIdUserIam(this.getIdUserIam());
-	entity.setTsStato(this.getTsStato());
-	entity.setTiStatoUser(this.getTiStatoUser());
-	entity.setIdUnitaDocRich(this.getIdUnitaDocRich());
-	entity.setIdRich(this.getIdRich());
-	entity.setKeyRichGestUser(this.getKeyRichGestUser());
-	entity.setListaTipiAzione(this.getListaTipiAzione());
-	return entity;
+        UsrVLisStatoUser entity = new UsrVLisStatoUser();
+        entity.setIdStatoUser(this.getIdStatoUser());
+        entity.setIdUserIam(this.getIdUserIam());
+        entity.setTsStato(this.getTsStato());
+        entity.setTiStatoUser(this.getTiStatoUser());
+        entity.setIdUnitaDocRich(this.getIdUnitaDocRich());
+        entity.setIdRich(this.getIdRich());
+        entity.setKeyRichGestUser(this.getKeyRichGestUser());
+        entity.setListaTipiAzione(this.getListaTipiAzione());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVCreaFatturaByAnnoTableBean
-	extends AbstractBaseTable<OrgVCreaFatturaByAnnoRowBean> {
+        extends AbstractBaseTable<OrgVCreaFatturaByAnnoRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVCreaFatturaByAnnoTableBean
     public static OrgVCreaFatturaByAnnoTableDescriptor TABLE_DESCRIPTOR = new OrgVCreaFatturaByAnnoTableDescriptor();
 
     public OrgVCreaFatturaByAnnoTableBean() {
-	super();
+        super();
     }
 
     protected OrgVCreaFatturaByAnnoRowBean createRow() {
-	return new OrgVCreaFatturaByAnnoRowBean();
+        return new OrgVCreaFatturaByAnnoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVCreaFatturaByAnnoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

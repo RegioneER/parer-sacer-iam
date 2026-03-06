@@ -36,19 +36,19 @@ public class AplVTreeMenuPagAzioTableBean extends AbstractBaseTable<AplVTreeMenu
     public static AplVTreeMenuPagAzioTableDescriptor TABLE_DESCRIPTOR = new AplVTreeMenuPagAzioTableDescriptor();
 
     public AplVTreeMenuPagAzioTableBean() {
-	super();
+        super();
     }
 
     protected AplVTreeMenuPagAzioRowBean createRow() {
-	return new AplVTreeMenuPagAzioRowBean();
+        return new AplVTreeMenuPagAzioRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplVTreeMenuPagAzioRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

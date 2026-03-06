@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVLisIniSchedJobRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,103 +37,103 @@ public class UsrVLisIniSchedJobRowBean extends BaseRow
     public static UsrVLisIniSchedJobTableDescriptor TABLE_DESCRIPTOR = new UsrVLisIniSchedJobTableDescriptor();
 
     public UsrVLisIniSchedJobRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdLogJob() {
-	return getBigDecimal("id_log_job");
+        return getBigDecimal("id_log_job");
     }
 
     public void setIdLogJob(BigDecimal idLogJob) {
-	setObject("id_log_job", idLogJob);
+        setObject("id_log_job", idLogJob);
     }
 
     public String getNmJob() {
-	return getString("nm_job");
+        return getString("nm_job");
     }
 
     public void setNmJob(String nmJob) {
-	setObject("nm_job", nmJob);
+        setObject("nm_job", nmJob);
     }
 
     public Timestamp getDtRegLogJobIni() {
-	return getTimestamp("dt_reg_log_job_ini");
+        return getTimestamp("dt_reg_log_job_ini");
     }
 
     public void setDtRegLogJobIni(Timestamp dtRegLogJobIni) {
-	setObject("dt_reg_log_job_ini", dtRegLogJobIni);
+        setObject("dt_reg_log_job_ini", dtRegLogJobIni);
     }
 
     public Timestamp getDtRegLogJobFineSuc() {
-	return getTimestamp("dt_reg_log_job_fine_suc");
+        return getTimestamp("dt_reg_log_job_fine_suc");
     }
 
     public void setDtRegLogJobFineSuc(Timestamp dtRegLogJobFineSuc) {
-	setObject("dt_reg_log_job_fine_suc", dtRegLogJobFineSuc);
+        setObject("dt_reg_log_job_fine_suc", dtRegLogJobFineSuc);
     }
 
     public Timestamp getDtRegLogJobIniSuc() {
-	return getTimestamp("dt_reg_log_job_ini_suc");
+        return getTimestamp("dt_reg_log_job_ini_suc");
     }
 
     public void setDtRegLogJobIniSuc(Timestamp dtRegLogJobIniSuc) {
-	setObject("dt_reg_log_job_ini_suc", dtRegLogJobIniSuc);
+        setObject("dt_reg_log_job_ini_suc", dtRegLogJobIniSuc);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVLisIniSchedJob entity = (UsrVLisIniSchedJob) obj;
-	this.setIdLogJob(entity.getIdLogJob());
-	this.setNmJob(entity.getNmJob());
-	if (entity.getDtRegLogJobIni() != null) {
-	    this.setDtRegLogJobIni(new Timestamp(entity.getDtRegLogJobIni().getTime()));
-	}
-	if (entity.getDtRegLogJobFineSuc() != null) {
-	    this.setDtRegLogJobFineSuc(new Timestamp(entity.getDtRegLogJobFineSuc().getTime()));
-	}
-	if (entity.getDtRegLogJobIniSuc() != null) {
-	    this.setDtRegLogJobIniSuc(new Timestamp(entity.getDtRegLogJobIniSuc().getTime()));
-	}
+        UsrVLisIniSchedJob entity = (UsrVLisIniSchedJob) obj;
+        this.setIdLogJob(entity.getIdLogJob());
+        this.setNmJob(entity.getNmJob());
+        if (entity.getDtRegLogJobIni() != null) {
+            this.setDtRegLogJobIni(new Timestamp(entity.getDtRegLogJobIni().getTime()));
+        }
+        if (entity.getDtRegLogJobFineSuc() != null) {
+            this.setDtRegLogJobFineSuc(new Timestamp(entity.getDtRegLogJobFineSuc().getTime()));
+        }
+        if (entity.getDtRegLogJobIniSuc() != null) {
+            this.setDtRegLogJobIniSuc(new Timestamp(entity.getDtRegLogJobIniSuc().getTime()));
+        }
     }
 
     @Override
     public UsrVLisIniSchedJob rowBeanToEntity() {
-	UsrVLisIniSchedJob entity = new UsrVLisIniSchedJob();
-	entity.setIdLogJob(this.getIdLogJob());
-	entity.setNmJob(this.getNmJob());
-	entity.setDtRegLogJobIni(this.getDtRegLogJobIni());
-	entity.setDtRegLogJobFineSuc(this.getDtRegLogJobFineSuc());
-	entity.setDtRegLogJobIniSuc(this.getDtRegLogJobIniSuc());
-	return entity;
+        UsrVLisIniSchedJob entity = new UsrVLisIniSchedJob();
+        entity.setIdLogJob(this.getIdLogJob());
+        entity.setNmJob(this.getNmJob());
+        entity.setDtRegLogJobIni(this.getDtRegLogJobIni());
+        entity.setDtRegLogJobFineSuc(this.getDtRegLogJobFineSuc());
+        entity.setDtRegLogJobIniSuc(this.getDtRegLogJobIniSuc());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -36,19 +36,19 @@ public class UsrVCheckRuoloDichTableBean extends AbstractBaseTable<UsrVCheckRuol
     public static UsrVCheckRuoloDichTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckRuoloDichTableDescriptor();
 
     public UsrVCheckRuoloDichTableBean() {
-	super();
+        super();
     }
 
     protected UsrVCheckRuoloDichRowBean createRow() {
-	return new UsrVCheckRuoloDichRowBean();
+        return new UsrVCheckRuoloDichRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVCheckRuoloDichRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

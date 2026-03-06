@@ -32,19 +32,19 @@ public class OrgServizioFatturaTableBean extends AbstractBaseTable<OrgServizioFa
     public static OrgServizioFatturaTableDescriptor TABLE_DESCRIPTOR = new OrgServizioFatturaTableDescriptor();
 
     public OrgServizioFatturaTableBean() {
-	super();
+        super();
     }
 
     protected OrgServizioFatturaRowBean createRow() {
-	return new OrgServizioFatturaRowBean();
+        return new OrgServizioFatturaRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgServizioFatturaRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

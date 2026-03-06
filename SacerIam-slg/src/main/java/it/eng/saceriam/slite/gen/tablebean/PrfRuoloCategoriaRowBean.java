@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class PrfRuoloCategoriaRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -37,88 +37,88 @@ public class PrfRuoloCategoriaRowBean extends BaseRow
     public static PrfRuoloCategoriaTableDescriptor TABLE_DESCRIPTOR = new PrfRuoloCategoriaTableDescriptor();
 
     public PrfRuoloCategoriaRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdRuoloCategoria() {
-	return getBigDecimal("id_ruolo_categoria");
+        return getBigDecimal("id_ruolo_categoria");
     }
 
     public void setIdRuoloCategoria(BigDecimal idRuoloCategoria) {
-	setObject("id_ruolo_categoria", idRuoloCategoria);
+        setObject("id_ruolo_categoria", idRuoloCategoria);
     }
 
     public BigDecimal getIdRuolo() {
-	return getBigDecimal("id_ruolo");
+        return getBigDecimal("id_ruolo");
     }
 
     public void setIdRuolo(BigDecimal idRuolo) {
-	setObject("id_ruolo", idRuolo);
+        setObject("id_ruolo", idRuolo);
     }
 
     public String getTiCategRuolo() {
-	return getString("ti_categ_ruolo");
+        return getString("ti_categ_ruolo");
     }
 
     public void setTiCategRuolo(String tiCategRuolo) {
-	setObject("ti_categ_ruolo", tiCategRuolo);
+        setObject("ti_categ_ruolo", tiCategRuolo);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	PrfRuoloCategoria entity = (PrfRuoloCategoria) obj;
-	this.setIdRuoloCategoria(new BigDecimal(entity.getIdRuoloCategoria()));
-	if (entity.getPrfRuolo() != null) {
-	    this.setIdRuolo(new BigDecimal(entity.getPrfRuolo().getIdRuolo()));
+        PrfRuoloCategoria entity = (PrfRuoloCategoria) obj;
+        this.setIdRuoloCategoria(new BigDecimal(entity.getIdRuoloCategoria()));
+        if (entity.getPrfRuolo() != null) {
+            this.setIdRuolo(new BigDecimal(entity.getPrfRuolo().getIdRuolo()));
 
-	}
-	this.setTiCategRuolo(entity.getTiCategRuolo());
+        }
+        this.setTiCategRuolo(entity.getTiCategRuolo());
     }
 
     @Override
     public PrfRuoloCategoria rowBeanToEntity() {
-	PrfRuoloCategoria entity = new PrfRuoloCategoria();
-	if (this.getIdRuoloCategoria() != null) {
-	    entity.setIdRuoloCategoria(this.getIdRuoloCategoria().longValue());
-	}
-	if (this.getIdRuolo() != null) {
-	    if (entity.getPrfRuolo() == null) {
-		entity.setPrfRuolo(new PrfRuolo());
-	    }
-	    entity.getPrfRuolo().setIdRuolo(this.getIdRuolo().longValue());
-	}
-	entity.setTiCategRuolo(this.getTiCategRuolo());
-	return entity;
+        PrfRuoloCategoria entity = new PrfRuoloCategoria();
+        if (this.getIdRuoloCategoria() != null) {
+            entity.setIdRuoloCategoria(this.getIdRuoloCategoria().longValue());
+        }
+        if (this.getIdRuolo() != null) {
+            if (entity.getPrfRuolo() == null) {
+                entity.setPrfRuolo(new PrfRuolo());
+            }
+            entity.getPrfRuolo().setIdRuolo(this.getIdRuolo().longValue());
+        }
+        entity.setTiCategRuolo(this.getTiCategRuolo());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -38,24 +38,24 @@ public class SacerIamAuthenticator extends Authenticator {
 
     @Override
     public User recuperoAutorizzazioni(HttpSession httpSession) {
-	User utente = (User) SessionManager.getUser(httpSession);
-	// recupero l'id dell'utente e lo setto nell'oggetto utente e lo metto in sessione.
-	// Modifica fatta perché idp generici non conoscono l'id dell'utente del db di iam.
-	/*
-	 * UsrUser usrUser = userHelper.findUserByName(utente.getUsername());
-	 * utente.setIdUtente(usrUser.getIdUserIam());
-	 * utente.setScadenzaPwd(usrUser.getDtScadPsw());
-	 */
-	RecuperoAutorizzazioniRisposta resp = ejbRef
-		.recuperoAutorizzazioniPerNome(utente.getUsername(), Constants.SACERIAM, null);
-	UserUtil.fillComponenti(utente, resp);
-	SessionManager.setUser(httpSession, utente);
-	return utente;
+        User utente = (User) SessionManager.getUser(httpSession);
+        // recupero l'id dell'utente e lo setto nell'oggetto utente e lo metto in sessione.
+        // Modifica fatta perché idp generici non conoscono l'id dell'utente del db di iam.
+        /*
+         * UsrUser usrUser = userHelper.findUserByName(utente.getUsername());
+         * utente.setIdUtente(usrUser.getIdUserIam());
+         * utente.setScadenzaPwd(usrUser.getDtScadPsw());
+         */
+        RecuperoAutorizzazioniRisposta resp = ejbRef
+                .recuperoAutorizzazioniPerNome(utente.getUsername(), Constants.SACERIAM, null);
+        UserUtil.fillComponenti(utente, resp);
+        SessionManager.setUser(httpSession, utente);
+        return utente;
     }
 
     @Override
     protected String getAppName() {
-	return Constants.SACERIAM;
+        return Constants.SACERIAM;
     }
 
 }

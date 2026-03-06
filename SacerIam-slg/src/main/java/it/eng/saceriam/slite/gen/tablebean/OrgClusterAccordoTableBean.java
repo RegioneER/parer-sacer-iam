@@ -32,19 +32,19 @@ public class OrgClusterAccordoTableBean extends AbstractBaseTable<OrgClusterAcco
     public static OrgClusterAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgClusterAccordoTableDescriptor();
 
     public OrgClusterAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgClusterAccordoRowBean createRow() {
-	return new OrgClusterAccordoRowBean();
+        return new OrgClusterAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgClusterAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

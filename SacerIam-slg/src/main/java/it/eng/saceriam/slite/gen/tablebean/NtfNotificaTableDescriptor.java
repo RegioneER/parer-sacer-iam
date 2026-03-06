@@ -48,32 +48,32 @@ public class NtfNotificaTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_NOTIFICA, new ColumnDescriptor(COL_ID_NOTIFICA, Types.DECIMAL, 22, true));
-	map.put(COL_ID_MODELLO_COMUNIC,
-		new ColumnDescriptor(COL_ID_MODELLO_COMUNIC, Types.DECIMAL, 22, false));
-	map.put(COL_DS_EMAIL_DESTINATARIO,
-		new ColumnDescriptor(COL_DS_EMAIL_DESTINATARIO, Types.VARCHAR, 254, false));
-	map.put(COL_TS_NOTIF, new ColumnDescriptor(COL_TS_NOTIF, Types.TIMESTAMP, 11, false));
-	map.put(COL_NM_MITTENTE, new ColumnDescriptor(COL_NM_MITTENTE, Types.VARCHAR, 100, false));
-	map.put(COL_DS_OGGETTO, new ColumnDescriptor(COL_DS_OGGETTO, Types.VARCHAR, 254, false));
-	map.put(COL_DS_TESTO_NOTIFICA,
-		new ColumnDescriptor(COL_DS_TESTO_NOTIFICA, Types.VARCHAR, 4000, false));
-	map.put(COL_DS_DESTINATARIO,
-		new ColumnDescriptor(COL_DS_DESTINATARIO, Types.VARCHAR, 100, false));
-	map.put(COL_TI_STATO_NOTIF,
-		new ColumnDescriptor(COL_TI_STATO_NOTIF, Types.VARCHAR, 30, false));
+        map.put(COL_ID_NOTIFICA, new ColumnDescriptor(COL_ID_NOTIFICA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_MODELLO_COMUNIC,
+                new ColumnDescriptor(COL_ID_MODELLO_COMUNIC, Types.DECIMAL, 22, false));
+        map.put(COL_DS_EMAIL_DESTINATARIO,
+                new ColumnDescriptor(COL_DS_EMAIL_DESTINATARIO, Types.VARCHAR, 254, false));
+        map.put(COL_TS_NOTIF, new ColumnDescriptor(COL_TS_NOTIF, Types.TIMESTAMP, 11, false));
+        map.put(COL_NM_MITTENTE, new ColumnDescriptor(COL_NM_MITTENTE, Types.VARCHAR, 100, false));
+        map.put(COL_DS_OGGETTO, new ColumnDescriptor(COL_DS_OGGETTO, Types.VARCHAR, 254, false));
+        map.put(COL_DS_TESTO_NOTIFICA,
+                new ColumnDescriptor(COL_DS_TESTO_NOTIFICA, Types.VARCHAR, 4000, false));
+        map.put(COL_DS_DESTINATARIO,
+                new ColumnDescriptor(COL_DS_DESTINATARIO, Types.VARCHAR, 100, false));
+        map.put(COL_TI_STATO_NOTIF,
+                new ColumnDescriptor(COL_TI_STATO_NOTIF, Types.VARCHAR, 30, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

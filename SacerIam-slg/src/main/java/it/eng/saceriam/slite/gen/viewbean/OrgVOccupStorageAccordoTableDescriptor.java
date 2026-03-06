@@ -58,48 +58,48 @@ public class OrgVOccupStorageAccordoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_AMBIENTE_ENTE,
-		new ColumnDescriptor(COL_AMBIENTE_ENTE, Types.VARCHAR, 357, true));
-	map.put(COL_CD_TIPO_ACCORDO,
-		new ColumnDescriptor(COL_CD_TIPO_ACCORDO, Types.VARCHAR, 357, true));
-	map.put(COL_NM_AMBIENTE_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_NM_AMBIENTE_ENTE_CONVENZ, Types.VARCHAR, 100, true));
-	map.put(COL_NM_ENTE_SIAM, new ColumnDescriptor(COL_NM_ENTE_SIAM, Types.VARCHAR, 254, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, true));
-	map.put(COL_DT_DEC_ACCORDO,
-		new ColumnDescriptor(COL_DT_DEC_ACCORDO, Types.TIMESTAMP, 7, true));
-	map.put(COL_MESI_VALIDITA,
-		new ColumnDescriptor(COL_MESI_VALIDITA, Types.DECIMAL, 22, true));
-	map.put(COL_NUM_UD, new ColumnDescriptor(COL_NUM_UD, Types.DECIMAL, 22, true));
-	map.put(COL_NUM_DOC, new ColumnDescriptor(COL_NUM_DOC, Types.DECIMAL, 22, true));
-	map.put(COL_NUM_COMP, new ColumnDescriptor(COL_NUM_COMP, Types.DECIMAL, 22, true));
-	map.put(COL_DIM_BYTES, new ColumnDescriptor(COL_DIM_BYTES, Types.DECIMAL, 22, true));
-	map.put(COL_DIM_BYTES_MEDIA_ANNO,
-		new ColumnDescriptor(COL_DIM_BYTES_MEDIA_ANNO, Types.DECIMAL, 22, true));
-	map.put(COL_NI_FASCIA_ACCORDO_A,
-		new ColumnDescriptor(COL_NI_FASCIA_ACCORDO_A, Types.DECIMAL, 22, true));
-	map.put(COL_DT_FINE_ACCORDO,
-		new ColumnDescriptor(COL_DT_FINE_ACCORDO, Types.TIMESTAMP, 7, true));
-	map.put(COL_NI_FASCIA_ACCORDO_A,
-		new ColumnDescriptor(COL_NI_FASCIA_ACCORDO_A, Types.DECIMAL, 22, true));
-	map.put(COL_FASCIA_ACCORDO,
-		new ColumnDescriptor(COL_FASCIA_ACCORDO, Types.VARCHAR, 69, true));
-	map.put(COL_FASCIA_OCCUPAZIONE,
-		new ColumnDescriptor(COL_FASCIA_OCCUPAZIONE, Types.VARCHAR, 109, true));
-	map.put(COL_FL_SFORO, new ColumnDescriptor(COL_FL_SFORO, Types.DECIMAL, 22, true));
+        map.put(COL_AMBIENTE_ENTE,
+                new ColumnDescriptor(COL_AMBIENTE_ENTE, Types.VARCHAR, 357, true));
+        map.put(COL_CD_TIPO_ACCORDO,
+                new ColumnDescriptor(COL_CD_TIPO_ACCORDO, Types.VARCHAR, 357, true));
+        map.put(COL_NM_AMBIENTE_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_NM_AMBIENTE_ENTE_CONVENZ, Types.VARCHAR, 100, true));
+        map.put(COL_NM_ENTE_SIAM, new ColumnDescriptor(COL_NM_ENTE_SIAM, Types.VARCHAR, 254, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, true));
+        map.put(COL_DT_DEC_ACCORDO,
+                new ColumnDescriptor(COL_DT_DEC_ACCORDO, Types.TIMESTAMP, 7, true));
+        map.put(COL_MESI_VALIDITA,
+                new ColumnDescriptor(COL_MESI_VALIDITA, Types.DECIMAL, 22, true));
+        map.put(COL_NUM_UD, new ColumnDescriptor(COL_NUM_UD, Types.DECIMAL, 22, true));
+        map.put(COL_NUM_DOC, new ColumnDescriptor(COL_NUM_DOC, Types.DECIMAL, 22, true));
+        map.put(COL_NUM_COMP, new ColumnDescriptor(COL_NUM_COMP, Types.DECIMAL, 22, true));
+        map.put(COL_DIM_BYTES, new ColumnDescriptor(COL_DIM_BYTES, Types.DECIMAL, 22, true));
+        map.put(COL_DIM_BYTES_MEDIA_ANNO,
+                new ColumnDescriptor(COL_DIM_BYTES_MEDIA_ANNO, Types.DECIMAL, 22, true));
+        map.put(COL_NI_FASCIA_ACCORDO_A,
+                new ColumnDescriptor(COL_NI_FASCIA_ACCORDO_A, Types.DECIMAL, 22, true));
+        map.put(COL_DT_FINE_ACCORDO,
+                new ColumnDescriptor(COL_DT_FINE_ACCORDO, Types.TIMESTAMP, 7, true));
+        map.put(COL_NI_FASCIA_ACCORDO_A,
+                new ColumnDescriptor(COL_NI_FASCIA_ACCORDO_A, Types.DECIMAL, 22, true));
+        map.put(COL_FASCIA_ACCORDO,
+                new ColumnDescriptor(COL_FASCIA_ACCORDO, Types.VARCHAR, 69, true));
+        map.put(COL_FASCIA_OCCUPAZIONE,
+                new ColumnDescriptor(COL_FASCIA_OCCUPAZIONE, Types.VARCHAR, 109, true));
+        map.put(COL_FL_SFORO, new ColumnDescriptor(COL_FL_SFORO, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

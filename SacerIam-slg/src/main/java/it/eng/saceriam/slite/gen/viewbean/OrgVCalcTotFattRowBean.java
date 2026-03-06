@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVCalcTotFattRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -36,87 +36,87 @@ public class OrgVCalcTotFattRowBean extends BaseRow
     public static OrgVCalcTotFattTableDescriptor TABLE_DESCRIPTOR = new OrgVCalcTotFattTableDescriptor();
 
     public OrgVCalcTotFattRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdFatturaEnte() {
-	return getBigDecimal("id_fattura_ente");
+        return getBigDecimal("id_fattura_ente");
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-	setObject("id_fattura_ente", idFatturaEnte);
+        setObject("id_fattura_ente", idFatturaEnte);
     }
 
     public BigDecimal getImTotFattura() {
-	return getBigDecimal("im_tot_fattura");
+        return getBigDecimal("im_tot_fattura");
     }
 
     public void setImTotFattura(BigDecimal imTotFattura) {
-	setObject("im_tot_fattura", imTotFattura);
+        setObject("im_tot_fattura", imTotFattura);
     }
 
     public BigDecimal getImTotDaPagare() {
-	return getBigDecimal("im_tot_da_pagare");
+        return getBigDecimal("im_tot_da_pagare");
     }
 
     public void setImTotDaPagare(BigDecimal imTotDaPagare) {
-	setObject("im_tot_da_pagare", imTotDaPagare);
+        setObject("im_tot_da_pagare", imTotDaPagare);
     }
 
     public BigDecimal getImTotIva() {
-	return getBigDecimal("im_tot_iva");
+        return getBigDecimal("im_tot_iva");
     }
 
     public void setImTotIva(BigDecimal imTotIva) {
-	setObject("im_tot_iva", imTotIva);
+        setObject("im_tot_iva", imTotIva);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgVCalcTotFatt entity = (OrgVCalcTotFatt) obj;
-	this.setIdFatturaEnte(entity.getIdFatturaEnte());
-	this.setImTotFattura(entity.getImTotFattura());
-	this.setImTotDaPagare(entity.getImTotDaPagare());
-	this.setImTotIva(entity.getImTotIva());
+        OrgVCalcTotFatt entity = (OrgVCalcTotFatt) obj;
+        this.setIdFatturaEnte(entity.getIdFatturaEnte());
+        this.setImTotFattura(entity.getImTotFattura());
+        this.setImTotDaPagare(entity.getImTotDaPagare());
+        this.setImTotIva(entity.getImTotIva());
     }
 
     @Override
     public OrgVCalcTotFatt rowBeanToEntity() {
-	OrgVCalcTotFatt entity = new OrgVCalcTotFatt();
-	entity.setIdFatturaEnte(this.getIdFatturaEnte());
-	entity.setImTotFattura(this.getImTotFattura());
-	entity.setImTotDaPagare(this.getImTotDaPagare());
-	entity.setImTotIva(this.getImTotIva());
-	return entity;
+        OrgVCalcTotFatt entity = new OrgVCalcTotFatt();
+        entity.setIdFatturaEnte(this.getIdFatturaEnte());
+        entity.setImTotFattura(this.getImTotFattura());
+        entity.setImTotDaPagare(this.getImTotDaPagare());
+        entity.setImTotIva(this.getImTotIva());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

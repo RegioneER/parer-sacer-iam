@@ -19,7 +19,7 @@ import javax.ejb.ApplicationException;
 public class CSVException extends Exception {
 
     public CSVException(String message) {
-	super(message);
+        super(message);
     }
 
 }

@@ -23,7 +23,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplTipoEventoOggettoTrigTableBean
-	extends AbstractBaseTable<AplTipoEventoOggettoTrigRowBean> {
+        extends AbstractBaseTable<AplTipoEventoOggettoTrigRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -33,19 +33,19 @@ public class AplTipoEventoOggettoTrigTableBean
     public static AplTipoEventoOggettoTrigTableDescriptor TABLE_DESCRIPTOR = new AplTipoEventoOggettoTrigTableDescriptor();
 
     public AplTipoEventoOggettoTrigTableBean() {
-	super();
+        super();
     }
 
     protected AplTipoEventoOggettoTrigRowBean createRow() {
-	return new AplTipoEventoOggettoTrigRowBean();
+        return new AplTipoEventoOggettoTrigRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplTipoEventoOggettoTrigRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

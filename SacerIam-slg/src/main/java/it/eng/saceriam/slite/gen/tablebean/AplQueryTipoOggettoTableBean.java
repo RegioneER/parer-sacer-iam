@@ -32,19 +32,19 @@ public class AplQueryTipoOggettoTableBean extends AbstractBaseTable<AplQueryTipo
     public static AplQueryTipoOggettoTableDescriptor TABLE_DESCRIPTOR = new AplQueryTipoOggettoTableDescriptor();
 
     public AplQueryTipoOggettoTableBean() {
-	super();
+        super();
     }
 
     protected AplQueryTipoOggettoRowBean createRow() {
-	return new AplQueryTipoOggettoRowBean();
+        return new AplQueryTipoOggettoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplQueryTipoOggettoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

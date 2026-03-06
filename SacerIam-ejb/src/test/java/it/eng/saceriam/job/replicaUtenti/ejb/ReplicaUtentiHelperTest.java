@@ -52,128 +52,128 @@ public class ReplicaUtentiHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	final JavaArchive archive = getSacerIamArchive(ReplicaUtentiHelper.class)
-		.addClasses(it.eng.saceriam.common.Constants.EsitoServizio.class,
-			it.eng.saceriam.common.Constants.class, ReplicaUtentiHelperTest.class)
-		.addPackages(true, "it.eng.parer.sacerlog.entity",
-			"it.eng.parer.sacerlog.viewEntity");
-	return archive;
+        final JavaArchive archive = getSacerIamArchive(ReplicaUtentiHelper.class)
+                .addClasses(it.eng.saceriam.common.Constants.EsitoServizio.class,
+                        it.eng.saceriam.common.Constants.class, ReplicaUtentiHelperTest.class)
+                .addPackages(true, "it.eng.parer.sacerlog.entity",
+                        "it.eng.parer.sacerlog.viewEntity");
+        return archive;
     }
 
     @Test
     void getUsersDaReplicList_queryIsOk() {
-	helper.getUsersDaReplicList();
-	assertTrue(true);
+        helper.getUsersDaReplicList();
+        assertTrue(true);
     }
 
     @Test
     void getFreeAsyncJobs_queryIsOk() {
-	String asyncJob = aString();
-	String flJobAttivo = aString();
-	helper.getFreeAsyncJobs(asyncJob, flJobAttivo);
-	assertTrue(true);
+        String asyncJob = aString();
+        String flJobAttivo = aString();
+        helper.getFreeAsyncJobs(asyncJob, flJobAttivo);
+        assertTrue(true);
     }
 
     @Test
     void getLogUserDaReplicList_queryIsOk() {
-	Collection<BigDecimal> users = aSetOfBigDecimal(2);
-	Long idLogJob = aLong();
-	helper.getLogUserDaReplicList(users, idLogJob);
-	assertTrue(true);
+        Collection<BigDecimal> users = aSetOfBigDecimal(2);
+        Long idLogJob = aLong();
+        helper.getLogUserDaReplicList(users, idLogJob);
+        assertTrue(true);
     }
 
     @Test
     void writeAtomicLogUserDaReplic_queryIsOk() {
-	Long idLogUserDaReplic = aLong();
+        Long idLogUserDaReplic = aLong();
 
-	String cdErr = aString();
-	String dsErr = aString();
-	Set<String> applicErroreSet = aSetOfString(2);
-	for (Constants.EsitoServizio esitoServizio : Constants.EsitoServizio.values()) {
-	    try {
-		helper.writeAtomicLogUserDaReplic(idLogUserDaReplic, esitoServizio, cdErr, dsErr,
-			applicErroreSet);
-		assertTrue(true);
-	    } catch (Exception e) {
-		assertNoResultException(e);
-	    }
-	}
+        String cdErr = aString();
+        String dsErr = aString();
+        Set<String> applicErroreSet = aSetOfString(2);
+        for (Constants.EsitoServizio esitoServizio : Constants.EsitoServizio.values()) {
+            try {
+                helper.writeAtomicLogUserDaReplic(idLogUserDaReplic, esitoServizio, cdErr, dsErr,
+                        applicErroreSet);
+                assertTrue(true);
+            } catch (Exception e) {
+                assertNoResultException(e);
+            }
+        }
     }
 
     @Test
     void getUsrVAllAutorServiziWeb_queryIsOk() {
-	Long idUserIam = aLong();
-	Long idApplic = aLong();
-	helper.getUsrVAllAutorServiziWeb(idUserIam, idApplic);
-	assertTrue(true);
+        Long idUserIam = aLong();
+        Long idApplic = aLong();
+        helper.getUsrVAllAutorServiziWeb(idUserIam, idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilOrganizList_queryIsOk() {
-	Long idUserIam = aLong();
-	Long idApplic = aLong();
-	helper.getUsrVAbilOrganizList(idUserIam, idApplic);
-	assertTrue(true);
+        Long idUserIam = aLong();
+        Long idApplic = aLong();
+        helper.getUsrVAbilOrganizList(idUserIam, idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilDatiList_queryIsOk() {
-	Long idUserIam = aLong();
-	Long idApplic = aLong();
-	helper.getUsrVAbilDatiList(idUserIam, idApplic);
-	assertTrue(true);
+        Long idUserIam = aLong();
+        Long idApplic = aLong();
+        helper.getUsrVAbilDatiList(idUserIam, idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getUsrIndIpUserList_queryIsOk() {
-	Long idUserIam = aLong();
-	helper.getUsrIndIpUserList(idUserIam);
-	assertTrue(true);
+        Long idUserIam = aLong();
+        helper.getUsrIndIpUserList(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getTiScopoDichAbilOrganiz_queryIsOk() {
-	BigDecimal idUsoUserApplic = aBigDecimal();
-	BigDecimal idOrganizIam = aBigDecimal();
-	helper.getTiScopoDichAbilOrganiz(idUsoUserApplic, idOrganizIam);
-	assertTrue(true);
+        BigDecimal idUsoUserApplic = aBigDecimal();
+        BigDecimal idOrganizIam = aBigDecimal();
+        helper.getTiScopoDichAbilOrganiz(idUsoUserApplic, idOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getIdUsoUserApplic_queryIsOk() {
-	Long idUserIam = aLong();
-	Long idApplic = aLong();
-	try {
-	    helper.getIdUsoUserApplic(idUserIam, idApplic);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        Long idUserIam = aLong();
+        Long idApplic = aLong();
+        try {
+            helper.getIdUsoUserApplic(idUserIam, idApplic);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void getUsersDaDisattivareList_queryIsOk() {
-	helper.getUsersDaDisattivareList();
-	assertTrue(true);
+        helper.getUsersDaDisattivareList();
+        assertTrue(true);
     }
 
     @Test
     void getUsrUsoUserApplic_queryIsOk() {
-	Long idUserIam = aLong();
-	helper.getUsrUsoUserApplic(idUserIam);
-	assertTrue(true);
+        Long idUserIam = aLong();
+        helper.getUsrUsoUserApplic(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void writeLogUserDaReplic_queryIsOk() {
-	UsrUsoUserApplic uso = new UsrUsoUserApplic();
-	uso.setIdUsoUserApplic(aLong());
-	Long idUserIam = aLong();
-	try {
-	    helper.writeLogUserDaReplic(uso, idUserIam);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        UsrUsoUserApplic uso = new UsrUsoUserApplic();
+        uso.setIdUsoUserApplic(aLong());
+        Long idUserIam = aLong();
+        try {
+            helper.writeLogUserDaReplic(uso, idUserIam);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 }

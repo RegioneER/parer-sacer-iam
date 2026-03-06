@@ -57,47 +57,47 @@ public class UsrVAbilDatiTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USO_USER_APPLIC,
-		new ColumnDescriptor(COL_ID_USO_USER_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_ID_DICH_ABIL_DATI,
-		new ColumnDescriptor(COL_ID_DICH_ABIL_DATI, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ORGANIZ_IAM,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ORGANIZ_APPLIC,
-		new ColumnDescriptor(COL_ID_ORGANIZ_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_TIPO_ORGANIZ,
-		new ColumnDescriptor(COL_ID_TIPO_ORGANIZ, Types.DECIMAL, 22, true));
-	map.put(COL_NM_ORGANIZ, new ColumnDescriptor(COL_NM_ORGANIZ, Types.VARCHAR, 100, true));
-	map.put(COL_DS_ORGANIZ, new ColumnDescriptor(COL_DS_ORGANIZ, Types.VARCHAR, 254, true));
-	map.put(COL_ID_ORGANIZ_IAM_PADRE,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM_PADRE, Types.DECIMAL, 22, true));
-	map.put(COL_DL_COMPOSITO_ORGANIZ,
-		new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
-	map.put(COL_ID_CLASSE_TIPO_DATO,
-		new ColumnDescriptor(COL_ID_CLASSE_TIPO_DATO, Types.DECIMAL, 22, true));
-	map.put(COL_NM_CLASSE_TIPO_DATO,
-		new ColumnDescriptor(COL_NM_CLASSE_TIPO_DATO, Types.VARCHAR, 100, true));
-	map.put(COL_ID_TIPO_DATO_IAM,
-		new ColumnDescriptor(COL_ID_TIPO_DATO_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_NM_TIPO_DATO, new ColumnDescriptor(COL_NM_TIPO_DATO, Types.VARCHAR, 100, true));
-	map.put(COL_DS_TIPO_DATO, new ColumnDescriptor(COL_DS_TIPO_DATO, Types.VARCHAR, 254, true));
-	map.put(COL_ID_TIPO_DATO_APPLIC,
-		new ColumnDescriptor(COL_ID_TIPO_DATO_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USO_USER_APPLIC,
+                new ColumnDescriptor(COL_ID_USO_USER_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_ID_DICH_ABIL_DATI,
+                new ColumnDescriptor(COL_ID_DICH_ABIL_DATI, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ORGANIZ_IAM,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ORGANIZ_APPLIC,
+                new ColumnDescriptor(COL_ID_ORGANIZ_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_TIPO_ORGANIZ,
+                new ColumnDescriptor(COL_ID_TIPO_ORGANIZ, Types.DECIMAL, 22, true));
+        map.put(COL_NM_ORGANIZ, new ColumnDescriptor(COL_NM_ORGANIZ, Types.VARCHAR, 100, true));
+        map.put(COL_DS_ORGANIZ, new ColumnDescriptor(COL_DS_ORGANIZ, Types.VARCHAR, 254, true));
+        map.put(COL_ID_ORGANIZ_IAM_PADRE,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM_PADRE, Types.DECIMAL, 22, true));
+        map.put(COL_DL_COMPOSITO_ORGANIZ,
+                new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
+        map.put(COL_ID_CLASSE_TIPO_DATO,
+                new ColumnDescriptor(COL_ID_CLASSE_TIPO_DATO, Types.DECIMAL, 22, true));
+        map.put(COL_NM_CLASSE_TIPO_DATO,
+                new ColumnDescriptor(COL_NM_CLASSE_TIPO_DATO, Types.VARCHAR, 100, true));
+        map.put(COL_ID_TIPO_DATO_IAM,
+                new ColumnDescriptor(COL_ID_TIPO_DATO_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_NM_TIPO_DATO, new ColumnDescriptor(COL_NM_TIPO_DATO, Types.VARCHAR, 100, true));
+        map.put(COL_DS_TIPO_DATO, new ColumnDescriptor(COL_DS_TIPO_DATO, Types.VARCHAR, 254, true));
+        map.put(COL_ID_TIPO_DATO_APPLIC,
+                new ColumnDescriptor(COL_ID_TIPO_DATO_APPLIC, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

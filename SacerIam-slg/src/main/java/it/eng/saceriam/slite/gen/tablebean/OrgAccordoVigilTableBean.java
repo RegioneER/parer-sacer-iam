@@ -32,19 +32,19 @@ public class OrgAccordoVigilTableBean extends AbstractBaseTable<OrgAccordoVigilR
     public static OrgAccordoVigilTableDescriptor TABLE_DESCRIPTOR = new OrgAccordoVigilTableDescriptor();
 
     public OrgAccordoVigilTableBean() {
-	super();
+        super();
     }
 
     protected OrgAccordoVigilRowBean createRow() {
-	return new OrgAccordoVigilRowBean();
+        return new OrgAccordoVigilRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgAccordoVigilRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

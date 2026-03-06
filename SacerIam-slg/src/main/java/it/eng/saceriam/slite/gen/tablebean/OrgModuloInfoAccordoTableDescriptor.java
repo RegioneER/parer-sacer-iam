@@ -52,41 +52,41 @@ public class OrgModuloInfoAccordoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_MODULO_INFO_ACCORDO,
-		new ColumnDescriptor(COL_ID_MODULO_INFO_ACCORDO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_DT_RICEV, new ColumnDescriptor(COL_DT_RICEV, Types.TIMESTAMP, 7, false));
-	map.put(COL_CD_REGISTRO_MODULO_INFO,
-		new ColumnDescriptor(COL_CD_REGISTRO_MODULO_INFO, Types.VARCHAR, 100, false));
-	map.put(COL_AA_MODULO_INFO,
-		new ColumnDescriptor(COL_AA_MODULO_INFO, Types.DECIMAL, 22, false));
-	map.put(COL_CD_KEY_MODULO_INFO,
-		new ColumnDescriptor(COL_CD_KEY_MODULO_INFO, Types.VARCHAR, 100, false));
-	map.put(COL_CD_MODULO_INFO,
-		new ColumnDescriptor(COL_CD_MODULO_INFO, Types.VARCHAR, 100, false));
-	map.put(COL_BL_MODULO_INFO,
-		new ColumnDescriptor(COL_BL_MODULO_INFO, Types.BLOB, 4000, false));
-	map.put(COL_NM_FILE_MODULO_INFO,
-		new ColumnDescriptor(COL_NM_FILE_MODULO_INFO, Types.VARCHAR, 100, false));
-	map.put(COL_DS_MODULO_INFO,
-		new ColumnDescriptor(COL_DS_MODULO_INFO, Types.VARCHAR, 1024, false));
-	map.put(COL_NM_ENTE, new ColumnDescriptor(COL_NM_ENTE, Types.VARCHAR, 100, false));
-	map.put(COL_NM_STRUT, new ColumnDescriptor(COL_NM_STRUT, Types.VARCHAR, 100, false));
+        map.put(COL_ID_MODULO_INFO_ACCORDO,
+                new ColumnDescriptor(COL_ID_MODULO_INFO_ACCORDO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_DT_RICEV, new ColumnDescriptor(COL_DT_RICEV, Types.TIMESTAMP, 7, false));
+        map.put(COL_CD_REGISTRO_MODULO_INFO,
+                new ColumnDescriptor(COL_CD_REGISTRO_MODULO_INFO, Types.VARCHAR, 100, false));
+        map.put(COL_AA_MODULO_INFO,
+                new ColumnDescriptor(COL_AA_MODULO_INFO, Types.DECIMAL, 22, false));
+        map.put(COL_CD_KEY_MODULO_INFO,
+                new ColumnDescriptor(COL_CD_KEY_MODULO_INFO, Types.VARCHAR, 100, false));
+        map.put(COL_CD_MODULO_INFO,
+                new ColumnDescriptor(COL_CD_MODULO_INFO, Types.VARCHAR, 100, false));
+        map.put(COL_BL_MODULO_INFO,
+                new ColumnDescriptor(COL_BL_MODULO_INFO, Types.BLOB, 4000, false));
+        map.put(COL_NM_FILE_MODULO_INFO,
+                new ColumnDescriptor(COL_NM_FILE_MODULO_INFO, Types.VARCHAR, 100, false));
+        map.put(COL_DS_MODULO_INFO,
+                new ColumnDescriptor(COL_DS_MODULO_INFO, Types.VARCHAR, 1024, false));
+        map.put(COL_NM_ENTE, new ColumnDescriptor(COL_NM_ENTE, Types.VARCHAR, 100, false));
+        map.put(COL_NM_STRUT, new ColumnDescriptor(COL_NM_STRUT, Types.VARCHAR, 100, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -32,19 +32,19 @@ public class UsrAppartUserRichTableBean extends AbstractBaseTable<UsrAppartUserR
     public static UsrAppartUserRichTableDescriptor TABLE_DESCRIPTOR = new UsrAppartUserRichTableDescriptor();
 
     public UsrAppartUserRichTableBean() {
-	super();
+        super();
     }
 
     protected UsrAppartUserRichRowBean createRow() {
-	return new UsrAppartUserRichRowBean();
+        return new UsrAppartUserRichRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrAppartUserRichRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

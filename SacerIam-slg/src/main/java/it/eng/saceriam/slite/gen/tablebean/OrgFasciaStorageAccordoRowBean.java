@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgFasciaStorageAccordoRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -36,90 +36,90 @@ public class OrgFasciaStorageAccordoRowBean extends BaseRow
     public static OrgFasciaStorageAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgFasciaStorageAccordoTableDescriptor();
 
     public OrgFasciaStorageAccordoRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdFasciaStorageAccordo() {
-	return getBigDecimal("id_fascia_storage_accordo");
+        return getBigDecimal("id_fascia_storage_accordo");
     }
 
     public void setIdFasciaStorageAccordo(BigDecimal id_fascia_storage_accordo) {
-	setObject("id_fascia_storage_accordo", id_fascia_storage_accordo);
+        setObject("id_fascia_storage_accordo", id_fascia_storage_accordo);
     }
 
     public String getTiFascia() {
-	return getString("ti_fascia");
+        return getString("ti_fascia");
     }
 
     public void setTiFascia(String ti_fascia) {
-	setObject("ti_fascia", ti_fascia);
+        setObject("ti_fascia", ti_fascia);
     }
 
     public BigDecimal getNiFasciaDa() {
-	return getBigDecimal("ni_fascia_da");
+        return getBigDecimal("ni_fascia_da");
     }
 
     public void setNiFasciaDa(BigDecimal ni_fascia_da) {
-	setObject("ni_fascia_da", ni_fascia_da);
+        setObject("ni_fascia_da", ni_fascia_da);
     }
 
     public BigDecimal getNiFasciaA() {
-	return getBigDecimal("ni_fascia_a");
+        return getBigDecimal("ni_fascia_a");
     }
 
     public void setNiFasciaA(BigDecimal ni_fascia_a) {
-	setObject("ni_fascia_a", ni_fascia_a);
+        setObject("ni_fascia_a", ni_fascia_a);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgFasciaStorageAccordo entity = (OrgFasciaStorageAccordo) obj;
-	this.setIdFasciaStorageAccordo(new BigDecimal(entity.getIdFasciaStorageAccordo()));
-	this.setTiFascia(entity.getTiFascia());
-	this.setNiFasciaDa(entity.getNiFasciaDa());
-	this.setNiFasciaA(entity.getNiFasciaA());
+        OrgFasciaStorageAccordo entity = (OrgFasciaStorageAccordo) obj;
+        this.setIdFasciaStorageAccordo(new BigDecimal(entity.getIdFasciaStorageAccordo()));
+        this.setTiFascia(entity.getTiFascia());
+        this.setNiFasciaDa(entity.getNiFasciaDa());
+        this.setNiFasciaA(entity.getNiFasciaA());
     }
 
     @Override
     public OrgFasciaStorageAccordo rowBeanToEntity() {
-	OrgFasciaStorageAccordo entity = new OrgFasciaStorageAccordo();
-	if (this.getIdFasciaStorageAccordo() != null) {
-	    entity.setIdFasciaStorageAccordo(this.getIdFasciaStorageAccordo().longValue());
-	}
-	entity.setTiFascia(this.getTiFascia());
-	entity.setNiFasciaDa(this.getNiFasciaDa());
-	entity.setNiFasciaA(this.getNiFasciaA());
-	return entity;
+        OrgFasciaStorageAccordo entity = new OrgFasciaStorageAccordo();
+        if (this.getIdFasciaStorageAccordo() != null) {
+            entity.setIdFasciaStorageAccordo(this.getIdFasciaStorageAccordo().longValue());
+        }
+        entity.setTiFascia(this.getTiFascia());
+        entity.setNiFasciaDa(this.getNiFasciaDa());
+        entity.setNiFasciaA(this.getNiFasciaA());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

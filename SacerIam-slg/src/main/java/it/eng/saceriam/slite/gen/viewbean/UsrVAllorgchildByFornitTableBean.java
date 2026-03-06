@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVAllorgchildByFornitTableBean
-	extends AbstractBaseTable<UsrVAllorgchildByFornitRowBean> {
+        extends AbstractBaseTable<UsrVAllorgchildByFornitRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class UsrVAllorgchildByFornitTableBean
     public static UsrVAllorgchildByFornitTableDescriptor TABLE_DESCRIPTOR = new UsrVAllorgchildByFornitTableDescriptor();
 
     public UsrVAllorgchildByFornitTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAllorgchildByFornitRowBean createRow() {
-	return new UsrVAllorgchildByFornitRowBean();
+        return new UsrVAllorgchildByFornitRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAllorgchildByFornitRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

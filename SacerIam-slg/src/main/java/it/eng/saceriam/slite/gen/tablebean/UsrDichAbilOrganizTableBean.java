@@ -32,19 +32,19 @@ public class UsrDichAbilOrganizTableBean extends AbstractBaseTable<UsrDichAbilOr
     public static UsrDichAbilOrganizTableDescriptor TABLE_DESCRIPTOR = new UsrDichAbilOrganizTableDescriptor();
 
     public UsrDichAbilOrganizTableBean() {
-	super();
+        super();
     }
 
     protected UsrDichAbilOrganizRowBean createRow() {
-	return new UsrDichAbilOrganizRowBean();
+        return new UsrDichAbilOrganizRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrDichAbilOrganizRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

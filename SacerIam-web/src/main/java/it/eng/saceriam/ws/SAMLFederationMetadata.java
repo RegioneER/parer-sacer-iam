@@ -52,10 +52,10 @@ public class SAMLFederationMetadata extends HttpServlet {
      * @throws IOException      if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	response.setContentType("application/xml;charset=UTF-8");
-	PrintWriter writer = response.getWriter();
-	writer.append(readFederationMetadata());
+            throws ServletException, IOException {
+        response.setContentType("application/xml;charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.append(readFederationMetadata());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the
@@ -72,8 +72,8 @@ public class SAMLFederationMetadata extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -83,7 +83,7 @@ public class SAMLFederationMetadata extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-	return "Sacer Federation metadata provider";
+        return "Sacer Federation metadata provider";
     }// </editor-fold>
 
     /*
@@ -92,14 +92,14 @@ public class SAMLFederationMetadata extends HttpServlet {
      * in una classe derivata.
      */
     protected String readFederationMetadata() throws IOException {
-	String idpLocale = System.getProperty("idpLocale");
-	if (idpLocale != null && idpLocale.trim().equalsIgnoreCase("true")) {
-	    return (new String(
-		    Files.readAllBytes(
-			    Paths.get("/opt/shibboleth/metadata/fedmetadata-local-signed.xml")),
-		    "UTF-8"));
-	} else {
-	    return helper.getFederationMetadata();
-	}
+        String idpLocale = System.getProperty("idpLocale");
+        if (idpLocale != null && idpLocale.trim().equalsIgnoreCase("true")) {
+            return (new String(
+                    Files.readAllBytes(
+                            Paths.get("/opt/shibboleth/metadata/fedmetadata-local-signed.xml")),
+                    "UTF-8"));
+        } else {
+            return helper.getFederationMetadata();
+        }
     }
 }

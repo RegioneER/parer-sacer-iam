@@ -30,50 +30,50 @@ public abstract class ReplicaOrganizzazioneRispostaAbstract {
     private String nmTipoOrganiz;
 
     public EsitoServizio getCdEsito() {
-	return cdEsito;
+        return cdEsito;
     }
 
     public void setCdEsito(EsitoServizio cdEsito) {
-	this.cdEsito = cdEsito;
+        this.cdEsito = cdEsito;
     }
 
     public String getCdErr() {
-	return cdErr;
+        return cdErr;
     }
 
     public void setCdErr(String cdErr) {
-	this.cdErr = cdErr;
+        this.cdErr = cdErr;
     }
 
     public String getDsErr() {
-	return dsErr;
+        return dsErr;
     }
 
     public void setDsErr(String dsErr) {
-	this.dsErr = dsErr;
+        this.dsErr = dsErr;
     }
 
     public String getNmApplic() {
-	return nmApplic;
+        return nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     public Integer getIdOrganizApplic() {
-	return idOrganizApplic;
+        return idOrganizApplic;
     }
 
     public void setIdOrganizApplic(Integer idOrganizApplic) {
-	this.idOrganizApplic = idOrganizApplic;
+        this.idOrganizApplic = idOrganizApplic;
     }
 
     public String getNmTipoOrganiz() {
-	return nmTipoOrganiz;
+        return nmTipoOrganiz;
     }
 
     public void setNmTipoOrganiz(String nmTipoOrganiz) {
-	this.nmTipoOrganiz = nmTipoOrganiz;
+        this.nmTipoOrganiz = nmTipoOrganiz;
     }
 }

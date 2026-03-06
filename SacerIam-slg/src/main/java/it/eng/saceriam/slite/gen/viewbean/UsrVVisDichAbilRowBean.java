@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVVisDichAbilRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -36,117 +36,117 @@ public class UsrVVisDichAbilRowBean extends BaseRow
     public static UsrVVisDichAbilTableDescriptor TABLE_DESCRIPTOR = new UsrVVisDichAbilTableDescriptor();
 
     public UsrVVisDichAbilRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdDichAbilOrganiz() {
-	return getBigDecimal("id_dich_abil_organiz");
+        return getBigDecimal("id_dich_abil_organiz");
     }
 
     public void setIdDichAbilOrganiz(BigDecimal idDichAbilOrganiz) {
-	setObject("id_dich_abil_organiz", idDichAbilOrganiz);
+        setObject("id_dich_abil_organiz", idDichAbilOrganiz);
     }
 
     public String getNmCognomeUser() {
-	return getString("nm_cognome_user");
+        return getString("nm_cognome_user");
     }
 
     public void setNmCognomeUser(String nmCognomeUser) {
-	setObject("nm_cognome_user", nmCognomeUser);
+        setObject("nm_cognome_user", nmCognomeUser);
     }
 
     public String getNmNomeUser() {
-	return getString("nm_nome_user");
+        return getString("nm_nome_user");
     }
 
     public void setNmNomeUser(String nmNomeUser) {
-	setObject("nm_nome_user", nmNomeUser);
+        setObject("nm_nome_user", nmNomeUser);
     }
 
     public String getNmUserid() {
-	return getString("nm_userid");
+        return getString("nm_userid");
     }
 
     public void setNmUserid(String nmUserid) {
-	setObject("nm_userid", nmUserid);
+        setObject("nm_userid", nmUserid);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public String getTiScopoDichAbilOrganiz() {
-	return getString("ti_scopo_dich_abil_organiz");
+        return getString("ti_scopo_dich_abil_organiz");
     }
 
     public void setTiScopoDichAbilOrganiz(String tiScopoDichAbilOrganiz) {
-	setObject("ti_scopo_dich_abil_organiz", tiScopoDichAbilOrganiz);
+        setObject("ti_scopo_dich_abil_organiz", tiScopoDichAbilOrganiz);
     }
 
     public String getDlCompositoOrganiz() {
-	return getString("dl_composito_organiz");
+        return getString("dl_composito_organiz");
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-	setObject("dl_composito_organiz", dlCompositoOrganiz);
+        setObject("dl_composito_organiz", dlCompositoOrganiz);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVVisDichAbil entity = (UsrVVisDichAbil) obj;
-	this.setIdDichAbilOrganiz(entity.getIdDichAbilOrganiz());
-	this.setNmCognomeUser(entity.getNmCognomeUser());
-	this.setNmNomeUser(entity.getNmNomeUser());
-	this.setNmUserid(entity.getNmUserid());
-	this.setNmApplic(entity.getNmApplic());
-	this.setTiScopoDichAbilOrganiz(entity.getTiScopoDichAbilOrganiz());
-	this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
+        UsrVVisDichAbil entity = (UsrVVisDichAbil) obj;
+        this.setIdDichAbilOrganiz(entity.getIdDichAbilOrganiz());
+        this.setNmCognomeUser(entity.getNmCognomeUser());
+        this.setNmNomeUser(entity.getNmNomeUser());
+        this.setNmUserid(entity.getNmUserid());
+        this.setNmApplic(entity.getNmApplic());
+        this.setTiScopoDichAbilOrganiz(entity.getTiScopoDichAbilOrganiz());
+        this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
     }
 
     @Override
     public UsrVVisDichAbil rowBeanToEntity() {
-	UsrVVisDichAbil entity = new UsrVVisDichAbil();
-	entity.setIdDichAbilOrganiz(this.getIdDichAbilOrganiz());
-	entity.setNmCognomeUser(this.getNmCognomeUser());
-	entity.setNmNomeUser(this.getNmNomeUser());
-	entity.setNmUserid(this.getNmUserid());
-	entity.setNmApplic(this.getNmApplic());
-	entity.setTiScopoDichAbilOrganiz(this.getTiScopoDichAbilOrganiz());
-	entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
-	return entity;
+        UsrVVisDichAbil entity = new UsrVVisDichAbil();
+        entity.setIdDichAbilOrganiz(this.getIdDichAbilOrganiz());
+        entity.setNmCognomeUser(this.getNmCognomeUser());
+        entity.setNmNomeUser(this.getNmNomeUser());
+        entity.setNmUserid(this.getNmUserid());
+        entity.setNmApplic(this.getNmApplic());
+        entity.setTiScopoDichAbilOrganiz(this.getTiScopoDichAbilOrganiz());
+        entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

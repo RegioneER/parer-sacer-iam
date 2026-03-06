@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVCreaFatturaByFattTableBean
-	extends AbstractBaseTable<OrgVCreaFatturaByFattRowBean> {
+        extends AbstractBaseTable<OrgVCreaFatturaByFattRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVCreaFatturaByFattTableBean
     public static OrgVCreaFatturaByFattTableDescriptor TABLE_DESCRIPTOR = new OrgVCreaFatturaByFattTableDescriptor();
 
     public OrgVCreaFatturaByFattTableBean() {
-	super();
+        super();
     }
 
     protected OrgVCreaFatturaByFattRowBean createRow() {
-	return new OrgVCreaFatturaByFattRowBean();
+        return new OrgVCreaFatturaByFattRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVCreaFatturaByFattRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -25,10 +25,10 @@ public class ListaTipiDatoAbil {
     private List<Integer> idTipoDatoApplic;
 
     public List<Integer> getIdTipoDatoApplic() {
-	return idTipoDatoApplic;
+        return idTipoDatoApplic;
     }
 
     public void setIdTipoDatoApplic(List<Integer> idTipoDatoApplic) {
-	this.idTipoDatoApplic = idTipoDatoApplic;
+        this.idTipoDatoApplic = idTipoDatoApplic;
     }
 }

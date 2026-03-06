@@ -36,19 +36,19 @@ public class OrgVServTiServDaErogTableBean extends AbstractBaseTable<OrgVServTiS
     public static OrgVServTiServDaErogTableDescriptor TABLE_DESCRIPTOR = new OrgVServTiServDaErogTableDescriptor();
 
     public OrgVServTiServDaErogTableBean() {
-	super();
+        super();
     }
 
     protected OrgVServTiServDaErogRowBean createRow() {
-	return new OrgVServTiServDaErogRowBean();
+        return new OrgVServTiServDaErogRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVServTiServDaErogRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

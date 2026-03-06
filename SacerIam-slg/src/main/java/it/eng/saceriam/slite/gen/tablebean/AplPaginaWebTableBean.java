@@ -32,19 +32,19 @@ public class AplPaginaWebTableBean extends AbstractBaseTable<AplPaginaWebRowBean
     public static AplPaginaWebTableDescriptor TABLE_DESCRIPTOR = new AplPaginaWebTableDescriptor();
 
     public AplPaginaWebTableBean() {
-	super();
+        super();
     }
 
     protected AplPaginaWebRowBean createRow() {
-	return new AplPaginaWebRowBean();
+        return new AplPaginaWebRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplPaginaWebRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -53,42 +53,42 @@ public class AplVVisHelpOnLineTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_HELP_ON_LINE,
-		new ColumnDescriptor(COL_ID_HELP_ON_LINE, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_TI_HELP_ON_LINE,
-		new ColumnDescriptor(COL_TI_HELP_ON_LINE, Types.VARCHAR, 20, true));
-	map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, true));
-	map.put(COL_DT_FINE_VAL, new ColumnDescriptor(COL_DT_FINE_VAL, Types.TIMESTAMP, 7, true));
-	map.put(COL_ID_PAGINA_WEB,
-		new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, true));
-	map.put(COL_NM_PAGINA_WEB,
-		new ColumnDescriptor(COL_NM_PAGINA_WEB, Types.VARCHAR, 100, true));
-	map.put(COL_DS_PAGINA_WEB,
-		new ColumnDescriptor(COL_DS_PAGINA_WEB, Types.VARCHAR, 254, true));
-	map.put(COL_ID_ENTRY_MENU,
-		new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, true));
-	map.put(COL_NM_ENTRY_MENU,
-		new ColumnDescriptor(COL_NM_ENTRY_MENU, Types.VARCHAR, 100, true));
-	map.put(COL_DL_COMPOSITO_ENTRY_MENU,
-		new ColumnDescriptor(COL_DL_COMPOSITO_ENTRY_MENU, Types.VARCHAR, 4000, true));
-	map.put(COL_DS_FILE_HELP_ON_LINE,
-		new ColumnDescriptor(COL_DS_FILE_HELP_ON_LINE, Types.VARCHAR, 254, true));
-	map.put(COL_BL_HELP_ON_LINE,
-		new ColumnDescriptor(COL_BL_HELP_ON_LINE, Types.CLOB, 4000, true));
+        map.put(COL_ID_HELP_ON_LINE,
+                new ColumnDescriptor(COL_ID_HELP_ON_LINE, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_TI_HELP_ON_LINE,
+                new ColumnDescriptor(COL_TI_HELP_ON_LINE, Types.VARCHAR, 20, true));
+        map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, true));
+        map.put(COL_DT_FINE_VAL, new ColumnDescriptor(COL_DT_FINE_VAL, Types.TIMESTAMP, 7, true));
+        map.put(COL_ID_PAGINA_WEB,
+                new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, true));
+        map.put(COL_NM_PAGINA_WEB,
+                new ColumnDescriptor(COL_NM_PAGINA_WEB, Types.VARCHAR, 100, true));
+        map.put(COL_DS_PAGINA_WEB,
+                new ColumnDescriptor(COL_DS_PAGINA_WEB, Types.VARCHAR, 254, true));
+        map.put(COL_ID_ENTRY_MENU,
+                new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, true));
+        map.put(COL_NM_ENTRY_MENU,
+                new ColumnDescriptor(COL_NM_ENTRY_MENU, Types.VARCHAR, 100, true));
+        map.put(COL_DL_COMPOSITO_ENTRY_MENU,
+                new ColumnDescriptor(COL_DL_COMPOSITO_ENTRY_MENU, Types.VARCHAR, 4000, true));
+        map.put(COL_DS_FILE_HELP_ON_LINE,
+                new ColumnDescriptor(COL_DS_FILE_HELP_ON_LINE, Types.VARCHAR, 254, true));
+        map.put(COL_BL_HELP_ON_LINE,
+                new ColumnDescriptor(COL_BL_HELP_ON_LINE, Types.CLOB, 4000, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

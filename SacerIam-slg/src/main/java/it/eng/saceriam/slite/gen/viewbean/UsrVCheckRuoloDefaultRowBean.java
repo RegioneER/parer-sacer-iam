@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVCheckRuoloDefaultRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,122 +37,122 @@ public class UsrVCheckRuoloDefaultRowBean extends BaseRow
     public static UsrVCheckRuoloDefaultTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckRuoloDefaultTableDescriptor();
 
     public UsrVCheckRuoloDefaultRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdUserCorrente() {
-	return getBigDecimal("id_user_corrente");
+        return getBigDecimal("id_user_corrente");
     }
 
     public void setIdUserCorrente(BigDecimal idUserCorrente) {
-	setObject("id_user_corrente", idUserCorrente);
+        setObject("id_user_corrente", idUserCorrente);
     }
 
     public BigDecimal getIdRuoloAggiunto() {
-	return getBigDecimal("id_ruolo_aggiunto");
+        return getBigDecimal("id_ruolo_aggiunto");
     }
 
     public void setIdRuoloAggiunto(BigDecimal idRuoloAggiunto) {
-	setObject("id_ruolo_aggiunto", idRuoloAggiunto);
+        setObject("id_ruolo_aggiunto", idRuoloAggiunto);
     }
 
     public BigDecimal getIdApplicScelta() {
-	return getBigDecimal("id_applic_scelta");
+        return getBigDecimal("id_applic_scelta");
     }
 
     public void setIdApplicScelta(BigDecimal idApplicScelta) {
-	setObject("id_applic_scelta", idApplicScelta);
+        setObject("id_applic_scelta", idApplicScelta);
     }
 
     public String getTiDichAutor() {
-	return getString("ti_dich_autor");
+        return getString("ti_dich_autor");
     }
 
     public void setTiDichAutor(String tiDichAutor) {
-	setObject("ti_dich_autor", tiDichAutor);
+        setObject("ti_dich_autor", tiDichAutor);
     }
 
     public BigDecimal getIdAutorAggiunta() {
-	return getBigDecimal("id_autor_aggiunta");
+        return getBigDecimal("id_autor_aggiunta");
     }
 
     public void setIdAutorAggiunta(BigDecimal idAutorAggiunta) {
-	setObject("id_autor_aggiunta", idAutorAggiunta);
+        setObject("id_autor_aggiunta", idAutorAggiunta);
     }
 
     public String getNmAutorAggiunta() {
-	return getString("nm_autor_aggiunta");
+        return getString("nm_autor_aggiunta");
     }
 
     public void setNmAutorAggiunta(String nmAutorAggiunta) {
-	setObject("nm_autor_aggiunta", nmAutorAggiunta);
+        setObject("nm_autor_aggiunta", nmAutorAggiunta);
     }
 
     public String getDsAutorAggiunta() {
-	return getString("ds_autor_aggiunta");
+        return getString("ds_autor_aggiunta");
     }
 
     public void setDsAutorAggiunta(String dsAutorAggiunta) {
-	setObject("ds_autor_aggiunta", dsAutorAggiunta);
+        setObject("ds_autor_aggiunta", dsAutorAggiunta);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVCheckRuoloDefault entity = (UsrVCheckRuoloDefault) obj;
-	this.setIdUserCorrente(entity.getUsrVCheckRuoloDefaultId() == null ? null
-		: entity.getUsrVCheckRuoloDefaultId().getIdUserCorrente());
-	this.setIdRuoloAggiunto(entity.getUsrVCheckRuoloDefaultId() == null ? null
-		: entity.getUsrVCheckRuoloDefaultId().getIdRuoloAggiunto());
-	this.setIdApplicScelta(entity.getIdApplicScelta());
-	this.setTiDichAutor(entity.getUsrVCheckRuoloDefaultId() == null ? null
-		: entity.getUsrVCheckRuoloDefaultId().getTiDichAutor());
-	this.setIdAutorAggiunta(entity.getUsrVCheckRuoloDefaultId() == null ? null
-		: entity.getUsrVCheckRuoloDefaultId().getIdAutorAggiunta());
-	this.setNmAutorAggiunta(entity.getNmAutorAggiunta());
-	this.setDsAutorAggiunta(entity.getDsAutorAggiunta());
+        UsrVCheckRuoloDefault entity = (UsrVCheckRuoloDefault) obj;
+        this.setIdUserCorrente(entity.getUsrVCheckRuoloDefaultId() == null ? null
+                : entity.getUsrVCheckRuoloDefaultId().getIdUserCorrente());
+        this.setIdRuoloAggiunto(entity.getUsrVCheckRuoloDefaultId() == null ? null
+                : entity.getUsrVCheckRuoloDefaultId().getIdRuoloAggiunto());
+        this.setIdApplicScelta(entity.getIdApplicScelta());
+        this.setTiDichAutor(entity.getUsrVCheckRuoloDefaultId() == null ? null
+                : entity.getUsrVCheckRuoloDefaultId().getTiDichAutor());
+        this.setIdAutorAggiunta(entity.getUsrVCheckRuoloDefaultId() == null ? null
+                : entity.getUsrVCheckRuoloDefaultId().getIdAutorAggiunta());
+        this.setNmAutorAggiunta(entity.getNmAutorAggiunta());
+        this.setDsAutorAggiunta(entity.getDsAutorAggiunta());
     }
 
     @Override
     public UsrVCheckRuoloDefault rowBeanToEntity() {
-	UsrVCheckRuoloDefault entity = new UsrVCheckRuoloDefault();
-	entity.setUsrVCheckRuoloDefaultId(new UsrVCheckRuoloDefaultId());
-	entity.getUsrVCheckRuoloDefaultId().setIdUserCorrente(this.getIdUserCorrente());
-	entity.getUsrVCheckRuoloDefaultId().setIdRuoloAggiunto(this.getIdRuoloAggiunto());
-	entity.setIdApplicScelta(this.getIdApplicScelta());
-	entity.getUsrVCheckRuoloDefaultId().setTiDichAutor(this.getTiDichAutor());
-	entity.getUsrVCheckRuoloDefaultId().setIdAutorAggiunta(this.getIdAutorAggiunta());
-	entity.setNmAutorAggiunta(this.getNmAutorAggiunta());
-	entity.setDsAutorAggiunta(this.getDsAutorAggiunta());
-	return entity;
+        UsrVCheckRuoloDefault entity = new UsrVCheckRuoloDefault();
+        entity.setUsrVCheckRuoloDefaultId(new UsrVCheckRuoloDefaultId());
+        entity.getUsrVCheckRuoloDefaultId().setIdUserCorrente(this.getIdUserCorrente());
+        entity.getUsrVCheckRuoloDefaultId().setIdRuoloAggiunto(this.getIdRuoloAggiunto());
+        entity.setIdApplicScelta(this.getIdApplicScelta());
+        entity.getUsrVCheckRuoloDefaultId().setTiDichAutor(this.getTiDichAutor());
+        entity.getUsrVCheckRuoloDefaultId().setIdAutorAggiunta(this.getIdAutorAggiunta());
+        entity.setNmAutorAggiunta(this.getNmAutorAggiunta());
+        entity.setDsAutorAggiunta(this.getDsAutorAggiunta());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

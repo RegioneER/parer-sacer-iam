@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVCheckDichAbilOrganizTableBean
-	extends AbstractBaseTable<UsrVCheckDichAbilOrganizRowBean> {
+        extends AbstractBaseTable<UsrVCheckDichAbilOrganizRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class UsrVCheckDichAbilOrganizTableBean
     public static UsrVCheckDichAbilOrganizTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckDichAbilOrganizTableDescriptor();
 
     public UsrVCheckDichAbilOrganizTableBean() {
-	super();
+        super();
     }
 
     protected UsrVCheckDichAbilOrganizRowBean createRow() {
-	return new UsrVCheckDichAbilOrganizRowBean();
+        return new UsrVCheckDichAbilOrganizRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVCheckDichAbilOrganizRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

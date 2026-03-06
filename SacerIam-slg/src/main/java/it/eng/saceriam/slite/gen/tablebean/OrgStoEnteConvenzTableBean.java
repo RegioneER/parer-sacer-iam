@@ -32,19 +32,19 @@ public class OrgStoEnteConvenzTableBean extends AbstractBaseTable<OrgStoEnteConv
     public static OrgStoEnteConvenzTableDescriptor TABLE_DESCRIPTOR = new OrgStoEnteConvenzTableDescriptor();
 
     public OrgStoEnteConvenzTableBean() {
-	super();
+        super();
     }
 
     protected OrgStoEnteConvenzRowBean createRow() {
-	return new OrgStoEnteConvenzRowBean();
+        return new OrgStoEnteConvenzRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgStoEnteConvenzRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

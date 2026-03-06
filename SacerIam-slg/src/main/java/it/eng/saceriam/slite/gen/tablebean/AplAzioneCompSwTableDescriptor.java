@@ -44,27 +44,27 @@ public class AplAzioneCompSwTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_AZIONE_COMP_SW,
-		new ColumnDescriptor(COL_ID_AZIONE_COMP_SW, Types.DECIMAL, 22, true));
-	map.put(COL_ID_COMP_SW, new ColumnDescriptor(COL_ID_COMP_SW, Types.DECIMAL, 22, false));
-	map.put(COL_NM_AZIONE_COMP_SW,
-		new ColumnDescriptor(COL_NM_AZIONE_COMP_SW, Types.VARCHAR, 100, false));
-	map.put(COL_DS_AZIONE_COMP_SW,
-		new ColumnDescriptor(COL_DS_AZIONE_COMP_SW, Types.VARCHAR, 254, false));
-	map.put(COL_ID_TIPO_EVENTO,
-		new ColumnDescriptor(COL_ID_TIPO_EVENTO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_AZIONE_COMP_SW,
+                new ColumnDescriptor(COL_ID_AZIONE_COMP_SW, Types.DECIMAL, 22, true));
+        map.put(COL_ID_COMP_SW, new ColumnDescriptor(COL_ID_COMP_SW, Types.DECIMAL, 22, false));
+        map.put(COL_NM_AZIONE_COMP_SW,
+                new ColumnDescriptor(COL_NM_AZIONE_COMP_SW, Types.VARCHAR, 100, false));
+        map.put(COL_DS_AZIONE_COMP_SW,
+                new ColumnDescriptor(COL_DS_AZIONE_COMP_SW, Types.VARCHAR, 254, false));
+        map.put(COL_ID_TIPO_EVENTO,
+                new ColumnDescriptor(COL_ID_TIPO_EVENTO, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

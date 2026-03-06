@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVCreaServFattUnatantumTableBean
-	extends AbstractBaseTable<OrgVCreaServFattUnatantumRowBean> {
+        extends AbstractBaseTable<OrgVCreaServFattUnatantumRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVCreaServFattUnatantumTableBean
     public static OrgVCreaServFattUnatantumTableDescriptor TABLE_DESCRIPTOR = new OrgVCreaServFattUnatantumTableDescriptor();
 
     public OrgVCreaServFattUnatantumTableBean() {
-	super();
+        super();
     }
 
     protected OrgVCreaServFattUnatantumRowBean createRow() {
-	return new OrgVCreaServFattUnatantumRowBean();
+        return new OrgVCreaServFattUnatantumRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVCreaServFattUnatantumRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

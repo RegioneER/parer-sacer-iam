@@ -43,24 +43,24 @@ public class LogAgenteTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_AGENTE, new ColumnDescriptor(COL_ID_AGENTE, Types.DECIMAL, 22, true));
-	map.put(COL_NM_AGENTE, new ColumnDescriptor(COL_NM_AGENTE, Types.VARCHAR, 100, false));
-	map.put(COL_TIPO_AGENTE_PREMIS,
-		new ColumnDescriptor(COL_TIPO_AGENTE_PREMIS, Types.VARCHAR, 30, false));
-	map.put(COL_TIPO_ORIGINE_AGENTE,
-		new ColumnDescriptor(COL_TIPO_ORIGINE_AGENTE, Types.VARCHAR, 30, false));
+        map.put(COL_ID_AGENTE, new ColumnDescriptor(COL_ID_AGENTE, Types.DECIMAL, 22, true));
+        map.put(COL_NM_AGENTE, new ColumnDescriptor(COL_NM_AGENTE, Types.VARCHAR, 100, false));
+        map.put(COL_TIPO_AGENTE_PREMIS,
+                new ColumnDescriptor(COL_TIPO_AGENTE_PREMIS, Types.VARCHAR, 30, false));
+        map.put(COL_TIPO_ORIGINE_AGENTE,
+                new ColumnDescriptor(COL_TIPO_ORIGINE_AGENTE, Types.VARCHAR, 30, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

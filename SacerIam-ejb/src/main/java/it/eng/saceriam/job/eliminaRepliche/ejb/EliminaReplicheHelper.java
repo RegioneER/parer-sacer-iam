@@ -34,12 +34,12 @@ public class EliminaReplicheHelper extends GenericHelper {
      * @param dtLogUserDaReplic data LogUserDaReplic
      */
     public void deleteOldReplicheUtenti(Date dtLogUserDaReplic) {
-	Query q = entityManager.createQuery("DELETE FROM LogUserDaReplic log "
-		+ "WHERE log.dtLogUserDaReplic < :dtLogUserDaReplic ");
+        Query q = entityManager.createQuery("DELETE FROM LogUserDaReplic log "
+                + "WHERE log.dtLogUserDaReplic < :dtLogUserDaReplic ");
 
-	q.setParameter("dtLogUserDaReplic", dtLogUserDaReplic);
-	q.executeUpdate();
-	entityManager.flush();
+        q.setParameter("dtLogUserDaReplic", dtLogUserDaReplic);
+        q.executeUpdate();
+        entityManager.flush();
     }
 
 }

@@ -64,58 +64,58 @@ public class AplVRicSistemaVersanteTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USER_IAM_COR,
-		new ColumnDescriptor(COL_ID_USER_IAM_COR, Types.DECIMAL, 22, true));
-	map.put(COL_ID_SISTEMA_VERSANTE,
-		new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, true));
-	map.put(COL_NM_SISTEMA_VERSANTE,
-		new ColumnDescriptor(COL_NM_SISTEMA_VERSANTE, Types.VARCHAR, 100, true));
-	map.put(COL_CD_VERSIONE, new ColumnDescriptor(COL_CD_VERSIONE, Types.VARCHAR, 100, true));
-	map.put(COL_DS_SISTEMA_VERSANTE,
-		new ColumnDescriptor(COL_DS_SISTEMA_VERSANTE, Types.VARCHAR, 254, true));
-	map.put(COL_ID_ENTE_SIAM, new ColumnDescriptor(COL_ID_ENTE_SIAM, Types.DECIMAL, 22, true));
-	map.put(COL_NM_PRODUTTORE,
-		new ColumnDescriptor(COL_NM_PRODUTTORE, Types.VARCHAR, 254, true));
-	map.put(COL_DS_VIA_SEDE_LEGALE,
-		new ColumnDescriptor(COL_DS_VIA_SEDE_LEGALE, Types.VARCHAR, 254, true));
-	map.put(COL_CD_CAP_SEDE_LEGALE,
-		new ColumnDescriptor(COL_CD_CAP_SEDE_LEGALE, Types.VARCHAR, 5, true));
-	map.put(COL_DS_CITTA_SEDE_LEGALE,
-		new ColumnDescriptor(COL_DS_CITTA_SEDE_LEGALE, Types.VARCHAR, 254, true));
-	map.put(COL_DS_EMAIL, new ColumnDescriptor(COL_DS_EMAIL, Types.VARCHAR, 254, true));
-	map.put(COL_DS_NOTE, new ColumnDescriptor(COL_DS_NOTE, Types.VARCHAR, 254, false));
-	map.put(COL_FL_PEC, new ColumnDescriptor(COL_FL_PEC, Types.VARCHAR, 1, true));
-	map.put(COL_FL_INTEGRAZIONE,
-		new ColumnDescriptor(COL_FL_INTEGRAZIONE, Types.VARCHAR, 1, true));
-	map.put(COL_FL_ASSOCIA_PERSONA_FISICA,
-		new ColumnDescriptor(COL_FL_ASSOCIA_PERSONA_FISICA, Types.VARCHAR, 1, true));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_ID_ORGANIZ_IAM,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_DL_COMPOSITO_ORGANIZ,
-		new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
-	map.put(COL_ID_ORGANIZ_APPLIC,
-		new ColumnDescriptor(COL_ID_ORGANIZ_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ARCHIVISTA, new ColumnDescriptor(COL_ARCHIVISTA, Types.VARCHAR, 100, true));
-	map.put(COL_ID_USER_IAM_ARK,
-		new ColumnDescriptor(COL_ID_USER_IAM_ARK, Types.DECIMAL, 22, true));
-	map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
-	map.put(COL_DT_FINE_VAL, new ColumnDescriptor(COL_DT_FINE_VAL, Types.TIMESTAMP, 7, false));
-	map.put(COL_FL_CESSATO, new ColumnDescriptor(COL_FL_INTEGRAZIONE, Types.VARCHAR, 1, false));
+        map.put(COL_ID_USER_IAM_COR,
+                new ColumnDescriptor(COL_ID_USER_IAM_COR, Types.DECIMAL, 22, true));
+        map.put(COL_ID_SISTEMA_VERSANTE,
+                new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, true));
+        map.put(COL_NM_SISTEMA_VERSANTE,
+                new ColumnDescriptor(COL_NM_SISTEMA_VERSANTE, Types.VARCHAR, 100, true));
+        map.put(COL_CD_VERSIONE, new ColumnDescriptor(COL_CD_VERSIONE, Types.VARCHAR, 100, true));
+        map.put(COL_DS_SISTEMA_VERSANTE,
+                new ColumnDescriptor(COL_DS_SISTEMA_VERSANTE, Types.VARCHAR, 254, true));
+        map.put(COL_ID_ENTE_SIAM, new ColumnDescriptor(COL_ID_ENTE_SIAM, Types.DECIMAL, 22, true));
+        map.put(COL_NM_PRODUTTORE,
+                new ColumnDescriptor(COL_NM_PRODUTTORE, Types.VARCHAR, 254, true));
+        map.put(COL_DS_VIA_SEDE_LEGALE,
+                new ColumnDescriptor(COL_DS_VIA_SEDE_LEGALE, Types.VARCHAR, 254, true));
+        map.put(COL_CD_CAP_SEDE_LEGALE,
+                new ColumnDescriptor(COL_CD_CAP_SEDE_LEGALE, Types.VARCHAR, 5, true));
+        map.put(COL_DS_CITTA_SEDE_LEGALE,
+                new ColumnDescriptor(COL_DS_CITTA_SEDE_LEGALE, Types.VARCHAR, 254, true));
+        map.put(COL_DS_EMAIL, new ColumnDescriptor(COL_DS_EMAIL, Types.VARCHAR, 254, true));
+        map.put(COL_DS_NOTE, new ColumnDescriptor(COL_DS_NOTE, Types.VARCHAR, 254, false));
+        map.put(COL_FL_PEC, new ColumnDescriptor(COL_FL_PEC, Types.VARCHAR, 1, true));
+        map.put(COL_FL_INTEGRAZIONE,
+                new ColumnDescriptor(COL_FL_INTEGRAZIONE, Types.VARCHAR, 1, true));
+        map.put(COL_FL_ASSOCIA_PERSONA_FISICA,
+                new ColumnDescriptor(COL_FL_ASSOCIA_PERSONA_FISICA, Types.VARCHAR, 1, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_ID_ORGANIZ_IAM,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_DL_COMPOSITO_ORGANIZ,
+                new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
+        map.put(COL_ID_ORGANIZ_APPLIC,
+                new ColumnDescriptor(COL_ID_ORGANIZ_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ARCHIVISTA, new ColumnDescriptor(COL_ARCHIVISTA, Types.VARCHAR, 100, true));
+        map.put(COL_ID_USER_IAM_ARK,
+                new ColumnDescriptor(COL_ID_USER_IAM_ARK, Types.DECIMAL, 22, true));
+        map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_DT_FINE_VAL, new ColumnDescriptor(COL_DT_FINE_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_FL_CESSATO, new ColumnDescriptor(COL_FL_INTEGRAZIONE, Types.VARCHAR, 1, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

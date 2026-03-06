@@ -40,17 +40,17 @@ public class ModificaPswEjb {
     private UserHelper userHelper;
 
     public Set<BigDecimal> getIdApplicSet(Long idUserIam) throws EMFError {
-	Set<BigDecimal> idApplicSet = new HashSet<>();
-	List<UsrUsoUserApplic> applicList = userHelper
-		.getUsrUsoUserApplic(new BigDecimal(idUserIam));
-	for (UsrUsoUserApplic applic : applicList) {
-	    idApplicSet.add(new BigDecimal(applic.getAplApplic().getIdApplic()));
-	}
-	return idApplicSet;
+        Set<BigDecimal> idApplicSet = new HashSet<>();
+        List<UsrUsoUserApplic> applicList = userHelper
+                .getUsrUsoUserApplic(new BigDecimal(idUserIam));
+        for (UsrUsoUserApplic applic : applicList) {
+            idApplicSet.add(new BigDecimal(applic.getAplApplic().getIdApplic()));
+        }
+        return idApplicSet;
     }
 
     public void registraLogUserDaReplic(String username) throws Exception {
-	userHelper.registraLogUserDaReplic(username, ApplEnum.TiOperReplic.MOD);
+        userHelper.registraLogUserDaReplic(username, ApplEnum.TiOperReplic.MOD);
     }
 
 }

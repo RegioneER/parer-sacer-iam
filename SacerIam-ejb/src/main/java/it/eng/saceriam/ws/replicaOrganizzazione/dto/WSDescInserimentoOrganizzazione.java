@@ -24,16 +24,16 @@ public class WSDescInserimentoOrganizzazione implements IWSDesc {
 
     @Override
     public String getNomeWs() {
-	return Costanti.WS_INSERIMENTO_ORGANIZZAZIONE;
+        return Costanti.WS_INSERIMENTO_ORGANIZZAZIONE;
     }
 
     @Override
     public String getVersione() {
-	return Costanti.WS_INSERIMENTO_ORGANIZZAZIONE_VRSN;
+        return Costanti.WS_INSERIMENTO_ORGANIZZAZIONE_VRSN;
     }
 
     @Override
     public String[] getCompatibilitaWS() {
-	return Costanti.WS_INSERIMENTO_ORGANIZZAZIONE_COMP;
+        return Costanti.WS_INSERIMENTO_ORGANIZZAZIONE_COMP;
     }
 }

@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVAbilAmbSacerXstrutRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,100 +37,100 @@ public class UsrVAbilAmbSacerXstrutRowBean extends BaseRow
     public static UsrVAbilAmbSacerXstrutTableDescriptor TABLE_DESCRIPTOR = new UsrVAbilAmbSacerXstrutTableDescriptor();
 
     public UsrVAbilAmbSacerXstrutRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public BigDecimal getIdOrganizApplic() {
-	return getBigDecimal("id_organiz_applic");
+        return getBigDecimal("id_organiz_applic");
     }
 
     public void setIdOrganizApplic(BigDecimal idOrganizApplic) {
-	setObject("id_organiz_applic", idOrganizApplic);
+        setObject("id_organiz_applic", idOrganizApplic);
     }
 
     public String getNmOrganiz() {
-	return getString("nm_organiz");
+        return getString("nm_organiz");
     }
 
     public void setNmOrganiz(String nmOrganiz) {
-	setObject("nm_organiz", nmOrganiz);
+        setObject("nm_organiz", nmOrganiz);
     }
 
     public String getDsOrganiz() {
-	return getString("ds_organiz");
+        return getString("ds_organiz");
     }
 
     public void setDsOrganiz(String dsOrganiz) {
-	setObject("ds_organiz", dsOrganiz);
+        setObject("ds_organiz", dsOrganiz);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVAbilAmbSacerXstrut entity = (UsrVAbilAmbSacerXstrut) obj;
-	this.setIdUserIam(entity.getUsrVAbilAmbSacerXstrutId() == null ? null
-		: entity.getUsrVAbilAmbSacerXstrutId().getIdUserIam());
-	this.setNmApplic(entity.getNmApplic());
-	this.setIdOrganizApplic(entity.getUsrVAbilAmbSacerXstrutId() == null ? null
-		: entity.getUsrVAbilAmbSacerXstrutId().getIdOrganizApplic());
-	this.setNmOrganiz(entity.getNmOrganiz());
-	this.setDsOrganiz(entity.getDsOrganiz());
+        UsrVAbilAmbSacerXstrut entity = (UsrVAbilAmbSacerXstrut) obj;
+        this.setIdUserIam(entity.getUsrVAbilAmbSacerXstrutId() == null ? null
+                : entity.getUsrVAbilAmbSacerXstrutId().getIdUserIam());
+        this.setNmApplic(entity.getNmApplic());
+        this.setIdOrganizApplic(entity.getUsrVAbilAmbSacerXstrutId() == null ? null
+                : entity.getUsrVAbilAmbSacerXstrutId().getIdOrganizApplic());
+        this.setNmOrganiz(entity.getNmOrganiz());
+        this.setDsOrganiz(entity.getDsOrganiz());
     }
 
     @Override
     public UsrVAbilAmbSacerXstrut rowBeanToEntity() {
-	UsrVAbilAmbSacerXstrut entity = new UsrVAbilAmbSacerXstrut();
-	entity.setUsrVAbilAmbSacerXstrutId(new UsrVAbilAmbSacerXstrutId());
-	entity.getUsrVAbilAmbSacerXstrutId().setIdUserIam(this.getIdUserIam());
-	entity.setNmApplic(this.getNmApplic());
-	entity.getUsrVAbilAmbSacerXstrutId().setIdOrganizApplic(this.getIdOrganizApplic());
-	entity.setNmOrganiz(this.getNmOrganiz());
-	entity.setDsOrganiz(this.getDsOrganiz());
-	return entity;
+        UsrVAbilAmbSacerXstrut entity = new UsrVAbilAmbSacerXstrut();
+        entity.setUsrVAbilAmbSacerXstrutId(new UsrVAbilAmbSacerXstrutId());
+        entity.getUsrVAbilAmbSacerXstrutId().setIdUserIam(this.getIdUserIam());
+        entity.setNmApplic(this.getNmApplic());
+        entity.getUsrVAbilAmbSacerXstrutId().setIdOrganizApplic(this.getIdOrganizApplic());
+        entity.setNmOrganiz(this.getNmOrganiz());
+        entity.setDsOrganiz(this.getDsOrganiz());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -36,19 +36,19 @@ public class AplVVisHelpOnLineTableBean extends AbstractBaseTable<AplVVisHelpOnL
     public static AplVVisHelpOnLineTableDescriptor TABLE_DESCRIPTOR = new AplVVisHelpOnLineTableDescriptor();
 
     public AplVVisHelpOnLineTableBean() {
-	super();
+        super();
     }
 
     protected AplVVisHelpOnLineRowBean createRow() {
-	return new AplVVisHelpOnLineRowBean();
+        return new AplVVisHelpOnLineRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplVVisHelpOnLineRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

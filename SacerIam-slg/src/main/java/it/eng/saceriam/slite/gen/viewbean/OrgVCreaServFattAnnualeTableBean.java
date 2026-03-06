@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVCreaServFattAnnualeTableBean
-	extends AbstractBaseTable<OrgVCreaServFattAnnualeRowBean> {
+        extends AbstractBaseTable<OrgVCreaServFattAnnualeRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVCreaServFattAnnualeTableBean
     public static OrgVCreaServFattAnnualeTableDescriptor TABLE_DESCRIPTOR = new OrgVCreaServFattAnnualeTableDescriptor();
 
     public OrgVCreaServFattAnnualeTableBean() {
-	super();
+        super();
     }
 
     protected OrgVCreaServFattAnnualeRowBean createRow() {
-	return new OrgVCreaServFattAnnualeRowBean();
+        return new OrgVCreaServFattAnnualeRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVCreaServFattAnnualeRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

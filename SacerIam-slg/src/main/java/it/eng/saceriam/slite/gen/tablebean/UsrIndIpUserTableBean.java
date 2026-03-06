@@ -32,19 +32,19 @@ public class UsrIndIpUserTableBean extends AbstractBaseTable<UsrIndIpUserRowBean
     public static UsrIndIpUserTableDescriptor TABLE_DESCRIPTOR = new UsrIndIpUserTableDescriptor();
 
     public UsrIndIpUserTableBean() {
-	super();
+        super();
     }
 
     protected UsrIndIpUserRowBean createRow() {
-	return new UsrIndIpUserRowBean();
+        return new UsrIndIpUserRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrIndIpUserRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

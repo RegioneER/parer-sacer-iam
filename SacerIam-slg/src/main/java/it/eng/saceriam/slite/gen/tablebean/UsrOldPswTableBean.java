@@ -32,19 +32,19 @@ public class UsrOldPswTableBean extends AbstractBaseTable<UsrOldPswRowBean> {
     public static UsrOldPswTableDescriptor TABLE_DESCRIPTOR = new UsrOldPswTableDescriptor();
 
     public UsrOldPswTableBean() {
-	super();
+        super();
     }
 
     protected UsrOldPswRowBean createRow() {
-	return new UsrOldPswRowBean();
+        return new UsrOldPswRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrOldPswRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

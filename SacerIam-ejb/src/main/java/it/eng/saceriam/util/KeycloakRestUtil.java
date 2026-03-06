@@ -40,10 +40,10 @@ public class KeycloakRestUtil {
     private static final Logger log = LoggerFactory.getLogger(KeycloakRestUtil.class);
 
     public KeycloakRestUtil(String urlKeycloak, int timeout, String clientId, String clientSecret) {
-	this.urlKeycloak = urlKeycloak;
-	this.timeout = timeout;
-	this.clientId = clientId;
-	this.clientSecret = clientSecret;
+        this.urlKeycloak = urlKeycloak;
+        this.timeout = timeout;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
     }
 
     /*
@@ -51,35 +51,35 @@ public class KeycloakRestUtil {
      * stesso token
      */
     public boolean getToken() {
-	boolean ret = false;
-	HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-	clientHttpRequestFactory.setConnectTimeout(timeout);
-	RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-	String urlLocale = urlKeycloak + "/auth/realms/Parer/protocol/openid-connect/token";
-	try {
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-	    MultiValueMap<String, Object> mapForm = new LinkedMultiValueMap<>();
-	    mapForm.add("grant_type", "client_credentials");
-	    mapForm.add("client_id", clientId);
-	    mapForm.add("client_secret", clientSecret);
-	    HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(mapForm, headers);
-	    ResponseEntity<Object> response = restTemplate.exchange(urlLocale, HttpMethod.POST,
-		    request, Object.class);
-	    LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) response.getBody();
-	    if (map != null) {
-		accessToken = (String) map.get("access_token");
-		log.debug("Ottenuto token dall'URL {}", urlLocale);
-		ret = true;
-	    } else {
-		log.info("Nessun dato tornato dall'url {}", urlLocale);
-	    }
-	} catch (RestClientException ex) {
-	    log.error("Errore nel contattare keycloak!", ex);
-	} finally {
-	    //
-	}
-	return ret;
+        boolean ret = false;
+        HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+        clientHttpRequestFactory.setConnectTimeout(timeout);
+        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+        String urlLocale = urlKeycloak + "/auth/realms/Parer/protocol/openid-connect/token";
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            MultiValueMap<String, Object> mapForm = new LinkedMultiValueMap<>();
+            mapForm.add("grant_type", "client_credentials");
+            mapForm.add("client_id", clientId);
+            mapForm.add("client_secret", clientSecret);
+            HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(mapForm, headers);
+            ResponseEntity<Object> response = restTemplate.exchange(urlLocale, HttpMethod.POST,
+                    request, Object.class);
+            LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) response.getBody();
+            if (map != null) {
+                accessToken = (String) map.get("access_token");
+                log.debug("Ottenuto token dall'URL {}", urlLocale);
+                ret = true;
+            } else {
+                log.info("Nessun dato tornato dall'url {}", urlLocale);
+            }
+        } catch (RestClientException ex) {
+            log.error("Errore nel contattare keycloak!", ex);
+        } finally {
+            //
+        }
+        return ret;
     }
 
     /*
@@ -87,28 +87,28 @@ public class KeycloakRestUtil {
      * attivazione utente
      */
     public boolean sendUserActivation(String idKeycloakUser) {
-	boolean ret = false;
-	String urlLocal = urlKeycloak + "/auth/admin/realms/Parer/users/" + idKeycloakUser
-		+ "/execute-actions-email";
-	HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-	clientHttpRequestFactory.setConnectTimeout(timeout);
-	RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-	try {
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.set("Authorization", "Bearer " + accessToken);
-	    String parametri = "[\"attivazione-utente-required-action\"]";
-	    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlLocal);
-	    HttpEntity<String> request = new HttpEntity<>(parametri, headers);
-	    restTemplate.exchange(builder.toUriString(), HttpMethod.PUT, request, String.class);
-	    log.info("Inviata la mail all'utente per l'update {} della password", idKeycloakUser);
-	    ret = true;
-	} catch (RestClientException ex) {
-	    log.error("Errore nel contattare keycloak!", ex);
-	} finally {
-	    //
-	}
-	return ret;
+        boolean ret = false;
+        String urlLocal = urlKeycloak + "/auth/admin/realms/Parer/users/" + idKeycloakUser
+                + "/execute-actions-email";
+        HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+        clientHttpRequestFactory.setConnectTimeout(timeout);
+        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", "Bearer " + accessToken);
+            String parametri = "[\"attivazione-utente-required-action\"]";
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlLocal);
+            HttpEntity<String> request = new HttpEntity<>(parametri, headers);
+            restTemplate.exchange(builder.toUriString(), HttpMethod.PUT, request, String.class);
+            log.info("Inviata la mail all'utente per l'update {} della password", idKeycloakUser);
+            ret = true;
+        } catch (RestClientException ex) {
+            log.error("Errore nel contattare keycloak!", ex);
+        } finally {
+            //
+        }
+        return ret;
 
     }
 

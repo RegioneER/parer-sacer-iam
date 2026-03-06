@@ -74,78 +74,78 @@ public class UsrVLisUserTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_NM_COGNOME_USER,
-		new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, true));
-	map.put(COL_NM_NOME_USER, new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, true));
-	map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
-	map.put(COL_CD_FISC, new ColumnDescriptor(COL_CD_FISC, Types.VARCHAR, 16, true));
-	map.put(COL_TIPO_USER, new ColumnDescriptor(COL_TIPO_USER, Types.VARCHAR, 20, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_RUOLO_DEFAULT,
-		new ColumnDescriptor(COL_ID_RUOLO_DEFAULT, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ORGANIZ_IAM,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_ID_RUOLO_DICH,
-		new ColumnDescriptor(COL_ID_RUOLO_DICH, Types.DECIMAL, 22, true));
-	map.put(COL_NM_RUOLO_DEFAULT,
-		new ColumnDescriptor(COL_NM_RUOLO_DEFAULT, Types.VARCHAR, 100, true));
-	map.put(COL_NM_RUOLO_DICH,
-		new ColumnDescriptor(COL_NM_RUOLO_DICH, Types.VARCHAR, 100, true));
-	map.put(COL_FL_ERR_REPLIC, new ColumnDescriptor(COL_FL_ERR_REPLIC, Types.VARCHAR, 1, true));
-	map.put(COL_ID_USER_IAM_CORR,
-		new ColumnDescriptor(COL_ID_USER_IAM_CORR, Types.DECIMAL, 22, true));
-	map.put(COL_ID_SISTEMA_VERSANTE,
-		new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, true));
-	map.put(COL_NM_SISTEMA_VERSANTE,
-		new ColumnDescriptor(COL_NM_SISTEMA_VERSANTE, Types.VARCHAR, 100, true));
-	map.put(COL_ID_ENTE_SIAM_APPART,
-		new ColumnDescriptor(COL_ID_ENTE_SIAM_APPART, Types.DECIMAL, 22, true));
-	map.put(COL_NM_ENTE_SIAM_APPART,
-		new ColumnDescriptor(COL_NM_ENTE_SIAM_APPART, Types.VARCHAR, 357, true));
-	map.put(COL_ID_ENTE_CONVENZ_ABIL,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ_ABIL, Types.DECIMAL, 22, true));
-	map.put(COL_TI_STATO_USER,
-		new ColumnDescriptor(COL_TI_STATO_USER, Types.VARCHAR, 30, true));
-	map.put(COL_FL_RESP_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_FL_RESP_ENTE_CONVENZ, Types.VARCHAR, 1, true));
-	map.put(COL_FL_ATTIVO, new ColumnDescriptor(COL_FL_ATTIVO, Types.VARCHAR, 1, true));
-	map.put(COL_ID_ORGANIZ_IAM_RICH,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM_RICH, Types.DECIMAL, 22, true));
-	map.put(COL_CD_REGISTRO_RICH_GEST_USER,
-		new ColumnDescriptor(COL_CD_REGISTRO_RICH_GEST_USER, Types.VARCHAR, 100, true));
-	map.put(COL_AA_RICH_GEST_USER,
-		new ColumnDescriptor(COL_AA_RICH_GEST_USER, Types.DECIMAL, 22, true));
-	map.put(COL_CD_KEY_RICH_GEST_USER,
-		new ColumnDescriptor(COL_CD_KEY_RICH_GEST_USER, Types.VARCHAR, 100, true));
-	map.put(COL_ID_ENTE_RICH, new ColumnDescriptor(COL_ID_ENTE_RICH, Types.DECIMAL, 22, true));
-	map.put(COL_CD_RICH_GEST_USER,
-		new ColumnDescriptor(COL_CD_RICH_GEST_USER, Types.VARCHAR, 100, true));
-	map.put(COL_DT_RICH_GEST_USER,
-		new ColumnDescriptor(COL_DT_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
-	map.put(COL_ID_LAST_RICH_GEST_USER,
-		new ColumnDescriptor(COL_ID_LAST_RICH_GEST_USER, Types.DECIMAL, 22, true));
-	map.put(COL_DT_LAST_RICH_GEST_USER,
-		new ColumnDescriptor(COL_DT_LAST_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
-	map.put(COL_CD_LAST_RICH_GEST_USER,
-		new ColumnDescriptor(COL_CD_LAST_RICH_GEST_USER, Types.VARCHAR, 4000, true));
-	map.put(COL_FL_AZIONI_EVASE,
-		new ColumnDescriptor(COL_FL_AZIONI_EVASE, Types.VARCHAR, 1, true));
-	map.put(COL_DS_LISTA_AZIONI,
-		new ColumnDescriptor(COL_DS_LISTA_AZIONI, Types.VARCHAR, 4000, true));
-	map.put(COL_DS_EMAIL, new ColumnDescriptor(COL_DS_EMAIL, Types.VARCHAR, 254, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_NM_COGNOME_USER,
+                new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_NM_NOME_USER, new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
+        map.put(COL_CD_FISC, new ColumnDescriptor(COL_CD_FISC, Types.VARCHAR, 16, true));
+        map.put(COL_TIPO_USER, new ColumnDescriptor(COL_TIPO_USER, Types.VARCHAR, 20, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_RUOLO_DEFAULT,
+                new ColumnDescriptor(COL_ID_RUOLO_DEFAULT, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ORGANIZ_IAM,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_ID_RUOLO_DICH,
+                new ColumnDescriptor(COL_ID_RUOLO_DICH, Types.DECIMAL, 22, true));
+        map.put(COL_NM_RUOLO_DEFAULT,
+                new ColumnDescriptor(COL_NM_RUOLO_DEFAULT, Types.VARCHAR, 100, true));
+        map.put(COL_NM_RUOLO_DICH,
+                new ColumnDescriptor(COL_NM_RUOLO_DICH, Types.VARCHAR, 100, true));
+        map.put(COL_FL_ERR_REPLIC, new ColumnDescriptor(COL_FL_ERR_REPLIC, Types.VARCHAR, 1, true));
+        map.put(COL_ID_USER_IAM_CORR,
+                new ColumnDescriptor(COL_ID_USER_IAM_CORR, Types.DECIMAL, 22, true));
+        map.put(COL_ID_SISTEMA_VERSANTE,
+                new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, true));
+        map.put(COL_NM_SISTEMA_VERSANTE,
+                new ColumnDescriptor(COL_NM_SISTEMA_VERSANTE, Types.VARCHAR, 100, true));
+        map.put(COL_ID_ENTE_SIAM_APPART,
+                new ColumnDescriptor(COL_ID_ENTE_SIAM_APPART, Types.DECIMAL, 22, true));
+        map.put(COL_NM_ENTE_SIAM_APPART,
+                new ColumnDescriptor(COL_NM_ENTE_SIAM_APPART, Types.VARCHAR, 357, true));
+        map.put(COL_ID_ENTE_CONVENZ_ABIL,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ_ABIL, Types.DECIMAL, 22, true));
+        map.put(COL_TI_STATO_USER,
+                new ColumnDescriptor(COL_TI_STATO_USER, Types.VARCHAR, 30, true));
+        map.put(COL_FL_RESP_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_FL_RESP_ENTE_CONVENZ, Types.VARCHAR, 1, true));
+        map.put(COL_FL_ATTIVO, new ColumnDescriptor(COL_FL_ATTIVO, Types.VARCHAR, 1, true));
+        map.put(COL_ID_ORGANIZ_IAM_RICH,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM_RICH, Types.DECIMAL, 22, true));
+        map.put(COL_CD_REGISTRO_RICH_GEST_USER,
+                new ColumnDescriptor(COL_CD_REGISTRO_RICH_GEST_USER, Types.VARCHAR, 100, true));
+        map.put(COL_AA_RICH_GEST_USER,
+                new ColumnDescriptor(COL_AA_RICH_GEST_USER, Types.DECIMAL, 22, true));
+        map.put(COL_CD_KEY_RICH_GEST_USER,
+                new ColumnDescriptor(COL_CD_KEY_RICH_GEST_USER, Types.VARCHAR, 100, true));
+        map.put(COL_ID_ENTE_RICH, new ColumnDescriptor(COL_ID_ENTE_RICH, Types.DECIMAL, 22, true));
+        map.put(COL_CD_RICH_GEST_USER,
+                new ColumnDescriptor(COL_CD_RICH_GEST_USER, Types.VARCHAR, 100, true));
+        map.put(COL_DT_RICH_GEST_USER,
+                new ColumnDescriptor(COL_DT_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
+        map.put(COL_ID_LAST_RICH_GEST_USER,
+                new ColumnDescriptor(COL_ID_LAST_RICH_GEST_USER, Types.DECIMAL, 22, true));
+        map.put(COL_DT_LAST_RICH_GEST_USER,
+                new ColumnDescriptor(COL_DT_LAST_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
+        map.put(COL_CD_LAST_RICH_GEST_USER,
+                new ColumnDescriptor(COL_CD_LAST_RICH_GEST_USER, Types.VARCHAR, 4000, true));
+        map.put(COL_FL_AZIONI_EVASE,
+                new ColumnDescriptor(COL_FL_AZIONI_EVASE, Types.VARCHAR, 1, true));
+        map.put(COL_DS_LISTA_AZIONI,
+                new ColumnDescriptor(COL_DS_LISTA_AZIONI, Types.VARCHAR, 4000, true));
+        map.put(COL_DS_EMAIL, new ColumnDescriptor(COL_DS_EMAIL, Types.VARCHAR, 254, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

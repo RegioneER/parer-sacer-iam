@@ -58,12 +58,12 @@ public class AmministrazioneClasseEnteAction extends AmministrazioneClasseEnteAb
 
     @Override
     public void elencoOnClick() throws EMFError {
-	goBack();
+        goBack();
     }
 
     @Override
     protected String getDefaultPublsherName() {
-	return Application.Publisher.RICERCA_CLASSE_ENTE_CONVENZIONATO;
+        return Application.Publisher.RICERCA_CLASSE_ENTE_CONVENZIONATO;
     }
 
     @Override
@@ -72,42 +72,42 @@ public class AmministrazioneClasseEnteAction extends AmministrazioneClasseEnteAb
 
     @Override
     public String getControllerName() {
-	return Application.Actions.AMMINISTRAZIONE_CLASSE_ENTE;
+        return Application.Actions.AMMINISTRAZIONE_CLASSE_ENTE;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Gestione Classe ente convenzionato">
     @Secure(action = "Menu.AmministrazioneSistema.GestioneClasseEnteConvenzionato")
     public void ricercaClasseEnteConvenzionatoPage() {
-	getUser().getMenu().reset();
-	getUser().getMenu().select("Menu.AmministrazioneSistema.GestioneClasseEnteConvenzionato");
+        getUser().getMenu().reset();
+        getUser().getMenu().select("Menu.AmministrazioneSistema.GestioneClasseEnteConvenzionato");
 
-	getForm().getFiltriClassiEnti().reset();
-	getForm().getFiltriClassiEnti().setEditMode();
+        getForm().getFiltriClassiEnti().reset();
+        getForm().getFiltriClassiEnti().setEditMode();
 
-	// Azzero la lista risultato
-	getForm().getListaClassiEnti().setTable(null);
+        // Azzero la lista risultato
+        getForm().getListaClassiEnti().setTable(null);
 
-	forwardToPublisher(Application.Publisher.RICERCA_CLASSE_ENTE_CONVENZIONATO);
+        forwardToPublisher(Application.Publisher.RICERCA_CLASSE_ENTE_CONVENZIONATO);
     }
 
     @Override
     public void ricercaClassiEnti() throws EMFError {
-	if (getForm().getFiltriClassiEnti().postAndValidate(getRequest(), getMessageBox())) {
-	    String cdClasseEnteConvenz = getForm().getFiltriClassiEnti().getCd_classe_ente_convenz()
-		    .parse();
-	    String dsClasseEnteConvenz = getForm().getFiltriClassiEnti().getDs_classe_ente_convenz()
-		    .parse();
-	    try {
-		OrgClasseEnteConvenzTableBean table = entiConvenzionatiEjb
-			.getOrgClasseEnteConvenzTableBean(cdClasseEnteConvenz, dsClasseEnteConvenz);
-		getForm().getListaClassiEnti().setTable(table);
-		getForm().getListaClassiEnti().getTable().setPageSize(10);
-		getForm().getListaClassiEnti().getTable().first();
-	    } catch (ParerUserError pue) {
-		getMessageBox().addError(pue.getDescription());
-	    }
-	}
-	forwardToPublisher(getLastPublisher());
+        if (getForm().getFiltriClassiEnti().postAndValidate(getRequest(), getMessageBox())) {
+            String cdClasseEnteConvenz = getForm().getFiltriClassiEnti().getCd_classe_ente_convenz()
+                    .parse();
+            String dsClasseEnteConvenz = getForm().getFiltriClassiEnti().getDs_classe_ente_convenz()
+                    .parse();
+            try {
+                OrgClasseEnteConvenzTableBean table = entiConvenzionatiEjb
+                        .getOrgClasseEnteConvenzTableBean(cdClasseEnteConvenz, dsClasseEnteConvenz);
+                getForm().getListaClassiEnti().setTable(table);
+                getForm().getListaClassiEnti().getTable().setPageSize(10);
+                getForm().getListaClassiEnti().getTable().first();
+            } catch (ParerUserError pue) {
+                getMessageBox().addError(pue.getDescription());
+            }
+        }
+        forwardToPublisher(getLastPublisher());
     }
     // </editor-fold>
 

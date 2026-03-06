@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgTipoAccordoRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,124 +38,124 @@ public class OrgTipoAccordoRowBean extends BaseRow
     public static OrgTipoAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgTipoAccordoTableDescriptor();
 
     public OrgTipoAccordoRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdTipoAccordo() {
-	return getBigDecimal("id_tipo_accordo");
+        return getBigDecimal("id_tipo_accordo");
     }
 
     public void setIdTipoAccordo(BigDecimal idTipoAccordo) {
-	setObject("id_tipo_accordo", idTipoAccordo);
+        setObject("id_tipo_accordo", idTipoAccordo);
     }
 
     public String getCdTipoAccordo() {
-	return getString("cd_tipo_accordo");
+        return getString("cd_tipo_accordo");
     }
 
     public void setCdTipoAccordo(String cdTipoAccordo) {
-	setObject("cd_tipo_accordo", cdTipoAccordo);
+        setObject("cd_tipo_accordo", cdTipoAccordo);
     }
 
     public String getDsTipoAccordo() {
-	return getString("ds_tipo_accordo");
+        return getString("ds_tipo_accordo");
     }
 
     public void setDsTipoAccordo(String dsTipoAccordo) {
-	setObject("ds_tipo_accordo", dsTipoAccordo);
+        setObject("ds_tipo_accordo", dsTipoAccordo);
     }
 
     public String getFlPagamento() {
-	return getString("fl_pagamento");
+        return getString("fl_pagamento");
     }
 
     public void setFlPagamento(String flPagamento) {
-	setObject("fl_pagamento", flPagamento);
+        setObject("fl_pagamento", flPagamento);
     }
 
     public Timestamp getDtIstituz() {
-	return getTimestamp("dt_istituz");
+        return getTimestamp("dt_istituz");
     }
 
     public void setDtIstituz(Timestamp dtIstituz) {
-	setObject("dt_istituz", dtIstituz);
+        setObject("dt_istituz", dtIstituz);
     }
 
     public Timestamp getDtSoppres() {
-	return getTimestamp("dt_soppres");
+        return getTimestamp("dt_soppres");
     }
 
     public void setDtSoppres(Timestamp dtSoppres) {
-	setObject("dt_soppres", dtSoppres);
+        setObject("dt_soppres", dtSoppres);
     }
 
     public String getCdAlgoTariffario() {
-	return getString("cd_algo_tariffario");
+        return getString("cd_algo_tariffario");
     }
 
     public void setCdAlgoTariffario(String cd_algo_tariffario) {
-	setObject("cd_algo_tariffario", cd_algo_tariffario);
+        setObject("cd_algo_tariffario", cd_algo_tariffario);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgTipoAccordo entity = (OrgTipoAccordo) obj;
-	this.setIdTipoAccordo(new BigDecimal(entity.getIdTipoAccordo()));
-	this.setCdTipoAccordo(entity.getCdTipoAccordo());
-	this.setDsTipoAccordo(entity.getDsTipoAccordo());
-	this.setFlPagamento(entity.getFlPagamento());
-	if (entity.getDtIstituz() != null) {
-	    this.setDtIstituz(new Timestamp(entity.getDtIstituz().getTime()));
-	}
-	if (entity.getDtSoppres() != null) {
-	    this.setDtSoppres(new Timestamp(entity.getDtSoppres().getTime()));
-	}
-	this.setCdAlgoTariffario(entity.getCdAlgoTariffario());
+        OrgTipoAccordo entity = (OrgTipoAccordo) obj;
+        this.setIdTipoAccordo(new BigDecimal(entity.getIdTipoAccordo()));
+        this.setCdTipoAccordo(entity.getCdTipoAccordo());
+        this.setDsTipoAccordo(entity.getDsTipoAccordo());
+        this.setFlPagamento(entity.getFlPagamento());
+        if (entity.getDtIstituz() != null) {
+            this.setDtIstituz(new Timestamp(entity.getDtIstituz().getTime()));
+        }
+        if (entity.getDtSoppres() != null) {
+            this.setDtSoppres(new Timestamp(entity.getDtSoppres().getTime()));
+        }
+        this.setCdAlgoTariffario(entity.getCdAlgoTariffario());
     }
 
     @Override
     public OrgTipoAccordo rowBeanToEntity() {
-	OrgTipoAccordo entity = new OrgTipoAccordo();
-	if (this.getIdTipoAccordo() != null) {
-	    entity.setIdTipoAccordo(this.getIdTipoAccordo().longValue());
-	}
-	entity.setCdTipoAccordo(this.getCdTipoAccordo());
-	entity.setDsTipoAccordo(this.getDsTipoAccordo());
-	entity.setFlPagamento(this.getFlPagamento());
-	entity.setDtIstituz(this.getDtIstituz());
-	entity.setDtSoppres(this.getDtSoppres());
-	entity.setCdAlgoTariffario(this.getCdAlgoTariffario());
-	return entity;
+        OrgTipoAccordo entity = new OrgTipoAccordo();
+        if (this.getIdTipoAccordo() != null) {
+            entity.setIdTipoAccordo(this.getIdTipoAccordo().longValue());
+        }
+        entity.setCdTipoAccordo(this.getCdTipoAccordo());
+        entity.setDsTipoAccordo(this.getDsTipoAccordo());
+        entity.setFlPagamento(this.getFlPagamento());
+        entity.setDtIstituz(this.getDtIstituz());
+        entity.setDtSoppres(this.getDtSoppres());
+        entity.setCdAlgoTariffario(this.getCdAlgoTariffario());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

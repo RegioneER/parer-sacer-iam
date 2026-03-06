@@ -47,31 +47,31 @@ public abstract class JobTimer implements JbossJobTimer {
     protected JobLogger jobLogger;
 
     protected JobTimer(Constants.NomiJob jobName) {
-	if (jobName == null) {
-	    throw new IllegalArgumentException();
-	}
+        if (jobName == null) {
+            throw new IllegalArgumentException();
+        }
 
-	this.jobName = jobName.name();
+        this.jobName = jobName.name();
     }
 
     @Override
     public String getJobName() {
-	return jobName;
+        return jobName;
     }
 
     protected boolean isActive() {
-	boolean result = false;
+        boolean result = false;
 
-	for (Object obj : timerService.getTimers()) {
-	    Timer timer = (Timer) obj;
-	    String scheduled = (String) timer.getInfo();
-	    if (scheduled.equals(jobName)) {
-		result = true;
-		break;
-	    }
-	}
+        for (Object obj : timerService.getTimers()) {
+            Timer timer = (Timer) obj;
+            String scheduled = (String) timer.getInfo();
+            if (scheduled.equals(jobName)) {
+                result = true;
+                break;
+            }
+        }
 
-	return result;
+        return result;
     }
 
     /**
@@ -91,16 +91,16 @@ public abstract class JobTimer implements JbossJobTimer {
      * @return data prossima elaborazione
      */
     public Date getNextElaboration(String applicationName) {
-	for (Object obj : timerService.getTimers()) {
-	    Timer timer = (Timer) obj;
-	    String scheduled = (String) timer.getInfo();
+        for (Object obj : timerService.getTimers()) {
+            Timer timer = (Timer) obj;
+            String scheduled = (String) timer.getInfo();
 
-	    if (scheduled.equals(jobName)) {
-		return timer.getNextTimeout();
-	    }
-	}
+            if (scheduled.equals(jobName)) {
+                return timer.getNextTimeout();
+            }
+        }
 
-	return null;
+        return null;
     }
 
     @Override

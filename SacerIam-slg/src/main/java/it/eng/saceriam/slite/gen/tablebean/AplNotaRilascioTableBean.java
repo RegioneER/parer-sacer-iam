@@ -32,19 +32,19 @@ public class AplNotaRilascioTableBean extends AbstractBaseTable<AplNotaRilascioR
     public static AplNotaRilascioTableDescriptor TABLE_DESCRIPTOR = new AplNotaRilascioTableDescriptor();
 
     public AplNotaRilascioTableBean() {
-	super();
+        super();
     }
 
     protected AplNotaRilascioRowBean createRow() {
-	return new AplNotaRilascioRowBean();
+        return new AplNotaRilascioRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplNotaRilascioRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

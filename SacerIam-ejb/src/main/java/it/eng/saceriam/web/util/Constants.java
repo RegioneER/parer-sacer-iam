@@ -35,17 +35,17 @@ public class Constants {
     // Enum per esito
     public enum Esito {
 
-	OK, KO
+        OK, KO
     }
 
     public enum EsitoServizio {
 
-	OK, KO, WARN
+        OK, KO, WARN
     }
 
     // MEV26588
     public enum ComboValueParamentersType {
-	STRINGA, PASSWORD;
+        STRINGA, PASSWORD;
     }
 
     public static final String OBFUSCATED_STRING = "********";

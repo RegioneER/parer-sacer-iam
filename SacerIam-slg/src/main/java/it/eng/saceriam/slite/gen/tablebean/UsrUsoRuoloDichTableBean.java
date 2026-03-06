@@ -32,19 +32,19 @@ public class UsrUsoRuoloDichTableBean extends AbstractBaseTable<UsrUsoRuoloDichR
     public static UsrUsoRuoloDichTableDescriptor TABLE_DESCRIPTOR = new UsrUsoRuoloDichTableDescriptor();
 
     public UsrUsoRuoloDichTableBean() {
-	super();
+        super();
     }
 
     protected UsrUsoRuoloDichRowBean createRow() {
-	return new UsrUsoRuoloDichRowBean();
+        return new UsrUsoRuoloDichRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrUsoRuoloDichRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

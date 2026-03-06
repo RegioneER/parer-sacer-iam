@@ -36,19 +36,19 @@ public class UsrVLisUserTableBean extends AbstractBaseTable<UsrVLisUserRowBean> 
     public static UsrVLisUserTableDescriptor TABLE_DESCRIPTOR = new UsrVLisUserTableDescriptor();
 
     public UsrVLisUserTableBean() {
-	super();
+        super();
     }
 
     protected UsrVLisUserRowBean createRow() {
-	return new UsrVLisUserRowBean();
+        return new UsrVLisUserRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVLisUserRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

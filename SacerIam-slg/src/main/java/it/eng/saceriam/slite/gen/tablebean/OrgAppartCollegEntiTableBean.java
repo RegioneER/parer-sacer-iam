@@ -32,19 +32,19 @@ public class OrgAppartCollegEntiTableBean extends AbstractBaseTable<OrgAppartCol
     public static OrgAppartCollegEntiTableDescriptor TABLE_DESCRIPTOR = new OrgAppartCollegEntiTableDescriptor();
 
     public OrgAppartCollegEntiTableBean() {
-	super();
+        super();
     }
 
     protected OrgAppartCollegEntiRowBean createRow() {
-	return new OrgAppartCollegEntiRowBean();
+        return new OrgAppartCollegEntiRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgAppartCollegEntiRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

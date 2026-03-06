@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVCreaFatturaByFattRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,131 +37,131 @@ public class OrgVCreaFatturaByFattRowBean extends BaseRow
     public static OrgVCreaFatturaByFattTableDescriptor TABLE_DESCRIPTOR = new OrgVCreaFatturaByFattTableDescriptor();
 
     public OrgVCreaFatturaByFattRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdFatturaEnteDaRicalc() {
-	return getBigDecimal("id_fattura_ente_da_ricalc");
+        return getBigDecimal("id_fattura_ente_da_ricalc");
     }
 
     public void setIdFatturaEnteDaRicalc(BigDecimal idFatturaEnteDaRicalc) {
-	setObject("id_fattura_ente_da_ricalc", idFatturaEnteDaRicalc);
+        setObject("id_fattura_ente_da_ricalc", idFatturaEnteDaRicalc);
     }
 
     public BigDecimal getIdEnteConvenz() {
-	return getBigDecimal("id_ente_convenz");
+        return getBigDecimal("id_ente_convenz");
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	setObject("id_ente_convenz", idEnteConvenz);
+        setObject("id_ente_convenz", idEnteConvenz);
     }
 
     public BigDecimal getAaFattura() {
-	return getBigDecimal("aa_fattura");
+        return getBigDecimal("aa_fattura");
     }
 
     public void setAaFattura(BigDecimal aaFattura) {
-	setObject("aa_fattura", aaFattura);
+        setObject("aa_fattura", aaFattura);
     }
 
     public BigDecimal getPgFattura() {
-	return getBigDecimal("pg_fattura");
+        return getBigDecimal("pg_fattura");
     }
 
     public void setPgFattura(BigDecimal pgFattura) {
-	setObject("pg_fattura", pgFattura);
+        setObject("pg_fattura", pgFattura);
     }
 
     public String getCdFattura() {
-	return getString("cd_fattura");
+        return getString("cd_fattura");
     }
 
     public void setCdFattura(String cdFattura) {
-	setObject("cd_fattura", cdFattura);
+        setObject("cd_fattura", cdFattura);
     }
 
     public BigDecimal getImTotFattura() {
-	return getBigDecimal("im_tot_fattura");
+        return getBigDecimal("im_tot_fattura");
     }
 
     public void setImTotFattura(BigDecimal imTotFattura) {
-	setObject("im_tot_fattura", imTotFattura);
+        setObject("im_tot_fattura", imTotFattura);
     }
 
     public BigDecimal getImTotDaPagare() {
-	return getBigDecimal("im_tot_da_pagare");
+        return getBigDecimal("im_tot_da_pagare");
     }
 
     public void setImTotDaPagare(BigDecimal imTotDaPagare) {
-	setObject("im_tot_da_pagare", imTotDaPagare);
+        setObject("im_tot_da_pagare", imTotDaPagare);
     }
 
     public BigDecimal getImTotIva() {
-	return getBigDecimal("im_tot_iva");
+        return getBigDecimal("im_tot_iva");
     }
 
     public void setImTotIva(BigDecimal imTotIva) {
-	setObject("im_tot_iva", imTotIva);
+        setObject("im_tot_iva", imTotIva);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgVCreaFatturaByFatt entity = (OrgVCreaFatturaByFatt) obj;
-	this.setIdFatturaEnteDaRicalc(entity.getOrgVCreaFatturaByFattId() == null ? null
-		: entity.getOrgVCreaFatturaByFattId().getIdFatturaEnteDaRicalc());
-	this.setIdEnteConvenz(entity.getIdEnteConvenz());
-	this.setAaFattura(entity.getOrgVCreaFatturaByFattId() == null ? null
-		: entity.getOrgVCreaFatturaByFattId().getAaFattura());
-	this.setPgFattura(entity.getPgFattura());
-	this.setCdFattura(entity.getCdFattura());
-	this.setImTotFattura(entity.getImTotFattura());
-	this.setImTotDaPagare(entity.getImTotDaPagare());
-	this.setImTotIva(entity.getImTotIva());
+        OrgVCreaFatturaByFatt entity = (OrgVCreaFatturaByFatt) obj;
+        this.setIdFatturaEnteDaRicalc(entity.getOrgVCreaFatturaByFattId() == null ? null
+                : entity.getOrgVCreaFatturaByFattId().getIdFatturaEnteDaRicalc());
+        this.setIdEnteConvenz(entity.getIdEnteConvenz());
+        this.setAaFattura(entity.getOrgVCreaFatturaByFattId() == null ? null
+                : entity.getOrgVCreaFatturaByFattId().getAaFattura());
+        this.setPgFattura(entity.getPgFattura());
+        this.setCdFattura(entity.getCdFattura());
+        this.setImTotFattura(entity.getImTotFattura());
+        this.setImTotDaPagare(entity.getImTotDaPagare());
+        this.setImTotIva(entity.getImTotIva());
     }
 
     @Override
     public OrgVCreaFatturaByFatt rowBeanToEntity() {
-	OrgVCreaFatturaByFatt entity = new OrgVCreaFatturaByFatt();
-	entity.setOrgVCreaFatturaByFattId(new OrgVCreaFatturaByFattId());
-	entity.getOrgVCreaFatturaByFattId()
-		.setIdFatturaEnteDaRicalc(this.getIdFatturaEnteDaRicalc());
-	entity.setIdEnteConvenz(this.getIdEnteConvenz());
-	entity.getOrgVCreaFatturaByFattId().setAaFattura(this.getAaFattura());
-	entity.setPgFattura(this.getPgFattura());
-	entity.setCdFattura(this.getCdFattura());
-	entity.setImTotFattura(this.getImTotFattura());
-	entity.setImTotDaPagare(this.getImTotDaPagare());
-	entity.setImTotIva(this.getImTotIva());
-	return entity;
+        OrgVCreaFatturaByFatt entity = new OrgVCreaFatturaByFatt();
+        entity.setOrgVCreaFatturaByFattId(new OrgVCreaFatturaByFattId());
+        entity.getOrgVCreaFatturaByFattId()
+                .setIdFatturaEnteDaRicalc(this.getIdFatturaEnteDaRicalc());
+        entity.setIdEnteConvenz(this.getIdEnteConvenz());
+        entity.getOrgVCreaFatturaByFattId().setAaFattura(this.getAaFattura());
+        entity.setPgFattura(this.getPgFattura());
+        entity.setCdFattura(this.getCdFattura());
+        entity.setImTotFattura(this.getImTotFattura());
+        entity.setImTotDaPagare(this.getImTotDaPagare());
+        entity.setImTotIva(this.getImTotIva());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

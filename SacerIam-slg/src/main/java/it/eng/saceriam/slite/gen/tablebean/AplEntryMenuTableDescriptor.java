@@ -47,33 +47,33 @@ public class AplEntryMenuTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ENTRY_MENU,
-		new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_NM_ENTRY_MENU,
-		new ColumnDescriptor(COL_NM_ENTRY_MENU, Types.VARCHAR, 100, false));
-	map.put(COL_DS_ENTRY_MENU,
-		new ColumnDescriptor(COL_DS_ENTRY_MENU, Types.VARCHAR, 254, false));
-	map.put(COL_NI_LIVELLO_ENTRY_MENU,
-		new ColumnDescriptor(COL_NI_LIVELLO_ENTRY_MENU, Types.DECIMAL, 22, false));
-	map.put(COL_NI_ORD_ENTRY_MENU,
-		new ColumnDescriptor(COL_NI_ORD_ENTRY_MENU, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTRY_MENU_PADRE,
-		new ColumnDescriptor(COL_ID_ENTRY_MENU_PADRE, Types.DECIMAL, 22, false));
-	map.put(COL_DL_LINK_ENTRY_MENU,
-		new ColumnDescriptor(COL_DL_LINK_ENTRY_MENU, Types.VARCHAR, 2000, false));
+        map.put(COL_ID_ENTRY_MENU,
+                new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_NM_ENTRY_MENU,
+                new ColumnDescriptor(COL_NM_ENTRY_MENU, Types.VARCHAR, 100, false));
+        map.put(COL_DS_ENTRY_MENU,
+                new ColumnDescriptor(COL_DS_ENTRY_MENU, Types.VARCHAR, 254, false));
+        map.put(COL_NI_LIVELLO_ENTRY_MENU,
+                new ColumnDescriptor(COL_NI_LIVELLO_ENTRY_MENU, Types.DECIMAL, 22, false));
+        map.put(COL_NI_ORD_ENTRY_MENU,
+                new ColumnDescriptor(COL_NI_ORD_ENTRY_MENU, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTRY_MENU_PADRE,
+                new ColumnDescriptor(COL_ID_ENTRY_MENU_PADRE, Types.DECIMAL, 22, false));
+        map.put(COL_DL_LINK_ENTRY_MENU,
+                new ColumnDescriptor(COL_DL_LINK_ENTRY_MENU, Types.VARCHAR, 2000, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

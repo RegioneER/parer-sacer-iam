@@ -24,26 +24,26 @@ public class OrganizAbil {
     private ListaTipiDatoAbil listaTipiDatoAbil;
 
     public Integer getIdOrganizApplicAbil() {
-	return idOrganizApplicAbil;
+        return idOrganizApplicAbil;
     }
 
     public void setIdOrganizApplicAbil(Integer idOrganizApplicAbil) {
-	this.idOrganizApplicAbil = idOrganizApplicAbil;
+        this.idOrganizApplicAbil = idOrganizApplicAbil;
     }
 
     public ListaServiziAutor getListaServiziAutor() {
-	return listaServiziAutor;
+        return listaServiziAutor;
     }
 
     public void setListaServiziAutor(ListaServiziAutor listaServiziAutor) {
-	this.listaServiziAutor = listaServiziAutor;
+        this.listaServiziAutor = listaServiziAutor;
     }
 
     public ListaTipiDatoAbil getListaTipiDatoAbil() {
-	return listaTipiDatoAbil;
+        return listaTipiDatoAbil;
     }
 
     public void setListaTipiDatoAbil(ListaTipiDatoAbil listaTipiDatoAbil) {
-	this.listaTipiDatoAbil = listaTipiDatoAbil;
+        this.listaTipiDatoAbil = listaTipiDatoAbil;
     }
 }

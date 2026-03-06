@@ -50,36 +50,36 @@ public class DecModelloComunicTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_MODELLO_COMUNIC,
-		new ColumnDescriptor(COL_ID_MODELLO_COMUNIC, Types.DECIMAL, 22, true));
-	map.put(COL_CD_MODELLO_COMUNIC,
-		new ColumnDescriptor(COL_CD_MODELLO_COMUNIC, Types.VARCHAR, 100, false));
-	map.put(COL_DS_MODELLO_COMUNIC,
-		new ColumnDescriptor(COL_DS_MODELLO_COMUNIC, Types.VARCHAR, 254, false));
-	map.put(COL_TI_COMUNIC, new ColumnDescriptor(COL_TI_COMUNIC, Types.VARCHAR, 20, false));
-	map.put(COL_TI_OGGETTO_QUERY,
-		new ColumnDescriptor(COL_TI_OGGETTO_QUERY, Types.VARCHAR, 30, false));
-	map.put(COL_DT_ISTITUZ, new ColumnDescriptor(COL_DT_ISTITUZ, Types.TIMESTAMP, 7, false));
-	map.put(COL_DT_SOPPRES, new ColumnDescriptor(COL_DT_SOPPRES, Types.TIMESTAMP, 7, false));
-	map.put(COL_TI_STATO_TRIG_COMUNIC,
-		new ColumnDescriptor(COL_TI_STATO_TRIG_COMUNIC, Types.VARCHAR, 30, false));
-	map.put(COL_NM_MITTENTE, new ColumnDescriptor(COL_NM_MITTENTE, Types.VARCHAR, 100, false));
-	map.put(COL_DS_OGGETTO_COMUNIC,
-		new ColumnDescriptor(COL_DS_OGGETTO_COMUNIC, Types.VARCHAR, 254, false));
-	map.put(COL_BL_TESTO_COMUNIC,
-		new ColumnDescriptor(COL_BL_TESTO_COMUNIC, Types.CLOB, 4000, false));
+        map.put(COL_ID_MODELLO_COMUNIC,
+                new ColumnDescriptor(COL_ID_MODELLO_COMUNIC, Types.DECIMAL, 22, true));
+        map.put(COL_CD_MODELLO_COMUNIC,
+                new ColumnDescriptor(COL_CD_MODELLO_COMUNIC, Types.VARCHAR, 100, false));
+        map.put(COL_DS_MODELLO_COMUNIC,
+                new ColumnDescriptor(COL_DS_MODELLO_COMUNIC, Types.VARCHAR, 254, false));
+        map.put(COL_TI_COMUNIC, new ColumnDescriptor(COL_TI_COMUNIC, Types.VARCHAR, 20, false));
+        map.put(COL_TI_OGGETTO_QUERY,
+                new ColumnDescriptor(COL_TI_OGGETTO_QUERY, Types.VARCHAR, 30, false));
+        map.put(COL_DT_ISTITUZ, new ColumnDescriptor(COL_DT_ISTITUZ, Types.TIMESTAMP, 7, false));
+        map.put(COL_DT_SOPPRES, new ColumnDescriptor(COL_DT_SOPPRES, Types.TIMESTAMP, 7, false));
+        map.put(COL_TI_STATO_TRIG_COMUNIC,
+                new ColumnDescriptor(COL_TI_STATO_TRIG_COMUNIC, Types.VARCHAR, 30, false));
+        map.put(COL_NM_MITTENTE, new ColumnDescriptor(COL_NM_MITTENTE, Types.VARCHAR, 100, false));
+        map.put(COL_DS_OGGETTO_COMUNIC,
+                new ColumnDescriptor(COL_DS_OGGETTO_COMUNIC, Types.VARCHAR, 254, false));
+        map.put(COL_BL_TESTO_COMUNIC,
+                new ColumnDescriptor(COL_BL_TESTO_COMUNIC, Types.CLOB, 4000, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

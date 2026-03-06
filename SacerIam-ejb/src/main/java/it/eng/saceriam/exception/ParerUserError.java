@@ -32,21 +32,21 @@ public class ParerUserError extends ParerAbstractError {
     private static final Logger logger = LoggerFactory.getLogger(ParerUserError.class);
 
     private ResourceBundle _bundle = ResourceBundle.getBundle("it.eng.saceriam.exception.errors",
-	    Locale.ITALIAN);
+            Locale.ITALIAN);
 
     public ParerUserError(String severity, String code, List<?> params) {
-	super();
-	init(severity, code, params);
+        super();
+        init(severity, code, params);
     }
 
     public ParerUserError(String message) {
-	super();
-	init(ParerErrorSeverity.ERROR, message);
+        super();
+        init(ParerErrorSeverity.ERROR, message);
     }
 
     public ParerUserError() {
-	super();
-	init(ParerErrorSeverity.ERROR, null, null);
+        super();
+        init(ParerErrorSeverity.ERROR, null, null);
     }
 
     /**
@@ -54,43 +54,43 @@ public class ParerUserError extends ParerAbstractError {
      * costruttori di <code>ParerUserError</code>.
      */
     private void init(String severity, String code, List<?> params) {
-	logger.debug("ParerUserError::init: invocato");
-	setSeverity(severity);
-	logger.debug("ParerUserError::init: severity [" + getSeverity() + "]");
-	_code = code;
-	logger.debug("ParerUserError::init: code [" + code + "]");
-	String text = getText(code, params);
-	setDescription(text);
-	logger.debug("ParerUserError::init: description [" + getDescription() + "]");
+        logger.debug("ParerUserError::init: invocato");
+        setSeverity(severity);
+        logger.debug("ParerUserError::init: severity [" + getSeverity() + "]");
+        _code = code;
+        logger.debug("ParerUserError::init: code [" + code + "]");
+        String text = getText(code, params);
+        setDescription(text);
+        logger.debug("ParerUserError::init: description [" + getDescription() + "]");
     }
 
     private void init(String severity, String message) {
-	logger.debug("ParerUserError::init: invocato");
-	setSeverity(severity);
-	logger.debug("ParerUserError::init: severity [ {} ]", getSeverity());
-	_code = null;
-	logger.debug("ParerUserError::init: code [ {} ]", _code);
-	setDescription(message);
-	logger.debug("ParerUserError::init: description [ {} ]", getDescription());
+        logger.debug("ParerUserError::init: invocato");
+        setSeverity(severity);
+        logger.debug("ParerUserError::init: severity [ {} ]", getSeverity());
+        _code = null;
+        logger.debug("ParerUserError::init: code [ {} ]", _code);
+        setDescription(message);
+        logger.debug("ParerUserError::init: description [ {} ]", getDescription());
     }
 
     private String getText(String code, List<?> params) {
-	if (code == null)
-	    return "";
+        if (code == null)
+            return "";
 
-	String text;
-	try {
-	    text = _bundle.getString(code);
-	} catch (MissingResourceException e) {
-	    text = "?? key " + code + " not found ??";
-	}
+        String text;
+        try {
+            text = _bundle.getString(code);
+        } catch (MissingResourceException e) {
+            text = "?? key " + code + " not found ??";
+        }
 
-	if (params != null) {
-	    Object[] strParams = (Object[]) params.toArray(stringArray);
-	    MessageFormat mf = new MessageFormat(text);
-	    text = mf.format(strParams, new StringBuffer(), null).toString();
-	}
-	return text;
+        if (params != null) {
+            Object[] strParams = (Object[]) params.toArray(stringArray);
+            MessageFormat mf = new MessageFormat(text);
+            text = mf.format(strParams, new StringBuffer(), null).toString();
+        }
+        return text;
     }
 
     /**
@@ -99,11 +99,11 @@ public class ParerUserError extends ParerAbstractError {
      * @return <em>String</em> codice dell'errore.
      */
     public String getErrorCode() {
-	return _code;
+        return _code;
     }
 
     public String getCategory() {
-	return ParerErrorCategory.USER_ERROR;
+        return ParerErrorCategory.USER_ERROR;
     }
 
 }

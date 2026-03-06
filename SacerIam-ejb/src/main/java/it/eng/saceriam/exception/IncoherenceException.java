@@ -19,7 +19,7 @@ import javax.ejb.ApplicationException;
 public class IncoherenceException extends Exception {
 
     public IncoherenceException(String message) {
-	super(message);
+        super(message);
     }
 
 }

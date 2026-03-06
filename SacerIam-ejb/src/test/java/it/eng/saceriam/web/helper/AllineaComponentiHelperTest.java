@@ -39,23 +39,23 @@ public class AllineaComponentiHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	final JavaArchive archive = getSacerIamArchive(AllineaComponentiHelper.class)
-		.addClass(AllineaComponentiHelperTest.class)
-		.addPackages(true, "org.springframework.cglib").addPackages(true,
-			"it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
-	return archive;
+        final JavaArchive archive = getSacerIamArchive(AllineaComponentiHelper.class)
+                .addClass(AllineaComponentiHelperTest.class)
+                .addPackages(true, "org.springframework.cglib").addPackages(true,
+                        "it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
+        return archive;
     }
 
     @Test
     void getAplApplicTableBean_queryIsOk() {
-	helper.getAplApplicTableBean();
-	assertTrue(true);
+        helper.getAplApplicTableBean();
+        assertTrue(true);
     }
 
     @Test
     void getAplApplicRowBean_queryIsOk() {
-	String nmApplic = aString();
-	helper.getAplApplicRowBean(nmApplic);
-	assertTrue(true);
+        String nmApplic = aString();
+        helper.getAplApplicRowBean(nmApplic);
+        assertTrue(true);
     }
 }

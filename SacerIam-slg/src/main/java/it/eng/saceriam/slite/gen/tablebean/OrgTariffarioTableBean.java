@@ -32,19 +32,19 @@ public class OrgTariffarioTableBean extends AbstractBaseTable<OrgTariffarioRowBe
     public static OrgTariffarioTableDescriptor TABLE_DESCRIPTOR = new OrgTariffarioTableDescriptor();
 
     public OrgTariffarioTableBean() {
-	super();
+        super();
     }
 
     protected OrgTariffarioRowBean createRow() {
-	return new OrgTariffarioRowBean();
+        return new OrgTariffarioRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgTariffarioRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

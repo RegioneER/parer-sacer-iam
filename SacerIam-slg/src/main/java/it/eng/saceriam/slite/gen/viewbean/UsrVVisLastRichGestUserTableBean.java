@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVVisLastRichGestUserTableBean
-	extends AbstractBaseTable<UsrVVisLastRichGestUserRowBean> {
+        extends AbstractBaseTable<UsrVVisLastRichGestUserRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class UsrVVisLastRichGestUserTableBean
     public static UsrVVisLastRichGestUserTableDescriptor TABLE_DESCRIPTOR = new UsrVVisLastRichGestUserTableDescriptor();
 
     public UsrVVisLastRichGestUserTableBean() {
-	super();
+        super();
     }
 
     protected UsrVVisLastRichGestUserRowBean createRow() {
-	return new UsrVVisLastRichGestUserRowBean();
+        return new UsrVVisLastRichGestUserRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVVisLastRichGestUserRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

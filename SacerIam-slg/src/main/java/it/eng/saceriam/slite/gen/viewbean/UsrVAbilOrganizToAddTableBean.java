@@ -36,19 +36,19 @@ public class UsrVAbilOrganizToAddTableBean extends AbstractBaseTable<UsrVAbilOrg
     public static UsrVAbilOrganizToAddTableDescriptor TABLE_DESCRIPTOR = new UsrVAbilOrganizToAddTableDescriptor();
 
     public UsrVAbilOrganizToAddTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAbilOrganizToAddRowBean createRow() {
-	return new UsrVAbilOrganizToAddRowBean();
+        return new UsrVAbilOrganizToAddRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAbilOrganizToAddRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

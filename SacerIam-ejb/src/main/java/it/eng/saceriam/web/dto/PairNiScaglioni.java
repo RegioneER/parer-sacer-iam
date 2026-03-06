@@ -16,7 +16,7 @@ package it.eng.saceriam.web.dto;
 import java.io.Serializable;
 
 public class PairNiScaglioni<Ini extends Serializable, Fine extends Serializable>
-	implements Serializable {
+        implements Serializable {
 
     private static final long serialVersionUID = -1795905389171503472L;
 
@@ -24,35 +24,35 @@ public class PairNiScaglioni<Ini extends Serializable, Fine extends Serializable
     private final Fine fine;
 
     public PairNiScaglioni(Ini ini, Fine fine) {
-	this.ini = ini;
-	this.fine = fine;
+        this.ini = ini;
+        this.fine = fine;
     }
 
     public Ini getIni() {
-	return ini;
+        return ini;
     }
 
     public Fine getFine() {
-	return fine;
+        return fine;
     }
 
     @Override
     public int hashCode() {
-	return ini.hashCode() ^ fine.hashCode();
+        return ini.hashCode() ^ fine.hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
-	if (!(o instanceof PairNiScaglioni)) {
-	    return false;
-	}
-	PairNiScaglioni<?, ?> pairo = (PairNiScaglioni<?, ?>) o;
-	return this.ini.equals(pairo.getIni()) && this.fine.equals(pairo.getFine());
+        if (!(o instanceof PairNiScaglioni)) {
+            return false;
+        }
+        PairNiScaglioni<?, ?> pairo = (PairNiScaglioni<?, ?>) o;
+        return this.ini.equals(pairo.getIni()) && this.fine.equals(pairo.getFine());
     }
 
     @Override
     public String toString() {
-	return "PairNiScaglioni{" + "ni_ini_scaglione=" + ini + ", ni_fine_scaglione=" + fine + '}';
+        return "PairNiScaglioni{" + "ni_ini_scaglione=" + ini + ", ni_fine_scaglione=" + fine + '}';
     }
 
 }

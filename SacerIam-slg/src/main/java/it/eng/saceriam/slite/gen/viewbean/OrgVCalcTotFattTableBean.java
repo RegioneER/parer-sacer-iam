@@ -36,19 +36,19 @@ public class OrgVCalcTotFattTableBean extends AbstractBaseTable<OrgVCalcTotFattR
     public static OrgVCalcTotFattTableDescriptor TABLE_DESCRIPTOR = new OrgVCalcTotFattTableDescriptor();
 
     public OrgVCalcTotFattTableBean() {
-	super();
+        super();
     }
 
     protected OrgVCalcTotFattRowBean createRow() {
-	return new OrgVCalcTotFattRowBean();
+        return new OrgVCalcTotFattRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVCalcTotFattRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

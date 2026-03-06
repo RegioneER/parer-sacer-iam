@@ -32,19 +32,19 @@ public class OrgServizioErogTableBean extends AbstractBaseTable<OrgServizioErogR
     public static OrgServizioErogTableDescriptor TABLE_DESCRIPTOR = new OrgServizioErogTableDescriptor();
 
     public OrgServizioErogTableBean() {
-	super();
+        super();
     }
 
     protected OrgServizioErogRowBean createRow() {
-	return new OrgServizioErogRowBean();
+        return new OrgServizioErogRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgServizioErogRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

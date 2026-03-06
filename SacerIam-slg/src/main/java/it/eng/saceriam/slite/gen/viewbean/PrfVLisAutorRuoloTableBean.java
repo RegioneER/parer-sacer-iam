@@ -36,19 +36,19 @@ public class PrfVLisAutorRuoloTableBean extends AbstractBaseTable<PrfVLisAutorRu
     public static PrfVLisAutorRuoloTableDescriptor TABLE_DESCRIPTOR = new PrfVLisAutorRuoloTableDescriptor();
 
     public PrfVLisAutorRuoloTableBean() {
-	super();
+        super();
     }
 
     protected PrfVLisAutorRuoloRowBean createRow() {
-	return new PrfVLisAutorRuoloRowBean();
+        return new PrfVLisAutorRuoloRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<PrfVLisAutorRuoloRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

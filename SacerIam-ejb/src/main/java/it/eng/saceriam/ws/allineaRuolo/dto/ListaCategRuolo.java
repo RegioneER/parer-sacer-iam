@@ -29,27 +29,27 @@ public class ListaCategRuolo implements Iterable<String> {
      * @return the tiCategRuolo
      */
     public List<String> getTiCategRuolo() {
-	if (tiCategRuolo == null) {
-	    tiCategRuolo = new ArrayList<>();
-	}
-	return tiCategRuolo;
+        if (tiCategRuolo == null) {
+            tiCategRuolo = new ArrayList<>();
+        }
+        return tiCategRuolo;
     }
 
     /**
      * @param tiCategRuolo the categRuolo to set
      */
     public void setTiCategRuolo(List<String> tiCategRuolo) {
-	this.tiCategRuolo = tiCategRuolo;
+        this.tiCategRuolo = tiCategRuolo;
     }
 
     @Override
     public Iterator<String> iterator() {
-	return tiCategRuolo.iterator();
+        return tiCategRuolo.iterator();
     }
 
     @Override
     public String toString() {
-	return "ListaCategRuolo{" + "tiCategRuolo=" + tiCategRuolo + '}';
+        return "ListaCategRuolo{" + "tiCategRuolo=" + tiCategRuolo + '}';
     }
 
 }

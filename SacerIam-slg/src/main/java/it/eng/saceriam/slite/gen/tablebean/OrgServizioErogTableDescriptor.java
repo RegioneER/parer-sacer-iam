@@ -49,35 +49,35 @@ public class OrgServizioErogTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_SERVIZIO_EROGATO,
-		new ColumnDescriptor(COL_ID_SERVIZIO_EROGATO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_NM_SERVIZIO_EROGATO,
-		new ColumnDescriptor(COL_NM_SERVIZIO_EROGATO, Types.VARCHAR, 150, false));
-	map.put(COL_ID_TIPO_SERVIZIO,
-		new ColumnDescriptor(COL_ID_TIPO_SERVIZIO, Types.DECIMAL, 22, false));
-	map.put(COL_ID_SISTEMA_VERSANTE,
-		new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, false));
-	map.put(COL_FL_PAGAMENTO, new ColumnDescriptor(COL_FL_PAGAMENTO, Types.VARCHAR, 1, false));
-	map.put(COL_ID_TARIFFA, new ColumnDescriptor(COL_ID_TARIFFA, Types.DECIMAL, 22, false));
-	map.put(COL_DT_EROG, new ColumnDescriptor(COL_DT_EROG, Types.TIMESTAMP, 7, false));
-	map.put(COL_IM_VALORE_TARIFFA,
-		new ColumnDescriptor(COL_IM_VALORE_TARIFFA, Types.DECIMAL, 22, false));
-	map.put(COL_NT_SERVIZIO_EROG,
-		new ColumnDescriptor(COL_NT_SERVIZIO_EROG, Types.VARCHAR, 1024, false));
+        map.put(COL_ID_SERVIZIO_EROGATO,
+                new ColumnDescriptor(COL_ID_SERVIZIO_EROGATO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_NM_SERVIZIO_EROGATO,
+                new ColumnDescriptor(COL_NM_SERVIZIO_EROGATO, Types.VARCHAR, 150, false));
+        map.put(COL_ID_TIPO_SERVIZIO,
+                new ColumnDescriptor(COL_ID_TIPO_SERVIZIO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_SISTEMA_VERSANTE,
+                new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, false));
+        map.put(COL_FL_PAGAMENTO, new ColumnDescriptor(COL_FL_PAGAMENTO, Types.VARCHAR, 1, false));
+        map.put(COL_ID_TARIFFA, new ColumnDescriptor(COL_ID_TARIFFA, Types.DECIMAL, 22, false));
+        map.put(COL_DT_EROG, new ColumnDescriptor(COL_DT_EROG, Types.TIMESTAMP, 7, false));
+        map.put(COL_IM_VALORE_TARIFFA,
+                new ColumnDescriptor(COL_IM_VALORE_TARIFFA, Types.DECIMAL, 22, false));
+        map.put(COL_NT_SERVIZIO_EROG,
+                new ColumnDescriptor(COL_NT_SERVIZIO_EROG, Types.VARCHAR, 1024, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

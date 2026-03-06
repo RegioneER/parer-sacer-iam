@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplTipoEventoOggettoRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -36,90 +36,90 @@ public class AplTipoEventoOggettoRowBean extends BaseRow
     public static AplTipoEventoOggettoTableDescriptor TABLE_DESCRIPTOR = new AplTipoEventoOggettoTableDescriptor();
 
     public AplTipoEventoOggettoRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdTipoEventoOggetto() {
-	return getBigDecimal("id_tipo_evento_oggetto");
+        return getBigDecimal("id_tipo_evento_oggetto");
     }
 
     public void setIdTipoEventoOggetto(BigDecimal idTipoEventoOggetto) {
-	setObject("id_tipo_evento_oggetto", idTipoEventoOggetto);
+        setObject("id_tipo_evento_oggetto", idTipoEventoOggetto);
     }
 
     public BigDecimal getIdTipoEvento() {
-	return getBigDecimal("id_tipo_evento");
+        return getBigDecimal("id_tipo_evento");
     }
 
     public void setIdTipoEvento(BigDecimal idTipoEvento) {
-	setObject("id_tipo_evento", idTipoEvento);
+        setObject("id_tipo_evento", idTipoEvento);
     }
 
     public BigDecimal getIdTipoOggetto() {
-	return getBigDecimal("id_tipo_oggetto");
+        return getBigDecimal("id_tipo_oggetto");
     }
 
     public void setIdTipoOggetto(BigDecimal idTipoOggetto) {
-	setObject("id_tipo_oggetto", idTipoOggetto);
+        setObject("id_tipo_oggetto", idTipoOggetto);
     }
 
     public BigDecimal getIdQueryTipoOggettoFoto() {
-	return getBigDecimal("id_query_tipo_oggetto_foto");
+        return getBigDecimal("id_query_tipo_oggetto_foto");
     }
 
     public void setIdQueryTipoOggettoFoto(BigDecimal idQueryTipoOggettoFoto) {
-	setObject("id_query_tipo_oggetto_foto", idQueryTipoOggettoFoto);
+        setObject("id_query_tipo_oggetto_foto", idQueryTipoOggettoFoto);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplTipoEventoOggetto entity = (AplTipoEventoOggetto) obj;
-	this.setIdTipoEventoOggetto(new BigDecimal(entity.getIdTipoEventoOggetto()));
-	this.setIdTipoEvento(entity.getIdTipoEvento());
-	this.setIdTipoOggetto(entity.getIdTipoOggetto());
-	this.setIdQueryTipoOggettoFoto(entity.getIdQueryTipoOggettoFoto());
+        AplTipoEventoOggetto entity = (AplTipoEventoOggetto) obj;
+        this.setIdTipoEventoOggetto(new BigDecimal(entity.getIdTipoEventoOggetto()));
+        this.setIdTipoEvento(entity.getIdTipoEvento());
+        this.setIdTipoOggetto(entity.getIdTipoOggetto());
+        this.setIdQueryTipoOggettoFoto(entity.getIdQueryTipoOggettoFoto());
     }
 
     @Override
     public AplTipoEventoOggetto rowBeanToEntity() {
-	AplTipoEventoOggetto entity = new AplTipoEventoOggetto();
-	if (this.getIdTipoEventoOggetto() != null) {
-	    entity.setIdTipoEventoOggetto(this.getIdTipoEventoOggetto().longValue());
-	}
-	entity.setIdTipoEvento(this.getIdTipoEvento());
-	entity.setIdTipoOggetto(this.getIdTipoOggetto());
-	entity.setIdQueryTipoOggettoFoto(this.getIdQueryTipoOggettoFoto());
-	return entity;
+        AplTipoEventoOggetto entity = new AplTipoEventoOggetto();
+        if (this.getIdTipoEventoOggetto() != null) {
+            entity.setIdTipoEventoOggetto(this.getIdTipoEventoOggetto().longValue());
+        }
+        entity.setIdTipoEvento(this.getIdTipoEvento());
+        entity.setIdTipoOggetto(this.getIdTipoOggetto());
+        entity.setIdQueryTipoOggettoFoto(this.getIdQueryTipoOggettoFoto());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

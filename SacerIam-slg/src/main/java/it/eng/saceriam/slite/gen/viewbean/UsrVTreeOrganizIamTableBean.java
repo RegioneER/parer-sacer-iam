@@ -36,19 +36,19 @@ public class UsrVTreeOrganizIamTableBean extends AbstractBaseTable<UsrVTreeOrgan
     public static UsrVTreeOrganizIamTableDescriptor TABLE_DESCRIPTOR = new UsrVTreeOrganizIamTableDescriptor();
 
     public UsrVTreeOrganizIamTableBean() {
-	super();
+        super();
     }
 
     protected UsrVTreeOrganizIamRowBean createRow() {
-	return new UsrVTreeOrganizIamRowBean();
+        return new UsrVTreeOrganizIamRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVTreeOrganizIamRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

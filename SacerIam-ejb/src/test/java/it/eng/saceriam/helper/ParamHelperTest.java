@@ -46,37 +46,37 @@ public class ParamHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	final JavaArchive archive = getSacerIamArchive(ParamHelper.class)
-		.addClasses(ParamHelperTest.class,
-			it.eng.saceriam.common.Constants.TipoIamVGetValAppart.class,
-			it.eng.saceriam.common.Constants.class,
-			it.eng.saceriam.web.helper.dto.IamVGetValParamDto.class)
-		.addPackages(true, "org.apache.commons.lang3").addPackages(true,
-			"it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
-	return archive;
+        final JavaArchive archive = getSacerIamArchive(ParamHelper.class)
+                .addClasses(ParamHelperTest.class,
+                        it.eng.saceriam.common.Constants.TipoIamVGetValAppart.class,
+                        it.eng.saceriam.common.Constants.class,
+                        it.eng.saceriam.web.helper.dto.IamVGetValParamDto.class)
+                .addPackages(true, "org.apache.commons.lang3").addPackages(true,
+                        "it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
+        return archive;
     }
 
     @Test
     void getParamApplicApplicationName_queryIsOk() {
 
-	helper.getParamApplicApplicationName();
-	assertTrue(true);
+        helper.getParamApplicApplicationName();
+        assertTrue(true);
     }
 
     @Test
     void getValoreParamApplic_queryIsOk() {
-	String nmParamApplic = aString();
-	BigDecimal idAmbienteEnteConvenz = aBigDecimal();
-	BigDecimal idEnteSiam = aBigDecimal();
-	for (Constants.TipoIamVGetValAppart tipoIamVGetValAppart : Constants.TipoIamVGetValAppart
-		.values()) {
-	    try {
-		helper.getValoreParamApplic(nmParamApplic, idAmbienteEnteConvenz, idEnteSiam,
-			tipoIamVGetValAppart);
-		assertTrue(true);
-	    } catch (Exception e) {
-		assertExceptionMessage(e, "ParamApplicNotFoundException");
-	    }
-	}
+        String nmParamApplic = aString();
+        BigDecimal idAmbienteEnteConvenz = aBigDecimal();
+        BigDecimal idEnteSiam = aBigDecimal();
+        for (Constants.TipoIamVGetValAppart tipoIamVGetValAppart : Constants.TipoIamVGetValAppart
+                .values()) {
+            try {
+                helper.getValoreParamApplic(nmParamApplic, idAmbienteEnteConvenz, idEnteSiam,
+                        tipoIamVGetValAppart);
+                assertTrue(true);
+            } catch (Exception e) {
+                assertExceptionMessage(e, "ParamApplicNotFoundException");
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplVTreeMenuPagAzioRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -36,127 +36,127 @@ public class AplVTreeMenuPagAzioRowBean extends BaseRow
     public static AplVTreeMenuPagAzioTableDescriptor TABLE_DESCRIPTOR = new AplVTreeMenuPagAzioTableDescriptor();
 
     public AplVTreeMenuPagAzioRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getIdNodoPadre() {
-	return getString("id_nodo_padre");
+        return getString("id_nodo_padre");
     }
 
     public void setIdNodoPadre(String idNodoPadre) {
-	setObject("id_nodo_padre", idNodoPadre);
+        setObject("id_nodo_padre", idNodoPadre);
     }
 
     public String getIdNodo() {
-	return getString("id_nodo");
+        return getString("id_nodo");
     }
 
     public void setIdNodo(String idNodo) {
-	setObject("id_nodo", idNodo);
+        setObject("id_nodo", idNodo);
     }
 
     public String getTipoNodo() {
-	return getString("tipo_nodo");
+        return getString("tipo_nodo");
     }
 
     public void setTipoNodo(String tipoNodo) {
-	setObject("tipo_nodo", tipoNodo);
+        setObject("tipo_nodo", tipoNodo);
     }
 
     public String getDsNodo() {
-	return getString("ds_nodo");
+        return getString("ds_nodo");
     }
 
     public void setDsNodo(String dsNodo) {
-	setObject("ds_nodo", dsNodo);
+        setObject("ds_nodo", dsNodo);
     }
 
     public BigDecimal getNiOrdNodi() {
-	return getBigDecimal("ni_ord_nodi");
+        return getBigDecimal("ni_ord_nodi");
     }
 
     public void setNiOrdNodi(BigDecimal niOrdNodi) {
-	setObject("ni_ord_nodi", niOrdNodi);
+        setObject("ni_ord_nodi", niOrdNodi);
     }
 
     public String getDsOrdNodi() {
-	return getString("ds_ord_nodi");
+        return getString("ds_ord_nodi");
     }
 
     public void setDsOrdNodi(String dsOrdNodi) {
-	setObject("ds_ord_nodi", dsOrdNodi);
+        setObject("ds_ord_nodi", dsOrdNodi);
     }
 
     public BigDecimal getNiLivello() {
-	return getBigDecimal("ni_livello");
+        return getBigDecimal("ni_livello");
     }
 
     public void setNiLivello(BigDecimal niLivello) {
-	setObject("ni_livello", niLivello);
+        setObject("ni_livello", niLivello);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplVTreeMenuPagAzio entity = (AplVTreeMenuPagAzio) obj;
-	this.setIdApplic(entity.getIdApplic());
-	this.setIdNodoPadre(entity.getIdNodoPadre());
-	this.setIdNodo(entity.getIdNodo());
-	this.setTipoNodo(entity.getTipoNodo());
-	this.setDsNodo(entity.getDsNodo());
-	this.setNiOrdNodi(entity.getNiOrdNodi());
-	this.setDsOrdNodi(entity.getDsOrdNodi());
-	this.setNiLivello(entity.getNiLivello());
+        AplVTreeMenuPagAzio entity = (AplVTreeMenuPagAzio) obj;
+        this.setIdApplic(entity.getIdApplic());
+        this.setIdNodoPadre(entity.getIdNodoPadre());
+        this.setIdNodo(entity.getIdNodo());
+        this.setTipoNodo(entity.getTipoNodo());
+        this.setDsNodo(entity.getDsNodo());
+        this.setNiOrdNodi(entity.getNiOrdNodi());
+        this.setDsOrdNodi(entity.getDsOrdNodi());
+        this.setNiLivello(entity.getNiLivello());
     }
 
     @Override
     public AplVTreeMenuPagAzio rowBeanToEntity() {
-	AplVTreeMenuPagAzio entity = new AplVTreeMenuPagAzio();
-	entity.setIdApplic(this.getIdApplic());
-	entity.setIdNodoPadre(this.getIdNodoPadre());
-	entity.setIdNodo(this.getIdNodo());
-	entity.setTipoNodo(this.getTipoNodo());
-	entity.setDsNodo(this.getDsNodo());
-	entity.setNiOrdNodi(this.getNiOrdNodi());
-	entity.setDsOrdNodi(this.getDsOrdNodi());
-	entity.setNiLivello(this.getNiLivello());
-	return entity;
+        AplVTreeMenuPagAzio entity = new AplVTreeMenuPagAzio();
+        entity.setIdApplic(this.getIdApplic());
+        entity.setIdNodoPadre(this.getIdNodoPadre());
+        entity.setIdNodo(this.getIdNodo());
+        entity.setTipoNodo(this.getTipoNodo());
+        entity.setDsNodo(this.getDsNodo());
+        entity.setNiOrdNodi(this.getNiOrdNodi());
+        entity.setDsOrdNodi(this.getDsOrdNodi());
+        entity.setNiLivello(this.getNiLivello());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

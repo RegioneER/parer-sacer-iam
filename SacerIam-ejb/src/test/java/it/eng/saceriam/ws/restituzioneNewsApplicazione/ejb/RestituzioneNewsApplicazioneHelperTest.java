@@ -40,19 +40,19 @@ public class RestituzioneNewsApplicazioneHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	final JavaArchive archive = ArquillianUtils
-		.getSacerIamArchive(RestituzioneNewsApplicazioneHelper.class)
-		.addClasses(it.eng.saceriam.ws.restituzioneNewsApplicazione.dto.ListaNews.class,
-			RestituzioneNewsApplicazioneHelperTest.class)
-		.addPackages(true, "it.eng.parer.sacerlog.entity",
-			"it.eng.parer.sacerlog.viewEntity");
-	return archive;
+        final JavaArchive archive = ArquillianUtils
+                .getSacerIamArchive(RestituzioneNewsApplicazioneHelper.class)
+                .addClasses(it.eng.saceriam.ws.restituzioneNewsApplicazione.dto.ListaNews.class,
+                        RestituzioneNewsApplicazioneHelperTest.class)
+                .addPackages(true, "it.eng.parer.sacerlog.entity",
+                        "it.eng.parer.sacerlog.viewEntity");
+        return archive;
     }
 
     @Test
     public void getListaNews_queryIsOk() {
-	Long idApplic = aLong();
-	helper.getListaNews(idApplic);
-	assertTrue(true);
+        Long idApplic = aLong();
+        helper.getListaNews(idApplic);
+        assertTrue(true);
     }
 }

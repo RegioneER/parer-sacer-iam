@@ -35,7 +35,7 @@ public class CalcoloServiziErogati {
 
     @WebMethod(operationName = "calcoloServiziErogati")
     public void calcoloServiziErogati(@WebParam(name = "idEnteConvenz") Integer idEnteConvenz)
-	    throws AuthWSException {
-	aecEjb.calcoloServiziErogati(idEnteConvenz);
+            throws AuthWSException {
+        aecEjb.calcoloServiziErogati(idEnteConvenz);
     }
 }

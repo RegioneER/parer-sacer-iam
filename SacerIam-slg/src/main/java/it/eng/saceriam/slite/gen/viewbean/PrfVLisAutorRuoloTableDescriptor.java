@@ -51,35 +51,35 @@ public class PrfVLisAutorRuoloTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
-	map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_TI_DICH_AUTOR,
-		new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, true));
-	map.put(COL_ID_AUTOR, new ColumnDescriptor(COL_ID_AUTOR, Types.DECIMAL, 22, true));
-	map.put(COL_NM_PAGINA_WEB,
-		new ColumnDescriptor(COL_NM_PAGINA_WEB, Types.VARCHAR, 100, true));
-	map.put(COL_NM_AUTOR, new ColumnDescriptor(COL_NM_AUTOR, Types.VARCHAR, 100, true));
-	map.put(COL_DS_AUTOR, new ColumnDescriptor(COL_DS_AUTOR, Types.VARCHAR, 513, true));
-	map.put(COL_NI_LIVELLO_ENTRY_MENU,
-		new ColumnDescriptor(COL_NI_LIVELLO_ENTRY_MENU, Types.DECIMAL, 22, true));
-	map.put(COL_NI_ORD_ENTRY_MENU,
-		new ColumnDescriptor(COL_NI_ORD_ENTRY_MENU, Types.DECIMAL, 22, true));
-	map.put(COL_DL_LINK_ENTRY_MENU,
-		new ColumnDescriptor(COL_DL_LINK_ENTRY_MENU, Types.VARCHAR, 2000, true));
+        map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
+        map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_TI_DICH_AUTOR,
+                new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, true));
+        map.put(COL_ID_AUTOR, new ColumnDescriptor(COL_ID_AUTOR, Types.DECIMAL, 22, true));
+        map.put(COL_NM_PAGINA_WEB,
+                new ColumnDescriptor(COL_NM_PAGINA_WEB, Types.VARCHAR, 100, true));
+        map.put(COL_NM_AUTOR, new ColumnDescriptor(COL_NM_AUTOR, Types.VARCHAR, 100, true));
+        map.put(COL_DS_AUTOR, new ColumnDescriptor(COL_DS_AUTOR, Types.VARCHAR, 513, true));
+        map.put(COL_NI_LIVELLO_ENTRY_MENU,
+                new ColumnDescriptor(COL_NI_LIVELLO_ENTRY_MENU, Types.DECIMAL, 22, true));
+        map.put(COL_NI_ORD_ENTRY_MENU,
+                new ColumnDescriptor(COL_NI_ORD_ENTRY_MENU, Types.DECIMAL, 22, true));
+        map.put(COL_DL_LINK_ENTRY_MENU,
+                new ColumnDescriptor(COL_DL_LINK_ENTRY_MENU, Types.VARCHAR, 2000, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

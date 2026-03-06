@@ -43,26 +43,26 @@ public class UsrVCheckDichAbilOrganizTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_DICH_ABIL_ORGANIZ_AGGIUNTA,
-		new ColumnDescriptor(COL_ID_DICH_ABIL_ORGANIZ_AGGIUNTA, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ORGANIZ_IAM,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_DL_COMPOSITO_ORGANIZ,
-		new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
-	map.put(COL_ID_USER_IAM_CORRENTE,
-		new ColumnDescriptor(COL_ID_USER_IAM_CORRENTE, Types.DECIMAL, 22, true));
+        map.put(COL_ID_DICH_ABIL_ORGANIZ_AGGIUNTA,
+                new ColumnDescriptor(COL_ID_DICH_ABIL_ORGANIZ_AGGIUNTA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ORGANIZ_IAM,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_DL_COMPOSITO_ORGANIZ,
+                new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
+        map.put(COL_ID_USER_IAM_CORRENTE,
+                new ColumnDescriptor(COL_ID_USER_IAM_CORRENTE, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

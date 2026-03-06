@@ -36,19 +36,19 @@ public class UsrVAllAutorTableBean extends AbstractBaseTable<UsrVAllAutorRowBean
     public static UsrVAllAutorTableDescriptor TABLE_DESCRIPTOR = new UsrVAllAutorTableDescriptor();
 
     public UsrVAllAutorTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAllAutorRowBean createRow() {
-	return new UsrVAllAutorRowBean();
+        return new UsrVAllAutorRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAllAutorRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

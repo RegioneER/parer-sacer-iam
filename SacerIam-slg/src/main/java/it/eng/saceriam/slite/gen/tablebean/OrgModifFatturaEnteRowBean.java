@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgModifFatturaEnteRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,100 +38,100 @@ public class OrgModifFatturaEnteRowBean extends BaseRow
     public static OrgModifFatturaEnteTableDescriptor TABLE_DESCRIPTOR = new OrgModifFatturaEnteTableDescriptor();
 
     public OrgModifFatturaEnteRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdModifFatturaEnte() {
-	return getBigDecimal("id_modif_fattura_ente");
+        return getBigDecimal("id_modif_fattura_ente");
     }
 
     public void setIdModifFatturaEnte(BigDecimal idModifFatturaEnte) {
-	setObject("id_modif_fattura_ente", idModifFatturaEnte);
+        setObject("id_modif_fattura_ente", idModifFatturaEnte);
     }
 
     public BigDecimal getIdFatturaEnte() {
-	return getBigDecimal("id_fattura_ente");
+        return getBigDecimal("id_fattura_ente");
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-	setObject("id_fattura_ente", idFatturaEnte);
+        setObject("id_fattura_ente", idFatturaEnte);
     }
 
     public Timestamp getDtModifFatturaEnte() {
-	return getTimestamp("dt_modif_fattura_ente");
+        return getTimestamp("dt_modif_fattura_ente");
     }
 
     public void setDtModifFatturaEnte(Timestamp dtModifFatturaEnte) {
-	setObject("dt_modif_fattura_ente", dtModifFatturaEnte);
+        setObject("dt_modif_fattura_ente", dtModifFatturaEnte);
     }
 
     public String getNtModifFatturaEnte() {
-	return getString("nt_modif_fattura_ente");
+        return getString("nt_modif_fattura_ente");
     }
 
     public void setNtModifFatturaEnte(String ntModifFatturaEnte) {
-	setObject("nt_modif_fattura_ente", ntModifFatturaEnte);
+        setObject("nt_modif_fattura_ente", ntModifFatturaEnte);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgModifFatturaEnte entity = (OrgModifFatturaEnte) obj;
-	this.setIdModifFatturaEnte(new BigDecimal(entity.getIdModifFatturaEnte()));
-	if (entity.getOrgFatturaEnte() != null) {
-	    this.setIdFatturaEnte(new BigDecimal(entity.getOrgFatturaEnte().getIdFatturaEnte()));
+        OrgModifFatturaEnte entity = (OrgModifFatturaEnte) obj;
+        this.setIdModifFatturaEnte(new BigDecimal(entity.getIdModifFatturaEnte()));
+        if (entity.getOrgFatturaEnte() != null) {
+            this.setIdFatturaEnte(new BigDecimal(entity.getOrgFatturaEnte().getIdFatturaEnte()));
 
-	}
-	if (entity.getDtModifFatturaEnte() != null) {
-	    this.setDtModifFatturaEnte(new Timestamp(entity.getDtModifFatturaEnte().getTime()));
-	}
-	this.setNtModifFatturaEnte(entity.getNtModifFatturaEnte());
+        }
+        if (entity.getDtModifFatturaEnte() != null) {
+            this.setDtModifFatturaEnte(new Timestamp(entity.getDtModifFatturaEnte().getTime()));
+        }
+        this.setNtModifFatturaEnte(entity.getNtModifFatturaEnte());
     }
 
     @Override
     public OrgModifFatturaEnte rowBeanToEntity() {
-	OrgModifFatturaEnte entity = new OrgModifFatturaEnte();
-	if (this.getIdModifFatturaEnte() != null) {
-	    entity.setIdModifFatturaEnte(this.getIdModifFatturaEnte().longValue());
-	}
-	if (this.getIdFatturaEnte() != null) {
-	    if (entity.getOrgFatturaEnte() == null) {
-		entity.setOrgFatturaEnte(new OrgFatturaEnte());
-	    }
-	    entity.getOrgFatturaEnte().setIdFatturaEnte(this.getIdFatturaEnte().longValue());
-	}
-	entity.setDtModifFatturaEnte(this.getDtModifFatturaEnte());
-	entity.setNtModifFatturaEnte(this.getNtModifFatturaEnte());
-	return entity;
+        OrgModifFatturaEnte entity = new OrgModifFatturaEnte();
+        if (this.getIdModifFatturaEnte() != null) {
+            entity.setIdModifFatturaEnte(this.getIdModifFatturaEnte().longValue());
+        }
+        if (this.getIdFatturaEnte() != null) {
+            if (entity.getOrgFatturaEnte() == null) {
+                entity.setOrgFatturaEnte(new OrgFatturaEnte());
+            }
+            entity.getOrgFatturaEnte().setIdFatturaEnte(this.getIdFatturaEnte().longValue());
+        }
+        entity.setDtModifFatturaEnte(this.getDtModifFatturaEnte());
+        entity.setNtModifFatturaEnte(this.getNtModifFatturaEnte());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

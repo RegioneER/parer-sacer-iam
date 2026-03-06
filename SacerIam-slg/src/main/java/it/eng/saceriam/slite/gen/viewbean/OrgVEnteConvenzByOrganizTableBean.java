@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVEnteConvenzByOrganizTableBean
-	extends AbstractBaseTable<OrgVEnteConvenzByOrganizRowBean> {
+        extends AbstractBaseTable<OrgVEnteConvenzByOrganizRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVEnteConvenzByOrganizTableBean
     public static OrgVEnteConvenzByOrganizTableDescriptor TABLE_DESCRIPTOR = new OrgVEnteConvenzByOrganizTableDescriptor();
 
     public OrgVEnteConvenzByOrganizTableBean() {
-	super();
+        super();
     }
 
     protected OrgVEnteConvenzByOrganizRowBean createRow() {
-	return new OrgVEnteConvenzByOrganizRowBean();
+        return new OrgVEnteConvenzByOrganizRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVEnteConvenzByOrganizRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

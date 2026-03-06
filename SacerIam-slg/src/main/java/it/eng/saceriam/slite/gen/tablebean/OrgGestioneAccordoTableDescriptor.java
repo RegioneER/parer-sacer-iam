@@ -55,50 +55,50 @@ public class OrgGestioneAccordoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_GEST_ACCORDO,
-		new ColumnDescriptor(COL_ID_GEST_ACCORDO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_CD_REGISTRO_GEST_ACCORDO,
-		new ColumnDescriptor(COL_CD_REGISTRO_GEST_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_AA_GEST_ACCORDO,
-		new ColumnDescriptor(COL_AA_GEST_ACCORDO, Types.DECIMAL, 22, false));
-	map.put(COL_CD_KEY_GEST_ACCORDO,
-		new ColumnDescriptor(COL_CD_KEY_GEST_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_DT_GEST_ACCORDO,
-		new ColumnDescriptor(COL_DT_GEST_ACCORDO, Types.TIMESTAMP, 7, false));
-	map.put(COL_DS_GEST_ACCORDO,
-		new ColumnDescriptor(COL_DS_GEST_ACCORDO, Types.VARCHAR, 4000, false));
-	map.put(COL_DS_NOTA_GEST_ACCORDO,
-		new ColumnDescriptor(COL_DS_NOTA_GEST_ACCORDO, Types.VARCHAR, 4000, false));
-	map.put(COL_BL_GEST_ACCORDO,
-		new ColumnDescriptor(COL_BL_GEST_ACCORDO, Types.BLOB, 4000, false));
-	map.put(COL_NM_FILE_GEST_ACCORDO,
-		new ColumnDescriptor(COL_NM_FILE_GEST_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_PG_GEST_ACCORDO,
-		new ColumnDescriptor(COL_PG_GEST_ACCORDO, Types.DECIMAL, 22, false));
-	map.put(COL_ID_GEST_ACCORDO_RISPOSTA,
-		new ColumnDescriptor(COL_ID_GEST_ACCORDO_RISPOSTA, Types.DECIMAL, 22, false));
-	map.put(COL_ID_TIPO_GESTIONE_ACCORDO,
-		new ColumnDescriptor(COL_ID_TIPO_GESTIONE_ACCORDO, Types.DECIMAL, 22, false));
-	map.put(COL_TIPO_TRASMISSIONE,
-		new ColumnDescriptor(COL_TIPO_TRASMISSIONE, Types.VARCHAR, 100, false));
-	map.put(COL_ENTE_GEST_ACCORDO,
-		new ColumnDescriptor(COL_ENTE_GEST_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_STRUTTURA_GEST_ACCORDO,
-		new ColumnDescriptor(COL_STRUTTURA_GEST_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_ID_GEST_ACCORDO,
+                new ColumnDescriptor(COL_ID_GEST_ACCORDO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_CD_REGISTRO_GEST_ACCORDO,
+                new ColumnDescriptor(COL_CD_REGISTRO_GEST_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_AA_GEST_ACCORDO,
+                new ColumnDescriptor(COL_AA_GEST_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_CD_KEY_GEST_ACCORDO,
+                new ColumnDescriptor(COL_CD_KEY_GEST_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_DT_GEST_ACCORDO,
+                new ColumnDescriptor(COL_DT_GEST_ACCORDO, Types.TIMESTAMP, 7, false));
+        map.put(COL_DS_GEST_ACCORDO,
+                new ColumnDescriptor(COL_DS_GEST_ACCORDO, Types.VARCHAR, 4000, false));
+        map.put(COL_DS_NOTA_GEST_ACCORDO,
+                new ColumnDescriptor(COL_DS_NOTA_GEST_ACCORDO, Types.VARCHAR, 4000, false));
+        map.put(COL_BL_GEST_ACCORDO,
+                new ColumnDescriptor(COL_BL_GEST_ACCORDO, Types.BLOB, 4000, false));
+        map.put(COL_NM_FILE_GEST_ACCORDO,
+                new ColumnDescriptor(COL_NM_FILE_GEST_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_PG_GEST_ACCORDO,
+                new ColumnDescriptor(COL_PG_GEST_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_GEST_ACCORDO_RISPOSTA,
+                new ColumnDescriptor(COL_ID_GEST_ACCORDO_RISPOSTA, Types.DECIMAL, 22, false));
+        map.put(COL_ID_TIPO_GESTIONE_ACCORDO,
+                new ColumnDescriptor(COL_ID_TIPO_GESTIONE_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_TIPO_TRASMISSIONE,
+                new ColumnDescriptor(COL_TIPO_TRASMISSIONE, Types.VARCHAR, 100, false));
+        map.put(COL_ENTE_GEST_ACCORDO,
+                new ColumnDescriptor(COL_ENTE_GEST_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_STRUTTURA_GEST_ACCORDO,
+                new ColumnDescriptor(COL_STRUTTURA_GEST_ACCORDO, Types.VARCHAR, 100, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

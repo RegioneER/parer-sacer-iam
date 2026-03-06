@@ -36,19 +36,19 @@ public class AplVTreeTipoOggTableBean extends AbstractBaseTable<AplVTreeTipoOggR
     public static AplVTreeTipoOggTableDescriptor TABLE_DESCRIPTOR = new AplVTreeTipoOggTableDescriptor();
 
     public AplVTreeTipoOggTableBean() {
-	super();
+        super();
     }
 
     protected AplVTreeTipoOggRowBean createRow() {
-	return new AplVTreeTipoOggRowBean();
+        return new AplVTreeTipoOggRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplVTreeTipoOggRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -46,7 +46,7 @@ import it.eng.spagoLite.security.Secure;
  * @author DiLorenzo_F
  */
 @SuppressWarnings({
-	"unchecked" })
+        "unchecked" })
 public class NoteRilascioAction extends NoteRilascioAbstractAction {
 
     private static final Logger actionLogger = LoggerFactory.getLogger(NoteRilascioAction.class);
@@ -60,156 +60,156 @@ public class NoteRilascioAction extends NoteRilascioAbstractAction {
 
     @Override
     public void insertDettaglio() throws EMFError {
-	throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void update(Fields<Field> fields) throws EMFError {
-	throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void delete(Fields<Field> fields) throws EMFError {
-	throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void loadDettaglio() throws EMFError {
-	String lista = getTableName();
-	if (lista != null) {
-	    // Se carico il dettaglio della nota di rilascio
-	    if (lista.equals(getForm().getListaNoteRilascio().getName())) {
-		// Imposto lista e dettaglio in modalitÃ  visualizzazione
-		getForm().getListaNoteRilascio().setStatus(Status.view);
-		// getForm().getListaNoteRilascio().setHideDeleteButton(true);
-		getForm().getDettaglioNoteRilascio().setViewMode();
+        String lista = getTableName();
+        if (lista != null) {
+            // Se carico il dettaglio della nota di rilascio
+            if (lista.equals(getForm().getListaNoteRilascio().getName())) {
+                // Imposto lista e dettaglio in modalitÃ  visualizzazione
+                getForm().getListaNoteRilascio().setStatus(Status.view);
+                // getForm().getListaNoteRilascio().setHideDeleteButton(true);
+                getForm().getDettaglioNoteRilascio().setViewMode();
 
-		// Carico le info del dettaglio NOTE DI RILASCIO
-		if (!((AplNotaRilascioTableBean) getForm().getListaNoteRilascio().getTable())
-			.isEmpty()) {
-		    BigDecimal idNotaRilascio = ((AplNotaRilascioTableBean) getForm()
-			    .getListaNoteRilascio().getTable()).getCurrentRow().getIdNotaRilascio();
-		    AplNotaRilascioRowBean detailRow = noteRilascioEjb
-			    .getAplNotaRilascioRowBean(idNotaRilascio);
-		    getForm().getDettaglioNoteRilascio().copyFromBean(detailRow);
+                // Carico le info del dettaglio NOTE DI RILASCIO
+                if (!((AplNotaRilascioTableBean) getForm().getListaNoteRilascio().getTable())
+                        .isEmpty()) {
+                    BigDecimal idNotaRilascio = ((AplNotaRilascioTableBean) getForm()
+                            .getListaNoteRilascio().getTable()).getCurrentRow().getIdNotaRilascio();
+                    AplNotaRilascioRowBean detailRow = noteRilascioEjb
+                            .getAplNotaRilascioRowBean(idNotaRilascio);
+                    getForm().getDettaglioNoteRilascio().copyFromBean(detailRow);
 
-		    Calendar today = GregorianCalendar.getInstance();
-		    today.set(Calendar.HOUR_OF_DAY, 0);
-		    today.set(Calendar.MINUTE, 0);
-		    today.set(Calendar.SECOND, 0);
-		    today.set(Calendar.MILLISECOND, 0);
+                    Calendar today = GregorianCalendar.getInstance();
+                    today.set(Calendar.HOUR_OF_DAY, 0);
+                    today.set(Calendar.MINUTE, 0);
+                    today.set(Calendar.SECOND, 0);
+                    today.set(Calendar.MILLISECOND, 0);
 
-		    // if (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() == null ||
-		    // (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() != null &&
-		    // today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_fine_val().parse())
-		    // <= 0)
-		    // &&
-		    // today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_ini_val().parse())
-		    // >= 0)
-		    // {
-		    getRequest().setAttribute("showNotaRilascio", true);
-		    // } else {
-		    // getRequest().setAttribute("infoDaMostrare", "Informazioni non disponibili");
-		    // }
-		    // Carico da DB la lista delle note di rilascio precedenti associate
-		    // all'applicazione
-		    AplNotaRilascioTableBean noteRilascioPrecTableBean = noteRilascioEjb
-			    .getAplNoteRilascioPrecTableBean(detailRow.getBigDecimal("id_applic"),
-				    idNotaRilascio,
-				    new Date(detailRow.getTimestamp("dt_versione").getTime()));
-		    getForm().getNoteRilascioPrecedentiList().setTable(noteRilascioPrecTableBean);
-		    getForm().getNoteRilascioPrecedentiList().getTable().setPageSize(10);
-		    getForm().getNoteRilascioPrecedentiList().getTable().addSortingRule(
-			    AplNotaRilascioTableDescriptor.COL_DT_VERSIONE, SortingRule.DESC);
-		    getForm().getNoteRilascioPrecedentiList().getTable().sort();
-		    getForm().getNoteRilascioPrecedentiList().getTable().first();
-		    // Disabilito i tasti sulla lista note di rilascio precedenti
-		    getForm().getNoteRilascioPrecedentiList().setUserOperations(true, false, false,
-			    false);
-		} else {
-		    getRequest().setAttribute("infoDaMostrare", "Informazioni non disponibili");
-		}
-	    }
-	}
+                    // if (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() == null ||
+                    // (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() != null &&
+                    // today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_fine_val().parse())
+                    // <= 0)
+                    // &&
+                    // today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_ini_val().parse())
+                    // >= 0)
+                    // {
+                    getRequest().setAttribute("showNotaRilascio", true);
+                    // } else {
+                    // getRequest().setAttribute("infoDaMostrare", "Informazioni non disponibili");
+                    // }
+                    // Carico da DB la lista delle note di rilascio precedenti associate
+                    // all'applicazione
+                    AplNotaRilascioTableBean noteRilascioPrecTableBean = noteRilascioEjb
+                            .getAplNoteRilascioPrecTableBean(detailRow.getBigDecimal("id_applic"),
+                                    idNotaRilascio,
+                                    new Date(detailRow.getTimestamp("dt_versione").getTime()));
+                    getForm().getNoteRilascioPrecedentiList().setTable(noteRilascioPrecTableBean);
+                    getForm().getNoteRilascioPrecedentiList().getTable().setPageSize(10);
+                    getForm().getNoteRilascioPrecedentiList().getTable().addSortingRule(
+                            AplNotaRilascioTableDescriptor.COL_DT_VERSIONE, SortingRule.DESC);
+                    getForm().getNoteRilascioPrecedentiList().getTable().sort();
+                    getForm().getNoteRilascioPrecedentiList().getTable().first();
+                    // Disabilito i tasti sulla lista note di rilascio precedenti
+                    getForm().getNoteRilascioPrecedentiList().setUserOperations(true, false, false,
+                            false);
+                } else {
+                    getRequest().setAttribute("infoDaMostrare", "Informazioni non disponibili");
+                }
+            }
+        }
     }
 
     @Override
     public void undoDettaglio() throws EMFError {
-	throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void saveDettaglio() throws EMFError {
-	throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void dettaglioOnClick() throws EMFError {
-	String lista = getTableName();
-	if (lista != null) {
-	    if (getForm().getListaNoteRilascio().getName().equals(lista)) {
-		forwardToPublisher(Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE);
-	    } else if (getTableName().equals(getForm().getNoteRilascioPrecedentiList().getName())) {
-		redirectToNoteRilascioPage();
-	    }
-	}
+        String lista = getTableName();
+        if (lista != null) {
+            if (getForm().getListaNoteRilascio().getName().equals(lista)) {
+                forwardToPublisher(Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE);
+            } else if (getTableName().equals(getForm().getNoteRilascioPrecedentiList().getName())) {
+                redirectToNoteRilascioPage();
+            }
+        }
     }
 
     @Override
     public void elencoOnClick() throws EMFError {
-	goBack();
+        goBack();
     }
 
     @Override
     protected String getDefaultPublsherName() {
-	return Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE;
+        return Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE;
     }
 
     @Override
     public void reloadAfterGoBack(String publisherName) {
-	try {
-	    if (publisherName.equals(Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE)) {
-		Calendar today = GregorianCalendar.getInstance();
-		today.set(Calendar.HOUR_OF_DAY, 0);
-		today.set(Calendar.MINUTE, 0);
-		today.set(Calendar.SECOND, 0);
-		today.set(Calendar.MILLISECOND, 0);
-		// if (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() == null ||
-		// (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() != null &&
-		// today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_fine_val().parse())
-		// <= 0)
-		// &&
-		// today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_ini_val().parse())
-		// >= 0) {
-		getRequest().setAttribute("showNotaRilascio", true);
-		// } else {
-		// getRequest().setAttribute("infoDaMostrare", "Informazioni non disponibili");
-		// }
-		getSession().removeAttribute("isFromNotaRilascioPrec");
-	    }
-	} catch (Exception e) {
-	    actionLogger.error(e.getMessage(), e);
-	}
+        try {
+            if (publisherName.equals(Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE)) {
+                Calendar today = GregorianCalendar.getInstance();
+                today.set(Calendar.HOUR_OF_DAY, 0);
+                today.set(Calendar.MINUTE, 0);
+                today.set(Calendar.SECOND, 0);
+                today.set(Calendar.MILLISECOND, 0);
+                // if (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() == null ||
+                // (getForm().getDettaglioNoteRilascio().getDt_fine_val().parse() != null &&
+                // today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_fine_val().parse())
+                // <= 0)
+                // &&
+                // today.getTime().compareTo(getForm().getDettaglioNoteRilascio().getDt_ini_val().parse())
+                // >= 0) {
+                getRequest().setAttribute("showNotaRilascio", true);
+                // } else {
+                // getRequest().setAttribute("infoDaMostrare", "Informazioni non disponibili");
+                // }
+                getSession().removeAttribute("isFromNotaRilascioPrec");
+            }
+        } catch (Exception e) {
+            actionLogger.error(e.getMessage(), e);
+        }
     }
 
     @Override
     public String getControllerName() {
-	return Application.Actions.NOTE_RILASCIO;
+        return Application.Actions.NOTE_RILASCIO;
     }
 
     @Secure(action = "Menu.Informazioni.NoteRilascioVersCor")
     public void ricercaNoteRilascioPage() throws EMFError {
-	getUser().getMenu().reset();
-	getUser().getMenu().select("Menu.Informazioni.NoteRilascioVersCor");
+        getUser().getMenu().reset();
+        getUser().getMenu().select("Menu.Informazioni.NoteRilascioVersCor");
 
-	getForm().getListaNoteRilascio().clear();
-	getForm().getListaNoteRilascio().setStatus(Status.view);
+        getForm().getListaNoteRilascio().clear();
+        getForm().getListaNoteRilascio().setStatus(Status.view);
 
-	// Azzero in sessione l'attributo che mi tiene conto della lista delle note di rilascio
-	// precedenti
-	getSession().removeAttribute("isFromNotaRilascioPrec");
+        // Azzero in sessione l'attributo che mi tiene conto della lista delle note di rilascio
+        // precedenti
+        getSession().removeAttribute("isFromNotaRilascioPrec");
 
-	ricercaNoteRilascio(Constants.SACERIAM);
+        ricercaNoteRilascio(Constants.SACERIAM);
     }
 
     /**
@@ -221,42 +221,42 @@ public class NoteRilascioAction extends NoteRilascioAbstractAction {
      */
     public void ricercaNoteRilascio(String nmApplic) throws EMFError {
 
-	AplNotaRilascioTableBean noteRilascioTableBean = noteRilascioEjb
-		.getAplNoteRilascioTableBean(nmApplic);
-	getForm().getListaNoteRilascio().setTable(noteRilascioTableBean);
-	getForm().getListaNoteRilascio().getTable().first();
-	getForm().getListaNoteRilascio().getTable().setPageSize(10);
-	getForm().getListaNoteRilascio().setStatus(Status.view);
-	getForm().getListaNoteRilascio().setHideDeleteButton(false);
-	setTableName(getForm().getListaNoteRilascio().getName());
-	loadDettaglio();
-	forwardToPublisher(Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE);
+        AplNotaRilascioTableBean noteRilascioTableBean = noteRilascioEjb
+                .getAplNoteRilascioTableBean(nmApplic);
+        getForm().getListaNoteRilascio().setTable(noteRilascioTableBean);
+        getForm().getListaNoteRilascio().getTable().first();
+        getForm().getListaNoteRilascio().getTable().setPageSize(10);
+        getForm().getListaNoteRilascio().setStatus(Status.view);
+        getForm().getListaNoteRilascio().setHideDeleteButton(false);
+        setTableName(getForm().getListaNoteRilascio().getName());
+        loadDettaglio();
+        forwardToPublisher(Application.Publisher.DETTAGLIO_NOTE_RILASCIO_CORRENTE);
     }
 
     private void redirectToNoteRilascioPage() {
-	NoteRilascioForm form = new NoteRilascioForm();
-	form.getListaNoteRilascio().setFilterValidRecords(
-		getForm().getNoteRilascioPrecedentiList().isFilterValidRecords());
-	form.getListaNoteRilascio().setUserOperations(true, false, false, false);
-	getSession().setAttribute("isFromNotaRilascioPrec", true);
-	redirectToPage(Application.Actions.NOTE_RILASCIO, form,
-		form.getListaNoteRilascio().getName(),
-		getForm().getNoteRilascioPrecedentiList().getTable(), getNavigationEvent());
+        NoteRilascioForm form = new NoteRilascioForm();
+        form.getListaNoteRilascio().setFilterValidRecords(
+                getForm().getNoteRilascioPrecedentiList().isFilterValidRecords());
+        form.getListaNoteRilascio().setUserOperations(true, false, false, false);
+        getSession().setAttribute("isFromNotaRilascioPrec", true);
+        redirectToPage(Application.Actions.NOTE_RILASCIO, form,
+                form.getListaNoteRilascio().getName(),
+                getForm().getNoteRilascioPrecedentiList().getTable(), getNavigationEvent());
     }
 
     private void redirectToPage(final String action, BaseForm form, String listToPopulate,
-	    BaseTableInterface<?> table, String event) {
-	((it.eng.spagoLite.form.list.List<SingleValueField<?>>) form.getComponent(listToPopulate))
-		.setTable(table);
-	redirectToAction(action, "?operation=listNavigationOnClick&navigationEvent=" + event
-		+ "&table=" + listToPopulate + "&riga=" + table.getCurrentRowIndex(), form);
+            BaseTableInterface<?> table, String event) {
+        ((it.eng.spagoLite.form.list.List<SingleValueField<?>>) form.getComponent(listToPopulate))
+                .setTable(table);
+        redirectToAction(action, "?operation=listNavigationOnClick&navigationEvent=" + event
+                + "&table=" + listToPopulate + "&riga=" + table.getCurrentRowIndex(), form);
     }
 
     @Secure(action = "Menu.Informazioni.InfoPrivacy")
     public void infoPrivacyPage() {
-	getUser().getMenu().reset();
-	getUser().getMenu().select("Menu.Informazioni.InfoPrivacy");
+        getUser().getMenu().reset();
+        getUser().getMenu().select("Menu.Informazioni.InfoPrivacy");
 
-	forwardToPublisher(Application.Publisher.INFO_PRIVACY);
+        forwardToPublisher(Application.Publisher.INFO_PRIVACY);
     }
 }

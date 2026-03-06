@@ -32,19 +32,19 @@ public class AplNewsApplicTableBean extends AbstractBaseTable<AplNewsApplicRowBe
     public static AplNewsApplicTableDescriptor TABLE_DESCRIPTOR = new AplNewsApplicTableDescriptor();
 
     public AplNewsApplicTableBean() {
-	super();
+        super();
     }
 
     protected AplNewsApplicRowBean createRow() {
-	return new AplNewsApplicRowBean();
+        return new AplNewsApplicRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplNewsApplicRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

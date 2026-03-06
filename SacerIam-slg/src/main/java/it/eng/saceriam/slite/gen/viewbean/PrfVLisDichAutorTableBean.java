@@ -36,19 +36,19 @@ public class PrfVLisDichAutorTableBean extends AbstractBaseTable<PrfVLisDichAuto
     public static PrfVLisDichAutorTableDescriptor TABLE_DESCRIPTOR = new PrfVLisDichAutorTableDescriptor();
 
     public PrfVLisDichAutorTableBean() {
-	super();
+        super();
     }
 
     protected PrfVLisDichAutorRowBean createRow() {
-	return new PrfVLisDichAutorRowBean();
+        return new PrfVLisDichAutorRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<PrfVLisDichAutorRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

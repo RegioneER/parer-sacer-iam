@@ -43,26 +43,26 @@ public class OrgTariffaAccordoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_TARIFFA_ACCORDO,
-		new ColumnDescriptor(COL_ID_TARIFFA_ACCORDO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_ID_TIPO_SERVIZIO,
-		new ColumnDescriptor(COL_ID_TIPO_SERVIZIO, Types.DECIMAL, 22, false));
-	map.put(COL_IM_TARIFFA_ACCORDO,
-		new ColumnDescriptor(COL_IM_TARIFFA_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_TARIFFA_ACCORDO,
+                new ColumnDescriptor(COL_ID_TARIFFA_ACCORDO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_ID_TIPO_SERVIZIO,
+                new ColumnDescriptor(COL_ID_TIPO_SERVIZIO, Types.DECIMAL, 22, false));
+        map.put(COL_IM_TARIFFA_ACCORDO,
+                new ColumnDescriptor(COL_IM_TARIFFA_ACCORDO, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

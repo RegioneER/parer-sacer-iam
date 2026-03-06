@@ -32,19 +32,19 @@ public class OrgModuloInfoAccordoTableBean extends AbstractBaseTable<OrgModuloIn
     public static OrgModuloInfoAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgModuloInfoAccordoTableDescriptor();
 
     public OrgModuloInfoAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgModuloInfoAccordoRowBean createRow() {
-	return new OrgModuloInfoAccordoRowBean();
+        return new OrgModuloInfoAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgModuloInfoAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

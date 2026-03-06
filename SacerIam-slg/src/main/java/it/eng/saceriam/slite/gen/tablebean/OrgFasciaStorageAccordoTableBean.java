@@ -23,7 +23,7 @@ import java.util.Iterator;
  *
  */
 public class OrgFasciaStorageAccordoTableBean
-	extends AbstractBaseTable<OrgFasciaStorageAccordoRowBean> {
+        extends AbstractBaseTable<OrgFasciaStorageAccordoRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -33,19 +33,19 @@ public class OrgFasciaStorageAccordoTableBean
     public static OrgFasciaStorageAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgFasciaStorageAccordoTableDescriptor();
 
     public OrgFasciaStorageAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgFasciaStorageAccordoRowBean createRow() {
-	return new OrgFasciaStorageAccordoRowBean();
+        return new OrgFasciaStorageAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgFasciaStorageAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

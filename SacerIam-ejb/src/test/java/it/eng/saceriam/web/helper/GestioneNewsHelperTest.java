@@ -55,90 +55,90 @@ public class GestioneNewsHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	return getSacerIamArchive(GestioneNewsHelper.class).addClass(RandomStringUtils.class)
-		.addPackages(true, "it.eng.parer.sacerlog.entity",
-			"it.eng.parer.sacerlog.viewEntity");
+        return getSacerIamArchive(GestioneNewsHelper.class).addClass(RandomStringUtils.class)
+                .addPackages(true, "it.eng.parer.sacerlog.entity",
+                        "it.eng.parer.sacerlog.viewEntity");
     }
 
     @Test
     void getAplNewsList_queryIsOk() {
-	String dsOggetto = aString();
-	Date dataInizio = todayTs();
-	Date dataFine = tomorrowTs();
-	helper.getAplNewsList(dsOggetto, dataInizio, dataFine);
-	assertTrue(true);
+        String dsOggetto = aString();
+        Date dataInizio = todayTs();
+        Date dataFine = tomorrowTs();
+        helper.getAplNewsList(dsOggetto, dataInizio, dataFine);
+        assertTrue(true);
     }
 
     @Test
     void getAplNewsById_queryIsOk() {
-	BigDecimal idNews = aBigDecimal();
+        BigDecimal idNews = aBigDecimal();
 
-	helper.getAplNewsById(idNews);
-	assertTrue(true);
+        helper.getAplNewsById(idNews);
+        assertTrue(true);
     }
 
     @Test
     void getAplApplicById_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getAplApplicById(idApplic);
-	assertTrue(true);
+        helper.getAplApplicById(idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getAplApplicList_0args_queryIsOk() {
-	helper.getAplApplicList();
-	assertTrue(true);
+        helper.getAplApplicList();
+        assertTrue(true);
     }
 
     @Test
     void getAplApplicList_BigDecimal_queryIsOk() {
-	BigDecimal idNews = aBigDecimal();
-	helper.getAplApplicList(idNews);
-	assertTrue(true);
+        BigDecimal idNews = aBigDecimal();
+        helper.getAplApplicList(idNews);
+        assertTrue(true);
     }
 
     @Test
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Disabled("TEST MANUALE")
     void creaAggiornaNewsConApplicazioni_verificaCascade() {
-	final String oggetto = "News " + RandomStringUtils.random(12, true, true);
-	Date dataInizioPub = new Date();
-	Date dataFinePub = new Date();
-	AplNews news = new AplNews();
-	news.setDlTesto("Inserita da test automatici");
-	news.setDtIniPubblic(dataInizioPub);
-	news.setDtFinPubblic(dataFinePub);
-	news.setDsOggetto(oggetto);
-	news.setFlPubblicLogin("1");
-	news.setFlPubblicHomepage("0");
-	news.setAplNewsApplics(new ArrayList<>());
-	AplApplic sacerIam = helper.getAplApplicById(BigDecimal.valueOf(321));
+        final String oggetto = "News " + RandomStringUtils.random(12, true, true);
+        Date dataInizioPub = new Date();
+        Date dataFinePub = new Date();
+        AplNews news = new AplNews();
+        news.setDlTesto("Inserita da test automatici");
+        news.setDtIniPubblic(dataInizioPub);
+        news.setDtFinPubblic(dataFinePub);
+        news.setDsOggetto(oggetto);
+        news.setFlPubblicLogin("1");
+        news.setFlPubblicHomepage("0");
+        news.setAplNewsApplics(new ArrayList<>());
+        AplApplic sacerIam = helper.getAplApplicById(BigDecimal.valueOf(321));
 
-	AplNewsApplic applic = new AplNewsApplic();
-	applic.setAplNew(news);
-	applic.setAplApplic(sacerIam);
+        AplNewsApplic applic = new AplNewsApplic();
+        applic.setAplNew(news);
+        applic.setAplApplic(sacerIam);
 
-	news.getAplNewsApplics().add(applic);
-	// PERSIST
-	helper.insert(news);
-	List<AplApplic> listaApplicazioni = helper
-		.getAplApplicList(BigDecimal.valueOf(news.getIdNews()));
-	assertEquals(1, listaApplicazioni.size());
-	assertEquals(sacerIam.getIdApplic(), listaApplicazioni.get(0).getIdApplic());
-	// MERGE
-	helper.deleteAplNewsApplicList(news.getIdNews());
-	news.setAplNewsApplics(new ArrayList<>());
-	AplApplic sacer = helper.getAplApplicById(BigDecimal.valueOf(322));
-	AplNewsApplic applic2 = new AplNewsApplic();
-	applic2.setAplNew(news);
-	applic2.setAplApplic(sacer);
-	news.getAplNewsApplics().add(applic2);
-	helper.update(news);
-	listaApplicazioni = helper.getAplApplicList(BigDecimal.valueOf(news.getIdNews()));
-	assertEquals(1, listaApplicazioni.size());
-	assertEquals(sacer.getIdApplic(), listaApplicazioni.get(0).getIdApplic());
-	helper.update(news);
+        news.getAplNewsApplics().add(applic);
+        // PERSIST
+        helper.insert(news);
+        List<AplApplic> listaApplicazioni = helper
+                .getAplApplicList(BigDecimal.valueOf(news.getIdNews()));
+        assertEquals(1, listaApplicazioni.size());
+        assertEquals(sacerIam.getIdApplic(), listaApplicazioni.get(0).getIdApplic());
+        // MERGE
+        helper.deleteAplNewsApplicList(news.getIdNews());
+        news.setAplNewsApplics(new ArrayList<>());
+        AplApplic sacer = helper.getAplApplicById(BigDecimal.valueOf(322));
+        AplNewsApplic applic2 = new AplNewsApplic();
+        applic2.setAplNew(news);
+        applic2.setAplApplic(sacer);
+        news.getAplNewsApplics().add(applic2);
+        helper.update(news);
+        listaApplicazioni = helper.getAplApplicList(BigDecimal.valueOf(news.getIdNews()));
+        assertEquals(1, listaApplicazioni.size());
+        assertEquals(sacer.getIdApplic(), listaApplicazioni.get(0).getIdApplic());
+        helper.update(news);
 
     }
 }

@@ -32,19 +32,19 @@ public class OrgScaglioneTariffaTableBean extends AbstractBaseTable<OrgScaglione
     public static OrgScaglioneTariffaTableDescriptor TABLE_DESCRIPTOR = new OrgScaglioneTariffaTableDescriptor();
 
     public OrgScaglioneTariffaTableBean() {
-	super();
+        super();
     }
 
     protected OrgScaglioneTariffaRowBean createRow() {
-	return new OrgScaglioneTariffaRowBean();
+        return new OrgScaglioneTariffaRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgScaglioneTariffaRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

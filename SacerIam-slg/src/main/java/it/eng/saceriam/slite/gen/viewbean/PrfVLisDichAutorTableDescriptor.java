@@ -58,53 +58,53 @@ public class PrfVLisDichAutorTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USO_RUOLO_APPLIC,
-		new ColumnDescriptor(COL_ID_USO_RUOLO_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_ID_DICH_AUTOR,
-		new ColumnDescriptor(COL_ID_DICH_AUTOR, Types.DECIMAL, 22, true));
-	map.put(COL_TI_DICH_AUTOR,
-		new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, true));
-	map.put(COL_TI_SCOPO_DICH_AUTOR,
-		new ColumnDescriptor(COL_TI_SCOPO_DICH_AUTOR, Types.VARCHAR, 22, true));
-	map.put(COL_NI_LIVELLO_ENTRY_MENU,
-		new ColumnDescriptor(COL_NI_LIVELLO_ENTRY_MENU, Types.DECIMAL, 22, true));
-	map.put(COL_NI_ORD_ENTRY_MENU,
-		new ColumnDescriptor(COL_NI_ORD_ENTRY_MENU, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTRY_MENU,
-		new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, true));
-	map.put(COL_DS_ENTRY_MENU,
-		new ColumnDescriptor(COL_DS_ENTRY_MENU, Types.VARCHAR, 4000, true));
-	map.put(COL_ID_PAGINA_WEB_AZIO,
-		new ColumnDescriptor(COL_ID_PAGINA_WEB_AZIO, Types.DECIMAL, 22, true));
-	map.put(COL_DS_PAGINA_WEB_AZIO,
-		new ColumnDescriptor(COL_DS_PAGINA_WEB_AZIO, Types.VARCHAR, 254, true));
-	map.put(COL_ID_AZIONE_PAGINA,
-		new ColumnDescriptor(COL_ID_AZIONE_PAGINA, Types.DECIMAL, 22, true));
-	map.put(COL_DS_AZIONE_PAGINA,
-		new ColumnDescriptor(COL_DS_AZIONE_PAGINA, Types.VARCHAR, 254, true));
-	map.put(COL_ID_PAGINA_WEB,
-		new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, true));
-	map.put(COL_DS_PAGINA_WEB,
-		new ColumnDescriptor(COL_DS_PAGINA_WEB, Types.VARCHAR, 254, true));
-	map.put(COL_ID_SERVIZIO_WEB,
-		new ColumnDescriptor(COL_ID_SERVIZIO_WEB, Types.DECIMAL, 22, true));
-	map.put(COL_DS_SERVIZIO_WEB,
-		new ColumnDescriptor(COL_DS_SERVIZIO_WEB, Types.VARCHAR, 254, true));
+        map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USO_RUOLO_APPLIC,
+                new ColumnDescriptor(COL_ID_USO_RUOLO_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_ID_DICH_AUTOR,
+                new ColumnDescriptor(COL_ID_DICH_AUTOR, Types.DECIMAL, 22, true));
+        map.put(COL_TI_DICH_AUTOR,
+                new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, true));
+        map.put(COL_TI_SCOPO_DICH_AUTOR,
+                new ColumnDescriptor(COL_TI_SCOPO_DICH_AUTOR, Types.VARCHAR, 22, true));
+        map.put(COL_NI_LIVELLO_ENTRY_MENU,
+                new ColumnDescriptor(COL_NI_LIVELLO_ENTRY_MENU, Types.DECIMAL, 22, true));
+        map.put(COL_NI_ORD_ENTRY_MENU,
+                new ColumnDescriptor(COL_NI_ORD_ENTRY_MENU, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTRY_MENU,
+                new ColumnDescriptor(COL_ID_ENTRY_MENU, Types.DECIMAL, 22, true));
+        map.put(COL_DS_ENTRY_MENU,
+                new ColumnDescriptor(COL_DS_ENTRY_MENU, Types.VARCHAR, 4000, true));
+        map.put(COL_ID_PAGINA_WEB_AZIO,
+                new ColumnDescriptor(COL_ID_PAGINA_WEB_AZIO, Types.DECIMAL, 22, true));
+        map.put(COL_DS_PAGINA_WEB_AZIO,
+                new ColumnDescriptor(COL_DS_PAGINA_WEB_AZIO, Types.VARCHAR, 254, true));
+        map.put(COL_ID_AZIONE_PAGINA,
+                new ColumnDescriptor(COL_ID_AZIONE_PAGINA, Types.DECIMAL, 22, true));
+        map.put(COL_DS_AZIONE_PAGINA,
+                new ColumnDescriptor(COL_DS_AZIONE_PAGINA, Types.VARCHAR, 254, true));
+        map.put(COL_ID_PAGINA_WEB,
+                new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, true));
+        map.put(COL_DS_PAGINA_WEB,
+                new ColumnDescriptor(COL_DS_PAGINA_WEB, Types.VARCHAR, 254, true));
+        map.put(COL_ID_SERVIZIO_WEB,
+                new ColumnDescriptor(COL_ID_SERVIZIO_WEB, Types.DECIMAL, 22, true));
+        map.put(COL_DS_SERVIZIO_WEB,
+                new ColumnDescriptor(COL_DS_SERVIZIO_WEB, Types.VARCHAR, 254, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

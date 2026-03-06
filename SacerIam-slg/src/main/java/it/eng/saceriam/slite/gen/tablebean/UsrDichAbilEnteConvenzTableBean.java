@@ -23,7 +23,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrDichAbilEnteConvenzTableBean
-	extends AbstractBaseTable<UsrDichAbilEnteConvenzRowBean> {
+        extends AbstractBaseTable<UsrDichAbilEnteConvenzRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -33,19 +33,19 @@ public class UsrDichAbilEnteConvenzTableBean
     public static UsrDichAbilEnteConvenzTableDescriptor TABLE_DESCRIPTOR = new UsrDichAbilEnteConvenzTableDescriptor();
 
     public UsrDichAbilEnteConvenzTableBean() {
-	super();
+        super();
     }
 
     protected UsrDichAbilEnteConvenzRowBean createRow() {
-	return new UsrDichAbilEnteConvenzRowBean();
+        return new UsrDichAbilEnteConvenzRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrDichAbilEnteConvenzRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

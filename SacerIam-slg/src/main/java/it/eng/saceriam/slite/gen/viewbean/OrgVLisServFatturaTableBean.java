@@ -36,19 +36,19 @@ public class OrgVLisServFatturaTableBean extends AbstractBaseTable<OrgVLisServFa
     public static OrgVLisServFatturaTableDescriptor TABLE_DESCRIPTOR = new OrgVLisServFatturaTableDescriptor();
 
     public OrgVLisServFatturaTableBean() {
-	super();
+        super();
     }
 
     protected OrgVLisServFatturaRowBean createRow() {
-	return new OrgVLisServFatturaRowBean();
+        return new OrgVLisServFatturaRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVLisServFatturaRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

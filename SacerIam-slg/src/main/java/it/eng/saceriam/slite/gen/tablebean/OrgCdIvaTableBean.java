@@ -32,19 +32,19 @@ public class OrgCdIvaTableBean extends AbstractBaseTable<OrgCdIvaRowBean> {
     public static OrgCdIvaTableDescriptor TABLE_DESCRIPTOR = new OrgCdIvaTableDescriptor();
 
     public OrgCdIvaTableBean() {
-	super();
+        super();
     }
 
     protected OrgCdIvaRowBean createRow() {
-	return new OrgCdIvaRowBean();
+        return new OrgCdIvaRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgCdIvaRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -39,34 +39,34 @@ public class ComboHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	return getSacerIamArchive(ComboHelper.class).addPackages(true,
-		"it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
+        return getSacerIamArchive(ComboHelper.class).addPackages(true,
+                "it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
     }
 
     @Test
     public void getAplApplicAbilitateList_long_queryIsOk() {
-	long idUserIamCorrente = aLong();
+        long idUserIamCorrente = aLong();
 
-	helper.getAplApplicAbilitateList(idUserIamCorrente);
-	assertTrue(true);
+        helper.getAplApplicAbilitateList(idUserIamCorrente);
+        assertTrue(true);
     }
 
     @Test
     public void getAplApplicAbilitateRicercaReplicheList_queryIsOk() {
-	long idUserIamCorrente = aLong();
+        long idUserIamCorrente = aLong();
 
-	helper.getAplApplicAbilitateRicercaReplicheList(idUserIamCorrente);
-	assertTrue(true);
+        helper.getAplApplicAbilitateRicercaReplicheList(idUserIamCorrente);
+        assertTrue(true);
     }
 
     @Test
     public void getAplApplicAbilitateUtenteList_3args_queryIsOk() {
-	long idUserIamCorrente = aLong();
-	boolean isAppartEnteConvenzAdmin = false;
-	boolean isEnteOrganoVigilanza = false;
+        long idUserIamCorrente = aLong();
+        boolean isAppartEnteConvenzAdmin = false;
+        boolean isEnteOrganoVigilanza = false;
 
-	helper.getAplApplicAbilitateUtenteList(idUserIamCorrente, isAppartEnteConvenzAdmin,
-		isEnteOrganoVigilanza);
-	assertTrue(true);
+        helper.getAplApplicAbilitateUtenteList(idUserIamCorrente, isAppartEnteConvenzAdmin,
+                isEnteOrganoVigilanza);
+        assertTrue(true);
     }
 }

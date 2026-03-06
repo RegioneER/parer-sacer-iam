@@ -31,66 +31,66 @@ public class InserimentoOrganizzazioneRisposta extends ReplicaOrganizzazioneRisp
     private ListaTipiDato listaTipiDato;
 
     public Integer getIdOrganizApplicPadre() {
-	return idOrganizApplicPadre;
+        return idOrganizApplicPadre;
     }
 
     public void setIdOrganizApplicPadre(Integer idOrganizApplicPadre) {
-	this.idOrganizApplicPadre = idOrganizApplicPadre;
+        this.idOrganizApplicPadre = idOrganizApplicPadre;
     }
 
     public String getNmOrganiz() {
-	return nmOrganiz;
+        return nmOrganiz;
     }
 
     public void setNmOrganiz(String nmOrganiz) {
-	this.nmOrganiz = nmOrganiz;
+        this.nmOrganiz = nmOrganiz;
     }
 
     public String getDsOrganiz() {
-	return dsOrganiz;
+        return dsOrganiz;
     }
 
     public void setDsOrganiz(String dsOrganiz) {
-	this.dsOrganiz = dsOrganiz;
+        this.dsOrganiz = dsOrganiz;
     }
 
     public ListaTipiDato getListaTipiDato() {
-	return listaTipiDato;
+        return listaTipiDato;
     }
 
     public void setListaTipiDato(ListaTipiDato listaTipiDato) {
-	this.listaTipiDato = listaTipiDato;
+        this.listaTipiDato = listaTipiDato;
     }
 
     public String getNmTipoOrganizPadre() {
-	return nmTipoOrganizPadre;
+        return nmTipoOrganizPadre;
     }
 
     public void setNmTipoOrganizPadre(String nmTipoOrganizPadre) {
-	this.nmTipoOrganizPadre = nmTipoOrganizPadre;
+        this.nmTipoOrganizPadre = nmTipoOrganizPadre;
     }
 
     public Integer getIdEnteConvenz() {
-	return idEnteConvenz;
+        return idEnteConvenz;
     }
 
     public void setIdEnteConvenz(Integer idEnteConvenz) {
-	this.idEnteConvenz = idEnteConvenz;
+        this.idEnteConvenz = idEnteConvenz;
     }
 
     public Date getDtIniVal() {
-	return dtIniVal;
+        return dtIniVal;
     }
 
     public void setDtIniVal(Date dtIniVal) {
-	this.dtIniVal = dtIniVal;
+        this.dtIniVal = dtIniVal;
     }
 
     public Date getDtFineVal() {
-	return dtFineVal;
+        return dtFineVal;
     }
 
     public void setDtFineVal(Date dtFineVal) {
-	this.dtFineVal = dtFineVal;
+        this.dtFineVal = dtFineVal;
     }
 }

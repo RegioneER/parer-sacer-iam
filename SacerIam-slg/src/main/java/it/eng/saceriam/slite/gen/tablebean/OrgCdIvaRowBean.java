@@ -35,80 +35,80 @@ public class OrgCdIvaRowBean extends BaseRow implements BaseRowInterface, JEEBas
     public static OrgCdIvaTableDescriptor TABLE_DESCRIPTOR = new OrgCdIvaTableDescriptor();
 
     public OrgCdIvaRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdCdIva() {
-	return getBigDecimal("id_cd_iva");
+        return getBigDecimal("id_cd_iva");
     }
 
     public void setIdCdIva(BigDecimal idCdIva) {
-	setObject("id_cd_iva", idCdIva);
+        setObject("id_cd_iva", idCdIva);
     }
 
     public String getCdIva() {
-	return getString("cd_iva");
+        return getString("cd_iva");
     }
 
     public void setCdIva(String cdIva) {
-	setObject("cd_iva", cdIva);
+        setObject("cd_iva", cdIva);
     }
 
     public String getDsIva() {
-	return getString("ds_iva");
+        return getString("ds_iva");
     }
 
     public void setDsIva(String dsIva) {
-	setObject("ds_iva", dsIva);
+        setObject("ds_iva", dsIva);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgCdIva entity = (OrgCdIva) obj;
-	this.setIdCdIva(new BigDecimal(entity.getIdCdIva()));
-	this.setCdIva(entity.getCdIva());
-	this.setDsIva(entity.getDsIva());
+        OrgCdIva entity = (OrgCdIva) obj;
+        this.setIdCdIva(new BigDecimal(entity.getIdCdIva()));
+        this.setCdIva(entity.getCdIva());
+        this.setDsIva(entity.getDsIva());
     }
 
     @Override
     public OrgCdIva rowBeanToEntity() {
-	OrgCdIva entity = new OrgCdIva();
-	if (this.getIdCdIva() != null) {
-	    entity.setIdCdIva(this.getIdCdIva().longValue());
-	}
-	entity.setCdIva(this.getCdIva());
-	entity.setDsIva(this.getDsIva());
-	return entity;
+        OrgCdIva entity = new OrgCdIva();
+        if (this.getIdCdIva() != null) {
+            entity.setIdCdIva(this.getIdCdIva().longValue());
+        }
+        entity.setCdIva(this.getCdIva());
+        entity.setDsIva(this.getDsIva());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

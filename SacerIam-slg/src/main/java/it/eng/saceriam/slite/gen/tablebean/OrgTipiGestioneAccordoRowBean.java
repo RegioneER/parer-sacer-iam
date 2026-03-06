@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgTipiGestioneAccordoRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -36,70 +36,70 @@ public class OrgTipiGestioneAccordoRowBean extends BaseRow
     public static OrgTipiGestioneAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgTipiGestioneAccordoTableDescriptor();
 
     public OrgTipiGestioneAccordoRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdTipoGestioneAccordo() {
-	return getBigDecimal("id_tipo_gestione_accordo");
+        return getBigDecimal("id_tipo_gestione_accordo");
     }
 
     public void setIdTipoGestioneAccordo(BigDecimal idTipoGestioneAccordo) {
-	setObject("id_tipo_gestione_accordo", idTipoGestioneAccordo);
+        setObject("id_tipo_gestione_accordo", idTipoGestioneAccordo);
     }
 
     public String getCdTipoGestioneAccordo() {
-	return getString("cd_tipo_gestione_accordo");
+        return getString("cd_tipo_gestione_accordo");
     }
 
     public void setCdTipoGestioneAccordo(String cdTipoGestioneAccordo) {
-	setObject("cd_tipo_gestione_accordo", cdTipoGestioneAccordo);
+        setObject("cd_tipo_gestione_accordo", cdTipoGestioneAccordo);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgTipiGestioneAccordo entity = (OrgTipiGestioneAccordo) obj;
-	this.setIdTipoGestioneAccordo(new BigDecimal(entity.getIdTipoGestioneAccordo()));
-	this.setCdTipoGestioneAccordo(entity.getCdTipoGestioneAccordo());
+        OrgTipiGestioneAccordo entity = (OrgTipiGestioneAccordo) obj;
+        this.setIdTipoGestioneAccordo(new BigDecimal(entity.getIdTipoGestioneAccordo()));
+        this.setCdTipoGestioneAccordo(entity.getCdTipoGestioneAccordo());
     }
 
     @Override
     public OrgTipiGestioneAccordo rowBeanToEntity() {
-	OrgTipiGestioneAccordo entity = new OrgTipiGestioneAccordo();
-	if (this.getIdTipoGestioneAccordo() != null) {
-	    entity.setIdTipoGestioneAccordo(this.getIdTipoGestioneAccordo().longValue());
-	}
-	entity.setCdTipoGestioneAccordo(this.getCdTipoGestioneAccordo());
-	return entity;
+        OrgTipiGestioneAccordo entity = new OrgTipiGestioneAccordo();
+        if (this.getIdTipoGestioneAccordo() != null) {
+            entity.setIdTipoGestioneAccordo(this.getIdTipoGestioneAccordo().longValue());
+        }
+        entity.setCdTipoGestioneAccordo(this.getCdTipoGestioneAccordo());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

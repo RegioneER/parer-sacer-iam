@@ -36,19 +36,19 @@ public class UsrVUnaorgByAmminTableBean extends AbstractBaseTable<UsrVUnaorgByAm
     public static UsrVUnaorgByAmminTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByAmminTableDescriptor();
 
     public UsrVUnaorgByAmminTableBean() {
-	super();
+        super();
     }
 
     protected UsrVUnaorgByAmminRowBean createRow() {
-	return new UsrVUnaorgByAmminRowBean();
+        return new UsrVUnaorgByAmminRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVUnaorgByAmminRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

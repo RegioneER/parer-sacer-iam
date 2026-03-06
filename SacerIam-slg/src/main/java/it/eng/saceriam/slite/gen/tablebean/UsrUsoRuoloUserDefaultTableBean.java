@@ -23,7 +23,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrUsoRuoloUserDefaultTableBean
-	extends AbstractBaseTable<UsrUsoRuoloUserDefaultRowBean> {
+        extends AbstractBaseTable<UsrUsoRuoloUserDefaultRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -33,19 +33,19 @@ public class UsrUsoRuoloUserDefaultTableBean
     public static UsrUsoRuoloUserDefaultTableDescriptor TABLE_DESCRIPTOR = new UsrUsoRuoloUserDefaultTableDescriptor();
 
     public UsrUsoRuoloUserDefaultTableBean() {
-	super();
+        super();
     }
 
     protected UsrUsoRuoloUserDefaultRowBean createRow() {
-	return new UsrUsoRuoloUserDefaultRowBean();
+        return new UsrUsoRuoloUserDefaultRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrUsoRuoloUserDefaultRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

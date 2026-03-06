@@ -32,19 +32,19 @@ public class AplServizioWebTableBean extends AbstractBaseTable<AplServizioWebRow
     public static AplServizioWebTableDescriptor TABLE_DESCRIPTOR = new AplServizioWebTableDescriptor();
 
     public AplServizioWebTableBean() {
-	super();
+        super();
     }
 
     protected AplServizioWebRowBean createRow() {
-	return new AplServizioWebRowBean();
+        return new AplServizioWebRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplServizioWebRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

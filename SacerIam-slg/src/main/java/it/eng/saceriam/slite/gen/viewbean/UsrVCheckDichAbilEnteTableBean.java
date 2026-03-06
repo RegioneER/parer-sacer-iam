@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVCheckDichAbilEnteTableBean
-	extends AbstractBaseTable<UsrVCheckDichAbilEnteRowBean> {
+        extends AbstractBaseTable<UsrVCheckDichAbilEnteRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class UsrVCheckDichAbilEnteTableBean
     public static UsrVCheckDichAbilEnteTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckDichAbilEnteTableDescriptor();
 
     public UsrVCheckDichAbilEnteTableBean() {
-	super();
+        super();
     }
 
     protected UsrVCheckDichAbilEnteRowBean createRow() {
-	return new UsrVCheckDichAbilEnteRowBean();
+        return new UsrVCheckDichAbilEnteRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVCheckDichAbilEnteRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

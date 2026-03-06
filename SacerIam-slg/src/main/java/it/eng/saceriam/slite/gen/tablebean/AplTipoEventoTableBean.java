@@ -32,19 +32,19 @@ public class AplTipoEventoTableBean extends AbstractBaseTable<AplTipoEventoRowBe
     public static AplTipoEventoTableDescriptor TABLE_DESCRIPTOR = new AplTipoEventoTableDescriptor();
 
     public AplTipoEventoTableBean() {
-	super();
+        super();
     }
 
     protected AplTipoEventoRowBean createRow() {
-	return new AplTipoEventoRowBean();
+        return new AplTipoEventoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplTipoEventoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

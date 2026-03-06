@@ -32,19 +32,19 @@ public class AplCompSwTableBean extends AbstractBaseTable<AplCompSwRowBean> {
     public static AplCompSwTableDescriptor TABLE_DESCRIPTOR = new AplCompSwTableDescriptor();
 
     public AplCompSwTableBean() {
-	super();
+        super();
     }
 
     protected AplCompSwRowBean createRow() {
-	return new AplCompSwRowBean();
+        return new AplCompSwRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplCompSwRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

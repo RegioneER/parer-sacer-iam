@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVCheckRuoloDefaultTableBean
-	extends AbstractBaseTable<UsrVCheckRuoloDefaultRowBean> {
+        extends AbstractBaseTable<UsrVCheckRuoloDefaultRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class UsrVCheckRuoloDefaultTableBean
     public static UsrVCheckRuoloDefaultTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckRuoloDefaultTableDescriptor();
 
     public UsrVCheckRuoloDefaultTableBean() {
-	super();
+        super();
     }
 
     protected UsrVCheckRuoloDefaultRowBean createRow() {
-	return new UsrVCheckRuoloDefaultRowBean();
+        return new UsrVCheckRuoloDefaultRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVCheckRuoloDefaultRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

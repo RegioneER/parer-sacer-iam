@@ -30,7 +30,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrAppartUserRichRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -40,100 +40,100 @@ public class UsrAppartUserRichRowBean extends BaseRow
     public static UsrAppartUserRichTableDescriptor TABLE_DESCRIPTOR = new UsrAppartUserRichTableDescriptor();
 
     public UsrAppartUserRichRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdAppartUserRich() {
-	return getBigDecimal("id_appart_user_rich");
+        return getBigDecimal("id_appart_user_rich");
     }
 
     public void setIdAppartUserRich(BigDecimal idAppartUserRich) {
-	setObject("id_appart_user_rich", idAppartUserRich);
+        setObject("id_appart_user_rich", idAppartUserRich);
     }
 
     public BigDecimal getIdRichGestUser() {
-	return getBigDecimal("id_rich_gest_user");
+        return getBigDecimal("id_rich_gest_user");
     }
 
     public void setIdRichGestUser(BigDecimal idRichGestUser) {
-	setObject("id_rich_gest_user", idRichGestUser);
+        setObject("id_rich_gest_user", idRichGestUser);
     }
 
     public String getTiAppartUserRich() {
-	return getString("ti_appart_user_rich");
+        return getString("ti_appart_user_rich");
     }
 
     public void setTiAppartUserRich(String tiAppartUserRich) {
-	setObject("ti_appart_user_rich", tiAppartUserRich);
+        setObject("ti_appart_user_rich", tiAppartUserRich);
     }
 
     public String getNmNomeUser() {
-	return getString("nm_nome_user");
+        return getString("nm_nome_user");
     }
 
     public void setNmNomeUser(String nmNomeUser) {
-	setObject("nm_nome_user", nmNomeUser);
+        setObject("nm_nome_user", nmNomeUser);
     }
 
     public String getNmCognomeUser() {
-	return getString("nm_cognome_user");
+        return getString("nm_cognome_user");
     }
 
     public void setNmCognomeUser(String nmCognomeUser) {
-	setObject("nm_cognome_user", nmCognomeUser);
+        setObject("nm_cognome_user", nmCognomeUser);
     }
 
     public String getNmUserid() {
-	return getString("nm_userid");
+        return getString("nm_userid");
     }
 
     public void setNmUserid(String nmUserid) {
-	setObject("nm_userid", nmUserid);
+        setObject("nm_userid", nmUserid);
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public String getTiAzioneRich() {
-	return getString("ti_azione_rich");
+        return getString("ti_azione_rich");
     }
 
     public void setTiAzioneRich(String tiAzioneRich) {
-	setObject("ti_azione_rich", tiAzioneRich);
+        setObject("ti_azione_rich", tiAzioneRich);
     }
 
     public String getFlAzioneRichEvasa() {
-	return getString("fl_azione_rich_evasa");
+        return getString("fl_azione_rich_evasa");
     }
 
     public void setFlAzioneRichEvasa(String flAzioneRichEvasa) {
-	setObject("fl_azione_rich_evasa", flAzioneRichEvasa);
+        setObject("fl_azione_rich_evasa", flAzioneRichEvasa);
     }
 
     public BigDecimal getIdNotificaAzione_1() {
-	return getBigDecimal("id_notifica_azione_1");
+        return getBigDecimal("id_notifica_azione_1");
     }
 
     public void setIdNotificaAzione_1(BigDecimal id_notifica_azione_1) {
-	setObject("id_notifica_azione_1", id_notifica_azione_1);
+        setObject("id_notifica_azione_1", id_notifica_azione_1);
     }
 
     public BigDecimal getIdNotificaAzione_2() {
-	return getBigDecimal("id_notifica_azione_2");
+        return getBigDecimal("id_notifica_azione_2");
     }
 
     public void setIdNotificaAzione_2(BigDecimal id_notifica_azione_2) {
-	setObject("id_notifica_azione_2", id_notifica_azione_2);
+        setObject("id_notifica_azione_2", id_notifica_azione_2);
     }
 
     // public String getFlUserAdmin() {
@@ -145,115 +145,115 @@ public class UsrAppartUserRichRowBean extends BaseRow
     // }
 
     public BigDecimal getIdEnteUser() {
-	return getBigDecimal("id_ente_user");
+        return getBigDecimal("id_ente_user");
     }
 
     public void setIdEnteUser(BigDecimal idEnteUser) {
-	setObject("id_ente_user", idEnteUser);
+        setObject("id_ente_user", idEnteUser);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrAppartUserRich entity = (UsrAppartUserRich) obj;
-	this.setIdAppartUserRich(new BigDecimal(entity.getIdAppartUserRich()));
-	if (entity.getUsrRichGestUser() != null) {
-	    this.setIdRichGestUser(new BigDecimal(entity.getUsrRichGestUser().getIdRichGestUser()));
+        UsrAppartUserRich entity = (UsrAppartUserRich) obj;
+        this.setIdAppartUserRich(new BigDecimal(entity.getIdAppartUserRich()));
+        if (entity.getUsrRichGestUser() != null) {
+            this.setIdRichGestUser(new BigDecimal(entity.getUsrRichGestUser().getIdRichGestUser()));
 
-	}
-	this.setTiAppartUserRich(entity.getTiAppartUserRich());
-	this.setNmNomeUser(entity.getNmNomeUser());
-	this.setNmCognomeUser(entity.getNmCognomeUser());
-	this.setNmUserid(entity.getNmUserid());
-	if (entity.getUsrUser() != null) {
-	    this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
+        }
+        this.setTiAppartUserRich(entity.getTiAppartUserRich());
+        this.setNmNomeUser(entity.getNmNomeUser());
+        this.setNmCognomeUser(entity.getNmCognomeUser());
+        this.setNmUserid(entity.getNmUserid());
+        if (entity.getUsrUser() != null) {
+            this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
 
-	}
-	this.setTiAzioneRich(entity.getTiAzioneRich());
-	this.setFlAzioneRichEvasa(entity.getFlAzioneRichEvasa());
-	if (entity.getNtfNotifica1() != null) {
-	    this.setIdNotificaAzione_1(new BigDecimal(entity.getNtfNotifica1().getIdNotifica()));
+        }
+        this.setTiAzioneRich(entity.getTiAzioneRich());
+        this.setFlAzioneRichEvasa(entity.getFlAzioneRichEvasa());
+        if (entity.getNtfNotifica1() != null) {
+            this.setIdNotificaAzione_1(new BigDecimal(entity.getNtfNotifica1().getIdNotifica()));
 
-	}
-	if (entity.getNtfNotifica2() != null) {
-	    this.setIdNotificaAzione_2(new BigDecimal(entity.getNtfNotifica2().getIdNotifica()));
+        }
+        if (entity.getNtfNotifica2() != null) {
+            this.setIdNotificaAzione_2(new BigDecimal(entity.getNtfNotifica2().getIdNotifica()));
 
-	}
-	// this.setFlUserAdmin(entity.getFlUserAdmin());
-	if (entity.getOrgEnteSiam() != null) {
-	    this.setIdEnteUser(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
+        }
+        // this.setFlUserAdmin(entity.getFlUserAdmin());
+        if (entity.getOrgEnteSiam() != null) {
+            this.setIdEnteUser(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
 
-	}
+        }
     }
 
     @Override
     public UsrAppartUserRich rowBeanToEntity() {
-	UsrAppartUserRich entity = new UsrAppartUserRich();
-	if (this.getIdAppartUserRich() != null) {
-	    entity.setIdAppartUserRich(this.getIdAppartUserRich().longValue());
-	}
-	if (this.getIdRichGestUser() != null) {
-	    if (entity.getUsrRichGestUser() == null) {
-		entity.setUsrRichGestUser(new UsrRichGestUser());
-	    }
-	    entity.getUsrRichGestUser().setIdRichGestUser(this.getIdRichGestUser().longValue());
-	}
-	entity.setTiAppartUserRich(this.getTiAppartUserRich());
-	entity.setNmNomeUser(this.getNmNomeUser());
-	entity.setNmCognomeUser(this.getNmCognomeUser());
-	entity.setNmUserid(this.getNmUserid());
-	if (this.getIdUserIam() != null) {
-	    if (entity.getUsrUser() == null) {
-		entity.setUsrUser(new UsrUser());
-	    }
-	    entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
-	}
-	entity.setTiAzioneRich(this.getTiAzioneRich());
-	entity.setFlAzioneRichEvasa(this.getFlAzioneRichEvasa());
-	if (this.getIdNotificaAzione_1() != null) {
-	    if (entity.getNtfNotifica1() == null) {
-		entity.setNtfNotifica1(new NtfNotifica());
-	    }
-	    entity.getNtfNotifica1().setIdNotifica(this.getIdNotificaAzione_1().longValue());
-	}
-	if (this.getIdNotificaAzione_2() != null) {
-	    if (entity.getNtfNotifica2() == null) {
-		entity.setNtfNotifica2(new NtfNotifica());
-	    }
-	    entity.getNtfNotifica2().setIdNotifica(this.getIdNotificaAzione_2().longValue());
-	}
-	// entity.setFlUserAdmin(this.getFlUserAdmin());
-	if (this.getIdEnteUser() != null) {
-	    if (entity.getOrgEnteSiam() == null) {
-		entity.setOrgEnteSiam(new OrgEnteSiam());
-	    }
-	    entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteUser().longValue());
-	}
-	return entity;
+        UsrAppartUserRich entity = new UsrAppartUserRich();
+        if (this.getIdAppartUserRich() != null) {
+            entity.setIdAppartUserRich(this.getIdAppartUserRich().longValue());
+        }
+        if (this.getIdRichGestUser() != null) {
+            if (entity.getUsrRichGestUser() == null) {
+                entity.setUsrRichGestUser(new UsrRichGestUser());
+            }
+            entity.getUsrRichGestUser().setIdRichGestUser(this.getIdRichGestUser().longValue());
+        }
+        entity.setTiAppartUserRich(this.getTiAppartUserRich());
+        entity.setNmNomeUser(this.getNmNomeUser());
+        entity.setNmCognomeUser(this.getNmCognomeUser());
+        entity.setNmUserid(this.getNmUserid());
+        if (this.getIdUserIam() != null) {
+            if (entity.getUsrUser() == null) {
+                entity.setUsrUser(new UsrUser());
+            }
+            entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
+        }
+        entity.setTiAzioneRich(this.getTiAzioneRich());
+        entity.setFlAzioneRichEvasa(this.getFlAzioneRichEvasa());
+        if (this.getIdNotificaAzione_1() != null) {
+            if (entity.getNtfNotifica1() == null) {
+                entity.setNtfNotifica1(new NtfNotifica());
+            }
+            entity.getNtfNotifica1().setIdNotifica(this.getIdNotificaAzione_1().longValue());
+        }
+        if (this.getIdNotificaAzione_2() != null) {
+            if (entity.getNtfNotifica2() == null) {
+                entity.setNtfNotifica2(new NtfNotifica());
+            }
+            entity.getNtfNotifica2().setIdNotifica(this.getIdNotificaAzione_2().longValue());
+        }
+        // entity.setFlUserAdmin(this.getFlUserAdmin());
+        if (this.getIdEnteUser() != null) {
+            if (entity.getOrgEnteSiam() == null) {
+                entity.setOrgEnteSiam(new OrgEnteSiam());
+            }
+            entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteUser().longValue());
+        }
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -51,35 +51,35 @@ public class LogVRicAccessiTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_EVENTO, new ColumnDescriptor(COL_ID_EVENTO, Types.DECIMAL, 22, true));
-	map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
-	map.put(COL_CD_IND_IP_CLIENT,
-		new ColumnDescriptor(COL_CD_IND_IP_CLIENT, Types.VARCHAR, 100, true));
-	map.put(COL_CD_IND_SERVER,
-		new ColumnDescriptor(COL_CD_IND_SERVER, Types.VARCHAR, 100, true));
-	map.put(COL_DT_EVENTO, new ColumnDescriptor(COL_DT_EVENTO, Types.TIMESTAMP, 7, true));
-	map.put(COL_TIPO_EVENTO, new ColumnDescriptor(COL_TIPO_EVENTO, Types.VARCHAR, 20, true));
-	map.put(COL_DS_EVENTO, new ColumnDescriptor(COL_DS_EVENTO, Types.VARCHAR, 1000, true));
-	map.put(COL_NM_NOME_USER, new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, true));
-	map.put(COL_NM_COGNOME_USER,
-		new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, true));
-	map.put(COL_CD_FISC_USER, new ColumnDescriptor(COL_CD_FISC_USER, Types.VARCHAR, 16, true));
-	map.put(COL_DS_EMAIL_USER,
-		new ColumnDescriptor(COL_DS_EMAIL_USER, Types.VARCHAR, 254, true));
-	map.put(COL_CD_ID_ESTERNO,
-		new ColumnDescriptor(COL_CD_ID_ESTERNO, Types.VARCHAR, 100, true));
+        map.put(COL_ID_EVENTO, new ColumnDescriptor(COL_ID_EVENTO, Types.DECIMAL, 22, true));
+        map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
+        map.put(COL_CD_IND_IP_CLIENT,
+                new ColumnDescriptor(COL_CD_IND_IP_CLIENT, Types.VARCHAR, 100, true));
+        map.put(COL_CD_IND_SERVER,
+                new ColumnDescriptor(COL_CD_IND_SERVER, Types.VARCHAR, 100, true));
+        map.put(COL_DT_EVENTO, new ColumnDescriptor(COL_DT_EVENTO, Types.TIMESTAMP, 7, true));
+        map.put(COL_TIPO_EVENTO, new ColumnDescriptor(COL_TIPO_EVENTO, Types.VARCHAR, 20, true));
+        map.put(COL_DS_EVENTO, new ColumnDescriptor(COL_DS_EVENTO, Types.VARCHAR, 1000, true));
+        map.put(COL_NM_NOME_USER, new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_NM_COGNOME_USER,
+                new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_CD_FISC_USER, new ColumnDescriptor(COL_CD_FISC_USER, Types.VARCHAR, 16, true));
+        map.put(COL_DS_EMAIL_USER,
+                new ColumnDescriptor(COL_DS_EMAIL_USER, Types.VARCHAR, 254, true));
+        map.put(COL_CD_ID_ESTERNO,
+                new ColumnDescriptor(COL_CD_ID_ESTERNO, Types.VARCHAR, 100, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

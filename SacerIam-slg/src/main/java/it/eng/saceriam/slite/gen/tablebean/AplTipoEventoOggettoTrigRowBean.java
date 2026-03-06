@@ -30,7 +30,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplTipoEventoOggettoTrigRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -40,157 +40,157 @@ public class AplTipoEventoOggettoTrigRowBean extends BaseRow
     public static AplTipoEventoOggettoTrigTableDescriptor TABLE_DESCRIPTOR = new AplTipoEventoOggettoTrigTableDescriptor();
 
     public AplTipoEventoOggettoTrigRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdTipoEventoOggettoTrig() {
-	return getBigDecimal("id_tipo_evento_oggetto_trig");
+        return getBigDecimal("id_tipo_evento_oggetto_trig");
     }
 
     public void setIdTipoEventoOggettoTrig(BigDecimal idTipoEventoOggettoTrig) {
-	setObject("id_tipo_evento_oggetto_trig", idTipoEventoOggettoTrig);
+        setObject("id_tipo_evento_oggetto_trig", idTipoEventoOggettoTrig);
     }
 
     public BigDecimal getIdTipoEventoOggetto() {
-	return getBigDecimal("id_tipo_evento_oggetto");
+        return getBigDecimal("id_tipo_evento_oggetto");
     }
 
     public void setIdTipoEventoOggetto(BigDecimal idTipoEventoOggetto) {
-	setObject("id_tipo_evento_oggetto", idTipoEventoOggetto);
+        setObject("id_tipo_evento_oggetto", idTipoEventoOggetto);
     }
 
     public BigDecimal getIdTipoEventoTrig() {
-	return getBigDecimal("id_tipo_evento_trig");
+        return getBigDecimal("id_tipo_evento_trig");
     }
 
     public void setIdTipoEventoTrig(BigDecimal idTipoEventoTrig) {
-	setObject("id_tipo_evento_trig", idTipoEventoTrig);
+        setObject("id_tipo_evento_trig", idTipoEventoTrig);
     }
 
     public BigDecimal getIdTipoOggettoTrig() {
-	return getBigDecimal("id_tipo_oggetto_trig");
+        return getBigDecimal("id_tipo_oggetto_trig");
     }
 
     public void setIdTipoOggettoTrig(BigDecimal idTipoOggettoTrig) {
-	setObject("id_tipo_oggetto_trig", idTipoOggettoTrig);
+        setObject("id_tipo_oggetto_trig", idTipoOggettoTrig);
     }
 
     public BigDecimal getIdQueryTipoOggettoTrig() {
-	return getBigDecimal("id_query_tipo_oggetto_trig");
+        return getBigDecimal("id_query_tipo_oggetto_trig");
     }
 
     public void setIdQueryTipoOggettoTrig(BigDecimal idQueryTipoOggettoTrig) {
-	setObject("id_query_tipo_oggetto_trig", idQueryTipoOggettoTrig);
+        setObject("id_query_tipo_oggetto_trig", idQueryTipoOggettoTrig);
     }
 
     public BigDecimal getIdQueryTipoOggettoSel() {
-	return getBigDecimal("id_query_tipo_oggetto_sel");
+        return getBigDecimal("id_query_tipo_oggetto_sel");
     }
 
     public void setIdQueryTipoOggettoSel(BigDecimal idQueryTipoOggettoSel) {
-	setObject("id_query_tipo_oggetto_sel", idQueryTipoOggettoSel);
+        setObject("id_query_tipo_oggetto_sel", idQueryTipoOggettoSel);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplTipoEventoOggettoTrig entity = (AplTipoEventoOggettoTrig) obj;
-	this.setIdTipoEventoOggettoTrig(new BigDecimal(entity.getIdTipoEventoOggettoTrig()));
-	if (entity.getAplTipoEventoOggetto() != null) {
-	    this.setIdTipoEventoOggetto(
-		    new BigDecimal(entity.getAplTipoEventoOggetto().getIdTipoEventoOggetto()));
+        AplTipoEventoOggettoTrig entity = (AplTipoEventoOggettoTrig) obj;
+        this.setIdTipoEventoOggettoTrig(new BigDecimal(entity.getIdTipoEventoOggettoTrig()));
+        if (entity.getAplTipoEventoOggetto() != null) {
+            this.setIdTipoEventoOggetto(
+                    new BigDecimal(entity.getAplTipoEventoOggetto().getIdTipoEventoOggetto()));
 
-	}
-	if (entity.getAplTipoEvento() != null) {
-	    this.setIdTipoEventoTrig(new BigDecimal(entity.getAplTipoEvento().getIdTipoEvento()));
+        }
+        if (entity.getAplTipoEvento() != null) {
+            this.setIdTipoEventoTrig(new BigDecimal(entity.getAplTipoEvento().getIdTipoEvento()));
 
-	}
-	if (entity.getAplTipoOggetto() != null) {
-	    this.setIdTipoOggettoTrig(
-		    new BigDecimal(entity.getAplTipoOggetto().getIdTipoOggetto()));
+        }
+        if (entity.getAplTipoOggetto() != null) {
+            this.setIdTipoOggettoTrig(
+                    new BigDecimal(entity.getAplTipoOggetto().getIdTipoOggetto()));
 
-	}
-	if (entity.getAplQueryTipoOggetto1() != null) {
-	    this.setIdQueryTipoOggettoTrig(
-		    new BigDecimal(entity.getAplQueryTipoOggetto1().getIdQueryTipoOggetto()));
+        }
+        if (entity.getAplQueryTipoOggetto1() != null) {
+            this.setIdQueryTipoOggettoTrig(
+                    new BigDecimal(entity.getAplQueryTipoOggetto1().getIdQueryTipoOggetto()));
 
-	}
-	if (entity.getAplQueryTipoOggetto2() != null) {
-	    this.setIdQueryTipoOggettoSel(
-		    new BigDecimal(entity.getAplQueryTipoOggetto2().getIdQueryTipoOggetto()));
+        }
+        if (entity.getAplQueryTipoOggetto2() != null) {
+            this.setIdQueryTipoOggettoSel(
+                    new BigDecimal(entity.getAplQueryTipoOggetto2().getIdQueryTipoOggetto()));
 
-	}
+        }
     }
 
     @Override
     public AplTipoEventoOggettoTrig rowBeanToEntity() {
-	AplTipoEventoOggettoTrig entity = new AplTipoEventoOggettoTrig();
-	if (this.getIdTipoEventoOggettoTrig() != null) {
-	    entity.setIdTipoEventoOggettoTrig(this.getIdTipoEventoOggettoTrig().longValue());
-	}
-	if (this.getIdTipoEventoOggetto() != null) {
-	    if (entity.getAplTipoEventoOggetto() == null) {
-		entity.setAplTipoEventoOggetto(new AplTipoEventoOggetto());
-	    }
-	    entity.getAplTipoEventoOggetto()
-		    .setIdTipoEventoOggetto(this.getIdTipoEventoOggetto().longValue());
-	}
-	if (this.getIdTipoEventoTrig() != null) {
-	    if (entity.getAplTipoEvento() == null) {
-		entity.setAplTipoEvento(new AplTipoEvento());
-	    }
-	    entity.getAplTipoEvento().setIdTipoEvento(this.getIdTipoEventoTrig().longValue());
-	}
-	if (this.getIdTipoOggettoTrig() != null) {
-	    if (entity.getAplTipoOggetto() == null) {
-		entity.setAplTipoOggetto(new AplTipoOggetto());
-	    }
-	    entity.getAplTipoOggetto().setIdTipoOggetto(this.getIdTipoOggettoTrig().longValue());
-	}
-	if (this.getIdQueryTipoOggettoTrig() != null) {
-	    if (entity.getAplQueryTipoOggetto1() == null) {
-		entity.setAplQueryTipoOggetto1(new AplQueryTipoOggetto());
-	    }
-	    entity.getAplQueryTipoOggetto1()
-		    .setIdQueryTipoOggetto(this.getIdQueryTipoOggettoTrig().longValue());
-	}
-	if (this.getIdQueryTipoOggettoSel() != null) {
-	    if (entity.getAplQueryTipoOggetto2() == null) {
-		entity.setAplQueryTipoOggetto2(new AplQueryTipoOggetto());
-	    }
-	    entity.getAplQueryTipoOggetto2()
-		    .setIdQueryTipoOggetto(this.getIdQueryTipoOggettoSel().longValue());
-	}
-	return entity;
+        AplTipoEventoOggettoTrig entity = new AplTipoEventoOggettoTrig();
+        if (this.getIdTipoEventoOggettoTrig() != null) {
+            entity.setIdTipoEventoOggettoTrig(this.getIdTipoEventoOggettoTrig().longValue());
+        }
+        if (this.getIdTipoEventoOggetto() != null) {
+            if (entity.getAplTipoEventoOggetto() == null) {
+                entity.setAplTipoEventoOggetto(new AplTipoEventoOggetto());
+            }
+            entity.getAplTipoEventoOggetto()
+                    .setIdTipoEventoOggetto(this.getIdTipoEventoOggetto().longValue());
+        }
+        if (this.getIdTipoEventoTrig() != null) {
+            if (entity.getAplTipoEvento() == null) {
+                entity.setAplTipoEvento(new AplTipoEvento());
+            }
+            entity.getAplTipoEvento().setIdTipoEvento(this.getIdTipoEventoTrig().longValue());
+        }
+        if (this.getIdTipoOggettoTrig() != null) {
+            if (entity.getAplTipoOggetto() == null) {
+                entity.setAplTipoOggetto(new AplTipoOggetto());
+            }
+            entity.getAplTipoOggetto().setIdTipoOggetto(this.getIdTipoOggettoTrig().longValue());
+        }
+        if (this.getIdQueryTipoOggettoTrig() != null) {
+            if (entity.getAplQueryTipoOggetto1() == null) {
+                entity.setAplQueryTipoOggetto1(new AplQueryTipoOggetto());
+            }
+            entity.getAplQueryTipoOggetto1()
+                    .setIdQueryTipoOggetto(this.getIdQueryTipoOggettoTrig().longValue());
+        }
+        if (this.getIdQueryTipoOggettoSel() != null) {
+            if (entity.getAplQueryTipoOggetto2() == null) {
+                entity.setAplQueryTipoOggetto2(new AplQueryTipoOggetto());
+            }
+            entity.getAplQueryTipoOggetto2()
+                    .setIdQueryTipoOggetto(this.getIdQueryTipoOggettoSel().longValue());
+        }
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

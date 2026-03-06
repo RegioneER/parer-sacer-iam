@@ -32,19 +32,19 @@ public class AplSistemaVersArkRifTableBean extends AbstractBaseTable<AplSistemaV
     public static AplSistemaVersArkRifTableDescriptor TABLE_DESCRIPTOR = new AplSistemaVersArkRifTableDescriptor();
 
     public AplSistemaVersArkRifTableBean() {
-	super();
+        super();
     }
 
     protected AplSistemaVersArkRifRowBean createRow() {
-	return new AplSistemaVersArkRifRowBean();
+        return new AplSistemaVersArkRifRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplSistemaVersArkRifRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

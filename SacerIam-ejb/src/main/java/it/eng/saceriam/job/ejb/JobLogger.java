@@ -52,24 +52,24 @@ public class JobLogger {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Long writeAtomicLog(NomiJob nomeJob, TipiRegLogJob tipoReg, String messaggioErr) {
-	return me.writeLog(nomeJob.name(), tipoReg, messaggioErr);
+        return me.writeLog(nomeJob.name(), tipoReg, messaggioErr);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Long writeAtomicLog(String nomeJob, TipiRegLogJob tipoReg, String messaggioErr) {
-	return me.writeLog(nomeJob, tipoReg, messaggioErr);
+        return me.writeLog(nomeJob, tipoReg, messaggioErr);
     }
 
     public Long writeLog(String nomeJob, TipiRegLogJob tipoReg, String messaggioErr) {
-	LogJob tmpLogJob = new LogJob();
-	tmpLogJob.setNmJob(nomeJob);
-	tmpLogJob.setTiRegLogJob(tipoReg.toString());
-	tmpLogJob.setDtRegLogJob(new Date());
-	tmpLogJob.setDlMsgErr(messaggioErr);
-	tmpLogJob.setCdIndServer(appServerInstance.getName());
+        LogJob tmpLogJob = new LogJob();
+        tmpLogJob.setNmJob(nomeJob);
+        tmpLogJob.setTiRegLogJob(tipoReg.toString());
+        tmpLogJob.setDtRegLogJob(new Date());
+        tmpLogJob.setDlMsgErr(messaggioErr);
+        tmpLogJob.setCdIndServer(appServerInstance.getName());
 
-	entityManager.persist(tmpLogJob);
+        entityManager.persist(tmpLogJob);
 
-	return tmpLogJob.getIdLogJob();
+        return tmpLogJob.getIdLogJob();
     }
 }

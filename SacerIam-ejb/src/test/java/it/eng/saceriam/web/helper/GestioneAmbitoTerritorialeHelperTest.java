@@ -43,48 +43,48 @@ public class GestioneAmbitoTerritorialeHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	return ArquillianUtils.getSacerIamArchive(GestioneAmbitoTerritorialeHelper.class)
-		.addPackages(true, "it.eng.parer.sacerlog.entity",
-			"it.eng.parer.sacerlog.viewEntity");
+        return ArquillianUtils.getSacerIamArchive(GestioneAmbitoTerritorialeHelper.class)
+                .addPackages(true, "it.eng.parer.sacerlog.entity",
+                        "it.eng.parer.sacerlog.viewEntity");
     }
 
     @Test
     void getOrgAmbitoTerritList_queryIsOk() {
-	String tipo = aString();
+        String tipo = aString();
 
-	helper.getOrgAmbitoTerritList(tipo);
-	assertTrue(true);
+        helper.getOrgAmbitoTerritList(tipo);
+        assertTrue(true);
     }
 
     @Test
     void getOrgAmbitoTerritByCode_queryIsOk() {
-	String cdAmbitoTerritoriale = aString();
+        String cdAmbitoTerritoriale = aString();
 
-	helper.getOrgAmbitoTerritByCode(cdAmbitoTerritoriale);
-	assertTrue(true);
+        helper.getOrgAmbitoTerritByCode(cdAmbitoTerritoriale);
+        assertTrue(true);
     }
 
     @Test
     void getOrgAmbitoTerritChildList_BigDecimal_queryIsOk() {
-	BigDecimal idAmbitoTerritoriale = aBigDecimal();
+        BigDecimal idAmbitoTerritoriale = aBigDecimal();
 
-	helper.getOrgAmbitoTerritChildList(idAmbitoTerritoriale);
-	assertTrue(true);
+        helper.getOrgAmbitoTerritChildList(idAmbitoTerritoriale);
+        assertTrue(true);
     }
 
     @Test
     void countOrgEnteConvenzByAmbitoTerrit_queryIsOk() {
-	BigDecimal idAmbitoTerrit = aBigDecimal();
+        BigDecimal idAmbitoTerrit = aBigDecimal();
 
-	helper.countOrgEnteConvenzByAmbitoTerrit(idAmbitoTerrit);
-	assertTrue(true);
+        helper.countOrgEnteConvenzByAmbitoTerrit(idAmbitoTerrit);
+        assertTrue(true);
     }
 
     @Test
     void countOrgStoEnteConvenzByAmbitoTerrit_queryIsOk() {
-	BigDecimal idAmbitoTerrit = aBigDecimal();
+        BigDecimal idAmbitoTerrit = aBigDecimal();
 
-	helper.countOrgStoEnteConvenzByAmbitoTerrit(idAmbitoTerrit);
-	assertTrue(true);
+        helper.countOrgStoEnteConvenzByAmbitoTerrit(idAmbitoTerrit);
+        assertTrue(true);
     }
 }

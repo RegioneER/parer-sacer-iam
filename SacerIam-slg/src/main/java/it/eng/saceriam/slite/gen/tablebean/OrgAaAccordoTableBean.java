@@ -32,19 +32,19 @@ public class OrgAaAccordoTableBean extends AbstractBaseTable<OrgAaAccordoRowBean
     public static OrgAaAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgAaAccordoTableDescriptor();
 
     public OrgAaAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgAaAccordoRowBean createRow() {
-	return new OrgAaAccordoRowBean();
+        return new OrgAaAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgAaAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

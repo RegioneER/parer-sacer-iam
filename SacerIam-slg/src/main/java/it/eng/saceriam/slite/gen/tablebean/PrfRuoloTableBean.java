@@ -32,19 +32,19 @@ public class PrfRuoloTableBean extends AbstractBaseTable<PrfRuoloRowBean> {
     public static PrfRuoloTableDescriptor TABLE_DESCRIPTOR = new PrfRuoloTableDescriptor();
 
     public PrfRuoloTableBean() {
-	super();
+        super();
     }
 
     protected PrfRuoloRowBean createRow() {
-	return new PrfRuoloRowBean();
+        return new PrfRuoloRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<PrfRuoloRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

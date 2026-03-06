@@ -36,19 +36,19 @@ public class UsrVAbilEnteConvenzTableBean extends AbstractBaseTable<UsrVAbilEnte
     public static UsrVAbilEnteConvenzTableDescriptor TABLE_DESCRIPTOR = new UsrVAbilEnteConvenzTableDescriptor();
 
     public UsrVAbilEnteConvenzTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAbilEnteConvenzRowBean createRow() {
-	return new UsrVAbilEnteConvenzRowBean();
+        return new UsrVAbilEnteConvenzRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAbilEnteConvenzRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

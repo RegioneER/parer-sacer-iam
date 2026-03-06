@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 public class RestituzioneNewsApplicazioneCheck {
 
     private static final Logger log = LoggerFactory
-	    .getLogger(RestituzioneNewsApplicazioneCheck.class);
+            .getLogger(RestituzioneNewsApplicazioneCheck.class);
 
     RestituzioneNewsApplicazioneExt restituzioneNewsApplicazioneExt;
     RispostaWSRestituzioneNewsApplicazione rispostaWs;
@@ -42,63 +42,63 @@ public class RestituzioneNewsApplicazioneCheck {
     ControlliWS controlliWS = null;
 
     public RestituzioneNewsApplicazioneCheck(
-	    RestituzioneNewsApplicazioneExt restituzioneNewsApplicazioneExt,
-	    RispostaWSRestituzioneNewsApplicazione rispostaWs) {
-	this.restituzioneNewsApplicazioneExt = restituzioneNewsApplicazioneExt;
-	this.rispostaWs = rispostaWs;
-	this.rispostaControlli = new RispostaControlli();
+            RestituzioneNewsApplicazioneExt restituzioneNewsApplicazioneExt,
+            RispostaWSRestituzioneNewsApplicazione rispostaWs) {
+        this.restituzioneNewsApplicazioneExt = restituzioneNewsApplicazioneExt;
+        this.rispostaWs = rispostaWs;
+        this.rispostaControlli = new RispostaControlli();
 
-	try {
-	    controlliWS = (ControlliWS) new InitialContext().lookup("java:module/ControlliWS");
-	} catch (NamingException ex) {
-	    rispostaWs.setSeverity(SeverityEnum.ERROR);
-	    rispostaWs.setErrorCode(MessaggiWSBundle.ERR_666);
-	    String msg = MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, ex.getMessage());
-	    rispostaWs.setErrorMessage(msg);
-	    rispostaWs.getRestituzioneNewsApplicazioneRisposta()
-		    .setCdEsito(Constants.EsitoServizio.KO);
-	    rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdErr(MessaggiWSBundle.ERR_666);
-	    rispostaWs.getRestituzioneNewsApplicazioneRisposta().setDsErr(msg);
-	    log.error("Errore nel recupero dell'EJB dei controlli generici ", ex);
-	}
+        try {
+            controlliWS = (ControlliWS) new InitialContext().lookup("java:module/ControlliWS");
+        } catch (NamingException ex) {
+            rispostaWs.setSeverity(SeverityEnum.ERROR);
+            rispostaWs.setErrorCode(MessaggiWSBundle.ERR_666);
+            String msg = MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, ex.getMessage());
+            rispostaWs.setErrorMessage(msg);
+            rispostaWs.getRestituzioneNewsApplicazioneRisposta()
+                    .setCdEsito(Constants.EsitoServizio.KO);
+            rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdErr(MessaggiWSBundle.ERR_666);
+            rispostaWs.getRestituzioneNewsApplicazioneRisposta().setDsErr(msg);
+            log.error("Errore nel recupero dell'EJB dei controlli generici ", ex);
+        }
     }
 
     public RispostaWSRestituzioneNewsApplicazione getRispostaWs() {
-	return rispostaWs;
+        return rispostaWs;
     }
 
     private void setRispostaWsError(SeverityEnum sev, EsitoServizio esito) {
-	rispostaWs.setSeverity(sev);
-	rispostaWs.setErrorCode(rispostaControlli.getCodErr());
-	rispostaWs.setErrorMessage(rispostaControlli.getDsErr());
-	rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdEsito(esito);
-	rispostaWs.getRestituzioneNewsApplicazioneRisposta()
-		.setCdErr(rispostaControlli.getCodErr());
-	rispostaWs.getRestituzioneNewsApplicazioneRisposta().setDsErr(rispostaControlli.getDsErr());
+        rispostaWs.setSeverity(sev);
+        rispostaWs.setErrorCode(rispostaControlli.getCodErr());
+        rispostaWs.setErrorMessage(rispostaControlli.getDsErr());
+        rispostaWs.getRestituzioneNewsApplicazioneRisposta().setCdEsito(esito);
+        rispostaWs.getRestituzioneNewsApplicazioneRisposta()
+                .setCdErr(rispostaControlli.getCodErr());
+        rispostaWs.getRestituzioneNewsApplicazioneRisposta().setDsErr(rispostaControlli.getDsErr());
     }
 
     public void check(String nmApplic) {
-	Long idApplic = null;
-	// Verifica Applicazione
-	if (rispostaWs.getSeverity() != SeverityEnum.ERROR) {
-	    rispostaControlli.reset();
-	    rispostaControlli = controlliWS.verificaApplicazione(nmApplic);
-	    if (!rispostaControlli.isrBoolean()) {
-		if (rispostaControlli.getCodErr() == null) {
-		    rispostaControlli.setCodErr(MessaggiWSBundle.RECUP_002);
-		    rispostaControlli.setDsErr(
-			    MessaggiWSBundle.getString(MessaggiWSBundle.RECUP_002, nmApplic));
-		    setRispostaWsError(SeverityEnum.ERROR, Constants.EsitoServizio.KO);
-		} else {
-		    // Errore 666
-		    setRispostaWsError(SeverityEnum.ERROR, Constants.EsitoServizio.KO);
-		}
-	    } else {
-		// Se l'applicazione esiste, ricavo l'id
-		idApplic = ((AplApplic) rispostaControlli.getrObject()).getIdApplic();
-		restituzioneNewsApplicazioneExt.setIdApplic(idApplic);
-	    }
-	}
+        Long idApplic = null;
+        // Verifica Applicazione
+        if (rispostaWs.getSeverity() != SeverityEnum.ERROR) {
+            rispostaControlli.reset();
+            rispostaControlli = controlliWS.verificaApplicazione(nmApplic);
+            if (!rispostaControlli.isrBoolean()) {
+                if (rispostaControlli.getCodErr() == null) {
+                    rispostaControlli.setCodErr(MessaggiWSBundle.RECUP_002);
+                    rispostaControlli.setDsErr(
+                            MessaggiWSBundle.getString(MessaggiWSBundle.RECUP_002, nmApplic));
+                    setRispostaWsError(SeverityEnum.ERROR, Constants.EsitoServizio.KO);
+                } else {
+                    // Errore 666
+                    setRispostaWsError(SeverityEnum.ERROR, Constants.EsitoServizio.KO);
+                }
+            } else {
+                // Se l'applicazione esiste, ricavo l'id
+                idApplic = ((AplApplic) rispostaControlli.getrObject()).getIdApplic();
+                restituzioneNewsApplicazioneExt.setIdApplic(idApplic);
+            }
+        }
 
     }
 }

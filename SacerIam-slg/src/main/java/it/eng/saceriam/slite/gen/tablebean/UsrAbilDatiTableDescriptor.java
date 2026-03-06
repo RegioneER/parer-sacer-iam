@@ -43,25 +43,25 @@ public class UsrAbilDatiTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ABIL_DATI, new ColumnDescriptor(COL_ID_ABIL_DATI, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USO_USER_APPLIC,
-		new ColumnDescriptor(COL_ID_USO_USER_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_ID_TIPO_DATO_IAM,
-		new ColumnDescriptor(COL_ID_TIPO_DATO_IAM, Types.DECIMAL, 22, false));
-	map.put(COL_ID_DICH_ABIL_DATI,
-		new ColumnDescriptor(COL_ID_DICH_ABIL_DATI, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ABIL_DATI, new ColumnDescriptor(COL_ID_ABIL_DATI, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USO_USER_APPLIC,
+                new ColumnDescriptor(COL_ID_USO_USER_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_ID_TIPO_DATO_IAM,
+                new ColumnDescriptor(COL_ID_TIPO_DATO_IAM, Types.DECIMAL, 22, false));
+        map.put(COL_ID_DICH_ABIL_DATI,
+                new ColumnDescriptor(COL_ID_DICH_ABIL_DATI, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

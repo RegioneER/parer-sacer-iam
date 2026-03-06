@@ -52,40 +52,40 @@ public class OrgAccordoVigilTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ACCORDO_VIGIL,
-		new ColumnDescriptor(COL_ID_ACCORDO_VIGIL, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_ORGANO_VIGIL,
-		new ColumnDescriptor(COL_ID_ENTE_ORGANO_VIGIL, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTE_CONSERV,
-		new ColumnDescriptor(COL_ID_ENTE_CONSERV, Types.DECIMAL, 22, false));
-	map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
-	map.put(COL_DT_FIN_VAL, new ColumnDescriptor(COL_DT_FIN_VAL, Types.TIMESTAMP, 7, false));
-	map.put(COL_DS_NOTE_ENTE_ACCORDO,
-		new ColumnDescriptor(COL_DS_NOTE_ENTE_ACCORDO, Types.VARCHAR, 254, false));
-	map.put(COL_CD_REGISTRO_REPERTORIO,
-		new ColumnDescriptor(COL_CD_REGISTRO_REPERTORIO, Types.VARCHAR, 100, false));
-	map.put(COL_AA_REPERTORIO,
-		new ColumnDescriptor(COL_AA_REPERTORIO, Types.DECIMAL, 22, false));
-	map.put(COL_CD_KEY_REPERTORIO,
-		new ColumnDescriptor(COL_CD_KEY_REPERTORIO, Types.VARCHAR, 100, false));
-	map.put(COL_DS_FIRMATARIO_ENTE,
-		new ColumnDescriptor(COL_DS_FIRMATARIO_ENTE, Types.VARCHAR, 254, false));
-	map.put(COL_DT_REG_ACCORDO,
-		new ColumnDescriptor(COL_DT_REG_ACCORDO, Types.TIMESTAMP, 7, false));
-	map.put(COL_NM_ENTE, new ColumnDescriptor(COL_NM_ENTE, Types.VARCHAR, 100, false));
-	map.put(COL_NM_STRUT, new ColumnDescriptor(COL_NM_STRUT, Types.VARCHAR, 100, false));
+        map.put(COL_ID_ACCORDO_VIGIL,
+                new ColumnDescriptor(COL_ID_ACCORDO_VIGIL, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_ORGANO_VIGIL,
+                new ColumnDescriptor(COL_ID_ENTE_ORGANO_VIGIL, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTE_CONSERV,
+                new ColumnDescriptor(COL_ID_ENTE_CONSERV, Types.DECIMAL, 22, false));
+        map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_DT_FIN_VAL, new ColumnDescriptor(COL_DT_FIN_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_DS_NOTE_ENTE_ACCORDO,
+                new ColumnDescriptor(COL_DS_NOTE_ENTE_ACCORDO, Types.VARCHAR, 254, false));
+        map.put(COL_CD_REGISTRO_REPERTORIO,
+                new ColumnDescriptor(COL_CD_REGISTRO_REPERTORIO, Types.VARCHAR, 100, false));
+        map.put(COL_AA_REPERTORIO,
+                new ColumnDescriptor(COL_AA_REPERTORIO, Types.DECIMAL, 22, false));
+        map.put(COL_CD_KEY_REPERTORIO,
+                new ColumnDescriptor(COL_CD_KEY_REPERTORIO, Types.VARCHAR, 100, false));
+        map.put(COL_DS_FIRMATARIO_ENTE,
+                new ColumnDescriptor(COL_DS_FIRMATARIO_ENTE, Types.VARCHAR, 254, false));
+        map.put(COL_DT_REG_ACCORDO,
+                new ColumnDescriptor(COL_DT_REG_ACCORDO, Types.TIMESTAMP, 7, false));
+        map.put(COL_NM_ENTE, new ColumnDescriptor(COL_NM_ENTE, Types.VARCHAR, 100, false));
+        map.put(COL_NM_STRUT, new ColumnDescriptor(COL_NM_STRUT, Types.VARCHAR, 100, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

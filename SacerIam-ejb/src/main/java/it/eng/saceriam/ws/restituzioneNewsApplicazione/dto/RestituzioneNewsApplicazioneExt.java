@@ -26,26 +26,26 @@ public class RestituzioneNewsApplicazioneExt {
     private String nmApplic;
 
     public IWSDesc getDescrizione() {
-	return descrizione;
+        return descrizione;
     }
 
     public void setDescrizione(IWSDesc descrizione) {
-	this.descrizione = descrizione;
+        this.descrizione = descrizione;
     }
 
     public String getNmApplic() {
-	return nmApplic;
+        return nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     public Long getIdApplic() {
-	return idApplic;
+        return idApplic;
     }
 
     public void setIdApplic(Long idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 }

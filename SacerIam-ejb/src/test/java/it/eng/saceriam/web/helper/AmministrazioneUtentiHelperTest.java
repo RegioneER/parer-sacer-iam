@@ -63,1005 +63,1005 @@ public class AmministrazioneUtentiHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	final JavaArchive archive = getSacerIamArchive(AmministrazioneUtentiHelper.class)
-		.addClasses(AmministrazioneUtentiHelperTest.class,
-			it.eng.saceriam.web.util.ApplEnum.class,
-			it.eng.saceriam.web.util.ApplEnum.NmJob.class)
-		.addPackages(true, "it.eng.parer.sacerlog.entity",
-			"it.eng.parer.sacerlog.viewEntity");
-	return archive;
+        final JavaArchive archive = getSacerIamArchive(AmministrazioneUtentiHelper.class)
+                .addClasses(AmministrazioneUtentiHelperTest.class,
+                        it.eng.saceriam.web.util.ApplEnum.class,
+                        it.eng.saceriam.web.util.ApplEnum.NmJob.class)
+                .addPackages(true, "it.eng.parer.sacerlog.entity",
+                        "it.eng.parer.sacerlog.viewEntity");
+        return archive;
     }
 
     @Test
     void getPrfRuoli_BigDecimal_queryIsOk() {
-	BigDecimal idAppl = aBigDecimal();
-	helper.getPrfRuoli(idAppl);
-	assertTrue(true);
+        BigDecimal idAppl = aBigDecimal();
+        helper.getPrfRuoli(idAppl);
+        assertTrue(true);
     }
 
     @Test
     void getPrfRuoliUtente_queryIsOk() {
-	BigDecimal idAppl = aBigDecimal();
-	String tipoEnte = aString();
-	String tipoUtente = aString();
+        BigDecimal idAppl = aBigDecimal();
+        String tipoEnte = aString();
+        String tipoUtente = aString();
 
-	helper.getPrfRuoliUtente(idAppl, tipoEnte, tipoUtente);
-	assertTrue(true);
+        helper.getPrfRuoliUtente(idAppl, tipoEnte, tipoUtente);
+        assertTrue(true);
     }
 
     @Test
     void getPrfRuoli_String_queryIsOk() {
-	String nmApplic = aString();
+        String nmApplic = aString();
 
-	helper.getPrfRuoli(nmApplic);
-	assertTrue(true);
+        helper.getPrfRuoli(nmApplic);
+        assertTrue(true);
     }
 
     @Test
     void getRuoliDefaultUtenteApplic_queryIsOk() {
-	String nmApplic = aString();
-	Long idUserIam = aLong();
+        String nmApplic = aString();
+        Long idUserIam = aLong();
 
-	helper.getRuoliDefaultUtenteApplic(nmApplic, idUserIam);
-	assertTrue(true);
+        helper.getRuoliDefaultUtenteApplic(nmApplic, idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getPrfRuoli_0args_queryIsOk() {
 
-	helper.getPrfRuoli();
-	assertTrue(true);
+        helper.getPrfRuoli();
+        assertTrue(true);
     }
 
     @Test
     void getPrfRuoloById_queryIsOk() {
-	BigDecimal idRuolo = aBigDecimal();
+        BigDecimal idRuolo = aBigDecimal();
 
-	helper.getPrfRuoloById(idRuolo);
-	assertTrue(true);
+        helper.getPrfRuoloById(idRuolo);
+        assertTrue(true);
     }
 
     @Test
     void getAplApplicList_queryIsOk() {
 
-	helper.getAplApplicList();
-	assertTrue(true);
+        helper.getAplApplicList();
+        assertTrue(true);
     }
 
     @Test
     void getPrfUsoRuoloApplicList_queryIsOk() {
-	Set<BigDecimal> idUsoRuoloApplic = aSetOfBigDecimal(2);
+        Set<BigDecimal> idUsoRuoloApplic = aSetOfBigDecimal(2);
 
-	helper.getPrfUsoRuoloApplicList(idUsoRuoloApplic);
-	assertTrue(true);
+        helper.getPrfUsoRuoloApplicList(idUsoRuoloApplic);
+        assertTrue(true);
     }
 
     @Test
     void getPrfDichAutorList_queryIsOk() {
-	Set<BigDecimal> idUsoRuoloSet = aSetOfBigDecimal(2);
-	String tiDichAutor = aString();
-	BigDecimal idApplic = aBigDecimal();
+        Set<BigDecimal> idUsoRuoloSet = aSetOfBigDecimal(2);
+        String tiDichAutor = aString();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getPrfDichAutorList(idUsoRuoloSet, tiDichAutor, idApplic);
-	assertTrue(true);
+        helper.getPrfDichAutorList(idUsoRuoloSet, tiDichAutor, idApplic);
+        assertTrue(true);
     }
 
     @Test
     void hasServicesAuthorization_queryIsOk() {
-	BigDecimal idRuolo = aBigDecimal();
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idRuolo = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.hasServicesAuthorization(idRuolo, idApplic);
-	assertTrue(true);
+        helper.hasServicesAuthorization(idRuolo, idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getActionChilds_queryIsOk() {
-	BigDecimal idPaginaWeb = aBigDecimal();
+        BigDecimal idPaginaWeb = aBigDecimal();
 
-	helper.getActionChilds(idPaginaWeb);
-	assertTrue(true);
+        helper.getActionChilds(idPaginaWeb);
+        assertTrue(true);
     }
 
     @Test
     void getAplAzionePagina_queryIsOk() {
-	BigDecimal idAzionePagina = aBigDecimal();
+        BigDecimal idAzionePagina = aBigDecimal();
 
-	helper.getAplAzionePagina(idAzionePagina);
-	assertTrue(true);
+        helper.getAplAzionePagina(idAzionePagina);
+        assertTrue(true);
     }
 
     @Test
     void getPagesList_queryIsOk() {
-	BigDecimal idApplicazione = aBigDecimal();
+        BigDecimal idApplicazione = aBigDecimal();
 
-	helper.getPagesList(idApplicazione);
-	assertTrue(true);
+        helper.getPagesList(idApplicazione);
+        assertTrue(true);
     }
 
     @Test
     void getActionsList_queryIsOk() {
-	BigDecimal idApplicazione = aBigDecimal();
-	BigDecimal idPaginaWeb = aBigDecimal();
+        BigDecimal idApplicazione = aBigDecimal();
+        BigDecimal idPaginaWeb = aBigDecimal();
 
-	helper.getActionsList(idApplicazione, idPaginaWeb);
-	assertTrue(true);
+        helper.getActionsList(idApplicazione, idPaginaWeb);
+        assertTrue(true);
     }
 
     @Test
     void getServicesList_queryIsOk() {
-	BigDecimal idApplicazione = aBigDecimal();
+        BigDecimal idApplicazione = aBigDecimal();
 
-	helper.getServicesList(idApplicazione);
-	assertTrue(true);
+        helper.getServicesList(idApplicazione);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilOrganizList_BigDecimal_BigDecimal_queryIsOk() {
-	BigDecimal idUserIamCorrente = aBigDecimal();
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idUserIamCorrente = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getUsrVAbilOrganizList(idUserIamCorrente, idApplic);
-	assertTrue(true);
+        helper.getUsrVAbilOrganizList(idUserIamCorrente, idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilOrganizList_5args_queryIsOk() {
-	BigDecimal idUserIamCorrente = aBigDecimal();
-	BigDecimal idApplic = aBigDecimal();
-	String nmTipoOrganiz = aString();
-	List<BigDecimal> idOrganizIamDaTogliere = aListOfBigDecimal(2);
-	boolean excludeEntiConvenzionati = false;
+        BigDecimal idUserIamCorrente = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
+        String nmTipoOrganiz = aString();
+        List<BigDecimal> idOrganizIamDaTogliere = aListOfBigDecimal(2);
+        boolean excludeEntiConvenzionati = false;
 
-	helper.getUsrVAbilOrganizList(idUserIamCorrente, idApplic, nmTipoOrganiz,
-		idOrganizIamDaTogliere, excludeEntiConvenzionati);
-	assertTrue(true);
+        helper.getUsrVAbilOrganizList(idUserIamCorrente, idApplic, nmTipoOrganiz,
+                idOrganizIamDaTogliere, excludeEntiConvenzionati);
+        assertTrue(true);
     }
 
     @Test
     void getRuoliDefaultByApplic_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getRuoliDefaultByApplic(idApplic);
-	assertTrue(true);
+        helper.getRuoliDefaultByApplic(idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getRuoliDichByApplic_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getRuoliDichByApplic(idApplic);
-	assertTrue(true);
+        helper.getRuoliDichByApplic(idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVTreeOrganizIamNoLastLevelList_queryIsOk() {
-	long idUserIam = aLong();
-	BigDecimal idApplicazione = aBigDecimal();
+        long idUserIam = aLong();
+        BigDecimal idApplicazione = aBigDecimal();
 
-	helper.getUsrVTreeOrganizIamNoLastLevelList(idUserIam, idApplicazione);
-	assertTrue(true);
+        helper.getUsrVTreeOrganizIamNoLastLevelList(idUserIam, idApplicazione);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVTreeOrganizIamAllOrgChildList_queryIsOk() {
-	long idUserIamCor = aLong();
-	BigDecimal idApplic = aBigDecimal();
-	BigDecimal idEnte = aBigDecimal();
-	String flAbilOrganizAutom = aString();
-	String flAbilOrganizEntiAutom = aString();
-	BigDecimal idRichiesta = aBigDecimal();
-	helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "AMMINISTRATORE",
-		idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "CONSERVATORE", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "GESTORE", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "PRODUTTORE", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "ORGANO_VIGILANZA",
-		idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "FORNITORE_ESTERNO",
-		idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
+        long idUserIamCor = aLong();
+        BigDecimal idApplic = aBigDecimal();
+        BigDecimal idEnte = aBigDecimal();
+        String flAbilOrganizAutom = aString();
+        String flAbilOrganizEntiAutom = aString();
+        BigDecimal idRichiesta = aBigDecimal();
+        helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "AMMINISTRATORE",
+                idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "CONSERVATORE", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "GESTORE", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "PRODUTTORE", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "ORGANO_VIGILANZA",
+                idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamAllOrgChildList(idUserIamCor, idApplic, "FORNITORE_ESTERNO",
+                idEnte, flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVTreeOrganizIamUnaOrgList_queryIsOk() {
-	long idUserIamCor = aLong();
-	BigDecimal idApplic = aBigDecimal();
-	BigDecimal idEnte = aBigDecimal();
-	String flAbilOrganizAutom = aString();
-	String flAbilOrganizEntiAutom = aString();
-	BigDecimal idRichiesta = aBigDecimal();
-	helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "AMMINISTRATORE", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "CONSERVATORE", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "GESTORE", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "PRODUTTORE", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "ORGANO_VIGILANZA", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
-	helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "FORNITORE_ESTERNO", idEnte,
-		flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
-	assertTrue(true);
+        long idUserIamCor = aLong();
+        BigDecimal idApplic = aBigDecimal();
+        BigDecimal idEnte = aBigDecimal();
+        String flAbilOrganizAutom = aString();
+        String flAbilOrganizEntiAutom = aString();
+        BigDecimal idRichiesta = aBigDecimal();
+        helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "AMMINISTRATORE", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "CONSERVATORE", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "GESTORE", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "PRODUTTORE", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "ORGANO_VIGILANZA", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
+        helper.getUsrVTreeOrganizIamUnaOrgList(idUserIamCor, idApplic, "FORNITORE_ESTERNO", idEnte,
+                flAbilOrganizAutom, flAbilOrganizEntiAutom, idRichiesta);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilOrganizNolastLivList_queryIsOk() {
-	long idUserIam = aLong();
-	BigDecimal idApplic = aBigDecimal();
-	String dlPathIdOrganizIam = aString();
+        long idUserIam = aLong();
+        BigDecimal idApplic = aBigDecimal();
+        String dlPathIdOrganizIam = aString();
 
-	helper.getUsrVAbilOrganizNolastLivList(idUserIam, idApplic, dlPathIdOrganizIam);
-	assertTrue(true);
+        helper.getUsrVAbilOrganizNolastLivList(idUserIam, idApplic, dlPathIdOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilOrganizLastLevelList_long_BigDecimal_queryIsOk() {
-	long idUserIam = aLong();
-	BigDecimal idApplicazione = aBigDecimal();
+        long idUserIam = aLong();
+        BigDecimal idApplicazione = aBigDecimal();
 
-	helper.getUsrVAbilOrganizLastLevelList(idUserIam, idApplicazione);
-	assertTrue(true);
+        helper.getUsrVAbilOrganizLastLevelList(idUserIam, idApplicazione);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilOrganizLastLevelList_3args_queryIsOk() {
-	long idUserIam = aLong();
-	BigDecimal idApplic = aBigDecimal();
-	String dlPathIdOrganizIam = aString();
+        long idUserIam = aLong();
+        BigDecimal idApplic = aBigDecimal();
+        String dlPathIdOrganizIam = aString();
 
-	helper.getUsrVAbilOrganizLastLevelList(idUserIam, idApplic, dlPathIdOrganizIam);
-	assertTrue(true);
+        helper.getUsrVAbilOrganizLastLevelList(idUserIam, idApplic, dlPathIdOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisUserList_queryIsOk() {
-	AmministrazioneUtentiHelper.FiltriUtentiPlain filtri = (new AmministrazioneUtentiHelper.FiltriUtentiPlain(
-		aSetOfBigDecimal(2), aLong(), aListOfBigDecimal(2), aString(), aString(), aString(),
-		aString(), aBigDecimal(), aBigDecimal(), aString(), aString(), aListOfString(2),
-		aString(), aString(), aBigDecimal(), aBigDecimal(), aString(), aBigDecimal(),
-		aListOfBigDecimal(2), aBigDecimal(), aString(), todayTs(), tomorrowTs(),
-		aBigDecimal(), aString(), aBigDecimal(), aString(), aBigDecimal(), aString()));
-	helper.getUsrVLisUserList(filtri);
-	assertTrue(true);
+        AmministrazioneUtentiHelper.FiltriUtentiPlain filtri = (new AmministrazioneUtentiHelper.FiltriUtentiPlain(
+                aSetOfBigDecimal(2), aLong(), aListOfBigDecimal(2), aString(), aString(), aString(),
+                aString(), aBigDecimal(), aBigDecimal(), aString(), aString(), aListOfString(2),
+                aString(), aString(), aBigDecimal(), aBigDecimal(), aString(), aBigDecimal(),
+                aListOfBigDecimal(2), aBigDecimal(), aString(), todayTs(), tomorrowTs(),
+                aBigDecimal(), aString(), aBigDecimal(), aString(), aBigDecimal(), aString()));
+        helper.getUsrVLisUserList(filtri);
+        assertTrue(true);
     }
 
     @Test
     void retrieveUsrVLisUserEnteConvenz_queryIsOk() {
-	BigDecimal idEnteConvenz = aBigDecimal();
-	List<String> tiStatoUser = aListOfString(2);
-	List<String> tipoUser = aListOfString(2);
-	Set<BigDecimal> idUserIamEsclusi = aSetOfBigDecimal(2);
+        BigDecimal idEnteConvenz = aBigDecimal();
+        List<String> tiStatoUser = aListOfString(2);
+        List<String> tipoUser = aListOfString(2);
+        Set<BigDecimal> idUserIamEsclusi = aSetOfBigDecimal(2);
 
-	helper.retrieveUsrVLisUserEnteConvenz(idEnteConvenz, tiStatoUser, tipoUser,
-		idUserIamEsclusi);
-	assertTrue(true);
+        helper.retrieveUsrVLisUserEnteConvenz(idEnteConvenz, tiStatoUser, tipoUser,
+                idUserIamEsclusi);
+        assertTrue(true);
     }
 
     @Test
     void retrieveUsrUserEnteSiamAppart_3args_queryIsOk() {
-	BigDecimal idEnteSiam = aBigDecimal();
-	List<String> tiStatoUser = aListOfString(2);
-	List<String> tipoUser = aListOfString(2);
+        BigDecimal idEnteSiam = aBigDecimal();
+        List<String> tiStatoUser = aListOfString(2);
+        List<String> tipoUser = aListOfString(2);
 
-	helper.retrieveUsrUserEnteSiamAppart(idEnteSiam, tiStatoUser, tipoUser);
-	assertTrue(true);
+        helper.retrieveUsrUserEnteSiamAppart(idEnteSiam, tiStatoUser, tipoUser);
+        assertTrue(true);
     }
 
     @Test
     void retrieveUsrUserEnteSiamAppart_4args_queryIsOk() {
-	BigDecimal idEnteSiam = aBigDecimal();
-	helper.retrieveUsrUserEnteSiamAppart(idEnteSiam,
-		Collections.singletonMap("IN",
-			Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE,
-				ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE,
-				ConstOrgEnteSiam.TiEnteConvenz.GESTORE)),
-		Collections.singletonMap("NOT IN",
-			Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
-		Collections.singletonMap("IN",
-			Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+        BigDecimal idEnteSiam = aBigDecimal();
+        helper.retrieveUsrUserEnteSiamAppart(idEnteSiam,
+                Collections.singletonMap("IN",
+                        Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE,
+                                ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE,
+                                ConstOrgEnteSiam.TiEnteConvenz.GESTORE)),
+                Collections.singletonMap("NOT IN",
+                        Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN",
+                        Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
 
-	helper.retrieveUsrUserEnteSiamAppart(idEnteSiam, null,
-		Collections.singletonMap("NOT IN",
-			Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
-		Collections.singletonMap("IN",
-			Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+        helper.retrieveUsrUserEnteSiamAppart(idEnteSiam, null,
+                Collections.singletonMap("NOT IN",
+                        Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN",
+                        Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
 
-	helper.retrieveUsrUserEnteSiamAppart(idEnteSiam,
-		Collections.singletonMap("NOT IN",
-			Collections.singletonList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
-		Collections.singletonMap("NOT IN",
-			Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
-		Collections.singletonMap("IN",
-			Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+        helper.retrieveUsrUserEnteSiamAppart(idEnteSiam,
+                Collections.singletonMap("NOT IN",
+                        Collections.singletonList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
+                Collections.singletonMap("NOT IN",
+                        Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN",
+                        Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
 
-	helper.retrieveUsrUserEnteSiamAppart(idEnteSiam,
-		Collections.singletonMap("NOT IN",
-			Collections.singletonList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
-		Collections.singletonMap("NOT IN",
-			Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
-		Collections.singletonMap("IN",
-			Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
-	assertTrue(true);
+        helper.retrieveUsrUserEnteSiamAppart(idEnteSiam,
+                Collections.singletonMap("NOT IN",
+                        Collections.singletonList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE)),
+                Collections.singletonMap("NOT IN",
+                        Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN",
+                        Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+        assertTrue(true);
     }
 
     @Test
     void retrieveIdOrganizIamUserEnteSiamAppartList_queryIsOk() {
-	BigDecimal idEnteSiam = aBigDecimal();
-	List<String> tiStatoUser = aListOfString(2);
-	List<String> tipoUser = aListOfString(2);
+        BigDecimal idEnteSiam = aBigDecimal();
+        List<String> tiStatoUser = aListOfString(2);
+        List<String> tipoUser = aListOfString(2);
 
-	helper.retrieveIdOrganizIamUserEnteSiamAppartList(idEnteSiam, tiStatoUser, tipoUser);
-	assertTrue(true);
+        helper.retrieveIdOrganizIamUserEnteSiamAppartList(idEnteSiam, tiStatoUser, tipoUser);
+        assertTrue(true);
     }
 
     @Test
     void getPrfDichAutor_queryIsOk() {
-	BigDecimal idObject = aBigDecimal();
-	BigDecimal idObject2 = aBigDecimal();
-	BigDecimal idPrfUsoRuoloApplic = aBigDecimal();
-	for (ConstPrfDichAutor.TiScopoDichAutor tiScopoDichAutor : ConstPrfDichAutor.TiScopoDichAutor
-		.values()) {
-	    for (ConstPrfDichAutor.TiDichAutor tiDichAutor : ConstPrfDichAutor.TiDichAutor
-		    .values()) {
-		helper.getPrfDichAutor(tiScopoDichAutor.name(), tiDichAutor.name(), idObject,
-			idObject2, idPrfUsoRuoloApplic);
-		assertTrue(true);
-	    }
-	}
+        BigDecimal idObject = aBigDecimal();
+        BigDecimal idObject2 = aBigDecimal();
+        BigDecimal idPrfUsoRuoloApplic = aBigDecimal();
+        for (ConstPrfDichAutor.TiScopoDichAutor tiScopoDichAutor : ConstPrfDichAutor.TiScopoDichAutor
+                .values()) {
+            for (ConstPrfDichAutor.TiDichAutor tiDichAutor : ConstPrfDichAutor.TiDichAutor
+                    .values()) {
+                helper.getPrfDichAutor(tiScopoDichAutor.name(), tiDichAutor.name(), idObject,
+                        idObject2, idPrfUsoRuoloApplic);
+                assertTrue(true);
+            }
+        }
     }
 
     @Test
     void getAplApplicById_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getAplApplicById(idApplic);
-	assertTrue(true);
+        helper.getAplApplicById(idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getAplApplicByName_queryIsOk() {
-	String nmApplic = aString();
+        String nmApplic = aString();
 
-	helper.getAplApplicByName(nmApplic);
-	assertTrue(true);
+        helper.getAplApplicByName(nmApplic);
+        assertTrue(true);
     }
 
     @Test
     void getAplApplic_queryIsOk() {
-	String name = aString();
-	try {
-	    helper.getAplApplicByName(name);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        String name = aString();
+        try {
+            helper.getAplApplicByName(name);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void getUsrUser_queryIsOk() {
-	BigDecimal idUser = aBigDecimal();
+        BigDecimal idUser = aBigDecimal();
 
-	helper.getUsrUser(idUser);
-	assertTrue(true);
+        helper.getUsrUser(idUser);
+        assertTrue(true);
     }
 
     @Test
     void getUsrUserByNmUserid_queryIsOk() {
-	String nmUserid = aString();
-	helper.getUsrUserByNmUserid(nmUserid);
-	assertTrue(true);
+        String nmUserid = aString();
+        helper.getUsrUserByNmUserid(nmUserid);
+        assertTrue(true);
     }
 
     @Test
     void getUsrIndIpUserList_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrIndIpUserList(idUserIam);
-	assertTrue(true);
+        helper.getUsrIndIpUserList(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrUsoUserApplicList_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrUsoUserApplicList(idUserIam);
-	assertTrue(true);
+        helper.getUsrUsoUserApplicList(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getIdUsrUsoUserApplicList_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getIdUsrUsoUserApplicList(idUserIam);
-	assertTrue(true);
+        helper.getIdUsrUsoUserApplicList(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrUsoRuoloUserDefaultList_queryIsOk() {
-	Set<BigDecimal> uuuaSet = aSetOfBigDecimal(2);
+        Set<BigDecimal> uuuaSet = aSetOfBigDecimal(2);
 
-	helper.getUsrUsoRuoloUserDefaultList(uuuaSet);
-	assertTrue(true);
+        helper.getUsrUsoRuoloUserDefaultList(uuuaSet);
+        assertTrue(true);
     }
 
     @Test
     void getUsrDichAbilOrganizList_queryIsOk() {
-	Set<BigDecimal> uuuaSet = aSetOfBigDecimal(2);
+        Set<BigDecimal> uuuaSet = aSetOfBigDecimal(2);
 
-	helper.getUsrDichAbilOrganizList(uuuaSet);
-	assertTrue(true);
+        helper.getUsrDichAbilOrganizList(uuuaSet);
+        assertTrue(true);
     }
 
     @Test
     void getUsrDichAbilDatiList_queryIsOk() {
-	Set<BigDecimal> uuuaSet = aSetOfBigDecimal(2);
+        Set<BigDecimal> uuuaSet = aSetOfBigDecimal(2);
 
-	helper.getUsrDichAbilDatiList(uuuaSet);
-	assertTrue(true);
+        helper.getUsrDichAbilDatiList(uuuaSet);
+        assertTrue(true);
     }
 
     @Test
     void checkUserExists_String_queryIsOk() {
-	String userName = aString();
+        String userName = aString();
 
-	helper.checkUserExists(userName);
-	assertTrue(true);
+        helper.checkUserExists(userName);
+        assertTrue(true);
     }
 
     @Test
     void checkUserExists_6args_queryIsOk() {
-	String userName = aString();
-	String nmCognomeUser = aString();
-	String nmNomeUser = aString();
-	String cdFisc = aString();
-	String dsEmail = aString();
-	String flContrIp = aString();
+        String userName = aString();
+        String nmCognomeUser = aString();
+        String nmNomeUser = aString();
+        String cdFisc = aString();
+        String dsEmail = aString();
+        String flContrIp = aString();
 
-	helper.checkUserExists(userName, nmCognomeUser, nmNomeUser, cdFisc, dsEmail, flContrIp);
-	assertTrue(true);
+        helper.checkUserExists(userName, nmCognomeUser, nmNomeUser, cdFisc, dsEmail, flContrIp);
+        assertTrue(true);
     }
 
     @Test
     void getOrganizIamChilds_queryIsOk() {
-	BigDecimal idOrganizIam = aBigDecimal();
+        BigDecimal idOrganizIam = aBigDecimal();
 
-	helper.getOrganizIamChilds(idOrganizIam);
-	assertTrue(true);
+        helper.getOrganizIamChilds(idOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVTreeOrganizIam_queryIsOk() {
-	BigDecimal idOrganizIam = aBigDecimal();
-	try {
-	    helper.getUsrVTreeOrganizIam(idOrganizIam);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        BigDecimal idOrganizIam = aBigDecimal();
+        try {
+            helper.getUsrVTreeOrganizIam(idOrganizIam);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void getAplClasseTipoDatoList_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getAplClasseTipoDatoList(idApplic);
-	assertTrue(true);
+        helper.getAplClasseTipoDatoList(idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilDatiList_queryIsOk() {
-	long idUserIam = aLong();
-	String nmClasseTipoDato = aString();
-	BigDecimal idApplic = aBigDecimal();
-	BigDecimal idOrganizIam = aBigDecimal();
+        long idUserIam = aLong();
+        String nmClasseTipoDato = aString();
+        BigDecimal idApplic = aBigDecimal();
+        BigDecimal idOrganizIam = aBigDecimal();
 
-	helper.getUsrVAbilDatiList(idUserIam, nmClasseTipoDato, idApplic, idOrganizIam);
-	assertTrue(true);
+        helper.getUsrVAbilDatiList(idUserIam, nmClasseTipoDato, idApplic, idOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrTipoDatoIamList_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
-	String nmClasseTipoDato = aString();
-	BigDecimal idOrganizIam = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
+        String nmClasseTipoDato = aString();
+        BigDecimal idOrganizIam = aBigDecimal();
 
-	helper.getUsrTipoDatoIamList(idApplic, nmClasseTipoDato, idOrganizIam);
-	assertTrue(true);
+        helper.getUsrTipoDatoIamList(idApplic, nmClasseTipoDato, idOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilDatiListByApplicClasseTipoDatoUser_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
-	String nmClasseTipoDato = aString();
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
+        String nmClasseTipoDato = aString();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrVAbilDatiListByApplicClasseTipoDatoUser(idApplic, nmClasseTipoDato, idUserIam);
-	assertTrue(true);
+        helper.getUsrVAbilDatiListByApplicClasseTipoDatoUser(idApplic, nmClasseTipoDato, idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getRuoliAbilOrganizList_queryIsOk() {
-	BigDecimal idDichAbilOrganiz = aBigDecimal();
+        BigDecimal idDichAbilOrganiz = aBigDecimal();
 
-	helper.getRuoliAbilOrganizList(idDichAbilOrganiz);
-	assertTrue(true);
+        helper.getRuoliAbilOrganizList(idDichAbilOrganiz);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisUsoRuoloDichList_queryIsOk() {
-	BigDecimal idDichAbilOrganiz = aBigDecimal();
+        BigDecimal idDichAbilOrganiz = aBigDecimal();
 
-	helper.getUsrVLisUsoRuoloDichList(idDichAbilOrganiz);
-	assertTrue(true);
+        helper.getUsrVLisUsoRuoloDichList(idDichAbilOrganiz);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVVisDichAbil_queryIsOk() {
-	BigDecimal idDichAbilOrg = aBigDecimal();
+        BigDecimal idDichAbilOrg = aBigDecimal();
 
-	helper.getUsrVVisDichAbil(idDichAbilOrg);
-	assertTrue(true);
+        helper.getUsrVVisDichAbil(idDichAbilOrg);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisSchedList_queryIsOk() {
-	Date[] dateValidate = aDateArray(2);
-	boolean soloSbloccoRepliche = false;
-	for (ApplEnum.NmJob nmJob : ApplEnum.NmJob.values()) {
-	    helper.getUsrVLisSchedList(nmJob, dateValidate, soloSbloccoRepliche);
-	    assertTrue(true);
-	}
+        Date[] dateValidate = aDateArray(2);
+        boolean soloSbloccoRepliche = false;
+        for (ApplEnum.NmJob nmJob : ApplEnum.NmJob.values()) {
+            helper.getUsrVLisSchedList(nmJob, dateValidate, soloSbloccoRepliche);
+            assertTrue(true);
+        }
     }
 
     @Test
     void getUsrVVisLastSched_queryIsOk() {
-	for (ApplEnum.NmJob nmJob : ApplEnum.NmJob.values()) {
-	    helper.getUsrVVisLastSched(nmJob);
-	    assertTrue(true);
-	}
+        for (ApplEnum.NmJob nmJob : ApplEnum.NmJob.values()) {
+            helper.getUsrVVisLastSched(nmJob);
+            assertTrue(true);
+        }
     }
 
     @Test
     void getUsrVLisUserReplicList_queryIsOk() {
-	Date dataValidata = todayTs();
-	boolean isFromDettaglioUtente = false;
-	String userId = aString();
-	BigDecimal idApplic = aBigDecimal();
-	String tiOperReplic = aString();
-	List<String> tiStatoReplic = aListOfString(2);
+        Date dataValidata = todayTs();
+        boolean isFromDettaglioUtente = false;
+        String userId = aString();
+        BigDecimal idApplic = aBigDecimal();
+        String tiOperReplic = aString();
+        List<String> tiStatoReplic = aListOfString(2);
 
-	helper.getUsrVLisUserReplicList(dataValidata, isFromDettaglioUtente, userId, idApplic,
-		tiOperReplic, tiStatoReplic);
-	assertTrue(true);
+        helper.getUsrVLisUserReplicList(dataValidata, isFromDettaglioUtente, userId, idApplic,
+                tiOperReplic, tiStatoReplic);
+        assertTrue(true);
     }
 
     @Test
     void hasErroriReplica_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.hasErroriReplica(idUserIam);
-	assertTrue(true);
+        helper.hasErroriReplica(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void aggiornaReplicheInCorso_queryIsOk() {
-	BigDecimal idLogJob = aBigDecimal();
+        BigDecimal idLogJob = aBigDecimal();
 
-	helper.aggiornaReplicheInCorso(idLogJob);
-	assertTrue(true);
+        helper.aggiornaReplicheInCorso(idLogJob);
+        assertTrue(true);
     }
 
     @Test
     void getUsrDichAbilEnteConvenz_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrDichAbilEnteConvenz(idUserIam);
-	assertTrue(true);
+        helper.getUsrDichAbilEnteConvenz(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrDichAbilEnteConvenzUnEnteAttivi_queryIsOk() {
-	BigDecimal idEnteConvenz = aBigDecimal();
+        BigDecimal idEnteConvenz = aBigDecimal();
 
-	helper.getUsrDichAbilEnteConvenzUnEnteAttivi(idEnteConvenz);
-	assertTrue(true);
+        helper.getUsrDichAbilEnteConvenzUnEnteAttivi(idEnteConvenz);
+        assertTrue(true);
     }
 
     @Test
     void retrieveLogEventoLoginUserList_queryIsOk() {
-	Date dtEventoDa = todayTs();
-	Date dtEventoA = tomorrowTs();
-	String nmUserid = aString();
-	Set<String> tipiEventoSet = aSetOfString(2);
-	String inclUtentiAutomi = aString();
-	String nome = aString();
-	String cognome = aString();
-	String cf = aString();
-	String email = aString();
-	String idEsterno = aString();
+        Date dtEventoDa = todayTs();
+        Date dtEventoA = tomorrowTs();
+        String nmUserid = aString();
+        Set<String> tipiEventoSet = aSetOfString(2);
+        String inclUtentiAutomi = aString();
+        String nome = aString();
+        String cognome = aString();
+        String cf = aString();
+        String email = aString();
+        String idEsterno = aString();
 
-	helper.retrieveLogVRicAccessiList(dtEventoDa, dtEventoA, nmUserid, tipiEventoSet,
-		inclUtentiAutomi, nome, cognome, cf, email, idEsterno);
-	assertTrue(true);
+        helper.retrieveLogVRicAccessiList(dtEventoDa, dtEventoA, nmUserid, tipiEventoSet,
+                inclUtentiAutomi, nome, cognome, cf, email, idEsterno);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisStatoUserList_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrVLisStatoUserList(idUserIam);
-	assertTrue(true);
+        helper.getUsrVLisStatoUserList(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVRicRichiesteList_queryIsOk() {
-	BigDecimal idUserIamCor = aBigDecimal();
-	String nmCognomeUserAppRich = aString();
-	String nmNomeUserAppRich = aString();
-	String nmUseridAppRich = aString();
-	BigDecimal idAmbienteEnteConvenz = aBigDecimal();
-	BigDecimal idEnteSiam = aBigDecimal();
-	String nmCognomeUserRich = aString();
-	String nmNomeUserRich = aString();
-	String nmUseridRich = aString();
-	BigDecimal idOrganizIam = aBigDecimal();
-	String cdRegistroRichGestUser = aString();
-	BigDecimal aaRichGestUser = aBigDecimal();
-	String cdKeyRichGestUser = aString();
-	String cdRichGestUser = aString();
-	String tiStatoRichGestUser = aString();
+        BigDecimal idUserIamCor = aBigDecimal();
+        String nmCognomeUserAppRich = aString();
+        String nmNomeUserAppRich = aString();
+        String nmUseridAppRich = aString();
+        BigDecimal idAmbienteEnteConvenz = aBigDecimal();
+        BigDecimal idEnteSiam = aBigDecimal();
+        String nmCognomeUserRich = aString();
+        String nmNomeUserRich = aString();
+        String nmUseridRich = aString();
+        BigDecimal idOrganizIam = aBigDecimal();
+        String cdRegistroRichGestUser = aString();
+        BigDecimal aaRichGestUser = aBigDecimal();
+        String cdKeyRichGestUser = aString();
+        String cdRichGestUser = aString();
+        String tiStatoRichGestUser = aString();
 
-	helper.getUsrVRicRichiesteList(idUserIamCor, nmCognomeUserAppRich, nmNomeUserAppRich,
-		nmUseridAppRich, idAmbienteEnteConvenz, idEnteSiam, nmCognomeUserRich,
-		nmNomeUserRich, nmUseridRich, idOrganizIam, cdRegistroRichGestUser, aaRichGestUser,
-		cdKeyRichGestUser, cdRichGestUser, tiStatoRichGestUser);
-	assertTrue(true);
+        helper.getUsrVRicRichiesteList(idUserIamCor, nmCognomeUserAppRich, nmNomeUserAppRich,
+                nmUseridAppRich, idAmbienteEnteConvenz, idEnteSiam, nmCognomeUserRich,
+                nmNomeUserRich, nmUseridRich, idOrganizIam, cdRegistroRichGestUser, aaRichGestUser,
+                cdKeyRichGestUser, cdRichGestUser, tiStatoRichGestUser);
+        assertTrue(true);
     }
 
     @Test
     void getUsrAppartUserRichList_BigDecimal_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
+        BigDecimal idRichGestUser = aBigDecimal();
 
-	helper.getUsrAppartUserRichList(idRichGestUser);
-	assertTrue(true);
+        helper.getUsrAppartUserRichList(idRichGestUser);
+        assertTrue(true);
     }
 
     @Test
     void getUsrAppartUserRichList_3args_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	String tiAzioneRich = aString();
-	String flAzioneRichEvasa = aString();
+        BigDecimal idRichGestUser = aBigDecimal();
+        String tiAzioneRich = aString();
+        String flAzioneRichEvasa = aString();
 
-	helper.getUsrAppartUserRichList(idRichGestUser, tiAzioneRich, flAzioneRichEvasa);
-	assertTrue(true);
+        helper.getUsrAppartUserRichList(idRichGestUser, tiAzioneRich, flAzioneRichEvasa);
+        assertTrue(true);
     }
 
     @Test
     void getStatoCorrenteUser_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getStatoCorrenteUser(idUserIam);
-	assertTrue(true);
+        helper.getStatoCorrenteUser(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void existsAzioneUtente_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	BigDecimal idAppartUserRich = aBigDecimal();
-	List<String> tiAzioneRich = aListOfString(2);
-	BigDecimal idUserIam = aBigDecimal();
-	String nmCognomeUser = aString();
-	String nmNomeUser = aString();
-	String nmUserid = aString();
-	String flAzioneRichEvasa = aString();
+        BigDecimal idRichGestUser = aBigDecimal();
+        BigDecimal idAppartUserRich = aBigDecimal();
+        List<String> tiAzioneRich = aListOfString(2);
+        BigDecimal idUserIam = aBigDecimal();
+        String nmCognomeUser = aString();
+        String nmNomeUser = aString();
+        String nmUserid = aString();
+        String flAzioneRichEvasa = aString();
 
-	helper.existsAzioneUtente(idRichGestUser, idAppartUserRich, tiAzioneRich, idUserIam,
-		nmCognomeUser, nmNomeUser, nmUserid, flAzioneRichEvasa);
-	assertTrue(true);
+        helper.existsAzioneUtente(idRichGestUser, idAppartUserRich, tiAzioneRich, idUserIam,
+                nmCognomeUser, nmNomeUser, nmUserid, flAzioneRichEvasa);
+        assertTrue(true);
     }
 
     @Test
     void getAzioneUtente_7args_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	List<String> tiAzioneRich = aListOfString(2);
-	BigDecimal idUserIam = aBigDecimal();
-	String nmCognomeUser = aString();
-	String nmNomeUser = aString();
-	String nmUserid = aString();
-	String flAzioneRichEvasa = aString();
+        BigDecimal idRichGestUser = aBigDecimal();
+        List<String> tiAzioneRich = aListOfString(2);
+        BigDecimal idUserIam = aBigDecimal();
+        String nmCognomeUser = aString();
+        String nmNomeUser = aString();
+        String nmUserid = aString();
+        String flAzioneRichEvasa = aString();
 
-	helper.getAzioneUtente(idRichGestUser, tiAzioneRich, idUserIam, nmCognomeUser, nmNomeUser,
-		nmUserid, flAzioneRichEvasa);
-	assertTrue(true);
+        helper.getAzioneUtente(idRichGestUser, tiAzioneRich, idUserIam, nmCognomeUser, nmNomeUser,
+                nmUserid, flAzioneRichEvasa);
+        assertTrue(true);
     }
 
     @Test
     void getAzioneUtente_3args_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	List<String> tiAzioneRich = aListOfString(2);
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idRichGestUser = aBigDecimal();
+        List<String> tiAzioneRich = aListOfString(2);
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getAzioneUtente(idRichGestUser, tiAzioneRich, idUserIam);
-	assertTrue(true);
+        helper.getAzioneUtente(idRichGestUser, tiAzioneRich, idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrRichGestUserByOrganizzazioneAndUd_queryIsOk() {
-	BigDecimal idOrganizIam = aBigDecimal();
-	String cdRegistroRichGestUser = aString();
-	BigDecimal aaRichGestUser = aBigDecimal();
-	String cdKeyRichGestUser = aString();
-	BigDecimal idRichGestUserExcluded = aBigDecimal();
+        BigDecimal idOrganizIam = aBigDecimal();
+        String cdRegistroRichGestUser = aString();
+        BigDecimal aaRichGestUser = aBigDecimal();
+        String cdKeyRichGestUser = aString();
+        BigDecimal idRichGestUserExcluded = aBigDecimal();
 
-	helper.getUsrRichGestUserByOrganizzazioneAndUd(idOrganizIam, cdRegistroRichGestUser,
-		aaRichGestUser, cdKeyRichGestUser, idRichGestUserExcluded);
-	assertTrue(true);
+        helper.getUsrRichGestUserByOrganizzazioneAndUd(idOrganizIam, cdRegistroRichGestUser,
+                aaRichGestUser, cdKeyRichGestUser, idRichGestUserExcluded);
+        assertTrue(true);
     }
 
     @Test
     void getUsrRichGestUserByRichEnte_queryIsOk() {
-	String cdRichGestUser = aString();
-	BigDecimal idEnteConvenz = aBigDecimal();
-	BigDecimal idRichGestUserExcluded = aBigDecimal();
+        String cdRichGestUser = aString();
+        BigDecimal idEnteConvenz = aBigDecimal();
+        BigDecimal idRichGestUserExcluded = aBigDecimal();
 
-	helper.getUsrRichGestUserByRichEnte(cdRichGestUser, idEnteConvenz, idRichGestUserExcluded);
-	assertTrue(true);
+        helper.getUsrRichGestUserByRichEnte(cdRichGestUser, idEnteConvenz, idRichGestUserExcluded);
+        assertTrue(true);
     }
 
     @Test
     void getRichiestaDaEvadere_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
-	String tiAzioneRich = aString();
+        BigDecimal idUserIam = aBigDecimal();
+        String tiAzioneRich = aString();
 
-	helper.getRichiestaDaEvadere(idUserIam, tiAzioneRich);
-	assertTrue(true);
+        helper.getRichiestaDaEvadere(idUserIam, tiAzioneRich);
+        assertTrue(true);
     }
 
     @Test
     void getRichiestaDaEseguire_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
-	String tiAzioneRich = aString();
+        BigDecimal idUserIam = aBigDecimal();
+        String tiAzioneRich = aString();
 
-	helper.getRichiestaDaEseguire(idUserIam, tiAzioneRich);
-	assertTrue(true);
+        helper.getRichiestaDaEseguire(idUserIam, tiAzioneRich);
+        assertTrue(true);
     }
 
     @Test
     void existAzioni_queryIsOk() {
-	long idRichGestUser = aLong();
-	String flAzioneRichEvasa = aString();
+        long idRichGestUser = aLong();
+        String flAzioneRichEvasa = aString();
 
-	helper.existAzioni(idRichGestUser, flAzioneRichEvasa);
-	assertTrue(true);
+        helper.existAzioni(idRichGestUser, flAzioneRichEvasa);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVAbilOrganiz_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
-	BigDecimal idOrganizApplic = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idOrganizApplic = aBigDecimal();
 
-	helper.getUsrVAbilOrganiz(idUserIam, idOrganizApplic);
-	assertTrue(true);
+        helper.getUsrVAbilOrganiz(idUserIam, idOrganizApplic);
+        assertTrue(true);
     }
 
     @Test
     void getSusrRichGestUserCd_queryIsOk() {
 
-	helper.getSusrRichGestUserCd();
-	assertTrue(true);
+        helper.getSusrRichGestUserCd();
+        assertTrue(true);
     }
 
     @Test
     void getUsrAppartUserRichByUser_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	String nmUserid = aString();
-	BigDecimal idUserIam = aBigDecimal();
-	BigDecimal idAppartUserRichExcluded = aBigDecimal();
+        BigDecimal idRichGestUser = aBigDecimal();
+        String nmUserid = aString();
+        BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idAppartUserRichExcluded = aBigDecimal();
 
-	helper.getUsrAppartUserRichByUser(idRichGestUser, nmUserid, idUserIam,
-		idAppartUserRichExcluded);
-	assertTrue(true);
+        helper.getUsrAppartUserRichByUser(idRichGestUser, nmUserid, idUserIam,
+                idAppartUserRichExcluded);
+        assertTrue(true);
     }
 
     @Test
     void getOtherUsrAppartUserRichByUser_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	String nmUserid = aString();
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idRichGestUser = aBigDecimal();
+        String nmUserid = aString();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getOtherUsrAppartUserRichByUser(idRichGestUser, nmUserid, idUserIam);
-	assertTrue(true);
+        helper.getOtherUsrAppartUserRichByUser(idRichGestUser, nmUserid, idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void existsUtenteByUseridAndTipo_queryIsOk() {
-	String nmUserid = aString();
-	String[] tipoUser = aStringArray(2);
+        String nmUserid = aString();
+        String[] tipoUser = aStringArray(2);
 
-	helper.existsUtenteByUseridAndTipo(nmUserid, tipoUser);
-	assertTrue(true);
+        helper.existsUtenteByUseridAndTipo(nmUserid, tipoUser);
+        assertTrue(true);
     }
 
     @Test
     void getUsrRicGestUserByUser_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
-	List<String> tiAzioneRich = aListOfString(2);
+        BigDecimal idUserIam = aBigDecimal();
+        List<String> tiAzioneRich = aListOfString(2);
 
-	helper.getUsrRicGestUserByUser(idUserIam, tiAzioneRich);
-	assertTrue(true);
+        helper.getUsrRicGestUserByUser(idUserIam, tiAzioneRich);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVVisLastRichGestUser_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrVVisLastRichGestUser(idUserIam);
-	assertTrue(true);
+        helper.getUsrVVisLastRichGestUser(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisEntiSiamPerAzioList_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	long idUserIamCor = aLong();
+        BigDecimal idRichGestUser = aBigDecimal();
+        long idUserIamCor = aLong();
 
-	helper.getUsrVLisEntiSiamPerAzioList(idRichGestUser, idUserIamCor);
-	assertTrue(true);
+        helper.getUsrVLisEntiSiamPerAzioList(idRichGestUser, idUserIamCor);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisEntiSiamAppEnteList_queryIsOk() {
-	long idUserIamCor = aLong();
+        long idUserIamCor = aLong();
 
-	helper.getUsrVLisEntiSiamAppEnteList(idUserIamCor);
-	assertTrue(true);
+        helper.getUsrVLisEntiSiamAppEnteList(idUserIamCor);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisAbilOrganizList_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrVLisAbilOrganizList(idUserIam);
-	assertTrue(true);
+        helper.getUsrVLisAbilOrganizList(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getUsrVLisAbilEnteList_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.getUsrVLisAbilEnteList(idUserIam);
-	assertTrue(true);
+        helper.getUsrVLisAbilEnteList(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getIdOrganizIamByParam_queryIsOk() {
-	String nmEnteUnitaDoc = aString();
-	String nmStrutUnitaDoc = aString();
+        String nmEnteUnitaDoc = aString();
+        String nmStrutUnitaDoc = aString();
 
-	helper.getIdOrganizIamByParam(nmEnteUnitaDoc, nmStrutUnitaDoc);
-	assertTrue(true);
+        helper.getIdOrganizIamByParam(nmEnteUnitaDoc, nmStrutUnitaDoc);
+        assertTrue(true);
     }
 
     @Test
     void existsRichiestaUtente_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.existsRichiestaUtente(idUserIam);
-	assertTrue(true);
+        helper.existsRichiestaUtente(idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void existsRichiestaUtenteAzione_BigDecimal_String_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
-	String azione = aString();
+        BigDecimal idUserIam = aBigDecimal();
+        String azione = aString();
 
-	helper.existsRichiestaUtenteAzione(idUserIam, azione);
-	assertTrue(true);
+        helper.existsRichiestaUtenteAzione(idUserIam, azione);
+        assertTrue(true);
     }
 
     @Test
     void existsRichiestaUtenteAzione_3args_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	BigDecimal idUserIam = aBigDecimal();
-	String azione = aString();
+        BigDecimal idRichGestUser = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
+        String azione = aString();
 
-	helper.existsRichiestaUtenteAzione(idRichGestUser, idUserIam, azione);
-	assertTrue(true);
+        helper.existsRichiestaUtenteAzione(idRichGestUser, idUserIam, azione);
+        assertTrue(true);
     }
 
     @Test
     void getRichiestaUtenteAzione_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	BigDecimal idUserIam = aBigDecimal();
-	String azione = aString();
+        BigDecimal idRichGestUser = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
+        String azione = aString();
 
-	helper.getRichiestaUtenteAzione(idRichGestUser, idUserIam, azione);
-	assertTrue(true);
+        helper.getRichiestaUtenteAzione(idRichGestUser, idUserIam, azione);
+        assertTrue(true);
     }
 
     @Test
     void existsRichiestaUtenteDiversaAzione_BigDecimal_String_queryIsOk() {
-	BigDecimal idUserIam = aBigDecimal();
-	String azione = aString();
+        BigDecimal idUserIam = aBigDecimal();
+        String azione = aString();
 
-	helper.existsRichiestaUtenteDiversaAzione(idUserIam, azione);
-	assertTrue(true);
+        helper.existsRichiestaUtenteDiversaAzione(idUserIam, azione);
+        assertTrue(true);
     }
 
     @Test
     void existsRichiestaUtenteDiversaAzione_3args_queryIsOk() {
-	BigDecimal idRichGestUser = aBigDecimal();
-	BigDecimal idUserIam = aBigDecimal();
-	String azione = aString();
+        BigDecimal idRichGestUser = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
+        String azione = aString();
 
-	helper.existsRichiestaUtenteDiversaAzione(idRichGestUser, idUserIam, azione);
-	assertTrue(true);
+        helper.existsRichiestaUtenteDiversaAzione(idRichGestUser, idUserIam, azione);
+        assertTrue(true);
     }
 
     @Test
     void getOrgVChkRefEnte_queryIsOk() {
-	BigDecimal idEnteSiam = aBigDecimal();
-	BigDecimal idUserIam = aBigDecimal();
-	try {
-	    helper.getOrgVChkRefEnte(idEnteSiam, idUserIam);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        BigDecimal idEnteSiam = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
+        try {
+            helper.getOrgVChkRefEnte(idEnteSiam, idUserIam);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void retrieveUsrUserEnteSup_queryIsOk() {
-	BigDecimal idEnteSiam = aBigDecimal();
+        BigDecimal idEnteSiam = aBigDecimal();
 
-	helper.retrieveUsrUserEnteSup(idEnteSiam,
-		Collections.singletonMap("IN",
-			Collections.singletonList(
-				ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO)),
-		Collections.singletonMap("NOT IN",
-			Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
-		Collections.singletonMap("IN",
-			Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
-	assertTrue(true);
+        helper.retrieveUsrUserEnteSup(idEnteSiam,
+                Collections.singletonMap("IN",
+                        Collections.singletonList(
+                                ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO)),
+                Collections.singletonMap("NOT IN",
+                        Collections.singletonList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+                Collections.singletonMap("IN",
+                        Collections.singletonList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+        assertTrue(true);
     }
 
     @Test
     void getEntryMenuList_queryIsOk() {
-	helper.getEntryMenuList(BigDecimal.ONE, true);
-	assertTrue(true);
-	helper.getEntryMenuList(BigDecimal.ONE, false);
-	assertTrue(true);
+        helper.getEntryMenuList(BigDecimal.ONE, true);
+        assertTrue(true);
+        helper.getEntryMenuList(BigDecimal.ONE, false);
+        assertTrue(true);
     }
 
     @Test
     void getEntryMenuChilds_queryIsOk() {
-	helper.getEntryMenuChilds(BigDecimal.ONE);
-	assertTrue(true);
+        helper.getEntryMenuChilds(BigDecimal.ONE);
+        assertTrue(true);
     }
 
     @Test
     void getEntryMenuParentsList_queryIsOk() {
-	helper.getEntryMenuParentsList(BigDecimal.ONE);
-	assertTrue(true);
+        helper.getEntryMenuParentsList(BigDecimal.ONE);
+        assertTrue(true);
     }
 
     @Test
     void getUsrOrganizIamChilds_queryIsOk() {
-	helper.getUsrOrganizIamChilds(BigDecimal.ONE);
-	assertTrue(true);
+        helper.getUsrOrganizIamChilds(BigDecimal.ONE);
+        assertTrue(true);
     }
 }

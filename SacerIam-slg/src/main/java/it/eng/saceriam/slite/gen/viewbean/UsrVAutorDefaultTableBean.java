@@ -36,19 +36,19 @@ public class UsrVAutorDefaultTableBean extends AbstractBaseTable<UsrVAutorDefaul
     public static UsrVAutorDefaultTableDescriptor TABLE_DESCRIPTOR = new UsrVAutorDefaultTableDescriptor();
 
     public UsrVAutorDefaultTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAutorDefaultRowBean createRow() {
-	return new UsrVAutorDefaultRowBean();
+        return new UsrVAutorDefaultRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAutorDefaultRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

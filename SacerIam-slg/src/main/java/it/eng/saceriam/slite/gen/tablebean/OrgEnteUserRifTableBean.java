@@ -32,19 +32,19 @@ public class OrgEnteUserRifTableBean extends AbstractBaseTable<OrgEnteUserRifRow
     public static OrgEnteUserRifTableDescriptor TABLE_DESCRIPTOR = new OrgEnteUserRifTableDescriptor();
 
     public OrgEnteUserRifTableBean() {
-	super();
+        super();
     }
 
     protected OrgEnteUserRifRowBean createRow() {
-	return new OrgEnteUserRifRowBean();
+        return new OrgEnteUserRifRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgEnteUserRifRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

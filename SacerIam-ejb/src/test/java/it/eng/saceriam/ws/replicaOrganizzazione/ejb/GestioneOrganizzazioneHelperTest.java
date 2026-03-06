@@ -52,148 +52,148 @@ public class GestioneOrganizzazioneHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	final JavaArchive archive = ArquillianUtils
-		.getSacerIamArchive(GestioneOrganizzazioneHelper.class);
-	archive.addClasses(it.eng.saceriam.web.helper.UserHelper.class,
-		it.eng.parer.sacerlog.ejb.SacerLogEjb.class,
-		it.eng.saceriam.ws.dto.IRispostaWS.class,
-		it.eng.saceriam.web.util.ApplEnum.TiOperReplic.class,
-		it.eng.saceriam.entity.AplApplic.class,
-		it.eng.saceriam.entity.AplClasseTipoDato.class,
-		it.eng.saceriam.entity.AplTipoOrganiz.class,
-		it.eng.saceriam.entity.OrgEnteConvenzOrg.class,
-		it.eng.saceriam.entity.UsrOrganizIam.class,
-		it.eng.saceriam.entity.UsrTipoDatoIam.class,
-		it.eng.saceriam.exception.TransactionException.class,
-		it.eng.saceriam.web.util.ApplEnum.class, it.eng.saceriam.ws.dto.IRispostaWS.class,
-		it.eng.saceriam.ws.dto.IWSDesc.class,
-		it.eng.parer.sacerlog.ejb.helper.SacerLogHelper.class,
-		it.eng.saceriam.ws.ejb.WsIdpLogger.class, it.eng.saceriam.helper.ParamHelper.class,
-		it.eng.saceriam.common.Constants.TipoIamVGetValAppart.class,
-		it.eng.parer.sacerlog.ejb.common.AppServerInstance.class,
-		it.eng.parer.sacerlog.ejb.common.helper.ParamApplicHelper.class,
-		it.eng.parer.sacerlog.util.TransactionLogContext.class,
-		it.eng.saceriam.common.Constants.class,
-		it.eng.parer.sacerlog.ejb.util.ObjectsToLogBefore.class,
-		it.eng.parer.sacerlog.common.Constants.NmParamApplic.class,
-		org.apache.commons.lang3.ClassUtils.class,
-		it.eng.saceriam.ws.utils.MessaggiWSBundle.class,
-		GestioneOrganizzazioneHelperTest.class);
-	archive.addPackages(false, "it.eng.saceriam.ws.replicaOrganizzazione.dto",
-		"org.apache.commons.lang3.mutable", "org.apache.commons.lang3.exception",
-		"it.eng.parer.idpjaas.logutils", "it.eng.saceriam.web.helper.dto").addPackages(true,
-			"it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
-	return archive;
+        final JavaArchive archive = ArquillianUtils
+                .getSacerIamArchive(GestioneOrganizzazioneHelper.class);
+        archive.addClasses(it.eng.saceriam.web.helper.UserHelper.class,
+                it.eng.parer.sacerlog.ejb.SacerLogEjb.class,
+                it.eng.saceriam.ws.dto.IRispostaWS.class,
+                it.eng.saceriam.web.util.ApplEnum.TiOperReplic.class,
+                it.eng.saceriam.entity.AplApplic.class,
+                it.eng.saceriam.entity.AplClasseTipoDato.class,
+                it.eng.saceriam.entity.AplTipoOrganiz.class,
+                it.eng.saceriam.entity.OrgEnteConvenzOrg.class,
+                it.eng.saceriam.entity.UsrOrganizIam.class,
+                it.eng.saceriam.entity.UsrTipoDatoIam.class,
+                it.eng.saceriam.exception.TransactionException.class,
+                it.eng.saceriam.web.util.ApplEnum.class, it.eng.saceriam.ws.dto.IRispostaWS.class,
+                it.eng.saceriam.ws.dto.IWSDesc.class,
+                it.eng.parer.sacerlog.ejb.helper.SacerLogHelper.class,
+                it.eng.saceriam.ws.ejb.WsIdpLogger.class, it.eng.saceriam.helper.ParamHelper.class,
+                it.eng.saceriam.common.Constants.TipoIamVGetValAppart.class,
+                it.eng.parer.sacerlog.ejb.common.AppServerInstance.class,
+                it.eng.parer.sacerlog.ejb.common.helper.ParamApplicHelper.class,
+                it.eng.parer.sacerlog.util.TransactionLogContext.class,
+                it.eng.saceriam.common.Constants.class,
+                it.eng.parer.sacerlog.ejb.util.ObjectsToLogBefore.class,
+                it.eng.parer.sacerlog.common.Constants.NmParamApplic.class,
+                org.apache.commons.lang3.ClassUtils.class,
+                it.eng.saceriam.ws.utils.MessaggiWSBundle.class,
+                GestioneOrganizzazioneHelperTest.class);
+        archive.addPackages(false, "it.eng.saceriam.ws.replicaOrganizzazione.dto",
+                "org.apache.commons.lang3.mutable", "org.apache.commons.lang3.exception",
+                "it.eng.parer.idpjaas.logutils", "it.eng.saceriam.web.helper.dto").addPackages(true,
+                        "it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
+        return archive;
     }
 
     @Test
     void getUsrOrganizIam_queryIsOk() {
-	Long idApplic = aLong();
-	Integer idOrganizApplic = aInt();
-	String nmTipoOrganiz = aString();
+        Long idApplic = aLong();
+        Integer idOrganizApplic = aInt();
+        String nmTipoOrganiz = aString();
 
-	helper.getUsrOrganizIam(idApplic, idOrganizApplic, nmTipoOrganiz);
-	assertTrue(true);
+        helper.getUsrOrganizIam(idApplic, idOrganizApplic, nmTipoOrganiz);
+        assertTrue(true);
     }
 
     @Test
     void retrieveOrgEnteConvenzOrg_queryIsOk() {
-	long idOrganizIam = aLong();
+        long idOrganizIam = aLong();
 
-	helper.retrieveOrgEnteConvenzOrg(idOrganizIam);
-	assertTrue(true);
+        helper.retrieveOrgEnteConvenzOrg(idOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void isLastLevel_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
-	String nmTipoOrganiz = aString();
-	try {
-	    helper.isLastLevel(idApplic, nmTipoOrganiz);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        BigDecimal idApplic = aBigDecimal();
+        String nmTipoOrganiz = aString();
+        try {
+            helper.isLastLevel(idApplic, nmTipoOrganiz);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void getUsersOnDich_queryIsOk() {
-	Long idOrganizIam = aLong();
-	for (ApplEnum.TiOperReplic tiOperReplic : ApplEnum.TiOperReplic.values()) {
-	    helper.getUsersOnDich(idOrganizIam, tiOperReplic);
-	    assertTrue(true);
-	}
+        Long idOrganizIam = aLong();
+        for (ApplEnum.TiOperReplic tiOperReplic : ApplEnum.TiOperReplic.values()) {
+            helper.getUsersOnDich(idOrganizIam, tiOperReplic);
+            assertTrue(true);
+        }
     }
 
     @Test
     void getUsersWithOrganizDadDich_queryIsOk() {
-	Long idOrganizIam = aLong();
+        Long idOrganizIam = aLong();
 
-	helper.getUsersWithOrganizDadDich(idOrganizIam);
-	assertTrue(true);
+        helper.getUsersWithOrganizDadDich(idOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getAplClasseTipoDato_queryIsOk() {
-	Long idApplic = aLong();
-	String nmClasseTipoDato = aString();
-	try {
-	    helper.getAplClasseTipoDato(idApplic, nmClasseTipoDato);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        Long idApplic = aLong();
+        String nmClasseTipoDato = aString();
+        try {
+            helper.getAplClasseTipoDato(idApplic, nmClasseTipoDato);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void getAplTipoOrganiz_queryIsOk() {
-	Long idApplic = aLong();
-	String nmTipoOrganiz = aString();
-	try {
-	    helper.getAplTipoOrganiz(idApplic, nmTipoOrganiz);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        Long idApplic = aLong();
+        String nmTipoOrganiz = aString();
+        try {
+            helper.getAplTipoOrganiz(idApplic, nmTipoOrganiz);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void getAplApplic_queryIsOk() {
-	Long idApplic = aLong();
+        Long idApplic = aLong();
 
-	helper.getAplApplic(idApplic);
-	assertTrue(true);
+        helper.getAplApplic(idApplic);
+        assertTrue(true);
     }
 
     @Test
     @Disabled("operazione da evitare in automatico")
     void cancellaOrganizzazione_queryIsOk() throws TransactionException {
-	Long idApplic = -99L;
-	CancellaOrganizzazioneInput parametriInput = new CancellaOrganizzazioneInput(aString(),
-		aInt(), aString());
-	RispostaWSCancellaOrganizzazione rispostaWs = new RispostaWSCancellaOrganizzazione();
+        Long idApplic = -99L;
+        CancellaOrganizzazioneInput parametriInput = new CancellaOrganizzazioneInput(aString(),
+                aInt(), aString());
+        RispostaWSCancellaOrganizzazione rispostaWs = new RispostaWSCancellaOrganizzazione();
 
-	helper.cancellaOrganizzazione(idApplic, parametriInput, rispostaWs);
-	assertTrue(true);
+        helper.cancellaOrganizzazione(idApplic, parametriInput, rispostaWs);
+        assertTrue(true);
     }
 
     @Test
     void getUsrTipoDatoIam_queryIsOk() {
-	Long idOrganizIam = aLong();
-	String nmTipoDato = aString();
-	try {
-	    helper.getUsrTipoDatoIam(idOrganizIam, nmTipoDato);
-	    assertTrue(true);
-	} catch (Exception e) {
-	    assertNoResultException(e);
-	}
+        Long idOrganizIam = aLong();
+        String nmTipoDato = aString();
+        try {
+            helper.getUsrTipoDatoIam(idOrganizIam, nmTipoDato);
+            assertTrue(true);
+        } catch (Exception e) {
+            assertNoResultException(e);
+        }
     }
 
     @Test
     void getUsersSacer_queryIsOk() {
-	Long idOrganizIam = aLong();
+        Long idOrganizIam = aLong();
 
-	helper.getUsersSacer(idOrganizIam);
-	assertTrue(true);
+        helper.getUsersSacer(idOrganizIam);
+        assertTrue(true);
     }
 }

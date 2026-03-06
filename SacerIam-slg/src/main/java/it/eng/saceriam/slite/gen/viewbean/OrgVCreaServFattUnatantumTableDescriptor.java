@@ -51,39 +51,39 @@ public class OrgVCreaServFattUnatantumTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_FATTURA_ENTE,
-		new ColumnDescriptor(COL_ID_FATTURA_ENTE, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, true));
-	map.put(COL_ID_SERVIZIO_EROGATO,
-		new ColumnDescriptor(COL_ID_SERVIZIO_EROGATO, Types.DECIMAL, 22, true));
-	map.put(COL_AA_SERVIZIO_FATTURA,
-		new ColumnDescriptor(COL_AA_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
-	map.put(COL_NM_SERVIZIO_FATTURA,
-		new ColumnDescriptor(COL_NM_SERVIZIO_FATTURA, Types.VARCHAR, 131, true));
-	map.put(COL_IM_SERVIZIO_FATTURA,
-		new ColumnDescriptor(COL_IM_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
-	map.put(COL_QT_SCAGLIONE_SERVIZIO_FATTURA,
-		new ColumnDescriptor(COL_QT_SCAGLIONE_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
-	map.put(COL_QT_UNIT_SERVIZIO_FATTURA,
-		new ColumnDescriptor(COL_QT_UNIT_SERVIZIO_FATTURA, Types.VARCHAR, 0, true));
-	map.put(COL_DT_EROG, new ColumnDescriptor(COL_DT_EROG, Types.TIMESTAMP, 7, true));
-	map.put(COL_NT_SERVIZIO_FATTURA,
-		new ColumnDescriptor(COL_NT_SERVIZIO_FATTURA, Types.VARCHAR, 0, true));
-	map.put(COL_ID_CD_IVA, new ColumnDescriptor(COL_ID_CD_IVA, Types.DECIMAL, 22, true));
-	map.put(COL_IM_IVA, new ColumnDescriptor(COL_IM_IVA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_FATTURA_ENTE,
+                new ColumnDescriptor(COL_ID_FATTURA_ENTE, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, true));
+        map.put(COL_ID_SERVIZIO_EROGATO,
+                new ColumnDescriptor(COL_ID_SERVIZIO_EROGATO, Types.DECIMAL, 22, true));
+        map.put(COL_AA_SERVIZIO_FATTURA,
+                new ColumnDescriptor(COL_AA_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
+        map.put(COL_NM_SERVIZIO_FATTURA,
+                new ColumnDescriptor(COL_NM_SERVIZIO_FATTURA, Types.VARCHAR, 131, true));
+        map.put(COL_IM_SERVIZIO_FATTURA,
+                new ColumnDescriptor(COL_IM_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
+        map.put(COL_QT_SCAGLIONE_SERVIZIO_FATTURA,
+                new ColumnDescriptor(COL_QT_SCAGLIONE_SERVIZIO_FATTURA, Types.DECIMAL, 22, true));
+        map.put(COL_QT_UNIT_SERVIZIO_FATTURA,
+                new ColumnDescriptor(COL_QT_UNIT_SERVIZIO_FATTURA, Types.VARCHAR, 0, true));
+        map.put(COL_DT_EROG, new ColumnDescriptor(COL_DT_EROG, Types.TIMESTAMP, 7, true));
+        map.put(COL_NT_SERVIZIO_FATTURA,
+                new ColumnDescriptor(COL_NT_SERVIZIO_FATTURA, Types.VARCHAR, 0, true));
+        map.put(COL_ID_CD_IVA, new ColumnDescriptor(COL_ID_CD_IVA, Types.DECIMAL, 22, true));
+        map.put(COL_IM_IVA, new ColumnDescriptor(COL_IM_IVA, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -24,34 +24,34 @@ public class TipoDato {
     private String dsTipoDato;
 
     public String getNmClasseTipoDato() {
-	return nmClasseTipoDato;
+        return nmClasseTipoDato;
     }
 
     public void setNmClasseTipoDato(String nmClasseTipoDato) {
-	this.nmClasseTipoDato = nmClasseTipoDato;
+        this.nmClasseTipoDato = nmClasseTipoDato;
     }
 
     public Long getIdTipoDatoApplic() {
-	return idTipoDatoApplic;
+        return idTipoDatoApplic;
     }
 
     public void setIdTipoDatoApplic(Long idTipoDatoApplic) {
-	this.idTipoDatoApplic = idTipoDatoApplic;
+        this.idTipoDatoApplic = idTipoDatoApplic;
     }
 
     public String getNmTipoDato() {
-	return nmTipoDato;
+        return nmTipoDato;
     }
 
     public void setNmTipoDato(String nmTipoDato) {
-	this.nmTipoDato = nmTipoDato;
+        this.nmTipoDato = nmTipoDato;
     }
 
     public String getDsTipoDato() {
-	return dsTipoDato;
+        return dsTipoDato;
     }
 
     public void setDsTipoDato(String dsTipoDato) {
-	this.dsTipoDato = dsTipoDato;
+        this.dsTipoDato = dsTipoDato;
     }
 }

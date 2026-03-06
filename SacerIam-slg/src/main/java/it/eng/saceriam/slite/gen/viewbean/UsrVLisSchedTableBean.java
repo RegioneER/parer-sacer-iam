@@ -36,19 +36,19 @@ public class UsrVLisSchedTableBean extends AbstractBaseTable<UsrVLisSchedRowBean
     public static UsrVLisSchedTableDescriptor TABLE_DESCRIPTOR = new UsrVLisSchedTableDescriptor();
 
     public UsrVLisSchedTableBean() {
-	super();
+        super();
     }
 
     protected UsrVLisSchedRowBean createRow() {
-	return new UsrVLisSchedRowBean();
+        return new UsrVLisSchedRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVLisSchedRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

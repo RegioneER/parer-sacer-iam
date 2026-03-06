@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgPagamFatturaEnteRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,140 +38,140 @@ public class OrgPagamFatturaEnteRowBean extends BaseRow
     public static OrgPagamFatturaEnteTableDescriptor TABLE_DESCRIPTOR = new OrgPagamFatturaEnteTableDescriptor();
 
     public OrgPagamFatturaEnteRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdPagamFatturaEnte() {
-	return getBigDecimal("id_pagam_fattura_ente");
+        return getBigDecimal("id_pagam_fattura_ente");
     }
 
     public void setIdPagamFatturaEnte(BigDecimal idPagamFatturaEnte) {
-	setObject("id_pagam_fattura_ente", idPagamFatturaEnte);
+        setObject("id_pagam_fattura_ente", idPagamFatturaEnte);
     }
 
     public BigDecimal getIdFatturaEnte() {
-	return getBigDecimal("id_fattura_ente");
+        return getBigDecimal("id_fattura_ente");
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-	setObject("id_fattura_ente", idFatturaEnte);
+        setObject("id_fattura_ente", idFatturaEnte);
     }
 
     public BigDecimal getPgPagam() {
-	return getBigDecimal("pg_pagam");
+        return getBigDecimal("pg_pagam");
     }
 
     public void setPgPagam(BigDecimal pgPagam) {
-	setObject("pg_pagam", pgPagam);
+        setObject("pg_pagam", pgPagam);
     }
 
     public String getCdProvvPagam() {
-	return getString("cd_provv_pagam");
+        return getString("cd_provv_pagam");
     }
 
     public void setCdProvvPagam(String cdProvvPagam) {
-	setObject("cd_provv_pagam", cdProvvPagam);
+        setObject("cd_provv_pagam", cdProvvPagam);
     }
 
     public String getCdRevPagam() {
-	return getString("cd_rev_pagam");
+        return getString("cd_rev_pagam");
     }
 
     public void setCdRevPagam(String cdRevPagam) {
-	setObject("cd_rev_pagam", cdRevPagam);
+        setObject("cd_rev_pagam", cdRevPagam);
     }
 
     public Timestamp getDtPagam() {
-	return getTimestamp("dt_pagam");
+        return getTimestamp("dt_pagam");
     }
 
     public void setDtPagam(Timestamp dtPagam) {
-	setObject("dt_pagam", dtPagam);
+        setObject("dt_pagam", dtPagam);
     }
 
     public BigDecimal getImPagam() {
-	return getBigDecimal("im_pagam");
+        return getBigDecimal("im_pagam");
     }
 
     public void setImPagam(BigDecimal imPagam) {
-	setObject("im_pagam", imPagam);
+        setObject("im_pagam", imPagam);
     }
 
     public String getNtPagam() {
-	return getString("nt_pagam");
+        return getString("nt_pagam");
     }
 
     public void setNtPagam(String ntPagam) {
-	setObject("nt_pagam", ntPagam);
+        setObject("nt_pagam", ntPagam);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgPagamFatturaEnte entity = (OrgPagamFatturaEnte) obj;
-	this.setIdPagamFatturaEnte(new BigDecimal(entity.getIdPagamFatturaEnte()));
-	if (entity.getOrgFatturaEnte() != null) {
-	    this.setIdFatturaEnte(new BigDecimal(entity.getOrgFatturaEnte().getIdFatturaEnte()));
+        OrgPagamFatturaEnte entity = (OrgPagamFatturaEnte) obj;
+        this.setIdPagamFatturaEnte(new BigDecimal(entity.getIdPagamFatturaEnte()));
+        if (entity.getOrgFatturaEnte() != null) {
+            this.setIdFatturaEnte(new BigDecimal(entity.getOrgFatturaEnte().getIdFatturaEnte()));
 
-	}
-	this.setPgPagam(entity.getPgPagam());
-	this.setCdProvvPagam(entity.getCdProvvPagam());
-	this.setCdRevPagam(entity.getCdRevPagam());
-	if (entity.getDtPagam() != null) {
-	    this.setDtPagam(new Timestamp(entity.getDtPagam().getTime()));
-	}
-	this.setImPagam(entity.getImPagam());
-	this.setNtPagam(entity.getNtPagam());
+        }
+        this.setPgPagam(entity.getPgPagam());
+        this.setCdProvvPagam(entity.getCdProvvPagam());
+        this.setCdRevPagam(entity.getCdRevPagam());
+        if (entity.getDtPagam() != null) {
+            this.setDtPagam(new Timestamp(entity.getDtPagam().getTime()));
+        }
+        this.setImPagam(entity.getImPagam());
+        this.setNtPagam(entity.getNtPagam());
     }
 
     @Override
     public OrgPagamFatturaEnte rowBeanToEntity() {
-	OrgPagamFatturaEnte entity = new OrgPagamFatturaEnte();
-	if (this.getIdPagamFatturaEnte() != null) {
-	    entity.setIdPagamFatturaEnte(this.getIdPagamFatturaEnte().longValue());
-	}
-	if (this.getIdFatturaEnte() != null) {
-	    if (entity.getOrgFatturaEnte() == null) {
-		entity.setOrgFatturaEnte(new OrgFatturaEnte());
-	    }
-	    entity.getOrgFatturaEnte().setIdFatturaEnte(this.getIdFatturaEnte().longValue());
-	}
-	entity.setPgPagam(this.getPgPagam());
-	entity.setCdProvvPagam(this.getCdProvvPagam());
-	entity.setCdRevPagam(this.getCdRevPagam());
-	entity.setDtPagam(this.getDtPagam());
-	entity.setImPagam(this.getImPagam());
-	entity.setNtPagam(this.getNtPagam());
-	return entity;
+        OrgPagamFatturaEnte entity = new OrgPagamFatturaEnte();
+        if (this.getIdPagamFatturaEnte() != null) {
+            entity.setIdPagamFatturaEnte(this.getIdPagamFatturaEnte().longValue());
+        }
+        if (this.getIdFatturaEnte() != null) {
+            if (entity.getOrgFatturaEnte() == null) {
+                entity.setOrgFatturaEnte(new OrgFatturaEnte());
+            }
+            entity.getOrgFatturaEnte().setIdFatturaEnte(this.getIdFatturaEnte().longValue());
+        }
+        entity.setPgPagam(this.getPgPagam());
+        entity.setCdProvvPagam(this.getCdProvvPagam());
+        entity.setCdRevPagam(this.getCdRevPagam());
+        entity.setDtPagam(this.getDtPagam());
+        entity.setImPagam(this.getImPagam());
+        entity.setNtPagam(this.getNtPagam());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

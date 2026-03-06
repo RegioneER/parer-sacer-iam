@@ -29,7 +29,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgEnteConvenzOrgRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -39,120 +39,120 @@ public class OrgEnteConvenzOrgRowBean extends BaseRow
     public static OrgEnteConvenzOrgTableDescriptor TABLE_DESCRIPTOR = new OrgEnteConvenzOrgTableDescriptor();
 
     public OrgEnteConvenzOrgRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdEnteConvenzOrg() {
-	return getBigDecimal("id_ente_convenz_org");
+        return getBigDecimal("id_ente_convenz_org");
     }
 
     public void setIdEnteConvenzOrg(BigDecimal idEnteConvenzOrg) {
-	setObject("id_ente_convenz_org", idEnteConvenzOrg);
+        setObject("id_ente_convenz_org", idEnteConvenzOrg);
     }
 
     public BigDecimal getIdEnteConvenz() {
-	return getBigDecimal("id_ente_convenz");
+        return getBigDecimal("id_ente_convenz");
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	setObject("id_ente_convenz", idEnteConvenz);
+        setObject("id_ente_convenz", idEnteConvenz);
     }
 
     public BigDecimal getIdOrganizIam() {
-	return getBigDecimal("id_organiz_iam");
+        return getBigDecimal("id_organiz_iam");
     }
 
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-	setObject("id_organiz_iam", idOrganizIam);
+        setObject("id_organiz_iam", idOrganizIam);
     }
 
     public Timestamp getDtIniVal() {
-	return getTimestamp("dt_ini_val");
+        return getTimestamp("dt_ini_val");
     }
 
     public void setDtIniVal(Timestamp dtIniVal) {
-	setObject("dt_ini_val", dtIniVal);
+        setObject("dt_ini_val", dtIniVal);
     }
 
     public Timestamp getDtFineVal() {
-	return getTimestamp("dt_fine_val");
+        return getTimestamp("dt_fine_val");
     }
 
     public void setDtFineVal(Timestamp dtFineVal) {
-	setObject("dt_fine_val", dtFineVal);
+        setObject("dt_fine_val", dtFineVal);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgEnteConvenzOrg entity = (OrgEnteConvenzOrg) obj;
-	this.setIdEnteConvenzOrg(new BigDecimal(entity.getIdEnteConvenzOrg()));
-	if (entity.getOrgEnteSiam() != null) {
-	    this.setIdEnteConvenz(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
+        OrgEnteConvenzOrg entity = (OrgEnteConvenzOrg) obj;
+        this.setIdEnteConvenzOrg(new BigDecimal(entity.getIdEnteConvenzOrg()));
+        if (entity.getOrgEnteSiam() != null) {
+            this.setIdEnteConvenz(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
 
-	}
-	if (entity.getUsrOrganizIam() != null) {
-	    this.setIdOrganizIam(new BigDecimal(entity.getUsrOrganizIam().getIdOrganizIam()));
+        }
+        if (entity.getUsrOrganizIam() != null) {
+            this.setIdOrganizIam(new BigDecimal(entity.getUsrOrganizIam().getIdOrganizIam()));
 
-	}
-	if (entity.getDtIniVal() != null) {
-	    this.setDtIniVal(new Timestamp(entity.getDtIniVal().getTime()));
-	}
-	if (entity.getDtFineVal() != null) {
-	    this.setDtFineVal(new Timestamp(entity.getDtFineVal().getTime()));
-	}
+        }
+        if (entity.getDtIniVal() != null) {
+            this.setDtIniVal(new Timestamp(entity.getDtIniVal().getTime()));
+        }
+        if (entity.getDtFineVal() != null) {
+            this.setDtFineVal(new Timestamp(entity.getDtFineVal().getTime()));
+        }
     }
 
     @Override
     public OrgEnteConvenzOrg rowBeanToEntity() {
-	OrgEnteConvenzOrg entity = new OrgEnteConvenzOrg();
-	if (this.getIdEnteConvenzOrg() != null) {
-	    entity.setIdEnteConvenzOrg(this.getIdEnteConvenzOrg().longValue());
-	}
-	if (this.getIdEnteConvenz() != null) {
-	    if (entity.getOrgEnteSiam() == null) {
-		entity.setOrgEnteSiam(new OrgEnteSiam());
-	    }
-	    entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteConvenz().longValue());
-	}
-	if (this.getIdOrganizIam() != null) {
-	    if (entity.getUsrOrganizIam() == null) {
-		entity.setUsrOrganizIam(new UsrOrganizIam());
-	    }
-	    entity.getUsrOrganizIam().setIdOrganizIam(this.getIdOrganizIam().longValue());
-	}
-	entity.setDtIniVal(this.getDtIniVal());
-	entity.setDtFineVal(this.getDtFineVal());
-	return entity;
+        OrgEnteConvenzOrg entity = new OrgEnteConvenzOrg();
+        if (this.getIdEnteConvenzOrg() != null) {
+            entity.setIdEnteConvenzOrg(this.getIdEnteConvenzOrg().longValue());
+        }
+        if (this.getIdEnteConvenz() != null) {
+            if (entity.getOrgEnteSiam() == null) {
+                entity.setOrgEnteSiam(new OrgEnteSiam());
+            }
+            entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteConvenz().longValue());
+        }
+        if (this.getIdOrganizIam() != null) {
+            if (entity.getUsrOrganizIam() == null) {
+                entity.setUsrOrganizIam(new UsrOrganizIam());
+            }
+            entity.getUsrOrganizIam().setIdOrganizIam(this.getIdOrganizIam().longValue());
+        }
+        entity.setDtIniVal(this.getDtIniVal());
+        entity.setDtFineVal(this.getDtFineVal());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

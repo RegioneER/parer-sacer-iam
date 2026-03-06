@@ -32,19 +32,19 @@ public class UsrTipoDatoIamTableBean extends AbstractBaseTable<UsrTipoDatoIamRow
     public static UsrTipoDatoIamTableDescriptor TABLE_DESCRIPTOR = new UsrTipoDatoIamTableDescriptor();
 
     public UsrTipoDatoIamTableBean() {
-	super();
+        super();
     }
 
     protected UsrTipoDatoIamRowBean createRow() {
-	return new UsrTipoDatoIamRowBean();
+        return new UsrTipoDatoIamRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrTipoDatoIamRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

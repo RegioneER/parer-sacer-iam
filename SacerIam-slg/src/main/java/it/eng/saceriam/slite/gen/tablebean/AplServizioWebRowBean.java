@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplServizioWebRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -37,98 +37,98 @@ public class AplServizioWebRowBean extends BaseRow
     public static AplServizioWebTableDescriptor TABLE_DESCRIPTOR = new AplServizioWebTableDescriptor();
 
     public AplServizioWebRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdServizioWeb() {
-	return getBigDecimal("id_servizio_web");
+        return getBigDecimal("id_servizio_web");
     }
 
     public void setIdServizioWeb(BigDecimal idServizioWeb) {
-	setObject("id_servizio_web", idServizioWeb);
+        setObject("id_servizio_web", idServizioWeb);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getNmServizioWeb() {
-	return getString("nm_servizio_web");
+        return getString("nm_servizio_web");
     }
 
     public void setNmServizioWeb(String nmServizioWeb) {
-	setObject("nm_servizio_web", nmServizioWeb);
+        setObject("nm_servizio_web", nmServizioWeb);
     }
 
     public String getDsServizioWeb() {
-	return getString("ds_servizio_web");
+        return getString("ds_servizio_web");
     }
 
     public void setDsServizioWeb(String dsServizioWeb) {
-	setObject("ds_servizio_web", dsServizioWeb);
+        setObject("ds_servizio_web", dsServizioWeb);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplServizioWeb entity = (AplServizioWeb) obj;
-	this.setIdServizioWeb(new BigDecimal(entity.getIdServizioWeb()));
+        AplServizioWeb entity = (AplServizioWeb) obj;
+        this.setIdServizioWeb(new BigDecimal(entity.getIdServizioWeb()));
 
-	if (entity.getAplApplic() != null) {
-	    this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
-	}
-	this.setNmServizioWeb(entity.getNmServizioWeb());
-	this.setDsServizioWeb(entity.getDsServizioWeb());
+        if (entity.getAplApplic() != null) {
+            this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
+        }
+        this.setNmServizioWeb(entity.getNmServizioWeb());
+        this.setDsServizioWeb(entity.getDsServizioWeb());
     }
 
     @Override
     public AplServizioWeb rowBeanToEntity() {
-	AplServizioWeb entity = new AplServizioWeb();
-	if (this.getIdServizioWeb() != null) {
-	    entity.setIdServizioWeb(this.getIdServizioWeb().longValue());
-	}
-	if (this.getIdApplic() != null) {
-	    if (entity.getAplApplic() == null) {
-		entity.setAplApplic(new AplApplic());
-	    }
-	    entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
-	}
-	entity.setNmServizioWeb(this.getNmServizioWeb());
-	entity.setDsServizioWeb(this.getDsServizioWeb());
-	return entity;
+        AplServizioWeb entity = new AplServizioWeb();
+        if (this.getIdServizioWeb() != null) {
+            entity.setIdServizioWeb(this.getIdServizioWeb().longValue());
+        }
+        if (this.getIdApplic() != null) {
+            if (entity.getAplApplic() == null) {
+                entity.setAplApplic(new AplApplic());
+            }
+            entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
+        }
+        entity.setNmServizioWeb(this.getNmServizioWeb());
+        entity.setDsServizioWeb(this.getDsServizioWeb());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

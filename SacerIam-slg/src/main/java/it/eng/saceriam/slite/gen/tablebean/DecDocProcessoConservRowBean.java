@@ -30,11 +30,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     public static DecDocProcessoConservTableDescriptor TABLE_DESCRIPTOR = new DecDocProcessoConservTableDescriptor();
 
     public DecDocProcessoConservRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // ===================================================================================
@@ -43,11 +43,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setIdDocProcessoConserv(BigDecimal idDocProcessoConserv) {
-	setObject("id_doc_processo_conserv", idDocProcessoConserv);
+        setObject("id_doc_processo_conserv", idDocProcessoConserv);
     }
 
     public BigDecimal getIdDocProcessoConserv() {
-	return getBigDecimal("id_doc_processo_conserv");
+        return getBigDecimal("id_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -56,11 +56,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setAaDocProcessoConserv(BigDecimal aaDocProcessoConserv) {
-	setObject("aa_doc_processo_conserv", aaDocProcessoConserv);
+        setObject("aa_doc_processo_conserv", aaDocProcessoConserv);
     }
 
     public BigDecimal getAaDocProcessoConserv() {
-	return getBigDecimal("aa_doc_processo_conserv");
+        return getBigDecimal("aa_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -69,11 +69,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setCdKeyDocProcessoConserv(String cdKeyDocProcessoConserv) {
-	setObject("cd_key_doc_processo_conserv", cdKeyDocProcessoConserv);
+        setObject("cd_key_doc_processo_conserv", cdKeyDocProcessoConserv);
     }
 
     public String getCdKeyDocProcessoConserv() {
-	return getString("cd_key_doc_processo_conserv");
+        return getString("cd_key_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -82,11 +82,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setCdRegistroDocProcessoConserv(String cdRegistroDocProcessoConserv) {
-	setObject("cd_registro_doc_processo_conserv", cdRegistroDocProcessoConserv);
+        setObject("cd_registro_doc_processo_conserv", cdRegistroDocProcessoConserv);
     }
 
     public String getCdRegistroDocProcessoConserv() {
-	return getString("cd_registro_doc_processo_conserv");
+        return getString("cd_registro_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -95,11 +95,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setDsDocProcessoConserv(String dsDocProcessoConserv) {
-	setObject("ds_doc_processo_conserv", dsDocProcessoConserv);
+        setObject("ds_doc_processo_conserv", dsDocProcessoConserv);
     }
 
     public String getDsDocProcessoConserv() {
-	return getString("ds_doc_processo_conserv");
+        return getString("ds_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -108,11 +108,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setDtDocProcessoConserv(Timestamp dtDocProcessoConserv) {
-	setObject("dt_doc_processo_conserv", dtDocProcessoConserv);
+        setObject("dt_doc_processo_conserv", dtDocProcessoConserv);
     }
 
     public Timestamp getDtDocProcessoConserv() {
-	return getTimestamp("dt_doc_processo_conserv");
+        return getTimestamp("dt_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -121,11 +121,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setNmFileDocProcessoConserv(String nmFileDocProcessoConserv) {
-	setObject("nm_file_doc_processo_conserv", nmFileDocProcessoConserv);
+        setObject("nm_file_doc_processo_conserv", nmFileDocProcessoConserv);
     }
 
     public String getNmFileDocProcessoConserv() {
-	return getString("nm_file_doc_processo_conserv");
+        return getString("nm_file_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -134,11 +134,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setEnteDocProcessoConserv(String enteDocProcessoConserv) {
-	setObject("ente_doc_processo_conserv", enteDocProcessoConserv);
+        setObject("ente_doc_processo_conserv", enteDocProcessoConserv);
     }
 
     public String getEnteDocProcessoConserv() {
-	return getString("ente_doc_processo_conserv");
+        return getString("ente_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -147,11 +147,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setStrutturaDocProcessoConserv(String strutturaDocProcessoConserv) {
-	setObject("struttura_doc_processo_conserv", strutturaDocProcessoConserv);
+        setObject("struttura_doc_processo_conserv", strutturaDocProcessoConserv);
     }
 
     public String getStrutturaDocProcessoConserv() {
-	return getString("struttura_doc_processo_conserv");
+        return getString("struttura_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -160,11 +160,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setMimeType(String mimeType) {
-	setObject("mimetype", mimeType);
+        setObject("mimetype", mimeType);
     }
 
     public String getMimeType() {
-	return getString("mimetype");
+        return getString("mimetype");
     }
 
     // ===================================================================================
@@ -173,11 +173,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Default DB :
     // ===================================================================================
     public void setPgDocProcessoConserv(BigDecimal pgDocProcessoConserv) {
-	setObject("pg_doc_processo_conserv", pgDocProcessoConserv);
+        setObject("pg_doc_processo_conserv", pgDocProcessoConserv);
     }
 
     public BigDecimal getPgDocProcessoConserv() {
-	return getBigDecimal("pg_doc_processo_conserv");
+        return getBigDecimal("pg_doc_processo_conserv");
     }
 
     // ===================================================================================
@@ -187,20 +187,20 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Nome metodo :
     // ===================================================================================
     public void setIdTipoDocProcessoConserv(BigDecimal idTipoDocProcessoConserv) {
-	setObject("id_tipo_doc_processo_conserv", idTipoDocProcessoConserv);
+        setObject("id_tipo_doc_processo_conserv", idTipoDocProcessoConserv);
     }
 
     public BigDecimal getIdTipoDocProcessoConserv() {
-	return getBigDecimal("id_tipo_doc_processo_conserv");
+        return getBigDecimal("id_tipo_doc_processo_conserv");
     }
 
     // Metodo di convenience per accedere al nome del tipo documento
     public String getNmTipoDoc() {
-	return getString("nm_tipo_doc");
+        return getString("nm_tipo_doc");
     }
 
     public void setNmTipoDoc(String nmTipoDoc) {
-	setObject("nm_tipo_doc", nmTipoDoc);
+        setObject("nm_tipo_doc", nmTipoDoc);
     }
 
     // ===================================================================================
@@ -210,11 +210,11 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Nome metodo :
     // ===================================================================================
     public void setIdEnteSiam(BigDecimal idEnteSiam) {
-	setObject("id_ente_siam", idEnteSiam);
+        setObject("id_ente_siam", idEnteSiam);
     }
 
     public BigDecimal getIdEnteSiam() {
-	return getBigDecimal("id_ente_siam");
+        return getBigDecimal("id_ente_siam");
     }
 
     // ===================================================================================
@@ -224,67 +224,67 @@ public class DecDocProcessoConservRowBean extends BaseRow implements JEEBaseRowI
     // Nome metodo :
     // ===================================================================================
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-	setObject("id_organiz_iam", idOrganizIam);
+        setObject("id_organiz_iam", idOrganizIam);
     }
 
     public BigDecimal getIdOrganizIam() {
-	return getBigDecimal("id_organiz_iam");
+        return getBigDecimal("id_organiz_iam");
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	DecDocProcessoConserv entity = (DecDocProcessoConserv) obj;
-	this.setIdDocProcessoConserv(BigDecimal.valueOf(entity.getIdDocProcessoConserv()));
-	this.setAaDocProcessoConserv(entity.getAaDocProcessoConserv());
-	this.setCdKeyDocProcessoConserv(entity.getCdKeyDocProcessoConserv());
-	this.setCdRegistroDocProcessoConserv(entity.getCdRegistroDocProcessoConserv());
-	this.setDsDocProcessoConserv(entity.getDsDocProcessoConserv());
-	if (entity.getDtDocProcessoConserv() != null) {
-	    this.setDtDocProcessoConserv(new Timestamp(entity.getDtDocProcessoConserv().getTime()));
-	}
-	this.setNmFileDocProcessoConserv(entity.getNmFileDocProcessoConserv());
-	this.setEnteDocProcessoConserv(entity.getEnteDocProcessoConserv());
-	this.setStrutturaDocProcessoConserv(entity.getStrutturaDocProcessoConserv());
-	this.setMimeType(entity.getMimeType());
-	this.setPgDocProcessoConserv(entity.getPgDocProcessoConserv());
+        DecDocProcessoConserv entity = (DecDocProcessoConserv) obj;
+        this.setIdDocProcessoConserv(BigDecimal.valueOf(entity.getIdDocProcessoConserv()));
+        this.setAaDocProcessoConserv(entity.getAaDocProcessoConserv());
+        this.setCdKeyDocProcessoConserv(entity.getCdKeyDocProcessoConserv());
+        this.setCdRegistroDocProcessoConserv(entity.getCdRegistroDocProcessoConserv());
+        this.setDsDocProcessoConserv(entity.getDsDocProcessoConserv());
+        if (entity.getDtDocProcessoConserv() != null) {
+            this.setDtDocProcessoConserv(new Timestamp(entity.getDtDocProcessoConserv().getTime()));
+        }
+        this.setNmFileDocProcessoConserv(entity.getNmFileDocProcessoConserv());
+        this.setEnteDocProcessoConserv(entity.getEnteDocProcessoConserv());
+        this.setStrutturaDocProcessoConserv(entity.getStrutturaDocProcessoConserv());
+        this.setMimeType(entity.getMimeType());
+        this.setPgDocProcessoConserv(entity.getPgDocProcessoConserv());
 
-	// Gestione della nuova relazione con DecTipoDocProcessoConserv
-	if (entity.getDecTipoDocProcessoConserv() != null) {
-	    this.setIdTipoDocProcessoConserv(BigDecimal
-		    .valueOf(entity.getDecTipoDocProcessoConserv().getIdTipoDocProcessoConserv()));
-	    this.setNmTipoDoc(entity.getDecTipoDocProcessoConserv().getNmTipoDoc());
-	}
+        // Gestione della nuova relazione con DecTipoDocProcessoConserv
+        if (entity.getDecTipoDocProcessoConserv() != null) {
+            this.setIdTipoDocProcessoConserv(BigDecimal
+                    .valueOf(entity.getDecTipoDocProcessoConserv().getIdTipoDocProcessoConserv()));
+            this.setNmTipoDoc(entity.getDecTipoDocProcessoConserv().getNmTipoDoc());
+        }
 
-	if (entity.getOrgEnteSiam() != null) {
-	    this.setIdEnteSiam(BigDecimal.valueOf(entity.getOrgEnteSiam().getIdEnteSiam()));
-	}
-	if (entity.getUsrOrganizIam() != null) {
-	    this.setIdOrganizIam(BigDecimal.valueOf(entity.getUsrOrganizIam().getIdOrganizIam()));
-	}
+        if (entity.getOrgEnteSiam() != null) {
+            this.setIdEnteSiam(BigDecimal.valueOf(entity.getOrgEnteSiam().getIdEnteSiam()));
+        }
+        if (entity.getUsrOrganizIam() != null) {
+            this.setIdOrganizIam(BigDecimal.valueOf(entity.getUsrOrganizIam().getIdOrganizIam()));
+        }
     }
 
     @Override
     public DecDocProcessoConserv rowBeanToEntity() {
-	DecDocProcessoConserv entity = new DecDocProcessoConserv();
-	if (this.getIdDocProcessoConserv() != null) {
-	    entity.setIdDocProcessoConserv(this.getIdDocProcessoConserv().longValue());
-	}
-	entity.setAaDocProcessoConserv(this.getAaDocProcessoConserv());
-	entity.setCdKeyDocProcessoConserv(this.getCdKeyDocProcessoConserv());
-	entity.setCdRegistroDocProcessoConserv(this.getCdRegistroDocProcessoConserv());
-	entity.setDsDocProcessoConserv(this.getDsDocProcessoConserv());
-	if (this.getDtDocProcessoConserv() != null) {
-	    entity.setDtDocProcessoConserv(this.getDtDocProcessoConserv());
-	}
-	entity.setNmFileDocProcessoConserv(this.getNmFileDocProcessoConserv());
-	entity.setEnteDocProcessoConserv(this.getEnteDocProcessoConserv());
-	entity.setStrutturaDocProcessoConserv(this.getStrutturaDocProcessoConserv());
-	entity.setMimeType(this.getMimeType());
-	entity.setPgDocProcessoConserv(this.getPgDocProcessoConserv());
+        DecDocProcessoConserv entity = new DecDocProcessoConserv();
+        if (this.getIdDocProcessoConserv() != null) {
+            entity.setIdDocProcessoConserv(this.getIdDocProcessoConserv().longValue());
+        }
+        entity.setAaDocProcessoConserv(this.getAaDocProcessoConserv());
+        entity.setCdKeyDocProcessoConserv(this.getCdKeyDocProcessoConserv());
+        entity.setCdRegistroDocProcessoConserv(this.getCdRegistroDocProcessoConserv());
+        entity.setDsDocProcessoConserv(this.getDsDocProcessoConserv());
+        if (this.getDtDocProcessoConserv() != null) {
+            entity.setDtDocProcessoConserv(this.getDtDocProcessoConserv());
+        }
+        entity.setNmFileDocProcessoConserv(this.getNmFileDocProcessoConserv());
+        entity.setEnteDocProcessoConserv(this.getEnteDocProcessoConserv());
+        entity.setStrutturaDocProcessoConserv(this.getStrutturaDocProcessoConserv());
+        entity.setMimeType(this.getMimeType());
+        entity.setPgDocProcessoConserv(this.getPgDocProcessoConserv());
 
-	// Nota: la relazione con DecTipoDocProcessoConserv deve essere gestita
-	// separatamente attraverso l'EntityManager nel layer di business
+        // Nota: la relazione con DecTipoDocProcessoConserv deve essere gestita
+        // separatamente attraverso l'EntityManager nel layer di business
 
-	return entity;
+        return entity;
     }
 }

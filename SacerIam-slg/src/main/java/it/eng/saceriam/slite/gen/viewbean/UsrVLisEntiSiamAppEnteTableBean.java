@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVLisEntiSiamAppEnteTableBean
-	extends AbstractBaseTable<UsrVLisEntiSiamAppEnteRowBean> {
+        extends AbstractBaseTable<UsrVLisEntiSiamAppEnteRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class UsrVLisEntiSiamAppEnteTableBean
     public static UsrVLisEntiSiamAppEnteTableDescriptor TABLE_DESCRIPTOR = new UsrVLisEntiSiamAppEnteTableDescriptor();
 
     public UsrVLisEntiSiamAppEnteTableBean() {
-	super();
+        super();
     }
 
     protected UsrVLisEntiSiamAppEnteRowBean createRow() {
-	return new UsrVLisEntiSiamAppEnteRowBean();
+        return new UsrVLisEntiSiamAppEnteRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVLisEntiSiamAppEnteRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

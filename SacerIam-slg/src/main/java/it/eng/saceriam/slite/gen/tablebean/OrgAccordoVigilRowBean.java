@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgAccordoVigilRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,206 +38,206 @@ public class OrgAccordoVigilRowBean extends BaseRow
     public static final OrgAccordoVigilTableDescriptor TABLE_DESCRIPTOR = new OrgAccordoVigilTableDescriptor();
 
     public OrgAccordoVigilRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdAccordoVigil() {
-	return getBigDecimal("id_accordo_vigil");
+        return getBigDecimal("id_accordo_vigil");
     }
 
     public void setIdAccordoVigil(BigDecimal idAccordoVigil) {
-	setObject("id_accordo_vigil", idAccordoVigil);
+        setObject("id_accordo_vigil", idAccordoVigil);
     }
 
     public BigDecimal getIdEnteOrganoVigil() {
-	return getBigDecimal("id_ente_organo_vigil");
+        return getBigDecimal("id_ente_organo_vigil");
     }
 
     public void setIdEnteOrganoVigil(BigDecimal idEnteOrganoVigil) {
-	setObject("id_ente_organo_vigil", idEnteOrganoVigil);
+        setObject("id_ente_organo_vigil", idEnteOrganoVigil);
     }
 
     public BigDecimal getIdEnteConserv() {
-	return getBigDecimal("id_ente_conserv");
+        return getBigDecimal("id_ente_conserv");
     }
 
     public void setIdEnteConserv(BigDecimal idEnteConserv) {
-	setObject("id_ente_conserv", idEnteConserv);
+        setObject("id_ente_conserv", idEnteConserv);
     }
 
     public Timestamp getDtIniVal() {
-	return getTimestamp("dt_ini_val");
+        return getTimestamp("dt_ini_val");
     }
 
     public void setDtIniVal(Timestamp dtIniVal) {
-	setObject("dt_ini_val", dtIniVal);
+        setObject("dt_ini_val", dtIniVal);
     }
 
     public Timestamp getDtFinVal() {
-	return getTimestamp("dt_fin_val");
+        return getTimestamp("dt_fin_val");
     }
 
     public void setDtFinVal(Timestamp dtFinVal) {
-	setObject("dt_fin_val", dtFinVal);
+        setObject("dt_fin_val", dtFinVal);
     }
 
     public String getDsNoteEnteAccordo() {
-	return getString("ds_note_ente_accordo");
+        return getString("ds_note_ente_accordo");
     }
 
     public void setDsNoteEnteAccordo(String dsNoteEnteAccordo) {
-	setObject("ds_note_ente_accordo", dsNoteEnteAccordo);
+        setObject("ds_note_ente_accordo", dsNoteEnteAccordo);
     }
 
     public String getCdRegistroRepertorio() {
-	return getString("cd_registro_repertorio");
+        return getString("cd_registro_repertorio");
     }
 
     public void setCdRegistroRepertorio(String cdRegistroRepertorio) {
-	setObject("cd_registro_repertorio", cdRegistroRepertorio);
+        setObject("cd_registro_repertorio", cdRegistroRepertorio);
     }
 
     public BigDecimal getAaRepertorio() {
-	return getBigDecimal("aa_repertorio");
+        return getBigDecimal("aa_repertorio");
     }
 
     public void setAaRepertorio(BigDecimal aaRepertorio) {
-	setObject("aa_repertorio", aaRepertorio);
+        setObject("aa_repertorio", aaRepertorio);
     }
 
     public String getCdKeyRepertorio() {
-	return getString("cd_key_repertorio");
+        return getString("cd_key_repertorio");
     }
 
     public void setCdKeyRepertorio(String cdKeyRepertorio) {
-	setObject("cd_key_repertorio", cdKeyRepertorio);
+        setObject("cd_key_repertorio", cdKeyRepertorio);
     }
 
     public String getDsFirmatarioEnte() {
-	return getString("ds_firmatario_ente");
+        return getString("ds_firmatario_ente");
     }
 
     public void setDsFirmatarioEnte(String dsFirmatarioEnte) {
-	setObject("ds_firmatario_ente", dsFirmatarioEnte);
+        setObject("ds_firmatario_ente", dsFirmatarioEnte);
     }
 
     public Timestamp getDtRegAccordo() {
-	return getTimestamp("dt_reg_accordo");
+        return getTimestamp("dt_reg_accordo");
     }
 
     public void setDtRegAccordo(Timestamp dtRegAccordo) {
-	setObject("dt_reg_accordo", dtRegAccordo);
+        setObject("dt_reg_accordo", dtRegAccordo);
     }
 
     public String getNmEnte() {
-	return getString("nm_ente");
+        return getString("nm_ente");
     }
 
     public void setNmEnte(String nmEnte) {
-	setObject("nm_ente", nmEnte);
+        setObject("nm_ente", nmEnte);
     }
 
     public String getNmStrut() {
-	return getString("nm_strut");
+        return getString("nm_strut");
     }
 
     public void setNmStrut(String nmStrut) {
-	setObject("nm_strut", nmStrut);
+        setObject("nm_strut", nmStrut);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgAccordoVigil entity = (OrgAccordoVigil) obj;
-	this.setIdAccordoVigil(new BigDecimal(entity.getIdAccordoVigil()));
-	if (entity.getOrgEnteSiamByIdEnteOrganoVigil() != null) {
-	    this.setIdEnteOrganoVigil(
-		    new BigDecimal(entity.getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam()));
+        OrgAccordoVigil entity = (OrgAccordoVigil) obj;
+        this.setIdAccordoVigil(new BigDecimal(entity.getIdAccordoVigil()));
+        if (entity.getOrgEnteSiamByIdEnteOrganoVigil() != null) {
+            this.setIdEnteOrganoVigil(
+                    new BigDecimal(entity.getOrgEnteSiamByIdEnteOrganoVigil().getIdEnteSiam()));
 
-	}
-	if (entity.getOrgEnteSiamByIdEnteConserv() != null) {
-	    this.setIdEnteConserv(
-		    new BigDecimal(entity.getOrgEnteSiamByIdEnteConserv().getIdEnteSiam()));
-	}
+        }
+        if (entity.getOrgEnteSiamByIdEnteConserv() != null) {
+            this.setIdEnteConserv(
+                    new BigDecimal(entity.getOrgEnteSiamByIdEnteConserv().getIdEnteSiam()));
+        }
 
-	if (entity.getDtIniVal() != null) {
-	    this.setDtIniVal(new Timestamp(entity.getDtIniVal().getTime()));
-	}
-	if (entity.getDtFinVal() != null) {
-	    this.setDtFinVal(new Timestamp(entity.getDtFinVal().getTime()));
-	}
-	this.setDsNoteEnteAccordo(entity.getDsNoteEnteAccordo());
-	this.setCdRegistroRepertorio(entity.getCdRegistroRepertorio());
-	this.setAaRepertorio(entity.getAaRepertorio());
-	this.setCdKeyRepertorio(entity.getCdKeyRepertorio());
-	this.setDsFirmatarioEnte(entity.getDsFirmatarioEnte());
-	if (entity.getDtRegAccordo() != null) {
-	    this.setDtRegAccordo(new Timestamp(entity.getDtRegAccordo().getTime()));
-	}
-	this.setNmEnte(entity.getNmEnte());
-	this.setNmStrut(entity.getNmStrut());
+        if (entity.getDtIniVal() != null) {
+            this.setDtIniVal(new Timestamp(entity.getDtIniVal().getTime()));
+        }
+        if (entity.getDtFinVal() != null) {
+            this.setDtFinVal(new Timestamp(entity.getDtFinVal().getTime()));
+        }
+        this.setDsNoteEnteAccordo(entity.getDsNoteEnteAccordo());
+        this.setCdRegistroRepertorio(entity.getCdRegistroRepertorio());
+        this.setAaRepertorio(entity.getAaRepertorio());
+        this.setCdKeyRepertorio(entity.getCdKeyRepertorio());
+        this.setDsFirmatarioEnte(entity.getDsFirmatarioEnte());
+        if (entity.getDtRegAccordo() != null) {
+            this.setDtRegAccordo(new Timestamp(entity.getDtRegAccordo().getTime()));
+        }
+        this.setNmEnte(entity.getNmEnte());
+        this.setNmStrut(entity.getNmStrut());
     }
 
     @Override
     public OrgAccordoVigil rowBeanToEntity() {
-	OrgAccordoVigil entity = new OrgAccordoVigil();
-	if (this.getIdAccordoVigil() != null) {
-	    entity.setIdAccordoVigil(this.getIdAccordoVigil().longValue());
-	}
-	if (this.getIdEnteOrganoVigil() != null) {
-	    if (entity.getOrgEnteSiamByIdEnteOrganoVigil() == null) {
-		entity.setOrgEnteSiamByIdEnteOrganoVigil(new OrgEnteSiam());
-	    }
-	    entity.getOrgEnteSiamByIdEnteOrganoVigil()
-		    .setIdEnteSiam(this.getIdEnteOrganoVigil().longValue());
-	}
-	if (this.getIdEnteConserv() != null) {
-	    if (entity.getOrgEnteSiamByIdEnteConserv() == null) {
-		entity.setOrgEnteSiamByIdEnteConserv(new OrgEnteSiam());
-	    }
-	    entity.getOrgEnteSiamByIdEnteConserv()
-		    .setIdEnteSiam(this.getIdEnteConserv().longValue());
-	}
-	entity.setDtIniVal(this.getDtIniVal());
-	entity.setDtFinVal(this.getDtFinVal());
-	entity.setDsNoteEnteAccordo(this.getDsNoteEnteAccordo());
-	entity.setCdRegistroRepertorio(this.getCdRegistroRepertorio());
-	entity.setAaRepertorio(this.getAaRepertorio());
-	entity.setCdKeyRepertorio(this.getCdKeyRepertorio());
-	entity.setDsFirmatarioEnte(this.getDsFirmatarioEnte());
-	entity.setDtRegAccordo(this.getDtRegAccordo());
-	entity.setNmEnte(this.getNmEnte());
-	entity.setNmStrut(this.getNmStrut());
-	return entity;
+        OrgAccordoVigil entity = new OrgAccordoVigil();
+        if (this.getIdAccordoVigil() != null) {
+            entity.setIdAccordoVigil(this.getIdAccordoVigil().longValue());
+        }
+        if (this.getIdEnteOrganoVigil() != null) {
+            if (entity.getOrgEnteSiamByIdEnteOrganoVigil() == null) {
+                entity.setOrgEnteSiamByIdEnteOrganoVigil(new OrgEnteSiam());
+            }
+            entity.getOrgEnteSiamByIdEnteOrganoVigil()
+                    .setIdEnteSiam(this.getIdEnteOrganoVigil().longValue());
+        }
+        if (this.getIdEnteConserv() != null) {
+            if (entity.getOrgEnteSiamByIdEnteConserv() == null) {
+                entity.setOrgEnteSiamByIdEnteConserv(new OrgEnteSiam());
+            }
+            entity.getOrgEnteSiamByIdEnteConserv()
+                    .setIdEnteSiam(this.getIdEnteConserv().longValue());
+        }
+        entity.setDtIniVal(this.getDtIniVal());
+        entity.setDtFinVal(this.getDtFinVal());
+        entity.setDsNoteEnteAccordo(this.getDsNoteEnteAccordo());
+        entity.setCdRegistroRepertorio(this.getCdRegistroRepertorio());
+        entity.setAaRepertorio(this.getAaRepertorio());
+        entity.setCdKeyRepertorio(this.getCdKeyRepertorio());
+        entity.setDsFirmatarioEnte(this.getDsFirmatarioEnte());
+        entity.setDtRegAccordo(this.getDtRegAccordo());
+        entity.setNmEnte(this.getNmEnte());
+        entity.setNmStrut(this.getNmStrut());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

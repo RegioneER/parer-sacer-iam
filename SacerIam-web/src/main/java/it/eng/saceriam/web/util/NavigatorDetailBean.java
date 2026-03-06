@@ -29,43 +29,43 @@ public class NavigatorDetailBean {
     int level = 1;
 
     public NavigatorDetailBean(BigDecimal idObject, String sourceList,
-	    BaseTableInterface<?> sourceTable, int level) {
-	this.idObject = idObject;
-	this.sourceTable = sourceTable;
-	this.sourceList = sourceList;
-	this.level = level;
+            BaseTableInterface<?> sourceTable, int level) {
+        this.idObject = idObject;
+        this.sourceTable = sourceTable;
+        this.sourceList = sourceList;
+        this.level = level;
     }
 
     public BigDecimal getIdObject() {
-	return idObject;
+        return idObject;
     }
 
     public void setIdObject(BigDecimal idObject) {
-	this.idObject = idObject;
+        this.idObject = idObject;
     }
 
     public String getSourceList() {
-	return sourceList;
+        return sourceList;
     }
 
     public void setSourceList(String sourceList) {
-	this.sourceList = sourceList;
+        this.sourceList = sourceList;
     }
 
     public BaseTableInterface<?> getSourceTable() {
-	return sourceTable;
+        return sourceTable;
     }
 
     public void setSourceTable(BaseTableInterface<?> sourceTable) {
-	this.sourceTable = sourceTable;
+        this.sourceTable = sourceTable;
     }
 
     public void addLevel() {
-	this.level++;
+        this.level++;
     }
 
     public int getLevel() {
-	return level;
+        return level;
     }
 
 }

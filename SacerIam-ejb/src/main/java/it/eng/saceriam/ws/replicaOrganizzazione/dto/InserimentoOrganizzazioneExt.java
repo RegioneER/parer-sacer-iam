@@ -26,27 +26,27 @@ public class InserimentoOrganizzazioneExt {
     private InserimentoOrganizzazioneInput inserimentoOrganizzazioneInput;
 
     public IWSDesc getDescrizione() {
-	return descrizione;
+        return descrizione;
     }
 
     public void setDescrizione(IWSDesc descrizione) {
-	this.descrizione = descrizione;
+        this.descrizione = descrizione;
     }
 
     public Long getIdApplic() {
-	return idApplic;
+        return idApplic;
     }
 
     public void setIdApplic(Long idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     public InserimentoOrganizzazioneInput getInserimentoOrganizzazioneInput() {
-	return inserimentoOrganizzazioneInput;
+        return inserimentoOrganizzazioneInput;
     }
 
     public void setInserimentoOrganizzazioneInput(
-	    InserimentoOrganizzazioneInput inserimentoOrganizzazioneInput) {
-	this.inserimentoOrganizzazioneInput = inserimentoOrganizzazioneInput;
+            InserimentoOrganizzazioneInput inserimentoOrganizzazioneInput) {
+        this.inserimentoOrganizzazioneInput = inserimentoOrganizzazioneInput;
     }
 }

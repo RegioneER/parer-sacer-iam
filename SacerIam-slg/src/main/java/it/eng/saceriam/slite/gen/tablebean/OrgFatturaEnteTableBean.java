@@ -32,19 +32,19 @@ public class OrgFatturaEnteTableBean extends AbstractBaseTable<OrgFatturaEnteRow
     public static OrgFatturaEnteTableDescriptor TABLE_DESCRIPTOR = new OrgFatturaEnteTableDescriptor();
 
     public OrgFatturaEnteTableBean() {
-	super();
+        super();
     }
 
     protected OrgFatturaEnteRowBean createRow() {
-	return new OrgFatturaEnteRowBean();
+        return new OrgFatturaEnteRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgFatturaEnteRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

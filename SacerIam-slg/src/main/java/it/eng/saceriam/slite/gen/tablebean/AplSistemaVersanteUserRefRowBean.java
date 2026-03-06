@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplSistemaVersanteUserRefRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,98 +38,98 @@ public class AplSistemaVersanteUserRefRowBean extends BaseRow
     public static AplSistemaVersanteUserRefTableDescriptor TABLE_DESCRIPTOR = new AplSistemaVersanteUserRefTableDescriptor();
 
     public AplSistemaVersanteUserRefRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdSistemaVersanteUserRef() {
-	return getBigDecimal("id_sistema_versante_user_ref");
+        return getBigDecimal("id_sistema_versante_user_ref");
     }
 
     public void setIdSistemaVersanteUserRef(BigDecimal idSistemaVersanteUserRef) {
-	setObject("id_sistema_versante_user_ref", idSistemaVersanteUserRef);
+        setObject("id_sistema_versante_user_ref", idSistemaVersanteUserRef);
     }
 
     public BigDecimal getIdSistemaVersante() {
-	return getBigDecimal("id_sistema_versante");
+        return getBigDecimal("id_sistema_versante");
     }
 
     public void setIdSistemaVersante(BigDecimal idSistemaVersante) {
-	setObject("id_sistema_versante", idSistemaVersante);
+        setObject("id_sistema_versante", idSistemaVersante);
     }
 
     public BigDecimal getIdUserIamRef() {
-	return getBigDecimal("id_user_iam_ref");
+        return getBigDecimal("id_user_iam_ref");
     }
 
     public void setIdUserIamRef(BigDecimal idUserIamRef) {
-	setObject("id_user_iam_ref", idUserIamRef);
+        setObject("id_user_iam_ref", idUserIamRef);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplSistemaVersanteUserRef entity = (AplSistemaVersanteUserRef) obj;
-	this.setIdSistemaVersanteUserRef(new BigDecimal(entity.getIdSistemaVersanteUserRef()));
-	if (entity.getAplSistemaVersante() != null) {
-	    this.setIdSistemaVersante(
-		    new BigDecimal(entity.getAplSistemaVersante().getIdSistemaVersante()));
+        AplSistemaVersanteUserRef entity = (AplSistemaVersanteUserRef) obj;
+        this.setIdSistemaVersanteUserRef(new BigDecimal(entity.getIdSistemaVersanteUserRef()));
+        if (entity.getAplSistemaVersante() != null) {
+            this.setIdSistemaVersante(
+                    new BigDecimal(entity.getAplSistemaVersante().getIdSistemaVersante()));
 
-	}
-	if (entity.getUsrUser() != null) {
-	    this.setIdUserIamRef(new BigDecimal(entity.getUsrUser().getIdUserIam()));
+        }
+        if (entity.getUsrUser() != null) {
+            this.setIdUserIamRef(new BigDecimal(entity.getUsrUser().getIdUserIam()));
 
-	}
+        }
     }
 
     @Override
     public AplSistemaVersanteUserRef rowBeanToEntity() {
-	AplSistemaVersanteUserRef entity = new AplSistemaVersanteUserRef();
-	if (this.getIdSistemaVersanteUserRef() != null) {
-	    entity.setIdSistemaVersanteUserRef(this.getIdSistemaVersanteUserRef().longValue());
-	}
-	if (this.getIdSistemaVersante() != null) {
-	    if (entity.getAplSistemaVersante() == null) {
-		entity.setAplSistemaVersante(new AplSistemaVersante());
-	    }
-	    entity.getAplSistemaVersante()
-		    .setIdSistemaVersante(this.getIdSistemaVersante().longValue());
-	}
-	if (this.getIdUserIamRef() != null) {
-	    if (entity.getUsrUser() == null) {
-		entity.setUsrUser(new UsrUser());
-	    }
-	    entity.getUsrUser().setIdUserIam(this.getIdUserIamRef().longValue());
-	}
-	return entity;
+        AplSistemaVersanteUserRef entity = new AplSistemaVersanteUserRef();
+        if (this.getIdSistemaVersanteUserRef() != null) {
+            entity.setIdSistemaVersanteUserRef(this.getIdSistemaVersanteUserRef().longValue());
+        }
+        if (this.getIdSistemaVersante() != null) {
+            if (entity.getAplSistemaVersante() == null) {
+                entity.setAplSistemaVersante(new AplSistemaVersante());
+            }
+            entity.getAplSistemaVersante()
+                    .setIdSistemaVersante(this.getIdSistemaVersante().longValue());
+        }
+        if (this.getIdUserIamRef() != null) {
+            if (entity.getUsrUser() == null) {
+                entity.setUsrUser(new UsrUser());
+            }
+            entity.getUsrUser().setIdUserIam(this.getIdUserIamRef().longValue());
+        }
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVServSistVersDaErogTableBean
-	extends AbstractBaseTable<OrgVServSistVersDaErogRowBean> {
+        extends AbstractBaseTable<OrgVServSistVersDaErogRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVServSistVersDaErogTableBean
     public static OrgVServSistVersDaErogTableDescriptor TABLE_DESCRIPTOR = new OrgVServSistVersDaErogTableDescriptor();
 
     public OrgVServSistVersDaErogTableBean() {
-	super();
+        super();
     }
 
     protected OrgVServSistVersDaErogRowBean createRow() {
-	return new OrgVServSistVersDaErogRowBean();
+        return new OrgVServSistVersDaErogRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVServSistVersDaErogRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -29,7 +29,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVigilEnteProdutRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -39,121 +39,121 @@ public class OrgVigilEnteProdutRowBean extends BaseRow
     public static OrgVigilEnteProdutTableDescriptor TABLE_DESCRIPTOR = new OrgVigilEnteProdutTableDescriptor();
 
     public OrgVigilEnteProdutRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdVigilEnteProdut() {
-	return getBigDecimal("id_vigil_ente_produt");
+        return getBigDecimal("id_vigil_ente_produt");
     }
 
     public void setIdVigilEnteProdut(BigDecimal idVigilEnteProdut) {
-	setObject("id_vigil_ente_produt", idVigilEnteProdut);
+        setObject("id_vigil_ente_produt", idVigilEnteProdut);
     }
 
     public BigDecimal getIdAccordoVigil() {
-	return getBigDecimal("id_accordo_vigil");
+        return getBigDecimal("id_accordo_vigil");
     }
 
     public void setIdAccordoVigil(BigDecimal idAccordoVigil) {
-	setObject("id_accordo_vigil", idAccordoVigil);
+        setObject("id_accordo_vigil", idAccordoVigil);
     }
 
     public BigDecimal getIdEnteProdut() {
-	return getBigDecimal("id_ente_produt");
+        return getBigDecimal("id_ente_produt");
     }
 
     public void setIdEnteProdut(BigDecimal idEnteProdut) {
-	setObject("id_ente_produt", idEnteProdut);
+        setObject("id_ente_produt", idEnteProdut);
     }
 
     public Timestamp getDtIniVal() {
-	return getTimestamp("dt_ini_val");
+        return getTimestamp("dt_ini_val");
     }
 
     public void setDtIniVal(Timestamp dtIniVal) {
-	setObject("dt_ini_val", dtIniVal);
+        setObject("dt_ini_val", dtIniVal);
     }
 
     public Timestamp getDtFinVal() {
-	return getTimestamp("dt_fin_val");
+        return getTimestamp("dt_fin_val");
     }
 
     public void setDtFinVal(Timestamp dtFinVal) {
-	setObject("dt_fin_val", dtFinVal);
+        setObject("dt_fin_val", dtFinVal);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgVigilEnteProdut entity = (OrgVigilEnteProdut) obj;
-	this.setIdVigilEnteProdut(new BigDecimal(entity.getIdVigilEnteProdut()));
+        OrgVigilEnteProdut entity = (OrgVigilEnteProdut) obj;
+        this.setIdVigilEnteProdut(new BigDecimal(entity.getIdVigilEnteProdut()));
 
-	if (entity.getOrgAccordoVigil() != null) {
-	    this.setIdAccordoVigil(new BigDecimal(entity.getOrgAccordoVigil().getIdAccordoVigil()));
-	}
+        if (entity.getOrgAccordoVigil() != null) {
+            this.setIdAccordoVigil(new BigDecimal(entity.getOrgAccordoVigil().getIdAccordoVigil()));
+        }
 
-	if (entity.getOrgEnteSiam() != null) {
-	    this.setIdEnteProdut(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
-	}
+        if (entity.getOrgEnteSiam() != null) {
+            this.setIdEnteProdut(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
+        }
 
-	if (entity.getDtIniVal() != null) {
-	    this.setDtIniVal(new Timestamp(entity.getDtIniVal().getTime()));
-	}
-	if (entity.getDtFinVal() != null) {
-	    this.setDtFinVal(new Timestamp(entity.getDtFinVal().getTime()));
-	}
+        if (entity.getDtIniVal() != null) {
+            this.setDtIniVal(new Timestamp(entity.getDtIniVal().getTime()));
+        }
+        if (entity.getDtFinVal() != null) {
+            this.setDtFinVal(new Timestamp(entity.getDtFinVal().getTime()));
+        }
     }
 
     @Override
     public OrgVigilEnteProdut rowBeanToEntity() {
-	OrgVigilEnteProdut entity = new OrgVigilEnteProdut();
-	if (this.getIdVigilEnteProdut() != null) {
-	    entity.setIdVigilEnteProdut(this.getIdVigilEnteProdut().longValue());
-	}
-	if (this.getIdAccordoVigil() != null) {
-	    if (entity.getOrgAccordoVigil() == null) {
-		entity.setOrgAccordoVigil(new OrgAccordoVigil());
-	    }
-	    entity.getOrgAccordoVigil().setIdAccordoVigil(this.getIdAccordoVigil().longValue());
-	}
-	if (this.getIdEnteProdut() != null) {
-	    if (entity.getOrgEnteSiam() == null) {
-		entity.setOrgEnteSiam(new OrgEnteSiam());
-	    }
-	    entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteProdut().longValue());
-	}
-	entity.setDtIniVal(this.getDtIniVal());
-	entity.setDtFinVal(this.getDtFinVal());
-	return entity;
+        OrgVigilEnteProdut entity = new OrgVigilEnteProdut();
+        if (this.getIdVigilEnteProdut() != null) {
+            entity.setIdVigilEnteProdut(this.getIdVigilEnteProdut().longValue());
+        }
+        if (this.getIdAccordoVigil() != null) {
+            if (entity.getOrgAccordoVigil() == null) {
+                entity.setOrgAccordoVigil(new OrgAccordoVigil());
+            }
+            entity.getOrgAccordoVigil().setIdAccordoVigil(this.getIdAccordoVigil().longValue());
+        }
+        if (this.getIdEnteProdut() != null) {
+            if (entity.getOrgEnteSiam() == null) {
+                entity.setOrgEnteSiam(new OrgEnteSiam());
+            }
+            entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteProdut().longValue());
+        }
+        entity.setDtIniVal(this.getDtIniVal());
+        entity.setDtFinVal(this.getDtFinVal());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

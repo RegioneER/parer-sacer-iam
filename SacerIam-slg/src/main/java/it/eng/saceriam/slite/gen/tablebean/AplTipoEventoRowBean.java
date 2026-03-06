@@ -36,118 +36,118 @@ public class AplTipoEventoRowBean extends BaseRow implements BaseRowInterface, J
     public static AplTipoEventoTableDescriptor TABLE_DESCRIPTOR = new AplTipoEventoTableDescriptor();
 
     public AplTipoEventoRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdTipoEvento() {
-	return getBigDecimal("id_tipo_evento");
+        return getBigDecimal("id_tipo_evento");
     }
 
     public void setIdTipoEvento(BigDecimal idTipoEvento) {
-	setObject("id_tipo_evento", idTipoEvento);
+        setObject("id_tipo_evento", idTipoEvento);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getNmTipoEvento() {
-	return getString("nm_tipo_evento");
+        return getString("nm_tipo_evento");
     }
 
     public void setNmTipoEvento(String nmTipoEvento) {
-	setObject("nm_tipo_evento", nmTipoEvento);
+        setObject("nm_tipo_evento", nmTipoEvento);
     }
 
     public String getTipoOrigineEvento() {
-	return getString("tipo_origine_evento");
+        return getString("tipo_origine_evento");
     }
 
     public void setTipoOrigineEvento(String tipoOrigineEvento) {
-	setObject("tipo_origine_evento", tipoOrigineEvento);
+        setObject("tipo_origine_evento", tipoOrigineEvento);
     }
 
     public String getTipoClasseEvento() {
-	return getString("tipo_classe_evento");
+        return getString("tipo_classe_evento");
     }
 
     public void setTipoClasseEvento(String tipoClasseEvento) {
-	setObject("tipo_classe_evento", tipoClasseEvento);
+        setObject("tipo_classe_evento", tipoClasseEvento);
     }
 
     public String getTipoClassePremisEvento() {
-	return getString("tipo_classe_premis_evento");
+        return getString("tipo_classe_premis_evento");
     }
 
     public void setTipoClassePremisEvento(String tipoClassePremisEvento) {
-	setObject("tipo_classe_premis_evento", tipoClassePremisEvento);
+        setObject("tipo_classe_premis_evento", tipoClassePremisEvento);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplTipoEvento entity = (AplTipoEvento) obj;
-	this.setIdTipoEvento(new BigDecimal(entity.getIdTipoEvento()));
-	if (entity.getAplApplic() != null) {
-	    this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
+        AplTipoEvento entity = (AplTipoEvento) obj;
+        this.setIdTipoEvento(new BigDecimal(entity.getIdTipoEvento()));
+        if (entity.getAplApplic() != null) {
+            this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
 
-	}
-	this.setNmTipoEvento(entity.getNmTipoEvento());
-	this.setTipoOrigineEvento(entity.getTipoOrigineEvento());
-	this.setTipoClasseEvento(entity.getTipoClasseEvento());
-	this.setTipoClassePremisEvento(entity.getTipoClassePremisEvento());
+        }
+        this.setNmTipoEvento(entity.getNmTipoEvento());
+        this.setTipoOrigineEvento(entity.getTipoOrigineEvento());
+        this.setTipoClasseEvento(entity.getTipoClasseEvento());
+        this.setTipoClassePremisEvento(entity.getTipoClassePremisEvento());
     }
 
     @Override
     public AplTipoEvento rowBeanToEntity() {
-	AplTipoEvento entity = new AplTipoEvento();
-	if (this.getIdTipoEvento() != null) {
-	    entity.setIdTipoEvento(this.getIdTipoEvento().longValue());
-	}
-	if (this.getIdApplic() != null) {
-	    if (entity.getAplApplic() == null) {
-		entity.setAplApplic(new AplApplic());
-	    }
-	    entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
-	}
-	entity.setNmTipoEvento(this.getNmTipoEvento());
-	entity.setTipoOrigineEvento(this.getTipoOrigineEvento());
-	entity.setTipoClasseEvento(this.getTipoClasseEvento());
-	entity.setTipoClassePremisEvento(this.getTipoClassePremisEvento());
-	return entity;
+        AplTipoEvento entity = new AplTipoEvento();
+        if (this.getIdTipoEvento() != null) {
+            entity.setIdTipoEvento(this.getIdTipoEvento().longValue());
+        }
+        if (this.getIdApplic() != null) {
+            if (entity.getAplApplic() == null) {
+                entity.setAplApplic(new AplApplic());
+            }
+            entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
+        }
+        entity.setNmTipoEvento(this.getNmTipoEvento());
+        entity.setTipoOrigineEvento(this.getTipoOrigineEvento());
+        entity.setTipoClasseEvento(this.getTipoClasseEvento());
+        entity.setTipoClassePremisEvento(this.getTipoClassePremisEvento());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -32,19 +32,19 @@ public class NtfNotificaTableBean extends AbstractBaseTable<NtfNotificaRowBean> 
     public static NtfNotificaTableDescriptor TABLE_DESCRIPTOR = new NtfNotificaTableDescriptor();
 
     public NtfNotificaTableBean() {
-	super();
+        super();
     }
 
     protected NtfNotificaRowBean createRow() {
-	return new NtfNotificaRowBean();
+        return new NtfNotificaRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<NtfNotificaRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

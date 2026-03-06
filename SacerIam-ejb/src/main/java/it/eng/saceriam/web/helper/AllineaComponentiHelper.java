@@ -40,9 +40,9 @@ import it.eng.saceriam.web.util.Transform;
 public class AllineaComponentiHelper {
 
     public AllineaComponentiHelper() {
-	/**
-	 * Default constructor.
-	 */
+        /**
+         * Default constructor.
+         */
     }
 
     private static final Logger log = LoggerFactory.getLogger(AllineaComponentiHelper.class);
@@ -51,36 +51,36 @@ public class AllineaComponentiHelper {
     private EntityManager em;
 
     public AplApplicTableBean getAplApplicTableBean() {
-	String queryStr = "SELECT applic FROM AplApplic applic ORDER BY applic.nmApplic";
-	Query q = em.createQuery(queryStr);
-	List<AplApplic> applicList = q.getResultList();
-	AplApplicTableBean applicTableBean = new AplApplicTableBean();
-	try {
-	    if (applicList != null && !applicList.isEmpty()) {
-		applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return applicTableBean;
+        String queryStr = "SELECT applic FROM AplApplic applic ORDER BY applic.nmApplic";
+        Query q = em.createQuery(queryStr);
+        List<AplApplic> applicList = q.getResultList();
+        AplApplicTableBean applicTableBean = new AplApplicTableBean();
+        try {
+            if (applicList != null && !applicList.isEmpty()) {
+                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return applicTableBean;
     }
 
     public AplApplicRowBean getAplApplicRowBean(String nmApplic) {
-	AplApplicRowBean row = null;
-	Query q = em.createQuery(
-		"SELECT applic FROM AplApplic applic WHERE applic.nmApplic = :nmApplic");
-	q.setParameter("nmApplic", nmApplic);
-	List<AplApplic> applicList = q.getResultList();
-	if (applicList != null && !applicList.isEmpty()) {
-	    try {
-		row = (AplApplicRowBean) Transform.entity2RowBean(applicList.get(0));
-	    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
-		    | IllegalAccessException | IllegalArgumentException
-		    | InvocationTargetException ex) {
-		throw new IllegalStateException("Impossibile recuperare l'applicazione");
-	    }
-	}
-	return row;
+        AplApplicRowBean row = null;
+        Query q = em.createQuery(
+                "SELECT applic FROM AplApplic applic WHERE applic.nmApplic = :nmApplic");
+        q.setParameter("nmApplic", nmApplic);
+        List<AplApplic> applicList = q.getResultList();
+        if (applicList != null && !applicList.isEmpty()) {
+            try {
+                row = (AplApplicRowBean) Transform.entity2RowBean(applicList.get(0));
+            } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
+                    | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException ex) {
+                throw new IllegalStateException("Impossibile recuperare l'applicazione");
+            }
+        }
+        return row;
     }
 
 }

@@ -43,25 +43,25 @@ public class OrgVCalcTotFattTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_FATTURA_ENTE,
-		new ColumnDescriptor(COL_ID_FATTURA_ENTE, Types.DECIMAL, 22, true));
-	map.put(COL_IM_TOT_FATTURA,
-		new ColumnDescriptor(COL_IM_TOT_FATTURA, Types.DECIMAL, 22, true));
-	map.put(COL_IM_TOT_DA_PAGARE,
-		new ColumnDescriptor(COL_IM_TOT_DA_PAGARE, Types.DECIMAL, 22, true));
-	map.put(COL_IM_TOT_IVA, new ColumnDescriptor(COL_IM_TOT_IVA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_FATTURA_ENTE,
+                new ColumnDescriptor(COL_ID_FATTURA_ENTE, Types.DECIMAL, 22, true));
+        map.put(COL_IM_TOT_FATTURA,
+                new ColumnDescriptor(COL_IM_TOT_FATTURA, Types.DECIMAL, 22, true));
+        map.put(COL_IM_TOT_DA_PAGARE,
+                new ColumnDescriptor(COL_IM_TOT_DA_PAGARE, Types.DECIMAL, 22, true));
+        map.put(COL_IM_TOT_IVA, new ColumnDescriptor(COL_IM_TOT_IVA, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

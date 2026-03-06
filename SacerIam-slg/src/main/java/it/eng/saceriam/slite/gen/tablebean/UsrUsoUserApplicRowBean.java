@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrUsoUserApplicRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,96 +38,96 @@ public class UsrUsoUserApplicRowBean extends BaseRow
     public static UsrUsoUserApplicTableDescriptor TABLE_DESCRIPTOR = new UsrUsoUserApplicTableDescriptor();
 
     public UsrUsoUserApplicRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdUsoUserApplic() {
-	return getBigDecimal("id_uso_user_applic");
+        return getBigDecimal("id_uso_user_applic");
     }
 
     public void setIdUsoUserApplic(BigDecimal idUsoUserApplic) {
-	setObject("id_uso_user_applic", idUsoUserApplic);
+        setObject("id_uso_user_applic", idUsoUserApplic);
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrUsoUserApplic entity = (UsrUsoUserApplic) obj;
-	this.setIdUsoUserApplic(new BigDecimal(entity.getIdUsoUserApplic()));
-	if (entity.getUsrUser() != null) {
-	    this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
+        UsrUsoUserApplic entity = (UsrUsoUserApplic) obj;
+        this.setIdUsoUserApplic(new BigDecimal(entity.getIdUsoUserApplic()));
+        if (entity.getUsrUser() != null) {
+            this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
 
-	}
-	if (entity.getAplApplic() != null) {
-	    this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
+        }
+        if (entity.getAplApplic() != null) {
+            this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
 
-	}
+        }
     }
 
     @Override
     public UsrUsoUserApplic rowBeanToEntity() {
-	UsrUsoUserApplic entity = new UsrUsoUserApplic();
-	if (this.getIdUsoUserApplic() != null) {
-	    entity.setIdUsoUserApplic(this.getIdUsoUserApplic().longValue());
-	}
-	if (this.getIdUserIam() != null) {
-	    if (entity.getUsrUser() == null) {
-		entity.setUsrUser(new UsrUser());
-	    }
-	    entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
-	}
-	if (this.getIdApplic() != null) {
-	    if (entity.getAplApplic() == null) {
-		entity.setAplApplic(new AplApplic());
-	    }
-	    entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
-	}
-	return entity;
+        UsrUsoUserApplic entity = new UsrUsoUserApplic();
+        if (this.getIdUsoUserApplic() != null) {
+            entity.setIdUsoUserApplic(this.getIdUsoUserApplic().longValue());
+        }
+        if (this.getIdUserIam() != null) {
+            if (entity.getUsrUser() == null) {
+                entity.setUsrUser(new UsrUser());
+            }
+            entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
+        }
+        if (this.getIdApplic() != null) {
+            if (entity.getAplApplic() == null) {
+                entity.setAplApplic(new AplApplic());
+            }
+            entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
+        }
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

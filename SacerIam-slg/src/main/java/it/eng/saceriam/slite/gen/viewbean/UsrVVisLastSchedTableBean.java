@@ -36,19 +36,19 @@ public class UsrVVisLastSchedTableBean extends AbstractBaseTable<UsrVVisLastSche
     public static UsrVVisLastSchedTableDescriptor TABLE_DESCRIPTOR = new UsrVVisLastSchedTableDescriptor();
 
     public UsrVVisLastSchedTableBean() {
-	super();
+        super();
     }
 
     protected UsrVVisLastSchedRowBean createRow() {
-	return new UsrVVisLastSchedRowBean();
+        return new UsrVVisLastSchedRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVVisLastSchedRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

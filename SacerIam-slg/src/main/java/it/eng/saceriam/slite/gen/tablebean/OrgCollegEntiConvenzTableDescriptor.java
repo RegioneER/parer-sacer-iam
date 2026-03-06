@@ -46,27 +46,27 @@ public class OrgCollegEntiConvenzTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_COLLEG_ENTI_CONVENZ,
-		new ColumnDescriptor(COL_ID_COLLEG_ENTI_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_NM_COLLEG, new ColumnDescriptor(COL_NM_COLLEG, Types.VARCHAR, 100, false));
-	map.put(COL_DS_COLLEG, new ColumnDescriptor(COL_DS_COLLEG, Types.VARCHAR, 254, false));
-	map.put(COL_TI_COLLEG, new ColumnDescriptor(COL_TI_COLLEG, Types.VARCHAR, 20, false));
-	map.put(COL_ID_ENTE_CONVENZ_CAPOFILA,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ_CAPOFILA, Types.DECIMAL, 22, false));
-	map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
-	map.put(COL_DT_FIN_VAL, new ColumnDescriptor(COL_DT_FIN_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_ID_COLLEG_ENTI_CONVENZ,
+                new ColumnDescriptor(COL_ID_COLLEG_ENTI_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_NM_COLLEG, new ColumnDescriptor(COL_NM_COLLEG, Types.VARCHAR, 100, false));
+        map.put(COL_DS_COLLEG, new ColumnDescriptor(COL_DS_COLLEG, Types.VARCHAR, 254, false));
+        map.put(COL_TI_COLLEG, new ColumnDescriptor(COL_TI_COLLEG, Types.VARCHAR, 20, false));
+        map.put(COL_ID_ENTE_CONVENZ_CAPOFILA,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ_CAPOFILA, Types.DECIMAL, 22, false));
+        map.put(COL_DT_INI_VAL, new ColumnDescriptor(COL_DT_INI_VAL, Types.TIMESTAMP, 7, false));
+        map.put(COL_DT_FIN_VAL, new ColumnDescriptor(COL_DT_FIN_VAL, Types.TIMESTAMP, 7, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

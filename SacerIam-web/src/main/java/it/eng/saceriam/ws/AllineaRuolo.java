@@ -73,23 +73,23 @@ public class AllineaRuolo {
      */
     @WebMethod(operationName = "allineaRuolo")
     public AllineaRuoloRisposta allineaRuolo(
-	    @WebParam(name = "nmSistemaChiamante") String nmSistemaChiamante,
-	    @WebParam(name = "nmUseridCor") String nmUseridCor,
-	    @WebParam(name = "nmRuolo") String nmRuolo, @WebParam(name = "dsRuolo") String dsRuolo,
-	    @WebParam(name = "tiRuolo") String tiRuolo,
-	    @WebParam(name = "listaCategRuolo") ListaCategRuolo listaCategRuolo,
-	    @WebParam(name = "listaApplic") ListaApplic listaApplic) throws AuthWSException {
-	AllineaRuoloInput input = new AllineaRuoloInput(nmSistemaChiamante, nmUseridCor, nmRuolo,
-		dsRuolo, tiRuolo, listaCategRuolo, listaApplic);
-	log.debug("Chiamata all'operazione allineaRuolo del WS allineaRuolo con i parametri "
-		+ input.toString());
+            @WebParam(name = "nmSistemaChiamante") String nmSistemaChiamante,
+            @WebParam(name = "nmUseridCor") String nmUseridCor,
+            @WebParam(name = "nmRuolo") String nmRuolo, @WebParam(name = "dsRuolo") String dsRuolo,
+            @WebParam(name = "tiRuolo") String tiRuolo,
+            @WebParam(name = "listaCategRuolo") ListaCategRuolo listaCategRuolo,
+            @WebParam(name = "listaApplic") ListaApplic listaApplic) throws AuthWSException {
+        AllineaRuoloInput input = new AllineaRuoloInput(nmSistemaChiamante, nmUseridCor, nmRuolo,
+                dsRuolo, tiRuolo, listaCategRuolo, listaApplic);
+        log.debug("Chiamata all'operazione allineaRuolo del WS allineaRuolo con i parametri "
+                + input.toString());
 
-	LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
-		SacerLogConstants.AGENTE_SERVIZIO_ALLINEAMENTO_RUOLO);
-	param.setNomeComponenteSoftware(SacerLogConstants.COMP_SW_ALLINEAMENTO_RUOLO);
-	param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
+        LogParam param = SpagoliteLogUtil.getLogParam(paramHelper.getParamApplicApplicationName(),
+                SacerLogConstants.AGENTE_SERVIZIO_ALLINEAMENTO_RUOLO);
+        param.setNomeComponenteSoftware(SacerLogConstants.COMP_SW_ALLINEAMENTO_RUOLO);
+        param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
 
-	return allineaEjb.allineaRuolo(param, input);
+        return allineaEjb.allineaRuolo(param, input);
 
     }
 }

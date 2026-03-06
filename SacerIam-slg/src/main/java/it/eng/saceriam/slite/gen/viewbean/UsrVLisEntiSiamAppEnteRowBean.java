@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVLisEntiSiamAppEnteRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -36,115 +36,115 @@ public class UsrVLisEntiSiamAppEnteRowBean extends BaseRow
     public static UsrVLisEntiSiamAppEnteTableDescriptor TABLE_DESCRIPTOR = new UsrVLisEntiSiamAppEnteTableDescriptor();
 
     public UsrVLisEntiSiamAppEnteRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdUserIamCor() {
-	return getBigDecimal("id_user_iam_cor");
+        return getBigDecimal("id_user_iam_cor");
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	setObject("id_user_iam_cor", idUserIamCor);
+        setObject("id_user_iam_cor", idUserIamCor);
     }
 
     public BigDecimal getIdEnteSiam() {
-	return getBigDecimal("id_ente_siam");
+        return getBigDecimal("id_ente_siam");
     }
 
     public void setIdEnteSiam(BigDecimal idEnteSiam) {
-	setObject("id_ente_siam", idEnteSiam);
+        setObject("id_ente_siam", idEnteSiam);
     }
 
     public String getNmEnteSiam() {
-	return getString("nm_ente_siam");
+        return getString("nm_ente_siam");
     }
 
     public void setNmEnteSiam(String nmEnteSiam) {
-	setObject("nm_ente_siam", nmEnteSiam);
+        setObject("nm_ente_siam", nmEnteSiam);
     }
 
     public BigDecimal getIdAmbienteEnteConvenz() {
-	return getBigDecimal("id_ambiente_ente_convenz");
+        return getBigDecimal("id_ambiente_ente_convenz");
     }
 
     public void setIdAmbienteEnteConvenz(BigDecimal idAmbienteEnteConvenz) {
-	setObject("id_ambiente_ente_convenz", idAmbienteEnteConvenz);
+        setObject("id_ambiente_ente_convenz", idAmbienteEnteConvenz);
     }
 
     public String getNmAmbienteEnteConvenz() {
-	return getString("nm_ambiente_ente_convenz");
+        return getString("nm_ambiente_ente_convenz");
     }
 
     public void setNmAmbienteEnteConvenz(String nmAmbienteEnteConvenz) {
-	setObject("nm_ambiente_ente_convenz", nmAmbienteEnteConvenz);
+        setObject("nm_ambiente_ente_convenz", nmAmbienteEnteConvenz);
     }
 
     public String getDsAmbienteEnteConvenz() {
-	return getString("ds_ambiente_ente_convenz");
+        return getString("ds_ambiente_ente_convenz");
     }
 
     public void setDsAmbienteEnteConvenz(String dsAmbienteEnteConvenz) {
-	setObject("ds_ambiente_ente_convenz", dsAmbienteEnteConvenz);
+        setObject("ds_ambiente_ente_convenz", dsAmbienteEnteConvenz);
     }
 
     public String getNmAmbienteEnte() {
-	return getString("nm_ambiente_ente");
+        return getString("nm_ambiente_ente");
     }
 
     public void setNmAmbienteEnte(String nmAmbienteEnte) {
-	setObject("nm_ambiente_ente", nmAmbienteEnte);
+        setObject("nm_ambiente_ente", nmAmbienteEnte);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVLisEntiSiamAppEnte entity = (UsrVLisEntiSiamAppEnte) obj;
-	this.setIdUserIamCor(entity.getIdUserIamCor());
-	this.setIdEnteSiam(entity.getIdEnteSiam());
-	this.setNmEnteSiam(entity.getNmEnteSiam());
-	this.setIdAmbienteEnteConvenz(entity.getIdAmbienteEnteConvenz());
-	this.setNmAmbienteEnteConvenz(entity.getNmAmbienteEnteConvenz());
-	this.setDsAmbienteEnteConvenz(entity.getDsAmbienteEnteConvenz());
+        UsrVLisEntiSiamAppEnte entity = (UsrVLisEntiSiamAppEnte) obj;
+        this.setIdUserIamCor(entity.getIdUserIamCor());
+        this.setIdEnteSiam(entity.getIdEnteSiam());
+        this.setNmEnteSiam(entity.getNmEnteSiam());
+        this.setIdAmbienteEnteConvenz(entity.getIdAmbienteEnteConvenz());
+        this.setNmAmbienteEnteConvenz(entity.getNmAmbienteEnteConvenz());
+        this.setDsAmbienteEnteConvenz(entity.getDsAmbienteEnteConvenz());
     }
 
     @Override
     public UsrVLisEntiSiamAppEnte rowBeanToEntity() {
-	UsrVLisEntiSiamAppEnte entity = new UsrVLisEntiSiamAppEnte();
-	entity.setIdUserIamCor(this.getIdUserIamCor());
-	entity.setIdEnteSiam(this.getIdEnteSiam());
-	entity.setNmEnteSiam(this.getNmEnteSiam());
-	entity.setIdAmbienteEnteConvenz(this.getIdAmbienteEnteConvenz());
-	entity.setNmAmbienteEnteConvenz(this.getNmAmbienteEnteConvenz());
-	entity.setDsAmbienteEnteConvenz(this.getDsAmbienteEnteConvenz());
-	return entity;
+        UsrVLisEntiSiamAppEnte entity = new UsrVLisEntiSiamAppEnte();
+        entity.setIdUserIamCor(this.getIdUserIamCor());
+        entity.setIdEnteSiam(this.getIdEnteSiam());
+        entity.setNmEnteSiam(this.getNmEnteSiam());
+        entity.setIdAmbienteEnteConvenz(this.getIdAmbienteEnteConvenz());
+        entity.setNmAmbienteEnteConvenz(this.getNmAmbienteEnteConvenz());
+        entity.setDsAmbienteEnteConvenz(this.getDsAmbienteEnteConvenz());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

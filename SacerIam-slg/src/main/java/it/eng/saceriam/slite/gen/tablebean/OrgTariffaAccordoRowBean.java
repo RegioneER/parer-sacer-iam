@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgTariffaAccordoRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,104 +38,104 @@ public class OrgTariffaAccordoRowBean extends BaseRow
     public static OrgTariffaAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgTariffaAccordoTableDescriptor();
 
     public OrgTariffaAccordoRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdTariffaAccordo() {
-	return getBigDecimal("id_tariffa_accordo");
+        return getBigDecimal("id_tariffa_accordo");
     }
 
     public void setIdTariffaAccordo(BigDecimal id_tariffa_accordo) {
-	setObject("id_tariffa_accordo", id_tariffa_accordo);
+        setObject("id_tariffa_accordo", id_tariffa_accordo);
     }
 
     public BigDecimal getIdAccordoEnte() {
-	return getBigDecimal("id_accordo_ente");
+        return getBigDecimal("id_accordo_ente");
     }
 
     public void setIdAccordoEnte(BigDecimal id_accordo_ente) {
-	setObject("id_accordo_ente", id_accordo_ente);
+        setObject("id_accordo_ente", id_accordo_ente);
     }
 
     public BigDecimal getIdTipoServizio() {
-	return getBigDecimal("id_tipo_servizio");
+        return getBigDecimal("id_tipo_servizio");
     }
 
     public void setIdTipoServizio(BigDecimal id_tipo_servizio) {
-	setObject("id_tipo_servizio", id_tipo_servizio);
+        setObject("id_tipo_servizio", id_tipo_servizio);
     }
 
     public BigDecimal getImTariffaAccordo() {
-	return getBigDecimal("im_tariffa_accordo");
+        return getBigDecimal("im_tariffa_accordo");
     }
 
     public void setImTariffaAccordo(BigDecimal im_tariffa_accordo) {
-	setObject("im_tariffa_accordo", im_tariffa_accordo);
+        setObject("im_tariffa_accordo", im_tariffa_accordo);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgTariffaAccordo entity = (OrgTariffaAccordo) obj;
-	this.setIdTariffaAccordo(new BigDecimal(entity.getIdTariffaAccordo()));
-	if (entity.getOrgAccordoEnte() != null) {
-	    this.setIdAccordoEnte(new BigDecimal(entity.getOrgAccordoEnte().getIdAccordoEnte()));
-	}
-	if (entity.getOrgTipoServizio() != null) {
-	    this.setIdTipoServizio(new BigDecimal(entity.getOrgTipoServizio().getIdTipoServizio()));
-	}
-	this.setImTariffaAccordo(entity.getImTariffaAccordo());
+        OrgTariffaAccordo entity = (OrgTariffaAccordo) obj;
+        this.setIdTariffaAccordo(new BigDecimal(entity.getIdTariffaAccordo()));
+        if (entity.getOrgAccordoEnte() != null) {
+            this.setIdAccordoEnte(new BigDecimal(entity.getOrgAccordoEnte().getIdAccordoEnte()));
+        }
+        if (entity.getOrgTipoServizio() != null) {
+            this.setIdTipoServizio(new BigDecimal(entity.getOrgTipoServizio().getIdTipoServizio()));
+        }
+        this.setImTariffaAccordo(entity.getImTariffaAccordo());
     }
 
     @Override
     public OrgTariffaAccordo rowBeanToEntity() {
-	OrgTariffaAccordo entity = new OrgTariffaAccordo();
-	if (this.getIdTariffaAccordo() != null) {
-	    entity.setIdTariffaAccordo(this.getIdTariffaAccordo().longValue());
-	}
-	if (this.getIdAccordoEnte() != null) {
-	    if (entity.getOrgAccordoEnte() == null) {
-		entity.setOrgAccordoEnte(new OrgAccordoEnte());
-	    }
-	    entity.getOrgAccordoEnte().setIdAccordoEnte(this.getIdAccordoEnte().longValue());
-	}
-	if (this.getIdTipoServizio() != null) {
-	    if (entity.getOrgTipoServizio() == null) {
-		entity.setOrgTipoServizio(new OrgTipoServizio());
-	    }
-	    entity.getOrgTipoServizio().setIdTipoServizio(this.getIdTipoServizio().longValue());
-	}
-	entity.setImTariffaAccordo(this.getImTariffaAccordo());
-	return entity;
+        OrgTariffaAccordo entity = new OrgTariffaAccordo();
+        if (this.getIdTariffaAccordo() != null) {
+            entity.setIdTariffaAccordo(this.getIdTariffaAccordo().longValue());
+        }
+        if (this.getIdAccordoEnte() != null) {
+            if (entity.getOrgAccordoEnte() == null) {
+                entity.setOrgAccordoEnte(new OrgAccordoEnte());
+            }
+            entity.getOrgAccordoEnte().setIdAccordoEnte(this.getIdAccordoEnte().longValue());
+        }
+        if (this.getIdTipoServizio() != null) {
+            if (entity.getOrgTipoServizio() == null) {
+                entity.setOrgTipoServizio(new OrgTipoServizio());
+            }
+            entity.getOrgTipoServizio().setIdTipoServizio(this.getIdTipoServizio().longValue());
+        }
+        entity.setImTariffaAccordo(this.getImTariffaAccordo());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

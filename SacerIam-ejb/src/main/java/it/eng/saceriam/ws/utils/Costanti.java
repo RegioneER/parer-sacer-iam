@@ -29,17 +29,17 @@ public class Costanti {
 
     //
     public static final String[] WS_INSERIMENTO_ORGANIZZAZIONE_COMP = {
-	    "1.0" };
+            "1.0" };
     public static final String[] WS_MODIFICA_ORGANIZZAZIONE_COMP = {
-	    "1.0" };
+            "1.0" };
     public static final String[] WS_CANCELLA_ORGANIZZAZIONE_COMP = {
-	    "1.0" };
+            "1.0" };
     public static final String[] WS_RESTITUZIONE_NEWS_APPLICAZIONE_COMP = {
-	    "1.0" };
+            "1.0" };
     public static final String[] WS_STATUS_MONITOR_COMP = {
-	    "1.0" };
+            "1.0" };
     public static final String[] WS_APPINFO_COMP = {
-	    "1.0" };
+            "1.0" };
 
     //
     public static final String WS_INSERIMENTO_ORGANIZZAZIONE = "InserimentoOrganizzione";
@@ -51,14 +51,14 @@ public class Costanti {
 
     public enum AttribDatiSpecDataType {
 
-	ALFANUMERICO, NUMERICO, DATA, DATETIME
+        ALFANUMERICO, NUMERICO, DATA, DATETIME
     }
 
     public enum ModificatoriWS {
-	// TAG_VERIFICA_FORMATI_OLD,
-	// TAG_VERIFICA_FORMATI_1_25,
-	// TAG_MIGRAZIONE,
-	// TAG_DATISPEC_EXT,
-	// TAG_ESTESI_1_3_OUT // ID documento, tag Versatore
+        // TAG_VERIFICA_FORMATI_OLD,
+        // TAG_VERIFICA_FORMATI_1_25,
+        // TAG_MIGRAZIONE,
+        // TAG_DATISPEC_EXT,
+        // TAG_ESTESI_1_3_OUT // ID documento, tag Versatore
     }
 }

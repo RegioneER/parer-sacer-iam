@@ -32,19 +32,19 @@ public class UsrUsoUserApplicTableBean extends AbstractBaseTable<UsrUsoUserAppli
     public static UsrUsoUserApplicTableDescriptor TABLE_DESCRIPTOR = new UsrUsoUserApplicTableDescriptor();
 
     public UsrUsoUserApplicTableBean() {
-	super();
+        super();
     }
 
     protected UsrUsoUserApplicRowBean createRow() {
-	return new UsrUsoUserApplicRowBean();
+        return new UsrUsoUserApplicRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrUsoUserApplicRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

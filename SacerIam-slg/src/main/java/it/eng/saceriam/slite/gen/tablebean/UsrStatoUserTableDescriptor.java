@@ -45,27 +45,27 @@ public class UsrStatoUserTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_STATO_USER,
-		new ColumnDescriptor(COL_ID_STATO_USER, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
-	map.put(COL_TS_STATO, new ColumnDescriptor(COL_TS_STATO, Types.TIMESTAMP, 11, false));
-	map.put(COL_TI_STATO_USER,
-		new ColumnDescriptor(COL_TI_STATO_USER, Types.VARCHAR, 30, false));
-	map.put(COL_ID_RICH_GEST_USER,
-		new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, false));
-	map.put(COL_ID_NOTIFICA, new ColumnDescriptor(COL_ID_NOTIFICA, Types.DECIMAL, 22, false));
+        map.put(COL_ID_STATO_USER,
+                new ColumnDescriptor(COL_ID_STATO_USER, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
+        map.put(COL_TS_STATO, new ColumnDescriptor(COL_TS_STATO, Types.TIMESTAMP, 11, false));
+        map.put(COL_TI_STATO_USER,
+                new ColumnDescriptor(COL_TI_STATO_USER, Types.VARCHAR, 30, false));
+        map.put(COL_ID_RICH_GEST_USER,
+                new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, false));
+        map.put(COL_ID_NOTIFICA, new ColumnDescriptor(COL_ID_NOTIFICA, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

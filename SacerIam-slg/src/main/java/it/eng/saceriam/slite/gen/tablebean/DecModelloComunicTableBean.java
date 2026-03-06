@@ -32,19 +32,19 @@ public class DecModelloComunicTableBean extends AbstractBaseTable<DecModelloComu
     public static DecModelloComunicTableDescriptor TABLE_DESCRIPTOR = new DecModelloComunicTableDescriptor();
 
     public DecModelloComunicTableBean() {
-	super();
+        super();
     }
 
     protected DecModelloComunicRowBean createRow() {
-	return new DecModelloComunicRowBean();
+        return new DecModelloComunicRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<DecModelloComunicRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -32,7 +32,7 @@ import it.eng.saceriam.job.ejb.JobLogger;
 @Stateless(mappedName = "EliminaReplicheEjb")
 @LocalBean
 @Interceptors({
-	it.eng.saceriam.aop.TransactionInterceptor.class })
+        it.eng.saceriam.aop.TransactionInterceptor.class })
 public class EliminaReplicheEjb {
 
     private static final Logger log = LoggerFactory.getLogger(EliminaReplicheEjb.class);
@@ -45,21 +45,21 @@ public class EliminaReplicheEjb {
     private ParamHelper paramHelper;
 
     public void eliminaRepliche() {
-	log.info(
-		"Eliminazione dei log delle repliche utenti più vecchi di un numero di anni da parametro applicativo");
+        log.info(
+                "Eliminazione dei log delle repliche utenti più vecchi di un numero di anni da parametro applicativo");
 
-	Integer numAnniCancRepUt = Integer.parseInt(paramHelper.getValoreParamApplic(
-		ConstIamParamApplic.NmParamApplic.NUM_ANNI_CANC_REPLICHE_UT.name(), null, null,
-		Constants.TipoIamVGetValAppart.APPLIC));
+        Integer numAnniCancRepUt = Integer.parseInt(paramHelper.getValoreParamApplic(
+                ConstIamParamApplic.NmParamApplic.NUM_ANNI_CANC_REPLICHE_UT.name(), null, null,
+                Constants.TipoIamVGetValAppart.APPLIC));
 
-	Calendar cal = Calendar.getInstance();
-	cal.add(Calendar.YEAR, -numAnniCancRepUt);
-	Date dateRifCanc = cal.getTime();
-	elReplicheHelper.deleteOldReplicheUtenti(dateRifCanc);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -numAnniCancRepUt);
+        Date dateRifCanc = cal.getTime();
+        elReplicheHelper.deleteOldReplicheUtenti(dateRifCanc);
 
-	/* Scrivo nel log del job l'esito finale */
-	jobLoggerEjb.writeAtomicLog(Constants.NomiJob.ELIMINA_REPLICHE_UTENTI,
-		Constants.TipiRegLogJob.FINE_SCHEDULAZIONE, null);
+        /* Scrivo nel log del job l'esito finale */
+        jobLoggerEjb.writeAtomicLog(Constants.NomiJob.ELIMINA_REPLICHE_UTENTI,
+                Constants.TipiRegLogJob.FINE_SCHEDULAZIONE, null);
     }
 
 }

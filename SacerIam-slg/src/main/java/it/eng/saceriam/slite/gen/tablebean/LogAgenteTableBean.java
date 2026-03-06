@@ -32,19 +32,19 @@ public class LogAgenteTableBean extends AbstractBaseTable<LogAgenteRowBean> {
     public static LogAgenteTableDescriptor TABLE_DESCRIPTOR = new LogAgenteTableDescriptor();
 
     public LogAgenteTableBean() {
-	super();
+        super();
     }
 
     protected LogAgenteRowBean createRow() {
-	return new LogAgenteRowBean();
+        return new LogAgenteRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<LogAgenteRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

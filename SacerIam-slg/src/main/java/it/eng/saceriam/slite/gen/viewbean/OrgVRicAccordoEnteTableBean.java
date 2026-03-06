@@ -36,19 +36,19 @@ public class OrgVRicAccordoEnteTableBean extends AbstractBaseTable<OrgVRicAccord
     public static OrgVRicAccordoEnteTableDescriptor TABLE_DESCRIPTOR = new OrgVRicAccordoEnteTableDescriptor();
 
     public OrgVRicAccordoEnteTableBean() {
-	super();
+        super();
     }
 
     protected OrgVRicAccordoEnteRowBean createRow() {
-	return new OrgVRicAccordoEnteRowBean();
+        return new OrgVRicAccordoEnteRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVRicAccordoEnteRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

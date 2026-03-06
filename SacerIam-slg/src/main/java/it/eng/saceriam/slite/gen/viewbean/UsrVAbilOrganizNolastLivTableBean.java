@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVAbilOrganizNolastLivTableBean
-	extends AbstractBaseTable<UsrVAbilOrganizNolastLivRowBean> {
+        extends AbstractBaseTable<UsrVAbilOrganizNolastLivRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class UsrVAbilOrganizNolastLivTableBean
     public static UsrVAbilOrganizNolastLivTableDescriptor TABLE_DESCRIPTOR = new UsrVAbilOrganizNolastLivTableDescriptor();
 
     public UsrVAbilOrganizNolastLivTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAbilOrganizNolastLivRowBean createRow() {
-	return new UsrVAbilOrganizNolastLivRowBean();
+        return new UsrVAbilOrganizNolastLivRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAbilOrganizNolastLivRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

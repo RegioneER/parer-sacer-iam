@@ -32,19 +32,19 @@ public class OrgEnteSiamTableBean extends AbstractBaseTable<OrgEnteSiamRowBean> 
     public static OrgEnteSiamTableDescriptor TABLE_DESCRIPTOR = new OrgEnteSiamTableDescriptor();
 
     public OrgEnteSiamTableBean() {
-	super();
+        super();
     }
 
     protected OrgEnteSiamRowBean createRow() {
-	return new OrgEnteSiamRowBean();
+        return new OrgEnteSiamRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgEnteSiamRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

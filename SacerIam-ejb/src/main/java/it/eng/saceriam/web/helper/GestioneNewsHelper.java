@@ -45,9 +45,9 @@ public class GestioneNewsHelper {
     private EntityManager entityManager;
 
     public List<AplNews> getAplNewsList(GestioneNewsForm.FiltriNews filtriNews) throws EMFError {
-	return getAplNewsList(filtriNews.getDs_oggetto_filter().parse(),
-		filtriNews.getDt_ini_pubblic_filter().parse(),
-		filtriNews.getDt_fin_pubblic_filter().parse());
+        return getAplNewsList(filtriNews.getDs_oggetto_filter().parse(),
+                filtriNews.getDt_ini_pubblic_filter().parse(),
+                filtriNews.getDt_fin_pubblic_filter().parse());
     }
 
     /**
@@ -59,44 +59,44 @@ public class GestioneNewsHelper {
      * @return lista delle news {@link AplNews}
      */
     public List<AplNews> getAplNewsList(String dsOggetto, Date dataInizio, Date dataFine) {
-	StringBuilder queryStr = new StringBuilder("SELECT news FROM AplNews news ");
-	String whereWord = " WHERE ";
+        StringBuilder queryStr = new StringBuilder("SELECT news FROM AplNews news ");
+        String whereWord = " WHERE ";
 
-	if (dsOggetto != null) {
-	    queryStr.append(whereWord);
-	    queryStr.append(" UPPER (news.dsOggetto) LIKE :dsOggetto ESCAPE :char");
-	    whereWord = " AND ";
-	}
+        if (dsOggetto != null) {
+            queryStr.append(whereWord);
+            queryStr.append(" UPPER (news.dsOggetto) LIKE :dsOggetto ESCAPE :char");
+            whereWord = " AND ";
+        }
 
-	if (dataInizio != null) {
-	    queryStr.append(whereWord);
-	    queryStr.append(" news.dtIniPubblic >= :dataInizio");
-	    whereWord = " AND ";
-	}
+        if (dataInizio != null) {
+            queryStr.append(whereWord);
+            queryStr.append(" news.dtIniPubblic >= :dataInizio");
+            whereWord = " AND ";
+        }
 
-	if (dataFine != null) {
-	    queryStr.append(whereWord);
-	    queryStr.append(" news.dtFinPubblic <= :dataFine");
-	}
+        if (dataFine != null) {
+            queryStr.append(whereWord);
+            queryStr.append(" news.dtFinPubblic <= :dataFine");
+        }
 
-	queryStr.append(" ORDER BY news.idNews DESC");
+        queryStr.append(" ORDER BY news.idNews DESC");
 
-	Query query = entityManager.createQuery(queryStr.toString());
+        Query query = entityManager.createQuery(queryStr.toString());
 
-	if (dsOggetto != null) {
-	    query.setParameter("dsOggetto", "%" + dsOggetto.toUpperCase() + "%");
-	    query.setParameter("char", '\\');
-	}
-	if (dataInizio != null) {
-	    query.setParameter("dataInizio", dataInizio);
-	}
-	if (dataFine != null) {
-	    query.setParameter("dataFine", dataFine);
-	}
+        if (dsOggetto != null) {
+            query.setParameter("dsOggetto", "%" + dsOggetto.toUpperCase() + "%");
+            query.setParameter("char", '\\');
+        }
+        if (dataInizio != null) {
+            query.setParameter("dataInizio", dataInizio);
+        }
+        if (dataFine != null) {
+            query.setParameter("dataFine", dataFine);
+        }
 
-	List<AplNews> list = query.getResultList();
+        List<AplNews> list = query.getResultList();
 
-	return list;
+        return list;
     }
 
     /**
@@ -109,83 +109,83 @@ public class GestioneNewsHelper {
     @Deprecated
     public AplNews getAplNewsByDs(String dsOggetto) {
 
-	StringBuilder queryStr = new StringBuilder("SELECT news FROM AplNews news");
-	if (dsOggetto != null) {
-	    queryStr.append(" WHERE news.dsOggetto = :dsOggetto");
-	}
+        StringBuilder queryStr = new StringBuilder("SELECT news FROM AplNews news");
+        if (dsOggetto != null) {
+            queryStr.append(" WHERE news.dsOggetto = :dsOggetto");
+        }
 
-	Query query = entityManager.createQuery(queryStr.toString());
+        Query query = entityManager.createQuery(queryStr.toString());
 
-	if (dsOggetto != null) {
-	    query.setParameter("dsOggetto", dsOggetto);
-	}
+        if (dsOggetto != null) {
+            query.setParameter("dsOggetto", dsOggetto);
+        }
 
-	List<AplNews> lista = query.getResultList();
+        List<AplNews> lista = query.getResultList();
 
-	if (lista.isEmpty()) {
-	    return null;
-	}
+        if (lista.isEmpty()) {
+            return null;
+        }
 
-	return lista.get(0);
+        return lista.get(0);
     }
 
     public AplNews getAplNewsById(BigDecimal idNews) {
-	return entityManager.find(AplNews.class, idNews.longValue());
+        return entityManager.find(AplNews.class, idNews.longValue());
     }
 
     public AplApplic getAplApplicById(BigDecimal idApplic) {
-	return entityManager.find(AplApplic.class, idApplic.longValue());
+        return entityManager.find(AplApplic.class, idApplic.longValue());
     }
 
     public void insert(AplNews o) {
-	entityManager.persist(o);
-	entityManager.flush();
+        entityManager.persist(o);
+        entityManager.flush();
     }
 
     public void update(AplNews o) {
-	o = entityManager.merge(o);
-	entityManager.flush();
-	entityManager.refresh(o);
+        o = entityManager.merge(o);
+        entityManager.flush();
+        entityManager.refresh(o);
     }
 
     public void remove(AplNews o) {
-	entityManager.remove(o);
-	entityManager.flush();
+        entityManager.remove(o);
+        entityManager.flush();
     }
 
     public List<AplApplic> getAplApplicList() {
-	String queryStr = "SELECT applic FROM AplApplic applic ";
-	Query query = entityManager.createQuery(queryStr);
-	List<AplApplic> list = query.getResultList();
-	return list;
+        String queryStr = "SELECT applic FROM AplApplic applic ";
+        Query query = entityManager.createQuery(queryStr);
+        List<AplApplic> list = query.getResultList();
+        return list;
     }
 
     public List<AplApplic> getAplApplicList(BigDecimal idNews) {
-	String queryStr = "SELECT newsApplic.aplApplic FROM AplNewsApplic newsApplic "
-		+ "WHERE newsApplic.aplNew.idNews = :idNews ";
-	Query query = entityManager.createQuery(queryStr);
-	query.setParameter("idNews", longFrom(idNews));
-	List<AplApplic> list = query.getResultList();
-	return list;
+        String queryStr = "SELECT newsApplic.aplApplic FROM AplNewsApplic newsApplic "
+                + "WHERE newsApplic.aplNew.idNews = :idNews ";
+        Query query = entityManager.createQuery(queryStr);
+        query.setParameter("idNews", longFrom(idNews));
+        List<AplApplic> list = query.getResultList();
+        return list;
     }
 
     public void deleteAplNewsApplicList(long idNews) {
-	String queryStr = "DELETE FROM AplNewsApplic aplNewsApplic "
-		+ "WHERE aplNewsApplic.aplNew.idNews = :idNews ";
-	Query query = entityManager.createQuery(queryStr);
-	query.setParameter("idNews", idNews);
-	query.executeUpdate();
-	entityManager.flush();
+        String queryStr = "DELETE FROM AplNewsApplic aplNewsApplic "
+                + "WHERE aplNewsApplic.aplNew.idNews = :idNews ";
+        Query query = entityManager.createQuery(queryStr);
+        query.setParameter("idNews", idNews);
+        query.executeUpdate();
+        entityManager.flush();
     }
 
     public void deleteAplNewsApplic(long idNews, long idApplic) {
-	String queryStr = "DELETE FROM AplNewsApplic aplNewsApplic "
-		+ "WHERE aplNewsApplic.aplNew.idNews = :idNews "
-		+ "AND aplNewsApplic.aplApplic.idApplic = :idApplic ";
-	Query query = entityManager.createQuery(queryStr);
-	query.setParameter("idNews", idNews);
-	query.setParameter("idApplic", idApplic);
-	query.executeUpdate();
-	entityManager.flush();
+        String queryStr = "DELETE FROM AplNewsApplic aplNewsApplic "
+                + "WHERE aplNewsApplic.aplNew.idNews = :idNews "
+                + "AND aplNewsApplic.aplApplic.idApplic = :idApplic ";
+        Query query = entityManager.createQuery(queryStr);
+        query.setParameter("idNews", idNews);
+        query.setParameter("idApplic", idApplic);
+        query.executeUpdate();
+        entityManager.flush();
     }
 }

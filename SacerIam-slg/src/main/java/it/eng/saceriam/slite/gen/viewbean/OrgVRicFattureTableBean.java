@@ -36,19 +36,19 @@ public class OrgVRicFattureTableBean extends AbstractBaseTable<OrgVRicFattureRow
     public static OrgVRicFattureTableDescriptor TABLE_DESCRIPTOR = new OrgVRicFattureTableDescriptor();
 
     public OrgVRicFattureTableBean() {
-	super();
+        super();
     }
 
     protected OrgVRicFattureRowBean createRow() {
-	return new OrgVRicFattureRowBean();
+        return new OrgVRicFattureRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVRicFattureRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

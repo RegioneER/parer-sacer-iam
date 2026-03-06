@@ -35,90 +35,90 @@ public class LogAgenteRowBean extends BaseRow implements BaseRowInterface, JEEBa
     public static LogAgenteTableDescriptor TABLE_DESCRIPTOR = new LogAgenteTableDescriptor();
 
     public LogAgenteRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdAgente() {
-	return getBigDecimal("id_agente");
+        return getBigDecimal("id_agente");
     }
 
     public void setIdAgente(BigDecimal idAgente) {
-	setObject("id_agente", idAgente);
+        setObject("id_agente", idAgente);
     }
 
     public String getNmAgente() {
-	return getString("nm_agente");
+        return getString("nm_agente");
     }
 
     public void setNmAgente(String nmAgente) {
-	setObject("nm_agente", nmAgente);
+        setObject("nm_agente", nmAgente);
     }
 
     public String getTipoAgentePremis() {
-	return getString("tipo_agente_premis");
+        return getString("tipo_agente_premis");
     }
 
     public void setTipoAgentePremis(String tipoAgentePremis) {
-	setObject("tipo_agente_premis", tipoAgentePremis);
+        setObject("tipo_agente_premis", tipoAgentePremis);
     }
 
     public String getTipoOrigineAgente() {
-	return getString("tipo_origine_agente");
+        return getString("tipo_origine_agente");
     }
 
     public void setTipoOrigineAgente(String tipoOrigineAgente) {
-	setObject("tipo_origine_agente", tipoOrigineAgente);
+        setObject("tipo_origine_agente", tipoOrigineAgente);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	LogAgente entity = (LogAgente) obj;
-	this.setIdAgente(new BigDecimal(entity.getIdAgente()));
-	this.setNmAgente(entity.getNmAgente());
-	this.setTipoAgentePremis(entity.getTipoAgentePremis());
-	this.setTipoOrigineAgente(entity.getTipoOrigineAgente());
+        LogAgente entity = (LogAgente) obj;
+        this.setIdAgente(new BigDecimal(entity.getIdAgente()));
+        this.setNmAgente(entity.getNmAgente());
+        this.setTipoAgentePremis(entity.getTipoAgentePremis());
+        this.setTipoOrigineAgente(entity.getTipoOrigineAgente());
     }
 
     @Override
     public LogAgente rowBeanToEntity() {
-	LogAgente entity = new LogAgente();
-	if (this.getIdAgente() != null) {
-	    entity.setIdAgente(this.getIdAgente().longValue());
-	}
-	entity.setNmAgente(this.getNmAgente());
-	entity.setTipoAgentePremis(this.getTipoAgentePremis());
-	entity.setTipoOrigineAgente(this.getTipoOrigineAgente());
-	return entity;
+        LogAgente entity = new LogAgente();
+        if (this.getIdAgente() != null) {
+            entity.setIdAgente(this.getIdAgente().longValue());
+        }
+        entity.setNmAgente(this.getNmAgente());
+        entity.setTipoAgentePremis(this.getTipoAgentePremis());
+        entity.setTipoOrigineAgente(this.getTipoOrigineAgente());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

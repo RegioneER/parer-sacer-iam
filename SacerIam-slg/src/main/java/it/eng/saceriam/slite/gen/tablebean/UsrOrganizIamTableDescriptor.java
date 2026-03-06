@@ -48,33 +48,33 @@ public class UsrOrganizIamTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ORGANIZ_IAM,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ORGANIZ_APPLIC,
-		new ColumnDescriptor(COL_ID_ORGANIZ_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_ID_TIPO_ORGANIZ,
-		new ColumnDescriptor(COL_ID_TIPO_ORGANIZ, Types.DECIMAL, 22, false));
-	map.put(COL_NM_ORGANIZ, new ColumnDescriptor(COL_NM_ORGANIZ, Types.VARCHAR, 100, false));
-	map.put(COL_DS_ORGANIZ, new ColumnDescriptor(COL_DS_ORGANIZ, Types.VARCHAR, 254, false));
-	map.put(COL_ID_ORGANIZ_IAM_PADRE,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM_PADRE, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTE_CONSERV,
-		new ColumnDescriptor(COL_ID_ENTE_CONSERV, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTE_GESTORE,
-		new ColumnDescriptor(COL_ID_ENTE_GESTORE, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ORGANIZ_IAM,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ORGANIZ_APPLIC,
+                new ColumnDescriptor(COL_ID_ORGANIZ_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_ID_TIPO_ORGANIZ,
+                new ColumnDescriptor(COL_ID_TIPO_ORGANIZ, Types.DECIMAL, 22, false));
+        map.put(COL_NM_ORGANIZ, new ColumnDescriptor(COL_NM_ORGANIZ, Types.VARCHAR, 100, false));
+        map.put(COL_DS_ORGANIZ, new ColumnDescriptor(COL_DS_ORGANIZ, Types.VARCHAR, 254, false));
+        map.put(COL_ID_ORGANIZ_IAM_PADRE,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM_PADRE, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTE_CONSERV,
+                new ColumnDescriptor(COL_ID_ENTE_CONSERV, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTE_GESTORE,
+                new ColumnDescriptor(COL_ID_ENTE_GESTORE, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

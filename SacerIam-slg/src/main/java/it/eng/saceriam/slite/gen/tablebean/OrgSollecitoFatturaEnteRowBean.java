@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgSollecitoFatturaEnteRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,131 +38,131 @@ public class OrgSollecitoFatturaEnteRowBean extends BaseRow
     public static OrgSollecitoFatturaEnteTableDescriptor TABLE_DESCRIPTOR = new OrgSollecitoFatturaEnteTableDescriptor();
 
     public OrgSollecitoFatturaEnteRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdSollecitoFatturaEnte() {
-	return getBigDecimal("id_sollecito_fattura_ente");
+        return getBigDecimal("id_sollecito_fattura_ente");
     }
 
     public void setIdSollecitoFatturaEnte(BigDecimal idSollecitoFatturaEnte) {
-	setObject("id_sollecito_fattura_ente", idSollecitoFatturaEnte);
+        setObject("id_sollecito_fattura_ente", idSollecitoFatturaEnte);
     }
 
     public BigDecimal getIdFatturaEnte() {
-	return getBigDecimal("id_fattura_ente");
+        return getBigDecimal("id_fattura_ente");
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-	setObject("id_fattura_ente", idFatturaEnte);
+        setObject("id_fattura_ente", idFatturaEnte);
     }
 
     public String getCdRegistroSollecito() {
-	return getString("cd_registro_sollecito");
+        return getString("cd_registro_sollecito");
     }
 
     public void setCdRegistroSollecito(String cdRegistroSollecito) {
-	setObject("cd_registro_sollecito", cdRegistroSollecito);
+        setObject("cd_registro_sollecito", cdRegistroSollecito);
     }
 
     public BigDecimal getAaVarSollecito() {
-	return getBigDecimal("aa_var_sollecito");
+        return getBigDecimal("aa_var_sollecito");
     }
 
     public void setAaVarSollecito(BigDecimal aaVarSollecito) {
-	setObject("aa_var_sollecito", aaVarSollecito);
+        setObject("aa_var_sollecito", aaVarSollecito);
     }
 
     public String getCdKeyVarSollecito() {
-	return getString("cd_key_var_sollecito");
+        return getString("cd_key_var_sollecito");
     }
 
     public void setCdKeyVarSollecito(String cdKeyVarSollecito) {
-	setObject("cd_key_var_sollecito", cdKeyVarSollecito);
+        setObject("cd_key_var_sollecito", cdKeyVarSollecito);
     }
 
     public Timestamp getDtSollecito() {
-	return getTimestamp("dt_sollecito");
+        return getTimestamp("dt_sollecito");
     }
 
     public void setDtSollecito(Timestamp dtSollecito) {
-	setObject("dt_sollecito", dtSollecito);
+        setObject("dt_sollecito", dtSollecito);
     }
 
     public String getDlSollecito() {
-	return getString("dl_sollecito");
+        return getString("dl_sollecito");
     }
 
     public void setDlSollecito(String dlSollecito) {
-	setObject("dl_sollecito", dlSollecito);
+        setObject("dl_sollecito", dlSollecito);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgSollecitoFatturaEnte entity = (OrgSollecitoFatturaEnte) obj;
+        OrgSollecitoFatturaEnte entity = (OrgSollecitoFatturaEnte) obj;
 
-	this.setIdSollecitoFatturaEnte(new BigDecimal(entity.getIdSollecitoFatturaEnte()));
-	if (entity.getOrgFatturaEnte() != null) {
-	    this.setIdFatturaEnte(new BigDecimal(entity.getOrgFatturaEnte().getIdFatturaEnte()));
+        this.setIdSollecitoFatturaEnte(new BigDecimal(entity.getIdSollecitoFatturaEnte()));
+        if (entity.getOrgFatturaEnte() != null) {
+            this.setIdFatturaEnte(new BigDecimal(entity.getOrgFatturaEnte().getIdFatturaEnte()));
 
-	}
-	this.setCdRegistroSollecito(entity.getCdRegistroSollecito());
-	this.setAaVarSollecito(entity.getAaVarSollecito());
-	this.setCdKeyVarSollecito(entity.getCdKeyVarSollecito());
-	if (entity.getDtSollecito() != null) {
-	    this.setDtSollecito(new Timestamp(entity.getDtSollecito().getTime()));
-	}
-	this.setDlSollecito(entity.getDlSollecito());
+        }
+        this.setCdRegistroSollecito(entity.getCdRegistroSollecito());
+        this.setAaVarSollecito(entity.getAaVarSollecito());
+        this.setCdKeyVarSollecito(entity.getCdKeyVarSollecito());
+        if (entity.getDtSollecito() != null) {
+            this.setDtSollecito(new Timestamp(entity.getDtSollecito().getTime()));
+        }
+        this.setDlSollecito(entity.getDlSollecito());
     }
 
     @Override
     public OrgSollecitoFatturaEnte rowBeanToEntity() {
-	OrgSollecitoFatturaEnte entity = new OrgSollecitoFatturaEnte();
-	if (this.getIdSollecitoFatturaEnte() != null) {
-	    entity.setIdSollecitoFatturaEnte(this.getIdSollecitoFatturaEnte().longValue());
-	}
-	if (this.getIdFatturaEnte() != null) {
-	    if (entity.getOrgFatturaEnte() == null) {
-		entity.setOrgFatturaEnte(new OrgFatturaEnte());
-	    }
-	    entity.getOrgFatturaEnte().setIdFatturaEnte(this.getIdFatturaEnte().longValue());
-	}
-	entity.setCdRegistroSollecito(this.getCdRegistroSollecito());
-	entity.setAaVarSollecito(this.getAaVarSollecito());
-	entity.setCdKeyVarSollecito(this.getCdKeyVarSollecito());
-	entity.setDtSollecito(this.getDtSollecito());
-	entity.setDlSollecito(this.getDlSollecito());
-	return entity;
+        OrgSollecitoFatturaEnte entity = new OrgSollecitoFatturaEnte();
+        if (this.getIdSollecitoFatturaEnte() != null) {
+            entity.setIdSollecitoFatturaEnte(this.getIdSollecitoFatturaEnte().longValue());
+        }
+        if (this.getIdFatturaEnte() != null) {
+            if (entity.getOrgFatturaEnte() == null) {
+                entity.setOrgFatturaEnte(new OrgFatturaEnte());
+            }
+            entity.getOrgFatturaEnte().setIdFatturaEnte(this.getIdFatturaEnte().longValue());
+        }
+        entity.setCdRegistroSollecito(this.getCdRegistroSollecito());
+        entity.setAaVarSollecito(this.getAaVarSollecito());
+        entity.setCdKeyVarSollecito(this.getCdKeyVarSollecito());
+        entity.setDtSollecito(this.getDtSollecito());
+        entity.setDlSollecito(this.getDlSollecito());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

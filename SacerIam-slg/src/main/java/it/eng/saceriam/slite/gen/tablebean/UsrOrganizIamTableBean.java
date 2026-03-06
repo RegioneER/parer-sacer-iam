@@ -32,19 +32,19 @@ public class UsrOrganizIamTableBean extends AbstractBaseTable<UsrOrganizIamRowBe
     public static UsrOrganizIamTableDescriptor TABLE_DESCRIPTOR = new UsrOrganizIamTableDescriptor();
 
     public UsrOrganizIamTableBean() {
-	super();
+        super();
     }
 
     protected UsrOrganizIamRowBean createRow() {
-	return new UsrOrganizIamRowBean();
+        return new UsrOrganizIamRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrOrganizIamRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

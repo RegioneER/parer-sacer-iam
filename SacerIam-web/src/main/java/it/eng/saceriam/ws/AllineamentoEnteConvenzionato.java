@@ -36,7 +36,7 @@ public class AllineamentoEnteConvenzionato {
 
     @WebMethod(operationName = "ricalcoloServiziErogati")
     public RispostaWSAllineamentoEnteConvenzionato ricalcoloServiziErogati(
-	    @WebParam(name = "idEnteConvenz") Integer idEnteConvenz) throws AuthWSException {
-	return aecEjb.ricalcoloServiziErogati(idEnteConvenz);
+            @WebParam(name = "idEnteConvenz") Integer idEnteConvenz) throws AuthWSException {
+        return aecEjb.ricalcoloServiziErogati(idEnteConvenz);
     }
 }

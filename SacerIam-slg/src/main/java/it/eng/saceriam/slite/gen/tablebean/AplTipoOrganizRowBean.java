@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplTipoOrganizRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -37,98 +37,98 @@ public class AplTipoOrganizRowBean extends BaseRow
     public static AplTipoOrganizTableDescriptor TABLE_DESCRIPTOR = new AplTipoOrganizTableDescriptor();
 
     public AplTipoOrganizRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdTipoOrganiz() {
-	return getBigDecimal("id_tipo_organiz");
+        return getBigDecimal("id_tipo_organiz");
     }
 
     public void setIdTipoOrganiz(BigDecimal idTipoOrganiz) {
-	setObject("id_tipo_organiz", idTipoOrganiz);
+        setObject("id_tipo_organiz", idTipoOrganiz);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getNmTipoOrganiz() {
-	return getString("nm_tipo_organiz");
+        return getString("nm_tipo_organiz");
     }
 
     public void setNmTipoOrganiz(String nmTipoOrganiz) {
-	setObject("nm_tipo_organiz", nmTipoOrganiz);
+        setObject("nm_tipo_organiz", nmTipoOrganiz);
     }
 
     public String getFlLastLivello() {
-	return getString("fl_last_livello");
+        return getString("fl_last_livello");
     }
 
     public void setFlLastLivello(String flLastLivello) {
-	setObject("fl_last_livello", flLastLivello);
+        setObject("fl_last_livello", flLastLivello);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplTipoOrganiz entity = (AplTipoOrganiz) obj;
-	this.setIdTipoOrganiz(new BigDecimal(entity.getIdTipoOrganiz()));
-	if (entity.getAplApplic() != null) {
-	    this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
+        AplTipoOrganiz entity = (AplTipoOrganiz) obj;
+        this.setIdTipoOrganiz(new BigDecimal(entity.getIdTipoOrganiz()));
+        if (entity.getAplApplic() != null) {
+            this.setIdApplic(new BigDecimal(entity.getAplApplic().getIdApplic()));
 
-	}
-	this.setNmTipoOrganiz(entity.getNmTipoOrganiz());
-	this.setFlLastLivello(entity.getFlLastLivello());
+        }
+        this.setNmTipoOrganiz(entity.getNmTipoOrganiz());
+        this.setFlLastLivello(entity.getFlLastLivello());
     }
 
     @Override
     public AplTipoOrganiz rowBeanToEntity() {
-	AplTipoOrganiz entity = new AplTipoOrganiz();
-	if (this.getIdTipoOrganiz() != null) {
-	    entity.setIdTipoOrganiz(this.getIdTipoOrganiz().longValue());
-	}
-	if (this.getIdApplic() != null) {
-	    if (entity.getAplApplic() == null) {
-		entity.setAplApplic(new AplApplic());
-	    }
-	    entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
-	}
-	entity.setNmTipoOrganiz(this.getNmTipoOrganiz());
-	entity.setFlLastLivello(this.getFlLastLivello());
-	return entity;
+        AplTipoOrganiz entity = new AplTipoOrganiz();
+        if (this.getIdTipoOrganiz() != null) {
+            entity.setIdTipoOrganiz(this.getIdTipoOrganiz().longValue());
+        }
+        if (this.getIdApplic() != null) {
+            if (entity.getAplApplic() == null) {
+                entity.setAplApplic(new AplApplic());
+            }
+            entity.getAplApplic().setIdApplic(this.getIdApplic().longValue());
+        }
+        entity.setNmTipoOrganiz(this.getNmTipoOrganiz());
+        entity.setFlLastLivello(this.getFlLastLivello());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

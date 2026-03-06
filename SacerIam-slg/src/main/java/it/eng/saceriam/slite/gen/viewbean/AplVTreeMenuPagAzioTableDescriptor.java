@@ -47,27 +47,27 @@ public class AplVTreeMenuPagAzioTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_NODO_PADRE,
-		new ColumnDescriptor(COL_ID_NODO_PADRE, Types.VARCHAR, 41, true));
-	map.put(COL_ID_NODO, new ColumnDescriptor(COL_ID_NODO, Types.VARCHAR, 41, true));
-	map.put(COL_TIPO_NODO, new ColumnDescriptor(COL_TIPO_NODO, Types.VARCHAR, 1, true));
-	map.put(COL_DS_NODO, new ColumnDescriptor(COL_DS_NODO, Types.VARCHAR, 254, true));
-	map.put(COL_NI_ORD_NODI, new ColumnDescriptor(COL_NI_ORD_NODI, Types.DECIMAL, 22, true));
-	map.put(COL_DS_ORD_NODI, new ColumnDescriptor(COL_DS_ORD_NODI, Types.VARCHAR, 254, true));
-	map.put(COL_NI_LIVELLO, new ColumnDescriptor(COL_NI_LIVELLO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_NODO_PADRE,
+                new ColumnDescriptor(COL_ID_NODO_PADRE, Types.VARCHAR, 41, true));
+        map.put(COL_ID_NODO, new ColumnDescriptor(COL_ID_NODO, Types.VARCHAR, 41, true));
+        map.put(COL_TIPO_NODO, new ColumnDescriptor(COL_TIPO_NODO, Types.VARCHAR, 1, true));
+        map.put(COL_DS_NODO, new ColumnDescriptor(COL_DS_NODO, Types.VARCHAR, 254, true));
+        map.put(COL_NI_ORD_NODI, new ColumnDescriptor(COL_NI_ORD_NODI, Types.DECIMAL, 22, true));
+        map.put(COL_DS_ORD_NODI, new ColumnDescriptor(COL_DS_ORD_NODI, Types.VARCHAR, 254, true));
+        map.put(COL_NI_LIVELLO, new ColumnDescriptor(COL_NI_LIVELLO, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

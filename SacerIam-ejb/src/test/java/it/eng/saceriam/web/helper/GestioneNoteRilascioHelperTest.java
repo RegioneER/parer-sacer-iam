@@ -47,56 +47,56 @@ public class GestioneNoteRilascioHelperTest {
     @Deployment
     public static Archive<?> createTestArchive() {
 
-	final JavaArchive archive = getSacerIamArchive(GestioneNoteRilascioHelper.class)
-		.addClass(GestioneNoteRilascioHelperTest.class)
-		.addPackages(true, "org.apache.commons.collections").addPackages(true,
-			"it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
-	return archive;
+        final JavaArchive archive = getSacerIamArchive(GestioneNoteRilascioHelper.class)
+                .addClass(GestioneNoteRilascioHelperTest.class)
+                .addPackages(true, "org.apache.commons.collections").addPackages(true,
+                        "it.eng.parer.sacerlog.entity", "it.eng.parer.sacerlog.viewEntity");
+        return archive;
     }
 
     @Test
     void getAplNoteRilascioList_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
-	String cdVersione = aString();
-	Date dataVersioneDa = null;
-	Date dataVersioneA = null;
-	String blNota = aString();
-	String dsEvidenza = aString();
+        BigDecimal idApplic = aBigDecimal();
+        String cdVersione = aString();
+        Date dataVersioneDa = null;
+        Date dataVersioneA = null;
+        String blNota = aString();
+        String dsEvidenza = aString();
 
-	helper.getAplNoteRilascioList(idApplic, cdVersione, dataVersioneDa, dataVersioneA, blNota,
-		dsEvidenza);
-	assertTrue(true);
+        helper.getAplNoteRilascioList(idApplic, cdVersione, dataVersioneDa, dataVersioneA, blNota,
+                dsEvidenza);
+        assertTrue(true);
     }
 
     @Test
     void getAplNotaRilascioById_queryIsOk() {
-	BigDecimal idNotaRilascio = aBigDecimal();
+        BigDecimal idNotaRilascio = aBigDecimal();
 
-	helper.getAplNotaRilascioById(idNotaRilascio);
-	assertTrue(true);
+        helper.getAplNotaRilascioById(idNotaRilascio);
+        assertTrue(true);
     }
 
     @Test
     void getAplApplicById_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
+        BigDecimal idApplic = aBigDecimal();
 
-	helper.getAplApplicById(idApplic);
-	assertTrue(true);
+        helper.getAplApplicById(idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getAplApplic_queryIsOk() {
-	long idApplic = aLong();
-	helper.getAplApplic(idApplic);
-	assertTrue(true);
+        long idApplic = aLong();
+        helper.getAplApplic(idApplic);
+        assertTrue(true);
     }
 
     @Test
     void getAplNoteRilascioPrecList_queryIsOk() {
-	BigDecimal idApplic = aBigDecimal();
-	BigDecimal idNotaRilascio = aBigDecimal();
-	Date dtVersione = todayTs();
-	helper.getAplNoteRilascioPrecList(idApplic, idNotaRilascio, dtVersione);
-	assertTrue(true);
+        BigDecimal idApplic = aBigDecimal();
+        BigDecimal idNotaRilascio = aBigDecimal();
+        Date dtVersione = todayTs();
+        helper.getAplNoteRilascioPrecList(idApplic, idNotaRilascio, dtVersione);
+        assertTrue(true);
     }
 }

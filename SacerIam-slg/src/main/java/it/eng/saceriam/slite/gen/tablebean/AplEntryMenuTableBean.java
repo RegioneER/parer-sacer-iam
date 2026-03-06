@@ -32,19 +32,19 @@ public class AplEntryMenuTableBean extends AbstractBaseTable<AplEntryMenuRowBean
     public static AplEntryMenuTableDescriptor TABLE_DESCRIPTOR = new AplEntryMenuTableDescriptor();
 
     public AplEntryMenuTableBean() {
-	super();
+        super();
     }
 
     protected AplEntryMenuRowBean createRow() {
-	return new AplEntryMenuRowBean();
+        return new AplEntryMenuRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplEntryMenuRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

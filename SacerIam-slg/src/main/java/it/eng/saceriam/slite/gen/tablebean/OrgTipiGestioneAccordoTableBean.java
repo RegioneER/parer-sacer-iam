@@ -23,7 +23,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgTipiGestioneAccordoTableBean
-	extends AbstractBaseTable<OrgTipiGestioneAccordoRowBean> {
+        extends AbstractBaseTable<OrgTipiGestioneAccordoRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -33,19 +33,19 @@ public class OrgTipiGestioneAccordoTableBean
     public static OrgTipiGestioneAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgTipiGestioneAccordoTableDescriptor();
 
     public OrgTipiGestioneAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgTipiGestioneAccordoRowBean createRow() {
-	return new OrgTipiGestioneAccordoRowBean();
+        return new OrgTipiGestioneAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgTipiGestioneAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

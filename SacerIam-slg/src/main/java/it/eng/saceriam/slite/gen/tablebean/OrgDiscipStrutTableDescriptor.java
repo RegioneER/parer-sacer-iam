@@ -53,46 +53,46 @@ public class OrgDiscipStrutTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_DISCIP_STRUT,
-		new ColumnDescriptor(COL_ID_DISCIP_STRUT, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ORGANIZ_IAM,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, false));
-	map.put(COL_DT_DISCIP_STRUT,
-		new ColumnDescriptor(COL_DT_DISCIP_STRUT, Types.TIMESTAMP, 7, false));
-	map.put(COL_BL_DISCIP_STRUT,
-		new ColumnDescriptor(COL_BL_DISCIP_STRUT, Types.BLOB, 4000, false));
-	map.put(COL_DS_NOTE_DISCIP_STRUT,
-		new ColumnDescriptor(COL_DS_NOTE_DISCIP_STRUT, Types.VARCHAR, 4000, false));
-	map.put(COL_DS_DISCIP_STRUT,
-		new ColumnDescriptor(COL_DS_DISCIP_STRUT, Types.VARCHAR, 1024, false));
-	map.put(COL_FL_INSERITO_MANUALMENTE,
-		new ColumnDescriptor(COL_FL_INSERITO_MANUALMENTE, Types.VARCHAR, 1, false));
-	map.put(COL_CD_REGISTRO_DISCIP_STRUT,
-		new ColumnDescriptor(COL_CD_REGISTRO_DISCIP_STRUT, Types.VARCHAR, 100, false));
-	map.put(COL_AA_DISCIP_STRUT,
-		new ColumnDescriptor(COL_AA_DISCIP_STRUT, Types.DECIMAL, 22, false));
-	map.put(COL_CD_KEY_DISCIP_STRUT,
-		new ColumnDescriptor(COL_CD_KEY_DISCIP_STRUT, Types.VARCHAR, 100, false));
-	map.put(COL_ENTE_DISCIP_STRUT,
-		new ColumnDescriptor(COL_ENTE_DISCIP_STRUT, Types.VARCHAR, 100, false));
-	map.put(COL_STRUTTURA_DISCIP_STRUT,
-		new ColumnDescriptor(COL_STRUTTURA_DISCIP_STRUT, Types.VARCHAR, 100, false));
+        map.put(COL_ID_DISCIP_STRUT,
+                new ColumnDescriptor(COL_ID_DISCIP_STRUT, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ORGANIZ_IAM,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM, Types.DECIMAL, 22, false));
+        map.put(COL_DT_DISCIP_STRUT,
+                new ColumnDescriptor(COL_DT_DISCIP_STRUT, Types.TIMESTAMP, 7, false));
+        map.put(COL_BL_DISCIP_STRUT,
+                new ColumnDescriptor(COL_BL_DISCIP_STRUT, Types.BLOB, 4000, false));
+        map.put(COL_DS_NOTE_DISCIP_STRUT,
+                new ColumnDescriptor(COL_DS_NOTE_DISCIP_STRUT, Types.VARCHAR, 4000, false));
+        map.put(COL_DS_DISCIP_STRUT,
+                new ColumnDescriptor(COL_DS_DISCIP_STRUT, Types.VARCHAR, 1024, false));
+        map.put(COL_FL_INSERITO_MANUALMENTE,
+                new ColumnDescriptor(COL_FL_INSERITO_MANUALMENTE, Types.VARCHAR, 1, false));
+        map.put(COL_CD_REGISTRO_DISCIP_STRUT,
+                new ColumnDescriptor(COL_CD_REGISTRO_DISCIP_STRUT, Types.VARCHAR, 100, false));
+        map.put(COL_AA_DISCIP_STRUT,
+                new ColumnDescriptor(COL_AA_DISCIP_STRUT, Types.DECIMAL, 22, false));
+        map.put(COL_CD_KEY_DISCIP_STRUT,
+                new ColumnDescriptor(COL_CD_KEY_DISCIP_STRUT, Types.VARCHAR, 100, false));
+        map.put(COL_ENTE_DISCIP_STRUT,
+                new ColumnDescriptor(COL_ENTE_DISCIP_STRUT, Types.VARCHAR, 100, false));
+        map.put(COL_STRUTTURA_DISCIP_STRUT,
+                new ColumnDescriptor(COL_STRUTTURA_DISCIP_STRUT, Types.VARCHAR, 100, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

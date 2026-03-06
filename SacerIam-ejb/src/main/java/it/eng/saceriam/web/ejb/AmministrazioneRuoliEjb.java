@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.EJB;
@@ -79,6 +78,12 @@ import it.eng.saceriam.ws.client.allineaRuolo.ListaCategRuolo;
 import it.eng.saceriam.ws.client.allineaRuolo.ListaDichAutor;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.form.base.BaseElements.Status;
+import static java.util.Collections.list;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  * Ejb Amministrazione Ruoli di SacerIam
@@ -88,7 +93,7 @@ import it.eng.spagoLite.form.base.BaseElements.Status;
 @Stateless
 @LocalBean
 @Interceptors({
-	it.eng.saceriam.aop.TransactionInterceptor.class })
+        it.eng.saceriam.aop.TransactionInterceptor.class })
 public class AmministrazioneRuoliEjb {
 
     public AmministrazioneRuoliEjb() {
@@ -107,62 +112,62 @@ public class AmministrazioneRuoliEjb {
      * @throws EMFError errore generico
      */
     public AplApplicTableBean getAplApplicTableBean() throws EMFError {
-	AplApplicTableBean applicTableBean = new AplApplicTableBean();
-	List<AplApplic> applicList = amministrazioneRuoliHelper.getAplApplicList();
-	try {
-	    if (applicList != null && !applicList.isEmpty()) {
-		applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return applicTableBean;
+        AplApplicTableBean applicTableBean = new AplApplicTableBean();
+        List<AplApplic> applicList = amministrazioneRuoliHelper.getAplApplicList();
+        try {
+            if (applicList != null && !applicList.isEmpty()) {
+                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return applicTableBean;
     }
 
     public PrfVLisRuoloTableBean getPrfVLisRuoloTableBean(Set<String> nmApplics,
-	    String tiStatoAllinea1, String tiStatoAllinea2, String nmRuolo, String tiRuolo,
-	    String tiCategRuolo) throws EMFError {
-	PrfVLisRuoloTableBean ruoliTB = new PrfVLisRuoloTableBean();
-	List<PrfVLisRuolo> ruoliList = amministrazioneRuoliHelper.getPrfVLisRuoloList(nmApplics,
-		tiStatoAllinea1, tiStatoAllinea2, nmRuolo, tiRuolo, tiCategRuolo);
-	try {
-	    if (ruoliList != null && !ruoliList.isEmpty()) {
-		// Scorro la lista e rielaboro i dati
-		for (PrfVLisRuolo ruolo : ruoliList) {
-		    PrfVLisRuoloRowBean ruoloRB = (PrfVLisRuoloRowBean) Transform
-			    .entity2RowBean(ruolo);
-		    Set<BigDecimal> idUsoRuoloApplicSet = amministrazioneRuoliHelper
-			    .getIdUsoRuoloApplicSet(ruolo.getIdRuolo());
-		    ruoloRB.setObject("set_usi", idUsoRuoloApplicSet);
-		    //// // Gestione categoria
-		    // Set<String> ticategRuoloSet = amministrazioneRuoliHelper
-		    // .getTiCategRuoloList(ruolo.getIdRuolo());
-		    // ruoloRB.setObject("set_cat", ticategRuoloSet);
+            String tiStatoAllinea1, String tiStatoAllinea2, String nmRuolo, String tiRuolo,
+            String tiCategRuolo) throws EMFError {
+        PrfVLisRuoloTableBean ruoliTB = new PrfVLisRuoloTableBean();
+        List<PrfVLisRuolo> ruoliList = amministrazioneRuoliHelper.getPrfVLisRuoloList(nmApplics,
+                tiStatoAllinea1, tiStatoAllinea2, nmRuolo, tiRuolo, tiCategRuolo);
+        try {
+            if (ruoliList != null && !ruoliList.isEmpty()) {
+                // Scorro la lista e rielaboro i dati
+                for (PrfVLisRuolo ruolo : ruoliList) {
+                    PrfVLisRuoloRowBean ruoloRB = (PrfVLisRuoloRowBean) Transform
+                            .entity2RowBean(ruolo);
+                    Set<BigDecimal> idUsoRuoloApplicSet = amministrazioneRuoliHelper
+                            .getIdUsoRuoloApplicSet(ruolo.getIdRuolo());
+                    ruoloRB.setObject("set_usi", idUsoRuoloApplicSet);
+                    //// // Gestione categoria
+                    // Set<String> ticategRuoloSet = amministrazioneRuoliHelper
+                    // .getTiCategRuoloList(ruolo.getIdRuolo());
+                    // ruoloRB.setObject("set_cat", ticategRuoloSet);
 
-		    // List<String> filtroCatList = new ArrayList<>();
-		    // List<String> listaCatTotale =
-		    // amministrazioneRuoliHelper.getTiCategRuoloList(ruolo.getIdRuolo());
-		    // for (String cat : listaCatTotale) {
-		    // if (listaCatTotale.contains(cat)) {
-		    // filtroCatList.add(cat);
-		    // }
-		    // }
-		    // String lista = "";
-		    // for (String cat : filtroCatList) {
-		    // if (!lista.equals("")) {
-		    // lista = lista + ", " + cat;
-		    // } else {
-		    // lista = cat;
-		    // }
-		    // }
-		    // ruoloRB.setTiCategRuolo(lista);
-		    ruoliTB.add(ruoloRB);
-		}
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return ruoliTB;
+                    // List<String> filtroCatList = new ArrayList<>();
+                    // List<String> listaCatTotale =
+                    // amministrazioneRuoliHelper.getTiCategRuoloList(ruolo.getIdRuolo());
+                    // for (String cat : listaCatTotale) {
+                    // if (listaCatTotale.contains(cat)) {
+                    // filtroCatList.add(cat);
+                    // }
+                    // }
+                    // String lista = "";
+                    // for (String cat : filtroCatList) {
+                    // if (!lista.equals("")) {
+                    // lista = lista + ", " + cat;
+                    // } else {
+                    // lista = cat;
+                    // }
+                    // }
+                    // ruoloRB.setTiCategRuolo(lista);
+                    ruoliTB.add(ruoloRB);
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return ruoliTB;
     }
 
     /**
@@ -176,31 +181,31 @@ public class AmministrazioneRuoliEjb {
      * @throws EMFError errore generico
      */
     public PrfVLisRuoloRowBean getPrfVLisRuoloRowBean(BigDecimal idRuolo) throws EMFError {
-	PrfVLisRuolo ruolo = amministrazioneRuoliHelper.getPrfVLisRuolo(idRuolo);
-	PrfVLisRuoloRowBean ruoloRB = null;
-	try {
-	    ruoloRB = (PrfVLisRuoloRowBean) Transform.entity2RowBean(ruolo);
-	    Set<BigDecimal> idUsoRuoloApplicSet = amministrazioneRuoliHelper
-		    .getIdUsoRuoloApplicSet(ruolo.getIdRuolo());
-	    ruoloRB.setObject("set_usi", idUsoRuoloApplicSet);
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	    throw new IllegalStateException("Impossibile recuperare il ruolo");
-	}
-	return ruoloRB;
+        PrfVLisRuolo ruolo = amministrazioneRuoliHelper.getPrfVLisRuolo(idRuolo);
+        PrfVLisRuoloRowBean ruoloRB = null;
+        try {
+            ruoloRB = (PrfVLisRuoloRowBean) Transform.entity2RowBean(ruolo);
+            Set<BigDecimal> idUsoRuoloApplicSet = amministrazioneRuoliHelper
+                    .getIdUsoRuoloApplicSet(ruolo.getIdRuolo());
+            ruoloRB.setObject("set_usi", idUsoRuoloApplicSet);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw new IllegalStateException("Impossibile recuperare il ruolo");
+        }
+        return ruoloRB;
     }
 
     public PrfRuoloTableBean getPrfRuoliTableBean() throws EMFError {
-	PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
-	List<PrfRuolo> ruoliList = amministrazioneRuoliHelper.getPrfRuoli();
-	try {
-	    if (ruoliList != null && !ruoliList.isEmpty()) {
-		ruoliTB = (PrfRuoloTableBean) Transform.entities2TableBean(ruoliList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return ruoliTB;
+        PrfRuoloTableBean ruoliTB = new PrfRuoloTableBean();
+        List<PrfRuolo> ruoliList = amministrazioneRuoliHelper.getPrfRuoli();
+        try {
+            if (ruoliList != null && !ruoliList.isEmpty()) {
+                ruoliTB = (PrfRuoloTableBean) Transform.entities2TableBean(ruoliList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return ruoliTB;
     }
 
     /**
@@ -213,43 +218,43 @@ public class AmministrazioneRuoliEjb {
      */
     // TODO: DA ELIMINARE
     public PrfVLisDichAutorTableBean getPrfDichAutorViewBean(Set<BigDecimal> idUsoRuoloSet,
-	    String tiDichAutor, BigDecimal idApplic) {
-	List<PrfVLisDichAutor> dichAutorList = amministrazioneRuoliHelper
-		.getPrfVLisDichAutorList(idUsoRuoloSet, tiDichAutor, idApplic);
-	PrfVLisDichAutorTableBean dichsTB = new PrfVLisDichAutorTableBean();
-	try {
-	    if (dichAutorList != null && !dichAutorList.isEmpty()) {
-		dichsTB = (PrfVLisDichAutorTableBean) Transform.entities2TableBean(dichAutorList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return dichsTB;
+            String tiDichAutor, BigDecimal idApplic) {
+        List<PrfVLisDichAutor> dichAutorList = amministrazioneRuoliHelper
+                .getPrfVLisDichAutorList(idUsoRuoloSet, tiDichAutor, idApplic);
+        PrfVLisDichAutorTableBean dichsTB = new PrfVLisDichAutorTableBean();
+        try {
+            if (dichAutorList != null && !dichAutorList.isEmpty()) {
+                dichsTB = (PrfVLisDichAutorTableBean) Transform.entities2TableBean(dichAutorList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return dichsTB;
     }
 
     public PrfVLisDichAutorTableBean getPrfDichAutorViewBean(BigDecimal idRuolo, String tiDichAutor,
-	    BigDecimal idApplic) {
-	List<PrfVLisDichAutor> dichAutorList = amministrazioneRuoliHelper
-		.getPrfVLisDichAutorList(idRuolo, tiDichAutor, idApplic);
-	PrfVLisDichAutorTableBean dichsTB = new PrfVLisDichAutorTableBean();
-	try {
-	    if (dichAutorList != null && !dichAutorList.isEmpty()) {
-		for (PrfVLisDichAutor record : dichAutorList) {
-		    PrfVLisDichAutorRowBean row = (PrfVLisDichAutorRowBean) Transform
-			    .entity2RowBean(record);
-		    if (row.getTiScopoDichAutor()
-			    .equals(ConstPrfDichAutor.TiScopoDichAutor.ALL_ABILITAZIONI.name())) {
-			AplEntryMenu entryMenu = amministrazioneRuoliHelper
-				.getRootEntryMenu(idApplic);
-			row.setIdEntryMenu(new BigDecimal(entryMenu.getIdEntryMenu()));
-		    }
-		    dichsTB.add(row);
-		}
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return dichsTB;
+            BigDecimal idApplic) {
+        List<PrfVLisDichAutor> dichAutorList = amministrazioneRuoliHelper
+                .getPrfVLisDichAutorList(idRuolo, tiDichAutor, idApplic);
+        PrfVLisDichAutorTableBean dichsTB = new PrfVLisDichAutorTableBean();
+        try {
+            if (dichAutorList != null && !dichAutorList.isEmpty()) {
+                for (PrfVLisDichAutor record : dichAutorList) {
+                    PrfVLisDichAutorRowBean row = (PrfVLisDichAutorRowBean) Transform
+                            .entity2RowBean(record);
+                    if (row.getTiScopoDichAutor()
+                            .equals(ConstPrfDichAutor.TiScopoDichAutor.ALL_ABILITAZIONI.name())) {
+                        AplEntryMenu entryMenu = amministrazioneRuoliHelper
+                                .getRootEntryMenu(idApplic);
+                        row.setIdEntryMenu(new BigDecimal(entryMenu.getIdEntryMenu()));
+                    }
+                    dichsTB.add(row);
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return dichsTB;
     }
 
     /**
@@ -262,55 +267,55 @@ public class AmministrazioneRuoliEjb {
      * @throws EMFError errore generico
      */
     public PrfVLisDichAutorTableBean getPrfDichAutorEntryMenuOrdinati(
-	    PrfUsoRuoloApplicTableBean usoRuoloApplicTB, String tiDichAutor) throws EMFError {
-	PrfVLisDichAutorTableBean dichsTB = new PrfVLisDichAutorTableBean();
+            PrfUsoRuoloApplicTableBean usoRuoloApplicTB, String tiDichAutor) throws EMFError {
+        PrfVLisDichAutorTableBean dichsTB = new PrfVLisDichAutorTableBean();
 
-	// Per ogni applicazione tra quelle considerate in questo ruolo
-	for (PrfUsoRuoloApplicRowBean usoRuoloApplicRB : usoRuoloApplicTB) {
-	    // Recupero le abilitazioni sui menu
-	    List<Object[]> aplVTreeList = amministrazioneRuoliHelper
-		    .getAbilitazioniEntryMenu4Applic(usoRuoloApplicRB/*
-								      * , tiDichAutor
-								      */);
-	    // Se il risultato della query è vuoto, significa che potrei stare considerando una
-	    // abilitazione
-	    // ALL_ABILITAZIONI
-	    if (aplVTreeList.isEmpty()) {
-		// La ricavo
-		Set<BigDecimal> idUsoRuoloApplic = new HashSet<>();
-		idUsoRuoloApplic.add(usoRuoloApplicRB.getIdUsoRuoloApplic());
-		List<PrfVLisDichAutor> dichAutorList = amministrazioneRuoliHelper
-			.getPrfVLisDichAutorList(idUsoRuoloApplic, tiDichAutor,
-				usoRuoloApplicRB.getIdApplic());
+        // Per ogni applicazione tra quelle considerate in questo ruolo
+        for (PrfUsoRuoloApplicRowBean usoRuoloApplicRB : usoRuoloApplicTB) {
+            // Recupero le abilitazioni sui menu
+            List<Object[]> aplVTreeList = amministrazioneRuoliHelper
+                    .getAbilitazioniEntryMenu4Applic(usoRuoloApplicRB/*
+                                                                      * , tiDichAutor
+                                                                      */);
+            // Se il risultato della query è vuoto, significa che potrei stare considerando una
+            // abilitazione
+            // ALL_ABILITAZIONI
+            if (aplVTreeList.isEmpty()) {
+                // La ricavo
+                Set<BigDecimal> idUsoRuoloApplic = new HashSet<>();
+                idUsoRuoloApplic.add(usoRuoloApplicRB.getIdUsoRuoloApplic());
+                List<PrfVLisDichAutor> dichAutorList = amministrazioneRuoliHelper
+                        .getPrfVLisDichAutorList(idUsoRuoloApplic, tiDichAutor,
+                                usoRuoloApplicRB.getIdApplic());
 
-		if (dichAutorList.size() == 1) {
-		    try {
-			PrfVLisDichAutorRowBean dichsRB = new PrfVLisDichAutorRowBean();
-			dichsRB = (PrfVLisDichAutorRowBean) Transform
-				.entity2RowBean(dichAutorList.get(0));
-			dichsTB.add(dichsRB);
-		    } catch (Exception e) {
-			log.error(e.getMessage(), e);
-		    }
-		}
-	    } else {
-		for (Object[] aplTreeObject : aplVTreeList) {
-		    PrfVLisDichAutorRowBean dichsRB = new PrfVLisDichAutorRowBean();
-		    dichsRB.setIdDichAutor((BigDecimal) (aplTreeObject[0] != null ? aplTreeObject[0]
-			    : aplTreeObject[1]));
-		    dichsRB.setIdApplic(usoRuoloApplicRB.getIdApplic());
-		    dichsRB.setString("nm_applic", usoRuoloApplicRB.getString("nm_applic"));
-		    dichsRB.setTiScopoDichAutor(
-			    (String) (aplTreeObject[2] != null ? aplTreeObject[2]
-				    : aplTreeObject[3]));
-		    dichsRB.setDsEntryMenu((String) (aplTreeObject[4]));
-		    dichsRB.setIdEntryMenu((BigDecimal) (aplTreeObject[5]));
-		    dichsRB.setTiDichAutor("ENTRY_MENU");
-		    dichsTB.add(dichsRB);
-		}
-	    }
-	}
-	return dichsTB;
+                if (dichAutorList.size() == 1) {
+                    try {
+                        PrfVLisDichAutorRowBean dichsRB = new PrfVLisDichAutorRowBean();
+                        dichsRB = (PrfVLisDichAutorRowBean) Transform
+                                .entity2RowBean(dichAutorList.get(0));
+                        dichsTB.add(dichsRB);
+                    } catch (Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
+                }
+            } else {
+                for (Object[] aplTreeObject : aplVTreeList) {
+                    PrfVLisDichAutorRowBean dichsRB = new PrfVLisDichAutorRowBean();
+                    dichsRB.setIdDichAutor((BigDecimal) (aplTreeObject[0] != null ? aplTreeObject[0]
+                            : aplTreeObject[1]));
+                    dichsRB.setIdApplic(usoRuoloApplicRB.getIdApplic());
+                    dichsRB.setString("nm_applic", usoRuoloApplicRB.getString("nm_applic"));
+                    dichsRB.setTiScopoDichAutor(
+                            (String) (aplTreeObject[2] != null ? aplTreeObject[2]
+                                    : aplTreeObject[3]));
+                    dichsRB.setDsEntryMenu((String) (aplTreeObject[4]));
+                    dichsRB.setIdEntryMenu((BigDecimal) (aplTreeObject[5]));
+                    dichsRB.setTiDichAutor("ENTRY_MENU");
+                    dichsTB.add(dichsRB);
+                }
+            }
+        }
+        return dichsTB;
     }
 
     /**
@@ -323,17 +328,17 @@ public class AmministrazioneRuoliEjb {
      */
     @Deprecated
     public AplEntryMenuTableBean getEntryMenuParents(BigDecimal idEntryMenu) throws EMFError {
-	List<AplEntryMenu> entries = amministrazioneRuoliHelper
-		.getEntryMenuParentsList(idEntryMenu);
-	AplEntryMenuTableBean entriesTB = new AplEntryMenuTableBean();
-	try {
-	    if (entries != null && !entries.isEmpty()) {
-		entriesTB = (AplEntryMenuTableBean) Transform.entities2TableBean(entries);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return entriesTB;
+        List<AplEntryMenu> entries = amministrazioneRuoliHelper
+                .getEntryMenuParentsList(idEntryMenu);
+        AplEntryMenuTableBean entriesTB = new AplEntryMenuTableBean();
+        try {
+            if (entries != null && !entries.isEmpty()) {
+                entriesTB = (AplEntryMenuTableBean) Transform.entities2TableBean(entries);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return entriesTB;
     }
 
     /**
@@ -346,68 +351,68 @@ public class AmministrazioneRuoliEjb {
      * @throws EMFError errore generico
      */
     public PrfUsoRuoloApplicTableBean getPrfUsoRuoloApplicTableBean(
-	    Set<BigDecimal> idUsoRuoloApplic) throws EMFError {
-	PrfUsoRuoloApplicTableBean usoRuoloApplicTableBean = new PrfUsoRuoloApplicTableBean();
-	List<PrfUsoRuoloApplic> usoRuoloApplicList = amministrazioneRuoliHelper
-		.getPrfUsoRuoloApplicList(idUsoRuoloApplic);
-	try {
-	    for (PrfUsoRuoloApplic usoRuoloApplic : usoRuoloApplicList) {
-		PrfUsoRuoloApplicRowBean usoRuoloApplicRowBean = (PrfUsoRuoloApplicRowBean) Transform
-			.entity2RowBean(usoRuoloApplic);
-		usoRuoloApplicRowBean.setString("nm_applic",
-			usoRuoloApplic.getAplApplic().getNmApplic());
-		usoRuoloApplicRowBean.setString("ds_applic",
-			usoRuoloApplic.getAplApplic().getDsApplic());
-		usoRuoloApplicRowBean.setString("cd_versione_comp",
-			usoRuoloApplic.getAplApplic().getCdVersioneComp());
-		usoRuoloApplicTableBean.add(usoRuoloApplicRowBean);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return usoRuoloApplicTableBean;
+            Set<BigDecimal> idUsoRuoloApplic) throws EMFError {
+        PrfUsoRuoloApplicTableBean usoRuoloApplicTableBean = new PrfUsoRuoloApplicTableBean();
+        List<PrfUsoRuoloApplic> usoRuoloApplicList = amministrazioneRuoliHelper
+                .getPrfUsoRuoloApplicList(idUsoRuoloApplic);
+        try {
+            for (PrfUsoRuoloApplic usoRuoloApplic : usoRuoloApplicList) {
+                PrfUsoRuoloApplicRowBean usoRuoloApplicRowBean = (PrfUsoRuoloApplicRowBean) Transform
+                        .entity2RowBean(usoRuoloApplic);
+                usoRuoloApplicRowBean.setString("nm_applic",
+                        usoRuoloApplic.getAplApplic().getNmApplic());
+                usoRuoloApplicRowBean.setString("ds_applic",
+                        usoRuoloApplic.getAplApplic().getDsApplic());
+                usoRuoloApplicRowBean.setString("cd_versione_comp",
+                        usoRuoloApplic.getAplApplic().getCdVersioneComp());
+                usoRuoloApplicTableBean.add(usoRuoloApplicRowBean);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return usoRuoloApplicTableBean;
     }
 
     public PrfRuoloCategoriaRowBean getPrfRuoloCategoriaRowBean(BigDecimal idRuoloCategoria) {
-	PrfRuoloCategoriaRowBean ruoloCategRowBean = new PrfRuoloCategoriaRowBean();
-	PrfRuoloCategoria ruoloCateg = amministrazioneRuoliHelper.findById(PrfRuoloCategoria.class,
-		idRuoloCategoria);
-	try {
-	    if (ruoloCateg != null) {
-		ruoloCategRowBean = (PrfRuoloCategoriaRowBean) Transform.entity2RowBean(ruoloCateg);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return ruoloCategRowBean;
+        PrfRuoloCategoriaRowBean ruoloCategRowBean = new PrfRuoloCategoriaRowBean();
+        PrfRuoloCategoria ruoloCateg = amministrazioneRuoliHelper.findById(PrfRuoloCategoria.class,
+                idRuoloCategoria);
+        try {
+            if (ruoloCateg != null) {
+                ruoloCategRowBean = (PrfRuoloCategoriaRowBean) Transform.entity2RowBean(ruoloCateg);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return ruoloCategRowBean;
     }
 
     public AplApplicRowBean getAplApplicRowBean(BigDecimal idApplic) {
-	AplApplicRowBean applicRowBean = new AplApplicRowBean();
-	AplApplic applic = amministrazioneRuoliHelper.getAplApplicById(idApplic);
-	try {
-	    if (applic != null) {
-		applicRowBean = (AplApplicRowBean) Transform.entity2RowBean(applic);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return applicRowBean;
+        AplApplicRowBean applicRowBean = new AplApplicRowBean();
+        AplApplic applic = amministrazioneRuoliHelper.getAplApplicById(idApplic);
+        try {
+            if (applic != null) {
+                applicRowBean = (AplApplicRowBean) Transform.entity2RowBean(applic);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return applicRowBean;
     }
 
     public PrfDichAutorRowBean getPrfDichAutorRowBean(String tiScopoDichAutor, String tiDichAutor,
-	    BigDecimal idObject, BigDecimal idObject2, BigDecimal idPrfUsoRuoloApplic) {
-	PrfDichAutorRowBean rb = null;
-	List<PrfDichAutor> dichs = amministrazioneRuoliHelper.getPrfDichAutor(tiScopoDichAutor,
-		tiDichAutor, idObject, idObject2, idPrfUsoRuoloApplic);
-	try {
-	    if (dichs != null && !dichs.isEmpty() && dichs.size() == 1) {
-		rb = (PrfDichAutorRowBean) Transform.entity2RowBean(dichs.get(0));
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return rb;
+            BigDecimal idObject, BigDecimal idObject2, BigDecimal idPrfUsoRuoloApplic) {
+        PrfDichAutorRowBean rb = null;
+        List<PrfDichAutor> dichs = amministrazioneRuoliHelper.getPrfDichAutor(tiScopoDichAutor,
+                tiDichAutor, idObject, idObject2, idPrfUsoRuoloApplic);
+        try {
+            if (dichs != null && !dichs.isEmpty() && dichs.size() == 1) {
+                rb = (PrfDichAutorRowBean) Transform.entity2RowBean(dichs.get(0));
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return rb;
     }
 
     /**
@@ -421,16 +426,16 @@ public class AmministrazioneRuoliEjb {
      */
     @Deprecated
     public AplEntryMenuTableBean getEntryMenuChilds(BigDecimal idEntryMenu) {
-	AplEntryMenuTableBean entriesTB = new AplEntryMenuTableBean();
-	List<AplEntryMenu> entries = amministrazioneRuoliHelper.getEntryMenuChilds(idEntryMenu);
-	try {
-	    if (entries != null && !entries.isEmpty()) {
-		entriesTB = (AplEntryMenuTableBean) Transform.entities2TableBean(entries);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return entriesTB;
+        AplEntryMenuTableBean entriesTB = new AplEntryMenuTableBean();
+        List<AplEntryMenu> entries = amministrazioneRuoliHelper.getEntryMenuChilds(idEntryMenu);
+        try {
+            if (entries != null && !entries.isEmpty()) {
+                entriesTB = (AplEntryMenuTableBean) Transform.entities2TableBean(entries);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return entriesTB;
     }
 
     /**
@@ -441,16 +446,16 @@ public class AmministrazioneRuoliEjb {
      * @return il tableBean contenente la lista di azioni
      */
     public AplAzionePaginaTableBean getActionChilds(BigDecimal idPaginaWeb) {
-	AplAzionePaginaTableBean actionsTB = new AplAzionePaginaTableBean();
-	List<AplAzionePagina> actions = amministrazioneRuoliHelper.getActionChilds(idPaginaWeb);
-	try {
-	    if (actions != null && !actions.isEmpty()) {
-		actionsTB = (AplAzionePaginaTableBean) Transform.entities2TableBean(actions);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return actionsTB;
+        AplAzionePaginaTableBean actionsTB = new AplAzionePaginaTableBean();
+        List<AplAzionePagina> actions = amministrazioneRuoliHelper.getActionChilds(idPaginaWeb);
+        try {
+            if (actions != null && !actions.isEmpty()) {
+                actionsTB = (AplAzionePaginaTableBean) Transform.entities2TableBean(actions);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return actionsTB;
     }
 
     /**
@@ -462,63 +467,63 @@ public class AmministrazioneRuoliEjb {
      * @return il tableBean della lista di azioni
      */
     public AplAzionePaginaTableBean getActionsList(BigDecimal idApplicazione,
-	    BigDecimal idPaginaWeb) {
-	AplAzionePaginaTableBean actionsTb = new AplAzionePaginaTableBean();
-	List<AplAzionePagina> actions = amministrazioneRuoliHelper.getActionsList(idApplicazione,
-		idPaginaWeb);
-	try {
-	    if (actions != null && !actions.isEmpty()) {
-		actionsTb = (AplAzionePaginaTableBean) Transform.entities2TableBean(actions);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return actionsTb;
+            BigDecimal idPaginaWeb) {
+        AplAzionePaginaTableBean actionsTb = new AplAzionePaginaTableBean();
+        List<AplAzionePagina> actions = amministrazioneRuoliHelper.getActionsList(idApplicazione,
+                idPaginaWeb);
+        try {
+            if (actions != null && !actions.isEmpty()) {
+                actionsTb = (AplAzionePaginaTableBean) Transform.entities2TableBean(actions);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return actionsTb;
     }
 
     public AplAzionePaginaTableBean getActionsFromPageList(BigDecimal idApplicazione,
-	    BigDecimal idPaginaWeb, Set<BigDecimal> azioniGiaPresenti) {
-	AplAzionePaginaTableBean actionsTb = new AplAzionePaginaTableBean();
-	List<AplAzionePagina> actions = amministrazioneRuoliHelper
-		.getActionsPagesList(idApplicazione, idPaginaWeb, azioniGiaPresenti);
-	try {
-	    if (actions != null && !actions.isEmpty()) {
-		actionsTb = (AplAzionePaginaTableBean) Transform.entities2TableBean(actions);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return actionsTb;
+            BigDecimal idPaginaWeb, Set<BigDecimal> azioniGiaPresenti) {
+        AplAzionePaginaTableBean actionsTb = new AplAzionePaginaTableBean();
+        List<AplAzionePagina> actions = amministrazioneRuoliHelper
+                .getActionsPagesList(idApplicazione, idPaginaWeb, azioniGiaPresenti);
+        try {
+            if (actions != null && !actions.isEmpty()) {
+                actionsTb = (AplAzionePaginaTableBean) Transform.entities2TableBean(actions);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return actionsTb;
     }
 
     public AplVTreeEntryMenuTableBean getEntryMenuList(BigDecimal idApplicazione,
-	    boolean ricercaFoglie, Set<String> nodiGiaPresenti) {
-	AplVTreeEntryMenuTableBean entriesTB = new AplVTreeEntryMenuTableBean();
-	List<AplVTreeEntryMenu> entries = amministrazioneRuoliHelper
-		.getEntryMenuList2(idApplicazione, ricercaFoglie, nodiGiaPresenti);
-	try {
-	    if (entries != null && !entries.isEmpty()) {
-		entriesTB = (AplVTreeEntryMenuTableBean) Transform.entities2TableBean(entries);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return entriesTB;
+            boolean ricercaFoglie, Set<String> nodiGiaPresenti) {
+        AplVTreeEntryMenuTableBean entriesTB = new AplVTreeEntryMenuTableBean();
+        List<AplVTreeEntryMenu> entries = amministrazioneRuoliHelper
+                .getEntryMenuList2(idApplicazione, ricercaFoglie, nodiGiaPresenti);
+        try {
+            if (entries != null && !entries.isEmpty()) {
+                entriesTB = (AplVTreeEntryMenuTableBean) Transform.entities2TableBean(entries);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return entriesTB;
     }
 
     public AplVTreeMenuPagAzioTableBean getRoleTreeTableBean(BigDecimal idApplicazione,
-	    String tiDichAutor) {
-	AplVTreeMenuPagAzioTableBean entriesTB = new AplVTreeMenuPagAzioTableBean();
-	List<AplVTreeMenuPagAzio> entries = amministrazioneRuoliHelper
-		.getRoleTreeNodesList(idApplicazione, tiDichAutor);
-	try {
-	    if (entries != null && !entries.isEmpty()) {
-		entriesTB = (AplVTreeMenuPagAzioTableBean) Transform.entities2TableBean(entries);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return entriesTB;
+            String tiDichAutor) {
+        AplVTreeMenuPagAzioTableBean entriesTB = new AplVTreeMenuPagAzioTableBean();
+        List<AplVTreeMenuPagAzio> entries = amministrazioneRuoliHelper
+                .getRoleTreeNodesList(idApplicazione, tiDichAutor);
+        try {
+            if (entries != null && !entries.isEmpty()) {
+                entriesTB = (AplVTreeMenuPagAzioTableBean) Transform.entities2TableBean(entries);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return entriesTB;
     }
 
     // public AplVTreeEntryMenuTableBean getRoleTreeTableBean(BigDecimal idApplicazione, BigDecimal
@@ -542,354 +547,515 @@ public class AmministrazioneRuoliEjb {
     // return entriesTB;
     // }
     public AplPaginaWebTableBean getPagesList(BigDecimal idApplicazione,
-	    Set<String> nodiGiaPresenti) {
-	AplPaginaWebTableBean pagesTb = new AplPaginaWebTableBean();
-	List<AplPaginaWeb> pages = amministrazioneRuoliHelper.getPagesList(idApplicazione,
-		nodiGiaPresenti);
-	try {
-	    if (pages != null && !pages.isEmpty()) {
-		pagesTb = (AplPaginaWebTableBean) Transform.entities2TableBean(pages);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return pagesTb;
+            Set<String> nodiGiaPresenti) {
+        AplPaginaWebTableBean pagesTb = new AplPaginaWebTableBean();
+        List<AplPaginaWeb> pages = amministrazioneRuoliHelper.getPagesList(idApplicazione,
+                nodiGiaPresenti);
+        try {
+            if (pages != null && !pages.isEmpty()) {
+                pagesTb = (AplPaginaWebTableBean) Transform.entities2TableBean(pages);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return pagesTb;
     }
 
     public Set<PairAuth<HashMap<BigDecimal, String>, String>> getAllPagesListPairAuth(
-	    BigDecimal idApplicazione,
-	    Set<PairAuth<HashMap<BigDecimal, String>, String>> paginaAzioneGiaInserite) {
+            BigDecimal idApplicazione,
+            Set<PairAuth<HashMap<BigDecimal, String>, String>> paginaAzioneGiaInserite) {
 
-	Set<PairAuth<HashMap<BigDecimal, String>, String>> paginaAzioneDaDB = new HashSet<>();
+        Set<PairAuth<HashMap<BigDecimal, String>, String>> paginaAzioneDaDB = new HashSet<>();
 
-	List<AplPaginaWeb> pages = amministrazioneRuoliHelper.getPagesList(idApplicazione, null);
-	for (AplPaginaWeb page : pages) {
-	    for (AplAzionePagina azione : page.getAplAzionePaginas()) {
-		HashMap<BigDecimal, String> pagina = new HashMap<>();
-		pagina.put(new BigDecimal(page.getIdPaginaWeb()), page.getDsPaginaWeb());
+        List<AplPaginaWeb> pages = amministrazioneRuoliHelper.getPagesList(idApplicazione, null);
+        for (AplPaginaWeb page : pages) {
+            for (AplAzionePagina azione : page.getAplAzionePaginas()) {
+                HashMap<BigDecimal, String> pagina = new HashMap<>();
+                pagina.put(new BigDecimal(page.getIdPaginaWeb()), page.getDsPaginaWeb());
 
-		PairAuth<HashMap<BigDecimal, String>, String> pair = new PairAuth<>(pagina,
-			azione.getDsAzionePagina());
+                PairAuth<HashMap<BigDecimal, String>, String> pair = new PairAuth<>(pagina,
+                        azione.getDsAzionePagina());
 
-		paginaAzioneDaDB.add(pair);
-	    }
-	}
+                paginaAzioneDaDB.add(pair);
+            }
+        }
 
-	if (paginaAzioneGiaInserite != null) {
-	    paginaAzioneDaDB.removeAll(paginaAzioneGiaInserite);
-	}
+        if (paginaAzioneGiaInserite != null) {
+            paginaAzioneDaDB.removeAll(paginaAzioneGiaInserite);
+        }
 
-	return paginaAzioneDaDB;
+        return paginaAzioneDaDB;
     }
 
     public AplPaginaWebTableBean getPagesAzioniList(BigDecimal idApplicazione,
-	    Set<BigDecimal> nodiGiaPresenti) {
-	AplPaginaWebTableBean pagesTb = new AplPaginaWebTableBean();
-	List<AplPaginaWeb> pages = amministrazioneRuoliHelper.getPagesAzioniList(idApplicazione,
-		nodiGiaPresenti);
-	try {
-	    if (pages != null && !pages.isEmpty()) {
-		pagesTb = (AplPaginaWebTableBean) Transform.entities2TableBean(pages);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return pagesTb;
+            Set<BigDecimal> nodiGiaPresenti) {
+        AplPaginaWebTableBean pagesTb = new AplPaginaWebTableBean();
+        List<AplPaginaWeb> pages = amministrazioneRuoliHelper.getPagesAzioniList(idApplicazione,
+                nodiGiaPresenti);
+        try {
+            if (pages != null && !pages.isEmpty()) {
+                pagesTb = (AplPaginaWebTableBean) Transform.entities2TableBean(pages);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return pagesTb;
     }
 
     public AplServizioWebTableBean getServicesList(BigDecimal idApplicazione,
-	    Set<String> nodiGiaPresenti) {
-	AplServizioWebTableBean servicesTb = new AplServizioWebTableBean();
-	List<AplServizioWeb> services = amministrazioneRuoliHelper.getServicesList(idApplicazione,
-		nodiGiaPresenti);
-	try {
-	    if (services != null && !services.isEmpty()) {
-		servicesTb = (AplServizioWebTableBean) Transform.entities2TableBean(services);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	return servicesTb;
+            Set<String> nodiGiaPresenti) {
+        AplServizioWebTableBean servicesTb = new AplServizioWebTableBean();
+        List<AplServizioWeb> services = amministrazioneRuoliHelper.getServicesList(idApplicazione,
+                nodiGiaPresenti);
+        try {
+            if (services != null && !services.isEmpty()) {
+                servicesTb = (AplServizioWebTableBean) Transform.entities2TableBean(services);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return servicesTb;
     }
 
     public BigDecimal getIdUsoRuoloApplic(BigDecimal idRuolo, BigDecimal idAppl) {
-	List<Long> usoRuoloApplic = amministrazioneRuoliHelper.getIdUsoRuoloApplic(idRuolo, idAppl);
-	if (!usoRuoloApplic.isEmpty() && usoRuoloApplic.size() == 1) {
-	    return new BigDecimal(usoRuoloApplic.get(0).longValue());
-	} else {
-	    return null;
-	}
+        List<Long> usoRuoloApplic = amministrazioneRuoliHelper.getIdUsoRuoloApplic(idRuolo, idAppl);
+        if (!usoRuoloApplic.isEmpty() && usoRuoloApplic.size() == 1) {
+            return new BigDecimal(usoRuoloApplic.get(0).longValue());
+        } else {
+            return null;
+        }
     }
 
     public String getAplApplicFromAction(BigDecimal idAzionePagina) {
-	AplAzionePagina azione = amministrazioneRuoliHelper.getAplAzionePagina(idAzionePagina);
-	return azione.getAplPaginaWeb().getAplApplic().getNmApplic();
+        AplAzionePagina azione = amministrazioneRuoliHelper.getAplAzionePagina(idAzionePagina);
+        return azione.getAplPaginaWeb().getAplApplic().getNmApplic();
     }
 
     public boolean checkIsUniqueRole(String nmRuoloPreMod, String nmRuoloPostMod, Status status) {
-	return amministrazioneRuoliHelper.checkIsUniqueRole(nmRuoloPreMod, nmRuoloPostMod, status);
+        return amministrazioneRuoliHelper.checkIsUniqueRole(nmRuoloPreMod, nmRuoloPostMod, status);
     }
 
     public BigDecimal getTotalMenus(BigDecimal idApplic) {
-	return new BigDecimal(amministrazioneRuoliHelper.countMenusList(idApplic));
+        return new BigDecimal(amministrazioneRuoliHelper.countMenusList(idApplic));
     }
 
     public BigDecimal getTotalPages(BigDecimal idApplic) {
-	return new BigDecimal(amministrazioneRuoliHelper.countPagesList(idApplic));
+        return new BigDecimal(amministrazioneRuoliHelper.countPagesList(idApplic));
     }
 
     public BigDecimal getTotalActions(BigDecimal idApplic) {
-	return new BigDecimal(amministrazioneRuoliHelper.countActionsList(idApplic));
+        return new BigDecimal(amministrazioneRuoliHelper.countActionsList(idApplic));
     }
 
     public enum AllineaAmbiente {
-	ALLINEA_AMBIENTE_1, ALLINEA_AMBIENTE_2;
+        ALLINEA_AMBIENTE_1, ALLINEA_AMBIENTE_2;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void updateStatoAllineamentoPrfRuolo(BigDecimal idRuolo, String statoAllinea,
-	    String esitoAllineamento, AllineaAmbiente ambiente) {
-	PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
-	switch (ambiente) {
-	case ALLINEA_AMBIENTE_1:
-	    ruolo.setTiStatoRichAllineaRuoli_1(statoAllinea);
-	    ruolo.setDsEsitoRichAllineaRuoli_1(esitoAllineamento);
-	    break;
-	case ALLINEA_AMBIENTE_2:
-	    ruolo.setTiStatoRichAllineaRuoli_2(statoAllinea);
-	    ruolo.setDsEsitoRichAllineaRuoli_2(esitoAllineamento);
-	    break;
-	default:
-	    throw new AssertionError(ambiente.name());
-	}
+            String esitoAllineamento, AllineaAmbiente ambiente) {
+        PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
+        switch (ambiente) {
+        case ALLINEA_AMBIENTE_1:
+            ruolo.setTiStatoRichAllineaRuoli_1(statoAllinea);
+            ruolo.setDsEsitoRichAllineaRuoli_1(esitoAllineamento);
+            break;
+        case ALLINEA_AMBIENTE_2:
+            ruolo.setTiStatoRichAllineaRuoli_2(statoAllinea);
+            ruolo.setDsEsitoRichAllineaRuoli_2(esitoAllineamento);
+            break;
+        default:
+            throw new AssertionError(ambiente.name());
+        }
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void updateEsitoAllineamentoPrfRuolo(BigDecimal idRuolo, String esitoAllineamento,
-	    AllineaAmbiente ambiente) {
-	PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
-	switch (ambiente) {
-	case ALLINEA_AMBIENTE_1:
-	    ruolo.setDsEsitoRichAllineaRuoli_1(esitoAllineamento);
-	    break;
-	case ALLINEA_AMBIENTE_2:
-	    ruolo.setDsEsitoRichAllineaRuoli_2(esitoAllineamento);
-	    break;
-	default:
-	    throw new AssertionError(ambiente.name());
-	}
+            AllineaAmbiente ambiente) {
+        PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
+        switch (ambiente) {
+        case ALLINEA_AMBIENTE_1:
+            ruolo.setDsEsitoRichAllineaRuoli_1(esitoAllineamento);
+            break;
+        case ALLINEA_AMBIENTE_2:
+            ruolo.setDsEsitoRichAllineaRuoli_2(esitoAllineamento);
+            break;
+        default:
+            throw new AssertionError(ambiente.name());
+        }
     }
 
     public ListaApplic getListaApplics(BigDecimal idRuolo) {
-	ListaApplic listaApplics = new ListaApplic();
-	Set<String> nmApplics = new HashSet<>();
-	List<PrfVLisDichAutorDaAllin> dichAutors = amministrazioneRuoliHelper
-		.retrievePrfVLisDichAutorDaAllin(idRuolo);
-	Applic applic;
-	List<DichAutor> dichAutorsApplic = new ArrayList<>();
-	for (PrfVLisDichAutorDaAllin dichAutor : dichAutors) {
-	    if (nmApplics.add(dichAutor.getNmApplic())) {
-		applic = new Applic();
-		applic.setNmApplic(dichAutor.getNmApplic());
-		applic.setCdVersioneComp(dichAutor.getCdVersioneComp());
-		applic.setListaDichAutor(new ListaDichAutor());
-		dichAutorsApplic = applic.getListaDichAutor().getDichAutor();
-		listaApplics.getApplic().add(applic);
-	    }
-	    DichAutor autor = new DichAutor();
-	    autor.setDsPathEntryMenuFoglia(dichAutor.getDsPathEntryMenuFoglia());
-	    autor.setDsPathEntryMenuPadre(dichAutor.getDsPathEntryMenuPadre());
-	    autor.setNmAzionePagina(dichAutor.getNmAzionePagina());
-	    autor.setNmPaginaWeb(dichAutor.getNmPaginaWeb());
-	    autor.setNmServizioWeb(dichAutor.getNmServizioWeb());
-	    autor.setTiDichAutor(dichAutor.getTiDichAutor());
-	    autor.setTiScopoDichAutor(dichAutor.getTiScopoDichAutor());
-	    dichAutorsApplic.add(autor);
-	}
-	return listaApplics;
+        ListaApplic listaApplics = new ListaApplic();
+        Set<String> nmApplics = new HashSet<>();
+        List<PrfVLisDichAutorDaAllin> dichAutors = amministrazioneRuoliHelper
+                .retrievePrfVLisDichAutorDaAllin(idRuolo);
+        Applic applic;
+        List<DichAutor> dichAutorsApplic = new ArrayList<>();
+        for (PrfVLisDichAutorDaAllin dichAutor : dichAutors) {
+            if (nmApplics.add(dichAutor.getNmApplic())) {
+                applic = new Applic();
+                applic.setNmApplic(dichAutor.getNmApplic());
+                applic.setCdVersioneComp(dichAutor.getCdVersioneComp());
+                applic.setListaDichAutor(new ListaDichAutor());
+                dichAutorsApplic = applic.getListaDichAutor().getDichAutor();
+                listaApplics.getApplic().add(applic);
+            }
+            DichAutor autor = new DichAutor();
+            autor.setDsPathEntryMenuFoglia(dichAutor.getDsPathEntryMenuFoglia());
+            autor.setDsPathEntryMenuPadre(dichAutor.getDsPathEntryMenuPadre());
+            autor.setNmAzionePagina(dichAutor.getNmAzionePagina());
+            autor.setNmPaginaWeb(dichAutor.getNmPaginaWeb());
+            autor.setNmServizioWeb(dichAutor.getNmServizioWeb());
+            autor.setTiDichAutor(dichAutor.getTiDichAutor());
+            autor.setTiScopoDichAutor(dichAutor.getTiScopoDichAutor());
+            dichAutorsApplic.add(autor);
+        }
+        return listaApplics;
     }
 
     public ListaCategRuolo getListaCategRuolos(BigDecimal idRuolo) {
-	ListaCategRuolo listaCategRuolos = new ListaCategRuolo();
-	Set<String> tiCategRuolos = new HashSet<>();
-	List<PrfRuoloCategoria> lista = amministrazioneRuoliHelper
-		.retrievePrfRuoloCategoria(idRuolo);
-	// CategRuolo categRuolo;
+        ListaCategRuolo listaCategRuolos = new ListaCategRuolo();
+        Set<String> tiCategRuolos = new HashSet<>();
+        List<PrfRuoloCategoria> lista = amministrazioneRuoliHelper
+                .retrievePrfRuoloCategoria(idRuolo);
+        // CategRuolo categRuolo;
 
-	for (PrfRuoloCategoria ruoloCategoria : lista) {
-	    if (tiCategRuolos.add(ruoloCategoria.getTiCategRuolo())) {
-		// categRuolo = new CategRuolo();
-		// categRuolo.setTiCategRuolo(ruoloCategoria.getTiCategRuolo());
-		listaCategRuolos.getTiCategRuolo().add(ruoloCategoria.getTiCategRuolo());
-	    }
-	}
+        for (PrfRuoloCategoria ruoloCategoria : lista) {
+            if (tiCategRuolos.add(ruoloCategoria.getTiCategRuolo())) {
+                // categRuolo = new CategRuolo();
+                // categRuolo.setTiCategRuolo(ruoloCategoria.getTiCategRuolo());
+                listaCategRuolos.getTiCategRuolo().add(ruoloCategoria.getTiCategRuolo());
+            }
+        }
 
-	return listaCategRuolos;
+        return listaCategRuolos;
     }
 
     public String checkCategoriaRuoloModificata(BigDecimal idRuolo,
-	    PrfRuoloCategoriaTableBean ruoloCategoriaTableBean) {
-	String error = "";
-	PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
-	List<PrfRuoloCategoria> ruoloCategoriaList = ruolo.getPrfRuoloCategorias();
-	List<String> tiCategRuoloList = new ArrayList<>();
-	for (PrfRuoloCategoria ruoloCategoria : ruoloCategoriaList) {
-	    tiCategRuoloList.add(ruoloCategoria.getTiCategRuolo());
-	}
+            PrfRuoloCategoriaTableBean ruoloCategoriaTableBean) {
+        String error = "";
+        PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
+        List<PrfRuoloCategoria> ruoloCategoriaList = ruolo.getPrfRuoloCategorias();
+        List<String> tiCategRuoloList = new ArrayList<>();
+        for (PrfRuoloCategoria ruoloCategoria : ruoloCategoriaList) {
+            tiCategRuoloList.add(ruoloCategoria.getTiCategRuolo());
+        }
 
-	// Se ho modificato la categoria
-	for (PrfRuoloCategoriaRowBean rb : ruoloCategoriaTableBean) {
-	    String tiCategRuolo = rb.getTiCategRuolo();
-	    if (!tiCategRuoloList.contains(tiCategRuolo)) {
-		// Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il
-		// ruolo come ruolo di
-		// default
-		List<UsrUser> listaUtenti = amministrazioneRuoliHelper
-			.getUtentiUsoRuoloUserDefaultList(idRuolo,
-				Arrays.asList(TiStatotUser.CESSATO.name()));
+        // Se ho modificato la categoria
+        for (PrfRuoloCategoriaRowBean rb : ruoloCategoriaTableBean) {
+            String tiCategRuolo = rb.getTiCategRuolo();
+            if (!tiCategRuoloList.contains(tiCategRuolo)) {
+                // Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il
+                // ruolo come ruolo di
+                // default
+                List<UsrUser> listaUtenti = amministrazioneRuoliHelper
+                        .getUtentiUsoRuoloUserDefaultList(idRuolo,
+                                Arrays.asList(TiStatotUser.CESSATO.name()));
 
-		for (UsrUser user : listaUtenti) {
-		    if (tiCategRuolo.equals("amministrazione") && !TiEnteConvenz.AMMINISTRATORE
-			    .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
-			error = "Il ruolo non può assumere categoria pari a amministrazione perché usato da utenti che non appartengono ad ente di tipo amministratore";
-			break;
-		    }
+                for (UsrUser user : listaUtenti) {
+                    if (tiCategRuolo.equals("amministrazione") && !TiEnteConvenz.AMMINISTRATORE
+                            .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
+                        error = "Il ruolo non può assumere categoria pari a amministrazione perché usato da utenti che non appartengono ad ente di tipo amministratore";
+                        break;
+                    }
 
-		    if (tiCategRuolo.equals("conservazione")
-			    && !TiEnteConvenz.AMMINISTRATORE
-				    .equals(user.getOrgEnteSiam().getTiEnteConvenz())
-			    && !TiEnteConvenz.CONSERVATORE
-				    .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
-			error = "Il ruolo non può assumere categoria pari a conservazione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore";
-			break;
-		    }
+                    if (tiCategRuolo.equals("conservazione")
+                            && !TiEnteConvenz.AMMINISTRATORE
+                                    .equals(user.getOrgEnteSiam().getTiEnteConvenz())
+                            && !TiEnteConvenz.CONSERVATORE
+                                    .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
+                        error = "Il ruolo non può assumere categoria pari a conservazione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore";
+                        break;
+                    }
 
-		    if (tiCategRuolo.equals("gestione")
-			    && !TiEnteConvenz.AMMINISTRATORE
-				    .equals(user.getOrgEnteSiam().getTiEnteConvenz())
-			    && !TiEnteConvenz.CONSERVATORE
-				    .equals(user.getOrgEnteSiam().getTiEnteConvenz())
-			    && !TiEnteConvenz.GESTORE
-				    .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
-			error = "Il ruolo non può assumere categoria pari a gestione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore o gestore";
-			break;
-		    }
+                    if (tiCategRuolo.equals("gestione")
+                            && !TiEnteConvenz.AMMINISTRATORE
+                                    .equals(user.getOrgEnteSiam().getTiEnteConvenz())
+                            && !TiEnteConvenz.CONSERVATORE
+                                    .equals(user.getOrgEnteSiam().getTiEnteConvenz())
+                            && !TiEnteConvenz.GESTORE
+                                    .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
+                        error = "Il ruolo non può assumere categoria pari a gestione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore o gestore";
+                        break;
+                    }
 
-		    if (tiCategRuolo.equals("vigilanza") && !TiEnteNonConvenz.ORGANO_VIGILANZA
-			    .equals(user.getOrgEnteSiam().getTiEnteNonConvenz())) {
-			error = "Il ruolo non può assumere categoria pari a vigilanza perché usato da utenti che non appartengono ad ente di tipo organo di vigilanza";
-			break;
-		    }
-		}
+                    if (tiCategRuolo.equals("vigilanza") && !TiEnteNonConvenz.ORGANO_VIGILANZA
+                            .equals(user.getOrgEnteSiam().getTiEnteNonConvenz())) {
+                        error = "Il ruolo non può assumere categoria pari a vigilanza perché usato da utenti che non appartengono ad ente di tipo organo di vigilanza";
+                        break;
+                    }
+                }
 
-		if (error.equals("")) {
-		    // Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il
-		    // ruolo come ruolo per
-		    // organizzazione
-		    List<UsrUser> listaUtentiOrganiz = amministrazioneRuoliHelper
-			    .getUtentiUsoRuoloOrganizList(idRuolo,
-				    Arrays.asList(TiStatotUser.CESSATO.name()));
-		    for (UsrUser user : listaUtentiOrganiz) {
-			if (tiCategRuolo.equals("amministrazione") && !TiEnteConvenz.AMMINISTRATORE
-				.equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
-			    error = "Il ruolo non può assumere categoria pari a amministrazione perché usato da utenti che non appartengono ad ente di tipo amministratore";
-			    break;
-			}
+                if (error.equals("")) {
+                    // Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il
+                    // ruolo come ruolo per
+                    // organizzazione
+                    List<UsrUser> listaUtentiOrganiz = amministrazioneRuoliHelper
+                            .getUtentiUsoRuoloOrganizList(idRuolo,
+                                    Arrays.asList(TiStatotUser.CESSATO.name()));
+                    for (UsrUser user : listaUtentiOrganiz) {
+                        if (tiCategRuolo.equals("amministrazione") && !TiEnteConvenz.AMMINISTRATORE
+                                .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
+                            error = "Il ruolo non può assumere categoria pari a amministrazione perché usato da utenti che non appartengono ad ente di tipo amministratore";
+                            break;
+                        }
 
-			if (tiCategRuolo.equals("conservazione")
-				&& !TiEnteConvenz.AMMINISTRATORE
-					.equals(user.getOrgEnteSiam().getTiEnteConvenz())
-				&& !TiEnteConvenz.CONSERVATORE
-					.equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
-			    error = "Il ruolo non può assumere categoria pari a conservazione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore";
-			    break;
-			}
+                        if (tiCategRuolo.equals("conservazione")
+                                && !TiEnteConvenz.AMMINISTRATORE
+                                        .equals(user.getOrgEnteSiam().getTiEnteConvenz())
+                                && !TiEnteConvenz.CONSERVATORE
+                                        .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
+                            error = "Il ruolo non può assumere categoria pari a conservazione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore";
+                            break;
+                        }
 
-			if (tiCategRuolo.equals("gestione")
-				&& !TiEnteConvenz.AMMINISTRATORE
-					.equals(user.getOrgEnteSiam().getTiEnteConvenz())
-				&& !TiEnteConvenz.CONSERVATORE
-					.equals(user.getOrgEnteSiam().getTiEnteConvenz())
-				&& !TiEnteConvenz.GESTORE
-					.equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
-			    error = "Il ruolo non può assumere categoria pari a gestione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore o gestore";
-			    break;
-			}
+                        if (tiCategRuolo.equals("gestione")
+                                && !TiEnteConvenz.AMMINISTRATORE
+                                        .equals(user.getOrgEnteSiam().getTiEnteConvenz())
+                                && !TiEnteConvenz.CONSERVATORE
+                                        .equals(user.getOrgEnteSiam().getTiEnteConvenz())
+                                && !TiEnteConvenz.GESTORE
+                                        .equals(user.getOrgEnteSiam().getTiEnteConvenz())) {
+                            error = "Il ruolo non può assumere categoria pari a gestione perché usato da utenti che non appartengono ad ente di tipo amministratore o conservatore o gestore";
+                            break;
+                        }
 
-			if (tiCategRuolo.equals("vigilanza") && !TiEnteNonConvenz.ORGANO_VIGILANZA
-				.equals(user.getOrgEnteSiam().getTiEnteNonConvenz())) {
-			    error = "Il ruolo non può assumere categoria pari a vigilanza perché usato da utenti che non appartengono ad ente di tipo organo di vigilanza";
-			    break;
-			}
-		    }
-		}
-	    }
-	}
-	return error;
+                        if (tiCategRuolo.equals("vigilanza") && !TiEnteNonConvenz.ORGANO_VIGILANZA
+                                .equals(user.getOrgEnteSiam().getTiEnteNonConvenz())) {
+                            error = "Il ruolo non può assumere categoria pari a vigilanza perché usato da utenti che non appartengono ad ente di tipo organo di vigilanza";
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return error;
     }
 
     public String checkTipoRuoloModificato(BigDecimal idRuolo, String tiRuolo) {
-	String error = "";
-	PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
+        String error = "";
+        PrfRuolo ruolo = amministrazioneRuoliHelper.findById(PrfRuolo.class, idRuolo);
 
-	// Se ho modificato il tipo ruolo
-	if (!ruolo.getTiRuolo().equals(tiRuolo)) {
-	    // Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il ruolo
-	    // come ruolo di default
-	    List<UsrUser> listaUtenti = amministrazioneRuoliHelper.getUtentiUsoRuoloUserDefaultList(
-		    idRuolo, Arrays.asList(TiStatotUser.CESSATO.name()));
+        // Se ho modificato il tipo ruolo
+        if (!ruolo.getTiRuolo().equals(tiRuolo)) {
+            // Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il ruolo
+            // come ruolo di default
+            List<UsrUser> listaUtenti = amministrazioneRuoliHelper.getUtentiUsoRuoloUserDefaultList(
+                    idRuolo, Arrays.asList(TiStatotUser.CESSATO.name()));
 
-	    for (UsrUser user : listaUtenti) {
-		if (tiRuolo.equals("AUTOMA") && user.getTipoUser().equals("PERSONA_FISICA")) {
-		    error = "Il ruolo non può diventare di tipo AUTOMA perché usato da utenti di tipo PERSONA_FISICA";
-		    break;
-		}
+            for (UsrUser user : listaUtenti) {
+                if (tiRuolo.equals("AUTOMA") && user.getTipoUser().equals("PERSONA_FISICA")) {
+                    error = "Il ruolo non può diventare di tipo AUTOMA perché usato da utenti di tipo PERSONA_FISICA";
+                    break;
+                }
 
-		if (tiRuolo.equals("PERSONA_FISICA") && user.getTipoUser().equals("AUTOMA")) {
-		    error = "Il ruolo non può diventare di tipo PERSONA_FISICA perché usato da utenti di tipo AUTOMA";
-		    break;
-		}
+                if (tiRuolo.equals("PERSONA_FISICA") && user.getTipoUser().equals("AUTOMA")) {
+                    error = "Il ruolo non può diventare di tipo PERSONA_FISICA perché usato da utenti di tipo AUTOMA";
+                    break;
+                }
 
-	    }
+            }
 
-	    if (!error.equals("")) {
-		// Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il
-		// ruolo come ruolo per
-		// organizzazione
-		List<UsrUser> listaUtentiOrganiz = amministrazioneRuoliHelper
-			.getUtentiUsoRuoloOrganizList(idRuolo,
-				Arrays.asList(TiStatotUser.CESSATO.name()));
-		for (UsrUser user : listaUtentiOrganiz) {
-		    if (tiRuolo.equals("AUTOMA") && user.getTipoUser().equals("PERSONA_FISICA")) {
-			error = "Il ruolo non può diventare di tipo AUTOMA perché usato da utenti di tipo PERSONA_FISICA";
-			break;
-		    }
+            if (!error.equals("")) {
+                // Determina gli utenti con stato corrente diverso da CESSATO che utilizzano il
+                // ruolo come ruolo per
+                // organizzazione
+                List<UsrUser> listaUtentiOrganiz = amministrazioneRuoliHelper
+                        .getUtentiUsoRuoloOrganizList(idRuolo,
+                                Arrays.asList(TiStatotUser.CESSATO.name()));
+                for (UsrUser user : listaUtentiOrganiz) {
+                    if (tiRuolo.equals("AUTOMA") && user.getTipoUser().equals("PERSONA_FISICA")) {
+                        error = "Il ruolo non può diventare di tipo AUTOMA perché usato da utenti di tipo PERSONA_FISICA";
+                        break;
+                    }
 
-		    if (tiRuolo.equals("PERSONA_FISICA") && user.getTipoUser().equals("AUTOMA")) {
-			error = "Il ruolo non può diventare di tipo PERSONA_FISICA perché usato da utenti di tipo AUTOMA";
-			break;
-		    }
+                    if (tiRuolo.equals("PERSONA_FISICA") && user.getTipoUser().equals("AUTOMA")) {
+                        error = "Il ruolo non può diventare di tipo PERSONA_FISICA perché usato da utenti di tipo AUTOMA";
+                        break;
+                    }
 
-		}
-	    }
-	}
-	return error;
+                }
+            }
+        }
+        return error;
     }
 
     public PrfRuoloCategoriaTableBean getPrfRuoloCategoriaTableBean(BigDecimal idRuolo)
-	    throws EMFError {
-	List<PrfRuoloCategoria> categorie = amministrazioneRuoliHelper
-		.getPrfRuoloCategoriaList(idRuolo);
-	PrfRuoloCategoriaTableBean categorieTB = new PrfRuoloCategoriaTableBean();
-	try {
-	    if (!categorie.isEmpty()) {
-		categorieTB = (PrfRuoloCategoriaTableBean) Transform.entities2TableBean(categorie);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	    throw new IllegalStateException("Impossibile recuperare le categorie del ruolo");
-	}
-	return categorieTB;
+            throws EMFError {
+        List<PrfRuoloCategoria> categorie = amministrazioneRuoliHelper
+                .getPrfRuoloCategoriaList(idRuolo);
+        PrfRuoloCategoriaTableBean categorieTB = new PrfRuoloCategoriaTableBean();
+        try {
+            if (!categorie.isEmpty()) {
+                categorieTB = (PrfRuoloCategoriaTableBean) Transform.entities2TableBean(categorie);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw new IllegalStateException("Impossibile recuperare le categorie del ruolo");
+        }
+        return categorieTB;
+    }
+
+    /**
+     * Costruisce una rappresentazione JSON della struttura ad albero (menu, finestre, azioni,
+     * servizi) relativa a una specifica applicazione e a due ruoli, utile per il confronto delle
+     * differenze tra ruoli. L'output è compatibile con jstree.
+     *
+     * @param idApplic l'ID dell'applicazione di riferimento
+     * @param idRuolo1 l'ID del primo ruolo da confrontare (obbligatorio)
+     * @param idRuolo2 l'ID del secondo ruolo da confrontare (può essere null)
+     * @return un oggetto JSONObject contenente la struttura ad albero per jstree
+     */
+    public JSONObject calcolaDifferenze(BigDecimal idApplic, BigDecimal idRuolo1,
+            BigDecimal idRuolo2) {
+        JSONObject oggettoRitorno = new JSONObject();
+        try {
+            JSONArray array = new JSONArray();
+            HashMap<String, String> giaInseriti = new HashMap<>();
+            oggettoRitorno.put("array", array);
+
+            if (idApplic != null && idRuolo1 != null) {
+                /*
+                 * Estrae il menu radice (ROOT) dalle nostre tabelle che serve per forza a jstree Se
+                 * non lo trova lo forza ad un menù radice fisso.
+                 */
+                JSONObject oggettoStateOpened = new JSONObject();
+                oggettoStateOpened.put("opened", true);
+                List<AplEntryMenu> l = amministrazioneRuoliHelper
+                        .findVoceMenuPrincipalePerAppERuolo(idApplic, idRuolo1);
+                long idEntryMenuRadice = 0; // memorizza anche per dopo l'ID del nostro menù radice
+                if (!l.isEmpty()) {
+                    AplEntryMenu m = l.get(0);
+                    idEntryMenuRadice = m.getIdEntryMenu();
+                    JSONObject oggetto = new JSONObject();
+                    oggetto.put("id", "M" + idEntryMenuRadice);
+                    oggetto.put("parent", "#"); // ROOT MENU
+                    oggetto.put("text", m.getDsEntryMenu());
+                    oggetto.put("icon", "img/ruoli/menu.svg");
+                    oggetto.put("state", oggettoStateOpened);
+                    array.put(oggetto);
+                } else {
+                    JSONObject oggetto = new JSONObject();
+                    oggetto.put("id", "M" + idEntryMenuRadice);
+                    oggetto.put("parent", "#"); // ROOT MENU
+                    oggetto.put("text", "Menù principale");
+                    oggetto.put("icon", "img/ruoli/menu.svg");
+                    oggetto.put("state", oggettoStateOpened);
+                    array.put(oggetto);
+                }
+
+                // Estrae tutti i menu abilitati
+                List<AplEntryMenu> lMenu = amministrazioneRuoliHelper
+                        .findTutteVociMenuPerAppERuolo(idApplic, idRuolo1);
+                Map<Long, AplEntryMenu> mapTuttiMenu = new HashMap<>();
+                for (AplEntryMenu menu : lMenu) {
+                    mapTuttiMenu.put(menu.getIdEntryMenu(), menu); // sovrascrive se la chiave
+                                                                   // esiste già
+                }
+
+                // Estrae tutte le finestre abilitate
+                List<AplPaginaWeb> lPagineWeb = amministrazioneRuoliHelper
+                        .findTutteLePaginePerAppERuolo(idApplic, idRuolo1);
+                Map<Long, AplPaginaWeb> mapTutteFinestre = new HashMap<>();
+                for (AplPaginaWeb pag : lPagineWeb) {
+                    mapTutteFinestre.put(pag.getIdPaginaWeb(), pag); // sovrascrive se la chiave
+                                                                     // esiste già
+                }
+
+                /*
+                 * Il popolamento inizia dalle azioni altrimenti se inizia dal menù e i due menu
+                 * sono uguali il risultato sarà un menù vuoto anche se tra le finestre e azioni
+                 * sottostanti ci sono differenze
+                 */
+                // Estrae tutte le azioni delle finestre
+                List<AplAzionePagina> lAzioni = amministrazioneRuoliHelper
+                        .findAzioniPerAppERuolo(idApplic, idRuolo1, idRuolo2);
+                log.debug("ESTRATTE {} AZIONI", lAzioni.size());
+                for (AplAzionePagina m : lAzioni) {
+                    JSONObject oggetto = new JSONObject();
+                    oggetto.put("id", "A" + m.getIdAzionePagina());
+                    oggetto.put("parent", "F" + m.getAplPaginaWeb().getIdPaginaWeb()); // finestra
+                    oggetto.put("text", m.getDsAzionePagina());
+                    oggetto.put("icon", "img/ruoli/bottone.svg");
+                    // Prima di inserire l'oggetto inserisce sia la finestra che il menu correlato
+                    // Si fa il controllo che non siano già stati inseriti nell'array finale
+                    // altrimenti il jstree si incarta e rimane vuoto!
+                    AplPaginaWeb pag = mapTutteFinestre.get(m.getAplPaginaWeb().getIdPaginaWeb());
+                    AplEntryMenu men = mapTuttiMenu.get(pag.getAplEntryMenu().getIdEntryMenu());
+                    // I menu vengono popolati ricorsivamente fino al menu radice
+                    popolaMenuRicorsivamente(men, array, oggettoStateOpened, giaInseriti);
+
+                    JSONObject oggettoFinestra = new JSONObject();
+                    oggettoFinestra.put("id", "F" + pag.getIdPaginaWeb());
+                    oggettoFinestra.put("parent", "M" + pag.getAplEntryMenu().getIdEntryMenu()); // Menu
+                    oggettoFinestra.put("text", pag.getDsPaginaWeb());
+                    oggettoFinestra.put("icon", "img/ruoli/pagina.svg");
+                    oggettoFinestra.put("state", oggettoStateOpened);
+                    putInArrayJsonSoloSeNonPresente(array, oggettoFinestra, giaInseriti);
+                    array.put(oggetto); // Put sempre!
+                }
+
+                // Estrae tutti i servizi web
+                List<AplServizioWeb> lServizi = amministrazioneRuoliHelper
+                        .findServiziPerAppERuolo(idApplic, idRuolo1, idRuolo2);
+                log.debug("ESTRATTI {} SERVIZI", lServizi.size());
+                for (AplServizioWeb m : lServizi) {
+                    JSONObject oggetto = new JSONObject();
+                    oggetto.put("id", "S" + m.getIdServizioWeb());
+                    oggetto.put("parent", "M" + idEntryMenuRadice); // Servizio agganciato al menù
+                    oggetto.put("text", m.getDsServizioWeb());
+                    oggetto.put("icon", "img/ruoli/servizio.svg");
+                    array.put(oggetto); // put sempre!
+                }
+            }
+
+        } catch (JSONException ex) {
+            log.error("Errore JSON!", ex);
+        }
+        return (oggettoRitorno);
+    }
+
+    /**
+     * Popola ricorsivamente il menu fino ad arrivare al menu radice
+     *
+     * @param men                l'oggetto MEnuEntry
+     * @param array              Array finale per il json
+     * @param oggettoStateOpened oggetto che indica che il menu è aperto
+     * @param giaInseriti        lista di oggetti gia inseriti
+     */
+    private void popolaMenuRicorsivamente(AplEntryMenu men, JSONArray array,
+            JSONObject oggettoStateOpened, HashMap<String, String> giaInseriti)
+            throws JSONException {
+        if (men != null && men.getEntryMenuPadre() != null) {
+            JSONObject oggettoMenu = new JSONObject();
+            oggettoMenu.put("id", "M" + men.getIdEntryMenu());
+            oggettoMenu.put("parent", "M" + men.getEntryMenuPadre().getIdEntryMenu()); // Menu
+            oggettoMenu.put("text", men.getDsEntryMenu());
+            oggettoMenu.put("icon", "img/ruoli/menu.svg");
+            oggettoMenu.put("state", oggettoStateOpened);
+            putInArrayJsonSoloSeNonPresente(array, oggettoMenu, giaInseriti);
+            // Richiama se stessa per risalire a tutta l'alberature del menu fino alla radice!
+            popolaMenuRicorsivamente(men.getEntryMenuPadre(), array, oggettoStateOpened,
+                    giaInseriti);
+        }
+
+    }
+
+    /**
+     * Inserisce l'oggetto solo se non è già stato inserito in precedenza
+     *
+     * @param array              Array finale per il json
+     * @param oggettoStateOpened oggetto che indica che il menu è aperto
+     * @param giaInseriti        lista di oggetti gia inseriti
+     */
+    private void putInArrayJsonSoloSeNonPresente(JSONArray array, JSONObject oggetto,
+            HashMap<String, String> giaInseriti) throws JSONException {
+        String id = (String) oggetto.get("id");
+        if (!giaInseriti.containsKey(id)) {
+            array.put(oggetto);
+            giaInseriti.put(id, id);
+        }
     }
 
 }

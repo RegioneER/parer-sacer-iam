@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVUnaorgByConservRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,110 +37,110 @@ public class UsrVUnaorgByConservRowBean extends BaseRow
     public static UsrVUnaorgByConservTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByConservTableDescriptor();
 
     public UsrVUnaorgByConservRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdUserIamCor() {
-	return getBigDecimal("id_user_iam_cor");
+        return getBigDecimal("id_user_iam_cor");
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	setObject("id_user_iam_cor", idUserIamCor);
+        setObject("id_user_iam_cor", idUserIamCor);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public BigDecimal getIdOrganizIam() {
-	return getBigDecimal("id_organiz_iam");
+        return getBigDecimal("id_organiz_iam");
     }
 
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-	setObject("id_organiz_iam", idOrganizIam);
+        setObject("id_organiz_iam", idOrganizIam);
     }
 
     public BigDecimal getIdEnteConserv() {
-	return getBigDecimal("id_ente_conserv");
+        return getBigDecimal("id_ente_conserv");
     }
 
     public void setIdEnteConserv(BigDecimal idEnteConserv) {
-	setObject("id_ente_conserv", idEnteConserv);
+        setObject("id_ente_conserv", idEnteConserv);
     }
 
     public String getDsCausaleDich() {
-	return getString("ds_causale_dich");
+        return getString("ds_causale_dich");
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	setObject("ds_causale_dich", dsCausaleDich);
+        setObject("ds_causale_dich", dsCausaleDich);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVUnaorgByConserv entity = (UsrVUnaorgByConserv) obj;
-	this.setIdUserIamCor(entity.getUsrVUnaorgByConservId() == null ? null
-		: entity.getUsrVUnaorgByConservId().getIdUserIamCor());
-	this.setIdApplic(entity.getIdApplic());
-	this.setNmApplic(entity.getNmApplic());
-	this.setIdOrganizIam(entity.getUsrVUnaorgByConservId() == null ? null
-		: entity.getUsrVUnaorgByConservId().getIdOrganizIam());
-	this.setIdEnteConserv(entity.getIdEnteConserv());
-	this.setDsCausaleDich(entity.getDsCausaleDich());
+        UsrVUnaorgByConserv entity = (UsrVUnaorgByConserv) obj;
+        this.setIdUserIamCor(entity.getUsrVUnaorgByConservId() == null ? null
+                : entity.getUsrVUnaorgByConservId().getIdUserIamCor());
+        this.setIdApplic(entity.getIdApplic());
+        this.setNmApplic(entity.getNmApplic());
+        this.setIdOrganizIam(entity.getUsrVUnaorgByConservId() == null ? null
+                : entity.getUsrVUnaorgByConservId().getIdOrganizIam());
+        this.setIdEnteConserv(entity.getIdEnteConserv());
+        this.setDsCausaleDich(entity.getDsCausaleDich());
     }
 
     @Override
     public UsrVUnaorgByConserv rowBeanToEntity() {
-	UsrVUnaorgByConserv entity = new UsrVUnaorgByConserv();
-	entity.setUsrVUnaorgByConservId(new UsrVUnaorgByConservId());
-	entity.getUsrVUnaorgByConservId().setIdUserIamCor(this.getIdUserIamCor());
-	entity.setIdApplic(this.getIdApplic());
-	entity.setNmApplic(this.getNmApplic());
-	entity.getUsrVUnaorgByConservId().setIdOrganizIam(this.getIdOrganizIam());
-	entity.setIdEnteConserv(this.getIdEnteConserv());
-	entity.setDsCausaleDich(this.getDsCausaleDich());
-	return entity;
+        UsrVUnaorgByConserv entity = new UsrVUnaorgByConserv();
+        entity.setUsrVUnaorgByConservId(new UsrVUnaorgByConservId());
+        entity.getUsrVUnaorgByConservId().setIdUserIamCor(this.getIdUserIamCor());
+        entity.setIdApplic(this.getIdApplic());
+        entity.setNmApplic(this.getNmApplic());
+        entity.getUsrVUnaorgByConservId().setIdOrganizIam(this.getIdOrganizIam());
+        entity.setIdEnteConserv(this.getIdEnteConserv());
+        entity.setDsCausaleDich(this.getDsCausaleDich());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

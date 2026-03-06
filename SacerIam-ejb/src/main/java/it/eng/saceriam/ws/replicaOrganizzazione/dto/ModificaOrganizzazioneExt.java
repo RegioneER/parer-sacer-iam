@@ -29,52 +29,52 @@ public class ModificaOrganizzazioneExt {
     private boolean template;
 
     public IWSDesc getDescrizione() {
-	return descrizione;
+        return descrizione;
     }
 
     public void setDescrizione(IWSDesc descrizione) {
-	this.descrizione = descrizione;
+        this.descrizione = descrizione;
     }
 
     public it.eng.saceriam.ws.replicaOrganizzazione.dto.ModificaOrganizzazioneInput getModificaOrganizzazioneInput() {
-	return modificaOrganizzazioneInput;
+        return modificaOrganizzazioneInput;
     }
 
     public void setModificaOrganizzazioneInput(
-	    it.eng.saceriam.ws.replicaOrganizzazione.dto.ModificaOrganizzazioneInput modificaOrganizzazioneInput) {
-	this.modificaOrganizzazioneInput = modificaOrganizzazioneInput;
+            it.eng.saceriam.ws.replicaOrganizzazione.dto.ModificaOrganizzazioneInput modificaOrganizzazioneInput) {
+        this.modificaOrganizzazioneInput = modificaOrganizzazioneInput;
     }
 
     public Long getIdApplic() {
-	return idApplic;
+        return idApplic;
     }
 
     public void setIdApplic(Long idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     public Long getIdOrganizIam() {
-	return idOrganizIam;
+        return idOrganizIam;
     }
 
     public void setIdOrganizIam(Long idOrganizIam) {
-	this.idOrganizIam = idOrganizIam;
+        this.idOrganizIam = idOrganizIam;
     }
 
     public Long getIdOrganizIamPadre() {
-	return idOrganizIamPadre;
+        return idOrganizIamPadre;
     }
 
     public void setIdOrganizIamPadre(Long idOrganizIamPadre) {
-	this.idOrganizIamPadre = idOrganizIamPadre;
+        this.idOrganizIamPadre = idOrganizIamPadre;
     }
 
     public boolean isTemplate() {
-	return template;
+        return template;
     }
 
     public void setTemplate(boolean template) {
-	this.template = template;
+        this.template = template;
     }
 
 }

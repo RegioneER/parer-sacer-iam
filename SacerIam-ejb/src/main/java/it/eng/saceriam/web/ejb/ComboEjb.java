@@ -79,26 +79,26 @@ public class ComboEjb {
      * @throws EMFError errore generico
      */
     public DecodeMapIF getMappaApplicAbilitate(long idUserIamCorrente, boolean isUserAdmin)
-	    throws EMFError {
-	return getMappaApplicAbilitate(idUserIamCorrente, isUserAdmin, false);
+            throws EMFError {
+        return getMappaApplicAbilitate(idUserIamCorrente, isUserAdmin, false);
     }
 
     @Deprecated(forRemoval = true)
     public DecodeMapIF getMappaApplicAbilitateUtente(long idUserIamCorrente,
-	    boolean isAppartEnteConvenzAdmin, boolean isEnteOrganoVigilanza) {
-	List<AplApplic> applicList = comboHelper.getAplApplicAbilitateUtenteList(idUserIamCorrente,
-		isAppartEnteConvenzAdmin, isEnteOrganoVigilanza);
-	AplApplicTableBean applicTableBean = new AplApplicTableBean();
-	try {
-	    if (applicList != null && !applicList.isEmpty()) {
-		applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
-		"nm_applic");
-	return applicDM;
+            boolean isAppartEnteConvenzAdmin, boolean isEnteOrganoVigilanza) {
+        List<AplApplic> applicList = comboHelper.getAplApplicAbilitateUtenteList(idUserIamCorrente,
+                isAppartEnteConvenzAdmin, isEnteOrganoVigilanza);
+        AplApplicTableBean applicTableBean = new AplApplicTableBean();
+        try {
+            if (applicList != null && !applicList.isEmpty()) {
+                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
+                "nm_applic");
+        return applicDM;
     }
 
     /**
@@ -115,19 +115,19 @@ public class ComboEjb {
      * @throws EMFError errore generico
      */
     public DecodeMapIF getMappaApplicAbilitate(long idUserIamCorrente, boolean isUserAdmin,
-	    boolean estraiDescApplic) throws EMFError {
-	AplApplicTableBean applicTableBean = new AplApplicTableBean();
-	List<AplApplic> applicList = comboHelper.getAplApplicAbilitateList(idUserIamCorrente);
-	try {
-	    if (applicList != null && !applicList.isEmpty()) {
-		applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
-		estraiDescApplic ? "ds_applic" : "nm_applic");
-	return applicDM;
+            boolean estraiDescApplic) throws EMFError {
+        AplApplicTableBean applicTableBean = new AplApplicTableBean();
+        List<AplApplic> applicList = comboHelper.getAplApplicAbilitateList(idUserIamCorrente);
+        try {
+            if (applicList != null && !applicList.isEmpty()) {
+                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
+                estraiDescApplic ? "ds_applic" : "nm_applic");
+        return applicDM;
     }
 
     /**
@@ -141,199 +141,199 @@ public class ComboEjb {
      * @throws EMFError errore generico
      */
     public DecodeMapIF getMappaApplicAbilitateRicercaRepliche(long idUserIamCorrente)
-	    throws EMFError {
-	AplApplicTableBean applicTableBean = new AplApplicTableBean();
-	List<AplApplic> applicList = comboHelper
-		.getAplApplicAbilitateRicercaReplicheList(idUserIamCorrente);
-	try {
-	    if (applicList != null && !applicList.isEmpty()) {
-		applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
-		"nm_applic");
-	return applicDM;
+            throws EMFError {
+        AplApplicTableBean applicTableBean = new AplApplicTableBean();
+        List<AplApplic> applicList = comboHelper
+                .getAplApplicAbilitateRicercaReplicheList(idUserIamCorrente);
+        try {
+            if (applicList != null && !applicList.isEmpty()) {
+                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
+                "nm_applic");
+        return applicDM;
     }
 
     @Deprecated(forRemoval = true)
     public DecodeMapIF getTipoGestioneAccordo() {
-	BaseTable bt = new BaseTable();
-	BaseRow br = new BaseRow();
-	BaseRow br1 = new BaseRow();
-	DecodeMap mappaTipoVarAccordo = new DecodeMap();
-	String key = "tipo_var_accordo";
-	/* Imposto i valori della combo */
-	br.setString(key, "Adeguamento GDPR Allegato A");
-	br1.setString(key, "Calcolo servizi su sistema versante");
-	bt.add(br);
-	bt.add(br1);
+        BaseTable bt = new BaseTable();
+        BaseRow br = new BaseRow();
+        BaseRow br1 = new BaseRow();
+        DecodeMap mappaTipoVarAccordo = new DecodeMap();
+        String key = "tipo_var_accordo";
+        /* Imposto i valori della combo */
+        br.setString(key, "Adeguamento GDPR Allegato A");
+        br1.setString(key, "Calcolo servizi su sistema versante");
+        bt.add(br);
+        bt.add(br1);
 
-	mappaTipoVarAccordo.populatedMap(bt, key, key);
-	return mappaTipoVarAccordo;
+        mappaTipoVarAccordo.populatedMap(bt, key, key);
+        return mappaTipoVarAccordo;
     }
 
     @Deprecated(forRemoval = true)
     public DecodeMapIF getMappaPaginePerApplicazione(String applName, boolean sortedByDesc) {
-	AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
+        AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
 
-	List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(applName);
-	try {
-	    if (pagineWeb != null && !pagineWeb.isEmpty()) {
-		paginaWebTableBean = (AplPaginaWebTableBean) Transform
-			.entities2TableBean(pagineWeb);
-		if (sortedByDesc) {
-		    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
-		    paginaWebTableBean.sort();
-		}
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web",
-		"ds_pagina_web");
-	return pagineDM;
+        List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(applName);
+        try {
+            if (pagineWeb != null && !pagineWeb.isEmpty()) {
+                paginaWebTableBean = (AplPaginaWebTableBean) Transform
+                        .entities2TableBean(pagineWeb);
+                if (sortedByDesc) {
+                    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
+                    paginaWebTableBean.sort();
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web",
+                "ds_pagina_web");
+        return pagineDM;
     }
 
     public DecodeMapIF getMappaApplicAbilitateConPaginaInfoPrivacy(long idUserIamCorrente,
-	    boolean isUserAdmin, boolean estraiDescApplic) {
-	AplApplicTableBean applicTableBean = new AplApplicTableBean();
+            boolean isUserAdmin, boolean estraiDescApplic) {
+        AplApplicTableBean applicTableBean = new AplApplicTableBean();
 
-	List<AplApplic> applicList = comboHelper
-		.getAplApplicAbilitateInfoPrivacyList(idUserIamCorrente);
-	try {
-	    if (applicList != null && !applicList.isEmpty()) {
-		applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
-		estraiDescApplic ? "ds_applic" : "nm_applic");
-	return applicDM;
+        List<AplApplic> applicList = comboHelper
+                .getAplApplicAbilitateInfoPrivacyList(idUserIamCorrente);
+        try {
+            if (applicList != null && !applicList.isEmpty()) {
+                applicTableBean = (AplApplicTableBean) Transform.entities2TableBean(applicList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap applicDM = DecodeMap.Factory.newInstance(applicTableBean, "id_applic",
+                estraiDescApplic ? "ds_applic" : "nm_applic");
+        return applicDM;
     }
 
     public DecodeMapIF getMappaPaginePerApplicazione(BigDecimal idApplic, String tiHelpOnLine,
-	    boolean sortedByDesc) {
-	AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
+            boolean sortedByDesc) {
+        AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
 
-	List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(idApplic, tiHelpOnLine);
-	try {
-	    if (pagineWeb != null && !pagineWeb.isEmpty()) {
-		paginaWebTableBean = (AplPaginaWebTableBean) Transform
-			.entities2TableBean(pagineWeb);
-		if (sortedByDesc) {
-		    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
-		    paginaWebTableBean.sort();
-		}
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web",
-		"ds_pagina_web");
-	return pagineDM;
+        List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(idApplic, tiHelpOnLine);
+        try {
+            if (pagineWeb != null && !pagineWeb.isEmpty()) {
+                paginaWebTableBean = (AplPaginaWebTableBean) Transform
+                        .entities2TableBean(pagineWeb);
+                if (sortedByDesc) {
+                    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
+                    paginaWebTableBean.sort();
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web",
+                "ds_pagina_web");
+        return pagineDM;
     }
 
     public DecodeMapIF getMappaPaginePerApplicazione(BigDecimal idApplic, boolean sortedByDesc)
-	    throws EMFError {
-	AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
+            throws EMFError {
+        AplPaginaWebTableBean paginaWebTableBean = new AplPaginaWebTableBean();
 
-	List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(idApplic);
-	try {
-	    if (pagineWeb != null && !pagineWeb.isEmpty()) {
-		paginaWebTableBean = (AplPaginaWebTableBean) Transform
-			.entities2TableBean(pagineWeb);
-		if (sortedByDesc) {
-		    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
-		    paginaWebTableBean.sort();
-		}
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web",
-		"ds_pagina_web");
-	return pagineDM;
+        List<AplPaginaWeb> pagineWeb = userHelper.getListAplPaginaWeb(idApplic);
+        try {
+            if (pagineWeb != null && !pagineWeb.isEmpty()) {
+                paginaWebTableBean = (AplPaginaWebTableBean) Transform
+                        .entities2TableBean(pagineWeb);
+                if (sortedByDesc) {
+                    paginaWebTableBean.addSortingRule(new SortingRule("ds_pagina_web"));
+                    paginaWebTableBean.sort();
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap pagineDM = DecodeMap.Factory.newInstance(paginaWebTableBean, "id_pagina_web",
+                "ds_pagina_web");
+        return pagineDM;
     }
 
     @Deprecated(forRemoval = true)
     public DecodeMapIF getMappaMenuPerApplicazione(String applName) throws EMFError {
-	AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
+        AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
 
-	List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenu(applName);
-	try {
-	    if (entryMenu != null && !entryMenu.isEmpty()) {
-		aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform
-			.entities2TableBean(entryMenu);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu",
-		"nm_entry_menu");
-	return menuDM;
+        List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenu(applName);
+        try {
+            if (entryMenu != null && !entryMenu.isEmpty()) {
+                aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform
+                        .entities2TableBean(entryMenu);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu",
+                "nm_entry_menu");
+        return menuDM;
     }
 
     @Deprecated(forRemoval = true)
     public DecodeMapIF getMappaMenuUltimoLivelloPerApplSortedByDesc(String applName)
-	    throws EMFError {
-	AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
+            throws EMFError {
+        AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
 
-	List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenuUltimoLivello(applName);
-	try {
-	    if (entryMenu != null && !entryMenu.isEmpty()) {
-		aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform
-			.entities2TableBean(entryMenu);
-		aplEntryMenuTableBean.addSortingRule(new SortingRule("nm_entry_menu"));
-		aplEntryMenuTableBean.sort();
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu",
-		"ds_entry_menu");
-	return menuDM;
+        List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenuUltimoLivello(applName);
+        try {
+            if (entryMenu != null && !entryMenu.isEmpty()) {
+                aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform
+                        .entities2TableBean(entryMenu);
+                aplEntryMenuTableBean.addSortingRule(new SortingRule("nm_entry_menu"));
+                aplEntryMenuTableBean.sort();
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu",
+                "ds_entry_menu");
+        return menuDM;
     }
 
     public DecodeMapIF getMappaMenuUltimoLivelloPerApplSortedByDesc(BigDecimal idApplic)
-	    throws EMFError {
-	AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
+            throws EMFError {
+        AplEntryMenuTableBean aplEntryMenuTableBean = new AplEntryMenuTableBean();
 
-	List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenuUltimoLivello(idApplic);
-	try {
-	    if (entryMenu != null && !entryMenu.isEmpty()) {
-		aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform
-			.entities2TableBean(entryMenu);
-		aplEntryMenuTableBean.addSortingRule(new SortingRule("nm_entry_menu"));
-		aplEntryMenuTableBean.sort();
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu",
-		"ds_entry_menu");
-	return menuDM;
+        List<AplEntryMenu> entryMenu = userHelper.getListAplEntryMenuUltimoLivello(idApplic);
+        try {
+            if (entryMenu != null && !entryMenu.isEmpty()) {
+                aplEntryMenuTableBean = (AplEntryMenuTableBean) Transform
+                        .entities2TableBean(entryMenu);
+                aplEntryMenuTableBean.addSortingRule(new SortingRule("nm_entry_menu"));
+                aplEntryMenuTableBean.sort();
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap menuDM = DecodeMap.Factory.newInstance(aplEntryMenuTableBean, "id_entry_menu",
+                "ds_entry_menu");
+        return menuDM;
     }
 
     @Deprecated(forRemoval = true)
     public DecodeMapIF getMappaUsrVAbilOrganiz(BigDecimal idUserIam, BigDecimal idApplic,
-	    String nmTipoOrganiz, List<BigDecimal> idOrganizIamDaTogliere) {
-	UsrVAbilOrganizTableBean abilOrganizTableBean = new UsrVAbilOrganizTableBean();
-	List<UsrVAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVAbilOrganizList(
-		idUserIam, idApplic, nmTipoOrganiz, idOrganizIamDaTogliere, true);
-	try {
-	    if (abilOrganizList != null && !abilOrganizList.isEmpty()) {
-		abilOrganizTableBean = (UsrVAbilOrganizTableBean) Transform
-			.entities2TableBean(abilOrganizList);
-	    }
-	} catch (Exception e) {
-	    log.error(e.getMessage(), e);
-	}
-	DecodeMap abilOrganizDM = DecodeMap.Factory.newInstance(abilOrganizTableBean,
-		"id_organiz_iam", "dl_composito_organiz");
-	return abilOrganizDM;
+            String nmTipoOrganiz, List<BigDecimal> idOrganizIamDaTogliere) {
+        UsrVAbilOrganizTableBean abilOrganizTableBean = new UsrVAbilOrganizTableBean();
+        List<UsrVAbilOrganiz> abilOrganizList = amministrazioneUtentiHelper.getUsrVAbilOrganizList(
+                idUserIam, idApplic, nmTipoOrganiz, idOrganizIamDaTogliere, true);
+        try {
+            if (abilOrganizList != null && !abilOrganizList.isEmpty()) {
+                abilOrganizTableBean = (UsrVAbilOrganizTableBean) Transform
+                        .entities2TableBean(abilOrganizList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        DecodeMap abilOrganizDM = DecodeMap.Factory.newInstance(abilOrganizTableBean,
+                "id_organiz_iam", "dl_composito_organiz");
+        return abilOrganizDM;
     }
 
 }

@@ -66,102 +66,102 @@ public class CancellaOrganizzazioneEjb {
     private EntiConvenzionatiEjb ecEjb;
 
     public CancellaOrganizzazioneRisposta cancellaOrganizzazione(String nmApplic,
-	    Integer idOrganizApplic, String nmTipoOrganiz) {
+            Integer idOrganizApplic, String nmTipoOrganiz) {
 
-	// Istanzio il transaction manager
-	wtm = new WsTransactionManager(utx);
+        // Istanzio il transaction manager
+        wtm = new WsTransactionManager(utx);
 
-	// Istanzio la risposta
-	RispostaWSCancellaOrganizzazione rispostaWs = new RispostaWSCancellaOrganizzazione();
-	rispostaWs.setCancellaOrganizzazioneRisposta(new CancellaOrganizzazioneRisposta());
-	// Imposto l'esito della risposta di default OK
-	rispostaWs.getCancellaOrganizzazioneRisposta().setCdEsito(Constants.EsitoServizio.OK);
+        // Istanzio la risposta
+        RispostaWSCancellaOrganizzazione rispostaWs = new RispostaWSCancellaOrganizzazione();
+        rispostaWs.setCancellaOrganizzazioneRisposta(new CancellaOrganizzazioneRisposta());
+        // Imposto l'esito della risposta di default OK
+        rispostaWs.getCancellaOrganizzazioneRisposta().setCdEsito(Constants.EsitoServizio.OK);
 
-	// Istanzio l'oggetto che contiene i parametri ricevuti in input
-	CancellaOrganizzazioneInput coInput = new CancellaOrganizzazioneInput(nmApplic,
-		idOrganizApplic, nmTipoOrganiz);
+        // Istanzio l'oggetto che contiene i parametri ricevuti in input
+        CancellaOrganizzazioneInput coInput = new CancellaOrganizzazioneInput(nmApplic,
+                idOrganizApplic, nmTipoOrganiz);
 
-	// Istanzio l'Ext con l'oggetto creato e setto i parametri descrizione e quelli in input
-	CancellaOrganizzazioneExt coExt = new CancellaOrganizzazioneExt();
-	coExt.setDescrizione(new WSDescCancellaOrganizzazione());
-	coExt.setCancellaOrganizzazioneInput(coInput);
+        // Istanzio l'Ext con l'oggetto creato e setto i parametri descrizione e quelli in input
+        CancellaOrganizzazioneExt coExt = new CancellaOrganizzazioneExt();
+        coExt.setDescrizione(new WSDescCancellaOrganizzazione());
+        coExt.setCancellaOrganizzazioneInput(coInput);
 
-	if (rispostaWs.getSeverity() != IRispostaWS.SeverityEnum.ERROR) {
-	    // Chiamo la classe CancellaOrganizzazioneCheck che gestisce i controlli di oggetto
-	    CancellaOrganizzazioneCheck checker = new CancellaOrganizzazioneCheck(coExt,
-		    rispostaWs);
-	    checker.check(nmApplic);
-	}
+        if (rispostaWs.getSeverity() != IRispostaWS.SeverityEnum.ERROR) {
+            // Chiamo la classe CancellaOrganizzazioneCheck che gestisce i controlli di oggetto
+            CancellaOrganizzazioneCheck checker = new CancellaOrganizzazioneCheck(coExt,
+                    rispostaWs);
+            checker.check(nmApplic);
+        }
 
-	// Se i controlli sono andati a buon fine...
-	if (rispostaWs.getSeverity() != IRispostaWS.SeverityEnum.ERROR) {
-	    try {
-		wtm.beginTrans(rispostaWs);
+        // Se i controlli sono andati a buon fine...
+        if (rispostaWs.getSeverity() != IRispostaWS.SeverityEnum.ERROR) {
+            try {
+                wtm.beginTrans(rispostaWs);
 
-		// Registro gli utenti da replicare...
-		Set<BigDecimal> usersToReply = goh.getUsersOnDich(coExt.getIdOrganizIam(),
-			ApplEnum.TiOperReplic.CANC);
-		for (BigDecimal idUserIam : usersToReply) {
-		    goh.registraUtenteDaReplicare(idUserIam, coExt.getIdApplic(), rispostaWs);
-		}
+                // Registro gli utenti da replicare...
+                Set<BigDecimal> usersToReply = goh.getUsersOnDich(coExt.getIdOrganizIam(),
+                        ApplEnum.TiOperReplic.CANC);
+                for (BigDecimal idUserIam : usersToReply) {
+                    goh.registraUtenteDaReplicare(idUserIam, coExt.getIdApplic(), rispostaWs);
+                }
 
-		/*
-		 * Codice aggiuntivo per il logging...
-		 */
-		// MAC #19526
-		Set<BigDecimal> usersSacer = new HashSet<>();
-		if (nmApplic.equals("SACER")) {
-		    CancellaOrganizzazioneInput parametriInput = coExt
-			    .getCancellaOrganizzazioneInput();
-		    UsrOrganizIam organiz = goh.getUsrOrganizIam(coExt.getIdApplic(),
-			    parametriInput.getIdOrganizApplic(), parametriInput.getNmTipoOrganiz());
-		    usersSacer = goh.getUsersSacer(organiz.getIdOrganizIam());
-		}
+                /*
+                 * Codice aggiuntivo per il logging...
+                 */
+                // MAC #19526
+                Set<BigDecimal> usersSacer = new HashSet<>();
+                if (nmApplic.equals("SACER")) {
+                    CancellaOrganizzazioneInput parametriInput = coExt
+                            .getCancellaOrganizzazioneInput();
+                    UsrOrganizIam organiz = goh.getUsrOrganizIam(coExt.getIdApplic(),
+                            parametriInput.getIdOrganizApplic(), parametriInput.getNmTipoOrganiz());
+                    usersSacer = goh.getUsersSacer(organiz.getIdOrganizIam());
+                }
 
-		/* CANCELLO L'ORGANIZZAZIONE */
-		goh.cancellaOrganizzazione(coExt.getIdApplic(), coInput, rispostaWs);
+                /* CANCELLO L'ORGANIZZAZIONE */
+                goh.cancellaOrganizzazione(coExt.getIdApplic(), coInput, rispostaWs);
 
-		for (BigDecimal idUserIam : usersSacer) {
-		    goh.registraUtenteDaReplicare(idUserIam, coExt.getIdApplic(), rispostaWs);
-		    LogParam param = new LogParam();
-		    param.setNomeApplicazione(paramHelper.getParamApplicApplicationName());
-		    param.setNomeUtente("Servizio Allinea organizzazione");
-		    param.setNomeAzione("Allinea abilitazioni utente alle organizzazioni");
-		    param.setNomeTipoOggetto("Utente");
-		    param.setIdOggetto(idUserIam);
-		    param.setNomeComponenteSoftware("ALLINEA_ORGANIZZAZIONE");
-		    sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(),
-			    param.getNomeUtente(), param.getNomeAzione(),
-			    param.getNomeTipoOggetto(), param.getIdOggetto(),
-			    param.getNomeComponenteSoftware());
-		}
+                for (BigDecimal idUserIam : usersSacer) {
+                    goh.registraUtenteDaReplicare(idUserIam, coExt.getIdApplic(), rispostaWs);
+                    LogParam param = new LogParam();
+                    param.setNomeApplicazione(paramHelper.getParamApplicApplicationName());
+                    param.setNomeUtente("Servizio Allinea organizzazione");
+                    param.setNomeAzione("Allinea abilitazioni utente alle organizzazioni");
+                    param.setNomeTipoOggetto("Utente");
+                    param.setIdOggetto(idUserIam);
+                    param.setNomeComponenteSoftware("ALLINEA_ORGANIZZAZIONE");
+                    sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(),
+                            param.getNomeUtente(), param.getNomeAzione(),
+                            param.getNomeTipoOggetto(), param.getIdOggetto(),
+                            param.getNomeComponenteSoftware());
+                }
 
-		// // ...e cancello l'organizzazione...
-		// Popola la risposta
-		rispostaWs.getCancellaOrganizzazioneRisposta().setNmApplic(coInput.getNmApplic());
-		rispostaWs.getCancellaOrganizzazioneRisposta()
-			.setIdOrganizApplic(coInput.getIdOrganizApplic());
-		rispostaWs.getCancellaOrganizzazioneRisposta()
-			.setNmTipoOrganiz(coInput.getNmTipoOrganiz());
+                // // ...e cancello l'organizzazione...
+                // Popola la risposta
+                rispostaWs.getCancellaOrganizzazioneRisposta().setNmApplic(coInput.getNmApplic());
+                rispostaWs.getCancellaOrganizzazioneRisposta()
+                        .setIdOrganizApplic(coInput.getIdOrganizApplic());
+                rispostaWs.getCancellaOrganizzazioneRisposta()
+                        .setNmTipoOrganiz(coInput.getNmTipoOrganiz());
 
-		wtm.commit(rispostaWs);
-	    } catch (TransactionException e) {
-		rispostaWs.getCancellaOrganizzazioneRisposta()
-			.setCdEsito(Constants.EsitoServizio.KO);
-		rispostaWs.getCancellaOrganizzazioneRisposta().setCdErr(rispostaWs.getErrorCode());
-		rispostaWs.getCancellaOrganizzazioneRisposta()
-			.setDsErr(rispostaWs.getErrorMessage());
-		wtm.rollback(rispostaWs);
-	    } catch (Exception e) {
-		rispostaWs.getCancellaOrganizzazioneRisposta()
-			.setCdEsito(Constants.EsitoServizio.KO);
-		rispostaWs.getCancellaOrganizzazioneRisposta().setCdErr(MessaggiWSBundle.ERR_666);
-		rispostaWs.getCancellaOrganizzazioneRisposta()
-			.setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666));
-		wtm.rollback(rispostaWs);
-	    }
-	}
-	// Ritorno la risposta
-	return rispostaWs.getCancellaOrganizzazioneRisposta();
+                wtm.commit(rispostaWs);
+            } catch (TransactionException e) {
+                rispostaWs.getCancellaOrganizzazioneRisposta()
+                        .setCdEsito(Constants.EsitoServizio.KO);
+                rispostaWs.getCancellaOrganizzazioneRisposta().setCdErr(rispostaWs.getErrorCode());
+                rispostaWs.getCancellaOrganizzazioneRisposta()
+                        .setDsErr(rispostaWs.getErrorMessage());
+                wtm.rollback(rispostaWs);
+            } catch (Exception e) {
+                rispostaWs.getCancellaOrganizzazioneRisposta()
+                        .setCdEsito(Constants.EsitoServizio.KO);
+                rispostaWs.getCancellaOrganizzazioneRisposta().setCdErr(MessaggiWSBundle.ERR_666);
+                rispostaWs.getCancellaOrganizzazioneRisposta()
+                        .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666));
+                wtm.rollback(rispostaWs);
+            }
+        }
+        // Ritorno la risposta
+        return rispostaWs.getCancellaOrganizzazioneRisposta();
     }
 }

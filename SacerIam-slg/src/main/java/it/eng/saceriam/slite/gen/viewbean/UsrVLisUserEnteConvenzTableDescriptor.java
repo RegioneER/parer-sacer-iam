@@ -58,48 +58,48 @@ public class UsrVLisUserEnteConvenzTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_NM_COGNOME_USER,
-		new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, true));
-	map.put(COL_NM_NOME_USER, new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, true));
-	map.put(COL_FL_ATTIVO, new ColumnDescriptor(COL_FL_ATTIVO, Types.VARCHAR, 1, true));
-	map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_NM_RUOLO_DEFAULT,
-		new ColumnDescriptor(COL_NM_RUOLO_DEFAULT, Types.VARCHAR, 100, true));
-	map.put(COL_DL_COMPOSITO_ORGANIZ,
-		new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
-	map.put(COL_FL_USER_ADMIN, new ColumnDescriptor(COL_FL_USER_ADMIN, Types.VARCHAR, 1, true));
-	map.put(COL_TIPO_USER, new ColumnDescriptor(COL_TIPO_USER, Types.VARCHAR, 20, true));
-	map.put(COL_ID_SISTEMA_VERSANTE,
-		new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, true));
-	map.put(COL_TI_STATO_USER,
-		new ColumnDescriptor(COL_TI_STATO_USER, Types.VARCHAR, 30, true));
-	map.put(COL_ID_RICH_GEST_USER,
-		new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, true));
-	map.put(COL_DT_RICH_GEST_USER,
-		new ColumnDescriptor(COL_DT_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
-	map.put(COL_KEY_RICH_GEST_USER,
-		new ColumnDescriptor(COL_KEY_RICH_GEST_USER, Types.VARCHAR, 4000, true));
-	map.put(COL_FL_AZIONI_EVASE,
-		new ColumnDescriptor(COL_FL_AZIONI_EVASE, Types.VARCHAR, 1, true));
-	map.put(COL_DS_LISTA_AZIONI,
-		new ColumnDescriptor(COL_DS_LISTA_AZIONI, Types.VARCHAR, 4000, true));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_NM_COGNOME_USER,
+                new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_NM_NOME_USER, new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, true));
+        map.put(COL_FL_ATTIVO, new ColumnDescriptor(COL_FL_ATTIVO, Types.VARCHAR, 1, true));
+        map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_NM_RUOLO_DEFAULT,
+                new ColumnDescriptor(COL_NM_RUOLO_DEFAULT, Types.VARCHAR, 100, true));
+        map.put(COL_DL_COMPOSITO_ORGANIZ,
+                new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
+        map.put(COL_FL_USER_ADMIN, new ColumnDescriptor(COL_FL_USER_ADMIN, Types.VARCHAR, 1, true));
+        map.put(COL_TIPO_USER, new ColumnDescriptor(COL_TIPO_USER, Types.VARCHAR, 20, true));
+        map.put(COL_ID_SISTEMA_VERSANTE,
+                new ColumnDescriptor(COL_ID_SISTEMA_VERSANTE, Types.DECIMAL, 22, true));
+        map.put(COL_TI_STATO_USER,
+                new ColumnDescriptor(COL_TI_STATO_USER, Types.VARCHAR, 30, true));
+        map.put(COL_ID_RICH_GEST_USER,
+                new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, true));
+        map.put(COL_DT_RICH_GEST_USER,
+                new ColumnDescriptor(COL_DT_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
+        map.put(COL_KEY_RICH_GEST_USER,
+                new ColumnDescriptor(COL_KEY_RICH_GEST_USER, Types.VARCHAR, 4000, true));
+        map.put(COL_FL_AZIONI_EVASE,
+                new ColumnDescriptor(COL_FL_AZIONI_EVASE, Types.VARCHAR, 1, true));
+        map.put(COL_DS_LISTA_AZIONI,
+                new ColumnDescriptor(COL_DS_LISTA_AZIONI, Types.VARCHAR, 4000, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

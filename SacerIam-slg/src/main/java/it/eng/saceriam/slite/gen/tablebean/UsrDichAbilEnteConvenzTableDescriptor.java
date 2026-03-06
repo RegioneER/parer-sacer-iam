@@ -46,31 +46,31 @@ public class UsrDichAbilEnteConvenzTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_DICH_ABIL_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_DICH_ABIL_ENTE_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
-	map.put(COL_TI_SCOPO_DICH_ABIL_ENTE,
-		new ColumnDescriptor(COL_TI_SCOPO_DICH_ABIL_ENTE, Types.VARCHAR, 20, false));
-	map.put(COL_ID_AMBIENTE_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_AMBIENTE_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_ID_APPART_COLLEG_ENTI,
-		new ColumnDescriptor(COL_ID_APPART_COLLEG_ENTI, Types.DECIMAL, 22, false));
-	map.put(COL_DS_CAUSALE_DICH,
-		new ColumnDescriptor(COL_DS_CAUSALE_DICH, Types.VARCHAR, 254, false));
+        map.put(COL_ID_DICH_ABIL_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_DICH_ABIL_ENTE_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
+        map.put(COL_TI_SCOPO_DICH_ABIL_ENTE,
+                new ColumnDescriptor(COL_TI_SCOPO_DICH_ABIL_ENTE, Types.VARCHAR, 20, false));
+        map.put(COL_ID_AMBIENTE_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_AMBIENTE_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_APPART_COLLEG_ENTI,
+                new ColumnDescriptor(COL_ID_APPART_COLLEG_ENTI, Types.DECIMAL, 22, false));
+        map.put(COL_DS_CAUSALE_DICH,
+                new ColumnDescriptor(COL_DS_CAUSALE_DICH, Types.VARCHAR, 254, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

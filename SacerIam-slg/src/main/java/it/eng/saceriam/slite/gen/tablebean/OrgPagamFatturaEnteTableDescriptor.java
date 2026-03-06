@@ -47,30 +47,30 @@ public class OrgPagamFatturaEnteTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_PAGAM_FATTURA_ENTE,
-		new ColumnDescriptor(COL_ID_PAGAM_FATTURA_ENTE, Types.DECIMAL, 22, true));
-	map.put(COL_ID_FATTURA_ENTE,
-		new ColumnDescriptor(COL_ID_FATTURA_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_PG_PAGAM, new ColumnDescriptor(COL_PG_PAGAM, Types.DECIMAL, 22, false));
-	map.put(COL_CD_PROVV_PAGAM,
-		new ColumnDescriptor(COL_CD_PROVV_PAGAM, Types.VARCHAR, 100, false));
-	map.put(COL_CD_REV_PAGAM,
-		new ColumnDescriptor(COL_CD_REV_PAGAM, Types.VARCHAR, 100, false));
-	map.put(COL_DT_PAGAM, new ColumnDescriptor(COL_DT_PAGAM, Types.TIMESTAMP, 7, false));
-	map.put(COL_IM_PAGAM, new ColumnDescriptor(COL_IM_PAGAM, Types.DECIMAL, 22, false));
-	map.put(COL_NT_PAGAM, new ColumnDescriptor(COL_NT_PAGAM, Types.VARCHAR, 1024, false));
+        map.put(COL_ID_PAGAM_FATTURA_ENTE,
+                new ColumnDescriptor(COL_ID_PAGAM_FATTURA_ENTE, Types.DECIMAL, 22, true));
+        map.put(COL_ID_FATTURA_ENTE,
+                new ColumnDescriptor(COL_ID_FATTURA_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_PG_PAGAM, new ColumnDescriptor(COL_PG_PAGAM, Types.DECIMAL, 22, false));
+        map.put(COL_CD_PROVV_PAGAM,
+                new ColumnDescriptor(COL_CD_PROVV_PAGAM, Types.VARCHAR, 100, false));
+        map.put(COL_CD_REV_PAGAM,
+                new ColumnDescriptor(COL_CD_REV_PAGAM, Types.VARCHAR, 100, false));
+        map.put(COL_DT_PAGAM, new ColumnDescriptor(COL_DT_PAGAM, Types.TIMESTAMP, 7, false));
+        map.put(COL_IM_PAGAM, new ColumnDescriptor(COL_IM_PAGAM, Types.DECIMAL, 22, false));
+        map.put(COL_NT_PAGAM, new ColumnDescriptor(COL_NT_PAGAM, Types.VARCHAR, 1024, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

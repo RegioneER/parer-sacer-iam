@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplVLisOrganizUsoSisVersRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -36,110 +36,110 @@ public class AplVLisOrganizUsoSisVersRowBean extends BaseRow
     public static AplVLisOrganizUsoSisVersTableDescriptor TABLE_DESCRIPTOR = new AplVLisOrganizUsoSisVersTableDescriptor();
 
     public AplVLisOrganizUsoSisVersRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdSistemaVersante() {
-	return getBigDecimal("id_sistema_versante");
+        return getBigDecimal("id_sistema_versante");
     }
 
     public void setIdSistemaVersante(BigDecimal idSistemaVersante) {
-	setObject("id_sistema_versante", idSistemaVersante);
+        setObject("id_sistema_versante", idSistemaVersante);
     }
 
     public String getNmSistemaVersante() {
-	return getString("nm_sistema_versante");
+        return getString("nm_sistema_versante");
     }
 
     public void setNmSistemaVersante(String nmSistemaVersante) {
-	setObject("nm_sistema_versante", nmSistemaVersante);
+        setObject("nm_sistema_versante", nmSistemaVersante);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public BigDecimal getIdOrganizApplic() {
-	return getBigDecimal("id_organiz_applic");
+        return getBigDecimal("id_organiz_applic");
     }
 
     public void setIdOrganizApplic(BigDecimal idOrganizApplic) {
-	setObject("id_organiz_applic", idOrganizApplic);
+        setObject("id_organiz_applic", idOrganizApplic);
     }
 
     public BigDecimal getIdOrganizIam() {
-	return getBigDecimal("id_organiz_iam");
+        return getBigDecimal("id_organiz_iam");
     }
 
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-	setObject("id_organiz_iam", idOrganizIam);
+        setObject("id_organiz_iam", idOrganizIam);
     }
 
     public String getDlCompositoOrganiz() {
-	return getString("dl_composito_organiz");
+        return getString("dl_composito_organiz");
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-	setObject("dl_composito_organiz", dlCompositoOrganiz);
+        setObject("dl_composito_organiz", dlCompositoOrganiz);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplVLisOrganizUsoSisVers entity = (AplVLisOrganizUsoSisVers) obj;
-	this.setIdSistemaVersante(entity.getAplVLisOrganizUsoSisVersId() == null ? null
-		: entity.getAplVLisOrganizUsoSisVersId().getIdSistemaVersante());
-	this.setNmSistemaVersante(entity.getNmSistemaVersante());
-	this.setNmApplic(entity.getNmApplic());
-	this.setIdOrganizApplic(entity.getIdOrganizApplic());
-	this.setIdOrganizIam(entity.getAplVLisOrganizUsoSisVersId() == null ? null
-		: entity.getAplVLisOrganizUsoSisVersId().getIdOrganizIam());
-	this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
+        AplVLisOrganizUsoSisVers entity = (AplVLisOrganizUsoSisVers) obj;
+        this.setIdSistemaVersante(entity.getAplVLisOrganizUsoSisVersId() == null ? null
+                : entity.getAplVLisOrganizUsoSisVersId().getIdSistemaVersante());
+        this.setNmSistemaVersante(entity.getNmSistemaVersante());
+        this.setNmApplic(entity.getNmApplic());
+        this.setIdOrganizApplic(entity.getIdOrganizApplic());
+        this.setIdOrganizIam(entity.getAplVLisOrganizUsoSisVersId() == null ? null
+                : entity.getAplVLisOrganizUsoSisVersId().getIdOrganizIam());
+        this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
     }
 
     @Override
     public AplVLisOrganizUsoSisVers rowBeanToEntity() {
-	AplVLisOrganizUsoSisVers entity = new AplVLisOrganizUsoSisVers();
-	entity.setAplVLisOrganizUsoSisVersId(new AplVLisOrganizUsoSisVersId());
-	entity.getAplVLisOrganizUsoSisVersId().setIdSistemaVersante(this.getIdSistemaVersante());
-	entity.setNmSistemaVersante(this.getNmSistemaVersante());
-	entity.setNmApplic(this.getNmApplic());
-	entity.setIdOrganizApplic(this.getIdOrganizApplic());
-	entity.getAplVLisOrganizUsoSisVersId().setIdOrganizIam(this.getIdOrganizIam());
-	entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
-	return entity;
+        AplVLisOrganizUsoSisVers entity = new AplVLisOrganizUsoSisVers();
+        entity.setAplVLisOrganizUsoSisVersId(new AplVLisOrganizUsoSisVersId());
+        entity.getAplVLisOrganizUsoSisVersId().setIdSistemaVersante(this.getIdSistemaVersante());
+        entity.setNmSistemaVersante(this.getNmSistemaVersante());
+        entity.setNmApplic(this.getNmApplic());
+        entity.setIdOrganizApplic(this.getIdOrganizApplic());
+        entity.getAplVLisOrganizUsoSisVersId().setIdOrganizIam(this.getIdOrganizIam());
+        entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

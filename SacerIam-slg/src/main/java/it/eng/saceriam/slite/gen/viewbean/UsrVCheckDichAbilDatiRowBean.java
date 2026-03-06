@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVCheckDichAbilDatiRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,112 +37,112 @@ public class UsrVCheckDichAbilDatiRowBean extends BaseRow
     public static UsrVCheckDichAbilDatiTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckDichAbilDatiTableDescriptor();
 
     public UsrVCheckDichAbilDatiRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdDichAbilDatiAggiunta() {
-	return getBigDecimal("id_dich_abil_dati_aggiunta");
+        return getBigDecimal("id_dich_abil_dati_aggiunta");
     }
 
     public void setIdDichAbilDatiAggiunta(BigDecimal idDichAbilDatiAggiunta) {
-	setObject("id_dich_abil_dati_aggiunta", idDichAbilDatiAggiunta);
+        setObject("id_dich_abil_dati_aggiunta", idDichAbilDatiAggiunta);
     }
 
     public BigDecimal getIdTipoDatoIam() {
-	return getBigDecimal("id_tipo_dato_iam");
+        return getBigDecimal("id_tipo_dato_iam");
     }
 
     public void setIdTipoDatoIam(BigDecimal idTipoDatoIam) {
-	setObject("id_tipo_dato_iam", idTipoDatoIam);
+        setObject("id_tipo_dato_iam", idTipoDatoIam);
     }
 
     public String getDlCompositoOrganiz() {
-	return getString("dl_composito_organiz");
+        return getString("dl_composito_organiz");
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-	setObject("dl_composito_organiz", dlCompositoOrganiz);
+        setObject("dl_composito_organiz", dlCompositoOrganiz);
     }
 
     public String getNmClasseTipoDato() {
-	return getString("nm_classe_tipo_dato");
+        return getString("nm_classe_tipo_dato");
     }
 
     public void setNmClasseTipoDato(String nmClasseTipoDato) {
-	setObject("nm_classe_tipo_dato", nmClasseTipoDato);
+        setObject("nm_classe_tipo_dato", nmClasseTipoDato);
     }
 
     public String getNmTipoDato() {
-	return getString("nm_tipo_dato");
+        return getString("nm_tipo_dato");
     }
 
     public void setNmTipoDato(String nmTipoDato) {
-	setObject("nm_tipo_dato", nmTipoDato);
+        setObject("nm_tipo_dato", nmTipoDato);
     }
 
     public BigDecimal getIdUserIamCorrente() {
-	return getBigDecimal("id_user_iam_corrente");
+        return getBigDecimal("id_user_iam_corrente");
     }
 
     public void setIdUserIamCorrente(BigDecimal idUserIamCorrente) {
-	setObject("id_user_iam_corrente", idUserIamCorrente);
+        setObject("id_user_iam_corrente", idUserIamCorrente);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVCheckDichAbilDati entity = (UsrVCheckDichAbilDati) obj;
-	this.setIdDichAbilDatiAggiunta(entity.getUsrVCheckDichAbilDatiId() == null ? null
-		: entity.getUsrVCheckDichAbilDatiId().getIdDichAbilDatiAggiunta());
-	this.setIdTipoDatoIam(entity.getUsrVCheckDichAbilDatiId() == null ? null
-		: entity.getUsrVCheckDichAbilDatiId().getIdTipoDatoIam());
-	this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
-	this.setNmClasseTipoDato(entity.getNmClasseTipoDato());
-	this.setNmTipoDato(entity.getNmTipoDato());
-	this.setIdUserIamCorrente(entity.getUsrVCheckDichAbilDatiId() == null ? null
-		: entity.getUsrVCheckDichAbilDatiId().getIdUserIamCorrente());
+        UsrVCheckDichAbilDati entity = (UsrVCheckDichAbilDati) obj;
+        this.setIdDichAbilDatiAggiunta(entity.getUsrVCheckDichAbilDatiId() == null ? null
+                : entity.getUsrVCheckDichAbilDatiId().getIdDichAbilDatiAggiunta());
+        this.setIdTipoDatoIam(entity.getUsrVCheckDichAbilDatiId() == null ? null
+                : entity.getUsrVCheckDichAbilDatiId().getIdTipoDatoIam());
+        this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
+        this.setNmClasseTipoDato(entity.getNmClasseTipoDato());
+        this.setNmTipoDato(entity.getNmTipoDato());
+        this.setIdUserIamCorrente(entity.getUsrVCheckDichAbilDatiId() == null ? null
+                : entity.getUsrVCheckDichAbilDatiId().getIdUserIamCorrente());
     }
 
     @Override
     public UsrVCheckDichAbilDati rowBeanToEntity() {
-	UsrVCheckDichAbilDati entity = new UsrVCheckDichAbilDati();
-	entity.setUsrVCheckDichAbilDatiId(new UsrVCheckDichAbilDatiId());
-	entity.getUsrVCheckDichAbilDatiId()
-		.setIdDichAbilDatiAggiunta(this.getIdDichAbilDatiAggiunta());
-	entity.getUsrVCheckDichAbilDatiId().setIdTipoDatoIam(this.getIdTipoDatoIam());
-	entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
-	entity.setNmClasseTipoDato(this.getNmClasseTipoDato());
-	entity.setNmTipoDato(this.getNmTipoDato());
-	entity.getUsrVCheckDichAbilDatiId().setIdUserIamCorrente(this.getIdUserIamCorrente());
-	return entity;
+        UsrVCheckDichAbilDati entity = new UsrVCheckDichAbilDati();
+        entity.setUsrVCheckDichAbilDatiId(new UsrVCheckDichAbilDatiId());
+        entity.getUsrVCheckDichAbilDatiId()
+                .setIdDichAbilDatiAggiunta(this.getIdDichAbilDatiAggiunta());
+        entity.getUsrVCheckDichAbilDatiId().setIdTipoDatoIam(this.getIdTipoDatoIam());
+        entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
+        entity.setNmClasseTipoDato(this.getNmClasseTipoDato());
+        entity.setNmTipoDato(this.getNmTipoDato());
+        entity.getUsrVCheckDichAbilDatiId().setIdUserIamCorrente(this.getIdUserIamCorrente());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

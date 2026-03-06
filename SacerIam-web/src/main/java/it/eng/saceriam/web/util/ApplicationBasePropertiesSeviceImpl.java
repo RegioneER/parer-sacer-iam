@@ -38,16 +38,16 @@ public class ApplicationBasePropertiesSeviceImpl implements IApplicationBaseProp
 
     @Override
     public ApplicationBaseProperties getApplicationBaseProperties() {
-	String nmApplic = paramHelper
-		.getValoreParamApplicByApplic(ConstIamParamApplic.NmParamApplic.NM_APPLIC.name()); // NM_APPLIC
-	String user = paramHelper.getValoreParamApplicByApplic(
-		ConstIamParamApplic.NmParamApplic.USERID_RECUP_INFO.name());
-	String password = paramHelper.getValoreParamApplicByApplic(
-		ConstIamParamApplic.NmParamApplic.PSW_RECUP_INFO.name());
-	String url = paramHelper.getValoreParamApplicByApplic(
-		ConstIamParamApplic.NmParamApplic.URL_RECUP_HELP.name());
+        String nmApplic = paramHelper
+                .getValoreParamApplicByApplic(ConstIamParamApplic.NmParamApplic.NM_APPLIC.name()); // NM_APPLIC
+        String user = paramHelper.getValoreParamApplicByApplic(
+                ConstIamParamApplic.NmParamApplic.USERID_RECUP_INFO.name());
+        String password = paramHelper.getValoreParamApplicByApplic(
+                ConstIamParamApplic.NmParamApplic.PSW_RECUP_INFO.name());
+        String url = paramHelper.getValoreParamApplicByApplic(
+                ConstIamParamApplic.NmParamApplic.URL_RECUP_HELP.name());
 
-	return new ApplicationBaseProperties(nmApplic, user, password, url);
+        return new ApplicationBaseProperties(nmApplic, user, password, url);
     }
 
 }

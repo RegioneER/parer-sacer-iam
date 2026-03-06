@@ -23,24 +23,24 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class DecDocProcessoConservTableBean
-	extends AbstractBaseTable<DecDocProcessoConservRowBean> {
+        extends AbstractBaseTable<DecDocProcessoConservRowBean> {
 
     public static DecDocProcessoConservTableDescriptor TABLE_DESCRIPTOR = new DecDocProcessoConservTableDescriptor();
 
     public DecDocProcessoConservTableBean() {
-	super();
+        super();
     }
 
     protected DecDocProcessoConservRowBean createRow() {
-	return new DecDocProcessoConservRowBean();
+        return new DecDocProcessoConservRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<DecDocProcessoConservRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

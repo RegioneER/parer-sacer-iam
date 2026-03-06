@@ -43,26 +43,26 @@ public class UsrVCheckDichAbilEnteTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_DICH_ABIL_ENTE_AGGIUNTA,
-		new ColumnDescriptor(COL_ID_DICH_ABIL_ENTE_AGGIUNTA, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_NM_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_NM_ENTE_CONVENZ, Types.VARCHAR, 254, true));
-	map.put(COL_ID_USER_IAM_CORRENTE,
-		new ColumnDescriptor(COL_ID_USER_IAM_CORRENTE, Types.DECIMAL, 22, true));
+        map.put(COL_ID_DICH_ABIL_ENTE_AGGIUNTA,
+                new ColumnDescriptor(COL_ID_DICH_ABIL_ENTE_AGGIUNTA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_NM_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_NM_ENTE_CONVENZ, Types.VARCHAR, 254, true));
+        map.put(COL_ID_USER_IAM_CORRENTE,
+                new ColumnDescriptor(COL_ID_USER_IAM_CORRENTE, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

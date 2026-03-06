@@ -51,42 +51,42 @@ public class OrgAaAccordoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_AA_ACCORDO,
-		new ColumnDescriptor(COL_ID_AA_ACCORDO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_ENTE,
-		new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
-	map.put(COL_AA_ANNO_ACCORDO,
-		new ColumnDescriptor(COL_AA_ANNO_ACCORDO, Types.DECIMAL, 22, false));
-	map.put(COL_MM_AA_ACCORDO,
-		new ColumnDescriptor(COL_MM_AA_ACCORDO, Types.DECIMAL, 22, false));
-	map.put(COL_CD_CIG_AA_ACCORDO,
-		new ColumnDescriptor(COL_CD_CIG_AA_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_CD_CUP_AA_ACCORDO,
-		new ColumnDescriptor(COL_CD_CUP_AA_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_CD_ODA_AA_ACCORDO,
-		new ColumnDescriptor(COL_CD_ODA_AA_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_DS_NOTA_AA_ACCORDO,
-		new ColumnDescriptor(COL_DS_NOTA_AA_ACCORDO, Types.VARCHAR, 250, false));
-	map.put(COL_IM_CANONE_AA_ACCORDO,
-		new ColumnDescriptor(COL_IM_CANONE_AA_ACCORDO, Types.DECIMAL, 22, false));
-	map.put(COL_DS_ATTO_AA_ACCORDO,
-		new ColumnDescriptor(COL_DS_ATTO_AA_ACCORDO, Types.VARCHAR, 250, false));
-	map.put(COL_CD_CAPITOLO_AA_ACCORDO,
-		new ColumnDescriptor(COL_CD_CAPITOLO_AA_ACCORDO, Types.VARCHAR, 100, false));
-	map.put(COL_DS_IMPEGNO_AA_ACCORDO,
-		new ColumnDescriptor(COL_DS_IMPEGNO_AA_ACCORDO, Types.VARCHAR, 250, false));
+        map.put(COL_ID_AA_ACCORDO,
+                new ColumnDescriptor(COL_ID_AA_ACCORDO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_ENTE,
+                new ColumnDescriptor(COL_ID_ACCORDO_ENTE, Types.DECIMAL, 22, false));
+        map.put(COL_AA_ANNO_ACCORDO,
+                new ColumnDescriptor(COL_AA_ANNO_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_MM_AA_ACCORDO,
+                new ColumnDescriptor(COL_MM_AA_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_CD_CIG_AA_ACCORDO,
+                new ColumnDescriptor(COL_CD_CIG_AA_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_CD_CUP_AA_ACCORDO,
+                new ColumnDescriptor(COL_CD_CUP_AA_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_CD_ODA_AA_ACCORDO,
+                new ColumnDescriptor(COL_CD_ODA_AA_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_DS_NOTA_AA_ACCORDO,
+                new ColumnDescriptor(COL_DS_NOTA_AA_ACCORDO, Types.VARCHAR, 250, false));
+        map.put(COL_IM_CANONE_AA_ACCORDO,
+                new ColumnDescriptor(COL_IM_CANONE_AA_ACCORDO, Types.DECIMAL, 22, false));
+        map.put(COL_DS_ATTO_AA_ACCORDO,
+                new ColumnDescriptor(COL_DS_ATTO_AA_ACCORDO, Types.VARCHAR, 250, false));
+        map.put(COL_CD_CAPITOLO_AA_ACCORDO,
+                new ColumnDescriptor(COL_CD_CAPITOLO_AA_ACCORDO, Types.VARCHAR, 100, false));
+        map.put(COL_DS_IMPEGNO_AA_ACCORDO,
+                new ColumnDescriptor(COL_DS_IMPEGNO_AA_ACCORDO, Types.VARCHAR, 250, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

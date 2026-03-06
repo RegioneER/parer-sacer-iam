@@ -42,23 +42,23 @@ public class PrfRuoloCategoriaTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_RUOLO_CATEGORIA,
-		new ColumnDescriptor(COL_ID_RUOLO_CATEGORIA, Types.DECIMAL, 22, true));
-	map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, false));
-	map.put(COL_TI_CATEG_RUOLO,
-		new ColumnDescriptor(COL_TI_CATEG_RUOLO, Types.VARCHAR, 20, false));
+        map.put(COL_ID_RUOLO_CATEGORIA,
+                new ColumnDescriptor(COL_ID_RUOLO_CATEGORIA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, false));
+        map.put(COL_TI_CATEG_RUOLO,
+                new ColumnDescriptor(COL_TI_CATEG_RUOLO, Types.VARCHAR, 20, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

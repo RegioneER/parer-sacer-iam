@@ -42,23 +42,23 @@ public class AplClasseTipoDatoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_CLASSE_TIPO_DATO,
-		new ColumnDescriptor(COL_ID_CLASSE_TIPO_DATO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_NM_CLASSE_TIPO_DATO,
-		new ColumnDescriptor(COL_NM_CLASSE_TIPO_DATO, Types.VARCHAR, 100, false));
+        map.put(COL_ID_CLASSE_TIPO_DATO,
+                new ColumnDescriptor(COL_ID_CLASSE_TIPO_DATO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_NM_CLASSE_TIPO_DATO,
+                new ColumnDescriptor(COL_NM_CLASSE_TIPO_DATO, Types.VARCHAR, 100, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

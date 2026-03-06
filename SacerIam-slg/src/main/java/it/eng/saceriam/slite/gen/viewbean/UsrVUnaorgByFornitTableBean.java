@@ -36,19 +36,19 @@ public class UsrVUnaorgByFornitTableBean extends AbstractBaseTable<UsrVUnaorgByF
     public static UsrVUnaorgByFornitTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByFornitTableDescriptor();
 
     public UsrVUnaorgByFornitTableBean() {
-	super();
+        super();
     }
 
     protected UsrVUnaorgByFornitRowBean createRow() {
-	return new UsrVUnaorgByFornitRowBean();
+        return new UsrVUnaorgByFornitRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVUnaorgByFornitRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -44,27 +44,27 @@ public class UsrUsoRuoloDichTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USO_RUOLO_DICH,
-		new ColumnDescriptor(COL_ID_USO_RUOLO_DICH, Types.DECIMAL, 22, true));
-	map.put(COL_ID_DICH_ABIL_ORGANIZ,
-		new ColumnDescriptor(COL_ID_DICH_ABIL_ORGANIZ, Types.DECIMAL, 22, false));
-	map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, false));
-	map.put(COL_TI_SCOPO_RUOLO,
-		new ColumnDescriptor(COL_TI_SCOPO_RUOLO, Types.VARCHAR, 20, false));
-	map.put(COL_ID_ORGANIZ_IAM_RUOLO,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM_RUOLO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_USO_RUOLO_DICH,
+                new ColumnDescriptor(COL_ID_USO_RUOLO_DICH, Types.DECIMAL, 22, true));
+        map.put(COL_ID_DICH_ABIL_ORGANIZ,
+                new ColumnDescriptor(COL_ID_DICH_ABIL_ORGANIZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, false));
+        map.put(COL_TI_SCOPO_RUOLO,
+                new ColumnDescriptor(COL_TI_SCOPO_RUOLO, Types.VARCHAR, 20, false));
+        map.put(COL_ID_ORGANIZ_IAM_RUOLO,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM_RUOLO, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

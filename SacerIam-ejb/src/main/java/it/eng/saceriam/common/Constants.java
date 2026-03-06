@@ -25,75 +25,75 @@ public class Constants {
 
     public enum EsitoServizio {
 
-	OK, KO, WARN, NO_RISPOSTA
+        OK, KO, WARN, NO_RISPOSTA
     }
 
     public enum TiOperReplic {
 
-	INS, MOD, CANC
+        INS, MOD, CANC
     }
 
     // Costanti per i tipi di Help On Line
     public enum TiHelpOnLine {
-	HELP_PAGINA, HELP_RICERCA_DIPS, INFO_PRIVACY
+        HELP_PAGINA, HELP_RICERCA_DIPS, INFO_PRIVACY
     }
 
     public enum TipiRegLogJob {
 
-	ERRORE, FINE_SCHEDULAZIONE, INIZIO_SCHEDULAZIONE
+        ERRORE, FINE_SCHEDULAZIONE, INIZIO_SCHEDULAZIONE
     }
 
     public enum NomiJob {
 
-	REPLICA_UTENTI, ALLINEAMENTO_LOG, INIZIALIZZAZIONE_LOG, WS_MONITORAGGIO_STATUS,
-	SCADENZA_FATTURE, ELIMINA_REPLICHE_UTENTI;
+        REPLICA_UTENTI, ALLINEAMENTO_LOG, INIZIALIZZAZIONE_LOG, WS_MONITORAGGIO_STATUS,
+        SCADENZA_FATTURE, ELIMINA_REPLICHE_UTENTI;
 
-	public static NomiJob[] getEnums(NomiJob... vals) {
-	    return vals;
-	}
+        public static NomiJob[] getEnums(NomiJob... vals) {
+            return vals;
+        }
 
-	public static NomiJob[] getComboSchedulazioniJob() {
-	    return getEnums(REPLICA_UTENTI, ALLINEAMENTO_LOG, INIZIALIZZAZIONE_LOG,
-		    WS_MONITORAGGIO_STATUS, SCADENZA_FATTURE, ELIMINA_REPLICHE_UTENTI);
-	}
+        public static NomiJob[] getComboSchedulazioniJob() {
+            return getEnums(REPLICA_UTENTI, ALLINEAMENTO_LOG, INIZIALIZZAZIONE_LOG,
+                    WS_MONITORAGGIO_STATUS, SCADENZA_FATTURE, ELIMINA_REPLICHE_UTENTI);
+        }
     }
 
     public enum EsitoVersamento {
 
-	POSITIVO, NEGATIVO, WARNING
+        POSITIVO, NEGATIVO, WARNING
     }
 
     public enum TiStatoReplic {
 
-	DA_REPLICARE, REPLICA_IN_TIMEOUT, REPLICA_IN_ERRORE, REPLICA_OK, REPLICA_NON_POSSIBILE,
-	REPLICA_IN_CORSO
+        DA_REPLICARE, REPLICA_IN_TIMEOUT, REPLICA_IN_ERRORE, REPLICA_OK, REPLICA_NON_POSSIBILE,
+        REPLICA_IN_CORSO
     }
 
     public enum TiUsoRuo {
 
-	DEF, DICH
+        DEF, DICH
     }
 
     public enum NmParamApplic {
 
-	MAX_ASYNC_JOBS, MIN_USERS_PER_LIST, MAX_USERS_PER_LIST_ON_DB
-	// , SERVER_NAME_SYSTEM_PROPERTY
+        MAX_ASYNC_JOBS, MIN_USERS_PER_LIST, MAX_USERS_PER_LIST_ON_DB
+        // , SERVER_NAME_SYSTEM_PROPERTY
     }
 
     // vista da cui recuperare i valori
     public enum TipoIamVGetValAppart {
-	AMBIENTEENTECONVENZ, ENTECONVENZ, APPLIC;
+        AMBIENTEENTECONVENZ, ENTECONVENZ, APPLIC;
 
-	public static TipoIamVGetValAppart next(TipoIamVGetValAppart last) {
-	    switch (last) {
-	    case ENTECONVENZ:
-		return AMBIENTEENTECONVENZ;
-	    case AMBIENTEENTECONVENZ:
-		return APPLIC;
-	    default:
-		return null;
-	    }
-	}
+        public static TipoIamVGetValAppart next(TipoIamVGetValAppart last) {
+            switch (last) {
+            case ENTECONVENZ:
+                return AMBIENTEENTECONVENZ;
+            case AMBIENTEENTECONVENZ:
+                return APPLIC;
+            default:
+                return null;
+            }
+        }
     }
 
 }

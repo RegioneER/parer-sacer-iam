@@ -36,19 +36,19 @@ public class UsrVAbilDatiTableBean extends AbstractBaseTable<UsrVAbilDatiRowBean
     public static UsrVAbilDatiTableDescriptor TABLE_DESCRIPTOR = new UsrVAbilDatiTableDescriptor();
 
     public UsrVAbilDatiTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAbilDatiRowBean createRow() {
-	return new UsrVAbilDatiRowBean();
+        return new UsrVAbilDatiRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAbilDatiRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

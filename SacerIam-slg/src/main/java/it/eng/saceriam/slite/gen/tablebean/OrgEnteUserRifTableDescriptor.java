@@ -52,42 +52,42 @@ public class OrgEnteUserRifTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_ID_ENTE_USER_RIF, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
-	map.put(COL_QUALIFICA_USER,
-		new ColumnDescriptor(COL_QUALIFICA_USER, Types.VARCHAR, 40, false));
-	map.put(COL_DL_NOTE, new ColumnDescriptor(COL_DL_NOTE, Types.VARCHAR, 254, false));
-	map.put(COL_CD_REGISTRO_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_CD_REGISTRO_ENTE_USER_RIF, Types.VARCHAR, 100, false));
-	map.put(COL_AA_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_AA_ENTE_USER_RIF, Types.DECIMAL, 22, false));
-	map.put(COL_CD_KEY_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_CD_KEY_ENTE_USER_RIF, Types.VARCHAR, 100, false));
-	map.put(COL_DT_REG_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_DT_REG_ENTE_USER_RIF, Types.TIMESTAMP, 0, false));
-	map.put(COL_CD_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_CD_ENTE_USER_RIF, Types.VARCHAR, 40, false));
-	map.put(COL_BL_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_BL_ENTE_USER_RIF, Types.BLOB, 4000, false));
-	map.put(COL_NM_FILE_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_NM_FILE_ENTE_USER_RIF, Types.VARCHAR, 100, false));
-	map.put(COL_DS_ENTE_USER_RIF,
-		new ColumnDescriptor(COL_DS_ENTE_USER_RIF, Types.VARCHAR, 1024, false));
+        map.put(COL_ID_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_ID_ENTE_USER_RIF, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
+        map.put(COL_QUALIFICA_USER,
+                new ColumnDescriptor(COL_QUALIFICA_USER, Types.VARCHAR, 40, false));
+        map.put(COL_DL_NOTE, new ColumnDescriptor(COL_DL_NOTE, Types.VARCHAR, 254, false));
+        map.put(COL_CD_REGISTRO_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_CD_REGISTRO_ENTE_USER_RIF, Types.VARCHAR, 100, false));
+        map.put(COL_AA_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_AA_ENTE_USER_RIF, Types.DECIMAL, 22, false));
+        map.put(COL_CD_KEY_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_CD_KEY_ENTE_USER_RIF, Types.VARCHAR, 100, false));
+        map.put(COL_DT_REG_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_DT_REG_ENTE_USER_RIF, Types.TIMESTAMP, 0, false));
+        map.put(COL_CD_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_CD_ENTE_USER_RIF, Types.VARCHAR, 40, false));
+        map.put(COL_BL_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_BL_ENTE_USER_RIF, Types.BLOB, 4000, false));
+        map.put(COL_NM_FILE_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_NM_FILE_ENTE_USER_RIF, Types.VARCHAR, 100, false));
+        map.put(COL_DS_ENTE_USER_RIF,
+                new ColumnDescriptor(COL_DS_ENTE_USER_RIF, Types.VARCHAR, 1024, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

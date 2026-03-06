@@ -26,121 +26,121 @@ public class AllineaRuoloInput implements Serializable {
     private ListaApplic listaApplic;
 
     public AllineaRuoloInput(String nmSistemaChiamante, String nmUseridCor, String nmRuolo,
-	    String dsRuolo, String tiRuolo, ListaCategRuolo listaCategRuolo,
-	    ListaApplic listaApplic) {
-	this.nmSistemaChiamante = nmSistemaChiamante;
-	this.nmUseridCor = nmUseridCor;
-	this.nmRuolo = nmRuolo;
-	this.dsRuolo = dsRuolo;
-	this.tiRuolo = tiRuolo;
-	this.listaCategRuolo = listaCategRuolo;
-	this.listaApplic = listaApplic;
+            String dsRuolo, String tiRuolo, ListaCategRuolo listaCategRuolo,
+            ListaApplic listaApplic) {
+        this.nmSistemaChiamante = nmSistemaChiamante;
+        this.nmUseridCor = nmUseridCor;
+        this.nmRuolo = nmRuolo;
+        this.dsRuolo = dsRuolo;
+        this.tiRuolo = tiRuolo;
+        this.listaCategRuolo = listaCategRuolo;
+        this.listaApplic = listaApplic;
     }
 
     /**
      * @return the nmSistemaChiamante
      */
     public String getNmSistemaChiamante() {
-	return nmSistemaChiamante;
+        return nmSistemaChiamante;
     }
 
     /**
      * @param nmSistemaChiamante the nmSistemaChiamante to set
      */
     public void setNmSistemaChiamante(String nmSistemaChiamante) {
-	this.nmSistemaChiamante = nmSistemaChiamante;
+        this.nmSistemaChiamante = nmSistemaChiamante;
     }
 
     /**
      * @return the nmUseridCor
      */
     public String getNmUseridCor() {
-	return nmUseridCor;
+        return nmUseridCor;
     }
 
     /**
      * @param nmUseridCor the nmUseridCor to set
      */
     public void setNmUseridCor(String nmUseridCor) {
-	this.nmUseridCor = nmUseridCor;
+        this.nmUseridCor = nmUseridCor;
     }
 
     /**
      * @return the nmRuolo
      */
     public String getNmRuolo() {
-	return nmRuolo;
+        return nmRuolo;
     }
 
     /**
      * @param nmRuolo the nmRuolo to set
      */
     public void setNmRuolo(String nmRuolo) {
-	this.nmRuolo = nmRuolo;
+        this.nmRuolo = nmRuolo;
     }
 
     /**
      * @return the dsRuolo
      */
     public String getDsRuolo() {
-	return dsRuolo;
+        return dsRuolo;
     }
 
     /**
      * @param dsRuolo the dsRuolo to set
      */
     public void setDsRuolo(String dsRuolo) {
-	this.dsRuolo = dsRuolo;
+        this.dsRuolo = dsRuolo;
     }
 
     /**
      * @return the tiRuolo
      */
     public String getTiRuolo() {
-	return tiRuolo;
+        return tiRuolo;
     }
 
     /**
      * @param tiRuolo the tiRuolo to set
      */
     public void setTiRuolo(String tiRuolo) {
-	this.tiRuolo = tiRuolo;
+        this.tiRuolo = tiRuolo;
     }
 
     /**
      * @return the listaCategRuolo
      */
     public ListaCategRuolo getListaCategRuolo() {
-	return listaCategRuolo;
+        return listaCategRuolo;
     }
 
     /**
      * @param listaCategRuolo the listaCategRuolo to set
      */
     public void setListaCategRuolo(ListaCategRuolo listaCategRuolo) {
-	this.listaCategRuolo = listaCategRuolo;
+        this.listaCategRuolo = listaCategRuolo;
     }
 
     /**
      * @return the listaApplic
      */
     public ListaApplic getListaApplic() {
-	return listaApplic;
+        return listaApplic;
     }
 
     /**
      * @param listaApplic the listaApplic to set
      */
     public void setListaApplic(ListaApplic listaApplic) {
-	this.listaApplic = listaApplic;
+        this.listaApplic = listaApplic;
     }
 
     @Override
     public String toString() {
-	return "AllineaRuoloInput{" + "nmSistemaChiamante=" + nmSistemaChiamante + ", nmUseridCor="
-		+ nmUseridCor + ", nmRuolo=" + nmRuolo + ", dsRuolo=" + dsRuolo + ", tiRuolo="
-		+ tiRuolo + ", listaCategRuolo=" + listaCategRuolo + ", listaApplic=" + listaApplic
-		+ '}';
+        return "AllineaRuoloInput{" + "nmSistemaChiamante=" + nmSistemaChiamante + ", nmUseridCor="
+                + nmUseridCor + ", nmRuolo=" + nmRuolo + ", dsRuolo=" + dsRuolo + ", tiRuolo="
+                + tiRuolo + ", listaCategRuolo=" + listaCategRuolo + ", listaApplic=" + listaApplic
+                + '}';
     }
 
 }

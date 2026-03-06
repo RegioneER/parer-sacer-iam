@@ -49,34 +49,34 @@ public class PrfRuoloTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
-	map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, false));
-	map.put(COL_DS_RUOLO, new ColumnDescriptor(COL_DS_RUOLO, Types.VARCHAR, 254, false));
-	map.put(COL_TI_RUOLO, new ColumnDescriptor(COL_TI_RUOLO, Types.VARCHAR, 20, false));
-	map.put(COL_TI_STATO_RICH_ALLINEA_RUOLI_1,
-		new ColumnDescriptor(COL_TI_STATO_RICH_ALLINEA_RUOLI_1, Types.VARCHAR, 30, false));
-	map.put(COL_TI_STATO_RICH_ALLINEA_RUOLI_2,
-		new ColumnDescriptor(COL_TI_STATO_RICH_ALLINEA_RUOLI_2, Types.VARCHAR, 30, false));
-	map.put(COL_FL_ALLINEAMENTO_IN_CORSO,
-		new ColumnDescriptor(COL_FL_ALLINEAMENTO_IN_CORSO, Types.VARCHAR, 1, false));
-	map.put(COL_DS_ESITO_RICH_ALLINEA_RUOLI_1, new ColumnDescriptor(
-		COL_DS_ESITO_RICH_ALLINEA_RUOLI_1, Types.VARCHAR, 4000, false));
-	map.put(COL_DS_ESITO_RICH_ALLINEA_RUOLI_2, new ColumnDescriptor(
-		COL_DS_ESITO_RICH_ALLINEA_RUOLI_2, Types.VARCHAR, 4000, false));
-	map.put(COL_DS_MSG_ALLINEAMENTO_PARZ,
-		new ColumnDescriptor(COL_DS_MSG_ALLINEAMENTO_PARZ, Types.VARCHAR, 4000, false));
+        map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
+        map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, false));
+        map.put(COL_DS_RUOLO, new ColumnDescriptor(COL_DS_RUOLO, Types.VARCHAR, 254, false));
+        map.put(COL_TI_RUOLO, new ColumnDescriptor(COL_TI_RUOLO, Types.VARCHAR, 20, false));
+        map.put(COL_TI_STATO_RICH_ALLINEA_RUOLI_1,
+                new ColumnDescriptor(COL_TI_STATO_RICH_ALLINEA_RUOLI_1, Types.VARCHAR, 30, false));
+        map.put(COL_TI_STATO_RICH_ALLINEA_RUOLI_2,
+                new ColumnDescriptor(COL_TI_STATO_RICH_ALLINEA_RUOLI_2, Types.VARCHAR, 30, false));
+        map.put(COL_FL_ALLINEAMENTO_IN_CORSO,
+                new ColumnDescriptor(COL_FL_ALLINEAMENTO_IN_CORSO, Types.VARCHAR, 1, false));
+        map.put(COL_DS_ESITO_RICH_ALLINEA_RUOLI_1, new ColumnDescriptor(
+                COL_DS_ESITO_RICH_ALLINEA_RUOLI_1, Types.VARCHAR, 4000, false));
+        map.put(COL_DS_ESITO_RICH_ALLINEA_RUOLI_2, new ColumnDescriptor(
+                COL_DS_ESITO_RICH_ALLINEA_RUOLI_2, Types.VARCHAR, 4000, false));
+        map.put(COL_DS_MSG_ALLINEAMENTO_PARZ,
+                new ColumnDescriptor(COL_DS_MSG_ALLINEAMENTO_PARZ, Types.VARCHAR, 4000, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

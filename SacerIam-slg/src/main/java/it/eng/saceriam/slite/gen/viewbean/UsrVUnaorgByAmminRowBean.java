@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVUnaorgByAmminRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,100 +37,100 @@ public class UsrVUnaorgByAmminRowBean extends BaseRow
     public static UsrVUnaorgByAmminTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByAmminTableDescriptor();
 
     public UsrVUnaorgByAmminRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdUserIamCor() {
-	return getBigDecimal("id_user_iam_cor");
+        return getBigDecimal("id_user_iam_cor");
     }
 
     public void setIdUserIamCor(BigDecimal idUserIamCor) {
-	setObject("id_user_iam_cor", idUserIamCor);
+        setObject("id_user_iam_cor", idUserIamCor);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public BigDecimal getIdOrganizIam() {
-	return getBigDecimal("id_organiz_iam");
+        return getBigDecimal("id_organiz_iam");
     }
 
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-	setObject("id_organiz_iam", idOrganizIam);
+        setObject("id_organiz_iam", idOrganizIam);
     }
 
     public String getDsCausaleDich() {
-	return getString("ds_causale_dich");
+        return getString("ds_causale_dich");
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	setObject("ds_causale_dich", dsCausaleDich);
+        setObject("ds_causale_dich", dsCausaleDich);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVUnaorgByAmmin entity = (UsrVUnaorgByAmmin) obj;
-	this.setIdUserIamCor(entity.getUsrVUnaorgByAmminId() == null ? null
-		: entity.getUsrVUnaorgByAmminId().getIdUserIamCor());
-	this.setIdApplic(entity.getIdApplic());
-	this.setNmApplic(entity.getNmApplic());
-	this.setIdOrganizIam(entity.getUsrVUnaorgByAmminId() == null ? null
-		: entity.getUsrVUnaorgByAmminId().getIdOrganizIam());
-	this.setDsCausaleDich(entity.getDsCausaleDich());
+        UsrVUnaorgByAmmin entity = (UsrVUnaorgByAmmin) obj;
+        this.setIdUserIamCor(entity.getUsrVUnaorgByAmminId() == null ? null
+                : entity.getUsrVUnaorgByAmminId().getIdUserIamCor());
+        this.setIdApplic(entity.getIdApplic());
+        this.setNmApplic(entity.getNmApplic());
+        this.setIdOrganizIam(entity.getUsrVUnaorgByAmminId() == null ? null
+                : entity.getUsrVUnaorgByAmminId().getIdOrganizIam());
+        this.setDsCausaleDich(entity.getDsCausaleDich());
     }
 
     @Override
     public UsrVUnaorgByAmmin rowBeanToEntity() {
-	UsrVUnaorgByAmmin entity = new UsrVUnaorgByAmmin();
-	entity.setUsrVUnaorgByAmminId(new UsrVUnaorgByAmminId());
-	entity.getUsrVUnaorgByAmminId().setIdUserIamCor(this.getIdUserIamCor());
-	entity.setIdApplic(this.getIdApplic());
-	entity.setNmApplic(this.getNmApplic());
-	entity.getUsrVUnaorgByAmminId().setIdOrganizIam(this.getIdOrganizIam());
-	entity.setDsCausaleDich(this.getDsCausaleDich());
-	return entity;
+        UsrVUnaorgByAmmin entity = new UsrVUnaorgByAmmin();
+        entity.setUsrVUnaorgByAmminId(new UsrVUnaorgByAmminId());
+        entity.getUsrVUnaorgByAmminId().setIdUserIamCor(this.getIdUserIamCor());
+        entity.setIdApplic(this.getIdApplic());
+        entity.setNmApplic(this.getNmApplic());
+        entity.getUsrVUnaorgByAmminId().setIdOrganizIam(this.getIdOrganizIam());
+        entity.setDsCausaleDich(this.getDsCausaleDich());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

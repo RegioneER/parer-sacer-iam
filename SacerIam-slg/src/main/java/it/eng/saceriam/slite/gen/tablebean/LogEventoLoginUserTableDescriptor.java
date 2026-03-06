@@ -46,28 +46,28 @@ public class LogEventoLoginUserTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_EVENTO_LOGIN_USER,
-		new ColumnDescriptor(COL_ID_EVENTO_LOGIN_USER, Types.DECIMAL, 22, true));
-	map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, false));
-	map.put(COL_CD_IND_IP_CLIENT,
-		new ColumnDescriptor(COL_CD_IND_IP_CLIENT, Types.VARCHAR, 100, false));
-	map.put(COL_CD_IND_SERVER,
-		new ColumnDescriptor(COL_CD_IND_SERVER, Types.VARCHAR, 100, false));
-	map.put(COL_DT_EVENTO, new ColumnDescriptor(COL_DT_EVENTO, Types.TIMESTAMP, 7, false));
-	map.put(COL_TIPO_EVENTO, new ColumnDescriptor(COL_TIPO_EVENTO, Types.VARCHAR, 20, false));
-	map.put(COL_DS_EVENTO, new ColumnDescriptor(COL_DS_EVENTO, Types.VARCHAR, 1000, false));
+        map.put(COL_ID_EVENTO_LOGIN_USER,
+                new ColumnDescriptor(COL_ID_EVENTO_LOGIN_USER, Types.DECIMAL, 22, true));
+        map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, false));
+        map.put(COL_CD_IND_IP_CLIENT,
+                new ColumnDescriptor(COL_CD_IND_IP_CLIENT, Types.VARCHAR, 100, false));
+        map.put(COL_CD_IND_SERVER,
+                new ColumnDescriptor(COL_CD_IND_SERVER, Types.VARCHAR, 100, false));
+        map.put(COL_DT_EVENTO, new ColumnDescriptor(COL_DT_EVENTO, Types.TIMESTAMP, 7, false));
+        map.put(COL_TIPO_EVENTO, new ColumnDescriptor(COL_TIPO_EVENTO, Types.VARCHAR, 20, false));
+        map.put(COL_DS_EVENTO, new ColumnDescriptor(COL_DS_EVENTO, Types.VARCHAR, 1000, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

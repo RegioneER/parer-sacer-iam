@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVRicFatturePerAccordoTableBean
-	extends AbstractBaseTable<OrgVRicFatturePerAccordoRowBean> {
+        extends AbstractBaseTable<OrgVRicFatturePerAccordoRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVRicFatturePerAccordoTableBean
     public static OrgVRicFatturePerAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgVRicFatturePerAccordoTableDescriptor();
 
     public OrgVRicFatturePerAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgVRicFatturePerAccordoRowBean createRow() {
-	return new OrgVRicFatturePerAccordoRowBean();
+        return new OrgVRicFatturePerAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVRicFatturePerAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

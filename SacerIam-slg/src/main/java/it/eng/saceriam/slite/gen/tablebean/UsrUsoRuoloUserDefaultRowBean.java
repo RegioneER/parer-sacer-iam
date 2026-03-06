@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrUsoRuoloUserDefaultRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,97 +38,97 @@ public class UsrUsoRuoloUserDefaultRowBean extends BaseRow
     public static UsrUsoRuoloUserDefaultTableDescriptor TABLE_DESCRIPTOR = new UsrUsoRuoloUserDefaultTableDescriptor();
 
     public UsrUsoRuoloUserDefaultRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdUsoRuoloUserDefault() {
-	return getBigDecimal("id_uso_ruolo_user_default");
+        return getBigDecimal("id_uso_ruolo_user_default");
     }
 
     public void setIdUsoRuoloUserDefault(BigDecimal idUsoRuoloUserDefault) {
-	setObject("id_uso_ruolo_user_default", idUsoRuoloUserDefault);
+        setObject("id_uso_ruolo_user_default", idUsoRuoloUserDefault);
     }
 
     public BigDecimal getIdUsoUserApplic() {
-	return getBigDecimal("id_uso_user_applic");
+        return getBigDecimal("id_uso_user_applic");
     }
 
     public void setIdUsoUserApplic(BigDecimal idUsoUserApplic) {
-	setObject("id_uso_user_applic", idUsoUserApplic);
+        setObject("id_uso_user_applic", idUsoUserApplic);
     }
 
     public BigDecimal getIdRuolo() {
-	return getBigDecimal("id_ruolo");
+        return getBigDecimal("id_ruolo");
     }
 
     public void setIdRuolo(BigDecimal idRuolo) {
-	setObject("id_ruolo", idRuolo);
+        setObject("id_ruolo", idRuolo);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrUsoRuoloUserDefault entity = (UsrUsoRuoloUserDefault) obj;
-	this.setIdUsoRuoloUserDefault(new BigDecimal(entity.getIdUsoRuoloUserDefault()));
-	if (entity.getUsrUsoUserApplic() != null) {
-	    this.setIdUsoUserApplic(
-		    new BigDecimal(entity.getUsrUsoUserApplic().getIdUsoUserApplic()));
-	}
+        UsrUsoRuoloUserDefault entity = (UsrUsoRuoloUserDefault) obj;
+        this.setIdUsoRuoloUserDefault(new BigDecimal(entity.getIdUsoRuoloUserDefault()));
+        if (entity.getUsrUsoUserApplic() != null) {
+            this.setIdUsoUserApplic(
+                    new BigDecimal(entity.getUsrUsoUserApplic().getIdUsoUserApplic()));
+        }
 
-	if (entity.getPrfRuolo() != null) {
-	    this.setIdRuolo(new BigDecimal(entity.getPrfRuolo().getIdRuolo()));
+        if (entity.getPrfRuolo() != null) {
+            this.setIdRuolo(new BigDecimal(entity.getPrfRuolo().getIdRuolo()));
 
-	}
+        }
     }
 
     @Override
     public UsrUsoRuoloUserDefault rowBeanToEntity() {
-	UsrUsoRuoloUserDefault entity = new UsrUsoRuoloUserDefault();
-	if (this.getIdUsoRuoloUserDefault() != null) {
-	    entity.setIdUsoRuoloUserDefault(this.getIdUsoRuoloUserDefault().longValue());
-	}
-	if (this.getIdUsoUserApplic() != null) {
-	    if (entity.getUsrUsoUserApplic() == null) {
-		entity.setUsrUsoUserApplic(new UsrUsoUserApplic());
-	    }
-	    entity.getUsrUsoUserApplic().setIdUsoUserApplic(this.getIdUsoUserApplic().longValue());
-	}
-	if (this.getIdRuolo() != null) {
-	    if (entity.getPrfRuolo() == null) {
-		entity.setPrfRuolo(new PrfRuolo());
-	    }
-	    entity.getPrfRuolo().setIdRuolo(this.getIdRuolo().longValue());
-	}
-	return entity;
+        UsrUsoRuoloUserDefault entity = new UsrUsoRuoloUserDefault();
+        if (this.getIdUsoRuoloUserDefault() != null) {
+            entity.setIdUsoRuoloUserDefault(this.getIdUsoRuoloUserDefault().longValue());
+        }
+        if (this.getIdUsoUserApplic() != null) {
+            if (entity.getUsrUsoUserApplic() == null) {
+                entity.setUsrUsoUserApplic(new UsrUsoUserApplic());
+            }
+            entity.getUsrUsoUserApplic().setIdUsoUserApplic(this.getIdUsoUserApplic().longValue());
+        }
+        if (this.getIdRuolo() != null) {
+            if (entity.getPrfRuolo() == null) {
+                entity.setPrfRuolo(new PrfRuolo());
+            }
+            entity.getPrfRuolo().setIdRuolo(this.getIdRuolo().longValue());
+        }
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

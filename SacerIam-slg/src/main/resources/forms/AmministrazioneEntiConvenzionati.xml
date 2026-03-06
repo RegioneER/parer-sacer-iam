@@ -704,7 +704,7 @@
     <Section Name="idAccordoSection" Description="" Legend="ID Accordo" ShowButton="false" LoadOpened="true"/>
     <Section Name="serviziErogatiSection" Description="" Legend="Servizi erogati" ShowButton="false" LoadOpened="true"/>    
     <Section Name="infoAccordoSection" Description="" Legend="Informazioni sull'accordo" ShowButton="false" LoadOpened="true"/>
-    <Section Name="infoAdozioneAccordoSection" Description="" Legend="Informazioni adozione dell'accordo" ShowButton="false" LoadOpened="true"/>     
+    <Section Name="infoAdozioneAccordoSection" Description="" Legend="Informazioni atto adozione accordo" ShowButton="false" LoadOpened="true"/>     
     <Section Name="infoRimborsoCostiSection" Description="" Legend="Informazioni sul rimborso costi" ShowButton="false" LoadOpened="true"/>
     <Section Name="infoRimborsoCostiTipoServizioSection" Description="" Legend="Tipi servizio" ShowButton="true" LoadOpened="true"/>
     <Section Name="mediaAnnualeOccupazioneStorageSection" Description="" Legend="Media annuale occupazione storage" ShowButton="false" LoadOpened="true"/>
@@ -736,7 +736,7 @@
         <Input Name="aa_repertorio" Description="Anno" Type="INTEGER" MaxLength="4"/>
         <Input Name="cd_key_repertorio" Description="Numero" Type="STRING" MaxLength="100"/>
         <Input Name="dt_reg_accordo" Description="Data registrazione" Type="DATE" /> 
-        <Input Name="ds_firmatario_ente" Description="Firmatario ente" Type="STRING" MaxLength="254"/>
+        <Input Name="ds_firmatario_ente" Description="Firmatario ente produttore" Type="STRING" MaxLength="254"/>
         <TextArea Name="ds_note_ente_accordo" Description="Note enti accordo" Type="STRING" Rows="10" Cols="10" MaxLength="254"/>
         <!-- Informazioni accordo -->
         <ComboBox Name="ti_scopo_accordo" Description="Scopo accordo" Type="STRING" Required="true" Readonly="true" /> 
@@ -753,9 +753,9 @@
         <TextArea Name="ds_note_accordo" Description="Note" Type="STRING" Rows="5" Cols="100" MaxLength="4000" />
           <!-- INFORMAZIONI DI ADOZIONE ACCORDO -->
         <ComboBox Name="cd_registro_determina" Description="Registro" Type="STRING" MaxLength="100" />
-        <Input Name="aa_determina" Description="Anno" Type="INTEGER" MaxLength="4"/>
-        <Input Name="cd_key_determina" Description="Numero" Type="STRING" MaxLength="100"/>
-        <Input Name="dt_determina" Description="Data determina" Type="DATE" Required="false" />
+        <Input Name="aa_determina" Description="Anno proposta" Type="INTEGER" MaxLength="4"/>
+        <Input Name="cd_key_determina" Description="Numero proposta" Type="STRING" MaxLength="100"/>
+        <Input Name="dt_determina" Description="Data adozione determina" Type="DATE" Required="false" />
         <!-- Informazioni sul rimborso costi -->
         <ComboBox Name="id_tipo_accordo" Description="Tipo accordo" Type="INTEGER" Trigger="true" Required="true" />
         <ComboBox Name="fl_pagamento" Description="A pagamento" Type="STRING" Required="true" />
@@ -1143,6 +1143,8 @@
         <ComboBox Name="fl_appart_applic_combo" Description="Parametri di applicazione" Type="STRING"/>
         <ComboBox Name="fl_appart_ambiente_combo" Description="Parametri di ambiente" Type="STRING"/>
         <ComboBox Name="fl_apparte_ente_combo" Description="Parametri di ente" Type="STRING"/>
+        <Input Name="cd_versione_app_ini" Description="Introdotto con" Type="STRING" MaxLength="11" />
+        <Input Name="cd_versione_app_fine" Description="Cessato con" Type="STRING" MaxLength="11" />
         <Button Name="load_config_list" Description="Carica Configurazione" Type="STRING" />
         <Button Name="edit_config" Description="Modifica" Type="STRING" />
         <Button Name="add_config" Description="Aggiungi Configurazione" Type="STRING" />

@@ -36,19 +36,19 @@ public class UsrVUnaorgByGestoreTableBean extends AbstractBaseTable<UsrVUnaorgBy
     public static UsrVUnaorgByGestoreTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByGestoreTableDescriptor();
 
     public UsrVUnaorgByGestoreTableBean() {
-	super();
+        super();
     }
 
     protected UsrVUnaorgByGestoreRowBean createRow() {
-	return new UsrVUnaorgByGestoreRowBean();
+        return new UsrVUnaorgByGestoreRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVUnaorgByGestoreRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

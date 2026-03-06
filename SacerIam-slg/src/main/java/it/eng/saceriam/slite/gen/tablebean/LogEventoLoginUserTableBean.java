@@ -32,19 +32,19 @@ public class LogEventoLoginUserTableBean extends AbstractBaseTable<LogEventoLogi
     public static LogEventoLoginUserTableDescriptor TABLE_DESCRIPTOR = new LogEventoLoginUserTableDescriptor();
 
     public LogEventoLoginUserTableBean() {
-	super();
+        super();
     }
 
     protected LogEventoLoginUserRowBean createRow() {
-	return new LogEventoLoginUserRowBean();
+        return new LogEventoLoginUserRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<LogEventoLoginUserRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

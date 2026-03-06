@@ -25,15 +25,15 @@ public class ListaOrganizAbil implements Iterable<OrganizAbil> {
     private List<OrganizAbil> organizAbil;
 
     public List<OrganizAbil> getOrganizAbil() {
-	return organizAbil;
+        return organizAbil;
     }
 
     public void setOrganizAbil(List<OrganizAbil> organizAbil) {
-	this.organizAbil = organizAbil;
+        this.organizAbil = organizAbil;
     }
 
     @Override
     public Iterator<OrganizAbil> iterator() {
-	return organizAbil.iterator();
+        return organizAbil.iterator();
     }
 }

@@ -36,19 +36,19 @@ public class UsrVUnaorgByConservTableBean extends AbstractBaseTable<UsrVUnaorgBy
     public static UsrVUnaorgByConservTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByConservTableDescriptor();
 
     public UsrVUnaorgByConservTableBean() {
-	super();
+        super();
     }
 
     protected UsrVUnaorgByConservRowBean createRow() {
-	return new UsrVUnaorgByConservRowBean();
+        return new UsrVUnaorgByConservRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVUnaorgByConservRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

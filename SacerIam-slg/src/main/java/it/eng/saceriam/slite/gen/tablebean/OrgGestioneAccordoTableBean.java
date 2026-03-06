@@ -32,19 +32,19 @@ public class OrgGestioneAccordoTableBean extends AbstractBaseTable<OrgGestioneAc
     public static OrgGestioneAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgGestioneAccordoTableDescriptor();
 
     public OrgGestioneAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgGestioneAccordoRowBean createRow() {
-	return new OrgGestioneAccordoRowBean();
+        return new OrgGestioneAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgGestioneAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

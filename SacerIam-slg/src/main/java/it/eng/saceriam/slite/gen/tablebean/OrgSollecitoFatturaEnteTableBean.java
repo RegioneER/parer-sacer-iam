@@ -23,7 +23,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgSollecitoFatturaEnteTableBean
-	extends AbstractBaseTable<OrgSollecitoFatturaEnteRowBean> {
+        extends AbstractBaseTable<OrgSollecitoFatturaEnteRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -33,19 +33,19 @@ public class OrgSollecitoFatturaEnteTableBean
     public static OrgSollecitoFatturaEnteTableDescriptor TABLE_DESCRIPTOR = new OrgSollecitoFatturaEnteTableDescriptor();
 
     public OrgSollecitoFatturaEnteTableBean() {
-	super();
+        super();
     }
 
     protected OrgSollecitoFatturaEnteRowBean createRow() {
-	return new OrgSollecitoFatturaEnteRowBean();
+        return new OrgSollecitoFatturaEnteRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgSollecitoFatturaEnteRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

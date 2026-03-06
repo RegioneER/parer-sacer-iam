@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgVCreaServFattAnnualeRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -38,173 +38,173 @@ public class OrgVCreaServFattAnnualeRowBean extends BaseRow
     public static OrgVCreaServFattAnnualeTableDescriptor TABLE_DESCRIPTOR = new OrgVCreaServFattAnnualeTableDescriptor();
 
     public OrgVCreaServFattAnnualeRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdFatturaEnte() {
-	return getBigDecimal("id_fattura_ente");
+        return getBigDecimal("id_fattura_ente");
     }
 
     public void setIdFatturaEnte(BigDecimal idFatturaEnte) {
-	setObject("id_fattura_ente", idFatturaEnte);
+        setObject("id_fattura_ente", idFatturaEnte);
     }
 
     public BigDecimal getIdAccordoEnte() {
-	return getBigDecimal("id_accordo_ente");
+        return getBigDecimal("id_accordo_ente");
     }
 
     public void setIdAccordoEnte(BigDecimal id_accordo_ente) {
-	setObject("id_accordo_ente", id_accordo_ente);
+        setObject("id_accordo_ente", id_accordo_ente);
     }
 
     public BigDecimal getIdServizioErogato() {
-	return getBigDecimal("id_servizio_erogato");
+        return getBigDecimal("id_servizio_erogato");
     }
 
     public void setIdServizioErogato(BigDecimal idServizioErogato) {
-	setObject("id_servizio_erogato", idServizioErogato);
+        setObject("id_servizio_erogato", idServizioErogato);
     }
 
     public BigDecimal getAaServizioFattura() {
-	return getBigDecimal("aa_servizio_fattura");
+        return getBigDecimal("aa_servizio_fattura");
     }
 
     public void setAaServizioFattura(BigDecimal aaServizioFattura) {
-	setObject("aa_servizio_fattura", aaServizioFattura);
+        setObject("aa_servizio_fattura", aaServizioFattura);
     }
 
     public String getNmServizioFattura() {
-	return getString("nm_servizio_fattura");
+        return getString("nm_servizio_fattura");
     }
 
     public void setNmServizioFattura(String nmServizioFattura) {
-	setObject("nm_servizio_fattura", nmServizioFattura);
+        setObject("nm_servizio_fattura", nmServizioFattura);
     }
 
     public BigDecimal getImServizioFattura() {
-	return getBigDecimal("im_servizio_fattura");
+        return getBigDecimal("im_servizio_fattura");
     }
 
     public void setImServizioFattura(BigDecimal imServizioFattura) {
-	setObject("im_servizio_fattura", imServizioFattura);
+        setObject("im_servizio_fattura", imServizioFattura);
     }
 
     public BigDecimal getQtScaglioneServizioFattura() {
-	return getBigDecimal("qt_scaglione_servizio_fattura");
+        return getBigDecimal("qt_scaglione_servizio_fattura");
     }
 
     public void setQtScaglioneServizioFattura(BigDecimal qtScaglioneServizioFattura) {
-	setObject("qt_scaglione_servizio_fattura", qtScaglioneServizioFattura);
+        setObject("qt_scaglione_servizio_fattura", qtScaglioneServizioFattura);
     }
 
     public BigDecimal getQtUnitServizioFattura() {
-	return getBigDecimal("qt_unit_servizio_fattura");
+        return getBigDecimal("qt_unit_servizio_fattura");
     }
 
     public void setQtUnitServizioFattura(BigDecimal qtUnitServizioFattura) {
-	setObject("qt_unit_servizio_fattura", qtUnitServizioFattura);
+        setObject("qt_unit_servizio_fattura", qtUnitServizioFattura);
     }
 
     public Timestamp getDtErog() {
-	return getTimestamp("dt_erog");
+        return getTimestamp("dt_erog");
     }
 
     public void setDtErog(Timestamp dtErog) {
-	setObject("dt_erog", dtErog);
+        setObject("dt_erog", dtErog);
     }
 
     public String getNtServizioFattura() {
-	return getString("nt_servizio_fattura");
+        return getString("nt_servizio_fattura");
     }
 
     public void setNtServizioFattura(String ntServizioFattura) {
-	setObject("nt_servizio_fattura", ntServizioFattura);
+        setObject("nt_servizio_fattura", ntServizioFattura);
     }
 
     public BigDecimal getIdCdIva() {
-	return getBigDecimal("id_cd_iva");
+        return getBigDecimal("id_cd_iva");
     }
 
     public void setIdCdIva(BigDecimal idCdIva) {
-	setObject("id_cd_iva", idCdIva);
+        setObject("id_cd_iva", idCdIva);
     }
 
     public BigDecimal getImIva() {
-	return getBigDecimal("im_iva");
+        return getBigDecimal("im_iva");
     }
 
     public void setImIva(BigDecimal imIva) {
-	setObject("im_iva", imIva);
+        setObject("im_iva", imIva);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgVCreaServFattAnnuale entity = (OrgVCreaServFattAnnuale) obj;
-	this.setIdFatturaEnte(entity.getOrgVCreaServFattAnnualeId() == null ? null
-		: entity.getOrgVCreaServFattAnnualeId().getIdFatturaEnte());
-	this.setIdAccordoEnte(entity.getIdAccordoEnte());
-	this.setIdServizioErogato(entity.getOrgVCreaServFattAnnualeId() == null ? null
-		: entity.getOrgVCreaServFattAnnualeId().getIdServizioErogato());
-	this.setAaServizioFattura(entity.getOrgVCreaServFattAnnualeId() == null ? null
-		: entity.getOrgVCreaServFattAnnualeId().getAaServizioFattura());
-	this.setNmServizioFattura(entity.getNmServizioFattura());
-	this.setImServizioFattura(entity.getImServizioFattura());
-	this.setQtScaglioneServizioFattura(entity.getQtScaglioneServizioFattura());
-	this.setQtUnitServizioFattura(entity.getQtUnitServizioFattura());
-	if (entity.getDtErog() != null) {
-	    this.setDtErog(new Timestamp(entity.getDtErog().getTime()));
-	}
-	this.setNtServizioFattura(entity.getNtServizioFattura());
-	this.setIdCdIva(entity.getIdCdIva());
-	this.setImIva(entity.getImIva());
+        OrgVCreaServFattAnnuale entity = (OrgVCreaServFattAnnuale) obj;
+        this.setIdFatturaEnte(entity.getOrgVCreaServFattAnnualeId() == null ? null
+                : entity.getOrgVCreaServFattAnnualeId().getIdFatturaEnte());
+        this.setIdAccordoEnte(entity.getIdAccordoEnte());
+        this.setIdServizioErogato(entity.getOrgVCreaServFattAnnualeId() == null ? null
+                : entity.getOrgVCreaServFattAnnualeId().getIdServizioErogato());
+        this.setAaServizioFattura(entity.getOrgVCreaServFattAnnualeId() == null ? null
+                : entity.getOrgVCreaServFattAnnualeId().getAaServizioFattura());
+        this.setNmServizioFattura(entity.getNmServizioFattura());
+        this.setImServizioFattura(entity.getImServizioFattura());
+        this.setQtScaglioneServizioFattura(entity.getQtScaglioneServizioFattura());
+        this.setQtUnitServizioFattura(entity.getQtUnitServizioFattura());
+        if (entity.getDtErog() != null) {
+            this.setDtErog(new Timestamp(entity.getDtErog().getTime()));
+        }
+        this.setNtServizioFattura(entity.getNtServizioFattura());
+        this.setIdCdIva(entity.getIdCdIva());
+        this.setImIva(entity.getImIva());
     }
 
     @Override
     public OrgVCreaServFattAnnuale rowBeanToEntity() {
-	OrgVCreaServFattAnnuale entity = new OrgVCreaServFattAnnuale();
-	entity.setOrgVCreaServFattAnnualeId(new OrgVCreaServFattAnnualeId());
-	entity.getOrgVCreaServFattAnnualeId().setIdFatturaEnte(this.getIdFatturaEnte());
-	entity.setIdAccordoEnte(this.getIdAccordoEnte());
-	entity.getOrgVCreaServFattAnnualeId().setIdServizioErogato(this.getIdServizioErogato());
-	entity.getOrgVCreaServFattAnnualeId().setAaServizioFattura(this.getAaServizioFattura());
-	entity.setNmServizioFattura(this.getNmServizioFattura());
-	entity.setImServizioFattura(this.getImServizioFattura());
-	entity.setQtScaglioneServizioFattura(this.getQtScaglioneServizioFattura());
-	entity.setQtUnitServizioFattura(this.getQtUnitServizioFattura());
-	entity.setDtErog(this.getDtErog());
-	entity.setNtServizioFattura(this.getNtServizioFattura());
-	entity.setIdCdIva(this.getIdCdIva());
-	entity.setImIva(this.getImIva());
-	return entity;
+        OrgVCreaServFattAnnuale entity = new OrgVCreaServFattAnnuale();
+        entity.setOrgVCreaServFattAnnualeId(new OrgVCreaServFattAnnualeId());
+        entity.getOrgVCreaServFattAnnualeId().setIdFatturaEnte(this.getIdFatturaEnte());
+        entity.setIdAccordoEnte(this.getIdAccordoEnte());
+        entity.getOrgVCreaServFattAnnualeId().setIdServizioErogato(this.getIdServizioErogato());
+        entity.getOrgVCreaServFattAnnualeId().setAaServizioFattura(this.getAaServizioFattura());
+        entity.setNmServizioFattura(this.getNmServizioFattura());
+        entity.setImServizioFattura(this.getImServizioFattura());
+        entity.setQtScaglioneServizioFattura(this.getQtScaglioneServizioFattura());
+        entity.setQtUnitServizioFattura(this.getQtUnitServizioFattura());
+        entity.setDtErog(this.getDtErog());
+        entity.setNtServizioFattura(this.getNtServizioFattura());
+        entity.setIdCdIva(this.getIdCdIva());
+        entity.setImIva(this.getImIva());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

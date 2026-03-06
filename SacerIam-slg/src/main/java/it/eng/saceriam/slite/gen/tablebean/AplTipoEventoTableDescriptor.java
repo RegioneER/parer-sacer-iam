@@ -45,29 +45,29 @@ public class AplTipoEventoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_TIPO_EVENTO,
-		new ColumnDescriptor(COL_ID_TIPO_EVENTO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_NM_TIPO_EVENTO,
-		new ColumnDescriptor(COL_NM_TIPO_EVENTO, Types.VARCHAR, 100, false));
-	map.put(COL_TIPO_ORIGINE_EVENTO,
-		new ColumnDescriptor(COL_TIPO_ORIGINE_EVENTO, Types.VARCHAR, 20, false));
-	map.put(COL_TIPO_CLASSE_EVENTO,
-		new ColumnDescriptor(COL_TIPO_CLASSE_EVENTO, Types.VARCHAR, 30, false));
-	map.put(COL_TIPO_CLASSE_PREMIS_EVENTO,
-		new ColumnDescriptor(COL_TIPO_CLASSE_PREMIS_EVENTO, Types.VARCHAR, 50, false));
+        map.put(COL_ID_TIPO_EVENTO,
+                new ColumnDescriptor(COL_ID_TIPO_EVENTO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_NM_TIPO_EVENTO,
+                new ColumnDescriptor(COL_NM_TIPO_EVENTO, Types.VARCHAR, 100, false));
+        map.put(COL_TIPO_ORIGINE_EVENTO,
+                new ColumnDescriptor(COL_TIPO_ORIGINE_EVENTO, Types.VARCHAR, 20, false));
+        map.put(COL_TIPO_CLASSE_EVENTO,
+                new ColumnDescriptor(COL_TIPO_CLASSE_EVENTO, Types.VARCHAR, 30, false));
+        map.put(COL_TIPO_CLASSE_PREMIS_EVENTO,
+                new ColumnDescriptor(COL_TIPO_CLASSE_PREMIS_EVENTO, Types.VARCHAR, 50, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -25,6 +25,6 @@ import it.eng.spagoLite.message.MessageBox;
 public class AmministrazioneUtentiValidator extends TypeValidator {
 
     public AmministrazioneUtentiValidator(MessageBox messageBox) {
-	super(messageBox);
+        super(messageBox);
     }
 }

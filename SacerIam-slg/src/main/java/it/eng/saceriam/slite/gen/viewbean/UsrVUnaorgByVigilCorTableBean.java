@@ -36,19 +36,19 @@ public class UsrVUnaorgByVigilCorTableBean extends AbstractBaseTable<UsrVUnaorgB
     public static UsrVUnaorgByVigilCorTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByVigilCorTableDescriptor();
 
     public UsrVUnaorgByVigilCorTableBean() {
-	super();
+        super();
     }
 
     protected UsrVUnaorgByVigilCorRowBean createRow() {
-	return new UsrVUnaorgByVigilCorRowBean();
+        return new UsrVUnaorgByVigilCorRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVUnaorgByVigilCorRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -36,19 +36,19 @@ public class UsrVChkCreaAmbSacerTableBean extends AbstractBaseTable<UsrVChkCreaA
     public static UsrVChkCreaAmbSacerTableDescriptor TABLE_DESCRIPTOR = new UsrVChkCreaAmbSacerTableDescriptor();
 
     public UsrVChkCreaAmbSacerTableBean() {
-	super();
+        super();
     }
 
     protected UsrVChkCreaAmbSacerRowBean createRow() {
-	return new UsrVChkCreaAmbSacerRowBean();
+        return new UsrVChkCreaAmbSacerRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVChkCreaAmbSacerRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

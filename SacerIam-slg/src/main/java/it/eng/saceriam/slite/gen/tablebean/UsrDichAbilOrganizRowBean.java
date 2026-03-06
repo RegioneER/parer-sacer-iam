@@ -31,7 +31,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrDichAbilOrganizRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -41,177 +41,177 @@ public class UsrDichAbilOrganizRowBean extends BaseRow
     public static UsrDichAbilOrganizTableDescriptor TABLE_DESCRIPTOR = new UsrDichAbilOrganizTableDescriptor();
 
     public UsrDichAbilOrganizRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdDichAbilOrganiz() {
-	return getBigDecimal("id_dich_abil_organiz");
+        return getBigDecimal("id_dich_abil_organiz");
     }
 
     public void setIdDichAbilOrganiz(BigDecimal idDichAbilOrganiz) {
-	setObject("id_dich_abil_organiz", idDichAbilOrganiz);
+        setObject("id_dich_abil_organiz", idDichAbilOrganiz);
     }
 
     public BigDecimal getIdUsoUserApplic() {
-	return getBigDecimal("id_uso_user_applic");
+        return getBigDecimal("id_uso_user_applic");
     }
 
     public void setIdUsoUserApplic(BigDecimal idUsoUserApplic) {
-	setObject("id_uso_user_applic", idUsoUserApplic);
+        setObject("id_uso_user_applic", idUsoUserApplic);
     }
 
     public String getTiScopoDichAbilOrganiz() {
-	return getString("ti_scopo_dich_abil_organiz");
+        return getString("ti_scopo_dich_abil_organiz");
     }
 
     public void setTiScopoDichAbilOrganiz(String tiScopoDichAbilOrganiz) {
-	setObject("ti_scopo_dich_abil_organiz", tiScopoDichAbilOrganiz);
+        setObject("ti_scopo_dich_abil_organiz", tiScopoDichAbilOrganiz);
     }
 
     public BigDecimal getIdOrganizIam() {
-	return getBigDecimal("id_organiz_iam");
+        return getBigDecimal("id_organiz_iam");
     }
 
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-	setObject("id_organiz_iam", idOrganizIam);
+        setObject("id_organiz_iam", idOrganizIam);
     }
 
     public BigDecimal getIdAppartCollegEnti() {
-	return getBigDecimal("id_appart_colleg_enti");
+        return getBigDecimal("id_appart_colleg_enti");
     }
 
     public void setIdAppartCollegEnti(BigDecimal idAppartCollegEnti) {
-	setObject("id_appart_colleg_enti", idAppartCollegEnti);
+        setObject("id_appart_colleg_enti", idAppartCollegEnti);
     }
 
     public BigDecimal getIdSuptEstEnteConvenz() {
-	return getBigDecimal("id_supt_est_ente_convenz");
+        return getBigDecimal("id_supt_est_ente_convenz");
     }
 
     public void setIdSuptEstEnteConvenz(BigDecimal idSuptEstEnteConvenz) {
-	setObject("id_supt_est_ente_convenz", idSuptEstEnteConvenz);
+        setObject("id_supt_est_ente_convenz", idSuptEstEnteConvenz);
     }
 
     public BigDecimal getIdVigilEnteProdut() {
-	return getBigDecimal("id_vigil_ente_produt");
+        return getBigDecimal("id_vigil_ente_produt");
     }
 
     public void setIdVigilEnteProdut(BigDecimal idVigilEnteProdut) {
-	setObject("id_vigil_ente_produt", idVigilEnteProdut);
+        setObject("id_vigil_ente_produt", idVigilEnteProdut);
     }
 
     public String getDsCausaleDich() {
-	return getString("ds_causale_dich");
+        return getString("ds_causale_dich");
     }
 
     public void setDsCausaleDich(String dsCausaleDich) {
-	setObject("ds_causale_dich", dsCausaleDich);
+        setObject("ds_causale_dich", dsCausaleDich);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrDichAbilOrganiz entity = (UsrDichAbilOrganiz) obj;
-	this.setIdDichAbilOrganiz(new BigDecimal(entity.getIdDichAbilOrganiz()));
-	if (entity.getUsrUsoUserApplic() != null) {
-	    this.setIdUsoUserApplic(
-		    new BigDecimal(entity.getUsrUsoUserApplic().getIdUsoUserApplic()));
+        UsrDichAbilOrganiz entity = (UsrDichAbilOrganiz) obj;
+        this.setIdDichAbilOrganiz(new BigDecimal(entity.getIdDichAbilOrganiz()));
+        if (entity.getUsrUsoUserApplic() != null) {
+            this.setIdUsoUserApplic(
+                    new BigDecimal(entity.getUsrUsoUserApplic().getIdUsoUserApplic()));
 
-	}
-	this.setTiScopoDichAbilOrganiz(entity.getTiScopoDichAbilOrganiz());
-	if (entity.getUsrOrganizIam() != null) {
-	    this.setIdOrganizIam(new BigDecimal(entity.getUsrOrganizIam().getIdOrganizIam()));
+        }
+        this.setTiScopoDichAbilOrganiz(entity.getTiScopoDichAbilOrganiz());
+        if (entity.getUsrOrganizIam() != null) {
+            this.setIdOrganizIam(new BigDecimal(entity.getUsrOrganizIam().getIdOrganizIam()));
 
-	}
-	if (entity.getOrgAppartCollegEnti() != null) {
-	    this.setIdAppartCollegEnti(
-		    new BigDecimal(entity.getOrgAppartCollegEnti().getIdAppartCollegEnti()));
+        }
+        if (entity.getOrgAppartCollegEnti() != null) {
+            this.setIdAppartCollegEnti(
+                    new BigDecimal(entity.getOrgAppartCollegEnti().getIdAppartCollegEnti()));
 
-	}
-	if (entity.getOrgSuptEsternoEnteConvenz() != null) {
-	    this.setIdSuptEstEnteConvenz(new BigDecimal(
-		    entity.getOrgSuptEsternoEnteConvenz().getIdSuptEstEnteConvenz()));
+        }
+        if (entity.getOrgSuptEsternoEnteConvenz() != null) {
+            this.setIdSuptEstEnteConvenz(new BigDecimal(
+                    entity.getOrgSuptEsternoEnteConvenz().getIdSuptEstEnteConvenz()));
 
-	}
-	if (entity.getOrgVigilEnteProdut() != null) {
-	    this.setIdVigilEnteProdut(
-		    new BigDecimal(entity.getOrgVigilEnteProdut().getIdVigilEnteProdut()));
+        }
+        if (entity.getOrgVigilEnteProdut() != null) {
+            this.setIdVigilEnteProdut(
+                    new BigDecimal(entity.getOrgVigilEnteProdut().getIdVigilEnteProdut()));
 
-	}
-	this.setDsCausaleDich(entity.getDsCausaleDich());
+        }
+        this.setDsCausaleDich(entity.getDsCausaleDich());
     }
 
     @Override
     public UsrDichAbilOrganiz rowBeanToEntity() {
-	UsrDichAbilOrganiz entity = new UsrDichAbilOrganiz();
-	if (this.getIdDichAbilOrganiz() != null) {
-	    entity.setIdDichAbilOrganiz(this.getIdDichAbilOrganiz().longValue());
-	}
-	if (this.getIdUsoUserApplic() != null) {
-	    if (entity.getUsrUsoUserApplic() == null) {
-		entity.setUsrUsoUserApplic(new UsrUsoUserApplic());
-	    }
-	    entity.getUsrUsoUserApplic().setIdUsoUserApplic(this.getIdUsoUserApplic().longValue());
-	}
-	entity.setTiScopoDichAbilOrganiz(this.getTiScopoDichAbilOrganiz());
-	if (this.getIdOrganizIam() != null) {
-	    if (entity.getUsrOrganizIam() == null) {
-		entity.setUsrOrganizIam(new UsrOrganizIam());
-	    }
-	    entity.getUsrOrganizIam().setIdOrganizIam(this.getIdOrganizIam().longValue());
-	}
-	if (this.getIdAppartCollegEnti() != null) {
-	    if (entity.getOrgAppartCollegEnti() == null) {
-		entity.setOrgAppartCollegEnti(new OrgAppartCollegEnti());
-	    }
-	    entity.getOrgAppartCollegEnti()
-		    .setIdAppartCollegEnti(this.getIdAppartCollegEnti().longValue());
-	}
-	if (this.getIdSuptEstEnteConvenz() != null) {
-	    if (entity.getOrgSuptEsternoEnteConvenz() == null) {
-		entity.setOrgSuptEsternoEnteConvenz(new OrgSuptEsternoEnteConvenz());
-	    }
-	    entity.getOrgSuptEsternoEnteConvenz()
-		    .setIdSuptEstEnteConvenz(this.getIdSuptEstEnteConvenz().longValue());
-	}
-	if (this.getIdVigilEnteProdut() != null) {
-	    if (entity.getOrgVigilEnteProdut() == null) {
-		entity.setOrgVigilEnteProdut(new OrgVigilEnteProdut());
-	    }
-	    entity.getOrgVigilEnteProdut()
-		    .setIdVigilEnteProdut(this.getIdVigilEnteProdut().longValue());
-	}
-	entity.setDsCausaleDich(this.getDsCausaleDich());
-	return entity;
+        UsrDichAbilOrganiz entity = new UsrDichAbilOrganiz();
+        if (this.getIdDichAbilOrganiz() != null) {
+            entity.setIdDichAbilOrganiz(this.getIdDichAbilOrganiz().longValue());
+        }
+        if (this.getIdUsoUserApplic() != null) {
+            if (entity.getUsrUsoUserApplic() == null) {
+                entity.setUsrUsoUserApplic(new UsrUsoUserApplic());
+            }
+            entity.getUsrUsoUserApplic().setIdUsoUserApplic(this.getIdUsoUserApplic().longValue());
+        }
+        entity.setTiScopoDichAbilOrganiz(this.getTiScopoDichAbilOrganiz());
+        if (this.getIdOrganizIam() != null) {
+            if (entity.getUsrOrganizIam() == null) {
+                entity.setUsrOrganizIam(new UsrOrganizIam());
+            }
+            entity.getUsrOrganizIam().setIdOrganizIam(this.getIdOrganizIam().longValue());
+        }
+        if (this.getIdAppartCollegEnti() != null) {
+            if (entity.getOrgAppartCollegEnti() == null) {
+                entity.setOrgAppartCollegEnti(new OrgAppartCollegEnti());
+            }
+            entity.getOrgAppartCollegEnti()
+                    .setIdAppartCollegEnti(this.getIdAppartCollegEnti().longValue());
+        }
+        if (this.getIdSuptEstEnteConvenz() != null) {
+            if (entity.getOrgSuptEsternoEnteConvenz() == null) {
+                entity.setOrgSuptEsternoEnteConvenz(new OrgSuptEsternoEnteConvenz());
+            }
+            entity.getOrgSuptEsternoEnteConvenz()
+                    .setIdSuptEstEnteConvenz(this.getIdSuptEstEnteConvenz().longValue());
+        }
+        if (this.getIdVigilEnteProdut() != null) {
+            if (entity.getOrgVigilEnteProdut() == null) {
+                entity.setOrgVigilEnteProdut(new OrgVigilEnteProdut());
+            }
+            entity.getOrgVigilEnteProdut()
+                    .setIdVigilEnteProdut(this.getIdVigilEnteProdut().longValue());
+        }
+        entity.setDsCausaleDich(this.getDsCausaleDich());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

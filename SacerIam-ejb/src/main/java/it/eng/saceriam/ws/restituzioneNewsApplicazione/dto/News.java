@@ -26,35 +26,35 @@ public class News {
     private String dlTesto;
 
     public String getDsOggetto() {
-	return dsOggetto;
+        return dsOggetto;
     }
 
     public void setDsOggetto(String dsOggetto) {
-	this.dsOggetto = dsOggetto;
+        this.dsOggetto = dsOggetto;
     }
 
     public Date getDtIniPubblic() {
-	return dtIniPubblic;
+        return dtIniPubblic;
     }
 
     public void setDtIniPubblic(Date dtIniPubblic) {
-	this.dtIniPubblic = dtIniPubblic;
+        this.dtIniPubblic = dtIniPubblic;
     }
 
     public Date getDtFinPubblic() {
-	return dtFinPubblic;
+        return dtFinPubblic;
     }
 
     public void setDtFinPubblic(Date dtFinPubblic) {
-	this.dtFinPubblic = dtFinPubblic;
+        this.dtFinPubblic = dtFinPubblic;
     }
 
     public String getDlTesto() {
-	return dlTesto;
+        return dlTesto;
     }
 
     public void setDlTesto(String dlTesto) {
-	this.dlTesto = dlTesto;
+        this.dlTesto = dlTesto;
     }
 
 }

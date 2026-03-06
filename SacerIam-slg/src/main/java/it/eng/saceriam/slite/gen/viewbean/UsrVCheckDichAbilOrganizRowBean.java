@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVCheckDichAbilOrganizRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,92 +37,92 @@ public class UsrVCheckDichAbilOrganizRowBean extends BaseRow
     public static UsrVCheckDichAbilOrganizTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckDichAbilOrganizTableDescriptor();
 
     public UsrVCheckDichAbilOrganizRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdDichAbilOrganizAggiunta() {
-	return getBigDecimal("id_dich_abil_organiz_aggiunta");
+        return getBigDecimal("id_dich_abil_organiz_aggiunta");
     }
 
     public void setIdDichAbilOrganizAggiunta(BigDecimal idDichAbilOrganizAggiunta) {
-	setObject("id_dich_abil_organiz_aggiunta", idDichAbilOrganizAggiunta);
+        setObject("id_dich_abil_organiz_aggiunta", idDichAbilOrganizAggiunta);
     }
 
     public BigDecimal getIdOrganizIam() {
-	return getBigDecimal("id_organiz_iam");
+        return getBigDecimal("id_organiz_iam");
     }
 
     public void setIdOrganizIam(BigDecimal idOrganizIam) {
-	setObject("id_organiz_iam", idOrganizIam);
+        setObject("id_organiz_iam", idOrganizIam);
     }
 
     public String getDlCompositoOrganiz() {
-	return getString("dl_composito_organiz");
+        return getString("dl_composito_organiz");
     }
 
     public void setDlCompositoOrganiz(String dlCompositoOrganiz) {
-	setObject("dl_composito_organiz", dlCompositoOrganiz);
+        setObject("dl_composito_organiz", dlCompositoOrganiz);
     }
 
     public BigDecimal getIdUserIamCorrente() {
-	return getBigDecimal("id_user_iam_corrente");
+        return getBigDecimal("id_user_iam_corrente");
     }
 
     public void setIdUserIamCorrente(BigDecimal idUserIamCorrente) {
-	setObject("id_user_iam_corrente", idUserIamCorrente);
+        setObject("id_user_iam_corrente", idUserIamCorrente);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVCheckDichAbilOrganiz entity = (UsrVCheckDichAbilOrganiz) obj;
-	this.setIdDichAbilOrganizAggiunta(entity.getUsrVCheckDichAbilOrganizId() == null ? null
-		: entity.getUsrVCheckDichAbilOrganizId().getIdDichAbilOrganizAggiunta());
-	this.setIdOrganizIam(entity.getUsrVCheckDichAbilOrganizId() == null ? null
-		: entity.getUsrVCheckDichAbilOrganizId().getIdOrganizIam());
-	this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
-	this.setIdUserIamCorrente(entity.getUsrVCheckDichAbilOrganizId() == null ? null
-		: entity.getUsrVCheckDichAbilOrganizId().getIdUserIamCorrente());
+        UsrVCheckDichAbilOrganiz entity = (UsrVCheckDichAbilOrganiz) obj;
+        this.setIdDichAbilOrganizAggiunta(entity.getUsrVCheckDichAbilOrganizId() == null ? null
+                : entity.getUsrVCheckDichAbilOrganizId().getIdDichAbilOrganizAggiunta());
+        this.setIdOrganizIam(entity.getUsrVCheckDichAbilOrganizId() == null ? null
+                : entity.getUsrVCheckDichAbilOrganizId().getIdOrganizIam());
+        this.setDlCompositoOrganiz(entity.getDlCompositoOrganiz());
+        this.setIdUserIamCorrente(entity.getUsrVCheckDichAbilOrganizId() == null ? null
+                : entity.getUsrVCheckDichAbilOrganizId().getIdUserIamCorrente());
     }
 
     @Override
     public UsrVCheckDichAbilOrganiz rowBeanToEntity() {
-	UsrVCheckDichAbilOrganiz entity = new UsrVCheckDichAbilOrganiz();
-	entity.setUsrVCheckDichAbilOrganizId(new UsrVCheckDichAbilOrganizId());
-	entity.getUsrVCheckDichAbilOrganizId()
-		.setIdDichAbilOrganizAggiunta(this.getIdDichAbilOrganizAggiunta());
-	entity.getUsrVCheckDichAbilOrganizId().setIdOrganizIam(this.getIdOrganizIam());
-	entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
-	entity.getUsrVCheckDichAbilOrganizId().setIdUserIamCorrente(this.getIdUserIamCorrente());
-	return entity;
+        UsrVCheckDichAbilOrganiz entity = new UsrVCheckDichAbilOrganiz();
+        entity.setUsrVCheckDichAbilOrganizId(new UsrVCheckDichAbilOrganizId());
+        entity.getUsrVCheckDichAbilOrganizId()
+                .setIdDichAbilOrganizAggiunta(this.getIdDichAbilOrganizAggiunta());
+        entity.getUsrVCheckDichAbilOrganizId().setIdOrganizIam(this.getIdOrganizIam());
+        entity.setDlCompositoOrganiz(this.getDlCompositoOrganiz());
+        entity.getUsrVCheckDichAbilOrganizId().setIdUserIamCorrente(this.getIdUserIamCorrente());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

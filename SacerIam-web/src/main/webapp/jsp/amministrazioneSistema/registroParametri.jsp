@@ -36,6 +36,8 @@
                 <slf:lblField name="<%= AmministrazioneEntiConvenzionatiForm.Configuration.FL_APPART_APPLIC_COMBO%>" colSpan="2" /><sl:newLine/>
                 <slf:lblField name="<%= AmministrazioneEntiConvenzionatiForm.Configuration.FL_APPART_AMBIENTE_COMBO%>" colSpan="2" /><sl:newLine/>
                 <slf:lblField name="<%= AmministrazioneEntiConvenzionatiForm.Configuration.FL_APPARTE_ENTE_COMBO%>" colSpan="2" /><sl:newLine/>
+                <slf:lblField name="<%= AmministrazioneEntiConvenzionatiForm.Configuration.CD_VERSIONE_APP_INI%>" colSpan="2" /><sl:newLine/>
+                <slf:lblField name="<%= AmministrazioneEntiConvenzionatiForm.Configuration.CD_VERSIONE_APP_FINE%>" colSpan="2" /><sl:newLine/>
             </slf:fieldSet>
             <sl:newLine skipLine="true"/>
             <%--<c:out value="${(sessionScope['###_FORM_CONTAINER']['configurationList']['table']!=null)}"/>

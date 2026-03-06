@@ -53,10 +53,10 @@ public class MessaggiWSBundle {
     public static final String SERVIZI_RUOLI_003 = "SERVIZI-RUOLI-003";
 
     public static String getString(String key) {
-	return RESOURCE_BUNDLE.getString(key);
+        return RESOURCE_BUNDLE.getString(key);
     }
 
     public static String getString(String key, Object... params) {
-	return MessageFormat.format(RESOURCE_BUNDLE.getString(key), params);
+        return MessageFormat.format(RESOURCE_BUNDLE.getString(key), params);
     }
 }

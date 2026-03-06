@@ -48,36 +48,36 @@ public class PrfDichAutorTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_DICH_AUTOR,
-		new ColumnDescriptor(COL_ID_DICH_AUTOR, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USO_RUOLO_APPLIC,
-		new ColumnDescriptor(COL_ID_USO_RUOLO_APPLIC, Types.DECIMAL, 22, false));
-	map.put(COL_TI_DICH_AUTOR,
-		new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, false));
-	map.put(COL_TI_SCOPO_DICH_AUTOR,
-		new ColumnDescriptor(COL_TI_SCOPO_DICH_AUTOR, Types.VARCHAR, 22, false));
-	map.put(COL_ID_ENTRY_MENU_PADRE,
-		new ColumnDescriptor(COL_ID_ENTRY_MENU_PADRE, Types.DECIMAL, 22, false));
-	map.put(COL_ID_ENTRY_MENU_FOGLIA,
-		new ColumnDescriptor(COL_ID_ENTRY_MENU_FOGLIA, Types.DECIMAL, 22, false));
-	map.put(COL_ID_PAGINA_WEB,
-		new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, false));
-	map.put(COL_ID_AZIONE_PAGINA,
-		new ColumnDescriptor(COL_ID_AZIONE_PAGINA, Types.DECIMAL, 22, false));
-	map.put(COL_ID_SERVIZIO_WEB,
-		new ColumnDescriptor(COL_ID_SERVIZIO_WEB, Types.DECIMAL, 22, false));
+        map.put(COL_ID_DICH_AUTOR,
+                new ColumnDescriptor(COL_ID_DICH_AUTOR, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USO_RUOLO_APPLIC,
+                new ColumnDescriptor(COL_ID_USO_RUOLO_APPLIC, Types.DECIMAL, 22, false));
+        map.put(COL_TI_DICH_AUTOR,
+                new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, false));
+        map.put(COL_TI_SCOPO_DICH_AUTOR,
+                new ColumnDescriptor(COL_TI_SCOPO_DICH_AUTOR, Types.VARCHAR, 22, false));
+        map.put(COL_ID_ENTRY_MENU_PADRE,
+                new ColumnDescriptor(COL_ID_ENTRY_MENU_PADRE, Types.DECIMAL, 22, false));
+        map.put(COL_ID_ENTRY_MENU_FOGLIA,
+                new ColumnDescriptor(COL_ID_ENTRY_MENU_FOGLIA, Types.DECIMAL, 22, false));
+        map.put(COL_ID_PAGINA_WEB,
+                new ColumnDescriptor(COL_ID_PAGINA_WEB, Types.DECIMAL, 22, false));
+        map.put(COL_ID_AZIONE_PAGINA,
+                new ColumnDescriptor(COL_ID_AZIONE_PAGINA, Types.DECIMAL, 22, false));
+        map.put(COL_ID_SERVIZIO_WEB,
+                new ColumnDescriptor(COL_ID_SERVIZIO_WEB, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -24,16 +24,16 @@ public class WSDescRestituzioneNewsApplicazione implements IWSDesc {
 
     @Override
     public String getNomeWs() {
-	return Costanti.WS_RESTITUZIONE_NEWS_APPLICAZIONE;
+        return Costanti.WS_RESTITUZIONE_NEWS_APPLICAZIONE;
     }
 
     @Override
     public String getVersione() {
-	return Costanti.WS_RESTITUZIONE_NEWS_APPLICAZIONE_VRSN;
+        return Costanti.WS_RESTITUZIONE_NEWS_APPLICAZIONE_VRSN;
     }
 
     @Override
     public String[] getCompatibilitaWS() {
-	return Costanti.WS_RESTITUZIONE_NEWS_APPLICAZIONE_COMP;
+        return Costanti.WS_RESTITUZIONE_NEWS_APPLICAZIONE_COMP;
     }
 }

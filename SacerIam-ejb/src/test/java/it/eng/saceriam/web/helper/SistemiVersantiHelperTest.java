@@ -51,184 +51,184 @@ public class SistemiVersantiHelperTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-	final JavaArchive archive = getSacerIamArchive(SistemiVersantiHelper.class)
-		.addPackages(true, "it.eng.parer.sacerlog.entity",
-			"it.eng.parer.sacerlog.viewEntity")
-		.addClass(SistemiVersantiHelperTest.class)
-		.addPackages(true, "it.eng.saceriam.util", "org.joda.time");
-	return archive;
+        final JavaArchive archive = getSacerIamArchive(SistemiVersantiHelper.class)
+                .addPackages(true, "it.eng.parer.sacerlog.entity",
+                        "it.eng.parer.sacerlog.viewEntity")
+                .addClass(SistemiVersantiHelperTest.class)
+                .addPackages(true, "it.eng.saceriam.util", "org.joda.time");
+        return archive;
     }
 
     @Test
     void getAplVRicSistemaVersanteList_SistemiVersantiHelperFiltriSistemiVersantiPlain_queryIsOk() {
-	long idUserIam = aLong();
-	String denominazione = aString();
-	String descrizione = aString();
-	String produttore = aString();
-	String versione = aString();
-	BigDecimal idOrganizApplic = aBigDecimal();
-	String flCessato = aFlag();
-	String flIntegrazione = aFlag();
-	List<BigDecimal> idArchivista = aListOfBigDecimal(2);
-	String noArchivista = aString();
-	String flAssociaPersonaFisica = aFlag();
-	SistemiVersantiHelper.FiltriSistemiVersantiPlain filtri = new SistemiVersantiHelper.FiltriSistemiVersantiPlain(
-		idUserIam, denominazione, descrizione, produttore, versione, idOrganizApplic,
-		flCessato, flIntegrazione, idArchivista, noArchivista, flAssociaPersonaFisica);
+        long idUserIam = aLong();
+        String denominazione = aString();
+        String descrizione = aString();
+        String produttore = aString();
+        String versione = aString();
+        BigDecimal idOrganizApplic = aBigDecimal();
+        String flCessato = aFlag();
+        String flIntegrazione = aFlag();
+        List<BigDecimal> idArchivista = aListOfBigDecimal(2);
+        String noArchivista = aString();
+        String flAssociaPersonaFisica = aFlag();
+        SistemiVersantiHelper.FiltriSistemiVersantiPlain filtri = new SistemiVersantiHelper.FiltriSistemiVersantiPlain(
+                idUserIam, denominazione, descrizione, produttore, versione, idOrganizApplic,
+                flCessato, flIntegrazione, idArchivista, noArchivista, flAssociaPersonaFisica);
 
-	helper.getAplVRicSistemaVersanteList(filtri);
-	assertTrue(true);
+        helper.getAplVRicSistemaVersanteList(filtri);
+        assertTrue(true);
     }
 
     @Test
     void getAplVRicSistemaVersante_1_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
-	BigDecimal idUserIam = aBigDecimal();
-	BigDecimal idOrganizIam = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idOrganizIam = aBigDecimal();
 
-	helper.getAplVRicSistemaVersante(idSistemaVersante, idUserIam, idOrganizIam);
-	assertTrue(true);
+        helper.getAplVRicSistemaVersante(idSistemaVersante, idUserIam, idOrganizIam);
+        assertTrue(true);
     }
 
     @Test
     void getAplVRicSistemaVersante_BigDecimal_2_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
-	long idUserIam = aLong();
+        BigDecimal idSistemaVersante = aBigDecimal();
+        long idUserIam = aLong();
 
-	helper.getAplVRicSistemaVersante(idSistemaVersante, idUserIam);
-	assertTrue(true);
+        helper.getAplVRicSistemaVersante(idSistemaVersante, idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void canDeleteSistemaVersante_queryIsOk() {
-	long idSistemaVersante = aLong();
+        long idSistemaVersante = aLong();
 
-	helper.canDeleteSistemaVersante(idSistemaVersante);
-	assertTrue(true);
+        helper.canDeleteSistemaVersante(idSistemaVersante);
+        assertTrue(true);
     }
 
     @Test
     void getAplSistemaVersanteByName_queryIsOk() {
-	String denominazione = aString();
+        String denominazione = aString();
 
-	helper.getAplSistemaVersanteByName(denominazione);
-	assertTrue(true);
+        helper.getAplSistemaVersanteByName(denominazione);
+        assertTrue(true);
     }
 
     @Test
     void getAplSistemaVersanteValidiList_queryIsOk() {
-	String tipoUser = aString();
-	BigDecimal idEnteUtente = aBigDecimal();
+        String tipoUser = aString();
+        BigDecimal idEnteUtente = aBigDecimal();
 
-	helper.getAplSistemaVersanteValidiList(tipoUser, idEnteUtente);
-	tipoUser = "AUTOMA";
-	helper.getAplSistemaVersanteValidiList(tipoUser, idEnteUtente);
+        helper.getAplSistemaVersanteValidiList(tipoUser, idEnteUtente);
+        tipoUser = "AUTOMA";
+        helper.getAplSistemaVersanteValidiList(tipoUser, idEnteUtente);
 
-	tipoUser = "PERSONA_FISICA";
-	helper.getAplSistemaVersanteValidiList(tipoUser, idEnteUtente);
+        tipoUser = "PERSONA_FISICA";
+        helper.getAplSistemaVersanteValidiList(tipoUser, idEnteUtente);
 
-	assertTrue(true);
+        assertTrue(true);
     }
 
     @Test
     void getAplSistemaVersanteList_queryIsOk() {
 
-	helper.getAplSistemaVersanteList();
-	assertTrue(true);
+        helper.getAplSistemaVersanteList();
+        assertTrue(true);
     }
 
     @Test
     void checkSistemaVersantePerAutoma_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
-	BigDecimal idEnteUtente = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idEnteUtente = aBigDecimal();
 
-	helper.checkSistemaVersantePerAutoma(idSistemaVersante, idEnteUtente);
-	assertTrue(true);
+        helper.checkSistemaVersantePerAutoma(idSistemaVersante, idEnteUtente);
+        assertTrue(true);
     }
 
     @Test
     void getOrganizUltimoLivelloSacerSistemaVersante_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
 
-	helper.getOrganizUltimoLivelloSacerSistemaVersante(idSistemaVersante);
-	assertTrue(true);
+        helper.getOrganizUltimoLivelloSacerSistemaVersante(idSistemaVersante);
+        assertTrue(true);
     }
 
     @Test
     void getOrganizUltimoLivelloSacer_queryIsOk() {
 
-	helper.getOrganizUltimoLivelloSacer();
-	assertTrue(true);
+        helper.getOrganizUltimoLivelloSacer();
+        assertTrue(true);
     }
 
     @Test
     void getAplSistemaVersArkRifList_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
 
-	helper.getAplSistemaVersArkRifList(idSistemaVersante);
-	assertTrue(true);
+        helper.getAplSistemaVersArkRifList(idSistemaVersante);
+        assertTrue(true);
     }
 
     @Test
     void getAplSistemaVersanteUserRefList_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
 
-	helper.getAplSistemaVersanteUserRefList(idSistemaVersante);
-	assertTrue(true);
+        helper.getAplSistemaVersanteUserRefList(idSistemaVersante);
+        assertTrue(true);
     }
 
     @Test
     void isUtenteArchivistaInSistemaVersante_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.isUtenteArchivistaInSistemaVersante(idSistemaVersante, idUserIam);
-	assertTrue(true);
+        helper.isUtenteArchivistaInSistemaVersante(idSistemaVersante, idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void isReferenteDittaProduttriceInSistemaVersante_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
-	BigDecimal idUserIam = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idUserIam = aBigDecimal();
 
-	helper.isReferenteDittaProduttriceInSistemaVersante(idSistemaVersante, idUserIam);
-	assertTrue(true);
+        helper.isReferenteDittaProduttriceInSistemaVersante(idSistemaVersante, idUserIam);
+        assertTrue(true);
     }
 
     @Test
     void getAplVLisOrganizUsoSisVers_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
+        BigDecimal idSistemaVersante = aBigDecimal();
 
-	helper.getAplVLisOrganizUsoSisVers(idSistemaVersante);
-	assertTrue(true);
+        helper.getAplVLisOrganizUsoSisVers(idSistemaVersante);
+        assertTrue(true);
     }
 
     @Test
     void existsUtentiAssociatiSistemaVersante_queryIsOk() {
-	BigDecimal idSistemaVersante = aBigDecimal();
-	String tipoUser = aString();
+        BigDecimal idSistemaVersante = aBigDecimal();
+        String tipoUser = aString();
 
-	helper.existsUtentiAssociatiSistemaVersante(idSistemaVersante, tipoUser);
-	assertTrue(true);
+        helper.existsUtentiAssociatiSistemaVersante(idSistemaVersante, tipoUser);
+        assertTrue(true);
     }
 
     @Test
     @Disabled("da lanciare a mano, fa un a insert")
     void insertAplSistemaVersante_queryIsOk() {
-	String denominazione = "TEST_STRING";
-	String descrizione = "TEST_STRING";
-	String versione = "TEST_STRING";
-	BigDecimal idEnteSiam = BigDecimal.ZERO;
-	String dsEmail = "TEST_STRING";
-	String flPec = "TEST_STRING";
-	String flIntegrazione = aFlag();
-	String flAssociaPersonaFisica = aFlag();
-	Date dtIniVal = todayTs();
-	Date dtFineVal = tomorrowTs();
-	String dsNote = "TEST_STRING";
+        String denominazione = "TEST_STRING";
+        String descrizione = "TEST_STRING";
+        String versione = "TEST_STRING";
+        BigDecimal idEnteSiam = BigDecimal.ZERO;
+        String dsEmail = "TEST_STRING";
+        String flPec = "TEST_STRING";
+        String flIntegrazione = aFlag();
+        String flAssociaPersonaFisica = aFlag();
+        Date dtIniVal = todayTs();
+        Date dtFineVal = tomorrowTs();
+        String dsNote = "TEST_STRING";
 
-	helper.insertAplSistemaVersante(denominazione, descrizione, versione, idEnteSiam, dsEmail,
-		flPec, flIntegrazione, flAssociaPersonaFisica, dtIniVal, dtFineVal, dsNote);
-	assertTrue(true);
+        helper.insertAplSistemaVersante(denominazione, descrizione, versione, idEnteSiam, dsEmail,
+                flPec, flIntegrazione, flAssociaPersonaFisica, dtIniVal, dtFineVal, dsNote);
+        assertTrue(true);
     }
 }

@@ -33,23 +33,23 @@ public class WebConstants {
 
     public enum DOWNLOAD_ATTRS {
 
-	DOWNLOAD_ACTION, DOWNLOAD_FILENAME, DOWNLOAD_FILEPATH, DOWNLOAD_DELETEFILE,
-	DOWNLOAD_CONTENTTYPE
+        DOWNLOAD_ACTION, DOWNLOAD_FILENAME, DOWNLOAD_FILEPATH, DOWNLOAD_DELETEFILE,
+        DOWNLOAD_CONTENTTYPE
     }
 
     public enum TipoAmbitoTerritoriale {
 
-	FORMA_ASSOCIATA("FORMA_ASSOCIATA"), PROVINCIA("PROVINCIA"), REGIONE_STATO("REGIONE/STATO");
+        FORMA_ASSOCIATA("FORMA_ASSOCIATA"), PROVINCIA("PROVINCIA"), REGIONE_STATO("REGIONE/STATO");
 
-	private String nome;
+        private String nome;
 
-	public String getNome() {
-	    return nome;
-	}
+        public String getNome() {
+            return nome;
+        }
 
-	private TipoAmbitoTerritoriale(String nome) {
-	    this.nome = nome;
-	}
+        private TipoAmbitoTerritoriale(String nome) {
+            this.nome = nome;
+        }
     }
 
 }

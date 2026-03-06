@@ -27,7 +27,7 @@ import java.util.Iterator;
  *
  */
 public class OrgVOccupStorageAccordoTableBean
-	extends AbstractBaseTable<OrgVOccupStorageAccordoRowBean> {
+        extends AbstractBaseTable<OrgVOccupStorageAccordoRowBean> {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,19 +37,19 @@ public class OrgVOccupStorageAccordoTableBean
     public static OrgVOccupStorageAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgVOccupStorageAccordoTableDescriptor();
 
     public OrgVOccupStorageAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgVOccupStorageAccordoRowBean createRow() {
-	return new OrgVOccupStorageAccordoRowBean();
+        return new OrgVOccupStorageAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVOccupStorageAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

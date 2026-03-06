@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class UsrVCheckDichAbilEnteRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,92 +37,92 @@ public class UsrVCheckDichAbilEnteRowBean extends BaseRow
     public static UsrVCheckDichAbilEnteTableDescriptor TABLE_DESCRIPTOR = new UsrVCheckDichAbilEnteTableDescriptor();
 
     public UsrVCheckDichAbilEnteRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public BigDecimal getIdDichAbilEnteAggiunta() {
-	return getBigDecimal("id_dich_abil_ente_aggiunta");
+        return getBigDecimal("id_dich_abil_ente_aggiunta");
     }
 
     public void setIdDichAbilEnteAggiunta(BigDecimal idDichAbilEnteAggiunta) {
-	setObject("id_dich_abil_ente_aggiunta", idDichAbilEnteAggiunta);
+        setObject("id_dich_abil_ente_aggiunta", idDichAbilEnteAggiunta);
     }
 
     public BigDecimal getIdEnteConvenz() {
-	return getBigDecimal("id_ente_convenz");
+        return getBigDecimal("id_ente_convenz");
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	setObject("id_ente_convenz", idEnteConvenz);
+        setObject("id_ente_convenz", idEnteConvenz);
     }
 
     public String getNmEnteConvenz() {
-	return getString("nm_ente_convenz");
+        return getString("nm_ente_convenz");
     }
 
     public void setNmEnteConvenz(String nmEnteConvenz) {
-	setObject("nm_ente_convenz", nmEnteConvenz);
+        setObject("nm_ente_convenz", nmEnteConvenz);
     }
 
     public BigDecimal getIdUserIamCorrente() {
-	return getBigDecimal("id_user_iam_corrente");
+        return getBigDecimal("id_user_iam_corrente");
     }
 
     public void setIdUserIamCorrente(BigDecimal idUserIamCorrente) {
-	setObject("id_user_iam_corrente", idUserIamCorrente);
+        setObject("id_user_iam_corrente", idUserIamCorrente);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrVCheckDichAbilEnte entity = (UsrVCheckDichAbilEnte) obj;
-	this.setIdDichAbilEnteAggiunta(entity.getUsrVCheckDichAbilEnteId() == null ? null
-		: entity.getUsrVCheckDichAbilEnteId().getIdDichAbilEnteAggiunta());
-	this.setIdEnteConvenz(entity.getUsrVCheckDichAbilEnteId() == null ? null
-		: entity.getUsrVCheckDichAbilEnteId().getIdEnteConvenz());
-	this.setNmEnteConvenz(entity.getNmEnteConvenz());
-	this.setIdUserIamCorrente(entity.getUsrVCheckDichAbilEnteId() == null ? null
-		: entity.getUsrVCheckDichAbilEnteId().getIdUserIamCorrente());
+        UsrVCheckDichAbilEnte entity = (UsrVCheckDichAbilEnte) obj;
+        this.setIdDichAbilEnteAggiunta(entity.getUsrVCheckDichAbilEnteId() == null ? null
+                : entity.getUsrVCheckDichAbilEnteId().getIdDichAbilEnteAggiunta());
+        this.setIdEnteConvenz(entity.getUsrVCheckDichAbilEnteId() == null ? null
+                : entity.getUsrVCheckDichAbilEnteId().getIdEnteConvenz());
+        this.setNmEnteConvenz(entity.getNmEnteConvenz());
+        this.setIdUserIamCorrente(entity.getUsrVCheckDichAbilEnteId() == null ? null
+                : entity.getUsrVCheckDichAbilEnteId().getIdUserIamCorrente());
     }
 
     @Override
     public UsrVCheckDichAbilEnte rowBeanToEntity() {
-	UsrVCheckDichAbilEnte entity = new UsrVCheckDichAbilEnte();
-	entity.setUsrVCheckDichAbilEnteId(new UsrVCheckDichAbilEnteId());
-	entity.getUsrVCheckDichAbilEnteId()
-		.setIdDichAbilEnteAggiunta(this.getIdDichAbilEnteAggiunta());
-	entity.getUsrVCheckDichAbilEnteId().setIdEnteConvenz(this.getIdEnteConvenz());
-	entity.setNmEnteConvenz(this.getNmEnteConvenz());
-	entity.getUsrVCheckDichAbilEnteId().setIdUserIamCorrente(this.getIdUserIamCorrente());
-	return entity;
+        UsrVCheckDichAbilEnte entity = new UsrVCheckDichAbilEnte();
+        entity.setUsrVCheckDichAbilEnteId(new UsrVCheckDichAbilEnteId());
+        entity.getUsrVCheckDichAbilEnteId()
+                .setIdDichAbilEnteAggiunta(this.getIdDichAbilEnteAggiunta());
+        entity.getUsrVCheckDichAbilEnteId().setIdEnteConvenz(this.getIdEnteConvenz());
+        entity.setNmEnteConvenz(this.getNmEnteConvenz());
+        entity.getUsrVCheckDichAbilEnteId().setIdUserIamCorrente(this.getIdUserIamCorrente());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

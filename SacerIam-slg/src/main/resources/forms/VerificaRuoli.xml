@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form Description="Verifica Ruoli" xmlns="http://www.spagoLite.eng.it/xmlbean/form" xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+xsi:schemaLocation="http://www.spagoLite.eng.it/xmlbean/form http://ibc3850.ente.regione.emr.it/xsd/latest/Form.xsd">
+    
+    <Section Name="VerificaRuoliSection" Description="" Legend="" ShowButton="false" LoadOpened="true"/>
+    <Section Name="DifferenzeRuoliSection" Description="" Legend="Abilitazioni che il Ruolo da configurare ha in più rispetto al Ruolo del configuratore" ShowButton="false" LoadOpened="true"/>
+
+    <Fields Name="FiltriRuoli" Description="Filtri ruoli" >
+        <ComboBox   Name="nm_applic" Description="Applicazione" Type="INTEGER"  Trigger="true" />        
+        <ComboBox   Name="nm_ruolo" Description="Ruolo da configurare" Type="INTEGER" Trigger="true" />
+        <ComboBox   Name="nm_ruolo_2" Description="Ruolo del configuratore" Type="INTEGER" Trigger="true" />
+        <Button     Name="calcolaDifferenze" Description="Verifica" Type="STRING" />
+    </Fields>
+
+</Form>

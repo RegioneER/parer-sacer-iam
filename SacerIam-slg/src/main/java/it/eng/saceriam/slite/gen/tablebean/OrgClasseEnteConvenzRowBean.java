@@ -26,7 +26,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class OrgClasseEnteConvenzRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -36,100 +36,100 @@ public class OrgClasseEnteConvenzRowBean extends BaseRow
     public static OrgClasseEnteConvenzTableDescriptor TABLE_DESCRIPTOR = new OrgClasseEnteConvenzTableDescriptor();
 
     public OrgClasseEnteConvenzRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdClasseEnteConvenz() {
-	return getBigDecimal("id_classe_ente_convenz");
+        return getBigDecimal("id_classe_ente_convenz");
     }
 
     public void setIdClasseEnteConvenz(BigDecimal idClasseEnteConvenz) {
-	setObject("id_classe_ente_convenz", idClasseEnteConvenz);
+        setObject("id_classe_ente_convenz", idClasseEnteConvenz);
     }
 
     public String getCdClasseEnteConvenz() {
-	return getString("cd_classe_ente_convenz");
+        return getString("cd_classe_ente_convenz");
     }
 
     public void setCdClasseEnteConvenz(String cdClasseEnteConvenz) {
-	setObject("cd_classe_ente_convenz", cdClasseEnteConvenz);
+        setObject("cd_classe_ente_convenz", cdClasseEnteConvenz);
     }
 
     public String getDsClasseEnteConvenz() {
-	return getString("ds_classe_ente_convenz");
+        return getString("ds_classe_ente_convenz");
     }
 
     public void setDsClasseEnteConvenz(String dsClasseEnteConvenz) {
-	setObject("ds_classe_ente_convenz", dsClasseEnteConvenz);
+        setObject("ds_classe_ente_convenz", dsClasseEnteConvenz);
     }
 
     public BigDecimal getNiMinAbit() {
-	return getBigDecimal("ni_min_abit");
+        return getBigDecimal("ni_min_abit");
     }
 
     public void setNiMinAbit(BigDecimal niMinAbit) {
-	setObject("ni_min_abit", niMinAbit);
+        setObject("ni_min_abit", niMinAbit);
     }
 
     public BigDecimal getNiMaxAbit() {
-	return getBigDecimal("ni_max_abit");
+        return getBigDecimal("ni_max_abit");
     }
 
     public void setNiMaxAbit(BigDecimal niMaxAbit) {
-	setObject("ni_max_abit", niMaxAbit);
+        setObject("ni_max_abit", niMaxAbit);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgClasseEnteConvenz entity = (OrgClasseEnteConvenz) obj;
-	this.setIdClasseEnteConvenz(new BigDecimal(entity.getIdClasseEnteConvenz()));
-	this.setCdClasseEnteConvenz(entity.getCdClasseEnteConvenz());
-	this.setDsClasseEnteConvenz(entity.getDsClasseEnteConvenz());
-	this.setNiMinAbit(entity.getNiMinAbit());
-	this.setNiMaxAbit(entity.getNiMaxAbit());
+        OrgClasseEnteConvenz entity = (OrgClasseEnteConvenz) obj;
+        this.setIdClasseEnteConvenz(new BigDecimal(entity.getIdClasseEnteConvenz()));
+        this.setCdClasseEnteConvenz(entity.getCdClasseEnteConvenz());
+        this.setDsClasseEnteConvenz(entity.getDsClasseEnteConvenz());
+        this.setNiMinAbit(entity.getNiMinAbit());
+        this.setNiMaxAbit(entity.getNiMaxAbit());
     }
 
     @Override
     public OrgClasseEnteConvenz rowBeanToEntity() {
-	OrgClasseEnteConvenz entity = new OrgClasseEnteConvenz();
-	if (this.getIdClasseEnteConvenz() != null) {
-	    entity.setIdClasseEnteConvenz(this.getIdClasseEnteConvenz().longValue());
-	}
-	entity.setCdClasseEnteConvenz(this.getCdClasseEnteConvenz());
-	entity.setDsClasseEnteConvenz(this.getDsClasseEnteConvenz());
-	entity.setNiMinAbit(this.getNiMinAbit());
-	entity.setNiMaxAbit(this.getNiMaxAbit());
-	return entity;
+        OrgClasseEnteConvenz entity = new OrgClasseEnteConvenz();
+        if (this.getIdClasseEnteConvenz() != null) {
+            entity.setIdClasseEnteConvenz(this.getIdClasseEnteConvenz().longValue());
+        }
+        entity.setCdClasseEnteConvenz(this.getCdClasseEnteConvenz());
+        entity.setDsClasseEnteConvenz(this.getDsClasseEnteConvenz());
+        entity.setNiMinAbit(this.getNiMinAbit());
+        entity.setNiMaxAbit(this.getNiMaxAbit());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

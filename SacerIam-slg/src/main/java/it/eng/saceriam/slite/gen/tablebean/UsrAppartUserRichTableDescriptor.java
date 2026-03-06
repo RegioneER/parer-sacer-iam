@@ -52,41 +52,41 @@ public class UsrAppartUserRichTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_APPART_USER_RICH,
-		new ColumnDescriptor(COL_ID_APPART_USER_RICH, Types.DECIMAL, 22, true));
-	map.put(COL_ID_RICH_GEST_USER,
-		new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, false));
-	map.put(COL_TI_APPART_USER_RICH,
-		new ColumnDescriptor(COL_TI_APPART_USER_RICH, Types.VARCHAR, 100, false));
-	map.put(COL_NM_NOME_USER,
-		new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, false));
-	map.put(COL_NM_COGNOME_USER,
-		new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, false));
-	map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, false));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
-	map.put(COL_TI_AZIONE_RICH,
-		new ColumnDescriptor(COL_TI_AZIONE_RICH, Types.VARCHAR, 100, false));
-	map.put(COL_FL_AZIONE_RICH_EVASA,
-		new ColumnDescriptor(COL_FL_AZIONE_RICH_EVASA, Types.VARCHAR, 1, false));
-	map.put(COL_ID_NOTIFICA_AZIONE_1,
-		new ColumnDescriptor(COL_ID_NOTIFICA_AZIONE_1, Types.DECIMAL, 22, false));
-	map.put(COL_ID_NOTIFICA_AZIONE_2,
-		new ColumnDescriptor(COL_ID_NOTIFICA_AZIONE_2, Types.DECIMAL, 22, false));
-	map.put(COL_FL_USER_ADMIN,
-		new ColumnDescriptor(COL_FL_USER_ADMIN, Types.VARCHAR, 1, false));
-	map.put(COL_ID_ENTE_USER, new ColumnDescriptor(COL_ID_ENTE_USER, Types.DECIMAL, 22, false));
+        map.put(COL_ID_APPART_USER_RICH,
+                new ColumnDescriptor(COL_ID_APPART_USER_RICH, Types.DECIMAL, 22, true));
+        map.put(COL_ID_RICH_GEST_USER,
+                new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, false));
+        map.put(COL_TI_APPART_USER_RICH,
+                new ColumnDescriptor(COL_TI_APPART_USER_RICH, Types.VARCHAR, 100, false));
+        map.put(COL_NM_NOME_USER,
+                new ColumnDescriptor(COL_NM_NOME_USER, Types.VARCHAR, 100, false));
+        map.put(COL_NM_COGNOME_USER,
+                new ColumnDescriptor(COL_NM_COGNOME_USER, Types.VARCHAR, 100, false));
+        map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, false));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
+        map.put(COL_TI_AZIONE_RICH,
+                new ColumnDescriptor(COL_TI_AZIONE_RICH, Types.VARCHAR, 100, false));
+        map.put(COL_FL_AZIONE_RICH_EVASA,
+                new ColumnDescriptor(COL_FL_AZIONE_RICH_EVASA, Types.VARCHAR, 1, false));
+        map.put(COL_ID_NOTIFICA_AZIONE_1,
+                new ColumnDescriptor(COL_ID_NOTIFICA_AZIONE_1, Types.DECIMAL, 22, false));
+        map.put(COL_ID_NOTIFICA_AZIONE_2,
+                new ColumnDescriptor(COL_ID_NOTIFICA_AZIONE_2, Types.DECIMAL, 22, false));
+        map.put(COL_FL_USER_ADMIN,
+                new ColumnDescriptor(COL_FL_USER_ADMIN, Types.VARCHAR, 1, false));
+        map.put(COL_ID_ENTE_USER, new ColumnDescriptor(COL_ID_ENTE_USER, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

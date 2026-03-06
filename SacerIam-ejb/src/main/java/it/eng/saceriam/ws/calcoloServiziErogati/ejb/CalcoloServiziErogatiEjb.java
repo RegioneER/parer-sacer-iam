@@ -53,35 +53,35 @@ public class CalcoloServiziErogatiEjb {
 
     public void calcoloServiziErogati(Integer idEnteConvenz) {
 
-	try {
-	    /*
-	     * Codice aggiuntivo per il logging...
-	     */
-	    LogParam param = new LogParam();
-	    param.setNomeApplicazione(paramHelper.getParamApplicApplicationName());
-	    param.setNomeUtente("Servizio Calcolo servizi erogati");
-	    param.setNomeTipoOggetto(SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO);
-	    param.setNomeComponenteSoftware("CALCOLO_SERVIZI_EROGATI");
-	    param.setNomeAzione("Calcola servizi erogati");
-	    param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
-	    log.info(
-		    "Calcolo servizi erogati - Ricalcolo dei servizi erogati sull'ultimo accordo per l'ente convenzionato {}",
-		    idEnteConvenz);
-	    ecEjb.calcolaServiziErogatiSuUltimoAccordo(BigDecimal.valueOf(idEnteConvenz));
-	    sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(),
-		    param.getNomeUtente(), param.getNomeAzione(),
-		    SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO,
-		    BigDecimal.valueOf(idEnteConvenz), param.getNomeComponenteSoftware());
+        try {
+            /*
+             * Codice aggiuntivo per il logging...
+             */
+            LogParam param = new LogParam();
+            param.setNomeApplicazione(paramHelper.getParamApplicApplicationName());
+            param.setNomeUtente("Servizio Calcolo servizi erogati");
+            param.setNomeTipoOggetto(SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO);
+            param.setNomeComponenteSoftware("CALCOLO_SERVIZI_EROGATI");
+            param.setNomeAzione("Calcola servizi erogati");
+            param.setTransactionLogContext(sacerLogEjb.getNewTransactionLogContext());
+            log.info(
+                    "Calcolo servizi erogati - Ricalcolo dei servizi erogati sull'ultimo accordo per l'ente convenzionato {}",
+                    idEnteConvenz);
+            ecEjb.calcolaServiziErogatiSuUltimoAccordo(BigDecimal.valueOf(idEnteConvenz));
+            sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(),
+                    param.getNomeUtente(), param.getNomeAzione(),
+                    SacerLogConstants.TIPO_OGGETTO_ENTE_CONVENZIONATO,
+                    BigDecimal.valueOf(idEnteConvenz), param.getNomeComponenteSoftware());
 
-	    log.info(
-		    "Calcolo servizi erogati - Esecuzione del servizio per l'ente convenzionato {}",
-		    idEnteConvenz + " terminato con successo");
+            log.info(
+                    "Calcolo servizi erogati - Esecuzione del servizio per l'ente convenzionato {}",
+                    idEnteConvenz + " terminato con successo");
 
-	} catch (Exception e) {
-	    log.error(
-		    "Errore durante l'esecuzione del servizio di calcolo servizi erogati per l'ente {}",
-		    idEnteConvenz, e);
-	}
+        } catch (Exception e) {
+            log.error(
+                    "Errore durante l'esecuzione del servizio di calcolo servizi erogati per l'ente {}",
+                    idEnteConvenz, e);
+        }
 
     }
 }

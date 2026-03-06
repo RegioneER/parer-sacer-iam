@@ -45,29 +45,29 @@ public class UsrVVisLastRichGestUserTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_RICH_GEST_USER,
-		new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, true));
-	map.put(COL_DT_RICH_GEST_USER,
-		new ColumnDescriptor(COL_DT_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_KEY_RICH_GEST_USER,
-		new ColumnDescriptor(COL_KEY_RICH_GEST_USER, Types.VARCHAR, 4000, true));
-	map.put(COL_FL_AZIONI_EVASE,
-		new ColumnDescriptor(COL_FL_AZIONI_EVASE, Types.VARCHAR, 1, true));
-	map.put(COL_DS_LISTA_AZIONI,
-		new ColumnDescriptor(COL_DS_LISTA_AZIONI, Types.VARCHAR, 4000, true));
+        map.put(COL_ID_RICH_GEST_USER,
+                new ColumnDescriptor(COL_ID_RICH_GEST_USER, Types.DECIMAL, 22, true));
+        map.put(COL_DT_RICH_GEST_USER,
+                new ColumnDescriptor(COL_DT_RICH_GEST_USER, Types.TIMESTAMP, 7, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_KEY_RICH_GEST_USER,
+                new ColumnDescriptor(COL_KEY_RICH_GEST_USER, Types.VARCHAR, 4000, true));
+        map.put(COL_FL_AZIONI_EVASE,
+                new ColumnDescriptor(COL_FL_AZIONI_EVASE, Types.VARCHAR, 1, true));
+        map.put(COL_DS_LISTA_AZIONI,
+                new ColumnDescriptor(COL_DS_LISTA_AZIONI, Types.VARCHAR, 4000, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -36,88 +36,88 @@ public class UsrIndIpUserRowBean extends BaseRow implements BaseRowInterface, JE
     public static UsrIndIpUserTableDescriptor TABLE_DESCRIPTOR = new UsrIndIpUserTableDescriptor();
 
     public UsrIndIpUserRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdIndIpUser() {
-	return getBigDecimal("id_ind_ip_user");
+        return getBigDecimal("id_ind_ip_user");
     }
 
     public void setIdIndIpUser(BigDecimal idIndIpUser) {
-	setObject("id_ind_ip_user", idIndIpUser);
+        setObject("id_ind_ip_user", idIndIpUser);
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public String getCdIndIpUser() {
-	return getString("cd_ind_ip_user");
+        return getString("cd_ind_ip_user");
     }
 
     public void setCdIndIpUser(String cdIndIpUser) {
-	setObject("cd_ind_ip_user", cdIndIpUser);
+        setObject("cd_ind_ip_user", cdIndIpUser);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	UsrIndIpUser entity = (UsrIndIpUser) obj;
-	this.setIdIndIpUser(new BigDecimal(entity.getIdIndIpUser()));
-	if (entity.getUsrUser() != null) {
-	    this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
+        UsrIndIpUser entity = (UsrIndIpUser) obj;
+        this.setIdIndIpUser(new BigDecimal(entity.getIdIndIpUser()));
+        if (entity.getUsrUser() != null) {
+            this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
 
-	}
-	this.setCdIndIpUser(entity.getCdIndIpUser());
+        }
+        this.setCdIndIpUser(entity.getCdIndIpUser());
     }
 
     @Override
     public UsrIndIpUser rowBeanToEntity() {
-	UsrIndIpUser entity = new UsrIndIpUser();
-	if (this.getIdIndIpUser() != null) {
-	    entity.setIdIndIpUser(this.getIdIndIpUser().longValue());
-	}
-	if (this.getIdUserIam() != null) {
-	    if (entity.getUsrUser() == null) {
-		entity.setUsrUser(new UsrUser());
-	    }
-	    entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
-	}
-	entity.setCdIndIpUser(this.getCdIndIpUser());
-	return entity;
+        UsrIndIpUser entity = new UsrIndIpUser();
+        if (this.getIdIndIpUser() != null) {
+            entity.setIdIndIpUser(this.getIdIndIpUser().longValue());
+        }
+        if (this.getIdUserIam() != null) {
+            if (entity.getUsrUser() == null) {
+                entity.setUsrUser(new UsrUser());
+            }
+            entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
+        }
+        entity.setCdIndIpUser(this.getCdIndIpUser());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

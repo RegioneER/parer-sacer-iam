@@ -23,7 +23,7 @@ package it.eng.saceriam.exception;
 public class AuthenticationException extends Exception {
 
     public AuthenticationException(String message) {
-	super(message);
+        super(message);
     }
 
 }

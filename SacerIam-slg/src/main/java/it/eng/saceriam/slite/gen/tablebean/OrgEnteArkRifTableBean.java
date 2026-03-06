@@ -32,19 +32,19 @@ public class OrgEnteArkRifTableBean extends AbstractBaseTable<OrgEnteArkRifRowBe
     public static OrgEnteArkRifTableDescriptor TABLE_DESCRIPTOR = new OrgEnteArkRifTableDescriptor();
 
     public OrgEnteArkRifTableBean() {
-	super();
+        super();
     }
 
     protected OrgEnteArkRifRowBean createRow() {
-	return new OrgEnteArkRifRowBean();
+        return new OrgEnteArkRifRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgEnteArkRifRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

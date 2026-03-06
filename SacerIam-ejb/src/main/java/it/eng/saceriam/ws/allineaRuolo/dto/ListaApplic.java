@@ -29,27 +29,27 @@ public class ListaApplic implements Iterable<Applic> {
      * @return the applic
      */
     public List<Applic> getApplic() {
-	if (applic == null) {
-	    applic = new ArrayList<>();
-	}
-	return applic;
+        if (applic == null) {
+            applic = new ArrayList<>();
+        }
+        return applic;
     }
 
     /**
      * @param applic the applic to set
      */
     public void setApplic(List<Applic> applic) {
-	this.applic = applic;
+        this.applic = applic;
     }
 
     @Override
     public Iterator<Applic> iterator() {
-	return applic.iterator();
+        return applic.iterator();
     }
 
     @Override
     public String toString() {
-	return "{" + "applic=" + applic + "}";
+        return "{" + "applic=" + applic + "}";
     }
 
 }

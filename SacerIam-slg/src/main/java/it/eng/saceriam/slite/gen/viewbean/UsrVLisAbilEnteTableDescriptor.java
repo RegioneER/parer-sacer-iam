@@ -50,39 +50,39 @@ public class UsrVLisAbilEnteTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USER_IAM_GESTITO,
-		new ColumnDescriptor(COL_ID_USER_IAM_GESTITO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_UTENTE,
-		new ColumnDescriptor(COL_ID_ENTE_UTENTE, Types.DECIMAL, 22, true));
-	map.put(COL_TI_SCOPO_ABIL,
-		new ColumnDescriptor(COL_TI_SCOPO_ABIL, Types.VARCHAR, 11, true));
-	map.put(COL_ID_AMBIENTE_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_AMBIENTE_ENTE_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_SIAM, new ColumnDescriptor(COL_ID_ENTE_SIAM, Types.DECIMAL, 22, true));
-	map.put(COL_NM_COMPOSITO_ENTE,
-		new ColumnDescriptor(COL_NM_COMPOSITO_ENTE, Types.VARCHAR, 355, true));
-	map.put(COL_DS_CAUSALE_ABIL,
-		new ColumnDescriptor(COL_DS_CAUSALE_ABIL, Types.VARCHAR, 254, true));
-	map.put(COL_FL_ABIL_AUTOMATICA,
-		new ColumnDescriptor(COL_FL_ABIL_AUTOMATICA, Types.VARCHAR, 1, true));
-	map.put(COL_ID_APPART_COLLEG_ENTI,
-		new ColumnDescriptor(COL_ID_APPART_COLLEG_ENTI, Types.DECIMAL, 22, true));
-	map.put(COL_ID_SUPT_EST_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_SUPT_EST_ENTE_CONVENZ, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ACCORDO_VIGIL,
-		new ColumnDescriptor(COL_ID_ACCORDO_VIGIL, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USER_IAM_GESTITO,
+                new ColumnDescriptor(COL_ID_USER_IAM_GESTITO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_UTENTE,
+                new ColumnDescriptor(COL_ID_ENTE_UTENTE, Types.DECIMAL, 22, true));
+        map.put(COL_TI_SCOPO_ABIL,
+                new ColumnDescriptor(COL_TI_SCOPO_ABIL, Types.VARCHAR, 11, true));
+        map.put(COL_ID_AMBIENTE_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_AMBIENTE_ENTE_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_SIAM, new ColumnDescriptor(COL_ID_ENTE_SIAM, Types.DECIMAL, 22, true));
+        map.put(COL_NM_COMPOSITO_ENTE,
+                new ColumnDescriptor(COL_NM_COMPOSITO_ENTE, Types.VARCHAR, 355, true));
+        map.put(COL_DS_CAUSALE_ABIL,
+                new ColumnDescriptor(COL_DS_CAUSALE_ABIL, Types.VARCHAR, 254, true));
+        map.put(COL_FL_ABIL_AUTOMATICA,
+                new ColumnDescriptor(COL_FL_ABIL_AUTOMATICA, Types.VARCHAR, 1, true));
+        map.put(COL_ID_APPART_COLLEG_ENTI,
+                new ColumnDescriptor(COL_ID_APPART_COLLEG_ENTI, Types.DECIMAL, 22, true));
+        map.put(COL_ID_SUPT_EST_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_SUPT_EST_ENTE_CONVENZ, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ACCORDO_VIGIL,
+                new ColumnDescriptor(COL_ID_ACCORDO_VIGIL, Types.DECIMAL, 22, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

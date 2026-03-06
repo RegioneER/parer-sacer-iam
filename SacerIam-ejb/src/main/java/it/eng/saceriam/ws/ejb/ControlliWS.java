@@ -59,32 +59,32 @@ public class ControlliWS {
      *
      */
     public RispostaControlli verificaEsistenzaOrganizzazione(String nmApplic,
-	    Integer idOrganizApplic, String nmTipoOrganiz) {
-	RispostaControlli rispostaControlli = new RispostaControlli();
-	rispostaControlli.setrBoolean(false);
-	try {
-	    if (idOrganizApplic != null) {
-		String queryStr = "SELECT u FROM UsrOrganizIam u WHERE u.aplApplic.nmApplic = :nmApplic "
-			+ "AND u.idOrganizApplic = :idOrganizApplic "
-			+ "AND u.aplTipoOrganiz.nmTipoOrganiz = :nmTipoOrganiz ";
-		Query query = entityManager.createQuery(queryStr);
-		query.setParameter("nmApplic", nmApplic);
-		query.setParameter("idOrganizApplic",
-			HibernateUtils.bigDecimalFrom(idOrganizApplic));
-		query.setParameter("nmTipoOrganiz", nmTipoOrganiz);
-		List<UsrOrganizIam> organizList = query.getResultList();
-		if (!organizList.isEmpty()) {
-		    rispostaControlli.setrBoolean(true);
-		    rispostaControlli.setrLong(organizList.get(0).getIdOrganizIam());
-		}
-	    }
-	} catch (Exception e) {
-	    rispostaControlli.setCodErr(MessaggiWSBundle.ERR_666);
-	    rispostaControlli
-		    .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, e.getMessage()));
-	    log.error("Eccezione nella lettura della tabella delle organizzazioni ", e);
-	}
-	return rispostaControlli;
+            Integer idOrganizApplic, String nmTipoOrganiz) {
+        RispostaControlli rispostaControlli = new RispostaControlli();
+        rispostaControlli.setrBoolean(false);
+        try {
+            if (idOrganizApplic != null) {
+                String queryStr = "SELECT u FROM UsrOrganizIam u WHERE u.aplApplic.nmApplic = :nmApplic "
+                        + "AND u.idOrganizApplic = :idOrganizApplic "
+                        + "AND u.aplTipoOrganiz.nmTipoOrganiz = :nmTipoOrganiz ";
+                Query query = entityManager.createQuery(queryStr);
+                query.setParameter("nmApplic", nmApplic);
+                query.setParameter("idOrganizApplic",
+                        HibernateUtils.bigDecimalFrom(idOrganizApplic));
+                query.setParameter("nmTipoOrganiz", nmTipoOrganiz);
+                List<UsrOrganizIam> organizList = query.getResultList();
+                if (!organizList.isEmpty()) {
+                    rispostaControlli.setrBoolean(true);
+                    rispostaControlli.setrLong(organizList.get(0).getIdOrganizIam());
+                }
+            }
+        } catch (Exception e) {
+            rispostaControlli.setCodErr(MessaggiWSBundle.ERR_666);
+            rispostaControlli
+                    .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, e.getMessage()));
+            log.error("Eccezione nella lettura della tabella delle organizzazioni ", e);
+        }
+        return rispostaControlli;
     }
 
     /**
@@ -97,27 +97,27 @@ public class ControlliWS {
      *         organizzazione correttamente presente nell'organizzazione)
      */
     public RispostaControlli verificaNomeTipoOrganizzazione(String nmApplic, String nmTipoOrganiz) {
-	RispostaControlli rispostaControlli = new RispostaControlli();
-	rispostaControlli.setrBoolean(false);
-	try {
-	    String queryStr = "SELECT u FROM AplTipoOrganiz u "
-		    + "WHERE u.nmTipoOrganiz = :nmTipoOrganiz "
-		    + "AND u.aplApplic.nmApplic = :nmApplic ";
-	    Query query = entityManager.createQuery(queryStr);
-	    query.setParameter("nmTipoOrganiz", nmTipoOrganiz);
-	    query.setParameter("nmApplic", nmApplic);
+        RispostaControlli rispostaControlli = new RispostaControlli();
+        rispostaControlli.setrBoolean(false);
+        try {
+            String queryStr = "SELECT u FROM AplTipoOrganiz u "
+                    + "WHERE u.nmTipoOrganiz = :nmTipoOrganiz "
+                    + "AND u.aplApplic.nmApplic = :nmApplic ";
+            Query query = entityManager.createQuery(queryStr);
+            query.setParameter("nmTipoOrganiz", nmTipoOrganiz);
+            query.setParameter("nmApplic", nmApplic);
 
-	    List<AplTipoOrganiz> pvList = query.getResultList();
-	    if (!pvList.isEmpty()) {
-		rispostaControlli.setrBoolean(true);
-	    }
-	} catch (Exception e) {
-	    rispostaControlli.setCodErr(MessaggiWSBundle.ERR_666);
-	    rispostaControlli
-		    .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, e.getMessage()));
-	    log.error("Eccezione nella lettura  della tabella dei tipi organizzazione ", e);
-	}
-	return rispostaControlli;
+            List<AplTipoOrganiz> pvList = query.getResultList();
+            if (!pvList.isEmpty()) {
+                rispostaControlli.setrBoolean(true);
+            }
+        } catch (Exception e) {
+            rispostaControlli.setCodErr(MessaggiWSBundle.ERR_666);
+            rispostaControlli
+                    .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, e.getMessage()));
+            log.error("Eccezione nella lettura  della tabella dei tipi organizzazione ", e);
+        }
+        return rispostaControlli;
     }
 
     /**
@@ -129,32 +129,32 @@ public class ControlliWS {
      * @return RispostaControlli.isrBoolean() == true in caso la verifica dia esito positivo
      */
     public RispostaControlli verificaNomeTipoDato(ListaTipiDato listaTipiDato, String nmApplic) {
-	RispostaControlli rispostaControlli = new RispostaControlli();
-	rispostaControlli.setrBoolean(true);
-	try {
-	    if (listaTipiDato.getTipoDato() != null) {
-		for (TipoDato tipoDato : listaTipiDato.getTipoDato()) {
-		    String queryStr = "SELECT u FROM AplClasseTipoDato u "
-			    + "WHERE u.aplApplic.nmApplic = :nmApplic "
-			    + "AND u.nmClasseTipoDato = :nmClasseTipoDato ";
-		    Query query = entityManager.createQuery(queryStr);
-		    query.setParameter("nmApplic", nmApplic);
-		    query.setParameter("nmClasseTipoDato", tipoDato.getNmClasseTipoDato());
+        RispostaControlli rispostaControlli = new RispostaControlli();
+        rispostaControlli.setrBoolean(true);
+        try {
+            if (listaTipiDato.getTipoDato() != null) {
+                for (TipoDato tipoDato : listaTipiDato.getTipoDato()) {
+                    String queryStr = "SELECT u FROM AplClasseTipoDato u "
+                            + "WHERE u.aplApplic.nmApplic = :nmApplic "
+                            + "AND u.nmClasseTipoDato = :nmClasseTipoDato ";
+                    Query query = entityManager.createQuery(queryStr);
+                    query.setParameter("nmApplic", nmApplic);
+                    query.setParameter("nmClasseTipoDato", tipoDato.getNmClasseTipoDato());
 
-		    List<UsrTipoDatoIam> tipoDatoList = query.getResultList();
-		    if (tipoDatoList.isEmpty()) {
-			rispostaControlli.setrBoolean(false);
-			break;
-		    }
-		}
-	    }
-	} catch (Exception e) {
-	    rispostaControlli.setCodErr(MessaggiWSBundle.ERR_666);
-	    rispostaControlli
-		    .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, e.getMessage()));
-	    log.error("Eccezione nella lettura  della tabella dei tipi organizzazione ", e);
-	}
-	return rispostaControlli;
+                    List<UsrTipoDatoIam> tipoDatoList = query.getResultList();
+                    if (tipoDatoList.isEmpty()) {
+                        rispostaControlli.setrBoolean(false);
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            rispostaControlli.setCodErr(MessaggiWSBundle.ERR_666);
+            rispostaControlli
+                    .setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666, e.getMessage()));
+            log.error("Eccezione nella lettura  della tabella dei tipi organizzazione ", e);
+        }
+        return rispostaControlli;
     }
 
     /**
@@ -166,17 +166,17 @@ public class ControlliWS {
      *         l'applicazione
      */
     public RispostaControlli verificaApplicazione(String nmApplic) {
-	RispostaControlli rispostaControlli = new RispostaControlli();
-	rispostaControlli.setrBoolean(true);
-	String queryStr = "SELECT applic FROM AplApplic applic WHERE applic.nmApplic = :nmApplic ";
-	Query q = entityManager.createQuery(queryStr);
-	q.setParameter("nmApplic", nmApplic);
-	List<AplApplic> applicList = q.getResultList();
-	if (!applicList.isEmpty()) {
-	    rispostaControlli.setrObject(applicList.get(0));
-	} else {
-	    rispostaControlli.setrBoolean(false);
-	}
-	return rispostaControlli;
+        RispostaControlli rispostaControlli = new RispostaControlli();
+        rispostaControlli.setrBoolean(true);
+        String queryStr = "SELECT applic FROM AplApplic applic WHERE applic.nmApplic = :nmApplic ";
+        Query q = entityManager.createQuery(queryStr);
+        q.setParameter("nmApplic", nmApplic);
+        List<AplApplic> applicList = q.getResultList();
+        if (!applicList.isEmpty()) {
+            rispostaControlli.setrObject(applicList.get(0));
+        } else {
+            rispostaControlli.setrBoolean(false);
+        }
+        return rispostaControlli;
     }
 }

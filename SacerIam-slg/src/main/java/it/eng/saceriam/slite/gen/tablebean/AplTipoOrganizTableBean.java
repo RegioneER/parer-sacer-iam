@@ -32,19 +32,19 @@ public class AplTipoOrganizTableBean extends AbstractBaseTable<AplTipoOrganizRow
     public static AplTipoOrganizTableDescriptor TABLE_DESCRIPTOR = new AplTipoOrganizTableDescriptor();
 
     public AplTipoOrganizTableBean() {
-	super();
+        super();
     }
 
     protected AplTipoOrganizRowBean createRow() {
-	return new AplTipoOrganizRowBean();
+        return new AplTipoOrganizRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplTipoOrganizRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

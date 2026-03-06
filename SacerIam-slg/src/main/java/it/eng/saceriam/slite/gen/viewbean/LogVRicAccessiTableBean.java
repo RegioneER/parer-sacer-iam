@@ -36,19 +36,19 @@ public class LogVRicAccessiTableBean extends AbstractBaseTable<LogVRicAccessiRow
     public static LogVRicAccessiTableDescriptor TABLE_DESCRIPTOR = new LogVRicAccessiTableDescriptor();
 
     public LogVRicAccessiTableBean() {
-	super();
+        super();
     }
 
     protected LogVRicAccessiRowBean createRow() {
-	return new LogVRicAccessiRowBean();
+        return new LogVRicAccessiRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<LogVRicAccessiRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

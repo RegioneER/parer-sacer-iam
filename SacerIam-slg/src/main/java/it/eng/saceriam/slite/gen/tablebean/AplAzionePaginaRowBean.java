@@ -28,7 +28,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class AplAzionePaginaRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -38,114 +38,114 @@ public class AplAzionePaginaRowBean extends BaseRow
     public static AplAzionePaginaTableDescriptor TABLE_DESCRIPTOR = new AplAzionePaginaTableDescriptor();
 
     public AplAzionePaginaRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdAzionePagina() {
-	return getBigDecimal("id_azione_pagina");
+        return getBigDecimal("id_azione_pagina");
     }
 
     public void setIdAzionePagina(BigDecimal idAzionePagina) {
-	setObject("id_azione_pagina", idAzionePagina);
+        setObject("id_azione_pagina", idAzionePagina);
     }
 
     public BigDecimal getIdPaginaWeb() {
-	return getBigDecimal("id_pagina_web");
+        return getBigDecimal("id_pagina_web");
     }
 
     public void setIdPaginaWeb(BigDecimal idPaginaWeb) {
-	setObject("id_pagina_web", idPaginaWeb);
+        setObject("id_pagina_web", idPaginaWeb);
     }
 
     public String getNmAzionePagina() {
-	return getString("nm_azione_pagina");
+        return getString("nm_azione_pagina");
     }
 
     public void setNmAzionePagina(String nmAzionePagina) {
-	setObject("nm_azione_pagina", nmAzionePagina);
+        setObject("nm_azione_pagina", nmAzionePagina);
     }
 
     public String getDsAzionePagina() {
-	return getString("ds_azione_pagina");
+        return getString("ds_azione_pagina");
     }
 
     public void setDsAzionePagina(String dsAzionePagina) {
-	setObject("ds_azione_pagina", dsAzionePagina);
+        setObject("ds_azione_pagina", dsAzionePagina);
     }
 
     public BigDecimal getIdTipoEvento() {
-	return getBigDecimal("id_tipo_evento");
+        return getBigDecimal("id_tipo_evento");
     }
 
     public void setIdTipoEvento(BigDecimal idTipoEvento) {
-	setObject("id_tipo_evento", idTipoEvento);
+        setObject("id_tipo_evento", idTipoEvento);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	AplAzionePagina entity = (AplAzionePagina) obj;
-	this.setIdAzionePagina(new BigDecimal(entity.getIdAzionePagina()));
-	if (entity.getAplPaginaWeb() != null) {
-	    this.setIdPaginaWeb(new BigDecimal(entity.getAplPaginaWeb().getIdPaginaWeb()));
-	}
-	this.setNmAzionePagina(entity.getNmAzionePagina());
-	this.setDsAzionePagina(entity.getDsAzionePagina());
-	if (entity.getAplTipoEvento() != null) {
-	    this.setIdTipoEvento(new BigDecimal(entity.getAplTipoEvento().getIdTipoEvento()));
-	}
+        AplAzionePagina entity = (AplAzionePagina) obj;
+        this.setIdAzionePagina(new BigDecimal(entity.getIdAzionePagina()));
+        if (entity.getAplPaginaWeb() != null) {
+            this.setIdPaginaWeb(new BigDecimal(entity.getAplPaginaWeb().getIdPaginaWeb()));
+        }
+        this.setNmAzionePagina(entity.getNmAzionePagina());
+        this.setDsAzionePagina(entity.getDsAzionePagina());
+        if (entity.getAplTipoEvento() != null) {
+            this.setIdTipoEvento(new BigDecimal(entity.getAplTipoEvento().getIdTipoEvento()));
+        }
     }
 
     @Override
     public AplAzionePagina rowBeanToEntity() {
-	AplAzionePagina entity = new AplAzionePagina();
-	if (this.getIdAzionePagina() != null) {
-	    entity.setIdAzionePagina(this.getIdAzionePagina().longValue());
-	}
-	if (this.getIdPaginaWeb() != null) {
-	    if (entity.getAplPaginaWeb() == null) {
-		entity.setAplPaginaWeb(new AplPaginaWeb());
-	    }
-	    entity.getAplPaginaWeb().setIdPaginaWeb(this.getIdPaginaWeb().longValue());
-	}
-	entity.setNmAzionePagina(this.getNmAzionePagina());
-	entity.setDsAzionePagina(this.getDsAzionePagina());
-	if (this.getIdTipoEvento() != null) {
-	    if (entity.getAplTipoEvento() == null) {
-		entity.setAplTipoEvento(new AplTipoEvento());
-	    }
-	    entity.getAplTipoEvento().setIdTipoEvento(this.getIdTipoEvento().longValue());
-	}
-	return entity;
+        AplAzionePagina entity = new AplAzionePagina();
+        if (this.getIdAzionePagina() != null) {
+            entity.setIdAzionePagina(this.getIdAzionePagina().longValue());
+        }
+        if (this.getIdPaginaWeb() != null) {
+            if (entity.getAplPaginaWeb() == null) {
+                entity.setAplPaginaWeb(new AplPaginaWeb());
+            }
+            entity.getAplPaginaWeb().setIdPaginaWeb(this.getIdPaginaWeb().longValue());
+        }
+        entity.setNmAzionePagina(this.getNmAzionePagina());
+        entity.setDsAzionePagina(this.getDsAzionePagina());
+        if (this.getIdTipoEvento() != null) {
+            if (entity.getAplTipoEvento() == null) {
+                entity.setAplTipoEvento(new AplTipoEvento());
+            }
+            entity.getAplTipoEvento().setIdTipoEvento(this.getIdTipoEvento().longValue());
+        }
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

@@ -36,19 +36,19 @@ public class UsrVLisIniSchedJobTableBean extends AbstractBaseTable<UsrVLisIniSch
     public static UsrVLisIniSchedJobTableDescriptor TABLE_DESCRIPTOR = new UsrVLisIniSchedJobTableDescriptor();
 
     public UsrVLisIniSchedJobTableBean() {
-	super();
+        super();
     }
 
     protected UsrVLisIniSchedJobRowBean createRow() {
-	return new UsrVLisIniSchedJobRowBean();
+        return new UsrVLisIniSchedJobRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVLisIniSchedJobRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

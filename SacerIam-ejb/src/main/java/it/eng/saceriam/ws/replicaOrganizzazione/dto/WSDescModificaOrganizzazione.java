@@ -24,16 +24,16 @@ public class WSDescModificaOrganizzazione implements IWSDesc {
 
     @Override
     public String getNomeWs() {
-	return Costanti.WS_MODIFICA_ORGANIZZAZIONE;
+        return Costanti.WS_MODIFICA_ORGANIZZAZIONE;
     }
 
     @Override
     public String getVersione() {
-	return Costanti.WS_MODIFICA_ORGANIZZAZIONE_VRSN;
+        return Costanti.WS_MODIFICA_ORGANIZZAZIONE_VRSN;
     }
 
     @Override
     public String[] getCompatibilitaWS() {
-	return Costanti.WS_MODIFICA_ORGANIZZAZIONE_COMP;
+        return Costanti.WS_MODIFICA_ORGANIZZAZIONE_COMP;
     }
 }

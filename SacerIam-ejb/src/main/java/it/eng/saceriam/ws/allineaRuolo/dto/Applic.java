@@ -31,7 +31,7 @@ public class Applic implements Serializable {
      * @return the value of nmApplic
      */
     public String getNmApplic() {
-	return nmApplic;
+        return nmApplic;
     }
 
     /**
@@ -40,41 +40,41 @@ public class Applic implements Serializable {
      * @param nmApplic new value of nmApplic
      */
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     /**
      * @return the cdVersioneComp
      */
     public String getCdVersioneComp() {
-	return cdVersioneComp;
+        return cdVersioneComp;
     }
 
     /**
      * @param cdVersioneComp the cdVersioneComp to set
      */
     public void setCdVersioneComp(String cdVersioneComp) {
-	this.cdVersioneComp = cdVersioneComp;
+        this.cdVersioneComp = cdVersioneComp;
     }
 
     /**
      * @return the listaDichAutor
      */
     public ListaDichAutor getListaDichAutor() {
-	return listaDichAutor;
+        return listaDichAutor;
     }
 
     /**
      * @param listaDichAutor the listaDichAutor to set
      */
     public void setListaDichAutor(ListaDichAutor listaDichAutor) {
-	this.listaDichAutor = listaDichAutor;
+        this.listaDichAutor = listaDichAutor;
     }
 
     @Override
     public String toString() {
-	return "{" + "nmApplic=" + nmApplic + ", cdVersioneComp= " + cdVersioneComp
-		+ ", listaDichAutor=" + listaDichAutor + "}";
+        return "{" + "nmApplic=" + nmApplic + ", cdVersioneComp= " + cdVersioneComp
+                + ", listaDichAutor=" + listaDichAutor + "}";
     }
 
 }

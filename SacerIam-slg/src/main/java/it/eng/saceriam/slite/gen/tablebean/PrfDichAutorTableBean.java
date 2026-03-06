@@ -32,19 +32,19 @@ public class PrfDichAutorTableBean extends AbstractBaseTable<PrfDichAutorRowBean
     public static PrfDichAutorTableDescriptor TABLE_DESCRIPTOR = new PrfDichAutorTableDescriptor();
 
     public PrfDichAutorTableBean() {
-	super();
+        super();
     }
 
     protected PrfDichAutorRowBean createRow() {
-	return new PrfDichAutorRowBean();
+        return new PrfDichAutorRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<PrfDichAutorRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -47,31 +47,31 @@ public class UsrVLisUsoRuoloDichTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USO_RUOLO_DICH,
-		new ColumnDescriptor(COL_ID_USO_RUOLO_DICH, Types.DECIMAL, 22, true));
-	map.put(COL_ID_DICH_ABIL_ORGANIZ,
-		new ColumnDescriptor(COL_ID_DICH_ABIL_ORGANIZ, Types.DECIMAL, 22, true));
-	map.put(COL_TI_SCOPO_RUOLO,
-		new ColumnDescriptor(COL_TI_SCOPO_RUOLO, Types.VARCHAR, 20, true));
-	map.put(COL_ID_ORGANIZ_IAM_RUOLO,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM_RUOLO, Types.DECIMAL, 22, true));
-	map.put(COL_DL_COMPOSITO_ORGANIZ,
-		new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
-	map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
-	map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, true));
-	map.put(COL_DS_RUOLO, new ColumnDescriptor(COL_DS_RUOLO, Types.VARCHAR, 254, true));
+        map.put(COL_ID_USO_RUOLO_DICH,
+                new ColumnDescriptor(COL_ID_USO_RUOLO_DICH, Types.DECIMAL, 22, true));
+        map.put(COL_ID_DICH_ABIL_ORGANIZ,
+                new ColumnDescriptor(COL_ID_DICH_ABIL_ORGANIZ, Types.DECIMAL, 22, true));
+        map.put(COL_TI_SCOPO_RUOLO,
+                new ColumnDescriptor(COL_TI_SCOPO_RUOLO, Types.VARCHAR, 20, true));
+        map.put(COL_ID_ORGANIZ_IAM_RUOLO,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM_RUOLO, Types.DECIMAL, 22, true));
+        map.put(COL_DL_COMPOSITO_ORGANIZ,
+                new ColumnDescriptor(COL_DL_COMPOSITO_ORGANIZ, Types.VARCHAR, 4000, true));
+        map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
+        map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, true));
+        map.put(COL_DS_RUOLO, new ColumnDescriptor(COL_DS_RUOLO, Types.VARCHAR, 254, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

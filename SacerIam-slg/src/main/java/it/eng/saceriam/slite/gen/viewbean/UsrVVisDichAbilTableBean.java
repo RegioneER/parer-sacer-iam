@@ -36,19 +36,19 @@ public class UsrVVisDichAbilTableBean extends AbstractBaseTable<UsrVVisDichAbilR
     public static UsrVVisDichAbilTableDescriptor TABLE_DESCRIPTOR = new UsrVVisDichAbilTableDescriptor();
 
     public UsrVVisDichAbilTableBean() {
-	super();
+        super();
     }
 
     protected UsrVVisDichAbilRowBean createRow() {
-	return new UsrVVisDichAbilRowBean();
+        return new UsrVVisDichAbilRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVVisDichAbilRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

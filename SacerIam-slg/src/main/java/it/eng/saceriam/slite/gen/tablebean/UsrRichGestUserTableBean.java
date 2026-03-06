@@ -32,19 +32,19 @@ public class UsrRichGestUserTableBean extends AbstractBaseTable<UsrRichGestUserR
     public static UsrRichGestUserTableDescriptor TABLE_DESCRIPTOR = new UsrRichGestUserTableDescriptor();
 
     public UsrRichGestUserTableBean() {
-	super();
+        super();
     }
 
     protected UsrRichGestUserRowBean createRow() {
-	return new UsrRichGestUserRowBean();
+        return new UsrRichGestUserRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrRichGestUserRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -24,33 +24,33 @@ public class CancellaOrganizzazioneInput {
     private String nmTipoOrganiz;
 
     public CancellaOrganizzazioneInput(String nmApplic, Integer idOrganizApplic,
-	    String nmTipoOrganiz) {
-	this.nmApplic = nmApplic;
-	this.idOrganizApplic = idOrganizApplic;
-	this.nmTipoOrganiz = nmTipoOrganiz;
+            String nmTipoOrganiz) {
+        this.nmApplic = nmApplic;
+        this.idOrganizApplic = idOrganizApplic;
+        this.nmTipoOrganiz = nmTipoOrganiz;
     }
 
     public String getNmApplic() {
-	return nmApplic;
+        return nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     public Integer getIdOrganizApplic() {
-	return idOrganizApplic;
+        return idOrganizApplic;
     }
 
     public void setIdOrganizApplic(Integer idOrganizApplic) {
-	this.idOrganizApplic = idOrganizApplic;
+        this.idOrganizApplic = idOrganizApplic;
     }
 
     public String getNmTipoOrganiz() {
-	return nmTipoOrganiz;
+        return nmTipoOrganiz;
     }
 
     public void setNmTipoOrganiz(String nmTipoOrganiz) {
-	this.nmTipoOrganiz = nmTipoOrganiz;
+        this.nmTipoOrganiz = nmTipoOrganiz;
     }
 }

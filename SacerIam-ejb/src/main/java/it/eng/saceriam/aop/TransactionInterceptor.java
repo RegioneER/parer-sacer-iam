@@ -35,26 +35,26 @@ public class TransactionInterceptor {
 
     @AroundInvoke
     public Object catchException(InvocationContext inv) throws Exception {
-	Logger logger = LoggerFactory.getLogger(inv.getTarget().getClass());
+        Logger logger = LoggerFactory.getLogger(inv.getTarget().getClass());
 
-	try {
-	    Object obj = inv.proceed();
-	    return obj;
-	} catch (ParerUserError ue) {
-	    logger.error("ParerUserError nel metodo " + inv.getMethod().getName() + ": "
-		    + ue.getDescription());
-	    ctx.setRollbackOnly();
-	    throw ue;
-	} catch (ParerInternalError ie) {
-	    logger.error("ParerInternalError nel metodo " + inv.getMethod().getName() + ": "
-		    + ie.getMessage());
-	    ctx.setRollbackOnly();
-	    throw ie;
-	} catch (Exception e) {
-	    logger.info(
-		    "Exception nel metodo " + inv.getMethod().getName() + ": " + e.getMessage());
-	    ctx.setRollbackOnly();
-	    throw e;
-	}
+        try {
+            Object obj = inv.proceed();
+            return obj;
+        } catch (ParerUserError ue) {
+            logger.error("ParerUserError nel metodo " + inv.getMethod().getName() + ": "
+                    + ue.getDescription());
+            ctx.setRollbackOnly();
+            throw ue;
+        } catch (ParerInternalError ie) {
+            logger.error("ParerInternalError nel metodo " + inv.getMethod().getName() + ": "
+                    + ie.getMessage());
+            ctx.setRollbackOnly();
+            throw ie;
+        } catch (Exception e) {
+            logger.info(
+                    "Exception nel metodo " + inv.getMethod().getName() + ": " + e.getMessage());
+            ctx.setRollbackOnly();
+            throw e;
+        }
     }
 }

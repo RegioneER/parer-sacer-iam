@@ -32,19 +32,19 @@ public class OrgTariffaAaAccordoTableBean extends AbstractBaseTable<OrgTariffaAa
     public static OrgTariffaAaAccordoTableDescriptor TABLE_DESCRIPTOR = new OrgTariffaAaAccordoTableDescriptor();
 
     public OrgTariffaAaAccordoTableBean() {
-	super();
+        super();
     }
 
     protected OrgTariffaAaAccordoRowBean createRow() {
-	return new OrgTariffaAaAccordoRowBean();
+        return new OrgTariffaAaAccordoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgTariffaAaAccordoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

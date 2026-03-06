@@ -26,24 +26,24 @@ public class ListaDichAutor implements Iterable<DichAutor> {
     private List<DichAutor> dichAutor;
 
     public List<DichAutor> getDichAutor() {
-	if (dichAutor == null) {
-	    dichAutor = new ArrayList<>();
-	}
-	return dichAutor;
+        if (dichAutor == null) {
+            dichAutor = new ArrayList<>();
+        }
+        return dichAutor;
     }
 
     public void setDichAutor(List<DichAutor> dichAutor) {
-	this.dichAutor = dichAutor;
+        this.dichAutor = dichAutor;
     }
 
     @Override
     public Iterator<DichAutor> iterator() {
-	return dichAutor.iterator();
+        return dichAutor.iterator();
     }
 
     @Override
     public String toString() {
-	return "" + dichAutor;
+        return "" + dichAutor;
     }
 
 }

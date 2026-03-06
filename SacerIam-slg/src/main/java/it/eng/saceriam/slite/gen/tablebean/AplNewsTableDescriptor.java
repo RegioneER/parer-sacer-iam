@@ -46,29 +46,29 @@ public class AplNewsTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_NEWS, new ColumnDescriptor(COL_ID_NEWS, Types.DECIMAL, 22, true));
-	map.put(COL_DT_INI_PUBBLIC,
-		new ColumnDescriptor(COL_DT_INI_PUBBLIC, Types.TIMESTAMP, 7, false));
-	map.put(COL_DT_FIN_PUBBLIC,
-		new ColumnDescriptor(COL_DT_FIN_PUBBLIC, Types.TIMESTAMP, 7, false));
-	map.put(COL_DS_OGGETTO, new ColumnDescriptor(COL_DS_OGGETTO, Types.VARCHAR, 254, false));
-	map.put(COL_FL_PUBBLIC_LOGIN,
-		new ColumnDescriptor(COL_FL_PUBBLIC_LOGIN, Types.VARCHAR, 1, false));
-	map.put(COL_FL_PUBBLIC_HOMEPAGE,
-		new ColumnDescriptor(COL_FL_PUBBLIC_HOMEPAGE, Types.VARCHAR, 1, false));
-	map.put(COL_DL_TESTO, new ColumnDescriptor(COL_DL_TESTO, Types.VARCHAR, 4000, false));
+        map.put(COL_ID_NEWS, new ColumnDescriptor(COL_ID_NEWS, Types.DECIMAL, 22, true));
+        map.put(COL_DT_INI_PUBBLIC,
+                new ColumnDescriptor(COL_DT_INI_PUBBLIC, Types.TIMESTAMP, 7, false));
+        map.put(COL_DT_FIN_PUBBLIC,
+                new ColumnDescriptor(COL_DT_FIN_PUBBLIC, Types.TIMESTAMP, 7, false));
+        map.put(COL_DS_OGGETTO, new ColumnDescriptor(COL_DS_OGGETTO, Types.VARCHAR, 254, false));
+        map.put(COL_FL_PUBBLIC_LOGIN,
+                new ColumnDescriptor(COL_FL_PUBBLIC_LOGIN, Types.VARCHAR, 1, false));
+        map.put(COL_FL_PUBBLIC_HOMEPAGE,
+                new ColumnDescriptor(COL_FL_PUBBLIC_HOMEPAGE, Types.VARCHAR, 1, false));
+        map.put(COL_DL_TESTO, new ColumnDescriptor(COL_DL_TESTO, Types.VARCHAR, 4000, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

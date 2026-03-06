@@ -37,18 +37,18 @@ public class ParerInternalError extends ParerAbstractError implements Serializab
     private static final Logger logger = LoggerFactory.getLogger(ParerInternalError.class);
 
     public ParerInternalError(String severity, Exception ex) {
-	super();
-	init(severity, null, ex);
+        super();
+        init(severity, null, ex);
     } // public ParerInternalError(String severity, Exception ex)
 
     public ParerInternalError(Exception ex) {
-	super();
-	init(ParerErrorSeverity.ERROR, null, ex);
+        super();
+        init(ParerErrorSeverity.ERROR, null, ex);
     }
 
     public ParerInternalError(String description) {
-	super();
-	init(ParerErrorSeverity.ERROR, description, null);
+        super();
+        init(ParerErrorSeverity.ERROR, description, null);
     }
 
     /**
@@ -60,8 +60,8 @@ public class ParerInternalError extends ParerAbstractError implements Serializab
      * @param ex          eccezione.
      */
     public ParerInternalError(String severity, String description, Exception ex) {
-	super();
-	init(severity, description, ex);
+        super();
+        init(severity, description, ex);
     } // public ParerInternalError(String severity, String description, Exception ex)
 
     /**
@@ -69,26 +69,26 @@ public class ParerInternalError extends ParerAbstractError implements Serializab
      * costruttori di <code>ParerInternalError</code>.
      */
     private void init(String severity, String description, Exception ex) {
-	logger.debug("ParerInternalError::init: invocato");
-	setSeverity(severity);
-	logger.debug("ParerInternalError::init: severity [" + getSeverity() + "]");
-	_nativeException = null;
-	if (ex != null) {
-	    _nativeException = ex;
-	    StringWriter exStringWriter = new StringWriter();
-	    PrintWriter exPrintWriter = new PrintWriter(exStringWriter);
-	    ex.printStackTrace(exPrintWriter);
-	    if (description == null)
-		description = exStringWriter.toString();
-	    else
-		description += "\n" + exStringWriter.toString();
-	} // if (ex != null)
-	setDescription(description);
-	logger.debug("ParerInternalError::init: description [" + getDescription() + "]");
+        logger.debug("ParerInternalError::init: invocato");
+        setSeverity(severity);
+        logger.debug("ParerInternalError::init: severity [" + getSeverity() + "]");
+        _nativeException = null;
+        if (ex != null) {
+            _nativeException = ex;
+            StringWriter exStringWriter = new StringWriter();
+            PrintWriter exPrintWriter = new PrintWriter(exStringWriter);
+            ex.printStackTrace(exPrintWriter);
+            if (description == null)
+                description = exStringWriter.toString();
+            else
+                description += "\n" + exStringWriter.toString();
+        } // if (ex != null)
+        setDescription(description);
+        logger.debug("ParerInternalError::init: description [" + getDescription() + "]");
     }
 
     public String getCategory() {
-	return ParerErrorCategory.INTERNAL_ERROR;
+        return ParerErrorCategory.INTERNAL_ERROR;
     }
 
     /**
@@ -97,7 +97,7 @@ public class ParerInternalError extends ParerAbstractError implements Serializab
      * @return <code>Exception</code> parametro passato in input.
      */
     public Exception getNativeException() {
-	return _nativeException;
+        return _nativeException;
     } // public Exception getNativeException()
 
 } // public class ParerInternalError extends EMFAbstractError implements Serializable

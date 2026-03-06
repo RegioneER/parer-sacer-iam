@@ -51,33 +51,33 @@ public class UsrVAutorDefaultTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
-	map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
-	map.put(COL_ID_USO_USER_APPLIC,
-		new ColumnDescriptor(COL_ID_USO_USER_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_ID_USO_RUOLO_USER_DEFAULT,
-		new ColumnDescriptor(COL_ID_USO_RUOLO_USER_DEFAULT, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
-	map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, true));
-	map.put(COL_TI_DICH_AUTOR,
-		new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, true));
-	map.put(COL_ID_AUTOR, new ColumnDescriptor(COL_ID_AUTOR, Types.DECIMAL, 22, true));
-	map.put(COL_NM_AUTOR, new ColumnDescriptor(COL_NM_AUTOR, Types.VARCHAR, 205, true));
-	map.put(COL_DS_AUTOR, new ColumnDescriptor(COL_DS_AUTOR, Types.VARCHAR, 513, true));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, true));
+        map.put(COL_NM_USERID, new ColumnDescriptor(COL_NM_USERID, Types.VARCHAR, 100, true));
+        map.put(COL_ID_USO_USER_APPLIC,
+                new ColumnDescriptor(COL_ID_USO_USER_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_ID_USO_RUOLO_USER_DEFAULT,
+                new ColumnDescriptor(COL_ID_USO_RUOLO_USER_DEFAULT, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_ID_RUOLO, new ColumnDescriptor(COL_ID_RUOLO, Types.DECIMAL, 22, true));
+        map.put(COL_NM_RUOLO, new ColumnDescriptor(COL_NM_RUOLO, Types.VARCHAR, 100, true));
+        map.put(COL_TI_DICH_AUTOR,
+                new ColumnDescriptor(COL_TI_DICH_AUTOR, Types.VARCHAR, 20, true));
+        map.put(COL_ID_AUTOR, new ColumnDescriptor(COL_ID_AUTOR, Types.DECIMAL, 22, true));
+        map.put(COL_NM_AUTOR, new ColumnDescriptor(COL_NM_AUTOR, Types.VARCHAR, 205, true));
+        map.put(COL_DS_AUTOR, new ColumnDescriptor(COL_DS_AUTOR, Types.VARCHAR, 513, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

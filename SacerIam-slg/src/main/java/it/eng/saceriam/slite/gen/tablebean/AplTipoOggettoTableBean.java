@@ -32,19 +32,19 @@ public class AplTipoOggettoTableBean extends AbstractBaseTable<AplTipoOggettoRow
     public static AplTipoOggettoTableDescriptor TABLE_DESCRIPTOR = new AplTipoOggettoTableDescriptor();
 
     public AplTipoOggettoTableBean() {
-	super();
+        super();
     }
 
     protected AplTipoOggettoRowBean createRow() {
-	return new AplTipoOggettoRowBean();
+        return new AplTipoOggettoRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplTipoOggettoRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

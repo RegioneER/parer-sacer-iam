@@ -27,7 +27,7 @@ import it.eng.spagoLite.db.oracle.bean.column.TableDescriptor;
  *
  */
 public class PrfVCalcAutorRuoloRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$ViewBeanWriter",
@@ -37,132 +37,132 @@ public class PrfVCalcAutorRuoloRowBean extends BaseRow
     public static PrfVCalcAutorRuoloTableDescriptor TABLE_DESCRIPTOR = new PrfVCalcAutorRuoloTableDescriptor();
 
     public PrfVCalcAutorRuoloRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     public String getNmRuolo() {
-	return getString("nm_ruolo");
+        return getString("nm_ruolo");
     }
 
     public void setNmRuolo(String nmRuolo) {
-	setObject("nm_ruolo", nmRuolo);
+        setObject("nm_ruolo", nmRuolo);
     }
 
     public BigDecimal getIdRuolo() {
-	return getBigDecimal("id_ruolo");
+        return getBigDecimal("id_ruolo");
     }
 
     public void setIdRuolo(BigDecimal idRuolo) {
-	setObject("id_ruolo", idRuolo);
+        setObject("id_ruolo", idRuolo);
     }
 
     public String getNmApplic() {
-	return getString("nm_applic");
+        return getString("nm_applic");
     }
 
     public void setNmApplic(String nmApplic) {
-	setObject("nm_applic", nmApplic);
+        setObject("nm_applic", nmApplic);
     }
 
     public BigDecimal getIdApplic() {
-	return getBigDecimal("id_applic");
+        return getBigDecimal("id_applic");
     }
 
     public void setIdApplic(BigDecimal idApplic) {
-	setObject("id_applic", idApplic);
+        setObject("id_applic", idApplic);
     }
 
     public BigDecimal getIdUsoRuoloApplic() {
-	return getBigDecimal("id_uso_ruolo_applic");
+        return getBigDecimal("id_uso_ruolo_applic");
     }
 
     public void setIdUsoRuoloApplic(BigDecimal idUsoRuoloApplic) {
-	setObject("id_uso_ruolo_applic", idUsoRuoloApplic);
+        setObject("id_uso_ruolo_applic", idUsoRuoloApplic);
     }
 
     public String getTiDichAutor() {
-	return getString("ti_dich_autor");
+        return getString("ti_dich_autor");
     }
 
     public void setTiDichAutor(String tiDichAutor) {
-	setObject("ti_dich_autor", tiDichAutor);
+        setObject("ti_dich_autor", tiDichAutor);
     }
 
     public BigDecimal getIdAutor() {
-	return getBigDecimal("id_autor");
+        return getBigDecimal("id_autor");
     }
 
     public void setIdAutor(BigDecimal idAutor) {
-	setObject("id_autor", idAutor);
+        setObject("id_autor", idAutor);
     }
 
     public String getDsAutor() {
-	return getString("ds_autor");
+        return getString("ds_autor");
     }
 
     public void setDsAutor(String dsAutor) {
-	setObject("ds_autor", dsAutor);
+        setObject("ds_autor", dsAutor);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	PrfVCalcAutorRuolo entity = (PrfVCalcAutorRuolo) obj;
-	this.setNmRuolo(entity.getNmRuolo());
-	this.setIdRuolo(entity.getPrfVCalcAutorRuoloId() == null ? null
-		: entity.getPrfVCalcAutorRuoloId().getIdRuolo());
-	this.setNmApplic(entity.getNmApplic());
-	this.setIdApplic(entity.getPrfVCalcAutorRuoloId() == null ? null
-		: entity.getPrfVCalcAutorRuoloId().getIdApplic());
-	this.setIdUsoRuoloApplic(entity.getIdUsoRuoloApplic());
-	this.setTiDichAutor(entity.getPrfVCalcAutorRuoloId() == null ? null
-		: entity.getPrfVCalcAutorRuoloId().getTiDichAutor());
-	this.setIdAutor(entity.getPrfVCalcAutorRuoloId() == null ? null
-		: entity.getPrfVCalcAutorRuoloId().getIdAutor());
-	this.setDsAutor(entity.getDsAutor());
+        PrfVCalcAutorRuolo entity = (PrfVCalcAutorRuolo) obj;
+        this.setNmRuolo(entity.getNmRuolo());
+        this.setIdRuolo(entity.getPrfVCalcAutorRuoloId() == null ? null
+                : entity.getPrfVCalcAutorRuoloId().getIdRuolo());
+        this.setNmApplic(entity.getNmApplic());
+        this.setIdApplic(entity.getPrfVCalcAutorRuoloId() == null ? null
+                : entity.getPrfVCalcAutorRuoloId().getIdApplic());
+        this.setIdUsoRuoloApplic(entity.getIdUsoRuoloApplic());
+        this.setTiDichAutor(entity.getPrfVCalcAutorRuoloId() == null ? null
+                : entity.getPrfVCalcAutorRuoloId().getTiDichAutor());
+        this.setIdAutor(entity.getPrfVCalcAutorRuoloId() == null ? null
+                : entity.getPrfVCalcAutorRuoloId().getIdAutor());
+        this.setDsAutor(entity.getDsAutor());
     }
 
     @Override
     public PrfVCalcAutorRuolo rowBeanToEntity() {
-	PrfVCalcAutorRuolo entity = new PrfVCalcAutorRuolo();
-	entity.setPrfVCalcAutorRuoloId(new PrfVCalcAutorRuoloId());
-	entity.setNmRuolo(this.getNmRuolo());
-	entity.getPrfVCalcAutorRuoloId().setIdRuolo(this.getIdRuolo());
-	entity.setNmApplic(this.getNmApplic());
-	entity.getPrfVCalcAutorRuoloId().setIdApplic(this.getIdApplic());
-	entity.setIdUsoRuoloApplic(this.getIdUsoRuoloApplic());
-	entity.getPrfVCalcAutorRuoloId().setTiDichAutor(this.getTiDichAutor());
-	entity.getPrfVCalcAutorRuoloId().setIdAutor(this.getIdAutor());
-	entity.setDsAutor(this.getDsAutor());
-	return entity;
+        PrfVCalcAutorRuolo entity = new PrfVCalcAutorRuolo();
+        entity.setPrfVCalcAutorRuoloId(new PrfVCalcAutorRuoloId());
+        entity.setNmRuolo(this.getNmRuolo());
+        entity.getPrfVCalcAutorRuoloId().setIdRuolo(this.getIdRuolo());
+        entity.setNmApplic(this.getNmApplic());
+        entity.getPrfVCalcAutorRuoloId().setIdApplic(this.getIdApplic());
+        entity.setIdUsoRuoloApplic(this.getIdUsoRuoloApplic());
+        entity.getPrfVCalcAutorRuoloId().setTiDichAutor(this.getTiDichAutor());
+        entity.getPrfVCalcAutorRuoloId().setIdAutor(this.getIdAutor());
+        entity.setDsAutor(this.getDsAutor());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

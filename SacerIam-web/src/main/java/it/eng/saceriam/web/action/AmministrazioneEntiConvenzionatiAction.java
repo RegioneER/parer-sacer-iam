@@ -19,6 +19,7 @@ import static it.eng.spagoCore.ConfigProperties.StandardProperty.VARIAZIONE_ACCO
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,6 +30,8 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -47,8 +50,14 @@ import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
+import javax.servlet.ReadListener;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -174,18 +183,20 @@ import it.eng.spagoLite.form.fields.impl.Input;
 import it.eng.spagoLite.message.Message;
 import it.eng.spagoLite.message.MessageBox.ViewMode;
 import it.eng.spagoLite.security.Secure;
+import it.eng.spagoLite.security.exception.FileSizeExceededException;
+import it.eng.spagoIFace.Values;
 
 /**
  *
  * @author Bonora_L feat. Gilioli_P feat DiLorenzo_F
  */
 @SuppressWarnings({
-	"unchecked", "rawtypes", "unused" })
+        "unchecked", "rawtypes", "unused" })
 public class AmministrazioneEntiConvenzionatiAction
-	extends AmministrazioneEntiConvenzionatiAbstractAction {
+        extends AmministrazioneEntiConvenzionatiAbstractAction {
 
     private static final Logger actionLogger = LoggerFactory
-	    .getLogger(AmministrazioneEntiConvenzionatiAction.class);
+            .getLogger(AmministrazioneEntiConvenzionatiAction.class);
 
     @EJB(mappedName = "java:app/SacerIam-ejb/EntiConvenzionatiEjb")
     private EntiConvenzionatiEjb entiConvenzionatiEjb;
@@ -7495,8 +7506,8 @@ public class AmministrazioneEntiConvenzionatiAction
                             .setViewMode();
                     getForm().getDocumentoProcessoConservDetail().getBl_doc_processo_conserv()
                             .setHidden(false);
-					getForm().getUdButtonList().getScaricaCompFileUdDocProcessoConserv()
-							.setViewMode();
+                    getForm().getUdButtonList().getScaricaCompFileUdDocProcessoConserv()
+                            .setViewMode();
                 }
             }
         }
@@ -7540,11 +7551,18 @@ public class AmministrazioneEntiConvenzionatiAction
                 }
             } else if (getLastPublisher()
                     .equals(Application.Publisher.DETTAGLIO_MODULO_INFORMAZIONI)) {
+                HttpServletRequest multipartRequest = new CachedBodyHttpServletRequest(
+                        getRequest());
+                // Parsing dei parametri multipart per valorizzare i campi prima del backup.
+                restoreMultipartFieldsFromRequest(multipartRequest,
+                        getForm().getModuloInformazioniDetail());
+                OrgModuloInfoAccordoRowBean moduloInfoBackup = new OrgModuloInfoAccordoRowBean();
+                getForm().getModuloInformazioniDetail().copyToBean(moduloInfoBackup);
                 try {
                     int fileSize = ConfigSingleton.getInstance()
                             .getIntValue(MODULO_INFORMAZIONI_MAX_FILE_SIZE.name());
-                    String[] a = getForm().getModuloInformazioniDetail().postMultipart(getRequest(),
-                            fileSize);
+                    String[] a = getForm().getModuloInformazioniDetail().postMultipart(
+                            multipartRequest, fileSize);
 
                     if (a != null) {
                         String operationMethod = a[0];
@@ -7562,6 +7580,18 @@ public class AmministrazioneEntiConvenzionatiAction
                         }
                     }
 
+                } catch (FileSizeExceededException ex) {
+                    String cause = "Il file caricato supera la dimensione massima di "
+                            + ConfigSingleton.getInstance().getIntValue(
+                                    MODULO_INFORMAZIONI_MAX_FILE_SIZE.name())
+                            + " byte.";
+                    // Ripristino i campi del form salvati prima del postMultipart.
+                    getForm().getModuloInformazioniDetail().copyFromBean(moduloInfoBackup);
+
+                    actionLogger.error("Errore nell'invocazione del metodo di navigazione :"
+                            + ExceptionUtils.getRootCauseMessage(ex), ex);
+                    getMessageBox().addError(cause == "" ? "Errore nella navigazione " : cause);
+                    forwardToPublisher(getLastPublisher());
                 } catch (FileUploadException | SecurityException | IllegalArgumentException
                         | NoSuchMethodException | IllegalAccessException
                         | InvocationTargetException ex) {
@@ -7667,6 +7697,89 @@ public class AmministrazioneEntiConvenzionatiAction
                     goBack();
                 }
             }
+        }
+    }
+
+    private void restoreMultipartFieldsFromRequest(HttpServletRequest request, Fields formDetail) {
+        try {
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            factory.setSizeThreshold(1024 * 1024);
+            factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            upload.setFileSizeMax(-1);
+            upload.setSizeMax(-1);
+            List<FileItem> items = upload.parseRequest(request);
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    String fieldName = item.getFieldName();
+                    if (!fieldName.startsWith(Values.OPERATION)) {
+                        Object component = formDetail.getComponent(fieldName);
+                        if (component instanceof SingleValueField) {
+                            ((SingleValueField) component).setValue(item.getString());
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignore) {
+            // In caso di request non parsabile, procedo comunque.
+        }
+    }
+
+    private static class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
+        private final byte[] cachedBody;
+
+        CachedBodyHttpServletRequest(HttpServletRequest request) {
+            super(request);
+            byte[] body;
+            try (InputStream is = request.getInputStream();
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+                IOUtils.copy(is, buffer);
+                body = buffer.toByteArray();
+            } catch (IOException ex) {
+                body = new byte[0];
+            }
+            this.cachedBody = body;
+        }
+
+        @Override
+        public ServletInputStream getInputStream() {
+            final ByteArrayInputStream bais = new ByteArrayInputStream(cachedBody);
+            return new ServletInputStream() {
+                @Override
+                public int read() {
+                    return bais.read();
+                }
+
+                @Override
+                public boolean isFinished() {
+                    return bais.available() == 0;
+                }
+
+                @Override
+                public boolean isReady() {
+                    return true;
+                }
+
+                @Override
+                public void setReadListener(ReadListener readListener) {
+                    // not supported
+                }
+            };
+        }
+
+        @Override
+        public BufferedReader getReader() {
+            Charset charset = StandardCharsets.UTF_8;
+            String encoding = getCharacterEncoding();
+            if (encoding != null) {
+                try {
+                    charset = Charset.forName(encoding);
+                } catch (Exception ex) {
+                    charset = StandardCharsets.UTF_8;
+                }
+            }
+            return new BufferedReader(new InputStreamReader(getInputStream(), charset));
         }
     }
 
@@ -10907,6 +11020,8 @@ public class AmministrazioneEntiConvenzionatiAction
         String flAppartAmbiente = getForm().getConfiguration().getFl_appart_ambiente_combo()
                 .parse();
         String flApparteEnte = getForm().getConfiguration().getFl_apparte_ente_combo().parse();
+        String cdVersioneAppIni = getForm().getConfiguration().getCd_versione_app_ini().parse();
+        String cdVersioneAppFine = getForm().getConfiguration().getCd_versione_app_fine().parse();
 
         // Carico i valori delle combo della lista
         getForm().getConfigurationList().getTi_gestione_param()
@@ -10918,7 +11033,8 @@ public class AmministrazioneEntiConvenzionatiAction
         IamParamApplicTableBean paramApplicTableBean = entiConvenzionatiEjb
                 .getIamParamApplicTableBean(tiParamApplic, tiGestioneParam, flAppartApplic,
                         flAppartAmbiente, flApparteEnte,
-                        getForm().getConfigurationList().isFilterValidRecords());
+                        getForm().getConfigurationList().isFilterValidRecords(), cdVersioneAppIni,
+                        cdVersioneAppFine);
 
         paramApplicTableBean = obfuscatePasswordParamApplic(paramApplicTableBean);
 
@@ -11138,7 +11254,8 @@ public class AmministrazioneEntiConvenzionatiAction
         getForm().getConfiguration().getFl_appart_applic_combo().setEditMode();
         getForm().getConfiguration().getFl_appart_ambiente_combo().setEditMode();
         getForm().getConfiguration().getFl_apparte_ente_combo().setEditMode();
-
+        getForm().getConfiguration().getCd_versione_app_ini().setEditMode();
+        getForm().getConfiguration().getCd_versione_app_fine().setEditMode();
         // Azzero il Mostra/Nascondi
         getForm().getConfigurationList().setFilterValidRecords(Boolean.TRUE);
 
@@ -12123,12 +12240,15 @@ public class AmministrazioneEntiConvenzionatiAction
         String flAppartAmbiente = getForm().getConfiguration().getFl_appart_ambiente_combo()
                 .parse();
         String flApparteEnte = getForm().getConfiguration().getFl_apparte_ente_combo().parse();
+        String cdVersioneAppIni = getForm().getConfiguration().getCd_versione_app_ini().parse();
+        String cdVersioneAppFine = getForm().getConfiguration().getCd_versione_app_fine().parse();
 
         // Carico i valori della lista configurazioni
         IamParamApplicTableBean paramApplicTableBean = entiConvenzionatiEjb
                 .getIamParamApplicTableBean(tiParamApplic, tiGestioneParam, flAppartApplic,
                         flAppartAmbiente, flApparteEnte,
-                        getForm().getConfigurationList().isFilterValidRecords());
+                        getForm().getConfigurationList().isFilterValidRecords(), cdVersioneAppIni,
+                        cdVersioneAppFine);
 
         paramApplicTableBean = obfuscatePasswordParamApplic(paramApplicTableBean);
 

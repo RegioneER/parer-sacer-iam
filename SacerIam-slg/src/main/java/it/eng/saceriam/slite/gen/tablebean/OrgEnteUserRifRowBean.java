@@ -30,7 +30,7 @@ import java.sql.Timestamp;
  *
  */
 public class OrgEnteUserRifRowBean extends BaseRow
-	implements BaseRowInterface, JEEBaseRowInterface {
+        implements BaseRowInterface, JEEBaseRowInterface {
 
     /*
      * @Generated( value = "it.eg.dbtool.db.oracle.beangen.Oracle4JPAClientBeanGen$TableBeanWriter",
@@ -40,181 +40,181 @@ public class OrgEnteUserRifRowBean extends BaseRow
     public static OrgEnteUserRifTableDescriptor TABLE_DESCRIPTOR = new OrgEnteUserRifTableDescriptor();
 
     public OrgEnteUserRifRowBean() {
-	super();
+        super();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     // getter e setter
     public BigDecimal getIdEnteUserRif() {
-	return getBigDecimal("id_ente_user_rif");
+        return getBigDecimal("id_ente_user_rif");
     }
 
     public void setIdEnteUserRif(BigDecimal idEnteUserRif) {
-	setObject("id_ente_user_rif", idEnteUserRif);
+        setObject("id_ente_user_rif", idEnteUserRif);
     }
 
     public BigDecimal getIdEnteConvenz() {
-	return getBigDecimal("id_ente_convenz");
+        return getBigDecimal("id_ente_convenz");
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	setObject("id_ente_convenz", idEnteConvenz);
+        setObject("id_ente_convenz", idEnteConvenz);
     }
 
     public BigDecimal getIdUserIam() {
-	return getBigDecimal("id_user_iam");
+        return getBigDecimal("id_user_iam");
     }
 
     public void setIdUserIam(BigDecimal idUserIam) {
-	setObject("id_user_iam", idUserIam);
+        setObject("id_user_iam", idUserIam);
     }
 
     public String getDlNote() {
-	return getString("dl_note");
+        return getString("dl_note");
     }
 
     public void setDlNote(String dlNote) {
-	setObject("dl_note", dlNote);
+        setObject("dl_note", dlNote);
     }
 
     public String getQualificaUser() {
-	return getString("qualifica_user");
+        return getString("qualifica_user");
     }
 
     public void setQualificaUser(String qualificaUser) {
-	setObject("qualifica_user", qualificaUser);
+        setObject("qualifica_user", qualificaUser);
     }
 
     public String getCdRegistroEnteUserRif() {
-	return getString("cd_registro_ente_user_rif");
+        return getString("cd_registro_ente_user_rif");
     }
 
     public void setCdRegistroEnteUserRif(String cdRegistroEnteUserRif) {
-	setObject("cd_registro_ente_user_rif", cdRegistroEnteUserRif);
+        setObject("cd_registro_ente_user_rif", cdRegistroEnteUserRif);
     }
 
     public BigDecimal getAaEnteUserRif() {
-	return getBigDecimal("aa_ente_user_rif");
+        return getBigDecimal("aa_ente_user_rif");
     }
 
     public void setAaEnteUserRif(BigDecimal aaEnteUserRif) {
-	setObject("aa_ente_user_rif", aaEnteUserRif);
+        setObject("aa_ente_user_rif", aaEnteUserRif);
     }
 
     public String getCdKeyEnteUserRif() {
-	return getString("cd_key_ente_user_rif");
+        return getString("cd_key_ente_user_rif");
     }
 
     public void setCdKeyEnteUserRif(String cdKeyEnteUserRif) {
-	setObject("cd_key_ente_user_rif", cdKeyEnteUserRif);
+        setObject("cd_key_ente_user_rif", cdKeyEnteUserRif);
     }
 
     public Timestamp getDtRegEnteUserRif() {
-	return getTimestamp("dt_reg_ente_user_rif");
+        return getTimestamp("dt_reg_ente_user_rif");
     }
 
     public void setDtRegEnteUserRif(Timestamp dtRegEnteUserRif) {
-	setObject("dt_reg_ente_user_rif", dtRegEnteUserRif);
+        setObject("dt_reg_ente_user_rif", dtRegEnteUserRif);
     }
 
     public String getCdEnteUserRif() {
-	return getString("cd_ente_user_rif");
+        return getString("cd_ente_user_rif");
     }
 
     public void setCdEnteUserRif(String cdEnteUserRif) {
-	setObject("cd_ente_user_rif", cdEnteUserRif);
+        setObject("cd_ente_user_rif", cdEnteUserRif);
     }
 
     public String getNmFileEnteUserRif() {
-	return getString("nm_file_ente_user_rif");
+        return getString("nm_file_ente_user_rif");
     }
 
     public void setNmFileEnteUserRif(String nmFileEnteUserRif) {
-	setObject("nm_file_ente_user_rif", nmFileEnteUserRif);
+        setObject("nm_file_ente_user_rif", nmFileEnteUserRif);
     }
 
     public String getDsEnteUserRif() {
-	return getString("ds_ente_user_rif");
+        return getString("ds_ente_user_rif");
     }
 
     public void setDsEnteUserRif(String dsEnteUserRif) {
-	setObject("ds_ente_user_rif", dsEnteUserRif);
+        setObject("ds_ente_user_rif", dsEnteUserRif);
     }
 
     @Override
     public void entityToRowBean(Object obj) {
-	OrgEnteUserRif entity = (OrgEnteUserRif) obj;
-	this.setIdEnteUserRif(new BigDecimal(entity.getIdEnteUserRif()));
-	if (entity.getOrgEnteSiam() != null) {
-	    this.setIdEnteConvenz(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
+        OrgEnteUserRif entity = (OrgEnteUserRif) obj;
+        this.setIdEnteUserRif(new BigDecimal(entity.getIdEnteUserRif()));
+        if (entity.getOrgEnteSiam() != null) {
+            this.setIdEnteConvenz(new BigDecimal(entity.getOrgEnteSiam().getIdEnteSiam()));
 
-	}
-	if (entity.getUsrUser() != null) {
-	    this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
+        }
+        if (entity.getUsrUser() != null) {
+            this.setIdUserIam(new BigDecimal(entity.getUsrUser().getIdUserIam()));
 
-	}
-	this.setQualificaUser(entity.getQualificaUser());
-	this.setDlNote(entity.getDlNote());
-	this.setCdRegistroEnteUserRif(entity.getCdRegistroEnteUserRif());
-	this.setAaEnteUserRif(entity.getAaEnteUserRif());
-	this.setCdKeyEnteUserRif(entity.getCdKeyEnteUserRif());
-	this.setDtRegEnteUserRif(entity.getDtRegEnteUserRif() != null
-		? new Timestamp(entity.getDtRegEnteUserRif().getTime())
-		: null);
-	this.setCdEnteUserRif(entity.getCdEnteUserRif());
-	this.setNmFileEnteUserRif(entity.getNmFileEnteUserRif());
-	this.setDsEnteUserRif(entity.getDsEnteUserRif());
+        }
+        this.setQualificaUser(entity.getQualificaUser());
+        this.setDlNote(entity.getDlNote());
+        this.setCdRegistroEnteUserRif(entity.getCdRegistroEnteUserRif());
+        this.setAaEnteUserRif(entity.getAaEnteUserRif());
+        this.setCdKeyEnteUserRif(entity.getCdKeyEnteUserRif());
+        this.setDtRegEnteUserRif(entity.getDtRegEnteUserRif() != null
+                ? new Timestamp(entity.getDtRegEnteUserRif().getTime())
+                : null);
+        this.setCdEnteUserRif(entity.getCdEnteUserRif());
+        this.setNmFileEnteUserRif(entity.getNmFileEnteUserRif());
+        this.setDsEnteUserRif(entity.getDsEnteUserRif());
     }
 
     @Override
     public OrgEnteUserRif rowBeanToEntity() {
-	OrgEnteUserRif entity = new OrgEnteUserRif();
-	if (this.getIdEnteUserRif() != null) {
-	    entity.setIdEnteUserRif(this.getIdEnteUserRif().longValue());
-	}
-	if (this.getIdEnteConvenz() != null) {
-	    if (entity.getOrgEnteSiam() == null) {
-		entity.setOrgEnteSiam(new OrgEnteSiam());
-	    }
-	    entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteConvenz().longValue());
-	}
-	if (this.getIdUserIam() != null) {
-	    if (entity.getUsrUser() == null) {
-		entity.setUsrUser(new UsrUser());
-	    }
-	    entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
-	}
-	entity.setQualificaUser(this.getQualificaUser());
-	entity.setDlNote(this.getDlNote());
-	return entity;
+        OrgEnteUserRif entity = new OrgEnteUserRif();
+        if (this.getIdEnteUserRif() != null) {
+            entity.setIdEnteUserRif(this.getIdEnteUserRif().longValue());
+        }
+        if (this.getIdEnteConvenz() != null) {
+            if (entity.getOrgEnteSiam() == null) {
+                entity.setOrgEnteSiam(new OrgEnteSiam());
+            }
+            entity.getOrgEnteSiam().setIdEnteSiam(this.getIdEnteConvenz().longValue());
+        }
+        if (this.getIdUserIam() != null) {
+            if (entity.getUsrUser() == null) {
+                entity.setUsrUser(new UsrUser());
+            }
+            entity.getUsrUser().setIdUserIam(this.getIdUserIam().longValue());
+        }
+        entity.setQualificaUser(this.getQualificaUser());
+        entity.setDlNote(this.getDlNote());
+        return entity;
     }
 
     // gestione della paginazione
     public void setRownum(Integer rownum) {
-	setObject("rownum", rownum);
+        setObject("rownum", rownum);
     }
 
     public Integer getRownum() {
-	return Integer.parseInt(getObject("rownum").toString());
+        return Integer.parseInt(getObject("rownum").toString());
     }
 
     public void setRnum(Integer rnum) {
-	setObject("rnum", rnum);
+        setObject("rnum", rnum);
     }
 
     public Integer getRnum() {
-	return Integer.parseInt(getObject("rnum").toString());
+        return Integer.parseInt(getObject("rnum").toString());
     }
 
     public void setNumrecords(Integer numRecords) {
-	setObject("numrecords", numRecords);
+        setObject("numrecords", numRecords);
     }
 
     public Integer getNumrecords() {
-	return Integer.parseInt(getObject("numrecords").toString());
+        return Integer.parseInt(getObject("numrecords").toString());
     }
 
 }

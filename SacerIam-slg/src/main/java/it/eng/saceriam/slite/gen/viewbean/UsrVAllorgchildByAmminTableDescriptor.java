@@ -44,26 +44,26 @@ public class UsrVAllorgchildByAmminTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USER_IAM_COR,
-		new ColumnDescriptor(COL_ID_USER_IAM_COR, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_ID_ORGANIZ_IAM_AMB_ENTE,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM_AMB_ENTE, Types.DECIMAL, 22, true));
-	map.put(COL_DS_CAUSALE_DICH,
-		new ColumnDescriptor(COL_DS_CAUSALE_DICH, Types.VARCHAR, 35, true));
+        map.put(COL_ID_USER_IAM_COR,
+                new ColumnDescriptor(COL_ID_USER_IAM_COR, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_ID_ORGANIZ_IAM_AMB_ENTE,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM_AMB_ENTE, Types.DECIMAL, 22, true));
+        map.put(COL_DS_CAUSALE_DICH,
+                new ColumnDescriptor(COL_DS_CAUSALE_DICH, Types.VARCHAR, 35, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

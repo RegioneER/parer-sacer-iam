@@ -36,19 +36,19 @@ public class UsrVAbilEnteToAddTableBean extends AbstractBaseTable<UsrVAbilEnteTo
     public static UsrVAbilEnteToAddTableDescriptor TABLE_DESCRIPTOR = new UsrVAbilEnteToAddTableDescriptor();
 
     public UsrVAbilEnteToAddTableBean() {
-	super();
+        super();
     }
 
     protected UsrVAbilEnteToAddRowBean createRow() {
-	return new UsrVAbilEnteToAddRowBean();
+        return new UsrVAbilEnteToAddRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVAbilEnteToAddRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

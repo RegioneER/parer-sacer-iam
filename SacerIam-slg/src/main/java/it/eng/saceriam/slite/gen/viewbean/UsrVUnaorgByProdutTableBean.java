@@ -36,19 +36,19 @@ public class UsrVUnaorgByProdutTableBean extends AbstractBaseTable<UsrVUnaorgByP
     public static UsrVUnaorgByProdutTableDescriptor TABLE_DESCRIPTOR = new UsrVUnaorgByProdutTableDescriptor();
 
     public UsrVUnaorgByProdutTableBean() {
-	super();
+        super();
     }
 
     protected UsrVUnaorgByProdutRowBean createRow() {
-	return new UsrVUnaorgByProdutRowBean();
+        return new UsrVUnaorgByProdutRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<UsrVUnaorgByProdutRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

@@ -44,25 +44,25 @@ public class OrgEnteArkRifTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_ENTE_ARK_RIF,
-		new ColumnDescriptor(COL_ID_ENTE_ARK_RIF, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
-	map.put(COL_DL_NOTE, new ColumnDescriptor(COL_DL_NOTE, Types.VARCHAR, 254, false));
-	map.put(COL_FL_REFERENTE, new ColumnDescriptor(COL_FL_REFERENTE, Types.VARCHAR, 1, false));
+        map.put(COL_ID_ENTE_ARK_RIF,
+                new ColumnDescriptor(COL_ID_ENTE_ARK_RIF, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_ID_USER_IAM, new ColumnDescriptor(COL_ID_USER_IAM, Types.DECIMAL, 22, false));
+        map.put(COL_DL_NOTE, new ColumnDescriptor(COL_DL_NOTE, Types.VARCHAR, 254, false));
+        map.put(COL_FL_REFERENTE, new ColumnDescriptor(COL_FL_REFERENTE, Types.VARCHAR, 1, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

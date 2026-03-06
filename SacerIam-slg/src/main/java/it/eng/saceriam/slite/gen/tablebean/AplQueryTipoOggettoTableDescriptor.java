@@ -46,32 +46,32 @@ public class AplQueryTipoOggettoTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_QUERY_TIPO_OGGETTO,
-		new ColumnDescriptor(COL_ID_QUERY_TIPO_OGGETTO, Types.DECIMAL, 22, true));
-	map.put(COL_ID_TIPO_OGGETTO,
-		new ColumnDescriptor(COL_ID_TIPO_OGGETTO, Types.DECIMAL, 22, false));
-	map.put(COL_NM_QUERY_TIPO_OGGETTO,
-		new ColumnDescriptor(COL_NM_QUERY_TIPO_OGGETTO, Types.VARCHAR, 100, false));
-	map.put(COL_TIPO_USO_QUERY,
-		new ColumnDescriptor(COL_TIPO_USO_QUERY, Types.VARCHAR, 30, false));
-	map.put(COL_BL_QUERY_TIPO_OGGETTO,
-		new ColumnDescriptor(COL_BL_QUERY_TIPO_OGGETTO, Types.CLOB, 4000, false));
-	map.put(COL_ID_TIPO_OGGETTO_ACCESSO,
-		new ColumnDescriptor(COL_ID_TIPO_OGGETTO_ACCESSO, Types.DECIMAL, 22, false));
-	map.put(COL_ID_TIPO_OGGETTO_SEL,
-		new ColumnDescriptor(COL_ID_TIPO_OGGETTO_SEL, Types.DECIMAL, 22, false));
+        map.put(COL_ID_QUERY_TIPO_OGGETTO,
+                new ColumnDescriptor(COL_ID_QUERY_TIPO_OGGETTO, Types.DECIMAL, 22, true));
+        map.put(COL_ID_TIPO_OGGETTO,
+                new ColumnDescriptor(COL_ID_TIPO_OGGETTO, Types.DECIMAL, 22, false));
+        map.put(COL_NM_QUERY_TIPO_OGGETTO,
+                new ColumnDescriptor(COL_NM_QUERY_TIPO_OGGETTO, Types.VARCHAR, 100, false));
+        map.put(COL_TIPO_USO_QUERY,
+                new ColumnDescriptor(COL_TIPO_USO_QUERY, Types.VARCHAR, 30, false));
+        map.put(COL_BL_QUERY_TIPO_OGGETTO,
+                new ColumnDescriptor(COL_BL_QUERY_TIPO_OGGETTO, Types.CLOB, 4000, false));
+        map.put(COL_ID_TIPO_OGGETTO_ACCESSO,
+                new ColumnDescriptor(COL_ID_TIPO_OGGETTO_ACCESSO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_TIPO_OGGETTO_SEL,
+                new ColumnDescriptor(COL_ID_TIPO_OGGETTO_SEL, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

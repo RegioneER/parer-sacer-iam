@@ -47,32 +47,32 @@ public class UsrVUnaorgByProdutTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_USER_IAM_COR,
-		new ColumnDescriptor(COL_ID_USER_IAM_COR, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
-	map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
-	map.put(COL_ID_ENTE_PRODUT,
-		new ColumnDescriptor(COL_ID_ENTE_PRODUT, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ORGANIZ_IAM_STRUT,
-		new ColumnDescriptor(COL_ID_ORGANIZ_IAM_STRUT, Types.DECIMAL, 22, true));
-	map.put(COL_ID_APPART_COLLEG_ENTI,
-		new ColumnDescriptor(COL_ID_APPART_COLLEG_ENTI, Types.DECIMAL, 22, true));
-	map.put(COL_ID_ENTE_PRODUT_COLLEG,
-		new ColumnDescriptor(COL_ID_ENTE_PRODUT_COLLEG, Types.DECIMAL, 22, true));
-	map.put(COL_DS_CAUSALE_DICH,
-		new ColumnDescriptor(COL_DS_CAUSALE_DICH, Types.VARCHAR, 57, true));
+        map.put(COL_ID_USER_IAM_COR,
+                new ColumnDescriptor(COL_ID_USER_IAM_COR, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPLIC, new ColumnDescriptor(COL_ID_APPLIC, Types.DECIMAL, 22, true));
+        map.put(COL_NM_APPLIC, new ColumnDescriptor(COL_NM_APPLIC, Types.VARCHAR, 100, true));
+        map.put(COL_ID_ENTE_PRODUT,
+                new ColumnDescriptor(COL_ID_ENTE_PRODUT, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ORGANIZ_IAM_STRUT,
+                new ColumnDescriptor(COL_ID_ORGANIZ_IAM_STRUT, Types.DECIMAL, 22, true));
+        map.put(COL_ID_APPART_COLLEG_ENTI,
+                new ColumnDescriptor(COL_ID_APPART_COLLEG_ENTI, Types.DECIMAL, 22, true));
+        map.put(COL_ID_ENTE_PRODUT_COLLEG,
+                new ColumnDescriptor(COL_ID_ENTE_PRODUT_COLLEG, Types.DECIMAL, 22, true));
+        map.put(COL_DS_CAUSALE_DICH,
+                new ColumnDescriptor(COL_DS_CAUSALE_DICH, Types.VARCHAR, 57, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

@@ -32,13 +32,13 @@ import it.eng.spagoLite.security.exception.AuthWSException;
 public class RestituzioneNewsApplicazione {
     @EJB
     private RestituzioneNewsApplicazioneEjb ejbRef;// Add business logic below. (Right-click in
-						   // editor and choose
+    // editor and choose
     // "Web Service > Add Operation"
 
     @WebMethod(operationName = "restituzioneNewsApplicazione")
     public RestituzioneNewsApplicazioneRisposta restituzioneNewsApplicazione(
-	    @WebParam(name = "nmApplic") String nmApplic) throws AuthWSException {
-	return ejbRef.restituzioneNewsApplicazione(nmApplic);
+            @WebParam(name = "nmApplic") String nmApplic) throws AuthWSException {
+        return ejbRef.restituzioneNewsApplicazione(nmApplic);
     }
 
 }

@@ -32,19 +32,19 @@ public class PrfUsoRuoloApplicTableBean extends AbstractBaseTable<PrfUsoRuoloApp
     public static PrfUsoRuoloApplicTableDescriptor TABLE_DESCRIPTOR = new PrfUsoRuoloApplicTableDescriptor();
 
     public PrfUsoRuoloApplicTableBean() {
-	super();
+        super();
     }
 
     protected PrfUsoRuoloApplicRowBean createRow() {
-	return new PrfUsoRuoloApplicRowBean();
+        return new PrfUsoRuoloApplicRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<PrfUsoRuoloApplicRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

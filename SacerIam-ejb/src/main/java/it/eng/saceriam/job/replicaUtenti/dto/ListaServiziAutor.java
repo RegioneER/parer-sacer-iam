@@ -25,15 +25,15 @@ public class ListaServiziAutor implements Iterable<String> {
     private List<String> nmServizioAutor;
 
     public List<String> getNmServizioAutor() {
-	return nmServizioAutor;
+        return nmServizioAutor;
     }
 
     public void setNmServizioAutor(List<String> nmServizioAutor) {
-	this.nmServizioAutor = nmServizioAutor;
+        this.nmServizioAutor = nmServizioAutor;
     }
 
     @Override
     public Iterator<String> iterator() {
-	return nmServizioAutor.iterator();
+        return nmServizioAutor.iterator();
     }
 }

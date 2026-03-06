@@ -32,19 +32,19 @@ public class OrgVigilEnteProdutTableBean extends AbstractBaseTable<OrgVigilEnteP
     public static OrgVigilEnteProdutTableDescriptor TABLE_DESCRIPTOR = new OrgVigilEnteProdutTableDescriptor();
 
     public OrgVigilEnteProdutTableBean() {
-	super();
+        super();
     }
 
     protected OrgVigilEnteProdutRowBean createRow() {
-	return new OrgVigilEnteProdutRowBean();
+        return new OrgVigilEnteProdutRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<OrgVigilEnteProdutRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

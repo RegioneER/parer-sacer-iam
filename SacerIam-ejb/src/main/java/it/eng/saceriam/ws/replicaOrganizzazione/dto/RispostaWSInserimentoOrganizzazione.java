@@ -29,50 +29,50 @@ public class RispostaWSInserimentoOrganizzazione implements IRispostaWS {
 
     @Override
     public SeverityEnum getSeverity() {
-	return severity;
+        return severity;
     }
 
     @Override
     public void setSeverity(SeverityEnum severity) {
-	this.severity = severity;
+        this.severity = severity;
     }
 
     @Override
     public ErrorTypeEnum getErrorType() {
-	return errorType;
+        return errorType;
     }
 
     @Override
     public void setErrorType(ErrorTypeEnum errorType) {
-	this.errorType = errorType;
+        this.errorType = errorType;
     }
 
     @Override
     public String getErrorMessage() {
-	return errorMessage;
+        return errorMessage;
     }
 
     @Override
     public void setErrorMessage(String errorMessage) {
-	this.errorMessage = errorMessage;
+        this.errorMessage = errorMessage;
     }
 
     @Override
     public String getErrorCode() {
-	return errorCode;
+        return errorCode;
     }
 
     @Override
     public void setErrorCode(String errorCode) {
-	this.errorCode = errorCode;
+        this.errorCode = errorCode;
     }
 
     public InserimentoOrganizzazioneRisposta getInserimentoOrganizzazioneRisposta() {
-	return inserimentoOrganizzazioneRisposta;
+        return inserimentoOrganizzazioneRisposta;
     }
 
     public void setInserimentoOrganizzazioneRisposta(
-	    InserimentoOrganizzazioneRisposta inserimentoOrganizzazioneRisposta) {
-	this.inserimentoOrganizzazioneRisposta = inserimentoOrganizzazioneRisposta;
+            InserimentoOrganizzazioneRisposta inserimentoOrganizzazioneRisposta) {
+        this.inserimentoOrganizzazioneRisposta = inserimentoOrganizzazioneRisposta;
     }
 }

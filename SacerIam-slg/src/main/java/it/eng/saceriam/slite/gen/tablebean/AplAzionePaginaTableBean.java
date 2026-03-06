@@ -32,19 +32,19 @@ public class AplAzionePaginaTableBean extends AbstractBaseTable<AplAzionePaginaR
     public static AplAzionePaginaTableDescriptor TABLE_DESCRIPTOR = new AplAzionePaginaTableDescriptor();
 
     public AplAzionePaginaTableBean() {
-	super();
+        super();
     }
 
     protected AplAzionePaginaRowBean createRow() {
-	return new AplAzionePaginaRowBean();
+        return new AplAzionePaginaRowBean();
     }
 
     public TableDescriptor getTableDescriptor() {
-	return TABLE_DESCRIPTOR;
+        return TABLE_DESCRIPTOR;
     }
 
     @Deprecated
     public Iterator<AplAzionePaginaRowBean> getRowsIterator() {
-	return iterator();
+        return iterator();
     }
 }

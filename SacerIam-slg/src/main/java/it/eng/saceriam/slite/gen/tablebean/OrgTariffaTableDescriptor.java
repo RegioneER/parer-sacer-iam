@@ -48,32 +48,32 @@ public class OrgTariffaTableDescriptor extends TableDescriptor {
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
     static {
-	map.put(COL_ID_TARIFFA, new ColumnDescriptor(COL_ID_TARIFFA, Types.DECIMAL, 22, true));
-	map.put(COL_ID_TARIFFARIO,
-		new ColumnDescriptor(COL_ID_TARIFFARIO, Types.DECIMAL, 22, false));
-	map.put(COL_NM_TARIFFA, new ColumnDescriptor(COL_NM_TARIFFA, Types.VARCHAR, 100, false));
-	map.put(COL_DS_TARIFFA, new ColumnDescriptor(COL_DS_TARIFFA, Types.VARCHAR, 254, false));
-	map.put(COL_ID_TIPO_SERVIZIO,
-		new ColumnDescriptor(COL_ID_TIPO_SERVIZIO, Types.DECIMAL, 22, false));
-	map.put(COL_ID_CLASSE_ENTE_CONVENZ,
-		new ColumnDescriptor(COL_ID_CLASSE_ENTE_CONVENZ, Types.DECIMAL, 22, false));
-	map.put(COL_TIPO_TARIFFA, new ColumnDescriptor(COL_TIPO_TARIFFA, Types.VARCHAR, 40, false));
-	map.put(COL_IM_VALORE_FISSO_TARIFFA,
-		new ColumnDescriptor(COL_IM_VALORE_FISSO_TARIFFA, Types.DECIMAL, 22, false));
-	map.put(COL_NI_QUANTITA_UNIT,
-		new ColumnDescriptor(COL_NI_QUANTITA_UNIT, Types.DECIMAL, 22, false));
+        map.put(COL_ID_TARIFFA, new ColumnDescriptor(COL_ID_TARIFFA, Types.DECIMAL, 22, true));
+        map.put(COL_ID_TARIFFARIO,
+                new ColumnDescriptor(COL_ID_TARIFFARIO, Types.DECIMAL, 22, false));
+        map.put(COL_NM_TARIFFA, new ColumnDescriptor(COL_NM_TARIFFA, Types.VARCHAR, 100, false));
+        map.put(COL_DS_TARIFFA, new ColumnDescriptor(COL_DS_TARIFFA, Types.VARCHAR, 254, false));
+        map.put(COL_ID_TIPO_SERVIZIO,
+                new ColumnDescriptor(COL_ID_TIPO_SERVIZIO, Types.DECIMAL, 22, false));
+        map.put(COL_ID_CLASSE_ENTE_CONVENZ,
+                new ColumnDescriptor(COL_ID_CLASSE_ENTE_CONVENZ, Types.DECIMAL, 22, false));
+        map.put(COL_TIPO_TARIFFA, new ColumnDescriptor(COL_TIPO_TARIFFA, Types.VARCHAR, 40, false));
+        map.put(COL_IM_VALORE_FISSO_TARIFFA,
+                new ColumnDescriptor(COL_IM_VALORE_FISSO_TARIFFA, Types.DECIMAL, 22, false));
+        map.put(COL_NI_QUANTITA_UNIT,
+                new ColumnDescriptor(COL_NI_QUANTITA_UNIT, Types.DECIMAL, 22, false));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {
-	return map;
+        return map;
     }
 
     public String getTableName() {
-	return TABLE_NAME;
+        return TABLE_NAME;
     }
 
     public String getStatement() {
-	return SELECT;
+        return SELECT;
     }
 
 }

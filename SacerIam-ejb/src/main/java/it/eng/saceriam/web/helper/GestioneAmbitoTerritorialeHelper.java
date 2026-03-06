@@ -35,60 +35,60 @@ import it.eng.saceriam.helper.GenericHelper;
 public class GestioneAmbitoTerritorialeHelper extends GenericHelper {
 
     public List<OrgAmbitoTerrit> getOrgAmbitoTerritList(String tipo) {
-	// Query nativa
-	StringBuilder queryStr = new StringBuilder("SELECT * " + " FROM ORG_AMBITO_TERRIT a");
+        // Query nativa
+        StringBuilder queryStr = new StringBuilder("SELECT * " + " FROM ORG_AMBITO_TERRIT a");
 
-	if (tipo != null) {
-	    queryStr.append(" WHERE a.ti_ambito_territ LIKE '").append(tipo).append("'");
-	}
+        if (tipo != null) {
+            queryStr.append(" WHERE a.ti_ambito_territ LIKE '").append(tipo).append("'");
+        }
 
-	queryStr.append(" CONNECT BY PRIOR a.id_ambito_territ =  a.id_ambito_territ_padre"
-		+ " START WITH a.id_ambito_territ_padre is null "
-		+ " ORDER SIBLINGS BY a.cd_ambito_territ ASC");
+        queryStr.append(" CONNECT BY PRIOR a.id_ambito_territ =  a.id_ambito_territ_padre"
+                + " START WITH a.id_ambito_territ_padre is null "
+                + " ORDER SIBLINGS BY a.cd_ambito_territ ASC");
 
-	Query query = getEntityManager().createNativeQuery(queryStr.toString(),
-		OrgAmbitoTerrit.class);
+        Query query = getEntityManager().createNativeQuery(queryStr.toString(),
+                OrgAmbitoTerrit.class);
 
-	List<OrgAmbitoTerrit> list = query.getResultList();
+        List<OrgAmbitoTerrit> list = query.getResultList();
 
-	if (list.isEmpty()) {
-	    return null;
-	}
+        if (list.isEmpty()) {
+            return null;
+        }
 
-	return list;
+        return list;
     }
 
     public OrgAmbitoTerrit getOrgAmbitoTerritByCode(String cdAmbitoTerritoriale) {
-	String queryStr = "SELECT a " + "FROM OrgAmbitoTerrit a "
-		+ "WHERE a.cdAmbitoTerrit = :cdAmbitoTerritoriale";
+        String queryStr = "SELECT a " + "FROM OrgAmbitoTerrit a "
+                + "WHERE a.cdAmbitoTerrit = :cdAmbitoTerritoriale";
 
-	Query query = getEntityManager().createQuery(queryStr);
-	query.setParameter("cdAmbitoTerritoriale", cdAmbitoTerritoriale);
-	List<OrgAmbitoTerrit> list = query.getResultList();
+        Query query = getEntityManager().createQuery(queryStr);
+        query.setParameter("cdAmbitoTerritoriale", cdAmbitoTerritoriale);
+        List<OrgAmbitoTerrit> list = query.getResultList();
 
-	if (list.isEmpty()) {
+        if (list.isEmpty()) {
 
-	    return null;
-	}
-	return list.get(0);
+            return null;
+        }
+        return list.get(0);
 
     }
 
     public List<OrgAmbitoTerrit> getOrgAmbitoTerritChildList(BigDecimal idAmbitoTerritoriale) {
 
-	String queryStr = "SELECT a " + "FROM OrgAmbitoTerrit a "
-		+ "WHERE a.orgAmbitoTerrit.idAmbitoTerrit = :idAmbitoTerritoriale";
+        String queryStr = "SELECT a " + "FROM OrgAmbitoTerrit a "
+                + "WHERE a.orgAmbitoTerrit.idAmbitoTerrit = :idAmbitoTerritoriale";
 
-	Query query = getEntityManager().createQuery(queryStr);
+        Query query = getEntityManager().createQuery(queryStr);
 
-	query.setParameter("idAmbitoTerritoriale", longFrom(idAmbitoTerritoriale));
+        query.setParameter("idAmbitoTerritoriale", longFrom(idAmbitoTerritoriale));
 
-	List<OrgAmbitoTerrit> list = query.getResultList();
+        List<OrgAmbitoTerrit> list = query.getResultList();
 
-	if (list.isEmpty()) {
-	    return null;
-	}
-	return list;
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list;
 
     }
 
@@ -101,33 +101,33 @@ public class GestioneAmbitoTerritorialeHelper extends GenericHelper {
      */
     @Deprecated
     public List<OrgAmbitoTerrit> getOrgAmbitoTerritChildList(List<BigDecimal> idAmbitoTerrit) {
-	List<OrgAmbitoTerrit> list = null;
-	if (!idAmbitoTerrit.isEmpty()) {
-	    String queryStr = "SELECT a " + "FROM OrgAmbitoTerrit a "
-		    + "WHERE a.orgAmbitoTerrit.idAmbitoTerrit IN (:idAmbitoTerrit)";
-	    Query query = getEntityManager().createQuery(queryStr);
-	    query.setParameter("idAmbitoTerrit", idAmbitoTerrit);
-	    list = query.getResultList();
-	    if (list.isEmpty()) {
-		return null;
-	    }
-	}
-	return list;
+        List<OrgAmbitoTerrit> list = null;
+        if (!idAmbitoTerrit.isEmpty()) {
+            String queryStr = "SELECT a " + "FROM OrgAmbitoTerrit a "
+                    + "WHERE a.orgAmbitoTerrit.idAmbitoTerrit IN (:idAmbitoTerrit)";
+            Query query = getEntityManager().createQuery(queryStr);
+            query.setParameter("idAmbitoTerrit", idAmbitoTerrit);
+            list = query.getResultList();
+            if (list.isEmpty()) {
+                return null;
+            }
+        }
+        return list;
     }
 
     public Long countOrgEnteConvenzByAmbitoTerrit(BigDecimal idAmbitoTerrit) {
-	String queryStr = "SELECT COUNT(enteSiam) FROM OrgEnteSiam enteSiam WHERE enteSiam.idAmbitoTerrit = :idAmbitoTerrit";
-	Query query = getEntityManager().createQuery(queryStr);
-	query.setParameter("idAmbitoTerrit", idAmbitoTerrit);
-	Long enti = (Long) query.getSingleResult();
-	return enti;
+        String queryStr = "SELECT COUNT(enteSiam) FROM OrgEnteSiam enteSiam WHERE enteSiam.idAmbitoTerrit = :idAmbitoTerrit";
+        Query query = getEntityManager().createQuery(queryStr);
+        query.setParameter("idAmbitoTerrit", idAmbitoTerrit);
+        Long enti = (Long) query.getSingleResult();
+        return enti;
     }
 
     public Long countOrgStoEnteConvenzByAmbitoTerrit(BigDecimal idAmbitoTerrit) {
-	String queryStr = "SELECT COUNT(stoEnteConvenz) FROM OrgStoEnteConvenz stoEnteConvenz WHERE stoEnteConvenz.idAmbitoTerrit = :idAmbitoTerrit";
-	Query query = getEntityManager().createQuery(queryStr);
-	query.setParameter("idAmbitoTerrit", idAmbitoTerrit);
-	Long enti = (Long) query.getSingleResult();
-	return enti;
+        String queryStr = "SELECT COUNT(stoEnteConvenz) FROM OrgStoEnteConvenz stoEnteConvenz WHERE stoEnteConvenz.idAmbitoTerrit = :idAmbitoTerrit";
+        Query query = getEntityManager().createQuery(queryStr);
+        query.setParameter("idAmbitoTerrit", idAmbitoTerrit);
+        Long enti = (Long) query.getSingleResult();
+        return enti;
     }
 }
