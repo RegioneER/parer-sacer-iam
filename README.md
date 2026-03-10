@@ -1117,3 +1117,4 @@ Il problema riscontrato a causa della mancata invocazione di check_node.jstree e
 ajaxSelectNode(id_node, nodePath, id_dich_autor, "selectAzioneNode");
 ```
 Di conseguenza non veniva valorizzato il campo idDichAuthor di RoleTree.java. 
+
