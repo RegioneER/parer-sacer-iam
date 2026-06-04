@@ -14,7 +14,6 @@
 package it.eng.saceriam.amministrazioneEntiNonConvenzionati.ejb;
 
 import it.eng.parer.sacerlog.ejb.SacerLogEjb;
-import it.eng.parer.sacerlog.ejb.util.ObjectsToLogBefore;
 import it.eng.parer.sacerlog.util.LogParam;
 import it.eng.saceriam.amministrazioneEntiConvenzionati.ejb.EntiConvenzionatiEjb;
 import it.eng.saceriam.amministrazioneEntiConvenzionati.helper.EntiConvenzionatiHelper;
@@ -31,12 +30,15 @@ import it.eng.saceriam.entity.OrgEnteSiam;
 import it.eng.saceriam.entity.OrgEnteUserRif;
 import it.eng.saceriam.entity.OrgSuptEsternoEnteConvenz;
 import it.eng.saceriam.entity.OrgVigilEnteProdut;
+import it.eng.saceriam.entity.PrfRuoloCategoria;
 import it.eng.saceriam.entity.UsrAbilEnteSiam;
 import it.eng.saceriam.entity.UsrOrganizIam;
 import it.eng.saceriam.entity.UsrUser;
+import it.eng.saceriam.entity.UsrUsoRuoloUserDefault;
 import it.eng.saceriam.entity.UsrUsoUserApplic;
 import it.eng.saceriam.entity.constraint.ConstOrgAmbitoTerrit;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam;
+import it.eng.saceriam.entity.constraint.ConstPrfRuoloCategoria;
 import it.eng.saceriam.entity.constraint.ConstUsrStatoUser;
 import it.eng.saceriam.exception.ParerUserError;
 import it.eng.saceriam.helper.ParamHelper;
@@ -79,7 +81,6 @@ import it.eng.saceriam.web.util.Transform;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -90,7 +91,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -314,14 +314,32 @@ public class EntiNonConvenzionatiEjb {
             // Annulla il valore di default di PRODUTTORE
             ente.setTiEnteConvenz(null);
 
-            // Aggiunta abilitazioni ente non convenzionato per gli utenti interessati (utenti che
-            // appartengono all’ente
-            // di tipo AMMINISTRATORE e agli enti di tipo CONSERVATORE)
-            List<UsrUser> utenti = utentiHelper.retrieveUsrUserEnteSiamAppart(null,
+            // // Aggiunta abilitazioni ente non convenzionato per gli utenti interessati (utenti
+            // che
+            // // appartengono all’ente
+            // // di tipo AMMINISTRATORE e agli enti di tipo CONSERVATORE)
+            // List<UsrUser> utenti = utentiHelper.retrieveUsrUserEnteSiamAppart(null,
+            // Collections.singletonMap("IN",
+            // Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE,
+            // ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE,
+            // ConstOrgEnteSiam.TiEnteConvenz.GESTORE)),
+            // Collections.singletonMap("NOT IN",
+            // Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
+            // Collections.singletonMap("IN",
+            // Arrays.asList(ApplEnum.TipoUser.PERSONA_FISICA.name())));
+
+            // Aggiunta abilitazioni per gli utenti PERSONA_FISICA interessati
+            // (utenti che possiedono un ruolo di categoria Amministrazione, Conservazione o
+            // Gestione)
+            List<Long> utenti = utentiHelper.retrieveUsrUserByCategoriaRuolo(
                     Collections.singletonMap("IN",
-                            Arrays.asList(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE,
-                                    ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE,
-                                    ConstOrgEnteSiam.TiEnteConvenz.GESTORE)),
+                            Arrays.asList(
+                                    ConstPrfRuoloCategoria.TiCategRuolo.amministrazione.name(),
+                                    ConstPrfRuoloCategoria.TiCategRuolo.conservazione.name(),
+                                    ConstPrfRuoloCategoria.TiCategRuolo.gestione.name())), // <--
+                                                                                           // Filtro
+                                                                                           // Categorie
+                                                                                           // Ruolo
                     Collections.singletonMap("NOT IN",
                             Arrays.asList(ConstUsrStatoUser.TiStatotUser.CESSATO.name())),
                     Collections.singletonMap("IN",
@@ -332,15 +350,20 @@ public class EntiNonConvenzionatiEjb {
             abilEnteSiam.setUsrUser(userIamCor);
             abilEnteSiam.setOrgEnteSiam(ente);
             abilEnteSiam.setFlAbilAutomatica("1");
-            String tiEnteConvenzStr = (userIamCor.getOrgEnteSiam().getTiEnteConvenz()
-                    .equals(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE))
-                            ? ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE.name().toLowerCase()
-                            : ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE.name().toLowerCase();
-            abilEnteSiam.setDsCausaleAbil("Appartenenza ad ente " + tiEnteConvenzStr);
+            // String tiEnteConvenzStr = (userIamCor.getOrgEnteSiam().getTiEnteConvenz()
+            // .equals(ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE))
+            // ? ConstOrgEnteSiam.TiEnteConvenz.AMMINISTRATORE.name().toLowerCase()
+            // : ConstOrgEnteSiam.TiEnteConvenz.CONSERVATORE.name().toLowerCase();
+            // abilEnteSiam.setDsCausaleAbil("Appartenenza ad ente " + tiEnteConvenzStr);
+            // Recupero la stringa completa delle categorie
+            String causaleCompleta = userHelper.getCausaleAbilitante(userIamCor);
+            abilEnteSiam.setDsCausaleAbil(causaleCompleta);
             helper.insertEntity(abilEnteSiam, true);
 
-            for (UsrUser utente : utenti) {
-                userHelper.aggiungiAbilEnteNoconv(idUserIamCor.longValue(), utente.getIdUserIam());
+            for (Long idUserIam : utenti) {
+                // userHelper.aggiungiAbilEnteNoconv(idUserIamCor.longValue(),
+                // utente.getIdUserIam());
+                userHelper.aggiungiAbilEnteNoconvByRuolo(idUserIamCor.longValue(), idUserIam);
             }
 
             LOGGER.debug("Salvataggio dell'ente non convenzionato completato");
@@ -981,17 +1004,6 @@ public class EntiNonConvenzionatiEjb {
             BigDecimal idEnteConvenzSupt = BigDecimal
                     .valueOf(suptEstEnteConvenz.getOrgEnteSiamByIdEnteProdut().getIdEnteSiam());
 
-            // Determino la lista degli oggetti PRIMA della modifica
-            List<ObjectsToLogBefore> listaOggettiDaLoggarePrima = sacerLogEjb.logBefore(
-                    param.getTransactionLogContext(), param.getNomeApplicazione(),
-                    param.getNomeUtente(), param.getNomeAzione(),
-                    tipoEnte.equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())
-                            ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
-                            : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
-                    new BigDecimal(
-                            suptEstEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam()),
-                    param.getNomePagina());
-
             helper.removeEntity(suptEstEnteConvenz, true);
 
             sacerLogEjb.log(param.getTransactionLogContext(), param.getNomeApplicazione(),
@@ -1052,33 +1064,6 @@ public class EntiNonConvenzionatiEjb {
                      */
                     userHelper.eliminaAbilTipiDatoSupest(utente.getIdUserIam());
                 }
-
-                // Determino la lista degli oggetti DOPO la modifica
-                List<ObjectsToLogBefore> listaOggettiDaLoggareDopo = sacerLogEjb.logBefore(
-                        param.getTransactionLogContext(), param.getNomeApplicazione(),
-                        param.getNomeUtente(), param.getNomeAzione(),
-                        tipoEnte.equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())
-                                ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
-                                : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
-                        new BigDecimal(suptEstEnteConvenz.getOrgEnteSiamByIdEnteFornitEst()
-                                .getIdEnteSiam()),
-                        param.getNomePagina());
-
-                if (!listaOggettiDaLoggarePrima.isEmpty() && !listaOggettiDaLoggareDopo.isEmpty()) {
-                    // Calcolo la differenza tra listaOggettiDaLoggarePrima e
-                    // listaOggettiDaLoggareDopo:
-                    List<BigDecimal> listaIdOggetti = listaOggettiDaLoggarePrima.get(0)
-                            .getIdOggetto().stream().filter(u1 -> listaOggettiDaLoggareDopo.get(0)
-                                    .getIdOggetto().stream().noneMatch(u2 -> u2.equals(u1)))
-                            .collect(Collectors.toList());
-                    // Aggiorno la lista degli oggetti nella listaOggettiDaLoggareDopo da passare
-                    // alla logAfter
-                    listaOggettiDaLoggareDopo.get(0).setIdOggetto(listaIdOggetti);
-                }
-
-                sacerLogEjb.logAfter(param.getTransactionLogContext(), param.getNomeApplicazione(),
-                        param.getNomeUtente(), param.getNomeAzione(), listaOggettiDaLoggareDopo,
-                        param.getNomePagina());
             }
         } catch (Exception e) {
             String messaggio = "Eccezione imprevista nell'eliminazione dell'ente supportato ";
@@ -1632,17 +1617,6 @@ public class EntiNonConvenzionatiEjb {
 
         helper.insertEntity(suptEsternoEnteConvenz, true);
 
-        // Determino la lista degli oggetti PRIMA della modifica
-        List<ObjectsToLogBefore> listaOggettiDaLoggarePrima = sacerLogEjb.logBefore(
-                param.getTransactionLogContext(), param.getNomeApplicazione(),
-                param.getNomeUtente(), param.getNomeAzione(),
-                tipoEnte.equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())
-                        ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
-                        : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
-                new BigDecimal(
-                        suptEsternoEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam()),
-                param.getNomePagina());
-
         // determino utenti PERSONA_FISICA che appartengono ad enti produttori (diversi da
         // amministratore) supportati da
         // fornitore
@@ -1694,35 +1668,9 @@ public class EntiNonConvenzionatiEjb {
                         userHelper.aggiungiAbilOrganizFornit(idUserIamCor, utente.getIdUserIam());
 
                         userHelper.aggiungiAbilDatiFornit(idUserIamCor, utente.getIdUserIam());
-
                     }
-
                 }
-
             }
-
-        }
-
-        // Determino la lista degli oggetti DOPO la modifica
-        List<ObjectsToLogBefore> listaOggettiDaLoggareDopo = sacerLogEjb.logBefore(
-                param.getTransactionLogContext(), param.getNomeApplicazione(),
-                param.getNomeUtente(), param.getNomeAzione(),
-                tipoEnte.equals(ConstOrgEnteSiam.TiEnteNonConvenz.FORNITORE_ESTERNO.name())
-                        ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
-                        : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
-                new BigDecimal(
-                        suptEsternoEnteConvenz.getOrgEnteSiamByIdEnteFornitEst().getIdEnteSiam()),
-                param.getNomePagina());
-
-        if (!listaOggettiDaLoggarePrima.isEmpty() && !listaOggettiDaLoggareDopo.isEmpty()) {
-            // Calcolo la differenza tra listaOggettiDaLoggarePrima e listaOggettiDaLoggareDopo:
-            List<BigDecimal> listaIdOggetti = listaOggettiDaLoggareDopo
-                    .get(0).getIdOggetto().stream().filter(u2 -> listaOggettiDaLoggarePrima.get(0)
-                            .getIdOggetto().stream().noneMatch(u1 -> u1.equals(u2)))
-                    .collect(Collectors.toList());
-            // Aggiorno la lista degli oggetti nella listaOggettiDaLoggareDopo da passare alla
-            // logAfter
-            listaOggettiDaLoggareDopo.get(0).setIdOggetto(listaIdOggetti);
         }
 
         LOGGER.debug("Salvataggio dell'ente supportato completato");
@@ -1734,10 +1682,6 @@ public class EntiNonConvenzionatiEjb {
                         ? SacerLogConstants.TIPO_OGGETTO_FORNITORE_ESTERNO
                         : SacerLogConstants.TIPO_OGGETTO_SOGGETTO_ATTUATORE,
                 idEnteFornitEst, param.getNomePagina());
-        sacerLogEjb.logAfter(param.getTransactionLogContext(), param.getNomeApplicazione(),
-                param.getNomeUtente(), param.getNomeAzione(), listaOggettiDaLoggareDopo,
-                param.getNomePagina());
-
         return suptEsternoEnteConvenz.getIdSuptEstEnteConvenz();
     }
 

@@ -37,6 +37,8 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class AuditSessionListener implements HttpSessionListener {
 
+    private static final Logger log = LoggerFactory.getLogger(AuditSessionListener.class);
+
     @EJB
     private LoginLogHelper loginLogHelper;
 
@@ -59,6 +61,7 @@ public class AuditSessionListener implements HttpSessionListener {
         // solo dei casi (la vera fine della sessione applicativa) queste
         // variabili sono ancora in sessione. Ovviamente è questo il punto in
         // cui l'evento deve essere loggato sul db
+        log.info("sessionDestroyed utente={}", tmpUser);
         if (tmpUser != null && ipVers != null) {
             loginLogHelper.writeLogEvento(tmpUser, ipVers, LoginLogHelper.TipiEvento.LOGOUT);
         }

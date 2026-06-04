@@ -132,7 +132,8 @@ public class SceltaOrganizzazioneAction extends ActionBase {
             // non è riferita da alcun link nell'interfaccia.
 
             String ipVers = getIpClient();
-            logger.info("Indirizzo IP del chiamante - access: web - IP: {}", ipVers);
+            logger.info("Indirizzo IP del chiamante - access: web - IP: {}, utente {}", ipVers,
+                    utente);
             loginLogHelper.writeLogEvento(utente, ipVers, LoginLogHelper.TipiEvento.LOGIN);
             getSession().setAttribute(AuditSessionListener.CLIENT_IP_ADDRESS, ipVers);
         }

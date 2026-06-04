@@ -10256,6 +10256,67 @@ public class EntiConvenzionatiEjb {
         return table;
     }
 
+    public BaseTable getCdVersioneAppIniBaseTable() {
+        BaseTable table = new BaseTable();
+        List<String> cdVersioneAppIniList = helper.getCdVersioneAppIni();
+        if (cdVersioneAppIniList != null && !cdVersioneAppIniList.isEmpty()) {
+            try {
+                for (String row : cdVersioneAppIniList) {
+                    BaseRowInterface r = new BaseRow();
+                    r.setString(IamParamApplicTableDescriptor.COL_CD_VERSIONE_APP_INI, row);
+                    table.add(r);
+                }
+            } catch (Exception e) {
+                LOGGER.error("Errore durante il recupero delle versioni iniziali applicative", e);
+            }
+        }
+        return table;
+    }
+
+    public BaseTable getCdVersioneAppFineBaseTable() {
+        BaseTable table = new BaseTable();
+        List<String> cdVersioneAppFineList = helper.getCdVersioneAppFine();
+        if (cdVersioneAppFineList != null && !cdVersioneAppFineList.isEmpty()) {
+            try {
+                for (String row : cdVersioneAppFineList) {
+                    BaseRowInterface r = new BaseRow();
+                    r.setString(IamParamApplicTableDescriptor.COL_CD_VERSIONE_APP_FINE, row);
+                    table.add(r);
+                }
+            } catch (Exception e) {
+                LOGGER.error("Errore durante il recupero delle versioni finali applicative", e);
+            }
+        }
+        return table;
+    }
+
+    public IamParamApplicRowBean getIamParamApplicRowBean(BigDecimal idParamApplic) {
+        IamParamApplicRowBean paramApplicRowBean = null;
+        if (idParamApplic == null) {
+            return null;
+        }
+
+        IamParamApplic paramApplic = helper.findById(IamParamApplic.class,
+                idParamApplic.longValue());
+        if (paramApplic != null) {
+            try {
+                paramApplicRowBean = (IamParamApplicRowBean) Transform.entity2RowBean(paramApplic);
+                paramApplicRowBean.setString("ds_valore_param_applic", "");
+                for (IamValoreParamApplic valoreParamApplic : paramApplic
+                        .getIamValoreParamApplics()) {
+                    if (valoreParamApplic.getTiAppart().equals("APPLIC")) {
+                        paramApplicRowBean.setString("ds_valore_param_applic",
+                                valoreParamApplic.getDsValoreParamApplic());
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.error("Errore durante il recupero del parametro applicativo", e);
+            }
+        }
+
+        return paramApplicRowBean;
+    }
+
     public BaseTable getTiGestioneParamBaseTable() {
         BaseTable table = new BaseTable();
         List<String> tiGestioneParamList = helper.getTiGestioneParam();

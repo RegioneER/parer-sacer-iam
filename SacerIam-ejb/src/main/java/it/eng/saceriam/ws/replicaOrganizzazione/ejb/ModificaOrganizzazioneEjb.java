@@ -175,9 +175,8 @@ public class ModificaOrganizzazioneEjb {
                 // Scrivo gli utenti da replicare nel log
                 for (BigDecimal idUserIam : usersToReply) {
                     // 5° LOG DEBUG
-                    log.debug(
-                            "Modifica Organizzazione - Procedo ad elaborare l'utente " + idUserIam
-                                    + " per l'applicazione " + moExt.getIdApplic());
+                    log.debug("Modifica Organizzazione - Procedo ad elaborare l'utente " + idUserIam
+                            + " per l'applicazione " + moExt.getIdApplic());
                     goh.registraUtenteDaReplicare(idUserIam, moExt.getIdApplic(), rispostaWs);
                     log.debug("Modifica Organizzazione - Utente {}", idUserIam
                             + " inserito tra gli utenti da replicare in LOG_USER_DA_REPLIC");

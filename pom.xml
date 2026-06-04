@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>saceriam-jboss</artifactId>
-    <version>7.7.1-SNAPSHOT</version>
+    <version>7.8.0</version>
     <packaging>pom</packaging>
     <name>SacerIam</name>
     <description>Progetto SACERIAM</description>
@@ -16,30 +16,30 @@
         <!-- Skiptests by default : esecuzione su CI 2.6.0-->
         <skipTests>true</skipTests>
         <!-- spagofat bom -->
-        <spagofat.version>7.4.0</spagofat.version>
+        <spagofat.version>7.6.0</spagofat.version>
         <idp-jaas-rdbms.version>0.0.9</idp-jaas-rdbms.version>
         <!-- third party libraries -->
         <naming-java.version>0.8</naming-java.version>
         <xml-resolver.version>1.2.0.redhat-12</xml-resolver.version>
         <javacsv.version>2.0</javacsv.version>
         <!-- tika -->
-        <tika.version>3.2.3</tika.version>        
+        <tika.version>3.3.0</tika.version>        
         <!-- jaxp-jdk11 -->
         <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>     
     </properties>
-<distributionManagement>
-        <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
-        </repository>      
-    </distributionManagement>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/RegioneER/parer-sacer-iam</url>
+    </repository>
+  </distributionManagement>
 
-<repositories>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
-        </repository>          
-     </repositories>
+  <repositories>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>
+    </repository>
+  </repositories>
     <modules>
         <module>SacerIam-ear</module>
         <module>SacerIam-slg</module>
@@ -266,8 +266,8 @@
             </plugin>
         </plugins>
     </reporting>
-<scm>
-        <developerConnection>scm:git:https://github.com/RegioneER/parer.sacer.iam.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+  <scm>
+    <developerConnection>scm:git:https://github.com/RegioneER/parer.sacer.iam.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 </project>

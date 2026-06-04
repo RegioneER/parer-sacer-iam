@@ -182,9 +182,9 @@ public class AssociazioneUtenteAction extends ActionBase {
                             EncryptionUtil.Aes.BIT_256), StandardCharsets.UTF_8);
                     String saluto = MessageUtil.getSalutoPerOrario();
                     getMessageBox().addWarning(saluto + " " + nome + " " + cognome
-                            + ", al suo utente SPID non sono associati diritti di accesso al sistema."
-                            + " Se è già in possesso di un account valido per l’accesso al sistema può associare l’utenza SPID a quell’account, ottenendo i diritti di accesso corrispondenti anche nel caso di accesso con SPID. È necessario conoscere username e password dell’account esistente. "
-                            + "Se ritiene di dover accedere al sistema ma non ha ancora un account, oppure ha dimenticato lo username o la password che le sono state fornite, è possibile contattare il nostro service desk, scrivendo a helpdeskparer@regione.emilia-romagna.it per chiedere l’attivazione dell’utenza SPID, e seguendo le indicazioni che verranno fornite.");
+                            + ", al suo utente SPID/CIE non sono associati diritti di accesso al sistema."
+                            + " Se è già in possesso di un account valido per l’accesso al sistema può associare l’utenza SPID/CIE a quell’account, ottenendo i diritti di accesso corrispondenti anche nel caso di accesso con SPID/CIE. È necessario conoscere username e password dell’account esistente. "
+                            + "Se ritiene di dover accedere al sistema ma non ha ancora un account, oppure ha dimenticato lo username o la password che le sono state fornite, è possibile contattare il nostro service desk, scrivendo a helpdeskparer@regione.emilia-romagna.it per chiedere l’attivazione dell’utenza SPID/CIE, e seguendo le indicazioni che verranno fornite.");
                 }
             }
         }

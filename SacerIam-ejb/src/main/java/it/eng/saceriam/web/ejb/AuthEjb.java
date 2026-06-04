@@ -153,6 +153,7 @@ import it.eng.saceriam.ws.dto.FileBinario;
 import it.eng.saceriam.ws.ejb.WsIdpLogger;
 import it.eng.spagoCore.error.EMFError;
 import it.eng.spagoLite.security.auth.PwdUtil;
+import java.util.Arrays;
 
 /**
  *
@@ -1529,6 +1530,46 @@ public class AuthEjb {
         ruoloEntity.setTiRuolo(ruolo.getTiRuolo());
         ruoloEntity.setFlAllineamentoInCorso("0");
 
+        boolean ricalcoloMassivoNecessario = false;
+        if (modifica) {
+            long idRuo = ruolo.getIdRuolo().longValue();
+            List<String> catTarget = Arrays.asList("amministrazione", "conservazione", "gestione");
+
+            // 1. STATO "PRIMA" (Query native)
+            boolean eraSacerIam = userHelper.isRuoloAssociatoASacerIam(idRuo);
+            Set<String> catNobiliPrima = userHelper.getCategorieNobiliRuolo(idRuo);
+
+            // 2. STATO "DOPO" (Dal TableBean delle Applicazioni)
+            boolean èSacerIamAdesso = false;
+            for (PrfUsoRuoloApplicRowBean a : usoRuoloApplicTableBean) {
+                // r.getString("nm_applic") deve essere il nome dell'applicazione nella riga
+                if ("SACER_IAM".equals(a.getString("nm_applic"))) {
+                    èSacerIamAdesso = true;
+                    break;
+                }
+            }
+
+            // 3. STATO "DOPO" (Dal TableBean delle Categorie)
+            Set<String> catNobiliDopo = new HashSet<>();
+            for (PrfRuoloCategoriaRowBean c : ruoloCategoriaTableBean) {
+                String cat = c.getTiCategRuolo();
+                if (cat != null && catTarget.contains(cat)) {
+                    catNobiliDopo.add(cat);
+                }
+            }
+
+            // 4. CONFRONTO LOGICO
+            // A) Il ruolo è entrato o uscito da SACER_IAM
+            boolean applicazioneCambiata = (eraSacerIam != èSacerIamAdesso);
+            // B) Il ruolo era e resta SACER_IAM ma le categorie amministrative sono cambiate
+            boolean categorieCambiate = !catNobiliPrima.equals(catNobiliDopo);
+
+            if (applicazioneCambiata || (èSacerIamAdesso && categorieCambiate)) {
+                ricalcoloMassivoNecessario = true;
+                log.info("Check Ruolo: Ricalcolo massivo necessario per " + ruolo.getNmRuolo());
+            }
+        }
+
         String destAllinea1 = paramHelper.getValoreParamApplic(
                 ConstIamParamApplic.NmParamApplic.DESTINATARIO_ALLINEA_RUOLI_1.name(), null, null,
                 it.eng.saceriam.common.Constants.TipoIamVGetValAppart.APPLIC);
@@ -1613,6 +1654,23 @@ public class AuthEjb {
          * Inserisco o modifico i campi delle categorie associate al ruolo (agisco su
          * PrfRuoloCategoria)
          */
+        // // MEV #39451: recupero l'info per capire se dovrò allineare gli utenti di questo ruolo
+        // // agli enti NON convenzionati sulla base della categoria ruolo. Quindi...
+        // // Recupero le categorie ATTUALI (prima della modifica, se sono in modifica e non in
+        // inserimento che non mi interessa)
+        // Set<String> categoriePrima = new HashSet<>();
+        // if (modifica) {
+        // PrfRuolo ruoloDB = userHelper.findById(PrfRuolo.class, ruoloEntity.getIdRuolo());
+        // if (ruoloDB.getPrfRuoloCategorias() != null) {
+        // ruoloDB.getPrfRuoloCategorias().forEach(c -> categoriePrima.add(c.getTiCategRuolo()));
+        // }
+        // }
+        //
+        // boolean categorieModificate = false;
+        // List<String> categorieTarget = Arrays.asList("amministrazione", "conservazione",
+        // "gestione");
+
+        // Logica esistente di aggiornamento/inserimento delle categorie
         for (PrfRuoloCategoriaRowBean ruoloCategoriaRowBean : ruoloCategoriaTableBean) {
             PrfRuoloCategoria ruoloCategoriaTmp;
             if (ruoloCategoriaRowBean.getIdRuoloCategoria() != null) {
@@ -1626,6 +1684,19 @@ public class AuthEjb {
             ruoloCategoriaList.add(ruoloCategoriaTmp);
             ruoloEntity.setPrfRuoloCategorias(ruoloCategoriaList);
         }
+
+        //
+        // // Verifico se il set finale delle categorie è diverso da quello iniziale
+        // // (oppure più semplicemente: se abbiamo aggiunto o se la dimensione è cambiata)
+        // Set<String> categorieDopo = new HashSet<>();
+        // ruoloCategoriaList.forEach(c -> categorieDopo.add(c.getTiCategRuolo()));
+        //
+        // if (!categoriePrima.equals(categorieDopo)) {
+        // // Se anche solo una categoria è stata aggiunta o rimossa
+        // categorieModificate = true;
+        // }
+        //
+        // // end MEV #39451
 
         /*
          * Inserisco o modifico i campi delle applicazioni associate al ruolo (agisco su
@@ -1810,6 +1881,17 @@ public class AuthEjb {
         ruoloEntity = userHelper.salvaPrfRuolo(ruoloEntity, modifica);
         userHelper.getEntityManager().flush();
         BigDecimal idEntita = new BigDecimal(ruoloEntity.getIdRuolo());
+
+        // MEV #39451
+        // TRIGGER FINALE
+        // Il ricalcolo deve partire se:
+        // a) Siamo in modifica
+        // b) Le categorie sono cambiate
+        // c) Il ruolo ha SACER_IAM tra le applicazioni gestiste
+        if (modifica && ricalcoloMassivoNecessario) {
+            userHelper.riallineaAbilEntiNonConvenzionatiMassivo(ruoloEntity.getIdRuolo());
+        }
+
         /*
          * Codice aggiuntivo per il logging...
          */
@@ -2015,6 +2097,46 @@ public class AuthEjb {
             BigDecimal idRichGestUser, BigDecimal idAppartUserRich) {
         boolean modifica = user.getIdUserIam() != null;
         log.info("Salvo i nuovi dati dell'utente");
+
+        // MEV #39451 - recupero le info su ciò che è cambiato per eventuale ricalcolo abilitazioni
+        // enti non convenzionati
+        boolean ricalcoloNecessario = false;
+        if (modifica) {
+            long idUtente = user.getIdUserIam().longValue();
+
+            // Check Ente di appartenenza (Query nativa per sicurezza)
+            Long idEntePrima = userHelper.getIdEnteAppartCorrente(idUtente);
+            boolean enteCambiato = (idEntePrima != null
+                    && !idEntePrima.equals(user.getIdEnteSiam().longValue()));
+
+            // Check Ruoli SACER_IAM (Query nativa per sicurezza)
+            Set<String> ruoliIamPrima = userHelper.getNomiRuoliSacerIamPerUtente(idUtente);
+
+            // Estraiamo i ruoli dal TableBean "Dopo" (quello che arriva dalla UI)
+            Set<String> ruoliIamDopo = new HashSet<>();
+
+            for (UsrUsoRuoloUserDefaultRowBean r : ruoliDefault) {
+                if ("SACER_IAM".equals(r.getString("nm_applic"))) {
+                    String nomeRuolo = r.getString("nm_ruolo");
+                    if (nomeRuolo != null) {
+                        ruoliIamDopo.add(nomeRuolo);
+                    }
+                }
+            }
+            // ruoliDefault.first(); // RESET DEL PUNTATORE per i cicli di salvataggio successivi
+
+            boolean ruoliIamCambiati = !ruoliIamPrima.equals(ruoliIamDopo);
+
+            if (enteCambiato || ruoliIamCambiati) {
+                ricalcoloNecessario = true;
+                log.info("Ricalcolo necessario per " + user.getNmUserid() + " (EnteCambiato: "
+                        + enteCambiato + ", RuoliCambiati: " + ruoliIamCambiati + ")");
+            }
+        } else {
+            // Se è un nuovo inserimento, il ricalcolo va fatto sempre per PERSONA_FISICA
+            ricalcoloNecessario = true;
+        }
+
         boolean isEnteSiamAppartChanged = false;
         UsrUser userEntity = new UsrUser();
         List<UsrUsoUserApplic> usoUtenti = new ArrayList<>();
@@ -2212,6 +2334,7 @@ public class AuthEjb {
         }
 
         log.info("Inserisco le dichiarazioni di abilitazione ruoli default");
+        // boolean almenoUnRuoloNuovo = false;
         /* Inserisco le dichiarazioni di abilitazione ruoli default */
         for (UsrUsoRuoloUserDefaultRowBean row : ruoliDefault) {
             /*
@@ -2222,6 +2345,7 @@ public class AuthEjb {
                 UsrUsoRuoloUserDefault usoRuolo = new UsrUsoRuoloUserDefault();
                 PrfRuolo ruolo = userHelper.getRuoloById(row.getIdRuolo());
                 usoRuolo.setPrfRuolo(ruolo);
+                // almenoUnRuoloNuovo = true;
 
                 /* Se la dichiarazione è nuova, recupero il UsrUsoUserApplic appropriato */
                 for (int i = 0; i < usoUtenti.size(); i++) {
@@ -2453,8 +2577,7 @@ public class AuthEjb {
         }
 
         // Se ho modificato l'ente di appartenenza devo cancellare anche dalle tabelle delle
-        // abilitazioni e dai
-        // referenti
+        // abilitazioni e dai referenti
         if (isEnteSiamAppartChanged) {
             List<Long> uuuaList = amministrazioneUtentiHelper
                     .getIdUsrUsoUserApplicList(user.getIdUserIam());
@@ -2498,6 +2621,17 @@ public class AuthEjb {
             if (richiestaDaPortareEvasa) {
                 richiesta.setTiStatoRichGestUser("EVASA");
             }
+        }
+
+        // // MEV #39451
+        // if (almenoUnRuoloNuovo || isEnteSiamAppartChanged) {
+        // userHelper.riallineaAbilEntiNonConvenzionatiPerUtente(userEntity);
+        // }
+
+        // MEV #39451: controllo se ricalcorare le abilitazioni agli enti non convenzionati
+        if (ricalcoloNecessario) {
+            // Chiamiamo il metodo che fa DELETE e INSERT pulita
+            userHelper.riallineaAbilEntiNonConvenzionatiPerUtente(userEntity);
         }
 
         /* registra l'evento di riattivazione nella tabella LOG_EVENTO_LOGIN_USER */
@@ -3289,12 +3423,15 @@ public class AuthEjb {
                 userHelper.aggiungiAbilEnteVigil(idUserCorrente, utente.getIdUserIam());
             }
 
+            // MEV #39451 --> rimozione abilitazioni agli enti non convenzionati per utenti di tipo
+            // PERSONA_FISICA
+            // sulla base del loro ente convenzionato
             /* Se l’utente appartiene ad un ente convenzionato di tipo amministratore */
-            if (enteAppart.getTiEnte().name().equals("CONVENZIONATO")
-                    && enteAppart.getTiEnteConvenz().name().equals("AMMINISTRATORE")
-                    && utente.getTipoUser().equals("PERSONA_FISICA")) {
-                userHelper.aggiungiAbilEnteNoconv(idUserCorrente, utente.getIdUserIam());
-            }
+            // if (enteAppart.getTiEnte().name().equals("CONVENZIONATO")
+            // && enteAppart.getTiEnteConvenz().name().equals("AMMINISTRATORE")
+            // && utente.getTipoUser().equals("PERSONA_FISICA")) {
+            // userHelper.aggiungiAbilEnteNoconv(idUserCorrente, utente.getIdUserIam());
+            // }
 
             /* Se l’utente appartiene ad un ente NON convenzionato */
             if (enteAppart.getTiEnte().name().equals("NON_CONVENZIONATO")

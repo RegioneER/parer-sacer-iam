@@ -19,20 +19,12 @@ package it.eng.saceriam.entity.constraint;
 
 /**
  *
- * @author gilioli_p
+ * @author paogilio
  */
-public class ConstPrfRuolo {
-
-    public enum TiRuolo {
-        AUTOMA, PERSONA_FISICA
-    }
+public class ConstPrfRuoloCategoria {
 
     public enum TiCategRuolo {
         amministrazione, conservazione, gestione, produzione, supporto_esterno, vigilanza
     }
 
-    public enum TiStatoRichAllineaRuoli {
-        DA_ALLINEARE, ALLINEAMENTO_COMPLETO, ALLINEAMENTO_IN_CORSO, ALLINEAMENTO_IN_ERRORE,
-        ALLINEAMENTO_PARZIALE
-    }
 }

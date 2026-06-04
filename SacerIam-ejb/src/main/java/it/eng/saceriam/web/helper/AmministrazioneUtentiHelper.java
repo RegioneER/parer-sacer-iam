@@ -1212,6 +1212,56 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
         return utenti;
     }
 
+    public List<Long> retrieveUsrUserByCategoriaRuolo(Map<String, List<String>> tiCategRuolo,
+            Map<String, List<String>> tiStatoUser, Map<String, List<String>> tipoUser) {
+
+        StringBuilder queryStr = new StringBuilder(
+                "SELECT DISTINCT user.idUserIam FROM UsrStatoUser statoUser, UsrUser user ");
+        queryStr.append("JOIN user.usrUsoUserApplics usoApplic ");
+        queryStr.append("JOIN usoApplic.usrUsoRuoloUserDefaults usoRuoloDefault ");
+        queryStr.append("JOIN usoRuoloDefault.prfRuolo ruolo ");
+        queryStr.append("JOIN ruolo.prfRuoloCategorias categoriaRuolo ");
+        queryStr.append("WHERE user.idStatoUserCor = statoUser.idStatoUser ");
+
+        if (tiCategRuolo != null && !tiCategRuolo.isEmpty()) {
+            tiCategRuolo.keySet().stream().findFirst().ifPresent(keyClause -> {
+                queryStr.append("AND categoriaRuolo.tiCategRuolo ").append(keyClause)
+                        .append(" :tiCategRuolo ");
+            });
+        }
+
+        if (tiStatoUser != null && !tiStatoUser.isEmpty()) {
+            tiStatoUser.keySet().stream().findFirst()
+                    .ifPresent(keyClause -> queryStr.append("AND statoUser.tiStatoUser ")
+                            .append(keyClause).append(" :tiStatoUser "));
+        }
+
+        if (tipoUser != null && !tipoUser.isEmpty()) {
+            tipoUser.keySet().stream().findFirst().ifPresent(keyClause -> queryStr
+                    .append("AND user.tipoUser ").append(keyClause).append(" :tipoUser "));
+        }
+
+        Query query = getEntityManager().createQuery(queryStr.toString());
+
+        if (tiCategRuolo != null && !tiCategRuolo.isEmpty()) {
+            List<String> values = tiCategRuolo.values().stream().findFirst().orElseThrow();
+            query.setParameter("tiCategRuolo", values);
+        }
+
+        if (tiStatoUser != null && !tiStatoUser.isEmpty()) {
+            List<String> values = tiStatoUser.values().stream().findFirst().orElseThrow();
+            query.setParameter("tiStatoUser", values);
+        }
+
+        if (tipoUser != null && !tipoUser.isEmpty()) {
+            List<String> values = tipoUser.values().stream().findFirst().orElseThrow();
+            query.setParameter("tipoUser", values);
+        }
+
+        List<Long> utenti = query.getResultList();
+        return utenti;
+    }
+
     public List<BigDecimal> retrieveIdOrganizIamUserEnteSiamAppartList(BigDecimal idEnteSiam,
             List<String> tiStatoUser, List<String> tipoUser) {
         StringBuilder queryStr = new StringBuilder("SELECT DISTINCT abilOrganiz.id.idOrganizIam "

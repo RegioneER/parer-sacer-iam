@@ -75,6 +75,7 @@ import it.eng.saceriam.entity.UsrUsoRuoloDich;
 import it.eng.saceriam.entity.UsrUsoRuoloUserDefault;
 import it.eng.saceriam.entity.UsrUsoUserApplic;
 import it.eng.saceriam.entity.constraint.ConstPrfDichAutor;
+import it.eng.saceriam.entity.constraint.ConstPrfRuoloCategoria;
 import it.eng.saceriam.exception.AuthorizationException;
 import it.eng.saceriam.exception.ParerUserError;
 import it.eng.saceriam.helper.GenericHelper;
@@ -101,6 +102,8 @@ import it.eng.saceriam.web.util.Constants;
 import it.eng.saceriam.web.util.Transform;
 import it.eng.saceriam.ws.ejb.WsIdpLogger;
 import it.eng.spagoLite.security.auth.PwdUtil;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -2417,7 +2420,7 @@ public class UserHelper extends GenericHelper {
     }
 
     /**
-     * Aggiunge le abilitazioni ai tipi dato (USR_ABIL_ENTE_SIAM) ricavandole dalla relativa vista
+     * Aggiunge le abilitazioni agli enti (USR_ABIL_ENTE_SIAM) ricavandole dalla relativa vista
      *
      * @param idUserIam id user IAM
      */
@@ -2851,7 +2854,7 @@ public class UserHelper extends GenericHelper {
     }
 
     /**
-     * Aggiunge le abilitazioni agli enti convenzionati (USR_ABIL_ENTE_SIAM) ricavandole dalla
+     * Aggiunge le abilitazioni agli enti non convenzionati (USR_ABIL_ENTE_SIAM) ricavandole dalla
      * relativa vista
      *
      * @param idUserIamCor     id versamento
@@ -2869,6 +2872,166 @@ public class UserHelper extends GenericHelper {
         q.executeUpdate();
 
     }
+
+    // MEV #39451
+
+    /**
+     * Genera la stringa per la "causale" delle abilitazioni agli enti NON convenzionati.
+     *
+     * @param user l'utente di cui conoscere le categorie ruolo, "motivo" di abilitazione
+     * @return la causale
+     */
+    public String getCausaleAbilitante(UsrUser user) {
+        if (user.getUsrUsoUserApplics() == null)
+            return "Nessun ruolo";
+
+        // Definiamo quali categorie vogliamo includere nella causale
+        List<String> categorieDaIncludere = Arrays.asList(
+                ConstPrfRuoloCategoria.TiCategRuolo.amministrazione.name(),
+                ConstPrfRuoloCategoria.TiCategRuolo.conservazione.name(),
+                ConstPrfRuoloCategoria.TiCategRuolo.gestione.name());
+
+        String causale = user.getUsrUsoUserApplics().stream()
+                // Filtro: Considero solo i contesti legati all'applicazione SACER_IAM
+                .filter(uua -> uua.getAplApplic() != null
+                        && "SACER_IAM".equals(uua.getAplApplic().getNmApplic()))
+                .flatMap(usoApplic -> usoApplic.getUsrUsoRuoloUserDefaults().stream())
+                .filter(ruoloDefault -> ruoloDefault.getPrfRuolo() != null)
+                .flatMap(
+                        ruoloDefault -> ruoloDefault.getPrfRuolo().getPrfRuoloCategorias().stream())
+                // Filtriamo solo quelle che ci interessano
+                .map(PrfRuoloCategoria::getTiCategRuolo).filter(categorieDaIncludere::contains)
+                // Distinguo perchè potrei avere più ruoli ovviamente con la stessa categoria
+                .distinct()
+                // Uniamo le categorie trovate con una virgola
+                .collect(Collectors.joining(", "));
+
+        return "Abilitazione automatica per categorie di ruolo su SACER_IAM: "
+                + (causale.isEmpty() ? "RUOLO_GENERICO" : causale);
+    }
+
+    /**
+     * Inserimento dell'abilitazione all'ente NON convenzionato
+     *
+     * @param idUserIamCor     l'utente corrente che sta "operando"
+     * @param idUserIamGestito l'utente a cui verrà data l'abilitazione
+     */
+    public void aggiungiAbilEnteNoconvByRuolo(long idUserIamCor, long idUserIamGestito) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(
+                "INSERT INTO USR_ABIL_ENTE_SIAM (id_abil_ente_siam, id_user_iam, id_ente_siam, ds_causale_abil, fl_abil_automatica) ");
+        sql.append(
+                "SELECT SUSR_ABIL_ENTE_SIAM.nextval, u.ID_USER_IAM_GESTITO, u.ID_ENTE_NON_CONVENZ, u.DS_CAUSALE_ABIL, '1' ");
+        sql.append("FROM USR_V_ABIL_ENTE_NOCONV_TO_ADD_BY_RUOLO u ");
+        sql.append("WHERE u.ID_USER_IAM_COR = ? AND u.ID_USER_IAM_GESTITO = ? ");
+        // Verifica che la coppia utente/ente non conv non sia già presente nella tabella
+        sql.append("AND NOT EXISTS ( ");
+        sql.append("    SELECT 1 FROM USR_ABIL_ENTE_SIAM a ");
+        sql.append("    WHERE a.ID_USER_IAM = u.ID_USER_IAM_GESTITO ");
+        sql.append("      AND a.ID_ENTE_SIAM = u.ID_ENTE_NON_CONVENZ ");
+        sql.append(")");
+
+        Query q = getEntityManager().createNativeQuery(sql.toString());
+        q.setParameter(1, idUserIamCor);
+        q.setParameter(2, idUserIamGestito);
+
+        int recordInseriti = q.executeUpdate();
+        log.debug("Inserite {} nuove abilitazioni per l'utente gestito {}", recordInseriti,
+                idUserIamGestito);
+    }
+
+    /**
+     * Riallinea le abilitazioni (aggiungi e rimuovi) agli enti NON convenzionati per un singolo
+     * utente
+     *
+     * @param utente l'utente da riallineare
+     */
+    public void riallineaAbilEntiNonConvenzionatiPerUtente(UsrUser utente) {
+        if (utente == null || !"PERSONA_FISICA".equals(utente.getTipoUser()))
+            return;
+
+        // Rimuovo le abilitazioni agli enti NON conv che non sono più valide
+        String sqlDel = "DELETE FROM USR_ABIL_ENTE_SIAM WHERE ID_ABIL_ENTE_SIAM IN "
+                + "(SELECT ID_ABIL_ENTE_SIAM FROM USR_V_ABIL_ENTE_NOCONV_TO_DEL_BY_RUOLO WHERE ID_USER_IAM = ?)";
+        getEntityManager().createNativeQuery(sqlDel).setParameter(1, utente.getIdUserIam())
+                .executeUpdate();
+
+        // Verifico se l'utente ha diritto e nel caso inserisco l'abilitazione a TUTTI gli enti NON
+        // convenzionati
+        String causale = getCausaleAbilitante(utente);
+
+        // Se la causale contiene le categorie (e non è quella generica), allora inserisco
+        if (causale.contains("SACER_IAM") && !causale.contains("RUOLO_GENERICO")) {
+            String sqlIns = "INSERT INTO USR_ABIL_ENTE_SIAM (ID_ABIL_ENTE_SIAM, ID_USER_IAM, ID_ENTE_SIAM, FL_ABIL_AUTOMATICA, DS_CAUSALE_ABIL) "
+                    + "SELECT SUSR_ABIL_ENTE_SIAM.NEXTVAL, ?, E.ID_ENTE_SIAM, '1', ? "
+                    + "FROM ORG_ENTE_SIAM E " + "WHERE E.TI_ENTE = 'NON_CONVENZIONATO' "
+                    + "AND NOT EXISTS (SELECT 1 FROM USR_ABIL_ENTE_SIAM A WHERE A.ID_USER_IAM = ? AND A.ID_ENTE_SIAM = E.ID_ENTE_SIAM)";
+
+            getEntityManager().createNativeQuery(sqlIns).setParameter(1, utente.getIdUserIam())
+                    .setParameter(2, causale).setParameter(3, utente.getIdUserIam())
+                    .executeUpdate();
+        }
+    }
+
+    /**
+     * Riallinea le abilitazioni (aggiungi e rimuovi) massiva agli enti NON convenzionati per ruolo
+     *
+     * @param idRuolo il ruolo che causa il riallineamento delle abilitazioni sugli enti NON
+     *                convenzionati
+     */
+    public void riallineaAbilEntiNonConvenzionatiMassivo(Long idRuolo) {
+        log.info("Inizio riallineamento massivo per ruolo ID: " + idRuolo);
+
+        // DELETE MASSIVA per gli utenti che non hanno diritto alle abilitazione agli enti non
+        // convenzionati
+        String massDel = "DELETE FROM USR_ABIL_ENTE_SIAM WHERE ID_ABIL_ENTE_SIAM IN ("
+                + "  SELECT v.ID_ABIL_ENTE_SIAM "
+                + "  FROM USR_V_ABIL_ENTE_NOCONV_TO_DEL_BY_RUOLO v "
+                + "  JOIN USR_USO_USER_APPLIC uua ON v.ID_USER_IAM = uua.ID_USER_IAM "
+                + "  JOIN USR_USO_RUOLO_USER_DEFAULT urud ON uua.ID_USO_USER_APPLIC = urud.ID_USO_USER_APPLIC "
+                + "  WHERE urud.ID_RUOLO = ?" + ")";
+
+        // INSERT MASSIVA per gli utenti che hanno guadagnato il diritto in SACER_IAM.
+        String massIns = "INSERT INTO USR_ABIL_ENTE_SIAM (ID_ABIL_ENTE_SIAM, ID_USER_IAM, ID_ENTE_SIAM, FL_ABIL_AUTOMATICA, DS_CAUSALE_ABIL) "
+                + "WITH UtentiValidi AS (" + "  SELECT U.ID_USER_IAM, "
+                + "         'Abilitazione automatica per categorie di ruolo SACER_IAM: ' || "
+                + "         LISTAGG(DISTINCT RC.TI_CATEG_RUOLO, ', ') WITHIN GROUP (ORDER BY RC.TI_CATEG_RUOLO) AS CAUSALE "
+                + "  FROM USR_USER U "
+                + "  JOIN USR_USO_USER_APPLIC UUA ON U.ID_USER_IAM = UUA.ID_USER_IAM "
+                + "  JOIN APL_APPLIC A ON UUA.ID_APPLIC = A.ID_APPLIC "
+                + "  JOIN USR_USO_RUOLO_USER_DEFAULT URUD ON UUA.ID_USO_USER_APPLIC = URUD.ID_USO_USER_APPLIC "
+                + "  JOIN PRF_RUOLO_CATEGORIA RC ON URUD.ID_RUOLO = RC.ID_RUOLO "
+                + "  WHERE U.TIPO_USER = 'PERSONA_FISICA' " + "    AND A.NM_APPLIC = 'SACER_IAM' "
+                + "    AND RC.TI_CATEG_RUOLO IN ('amministrazione', 'conservazione', 'gestione') "
+                + "    AND U.ID_USER_IAM IN ( " + "        SELECT DISTINCT sub_uua.ID_USER_IAM "
+                + "        FROM USR_USO_USER_APPLIC sub_uua "
+                + "        JOIN USR_USO_RUOLO_USER_DEFAULT sub_urud ON sub_uua.ID_USO_USER_APPLIC = sub_urud.ID_USO_USER_APPLIC "
+                + "        WHERE sub_urud.ID_RUOLO = ? " + "    ) " + "  GROUP BY U.ID_USER_IAM"
+                + ") "
+                + "SELECT SUSR_ABIL_ENTE_SIAM.NEXTVAL, V.ID_USER_IAM, E.ID_ENTE_SIAM, '1', V.CAUSALE "
+                + "FROM UtentiValidi V CROSS JOIN ORG_ENTE_SIAM E "
+                + "WHERE E.TI_ENTE = 'NON_CONVENZIONATO' " + "  AND NOT EXISTS ( "
+                + "      SELECT 1 FROM USR_ABIL_ENTE_SIAM ex "
+                + "      WHERE ex.ID_USER_IAM = V.ID_USER_IAM AND ex.ID_ENTE_SIAM = E.ID_ENTE_SIAM "
+                + "  )";
+
+        try {
+            Query qDel = getEntityManager().createNativeQuery(massDel);
+            qDel.setParameter(1, idRuolo);
+            int delCount = qDel.executeUpdate();
+
+            Query qIns = getEntityManager().createNativeQuery(massIns);
+            qIns.setParameter(1, idRuolo);
+            int insCount = qIns.executeUpdate();
+
+            log.info("Riallineamento massivo completato: rimosse " + delCount + " e inserite "
+                    + insCount + " abilitazioni.");
+        } catch (Exception e) {
+            log.error("Errore durante il riallineamento massivo per il ruolo " + idRuolo, e);
+            throw e;
+        }
+    }
+    // end MEV #39451
 
     /**
      * Aggiunge le abilitazioni agli enti convenzionati (USR_ABIL_ENTE_SIAM) ricavandole dalla
@@ -3205,4 +3368,73 @@ public class UserHelper extends GenericHelper {
         q.setParameter("idAppartCollegEnti", idAppartCollegEnti);
         return (List<String>) q.getResultList();
     }
+
+    // MEV #39451
+    /**
+     * Recupera i nomi dei ruoli associati all'utente per l'applicazione SACER_IAM. Query nativa per
+     * evitare side-effect sul contesto di persistenza di Hibernate.
+     *
+     * @param idUserIam utente
+     * @return la lista di ruoli dell'utente
+     */
+    public Set<String> getNomiRuoliSacerIamPerUtente(long idUserIam) {
+        String sql = "SELECT R.NM_RUOLO " + "FROM USR_USO_RUOLO_USER_DEFAULT UR "
+                + "JOIN PRF_RUOLO R ON UR.ID_RUOLO = R.ID_RUOLO "
+                + "JOIN USR_USO_USER_APPLIC UA ON UR.ID_USO_USER_APPLIC = UA.ID_USO_USER_APPLIC "
+                + "JOIN APL_APPLIC A ON UA.ID_APPLIC = A.ID_APPLIC " + "WHERE UA.ID_USER_IAM = ? "
+                + "AND A.NM_APPLIC = 'SACER_IAM'";
+
+        Query q = getEntityManager().createNativeQuery(sql);
+        q.setParameter(1, idUserIam);
+
+        List<String> result = q.getResultList();
+        return new HashSet<>(result);
+    }
+
+    /**
+     * Recupera l'ID dell'ente di appartenenza attuale dal DB. Query nativa per evitare il
+     * caricamento dell'intera Entity UsrUser.
+     *
+     * @param idUserIam utente
+     * @return id ente siam
+     */
+    public Long getIdEnteAppartCorrente(long idUserIam) {
+        String sql = "SELECT ID_ENTE_SIAM FROM USR_USER WHERE ID_USER_IAM = ?";
+        Query q = getEntityManager().createNativeQuery(sql);
+        q.setParameter(1, idUserIam);
+        Object res = q.getSingleResult();
+        return res != null ? ((Number) res).longValue() : null;
+    }
+
+    /**
+     * Recupera le categorie associate al ruolo filtrando solo quelle nobili. Query nativa per non
+     * sporcare il contesto Hibernate.
+     *
+     * @param idRuolo il ruolo da controllare
+     * @return l'elenco di quante categorie "nobili" il ruolo ha
+     */
+    public Set<String> getCategorieNobiliRuolo(long idRuolo) {
+        String sql = "SELECT TI_CATEG_RUOLO FROM PRF_RUOLO_CATEGORIA " + "WHERE ID_RUOLO = ? "
+                + "AND TI_CATEG_RUOLO IN ('amministrazione', 'conservazione', 'gestione')";
+        Query q = getEntityManager().createNativeQuery(sql);
+        q.setParameter(1, idRuolo);
+        return new HashSet<>(q.getResultList());
+    }
+
+    /**
+     * Verifica se il ruolo è attualmente associato all'applicazione SACER_IAM.
+     *
+     * @param idRuolo il ruolo da controllare
+     * @return true o false a seconda se il ruolo gestisce anche l'applicazione SACER_IAM
+     */
+    public boolean isRuoloAssociatoASacerIam(long idRuolo) {
+        String sql = "SELECT COUNT(*) FROM PRF_USO_RUOLO_APPLIC UA "
+                + "JOIN APL_APPLIC A ON UA.ID_APPLIC = A.ID_APPLIC "
+                + "WHERE UA.ID_RUOLO = ? AND A.NM_APPLIC = 'SACER_IAM'";
+        Query q = getEntityManager().createNativeQuery(sql);
+        q.setParameter(1, idRuolo);
+        return ((Number) q.getSingleResult()).intValue() > 0;
+    }
+
+    // end MEV #39451
 }

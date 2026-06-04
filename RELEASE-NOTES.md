@@ -1,12 +1,8 @@
-## 7.7.0 (06-03-2026)
-
-### Bugfix: 2
-- [#39357](https://parermine.regione.emilia-romagna.it/issues/39357) Correzione replica organizzazioni - modifica a seguito di duplica /importa standard
-- [#39253](https://parermine.regione.emilia-romagna.it/issues/39253) Modulo informazioni: gestione errore nel caso di caricamento file che supera la dimensione massima accettata
+## 7.8.0 (04-06-2026)
 
 ### Novità: 5
-- [#39991](https://parermine.regione.emilia-romagna.it/issues/39991) Patch di sicurezza per interventi legati a CVE
-- [#39555](https://parermine.regione.emilia-romagna.it/issues/39555) Introduzione scope type "request" gestione controller web Spring
-- [#39200](https://parermine.regione.emilia-romagna.it/issues/39200) Rinomina campi SIAM - sezione "dettaglio accordo"
-- [#38428](https://parermine.regione.emilia-romagna.it/issues/38428) Modifica alla pagina gestione parametri
-- [#31339](https://parermine.regione.emilia-romagna.it/issues/31339) Controllo ruoli per verifica abilitazioni
+- [#40647](https://parermine.regione.emilia-romagna.it/issues/40647) Introdurre il nuovo framework con la modifica per l'accesso tramite CIE/SPID
+- [#40549](https://parermine.regione.emilia-romagna.it/issues/40549) Patch di sicurezza per interventi legati a CVE
+- [#40358](https://parermine.regione.emilia-romagna.it/issues/40358) Miglioramento usabilità della pagina Gestione parametri 
+- [#40276](https://parermine.regione.emilia-romagna.it/issues/40276) adeguamento del log a seguito di rimozione di un ente supportato da fornitore esterno
+- [#39451](https://parermine.regione.emilia-romagna.it/issues/39451) Revisione abilitazione a tutti gli enti non convenzionati

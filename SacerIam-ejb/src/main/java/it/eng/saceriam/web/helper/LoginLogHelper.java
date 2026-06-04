@@ -71,7 +71,7 @@ public class LoginLogHelper {
             tmpLLogLoginUser.setCdIndServer(localServerName);
             tmpLLogLoginUser.setDtEvento(new Date());
             tmpLLogLoginUser.setTipoEvento(tipoEvento.name());
-            // Modifica per lo SPID
+            // Modifica per lo SPID e CIE
             if (user.getUserType() != null) {
                 tmpLLogLoginUser.setTipoUtenteAuth(user.getUserType().name());
                 tmpLLogLoginUser.setCdIdEsterno(user.getExternalId());

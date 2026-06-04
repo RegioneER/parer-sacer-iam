@@ -4072,6 +4072,20 @@ public class EntiConvenzionatiHelper extends GenericHelper {
         return params;
     }
 
+    public List<String> getCdVersioneAppIni() {
+        String queryStr = "SELECT DISTINCT config.cdVersioneAppIni FROM IamParamApplic config "
+                + "WHERE config.cdVersioneAppIni IS NOT NULL ORDER BY config.cdVersioneAppIni ";
+        Query q = getEntityManager().createQuery(queryStr);
+        return q.getResultList();
+    }
+
+    public List<String> getCdVersioneAppFine() {
+        String queryStr = "SELECT DISTINCT config.cdVersioneAppFine FROM IamParamApplic config "
+                + "WHERE config.cdVersioneAppFine IS NOT NULL ORDER BY config.cdVersioneAppFine ";
+        Query q = getEntityManager().createQuery(queryStr);
+        return q.getResultList();
+    }
+
     /**
      * Metodo che ritorna i parametri di configurazione
      *
