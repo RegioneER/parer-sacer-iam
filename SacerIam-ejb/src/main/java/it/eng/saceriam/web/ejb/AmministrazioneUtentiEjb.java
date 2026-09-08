@@ -218,6 +218,18 @@ public class AmministrazioneUtentiEjb {
     public AmministrazioneUtentiEjb() {
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void saveNote(BigDecimal idUserIam, String note) throws ParerUserError {
+        UsrUser user = amministrazioneUtentiHelper.getUsrUser(idUserIam);
+        if (user == null) {
+            throw new ParerUserError("Utente non trovato");
+        }
+
+        user.setNote(note);
+        amministrazioneUtentiHelper.getEntityManager().flush();
+        userHelper.registraLogUserDaReplic(user.getNmUserid(), ApplEnum.TiOperReplic.MOD);
+    }
+
     /**
      * Metodo che ritorna la lista delle applicazioni ordinate per nome
      *
@@ -831,6 +843,10 @@ public class AmministrazioneUtentiEjb {
             log.error(e.getMessage(), e);
         }
         return userTB;
+    }
+
+    public boolean hasRuoloCategoriaAmministrazione(long idUserIam) {
+        return amministrazioneUtentiHelper.hasRuoloCategoriaAmministrazione(idUserIam);
     }
 
     /**

@@ -60,6 +60,7 @@ import it.eng.saceriam.entity.UsrUsoUserApplic;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteConvenz;
 import it.eng.saceriam.entity.constraint.ConstOrgEnteSiam.TiEnteNonConvenz;
 import it.eng.saceriam.entity.constraint.ConstPrfDichAutor;
+import it.eng.saceriam.entity.constraint.ConstPrfRuolo;
 import it.eng.saceriam.grantedViewEntity.LogVRicAccessi;
 import it.eng.saceriam.helper.GenericHelper;
 import it.eng.saceriam.slite.gen.form.AmministrazioneUtentiForm.FiltriJobSchedulati;
@@ -231,6 +232,25 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
             ruoli = q.getResultList();
         }
         return ruoli;
+    }
+
+    public boolean hasRuoloCategoriaAmministrazione(long idUserIam) {
+        String queryStr = "SELECT COUNT(DISTINCT cat.prfRuolo.idRuolo) FROM PrfRuoloCategoria cat "
+                + "WHERE cat.tiCategRuolo = :tiCategRuolo "
+                + "AND (EXISTS (SELECT usoRuoloUserDefault FROM UsrUsoRuoloUserDefault usoRuoloUserDefault "
+                + "JOIN usoRuoloUserDefault.usrUsoUserApplic usoUserApplic "
+                + "WHERE usoRuoloUserDefault.prfRuolo.idRuolo = cat.prfRuolo.idRuolo "
+                + "AND usoUserApplic.usrUser.idUserIam = :idUserIam) "
+                + "OR EXISTS (SELECT usoRuoloDich FROM UsrUsoRuoloDich usoRuoloDich "
+                + "JOIN usoRuoloDich.usrDichAbilOrganiz usrDichAbilOrganiz "
+                + "JOIN usrDichAbilOrganiz.usrUsoUserApplic usoUserApplic "
+                + "WHERE usoRuoloDich.prfRuolo.idRuolo = cat.prfRuolo.idRuolo "
+                + "AND usoUserApplic.usrUser.idUserIam = :idUserIam))";
+        Query q = getEntityManager().createQuery(queryStr);
+        q.setParameter("tiCategRuolo", ConstPrfRuolo.TiCategRuolo.amministrazione.name());
+        q.setParameter("idUserIam", longFrom(idUserIam));
+        Number result = (Number) q.getSingleResult();
+        return result != null && result.longValue() > 0L;
     }
 
     public List<PrfRuolo> getPrfRuoli() {
@@ -826,13 +846,14 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
             String flAzioniEvase = String.valueOf((Character) obj[15]);
             String dsEmail = (String) obj[16];
             String dsEmailSecondaria = (String) obj[17];
+            String note = obj.length > 18 ? (String) obj[18] : null;
             String emailSec = dsEmailSecondaria != null ? "; " + dsEmailSecondaria : "";
             dsEmail = dsEmail + emailSec;
 
             UsrVLisUser utente = new UsrVLisUser(idUserIam, nmCognomeUser, nmNomeUser, nmUserid,
                     cdFisc, nmRuoloDefault, flAttivo, flErrReplic, nmSistemaVersante, tipoUser,
                     nmEnteSiamAppart, idLastRichGestUser, cdLastRichGestUser, dsListaAzioni,
-                    dtLastRichGestUser, flAzioniEvase, dsEmail, dsEmailSecondaria);
+                    dtLastRichGestUser, flAzioniEvase, dsEmail, dsEmailSecondaria, note);
             utenti.add(utente);
         }
 
@@ -853,7 +874,7 @@ public class AmministrazioneUtentiHelper extends GenericHelper {
                 "SELECT distinct utenti.id_User_Iam, utenti.nm_Cognome_User, utenti.nm_Nome_User, utenti.nm_Userid, utenti.cd_Fisc, "
                         + "utenti.nm_Ruolo_Default, utenti.fl_Attivo, utenti.fl_Err_Replic, utenti.nm_Sistema_Versante, utenti.tipo_User, "
                         + "utenti.nm_Ente_Siam_Appart, utenti.id_Last_Rich_Gest_User , utenti.cd_Last_Rich_Gest_User, "
-                        + "utenti.ds_Lista_Azioni , utenti.dt_Last_Rich_Gest_User , utenti.fl_Azioni_Evase, utenti.ds_Email, utenti.ds_Email_Secondaria "
+                        + "utenti.ds_Lista_Azioni , utenti.dt_Last_Rich_Gest_User , utenti.fl_Azioni_Evase, utenti.ds_Email, utenti.ds_Email_Secondaria, utenti.note "
                         + "FROM Usr_Corr_X(:idUserIamCorr) utenti ");
 
         String cognome = filtriUsrVLisUser.getCognome();

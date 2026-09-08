@@ -11325,6 +11325,12 @@ public class AmministrazioneEntiConvenzionatiAction
             getMessageBox().setViewMode(ViewMode.plain);
         }
 
+        if ("1".equals(row.getFlAppartApplic()) && StringUtils.isBlank(dsValoreParamApplicValue)) {
+            getMessageBox().addError(
+                    "Attenzione: è necessario inserire il Valore applicativo");
+            getMessageBox().setViewMode(ViewMode.plain);
+        }
+
         if (entiConvenzionatiEjb.checkParamApplic(row.getNmParamApplic(), row.getIdParamApplic())) {
             getMessageBox().addError(
                     "Attenzione: parametro " + row.getNmParamApplic()

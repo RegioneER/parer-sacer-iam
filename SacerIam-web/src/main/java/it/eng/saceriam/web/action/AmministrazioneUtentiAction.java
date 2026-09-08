@@ -834,6 +834,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                     .setDecodeMap(mappaSistemiVersanti);
 
             getForm().getDettaglioUtente().copyFromBean(utente);
+            configureNoteFieldAccess();
+            setNoteButtonsToViewMode();
 
             getForm().getDettaglioUtente().getId_ente_siam_appart()
                     .setValue("" + utente.getIdEnteSiam());
@@ -1051,6 +1053,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getDettaglioUtente().getDisattivaUtente().setEditMode();
         getForm().getDettaglioUtente().getInviaMailAttivazione().setEditMode();
         getForm().getDettaglioUtente().getCessaUtente().setEditMode();
+        setNoteButtonsToViewMode();
 
         getForm().getGestioneRuoliOrganizzazione().getAggiungiRuoloOrg().setViewMode();
 
@@ -1988,6 +1991,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             getForm().getDettaglioUtente().getCd_fisc().setEditMode();
             getForm().getDettaglioUtente().getDs_email().setEditMode();
             getForm().getDettaglioUtente().getDs_email_secondaria().setEditMode();
+            getForm().getDettaglioUtente().getNote().setEditMode();
             getForm().getDettaglioUtente().getFl_contr_ip().setEditMode();
             getForm().getDettaglioUtente().getFl_err_replic().setEditMode();
             getForm().getDettaglioUtente().getTipo_user().setEditMode();
@@ -2007,6 +2011,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             getForm().getDettaglioUtente().getCd_fisc().setViewMode();
             getForm().getDettaglioUtente().getDs_email().setViewMode();
             getForm().getDettaglioUtente().getDs_email_secondaria().setViewMode();
+            getForm().getDettaglioUtente().getNote().setViewMode();
             getForm().getDettaglioUtente().getFl_contr_ip().setViewMode();
             getForm().getDettaglioUtente().getFl_err_replic().setViewMode();
             getForm().getDettaglioUtente().getTipo_user().setViewMode();
@@ -3296,6 +3301,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                             getForm().getFiltriUtenti(), validaDate, getUser().getIdUtente(),
                             idEntiConvenzionatiAmministratori);
                     getForm().getListaUtenti().setTable(utenti);
+                    configureNoteFieldAccess();
                     getForm().getListaUtenti().getTable().setPageSize(10);
                     getForm().getListaUtenti().getTable().first();
                     getForm().getInserimentoWizard().getPassoRichiesta().setHidden(false);
@@ -3950,6 +3956,9 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 user.setDsEmail(getForm().getDettaglioUtente().getDs_email().parse());
                 user.setDsEmailSecondaria(
                         getForm().getDettaglioUtente().getDs_email_secondaria().parse());
+                if (hasNoteAccess()) {
+                    user.setNote(getForm().getDettaglioUtente().getNote().parse());
+                }
                 user.setFlContrIp(getForm().getDettaglioUtente().getFl_contr_ip().parse());
                 user.setTipoUser(userType);
                 user.setTipoAuth(getForm().getDettaglioUtente().getTipo_auth().parse());
@@ -4031,6 +4040,9 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 user.setDsEmail(getForm().getDettaglioUtente().getDs_email().parse());
                 user.setDsEmailSecondaria(
                         getForm().getDettaglioUtente().getDs_email_secondaria().parse());
+                if (hasNoteAccess()) {
+                    user.setNote(getForm().getDettaglioUtente().getNote().parse());
+                }
                 user.setFlContrIp(getForm().getDettaglioUtente().getFl_contr_ip().parse());
                 user.setTipoUser(getForm().getDettaglioUtente().getTipo_user().parse());
                 user.setTipoAuth(getForm().getDettaglioUtente().getTipo_auth().parse());
@@ -4505,6 +4517,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                 getForm().getListaUtenti().setStatus(Status.insert);
                 getForm().getDettaglioUtente().setStatus(Status.insert);
                 getForm().getDettaglioUtente().setEditMode();
+                configureNoteFieldAccess();
+                setNoteButtonsToDetailEditMode();
                 getForm().getDettaglioUtente().getNuovaPassword().setViewMode();
                 getForm().getDettaglioUtente().getQualifica_user().setHidden(true);
 
@@ -5100,6 +5114,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                         .setTable(amministrazioneUtentiEjb.getUsrVLisUserTableBean(
                                 getForm().getFiltriUtenti(), validaDate, getUser().getIdUtente(),
                                 null));
+                configureNoteFieldAccess();
                 getForm().getListaUtenti().getTable().setPageSize(pageSize);
                 getForm().getListaUtenti().setUserOperations(true, true, true, true);
                 // rieseguo la query se necessario
@@ -5201,6 +5216,7 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
                     getForm().getFiltriUtenti().getDt_rich_gest_user_a().getName());
             getForm().getListaUtenti().setTable(amministrazioneUtentiEjb.getUsrVLisUserTableBean(
                     getForm().getFiltriUtenti(), validaDate, getUser().getIdUtente(), null));
+            configureNoteFieldAccess();
             getForm().getListaUtenti().getTable().setPageSize(pageSize);
             getForm().getListaUtenti().setUserOperations(true, true, true, true);
             // rieseguo la query se necessario
@@ -6001,6 +6017,8 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getListaUtenti().setStatus(Status.update);
         getForm().getDettaglioUtente().setEditMode();
         getForm().getDettaglioUtente().setStatus(Status.update);
+        configureNoteFieldAccess();
+        setNoteButtonsToDetailEditMode();
         getForm().getDettaglioUtente().getNm_userid().setViewMode();
         getForm().getDettaglioUtente().getFl_attivo().setViewMode();
         getForm().getDettaglioUtente().getQualifica_user().setViewMode();
@@ -6171,6 +6189,71 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
         getForm().getEditPasswordUtente().setEditMode();
         getForm().getEditPasswordUtente().getSalva_password().setEditMode();
         forwardToPublisher(Application.Publisher.DETTAGLIO_UTENTE_INSERISCI_PASSWORD);
+    }
+
+    public void modificaNote() throws EMFError {
+        if (!hasNoteAccess()) {
+            getMessageBox()
+                    .addError("Non si dispone dei permessi necessari per modificare le note");
+            forwardToPublisher(Application.Publisher.DETTAGLIO_UTENTE);
+            return;
+        }
+
+        BigDecimal idUserIam = getForm().getDettaglioUtente().getId_user_iam().parse();
+        loadDettaglioUtente(idUserIam);
+        setDettaglioUtentiToViewMode();
+        getForm().getDettaglioUtente().getNote().setEditMode();
+        setNoteButtonsToNoteEditMode();
+        forwardToPublisher(Application.Publisher.DETTAGLIO_UTENTE);
+    }
+
+    public void salvaNote() throws EMFError {
+        if (!hasNoteAccess()) {
+            getMessageBox()
+                    .addError("Non si dispone dei permessi necessari per modificare le note");
+            forwardToPublisher(Application.Publisher.DETTAGLIO_UTENTE);
+            return;
+        }
+
+        getForm().getDettaglioUtente().post(getRequest());
+        BigDecimal idUserIam = getForm().getDettaglioUtente().getId_user_iam().parse();
+        String note = getForm().getDettaglioUtente().getNote().parse();
+
+        if (note != null && note.length() > 4000) {
+            getMessageBox().addError("Il campo Note non può superare i 4000 caratteri");
+            getForm().getDettaglioUtente().getNote().setEditMode();
+            setNoteButtonsToNoteEditMode();
+            forwardToPublisher(Application.Publisher.DETTAGLIO_UTENTE);
+            return;
+        }
+
+        try {
+            amministrazioneUtentiEjb.saveNote(idUserIam, note);
+
+            if (getForm().getListaUtenti().getTable() != null
+                    && !getForm().getListaUtenti().getTable().isEmpty()) {
+                UsrVLisUserRowBean currentRow = (UsrVLisUserRowBean) getForm().getListaUtenti()
+                        .getTable().getCurrentRow();
+                if (currentRow != null && currentRow.getIdUserIam() != null
+                        && currentRow.getIdUserIam().compareTo(idUserIam) == 0) {
+                    currentRow.setNote(note);
+                }
+            }
+
+            getMessageBox().addInfo("Note modificate con successo");
+            loadDettaglioUtente(idUserIam);
+            setDettaglioUtentiToViewMode();
+        } catch (ParerUserError ex) {
+            getMessageBox().addError(ex.getDescription());
+            getForm().getDettaglioUtente().getNote().setEditMode();
+            setNoteButtonsToNoteEditMode();
+        } catch (Exception ex) {
+            getMessageBox().addError("Errore durante il salvataggio delle note", ex);
+            getForm().getDettaglioUtente().getNote().setEditMode();
+            setNoteButtonsToNoteEditMode();
+        }
+
+        forwardToPublisher(Application.Publisher.DETTAGLIO_UTENTE);
     }
 
     @Override
@@ -7260,6 +7343,47 @@ public class AmministrazioneUtentiAction extends AmministrazioneUtentiAbstractAc
             getForm().getDettaglioUtente().getFl_abil_fornit_autom().setDecodeMap(new DecodeMap());
         }
 
+    }
+
+    private boolean hasNoteAccess() {
+        return amministrazioneUtentiEjb.hasRuoloCategoriaAmministrazione(getUser().getIdUtente());
+    }
+
+    private void configureNoteFieldAccess() {
+        boolean hasNoteAccess = hasNoteAccess();
+        getForm().getDettaglioUtente().getNote().setHidden(!hasNoteAccess);
+        getForm().getDettaglioUtente().getModificaNote().setHidden(!hasNoteAccess);
+        getForm().getDettaglioUtente().getSalvaNote().setHidden(true);
+        getForm().getListaUtenti().getNote().setHidden(!hasNoteAccess);
+    }
+
+    private void setNoteButtonsToViewMode() {
+        if (!hasNoteAccess()) {
+            configureNoteFieldAccess();
+            return;
+        }
+
+        getForm().getDettaglioUtente().getModificaNote().setEditMode();
+        getForm().getDettaglioUtente().getModificaNote().setHidden(false);
+        getForm().getDettaglioUtente().getSalvaNote().setEditMode();
+        getForm().getDettaglioUtente().getSalvaNote().setHidden(true);
+    }
+
+    private void setNoteButtonsToNoteEditMode() {
+        if (!hasNoteAccess()) {
+            configureNoteFieldAccess();
+            return;
+        }
+
+        getForm().getDettaglioUtente().getModificaNote().setEditMode();
+        getForm().getDettaglioUtente().getModificaNote().setHidden(true);
+        getForm().getDettaglioUtente().getSalvaNote().setEditMode();
+        getForm().getDettaglioUtente().getSalvaNote().setHidden(false);
+    }
+
+    private void setNoteButtonsToDetailEditMode() {
+        getForm().getDettaglioUtente().getModificaNote().setHidden(true);
+        getForm().getDettaglioUtente().getSalvaNote().setHidden(true);
     }
 
     private void eseguiAzioneCreazione(LogParam param, int nr, BigDecimal idRichGestUser,

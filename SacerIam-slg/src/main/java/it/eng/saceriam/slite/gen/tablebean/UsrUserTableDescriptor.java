@@ -49,6 +49,7 @@ public class UsrUserTableDescriptor extends TableDescriptor {
     public static final String COL_CD_FISC = "cd_fisc";
     public static final String COL_DS_EMAIL = "ds_email";
     public static final String COL_DS_EMAIL_SECONDARIA = "ds_email_secondaria";
+    public static final String COL_NOTE = "note";
     public static final String COL_FL_CONTR_IP = "fl_contr_ip";
     public static final String COL_TIPO_USER = "tipo_user";
     public static final String COL_ID_AGENTE = "id_agente";
@@ -84,6 +85,7 @@ public class UsrUserTableDescriptor extends TableDescriptor {
         map.put(COL_DS_EMAIL, new ColumnDescriptor(COL_DS_EMAIL, Types.VARCHAR, 254, false));
         map.put(COL_DS_EMAIL_SECONDARIA,
                 new ColumnDescriptor(COL_DS_EMAIL_SECONDARIA, Types.VARCHAR, 254, false));
+        map.put(COL_NOTE, new ColumnDescriptor(COL_NOTE, Types.VARCHAR, 4000, false));
         map.put(COL_FL_CONTR_IP, new ColumnDescriptor(COL_FL_CONTR_IP, Types.VARCHAR, 1, false));
         map.put(COL_TIPO_USER, new ColumnDescriptor(COL_TIPO_USER, Types.VARCHAR, 20, false));
         map.put(COL_ID_AGENTE, new ColumnDescriptor(COL_ID_AGENTE, Types.DECIMAL, 22, false));

@@ -158,6 +158,8 @@
                         <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.DS_EMAIL%>" colSpan="2"/>
                          <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.DS_EMAIL_SECONDARIA%>" colSpan="2"/>
                         <sl:newLine />
+                        <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.NOTE%>" colSpan="4" controlWidth="w100" />
+                        <sl:newLine />
                         <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.FL_CONTR_IP%>" colSpan="2"/>
                         <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.FL_ERR_REPLIC%>" colSpan="2"/>
                         <sl:newLine />
@@ -250,6 +252,8 @@
                         <sl:newLine />
                         <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.DS_EMAIL%>" colSpan="2"/>
                          <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.DS_EMAIL_SECONDARIA%>" colSpan="2"/>
+                        <sl:newLine />
+                        <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.NOTE%>" colSpan="4" controlWidth="w100" />
                         <sl:newLine />
                         <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.FL_CONTR_IP%>" colSpan="2"/>
                         <slf:lblField name="<%=AmministrazioneUtentiForm.DettaglioUtente.FL_ERR_REPLIC%>" colSpan="2"/>                        

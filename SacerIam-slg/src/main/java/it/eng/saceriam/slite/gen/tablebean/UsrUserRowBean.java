@@ -144,6 +144,14 @@ public class UsrUserRowBean extends BaseRow implements BaseRowInterface, JEEBase
         setObject("ds_email_secondaria", dsEmailSecondaria);
     }
 
+    public String getNote() {
+        return getString("note");
+    }
+
+    public void setNote(String note) {
+        setObject("note", note);
+    }
+
     public String getFlContrIp() {
         return getString("fl_contr_ip");
     }
@@ -283,6 +291,7 @@ public class UsrUserRowBean extends BaseRow implements BaseRowInterface, JEEBase
         this.setCdFisc(entity.getCdFisc());
         this.setDsEmail(entity.getDsEmail());
         this.setDsEmailSecondaria(entity.getDsEmailSecondaria());
+        this.setNote(entity.getNote());
         this.setFlContrIp(entity.getFlContrIp());
         this.setTipoUser(entity.getTipoUser());
         if (entity.getLogAgente() != null) {
@@ -336,6 +345,7 @@ public class UsrUserRowBean extends BaseRow implements BaseRowInterface, JEEBase
         entity.setCdFisc(this.getCdFisc());
         entity.setDsEmail(this.getDsEmail());
         entity.setDsEmailSecondaria(this.getDsEmailSecondaria());
+        entity.setNote(this.getNote());
         entity.setFlContrIp(this.getFlContrIp());
         entity.setTipoUser(this.getTipoUser());
         if (this.getIdAgente() != null) {

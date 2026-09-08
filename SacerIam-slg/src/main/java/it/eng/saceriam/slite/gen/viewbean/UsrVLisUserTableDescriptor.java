@@ -70,6 +70,7 @@ public class UsrVLisUserTableDescriptor extends TableDescriptor {
     public static final String COL_FL_AZIONI_EVASE = "fl_azioni_evase";
     public static final String COL_DS_LISTA_AZIONI = "ds_lista_azioni";
     public static final String COL_DS_EMAIL = "ds_email";
+    public static final String COL_NOTE = "note";
 
     private static Map<String, ColumnDescriptor> map = new LinkedHashMap<String, ColumnDescriptor>();
 
@@ -134,6 +135,7 @@ public class UsrVLisUserTableDescriptor extends TableDescriptor {
         map.put(COL_DS_LISTA_AZIONI,
                 new ColumnDescriptor(COL_DS_LISTA_AZIONI, Types.VARCHAR, 4000, true));
         map.put(COL_DS_EMAIL, new ColumnDescriptor(COL_DS_EMAIL, Types.VARCHAR, 254, true));
+        map.put(COL_NOTE, new ColumnDescriptor(COL_NOTE, Types.VARCHAR, 4000, true));
     }
 
     public Map<String, ColumnDescriptor> getColumnMap() {

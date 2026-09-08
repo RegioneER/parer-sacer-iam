@@ -87,6 +87,8 @@ public class UsrUser implements Serializable {
 
     private String nmUserid;
 
+    private String note;
+
     private String tipoUser;
 
     private List<AplSistemaVersanteUserRef> aplSistemaVersanteUserRefs = new ArrayList<>();
@@ -310,6 +312,15 @@ public class UsrUser implements Serializable {
 
     public void setNmUserid(String nmUserid) {
         this.nmUserid = nmUserid;
+    }
+
+    @Column(name = "NOTE")
+    public String getNote() {
+        return this.note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Temporal(TemporalType.DATE)

@@ -66,6 +66,7 @@
         <Input Name="nm_nome_user" Description="Nome" Type="STRING"/>
         <Input Name="nm_userid" Description="User-id" Type="STRING"/>
         <Input Name="ds_email" Description="E-mail" Type="STRING"/>
+        <Input Name="note" Description="Note" Type="STRING"/>
         <Input Name="nm_ruolo_default" Description="Ruolo di default" Type="STRING"/>
         <CheckBox Name="fl_attivo" Description="Attivo" Type="STRING" Readonly="true" />
         <Input Name="tipo_user" Description="Tipologia" Type="STRING"/>
@@ -90,6 +91,9 @@
         <Input Name="cd_fisc" Description="Codice fiscale" Type="CODFISCALE" MaxLength="16" />
         <Input Name="ds_email" Description="Email" Type="EMAIL" Required="true" />
          <Input Name="ds_email_secondaria" Description="Email secondaria" Type="EMAIL" Required="false" />
+        <TextArea Name="note" Description="Note" Type="STRING" Rows="3" Cols="100" MaxLength="4000" />
+        <Button Name="modificaNote" Description="Modifica note" Type="STRING"/>
+        <Button Name="salvaNote" Description="Salva note" Type="STRING"/>
         <ComboBox Name="fl_contr_ip" Description="Controlla Ip" Type="STRING" Required="true" Trigger="true" />
         <ComboBox Name="tipo_user" Description="Tipologia utente" Type="STRING" Required="true" Trigger="true" />
         <Input Name="dt_ini_cert" Description="Data inizio validità certificato" Type="DATE"/>

@@ -99,6 +99,8 @@ public class UsrVLisUser implements Serializable {
 
     private String nmUserid;
 
+    private String note;
+
     private String tiStatoUser;
 
     private String tipoUser;
@@ -111,7 +113,7 @@ public class UsrVLisUser implements Serializable {
             String flErrReplic, String nmSistemaVersante, String tipoUser, String nmEnteSiamAppart,
             BigDecimal idLastRichGestUser, String cdLastRichGestUser, String dsListaAzioni,
             Date dtLastRichGestUser, String flAzioniEvase, String dsEmail,
-            String dsEmailSecondaria) {
+            String dsEmailSecondaria, String note) {
         this.idUserIam = idUserIam;
         this.nmCognomeUser = nmCognomeUser;
         this.nmNomeUser = nmNomeUser;
@@ -130,6 +132,7 @@ public class UsrVLisUser implements Serializable {
         this.flAzioniEvase = flAzioniEvase;
         this.dsEmail = dsEmail;
         this.dsEmailSecondaria = dsEmailSecondaria;
+        this.note = note;
     }
 
     @Column(name = "AA_RICH_GEST_USER")
@@ -429,6 +432,15 @@ public class UsrVLisUser implements Serializable {
 
     public void setNmUserid(String nmUserid) {
         this.nmUserid = nmUserid;
+    }
+
+    @Column(name = "NOTE")
+    public String getNote() {
+        return this.note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Column(name = "TI_STATO_USER")

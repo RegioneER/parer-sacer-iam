@@ -31,10 +31,40 @@
                 width: 22px;
                 height: 24px;			
             }
+
+            #listaUtentiContainer .listaUtentiNoteColumn {
+                min-width: 18rem;
+                width: 18rem;
+                white-space: normal;
+                word-break: break-word;
+            }
         </style>
 
         <script type="text/javascript">
             $(document).ready(function () {
+                function applyListaUtentiNoteColumnWidth() {
+                    $("#listaUtentiContainer table").each(function () {
+                        var $table = $(this);
+                        var noteIndex = -1;
+
+                        $table.find("tr").first().children("th, td").each(function (index) {
+                            if ($.trim($(this).text()) === "Note") {
+                                noteIndex = index + 1;
+                                return false;
+                            }
+                        });
+
+                        if (noteIndex === -1) {
+                            return;
+                        }
+
+                        $table.find("tr").each(function () {
+                            $(this).children("th:nth-child(" + noteIndex + "), td:nth-child(" + noteIndex + ")")
+                                    .addClass("listaUtentiNoteColumn");
+                        });
+                    });
+                }
+
                 $("#Id_amb_ente_convenz_appart").change(function () {
                     var value = $("#Id_amb_ente_convenz_appart").val();
                     $.getJSON("AmministrazioneUtenti.html", {
@@ -51,6 +81,8 @@
                 });
                 // "Nascondo" il bottone che comunque mi serve nella JSP
                 $("[name='operation__attivaTriggerUtentiAutomaCessati']").css("display", "none");  
+
+                applyListaUtentiNoteColumnWidth();
                 
             });
         </script>
@@ -142,18 +174,20 @@
             </sl:pulsantiera>
             <sl:newLine skipLine="true"/>
 
-            <c:choose>
-                <c:when test="${(addUtenteArchivistaPerSistemaVersante || addReferenteDittaProduttricePerSistemaVersante || addReferentePerEnteConvenz)}">
-                    <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" pageSizeRelated="true"/>
-                    <slf:selectList name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" addList="true"/>
-                    <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>"/>
-                </c:when>
-                <c:otherwise>
-                    <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" pageSizeRelated="true"/>
-                    <slf:list name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>"/>
-                    <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" />
-                </c:otherwise>
-            </c:choose>
+            <div id="listaUtentiContainer">
+                <c:choose>
+                    <c:when test="${(addUtenteArchivistaPerSistemaVersante || addReferenteDittaProduttricePerSistemaVersante || addReferentePerEnteConvenz)}">
+                        <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" pageSizeRelated="true"/>
+                        <slf:selectList name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" addList="true"/>
+                        <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>"/>
+                    </c:when>
+                    <c:otherwise>
+                        <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" pageSizeRelated="true"/>
+                        <slf:list name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>"/>
+                        <slf:listNavBar  name="<%= AmministrazioneUtentiForm.ListaUtenti.NAME%>" />
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
             <sl:newLine skipLine="true"/>
 

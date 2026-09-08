@@ -332,6 +332,14 @@ public class UsrVLisUserRowBean extends BaseRow implements BaseRowInterface, JEE
         setObject("ds_email_secondaria", dsEmailSecondaria);
     }
 
+    public String getNote() {
+        return getString("note");
+    }
+
+    public void setNote(String note) {
+        setObject("note", note);
+    }
+
     @Override
     public void entityToRowBean(Object obj) {
         UsrVLisUser entity = (UsrVLisUser) obj;
@@ -377,6 +385,7 @@ public class UsrVLisUserRowBean extends BaseRow implements BaseRowInterface, JEE
         this.setDsListaAzioni(entity.getDsListaAzioni());
         this.setDsEmail(entity.getDsEmail());
         this.setDsEmailSecondaria(entity.getDsEmailSecondaria());
+        this.setNote(entity.getNote());
     }
 
     @Override
@@ -419,6 +428,7 @@ public class UsrVLisUserRowBean extends BaseRow implements BaseRowInterface, JEE
         entity.setDsListaAzioni(this.getDsListaAzioni());
         entity.setDsEmail(this.getDsEmail());
         entity.setDsEmailSecondaria(this.getDsEmailSecondaria());
+        entity.setNote(this.getNote());
         return entity;
     }
 
