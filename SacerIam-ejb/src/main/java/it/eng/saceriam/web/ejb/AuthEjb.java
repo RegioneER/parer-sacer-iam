@@ -2199,7 +2199,8 @@ public class AuthEjb {
         userEntity.setTipoAuth(user.getTipoAuth());
         userEntity.setDtIniCert(user.getDtIniCert());
         userEntity.setDtFinCert(user.getDtFinCert());
-
+        // MAC#41111 - Gestione utenti: nuovo campo note in fase di creazione utente
+        userEntity.setNote(user.getNote());
         userEntity.setDtScadPsw(user.getDtScadPsw());
         userEntity.setFlRespEnteConvenz(
                 user.getFlRespEnteConvenz() != null ? user.getFlRespEnteConvenz() : "0");
